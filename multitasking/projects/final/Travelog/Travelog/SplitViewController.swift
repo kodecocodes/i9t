@@ -37,8 +37,7 @@ class SplitViewController: UISplitViewController {
   // MARK: Helper
   
   func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
-    let width = size.width
-    if width < CGRectGetWidth(UIScreen.mainScreen().bounds) {
+    if size.width < CGRectGetWidth(UIScreen.mainScreen().bounds) || size.width < size.height {
       maximumPrimaryColumnWidth = 160.0
     } else {
       maximumPrimaryColumnWidth = UISplitViewControllerAutomaticDimension
