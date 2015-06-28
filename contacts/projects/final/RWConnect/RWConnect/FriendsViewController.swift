@@ -7,8 +7,8 @@
 //
 
 import UIKit
-
-// Starter Code
+import Contacts
+import ContactsUI
 
 class FriendsViewController: UITableViewController {
   
@@ -36,12 +36,6 @@ class FriendsViewController: UITableViewController {
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {}
   
 }
-
-// ALL CODE UNDERNEATH: Added during throughout the chapter, in order
-
-// imports will be added to the top of the file in the chapter
-import Contacts
-import ContactsUI
 
 // Show Contact Info on Accessory Press
 extension FriendsViewController{

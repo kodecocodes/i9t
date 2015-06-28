@@ -7,8 +7,8 @@
 //
 
 import UIKit
+import Contacts
 
-// Starter Code
 struct Friend{
   let firstName: String
   let lastName: String
@@ -26,11 +26,6 @@ struct Friend{
     return [Friend(firstName: "Mic", lastName: "Pringle", workEmail: "mic@example.com", profilePicture: UIImage(named: "MicProfilePicture")), Friend(firstName: "Ray", lastName: "Wenderlich", workEmail: "ray@example.com", profilePicture: UIImage(named: "RayProfilePicture")), Friend(firstName: "Sam", lastName: "Davies", workEmail: "sam@example.com", profilePicture: UIImage(named: "SamProfilePicture")), Friend(firstName: "Greg", lastName: "Heo", workEmail: "greg@example.com", profilePicture: UIImage(named: "GregProfilePicture"))]
   }
 }
-
-// Added during the tutorial
-
-// import will be at the top of the file in the tutorial
-import Contacts
 
 extension Friend{
   init(contact: CNContact){
