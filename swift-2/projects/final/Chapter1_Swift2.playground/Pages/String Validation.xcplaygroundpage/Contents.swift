@@ -60,7 +60,7 @@ protocol StringValidator {
 
 //: This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is the `Bool` that designates if the string is valid or not, the second is an array of `StringValidationError`s. In this case you are not using `throws` but rather returning an array of error types being that multiple errors can occurr. In the case of string validation it is always a better user experience to let the user know of every rule they've broken so that they can resolve each one in a single attempt.
 
-//: Now take a step back and think of how you might implement a `StringValidator`'s `validate(string:)` method. It will probably be that you iterate over each item in `validationRules`, collect an errors, and determine the status based on whether or not any errors are returned. This logic will likely be the same for any `StringValidator`. Surely you don't want to copy/paste that implementation into ALL of your `StringValidator`s, right? Well, good news, Swift 2.0 introduces Protocol Extensions.
+//: Now take a step back and think of how you might implement a `StringValidator`'s `validate(string:)` method. It will probably be that you iterate over each item in `validationRules`, collect any errors, and determine the status based on whether or not any errors occurred. This logic will likely be the same for any `StringValidator`. Surely you don't want to copy/paste that implementation into ALL of your `StringValidator`s, right? Well, good news, Swift 2.0 introduces Protocol Extensions.
 
 //: Extend the `StringValidator` protocol to define a default implementation for `validate(string:)`
 
@@ -100,7 +100,7 @@ struct StartsWithCharacterStringValidationRule: StringValidationRule {
     }
 }
 
-//: This rule defines two properties of its own, `characterSet` and `description`, then calls through to the `String` extension method defined earlier, `startsWithCharacterFromSet(set:)
+//: This rule defines two properties of its own, `characterSet` and `description`, then calls through to the `String` extension method defined earlier, `startsWithCharacterFromSet(set:)`
 
 //struct EndsWithCharacterStringValidationRule: StringValidationRule {
 //    let characterSet: NSCharacterSet
@@ -179,171 +179,6 @@ struct StartsWithCharacterStringValidationRule: StringValidationRule {
 //    }
 //}
 //
-//struct ProductOptionValueValidator: StringValidator {
-//    private let letterSet = NSCharacterSet(charactersInString: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
-//    private let numberSet = NSCharacterSet.decimalDigitCharacterSet()
-//    private var letterAndNumberSet: NSCharacterSet {
-//        let set = NSMutableCharacterSet()
-//        set.formUnionWithCharacterSet(letterSet)
-//        set.formUnionWithCharacterSet(numberSet)
-//        return set
-//    }
-//
-//    let startWithNumber: Bool
-//    let startWithLetter: Bool
-//
-//    let canContainSpaces: Bool
-//    let canContainLetter: Bool
-//    let canContainNumber: Bool
-//
-//    let endWithLetter: Bool
-//    let endWithNumber: Bool
-//
-//    let maxLength: Int
-//    let minLength: Int
-//
-//    var validationRules: [StringValidationRule] {
-//        var rules = [StringValidationRule]()
-//
-//        var containCharacterSet: NSMutableCharacterSet? = nil
-//        var containDescription = ""
-//
-//        var startWithCharacterSet: NSCharacterSet? = nil
-//        var startWithDescription = ""
-//
-//        var endWithCharacterSet: NSCharacterSet? = nil
-//        var endWithDescription = ""
-//
-//        func setContainsLettersAndNumbers() {
-//            containCharacterSet = letterAndNumberSet.mutableCopy() as? NSMutableCharacterSet
-//            containDescription = NSLocalizedString("letters and numbers", comment: "")
-//        }
-//
-//        func setStartsWithLetters() {
-//            startWithCharacterSet = letterSet
-//            startWithDescription = NSLocalizedString("a letter", comment: "")
-//        }
-//
-//        func setEndsWithLetters() {
-//            endWithCharacterSet = letterSet
-//            endWithDescription = NSLocalizedString("a letter", comment: "")
-//        }
-//
-//        func setStartsWithNumbers() {
-//            startWithCharacterSet = numberSet
-//            startWithDescription = NSLocalizedString("a number", comment: "")
-//        }
-//
-//        func setEndsWithNumbers() {
-//            endWithCharacterSet = numberSet
-//            endWithDescription = NSLocalizedString("a number", comment: "")
-//        }
-//
-//        switch (cL: canContainLetter, cN: canContainNumber, sL: startWithLetter, sN: startWithNumber, eL: endWithLetter, eN: endWithNumber) {
-//        case(cL: true, cN: false, _, _, _, _):
-//            // starts/ends with doesn't matter, this can only have LETTERS (spaces to be determined later)
-//            containCharacterSet = letterSet.mutableCopy() as? NSMutableCharacterSet
-//            containDescription = NSLocalizedString("letters", comment: "")
-//
-//        case (cL: false, cN: true, _, _, _, _):
-//            // starts/ends with doesn't matter, this can only have NUMBERS (spaces to be determined later)
-//            containCharacterSet = numberSet.mutableCopy() as? NSMutableCharacterSet
-//            containDescription = NSLocalizedString("numbers", comment: "")
-//
-//        case (cL: true, cN: true, sL: true, sN: false, eL: true, eN: false):
-//            // can contain both, but has to start and end with LETTERS
-//            setContainsLettersAndNumbers()
-//            setStartsWithLetters()
-//            setEndsWithLetters()
-//
-//        case (cL: true, cN: true, sL: false, sN: true, eL: false, eN: true):
-//            // can contain both, but has to start and end with NUMBERS
-//            setContainsLettersAndNumbers()
-//            setStartsWithNumbers()
-//            setEndsWithNumbers()
-//
-//        case (cL: true, cN: true, sL: true, sN: false, eL: false, eN: true):
-//            // can contain both, but has to start with LETTERS and end with NUMBERS
-//            setContainsLettersAndNumbers()
-//            setStartsWithLetters()
-//            setEndsWithNumbers()
-//
-//        case (cL: true, cN: true, sL: false, sN: true, eL: true, eN: false):
-//            // can contain both, but has to start with NUMBERS and end with LETTERS
-//            setContainsLettersAndNumbers()
-//            setStartsWithNumbers()
-//            setEndsWithLetters()
-//
-//        case (cL: true, cN: true, sL: _, sN: _, eL: true, eN: false):
-//            // can contain both, but has to end with LETTERS
-//            setContainsLettersAndNumbers()
-//            setEndsWithLetters()
-//
-//        case (cL: true, cN: true, sL: _, sN: _, eL: false, eN: true):
-//            // can contain both, but has to end with NUMBERS
-//            setContainsLettersAndNumbers()
-//            setEndsWithNumbers()
-//
-//        default:
-//            // some crazy rule config, just allow letters and numbers
-//            print("Unexpected rule configuration, allowing numbers and characters anywhere.")
-//            setContainsLettersAndNumbers()
-//        }
-//
-//        if canContainSpaces == true {
-//            containCharacterSet?.addCharactersInString(" ")
-//        } else {
-//            let rule = ContainsCharacterStringValidationRule(characterSet: NSCharacterSet(charactersInString: " "), description: "spaces", type: .CannotContain)
-//            rules.append(rule)
-//        }
-//
-//        if let containCharacterSet = containCharacterSet {
-//            let rule = ContainsCharacterStringValidationRule(characterSet: containCharacterSet, description: containDescription, type: .OnlyContain)
-//            rules.append(rule)
-//        }
-//
-//        if let startWithCharacterSet = startWithCharacterSet {
-//            let rule = StartsWithCharacterStringValidationRule(characterSet: startWithCharacterSet, description: startWithDescription)
-//            rules.append(rule)
-//        }
-//
-//        if let endWithCharacterSet = endWithCharacterSet {
-//            let rule = EndsWithCharacterStringValidationRule(characterSet: endWithCharacterSet, description: endWithDescription)
-//            rules.append(rule)
-//        }
-//
-//        if minLength > 0 {
-//            let rule = LengthStringValidationRule(type: .Min, length: minLength)
-//            rules.append(rule)
-//        }
-//
-//        if maxLength > 0 {
-//            let rule = LengthStringValidationRule(type: .Max, length: maxLength)
-//            rules.append(rule)
-//        }
-//
-//
-//        return rules
-//    }
-//
-//}
-//
-//let optionValidator = ProductOptionValueValidator(
-//    startWithNumber: true,
-//    startWithLetter: false,
-//    canContainSpaces: false,
-//    canContainLetter: true,
-//    canContainNumber: true,
-//    endWithLetter: true,
-//    endWithNumber: false,
-//    maxLength: 6,
-//    minLength: 3)
-//
-//optionValidator.validate("abc1234").errors
-//
-//optionValidator.validate("ab").errors
-//
-//optionValidator.validate("g 34 bed").errors
 //
 ////let set = NSCharacterSet(charactersInString: "ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 ////"ABCDEFGHIJKLMNOPQRSTUVWXYZ".countOfCharactersFromSet(set)
