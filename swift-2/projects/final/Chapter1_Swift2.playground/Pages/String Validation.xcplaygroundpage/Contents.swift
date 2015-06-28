@@ -102,18 +102,67 @@ struct StartsWithCharacterStringValidationRule: StringValidationRule {
 
 //: This rule defines two properties of its own, `characterSet` and `description`, then calls through to the `String` extension method defined earlier, `startsWithCharacterFromSet(set:)`
 
-//struct EndsWithCharacterStringValidationRule: StringValidationRule {
-//    let characterSet: NSCharacterSet
-//    let description: String
-//
-//    func validate(string: String) throws -> Bool {
-//        if string.endsWithCharacterFromSet(characterSet) == false {
-//            throw StringValidationError.MustEndWith(set: characterSet, description: description)
-//        } else {
-//            return true
-//        }
+//: Time to take this new rule for a spin!
+
+let letterSet = NSCharacterSet.letterCharacterSet()
+let startsWithRule = StartsWithCharacterStringValidationRule(characterSet: letterSet, description: "letter")
+
+do {
+    try startsWithRule.validate("foo")
+    try startsWithRule.validate("123")
+} catch let error {
+    print(error)
+}
+
+
+//: Now define another rule, `EndsWithCharacterStringValidationRule` so that you can create a `StringValidator` that uses both rules in conjunction.
+
+struct EndsWithCharacterStringValidationRule: StringValidationRule {
+    let characterSet: NSCharacterSet
+    let description: String
+
+    func validate(string: String) throws -> Bool {
+        if string.endsWithCharacterFromSet(characterSet) == false {
+            throw StringValidationError.MustEndWith(set: characterSet, description: description)
+        } else {
+            return true
+        }
+    }
+}
+
+struct StartsAndEndsWithStringValidator: StringValidator {
+    let startsWithSet: NSCharacterSet
+    let startsWithDescription: String
+    let endsWithSet: NSCharacterSet
+    let endsWithDescription: String
+    
+    var validationRules: [StringValidationRule] {
+        return [
+            StartsWithCharacterStringValidationRule(characterSet: startsWithSet, description: startsWithDescription),
+            EndsWithCharacterStringValidationRule(characterSet: endsWithSet , description: endsWithDescription)
+        ]
+    }
+}
+
+let numberSet = NSCharacterSet.decimalDigitCharacterSet()
+
+let startsAndEndsWithStringValidator = StartsAndEndsWithStringValidator(startsWithSet: letterSet, startsWithDescription: "letter", endsWithSet: numberSet, endsWithDescription: "number")
+
+startsAndEndsWithStringValidator.validate("1foo").errors
+
+startsAndEndsWithStringValidator.validate("foo").errors
+
+startsAndEndsWithStringValidator.validate("foo1").valid
+
+//struct CustomStringValidator: StringValidator {
+//    var validationRules: [StringValidationRule]
+//    init(rules: [StringValidationRule]) {
+//        validationRules = rules
 //    }
 //}
+
+
+
 //
 //struct ContainsCharacterStringValidationRule: StringValidationRule {
 //    enum Type {
