@@ -3,12 +3,13 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="DqK-Gd-Zo8">
             <objects>
-                <viewController id="geY-GQ-BJ3" sceneMemberID="viewController">
+                <viewController id="geY-GQ-BJ3" customClass="DetailViewController" customModule="Travelog" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RkI-jL-9yu"/>
                         <viewControllerLayoutGuide type="bottom" id="85U-Ad-9Uy"/>
@@ -17,17 +18,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4p-ig-OWK">
-                                <rect key="frame" x="173" y="280.5" width="255" height="40.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing to dispaly!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4p-ig-OWK">
+                                <rect key="frame" x="232" y="290" width="137" height="19.5"/>
                                 <animations/>
-                                <string key="text">Nothing to dispaly!
-Please select an entry from the list!</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" red="0.94509803920000002" green="0.15686274510000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sad-eyes" translatesAutoresizingMaskIntoConstraints="NO" id="pGB-vQ-PvW">
-                                <rect key="frame" x="250" y="192" width="100" height="100"/>
+                                <rect key="frame" x="250" y="202.5" width="100" height="100"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="KEK-XB-WGz"/>
@@ -44,24 +43,29 @@ Please select an entry from the list!</string>
                             <constraint firstItem="R4p-ig-OWK" firstAttribute="top" secondItem="pGB-vQ-PvW" secondAttribute="bottom" constant="-12" id="tNt-vS-Vks"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="oN9-4A-X0X"/>
+                    <navigationItem key="navigationItem" id="oN9-4A-X0X">
+                        <rightBarButtonItems>
+                            <barButtonItem image="note-icon" id="FJC-FW-U6O"/>
+                            <barButtonItem image="camera-icon" id="3Bk-gm-Lnm"/>
+                        </rightBarButtonItems>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W2z-EG-dxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1582" y="514"/>
+            <point key="canvasLocation" x="1590" y="514"/>
         </scene>
         <!--Root View Controller-->
         <scene sceneID="Qgr-SI-WLw">
             <objects>
-                <tableViewController clearsSelectionOnViewWillAppear="NO" id="dYK-ey-wMo" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="IJy-j0-zjX">
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="dYK-ey-wMo" customClass="LogsViewController" customModule="Travelog" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="IJy-j0-zjX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="oHt-aI-btR">
-                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oHt-aI-btR" id="l8l-U1-OIP">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -82,41 +86,10 @@ Please select an entry from the list!</string>
             </objects>
             <point key="canvasLocation" x="1590" y="-147"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="jRM-te-AFf">
-            <objects>
-                <viewController id="9vY-gf-sVT" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="N75-8q-lum"/>
-                        <viewControllerLayoutGuide type="bottom" id="F1Q-wL-vhn"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="yZl-kF-Wl6">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JmC-T0-7tO">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <animations/>
-                            </mapView>
-                        </subviews>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="JmC-T0-7tO" firstAttribute="top" secondItem="yZl-kF-Wl6" secondAttribute="topMargin" id="74Z-8V-IA7"/>
-                            <constraint firstItem="JmC-T0-7tO" firstAttribute="leading" secondItem="yZl-kF-Wl6" secondAttribute="leadingMargin" constant="-20" id="HFb-2R-23a"/>
-                            <constraint firstItem="F1Q-wL-vhn" firstAttribute="top" secondItem="JmC-T0-7tO" secondAttribute="bottom" id="a8L-sa-xZx"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="JmC-T0-7tO" secondAttribute="trailing" constant="-20" id="xfx-R0-QQS"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="C3C-ZW-ZDq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2336" y="514"/>
-        </scene>
-        <!--View Controller-->
+        <!--Text View Controller-->
         <scene sceneID="ggz-0C-7v5">
             <objects>
-                <viewController id="CIb-sA-8q7" sceneMemberID="viewController">
+                <viewController id="CIb-sA-8q7" customClass="TextViewController" customModule="Travelog" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GQ7-KF-EDK"/>
                         <viewControllerLayoutGuide type="bottom" id="ETI-OU-xBk"/>
@@ -146,7 +119,7 @@ Please select an entry from the list!</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KT6-yy-ZWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2336" y="1188"/>
+            <point key="canvasLocation" x="2303" y="514"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uAw-64-e6p">
@@ -168,7 +141,7 @@ Please select an entry from the list!</string>
         <!--Split View Controller-->
         <scene sceneID="1O6-Fz-JEo">
             <objects>
-                <splitViewController id="QWS-6m-FVU" sceneMemberID="viewController">
+                <splitViewController id="QWS-6m-FVU" customClass="SplitViewController" customModule="Travelog" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="PSL-84-ACg" kind="relationship" relationship="masterViewController" id="Ovf-WW-GYU"/>
                         <segue destination="eZV-rI-pUp" kind="relationship" relationship="detailViewController" id="zwR-km-awM"/>
@@ -199,6 +172,9 @@ Please select an entry from the list!</string>
         </scene>
     </scenes>
     <resources>
+        <image name="camera-icon" width="22" height="22"/>
+        <image name="note-icon" width="22" height="22"/>
         <image name="sad-eyes" width="100" height="100"/>
     </resources>
+    <color key="tintColor" red="0.94509803920000002" green="0.15686274510000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
 </document>
