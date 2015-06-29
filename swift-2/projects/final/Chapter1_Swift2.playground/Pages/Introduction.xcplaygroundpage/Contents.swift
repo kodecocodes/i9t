@@ -57,7 +57,7 @@ While this may not be the best example of the power of `guard` it's important to
     
 /*:
 
-In the method below you while notice **`repeat`**. This new keyword replaces `do` from the `do { ... } while (condition)` construct. This is primarily to reduce confusion for when `do` is used, which is now used with error handling that will be discussed later on. It is safe and required to replace your `do-while` constructs with `repeat-while` moving forward with Swift 2.0.
+In the method below you will notice **`repeat`**. This new keyword replaces `do` from the `do { ... } while (condition)` construct. This is primarily to reduce confusion for when `do` is used with error handling which will be discussed later on. It is safe and required to replace your `do-while` constructs with `repeat-while` when migrating to Swift 2.0.
 
 */
     func countOfCharactersFromSet(set: NSCharacterSet) -> Int {
@@ -92,9 +92,9 @@ protocol JSONParsable {
 
 /*:
 
-Below you will find a `Person` struct that conforms to the `JSONParsable` protocol defined above. The protocol defines a single static function `parse(json:error:)` that takes a dictionary and `NSErrorPointer`, and returns an optional `Self`.
+Below you will find a `Person` struct that conforms to the `JSONParsable` protocol defined above. The protocol defines a single static function `parse(json:error:)` with dictionary and `NSErrorPointer` paramters. Then returns an optional `Self`.
 
-When parsing JSON from a server there is no guarantee that what you expect to be returned will actually be returned. To safely pull out expected values you should use optional binding, by using `guard` you can guarantee the value that you need is sucessfully unwrapped, much like using `if let`. The main difference with `guard` is that the unwrapped value becomes available in the same scope that `guard` was called. Furthermore if the unwrapping fails you can construct an `else` block to do something and exit the current scope early if it does not make sense to continue.
+When parsing JSON from a server there is no guarantee that what you expect to be returned will actually be returned. To safely access expected values you should use optional binding. By using `guard` you can guarantee that the value you need is successfully unwrapped, much like using `if let`. The main difference with `guard` is that the unwrapped value becomes available in the same scope that `guard` was called. Furthermore, if unwrapping fails you can construct an `else` block to do something and then exit the current scope early if it does not make sense to continue.
 
 */
 
@@ -129,7 +129,7 @@ if let person = Person.parse(["foo": "bar"], error: &error) {
 
 /*:
 
-Now you may be asking yourself, "What the heck? I thought Swift 2.0 had a good error handling system." Well, you're right! The above implementation is less than optimal in the Swift 2.0 world. Your API might return nil and also writes to a provided `NSErrorPointer`, a consumer is on the hook for hanlding both of those, at least you hope that they do. Its time to clean this up with [Swift 2.0's new error handling](Errors).
+Now you may be asking yourself, "What the heck! I thought Swift 2.0 promised a great new error handling system?" Well, you're right. The above implementation is less than optimal in the world of Swift 2.0. Your API might return `nil` and also writes to a provided `NSErrorPointer`, the consumer of your API is on the hook for handling both of those (at least you hope that they do). It's time to clean this up with [Swift 2.0's new error handling](Errors).
 
 */
 
