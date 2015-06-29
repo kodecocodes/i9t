@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4B27FA811B40A7A800F356DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA801B40A7A800F356DB /* AppDelegate.swift */; };
-		4B27FA831B40A7A800F356DB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA821B40A7A800F356DB /* ViewController.swift */; };
 		4B27FA861B40A7A800F356DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B27FA841B40A7A800F356DB /* Main.storyboard */; };
 		4B27FA881B40A7A800F356DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4B27FA871B40A7A800F356DB /* Assets.xcassets */; };
 		4B27FA8B1B40A7A800F356DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B27FA891B40A7A800F356DB /* LaunchScreen.storyboard */; };
@@ -16,8 +15,7 @@
 
 /* Begin PBXFileReference section */
 		4B27FA7D1B40A7A700F356DB /* Travelog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Travelog.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4B27FA801B40A7A800F356DB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4B27FA821B40A7A800F356DB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4B27FA801B40A7A800F356DB /* AppDelegate.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		4B27FA851B40A7A800F356DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4B27FA871B40A7A800F356DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4B27FA8A1B40A7A800F356DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -55,7 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				4B27FA801B40A7A800F356DB /* AppDelegate.swift */,
-				4B27FA821B40A7A800F356DB /* ViewController.swift */,
 				4B27FA841B40A7A800F356DB /* Main.storyboard */,
 				4B27FA871B40A7A800F356DB /* Assets.xcassets */,
 				4B27FA891B40A7A800F356DB /* LaunchScreen.storyboard */,
@@ -134,7 +131,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4B27FA831B40A7A800F356DB /* ViewController.swift in Sources */,
 				4B27FA811B40A7A800F356DB /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,7 +246,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Travelog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Travelog;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.travelog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -261,7 +257,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Travelog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Travelog;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.travelog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
