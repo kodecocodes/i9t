@@ -32,10 +32,15 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
   }
   
   @IBAction func noteButtonTapped(sender: UIBarButtonItem?) {
-    
+    presentTextController()
   }
   
   // MARK: Private methods
+    
+  private func presentTextController() {
+    guard let controller = storyboard?.instantiateViewControllerWithIdentifier("TextViewNavigationController") else { return }
+    presentViewController(controller, animated: true, completion: nil)
+  }
   
   //// A helper method to configure and display image picker controller based on the source type. Assumption is that source types are either photo library or camera.
   private func presentCameraControllerForSourceType(sourceType: UIImagePickerControllerSourceType) {

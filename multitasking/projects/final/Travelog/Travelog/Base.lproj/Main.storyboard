@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A204h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QWS-6m-FVU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QWS-6m-FVU">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -45,7 +45,11 @@
                     </view>
                     <navigationItem key="navigationItem" id="oN9-4A-X0X">
                         <rightBarButtonItems>
-                            <barButtonItem image="note-icon" id="FJC-FW-U6O"/>
+                            <barButtonItem image="note-icon" id="FJC-FW-U6O">
+                                <connections>
+                                    <action selector="noteButtonTapped:" destination="geY-GQ-BJ3" id="HzW-w5-Fvy"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem image="camera-icon" id="3Bk-gm-Lnm">
                                 <connections>
                                     <action selector="cameraButtonTapped:" destination="geY-GQ-BJ3" id="yzd-A5-RtA"/>
@@ -93,7 +97,7 @@
         <!--Text View Controller-->
         <scene sceneID="ggz-0C-7v5">
             <objects>
-                <viewController id="CIb-sA-8q7" customClass="TextViewController" customModule="Travelog" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TextViewController" id="CIb-sA-8q7" customClass="TextViewController" customModule="Travelog" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GQ7-KF-EDK"/>
                         <viewControllerLayoutGuide type="bottom" id="ETI-OU-xBk"/>
@@ -107,7 +111,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -118,12 +122,27 @@
                             <constraint firstItem="ETI-OU-xBk" firstAttribute="top" secondItem="FHZ-4k-8UZ" secondAttribute="bottom" id="XK6-w3-GOe"/>
                             <constraint firstItem="FHZ-4k-8UZ" firstAttribute="top" secondItem="Qfi-nQ-St2" secondAttribute="topMargin" id="cdx-kC-Fr7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FHZ-4k-8UZ" secondAttribute="trailing" constant="-20" id="gXW-ZU-BMV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FHZ-4k-8UZ" secondAttribute="trailing" priority="750" constant="-20" id="mMd-WL-raI"/>
+                            <constraint firstItem="FHZ-4k-8UZ" firstAttribute="leading" secondItem="Qfi-nQ-St2" secondAttribute="leadingMargin" priority="750" constant="-20" id="meX-Se-5Pp"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="CQl-Wq-zp2"/>
+                                <exclude reference="gXW-ZU-BMV"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="Qye-mK-jDz">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0er-1D-bHo"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="Nhs-hM-urn"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="textView" destination="FHZ-4k-8UZ" id="gih-wn-cQk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KT6-yy-ZWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2303" y="514"/>
+            <point key="canvasLocation" x="3115" y="514"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uAw-64-e6p">
@@ -173,6 +192,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pXD-hb-PSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="770" y="514"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Hpv-Fg-6iU">
+            <objects>
+                <navigationController storyboardIdentifier="TextViewNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Bhd-gp-EI9" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="29x-3E-FuY">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CIb-sA-8q7" kind="relationship" relationship="rootViewController" id="WnS-4Q-pxk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VqJ-NP-vQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2303" y="514"/>
         </scene>
     </scenes>
     <resources>

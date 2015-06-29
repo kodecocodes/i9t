@@ -24,4 +24,31 @@ import UIKit
 
 class TextViewController: UIViewController {
   
+  @IBOutlet private var textView: UITextView!
+  
+  // MARK: Life Cycle
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    // Position text view respecting the readableContentGuide.
+    let readableContentGuide = view.readableContentGuide
+    var constraints = view.constraints
+    constraints += [
+      textView.leadingAnchor.constraintEqualToAnchor(readableContentGuide.leadingAnchor),
+      textView.trailingAnchor.constraintEqualToAnchor(readableContentGuide.trailingAnchor),
+    ]
+    NSLayoutConstraint.activateConstraints(constraints)
+  }
+  
+  // MARK: IBActions
+  
+  @IBAction func cancelButtonTapped(sender: UIBarButtonItem?) {
+    
+  }
+  
+  @IBAction func saveButtonTapped(sender: UIBarButtonItem?) {
+    
+  }
+  
 }
