@@ -122,7 +122,7 @@ struct Person: JSONParsable {
 var error: NSError?
 if let person = Person.parse(["foo": "bar"], error: &error) {
     print("Hello, \(person.firstName) \(person.lastName)")
-} else if let error = error, reason = error.userInfo[NSLocalizedFailureReasonErrorKey]{
+} else if let error = error, reason = error.localizedFailureReason {
     print(reason)
 }
 
