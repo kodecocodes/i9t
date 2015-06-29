@@ -1,0 +1,499 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		822CBE831B3BC1D10007FC19 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822CBE821B3BC1D10007FC19 /* CheckListViewController.swift */; };
+		822CBE931B3CCE900007FC19 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822CBE921B3CCE900007FC19 /* DiaryViewController.swift */; };
+		822CBE971B3CD5630007FC19 /* DiaryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822CBE961B3CD5630007FC19 /* DiaryDetailViewController.swift */; };
+		822CBEA81B3CFF950007FC19 /* CheckListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822CBEA71B3CFF950007FC19 /* CheckListDetailViewController.swift */; };
+		8230E19E1B3B94720058CA5E /* CheckListItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230E19D1B3B94710058CA5E /* CheckListItemDetailViewController.swift */; };
+		824F75CA1B3B77B300111FE3 /* CheckListItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824F75C91B3B77B300111FE3 /* CheckListItemTableViewCell.swift */; };
+		824F75CC1B3B789900111FE3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824F75CB1B3B789900111FE3 /* Config.swift */; };
+		824F75CE1B3B840D00111FE3 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824F75CD1B3B840D00111FE3 /* SampleData.swift */; };
+		825E94711B38DC9C007F9483 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E94701B38DC9C007F9483 /* AppDelegate.swift */; };
+		825E94761B38DC9C007F9483 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 825E94741B38DC9C007F9483 /* Main.storyboard */; };
+		825E94781B38DC9C007F9483 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 825E94771B38DC9C007F9483 /* Assets.xcassets */; };
+		825E947B1B38DC9C007F9483 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 825E94791B38DC9C007F9483 /* LaunchScreen.storyboard */; };
+		825E94831B38DF2F007F9483 /* CheckListItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825E94821B38DF2F007F9483 /* CheckListItemViewController.swift */; };
+		826C16751B40D37F00F61CEA /* CheckLists.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 826C16731B40D37F00F61CEA /* CheckLists.storyboard */; };
+		826C167B1B40D39B00F61CEA /* Diary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 826C16791B40D39B00F61CEA /* Diary.storyboard */; };
+		826C167E1B40D3AE00F61CEA /* Map.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 826C167C1B40D3AE00F61CEA /* Map.storyboard */; };
+		826C16811B40D40100F61CEA /* CheckListItems.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 826C167F1B40D40100F61CEA /* CheckListItems.storyboard */; };
+		826C499B1B3BAB4300297EB4 /* BorderedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 826C499A1B3BAB4300297EB4 /* BorderedView.swift */; };
+		8283E28E1B3F8A1A00766C4A /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8283E28D1B3F8A1A00766C4A /* MapKit.framework */; };
+		8283E2DC1B3FB32600766C4A /* ReadMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8283E2DB1B3FB32600766C4A /* ReadMe.swift */; };
+		82FB57C91B40DECF00BDB0D3 /* CaviarRage.png in Resources */ = {isa = PBXBuildFile; fileRef = 82FB57C31B40DECF00BDB0D3 /* CaviarRage.png */; };
+		82FB57CA1B40DECF00BDB0D3 /* CrossRage.png in Resources */ = {isa = PBXBuildFile; fileRef = 82FB57C41B40DECF00BDB0D3 /* CrossRage.png */; };
+		82FB57CB1B40DECF00BDB0D3 /* ShortFuseRage.png in Resources */ = {isa = PBXBuildFile; fileRef = 82FB57C51B40DECF00BDB0D3 /* ShortFuseRage.png */; };
+		82FB57CC1B40DECF00BDB0D3 /* SlasherRage.png in Resources */ = {isa = PBXBuildFile; fileRef = 82FB57C61B40DECF00BDB0D3 /* SlasherRage.png */; };
+		82FB57CD1B40DECF00BDB0D3 /* stripe.png in Resources */ = {isa = PBXBuildFile; fileRef = 82FB57C71B40DECF00BDB0D3 /* stripe.png */; };
+		82FB57CE1B40DECF00BDB0D3 /* ThoughtfulRage.png in Resources */ = {isa = PBXBuildFile; fileRef = 82FB57C81B40DECF00BDB0D3 /* ThoughtfulRage.png */; };
+		82FB57D21B40DF0600BDB0D3 /* Contacts.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82FB57D01B40DF0600BDB0D3 /* Contacts.storyboard */; };
+		82FB57D31B40DF0600BDB0D3 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82FB57D11B40DF0600BDB0D3 /* ContactsViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		822CBE821B3BC1D10007FC19 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
+		822CBE921B3CCE900007FC19 /* DiaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
+		822CBE961B3CD5630007FC19 /* DiaryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewController.swift; sourceTree = "<group>"; };
+		822CBEA71B3CFF950007FC19 /* CheckListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListDetailViewController.swift; sourceTree = "<group>"; };
+		8230E19D1B3B94710058CA5E /* CheckListItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListItemDetailViewController.swift; sourceTree = "<group>"; };
+		824F75C91B3B77B300111FE3 /* CheckListItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListItemTableViewCell.swift; sourceTree = "<group>"; };
+		824F75CB1B3B789900111FE3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		824F75CD1B3B840D00111FE3 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		825E946D1B38DC9C007F9483 /* Prepped.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Prepped.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		825E94701B38DC9C007F9483 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		825E94751B38DC9C007F9483 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		825E94771B38DC9C007F9483 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		825E947A1B38DC9C007F9483 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		825E947C1B38DC9C007F9483 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		825E94821B38DF2F007F9483 /* CheckListItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListItemViewController.swift; sourceTree = "<group>"; };
+		826C16741B40D37F00F61CEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CheckLists.storyboard; sourceTree = "<group>"; };
+		826C167A1B40D39B00F61CEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Diary.storyboard; sourceTree = "<group>"; };
+		826C167D1B40D3AE00F61CEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Map.storyboard; sourceTree = "<group>"; };
+		826C16801B40D40100F61CEA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/CheckListItems.storyboard; sourceTree = "<group>"; };
+		826C499A1B3BAB4300297EB4 /* BorderedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedView.swift; sourceTree = "<group>"; };
+		8283E28D1B3F8A1A00766C4A /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8283E2DB1B3FB32600766C4A /* ReadMe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReadMe.swift; sourceTree = "<group>"; };
+		82FB57C31B40DECF00BDB0D3 /* CaviarRage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CaviarRage.png; path = Images/CaviarRage.png; sourceTree = "<group>"; };
+		82FB57C41B40DECF00BDB0D3 /* CrossRage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CrossRage.png; path = Images/CrossRage.png; sourceTree = "<group>"; };
+		82FB57C51B40DECF00BDB0D3 /* ShortFuseRage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ShortFuseRage.png; path = Images/ShortFuseRage.png; sourceTree = "<group>"; };
+		82FB57C61B40DECF00BDB0D3 /* SlasherRage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = SlasherRage.png; path = Images/SlasherRage.png; sourceTree = "<group>"; };
+		82FB57C71B40DECF00BDB0D3 /* stripe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = stripe.png; path = Images/stripe.png; sourceTree = "<group>"; };
+		82FB57C81B40DECF00BDB0D3 /* ThoughtfulRage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ThoughtfulRage.png; path = Images/ThoughtfulRage.png; sourceTree = "<group>"; };
+		82FB57D01B40DF0600BDB0D3 /* Contacts.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Contacts.storyboard; sourceTree = "<group>"; };
+		82FB57D11B40DF0600BDB0D3 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		825E946A1B38DC9C007F9483 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8283E28E1B3F8A1A00766C4A /* MapKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		822CBE841B3CCA560007FC19 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				82FB57C71B40DECF00BDB0D3 /* stripe.png */,
+				822CBE8F1B3CCA680007FC19 /* Contacts */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		822CBE8F1B3CCA680007FC19 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				82FB57C31B40DECF00BDB0D3 /* CaviarRage.png */,
+				82FB57C41B40DECF00BDB0D3 /* CrossRage.png */,
+				82FB57C51B40DECF00BDB0D3 /* ShortFuseRage.png */,
+				82FB57C61B40DECF00BDB0D3 /* SlasherRage.png */,
+				82FB57C81B40DECF00BDB0D3 /* ThoughtfulRage.png */,
+			);
+			name = Contacts;
+			sourceTree = "<group>";
+		};
+		825E94641B38DC9C007F9483 = {
+			isa = PBXGroup;
+			children = (
+				825E946F1B38DC9C007F9483 /* Prepped */,
+				825E946E1B38DC9C007F9483 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		825E946E1B38DC9C007F9483 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				825E946D1B38DC9C007F9483 /* Prepped.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		825E946F1B38DC9C007F9483 /* Prepped */ = {
+			isa = PBXGroup;
+			children = (
+				825E94701B38DC9C007F9483 /* AppDelegate.swift */,
+				8283E2DB1B3FB32600766C4A /* ReadMe.swift */,
+				824F75CB1B3B789900111FE3 /* Config.swift */,
+				824F75CD1B3B840D00111FE3 /* SampleData.swift */,
+				8283E2881B3F83EC00766C4A /* Storyboards */,
+				8283E2851B3F83C300766C4A /* CheckLists */,
+				82FB57CF1B40DF0600BDB0D3 /* Contacts */,
+				8283E2871B3F83D900766C4A /* Diary */,
+				8283E2891B3F83F300766C4A /* Views */,
+				822CBE841B3CCA560007FC19 /* Images */,
+				825E94771B38DC9C007F9483 /* Assets.xcassets */,
+				8283E28F1B3F8B3B00766C4A /* Frameworks */,
+				825E947C1B38DC9C007F9483 /* Info.plist */,
+			);
+			path = Prepped;
+			sourceTree = "<group>";
+		};
+		8283E2851B3F83C300766C4A /* CheckLists */ = {
+			isa = PBXGroup;
+			children = (
+				8283E2921B3F9D6300766C4A /* Check Lists */,
+				8283E2931B3F9D6C00766C4A /* Check List Items */,
+			);
+			name = CheckLists;
+			sourceTree = "<group>";
+		};
+		8283E2871B3F83D900766C4A /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+				822CBE921B3CCE900007FC19 /* DiaryViewController.swift */,
+				822CBE961B3CD5630007FC19 /* DiaryDetailViewController.swift */,
+			);
+			name = Diary;
+			sourceTree = "<group>";
+		};
+		8283E2881B3F83EC00766C4A /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				825E94741B38DC9C007F9483 /* Main.storyboard */,
+				826C16731B40D37F00F61CEA /* CheckLists.storyboard */,
+				826C167F1B40D40100F61CEA /* CheckListItems.storyboard */,
+				826C16791B40D39B00F61CEA /* Diary.storyboard */,
+				826C167C1B40D3AE00F61CEA /* Map.storyboard */,
+				825E94791B38DC9C007F9483 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		8283E2891B3F83F300766C4A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				826C499A1B3BAB4300297EB4 /* BorderedView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		8283E28F1B3F8B3B00766C4A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8283E28D1B3F8A1A00766C4A /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8283E2921B3F9D6300766C4A /* Check Lists */ = {
+			isa = PBXGroup;
+			children = (
+				822CBE821B3BC1D10007FC19 /* CheckListViewController.swift */,
+				822CBEA71B3CFF950007FC19 /* CheckListDetailViewController.swift */,
+			);
+			name = "Check Lists";
+			sourceTree = "<group>";
+		};
+		8283E2931B3F9D6C00766C4A /* Check List Items */ = {
+			isa = PBXGroup;
+			children = (
+				825E94821B38DF2F007F9483 /* CheckListItemViewController.swift */,
+				824F75C91B3B77B300111FE3 /* CheckListItemTableViewCell.swift */,
+				8230E19D1B3B94710058CA5E /* CheckListItemDetailViewController.swift */,
+			);
+			name = "Check List Items";
+			sourceTree = "<group>";
+		};
+		82FB57CF1B40DF0600BDB0D3 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				82FB57D01B40DF0600BDB0D3 /* Contacts.storyboard */,
+				82FB57D11B40DF0600BDB0D3 /* ContactsViewController.swift */,
+			);
+			path = Contacts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		825E946C1B38DC9C007F9483 /* Prepped */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 825E947F1B38DC9C007F9483 /* Build configuration list for PBXNativeTarget "Prepped" */;
+			buildPhases = (
+				825E94691B38DC9C007F9483 /* Sources */,
+				825E946A1B38DC9C007F9483 /* Frameworks */,
+				825E946B1B38DC9C007F9483 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Prepped;
+			productName = Prepped;
+			productReference = 825E946D1B38DC9C007F9483 /* Prepped.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		825E94651B38DC9C007F9483 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Caroline Begbie";
+				TargetAttributes = {
+					825E946C1B38DC9C007F9483 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = 825E94681B38DC9C007F9483 /* Build configuration list for PBXProject "Prepped" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 825E94641B38DC9C007F9483;
+			productRefGroup = 825E946E1B38DC9C007F9483 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				825E946C1B38DC9C007F9483 /* Prepped */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		825E946B1B38DC9C007F9483 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				82FB57CB1B40DECF00BDB0D3 /* ShortFuseRage.png in Resources */,
+				82FB57CD1B40DECF00BDB0D3 /* stripe.png in Resources */,
+				825E947B1B38DC9C007F9483 /* LaunchScreen.storyboard in Resources */,
+				82FB57CC1B40DECF00BDB0D3 /* SlasherRage.png in Resources */,
+				825E94781B38DC9C007F9483 /* Assets.xcassets in Resources */,
+				82FB57D21B40DF0600BDB0D3 /* Contacts.storyboard in Resources */,
+				826C167B1B40D39B00F61CEA /* Diary.storyboard in Resources */,
+				825E94761B38DC9C007F9483 /* Main.storyboard in Resources */,
+				82FB57CA1B40DECF00BDB0D3 /* CrossRage.png in Resources */,
+				82FB57C91B40DECF00BDB0D3 /* CaviarRage.png in Resources */,
+				82FB57CE1B40DECF00BDB0D3 /* ThoughtfulRage.png in Resources */,
+				826C16751B40D37F00F61CEA /* CheckLists.storyboard in Resources */,
+				826C16811B40D40100F61CEA /* CheckListItems.storyboard in Resources */,
+				826C167E1B40D3AE00F61CEA /* Map.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		825E94691B38DC9C007F9483 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8230E19E1B3B94720058CA5E /* CheckListItemDetailViewController.swift in Sources */,
+				82FB57D31B40DF0600BDB0D3 /* ContactsViewController.swift in Sources */,
+				822CBE831B3BC1D10007FC19 /* CheckListViewController.swift in Sources */,
+				826C499B1B3BAB4300297EB4 /* BorderedView.swift in Sources */,
+				8283E2DC1B3FB32600766C4A /* ReadMe.swift in Sources */,
+				824F75CA1B3B77B300111FE3 /* CheckListItemTableViewCell.swift in Sources */,
+				824F75CE1B3B840D00111FE3 /* SampleData.swift in Sources */,
+				822CBE931B3CCE900007FC19 /* DiaryViewController.swift in Sources */,
+				824F75CC1B3B789900111FE3 /* Config.swift in Sources */,
+				825E94831B38DF2F007F9483 /* CheckListItemViewController.swift in Sources */,
+				822CBE971B3CD5630007FC19 /* DiaryDetailViewController.swift in Sources */,
+				822CBEA81B3CFF950007FC19 /* CheckListDetailViewController.swift in Sources */,
+				825E94711B38DC9C007F9483 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		825E94741B38DC9C007F9483 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				825E94751B38DC9C007F9483 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		825E94791B38DC9C007F9483 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				825E947A1B38DC9C007F9483 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		826C16731B40D37F00F61CEA /* CheckLists.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				826C16741B40D37F00F61CEA /* Base */,
+			);
+			name = CheckLists.storyboard;
+			sourceTree = "<group>";
+		};
+		826C16791B40D39B00F61CEA /* Diary.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				826C167A1B40D39B00F61CEA /* Base */,
+			);
+			name = Diary.storyboard;
+			sourceTree = "<group>";
+		};
+		826C167C1B40D3AE00F61CEA /* Map.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				826C167D1B40D3AE00F61CEA /* Base */,
+			);
+			name = Map.storyboard;
+			sourceTree = "<group>";
+		};
+		826C167F1B40D40100F61CEA /* CheckListItems.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				826C16801B40D40100F61CEA /* Base */,
+			);
+			name = CheckListItems.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		825E947D1B38DC9C007F9483 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		825E947E1B38DC9C007F9483 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		825E94801B38DC9C007F9483 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Prepped/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carolinebegbie.Prepped;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		825E94811B38DC9C007F9483 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Prepped/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.carolinebegbie.Prepped;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		825E94681B38DC9C007F9483 /* Build configuration list for PBXProject "Prepped" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825E947D1B38DC9C007F9483 /* Debug */,
+				825E947E1B38DC9C007F9483 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		825E947F1B38DC9C007F9483 /* Build configuration list for PBXNativeTarget "Prepped" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				825E94801B38DC9C007F9483 /* Debug */,
+				825E94811B38DC9C007F9483 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 825E94651B38DC9C007F9483 /* Project object */;
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="zUN-Am-XQ9">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
+    </dependencies>
+    <scenes>
+        <!--Map-->
+        <scene sceneID="grC-hT-2bU">
+            <objects>
+                <viewController id="zUN-Am-XQ9" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7kN-2a-Lff"/>
+                        <viewControllerLayoutGuide type="bottom" id="yFy-wq-KP6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hgG-dK-7iI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Lz9-AK-bGb">
+                                <rect key="frame" x="0.0" y="20" width="600" height="531"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Lz9-AK-bGb" secondAttribute="trailing" id="EMl-K0-4bL"/>
+                            <constraint firstItem="yFy-wq-KP6" firstAttribute="top" secondItem="Lz9-AK-bGb" secondAttribute="bottom" id="GNK-Ot-2D0"/>
+                            <constraint firstItem="Lz9-AK-bGb" firstAttribute="leading" secondItem="hgG-dK-7iI" secondAttribute="leading" id="IKS-co-62M"/>
+                            <constraint firstItem="Lz9-AK-bGb" firstAttribute="top" secondItem="7kN-2a-Lff" secondAttribute="bottom" id="zSU-hX-DLi"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Map" image="Map Icon" id="GtD-BW-S3s"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yQJ-WR-ub0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="166" y="353"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Map Icon" width="25" height="25"/>
+    </resources>
+</document>
