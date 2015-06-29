@@ -46,7 +46,11 @@
                     <navigationItem key="navigationItem" id="oN9-4A-X0X">
                         <rightBarButtonItems>
                             <barButtonItem image="note-icon" id="FJC-FW-U6O"/>
-                            <barButtonItem image="camera-icon" id="3Bk-gm-Lnm"/>
+                            <barButtonItem image="camera-icon" id="3Bk-gm-Lnm">
+                                <connections>
+                                    <action selector="cameraButtonTapped:" destination="geY-GQ-BJ3" id="yzd-A5-RtA"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                 </viewController>

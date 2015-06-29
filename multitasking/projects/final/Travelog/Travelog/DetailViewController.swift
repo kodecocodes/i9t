@@ -22,6 +22,40 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+  
+  
+  // MARK: IBActions 
+  
+  @IBAction func cameraButtonTapped(sender: UIBarButtonItem?) {
+    presentCameraControllerForSourceType(UIImagePickerControllerSourceType.Camera)
+  }
+  
+  @IBAction func noteButtonTapped(sender: UIBarButtonItem?) {
+    
+  }
+  
+  // MARK: Private methods
+  
+  //// A helper method to configure and display image picker controller based on the source type. Assumption is that source types are either photo library or camera.
+  private func presentCameraControllerForSourceType(sourceType: UIImagePickerControllerSourceType) {
+    let controller = UIImagePickerController()
+    controller.allowsEditing = true
+    controller.delegate = self
+    controller.sourceType = sourceType
+    controller.view.tintColor = ColorPalette.ultimateRedColor()
+    presentViewController(controller, animated: true, completion: nil)
+  }
+  
+  // MARK: UIImagePickerControllerDelegate
+  
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    
+    // Only if an image can be successfully retireved...
+    if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+    }
+    
+    picker.dismissViewControllerAnimated(false, completion: nil)
+  }
   
 }
