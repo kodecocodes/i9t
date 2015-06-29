@@ -22,22 +22,25 @@
 
 import UIKit
 
-class SplitViewController: UISplitViewController, UISplitViewControllerDelegate {
+class LogCollection {
   
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    preferredDisplayMode = .AllVisible
-    navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
-    navigationItem.leftItemsSupplementBackButton = true
-    delegate = self
+  private var logs: Array <BaseLog> = []
+  
+  func addLog(log: BaseLog) {
+    logs.append(log)
   }
   
-  // MARK: UISplitViewControllerDelegate
+  func sortedLogs(ordered: NSComparisonResult) -> Array<AnyObject> {
+    let sorted = logs.sort { return $0.date.compare($1.date) == ordered }
+    return sorted
+  }
   
-  func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
-    
-    return false
-    
+  func dictionaryRepresentation() -> Dictionary <NSDate, NSCoding> {
+    var dictionary: Dictionary <NSDate, NSCoding> = Dictionary()
+    for log in logs {
+      dictionary[log.date] = log
+    }
+    return dictionary
   }
   
 }

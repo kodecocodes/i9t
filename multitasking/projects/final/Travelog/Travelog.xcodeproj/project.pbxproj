@@ -15,6 +15,9 @@
 		4B27FA951B40DC1B00F356DB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA941B40DC1B00F356DB /* DetailViewController.swift */; };
 		4B27FA971B40DC4400F356DB /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA961B40DC4400F356DB /* LogsViewController.swift */; };
 		4B27FA991B40DCB100F356DB /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA981B40DCB100F356DB /* TextViewController.swift */; };
+		4B27FAA21B40FE9200F356DB /* LogCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FAA11B40FE9200F356DB /* LogCollection.swift */; };
+		4B27FAA61B41038700F356DB /* LogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FAA51B41038700F356DB /* LogModels.swift */; };
+		4B27FAA81B41079F00F356DB /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FAA71B41079F00F356DB /* LogStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		4B27FA941B40DC1B00F356DB /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		4B27FA961B40DC4400F356DB /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
 		4B27FA981B40DCB100F356DB /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		4B27FAA11B40FE9200F356DB /* LogCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCollection.swift; sourceTree = "<group>"; };
+		4B27FAA51B41038700F356DB /* LogModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogModels.swift; sourceTree = "<group>"; };
+		4B27FAA71B41079F00F356DB /* LogStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,7 @@
 		4B27FA7F1B40A7A700F356DB /* Travelog */ = {
 			isa = PBXGroup;
 			children = (
+				4B27FA9C1B40FD9700F356DB /* Data Access Layer */,
 				4B27FA801B40A7A800F356DB /* AppDelegate.swift */,
 				4B27FA921B40DBB700F356DB /* SplitViewController.swift */,
 				4B27FA961B40DC4400F356DB /* LogsViewController.swift */,
@@ -71,6 +78,16 @@
 				4B27FA8C1B40A7A800F356DB /* Info.plist */,
 			);
 			path = Travelog;
+			sourceTree = "<group>";
+		};
+		4B27FA9C1B40FD9700F356DB /* Data Access Layer */ = {
+			isa = PBXGroup;
+			children = (
+				4B27FAA51B41038700F356DB /* LogModels.swift */,
+				4B27FAA11B40FE9200F356DB /* LogCollection.swift */,
+				4B27FAA71B41079F00F356DB /* LogStore.swift */,
+			);
+			path = "Data Access Layer";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,9 +160,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B27FAA81B41079F00F356DB /* LogStore.swift in Sources */,
 				4B27FA991B40DCB100F356DB /* TextViewController.swift in Sources */,
+				4B27FAA61B41038700F356DB /* LogModels.swift in Sources */,
 				4B27FA951B40DC1B00F356DB /* DetailViewController.swift in Sources */,
 				4B27FA811B40A7A800F356DB /* AppDelegate.swift in Sources */,
+				4B27FAA21B40FE9200F356DB /* LogCollection.swift in Sources */,
 				4B27FA931B40DBB700F356DB /* SplitViewController.swift in Sources */,
 				4B27FA971B40DC4400F356DB /* LogsViewController.swift in Sources */,
 			);
