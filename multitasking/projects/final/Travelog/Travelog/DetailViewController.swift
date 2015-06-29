@@ -24,22 +24,47 @@ import UIKit
 
 class DetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
+  @IBOutlet var cameraButton: UIBarButtonItem!
+  
+  let logCollection = LogCollection()
+  
+  // MARK: Life Cycle
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    let hasCamera = UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Rear) ||
+      UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Front)
+    cameraButton.enabled = hasCamera
+  }
   
   // MARK: IBActions 
+  
+  @IBAction func photoLibraryButtonTapped(sender: UIBarButtonItem?) {
+    presentCameraControllerForSourceType(UIImagePickerControllerSourceType.PhotoLibrary)
+  }
   
   @IBAction func cameraButtonTapped(sender: UIBarButtonItem?) {
     presentCameraControllerForSourceType(UIImagePickerControllerSourceType.Camera)
   }
   
   @IBAction func noteButtonTapped(sender: UIBarButtonItem?) {
-    presentTextController()
+    presentTextViewController()
   }
   
   // MARK: Private methods
     
-  private func presentTextController() {
-    guard let controller = storyboard?.instantiateViewControllerWithIdentifier("TextViewNavigationController") else { return }
-    presentViewController(controller, animated: true, completion: nil)
+  private func presentTextViewController() {
+    guard let textViewNavigationController = storyboard?.instantiateViewControllerWithIdentifier("TextViewNavigationController") as? UINavigationController else { return }
+    guard let controller = textViewNavigationController.viewControllers.first as? TextViewController else { return }
+    unowned let weakSelf = self
+    controller.saveActionBlock = { (logToSave: BaseLog) -> () in
+      weakSelf.logCollection.addLog(logToSave)
+      weakSelf.dismissViewControllerAnimated(true, completion: nil)
+    }
+    controller.cancelActionBlock = {
+      weakSelf.dismissViewControllerAnimated(true, completion: nil)
+    }
+    presentViewController(textViewNavigationController, animated: true, completion: nil)
   }
   
   //// A helper method to configure and display image picker controller based on the source type. Assumption is that source types are either photo library or camera.
@@ -56,8 +81,10 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
   
   func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     
-    // Only if an image can be successfully retireved...
+    // Only if an image can be successfully retrieved...
     if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
+      let imageLog = ImageLog(image: image, date: NSDate())
+      logCollection.addLog(imageLog)
     }
     
     picker.dismissViewControllerAnimated(false, completion: nil)

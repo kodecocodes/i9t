@@ -20,21 +20,17 @@
 * THE SOFTWARE.
 */
 
-import UIKit
+import Foundation
 
-class LogsViewController: UITableViewController {
+typealias SaveActionBlock = ((logToSave: BaseLog) -> Void)
+typealias CancelActionBlock = (() -> Void)
+
+/// A protocol that defines generic save and cancel blocks.
+protocol ActionProtocol {
   
-  // MARK: UITableView data source and delegate
+  /// A block to be executed when user taps a 'Save' button.
+  var saveActionBlock: SaveActionBlock? { get set }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 0
-  }
-  
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("LogCellIdentifier", forIndexPath: indexPath)
-    return cell
-  }
-  
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-  }
+  /// A block to be executed when user taps a 'Cancel' button.
+  var cancelActionBlock: CancelActionBlock? { get set }
 }

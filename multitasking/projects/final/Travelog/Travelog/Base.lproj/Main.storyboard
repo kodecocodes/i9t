@@ -45,18 +45,26 @@
                     </view>
                     <navigationItem key="navigationItem" id="oN9-4A-X0X">
                         <rightBarButtonItems>
-                            <barButtonItem image="note-icon" id="FJC-FW-U6O">
+                            <barButtonItem systemItem="compose" id="FJC-FW-U6O">
                                 <connections>
                                     <action selector="noteButtonTapped:" destination="geY-GQ-BJ3" id="HzW-w5-Fvy"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem image="camera-icon" id="3Bk-gm-Lnm">
+                            <barButtonItem systemItem="camera" id="3Bk-gm-Lnm">
                                 <connections>
                                     <action selector="cameraButtonTapped:" destination="geY-GQ-BJ3" id="yzd-A5-RtA"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem systemItem="organize" id="daY-NE-4f0">
+                                <connections>
+                                    <action selector="photoLibraryButtonTapped:" destination="geY-GQ-BJ3" id="kaB-6z-Hca"/>
+                                </connections>
+                            </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
+                    <connections>
+                        <outlet property="cameraButton" destination="3Bk-gm-Lnm" id="RnQ-IU-SbJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W2z-EG-dxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -133,8 +141,16 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Qye-mK-jDz">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0er-1D-bHo"/>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="Nhs-hM-urn"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="0er-1D-bHo">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="CIb-sA-8q7" id="qcE-Po-a4e"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="Nhs-hM-urn">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="CIb-sA-8q7" id="zhG-Nb-6LJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="textView" destination="FHZ-4k-8UZ" id="gih-wn-cQk"/>
@@ -213,8 +229,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="camera-icon" width="22" height="22"/>
-        <image name="note-icon" width="22" height="22"/>
         <image name="sad-eyes" width="100" height="100"/>
     </resources>
     <color key="tintColor" red="0.94509803920000002" green="0.15686274510000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>

@@ -22,9 +22,14 @@
 
 import UIKit
 
-class TextViewController: UIViewController {
+class TextViewController: UIViewController, ActionProtocol {
   
   @IBOutlet private var textView: UITextView!
+  
+  // MARK: ActionProtocol
+  
+  var saveActionBlock: SaveActionBlock?
+  var cancelActionBlock: CancelActionBlock?
   
   // MARK: Life Cycle
   
@@ -41,14 +46,21 @@ class TextViewController: UIViewController {
     NSLayoutConstraint.activateConstraints(constraints)
   }
   
+  override func viewDidAppear(animated: Bool) {
+    textView.becomeFirstResponder()
+  }
+  
   // MARK: IBActions
   
   @IBAction func cancelButtonTapped(sender: UIBarButtonItem?) {
-    
+    guard let cancelActionBlock = cancelActionBlock else { return }
+    cancelActionBlock()
   }
   
   @IBAction func saveButtonTapped(sender: UIBarButtonItem?) {
-    
+    guard let saveActionBlock = saveActionBlock else { return }
+    let textLog = TextLog(text: textView.text, date: NSDate())
+    saveActionBlock(logToSave: textLog)
   }
   
 }
