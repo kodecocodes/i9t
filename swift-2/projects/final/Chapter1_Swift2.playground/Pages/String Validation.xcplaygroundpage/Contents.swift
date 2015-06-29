@@ -75,7 +75,6 @@ extension StringValidator {
                 try rule.validate(string)
             } catch let error as StringValidationError {
                 errors.append(error)
-                print("Validation error: \(error)")
                 continue
             } catch {
                 fatalError("Unexpected error type")
@@ -265,10 +264,10 @@ struct PasswordRequirementStringValidator: StringValidator {
 }
 
 let passwordValidator = PasswordRequirementStringValidator()
+passwordValidator.validate("abc1").errors
+
 passwordValidator.validate("abhc1!Gas").errors
 
-
-passwordValidator.validate("abc1").errors
 
 
 //: Strings are great, but here's another example of a protocol extension to give all of your validators a little bit of visualization greatness.
@@ -312,6 +311,5 @@ extension StringValidator {
 //: Take a look! This might be a nice view to put near the password field. Then as the user chooses their password they can see that they are meeting all of the defined requirements with each key stroke. Try changing the string to meet the requirements.
 
 passwordValidator.visualize("ab@aasdadsa")
-
 
 
