@@ -20,6 +20,7 @@
 		A667DCFF1B42F6BF00B8016C /* TopographicMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A667DCFE1B42F6BF00B8016C /* TopographicMapAnnotation.swift */; };
 		A667DD011B42FED000B8016C /* example_map.png in Resources */ = {isa = PBXBuildFile; fileRef = A667DD001B42FED000B8016C /* example_map.png */; };
 		A667DD041B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A667DD031B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift */; };
+		A667DD061B43206D00B8016C /* ThumbnailScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A667DD051B43206D00B8016C /* ThumbnailScrollingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		A667DCFE1B42F6BF00B8016C /* TopographicMapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopographicMapAnnotation.swift; sourceTree = "<group>"; };
 		A667DD001B42FED000B8016C /* example_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = example_map.png; sourceTree = "<group>"; };
 		A667DD031B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewOverlayTouchForwardingView.swift; sourceTree = "<group>"; };
+		A667DD051B43206D00B8016C /* ThumbnailScrollingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailScrollingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				A63B63C31B41084D002178B7 /* TopographicMapOverlayView.swift */,
 				A63B63C51B41086D002178B7 /* TopographicMapOverlay.swift */,
 				A667DD031B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift */,
+				A667DD051B43206D00B8016C /* ThumbnailScrollingViewController.swift */,
 				A667DCFE1B42F6BF00B8016C /* TopographicMapAnnotation.swift */,
 				A63B63B81B4107CF002178B7 /* Assets.xcassets */,
 				A63B63BA1B4107CF002178B7 /* LaunchScreen.storyboard */,
@@ -200,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A63B63B41B4107CF002178B7 /* MapChromeViewController.swift in Sources */,
+				A667DD061B43206D00B8016C /* ThumbnailScrollingViewController.swift in Sources */,
 				A65DC4311B4236480029ACDB /* ContentExtractor.swift in Sources */,
 				A667DCFF1B42F6BF00B8016C /* TopographicMapAnnotation.swift in Sources */,
 				A63B63C41B41084D002178B7 /* TopographicMapOverlayView.swift in Sources */,

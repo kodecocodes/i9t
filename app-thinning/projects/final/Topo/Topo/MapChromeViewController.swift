@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapChromeViewController: UIViewController, MKMapViewDelegate {
+class MapChromeViewController: UIViewController, MKMapViewDelegate, ThumbnailScrollingViewControllerDelegate {
   
   @IBOutlet weak var loadingProgressView: UIProgressView!
   @IBOutlet weak var mapView: MKMapView!
@@ -20,11 +20,10 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     super.viewDidLoad()
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLowDiskSpaceNotification:", name: NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
     
-    print(NSBundleResourceRequestLowDiskSpaceNotification)
     self.setupMapViewport()
     
-    let annotation = TopographicMapAnnotation()
-    self.mapView.addAnnotation(annotation)
+    let thumbnailScrollingViewController = self.childViewControllers.first as! ThumbnailScrollingViewController
+    thumbnailScrollingViewController.delegate = self
     
   }
   
@@ -43,7 +42,14 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     return TopographicMapOverlayView(overlay: overlay)
   }
   
-  func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+  func thumbnailScrollView(scrollView: UIScrollView, didLandOnMapTitle title: String) {
+    
+    // TODO: Hardcoded, change me
+    let coordinate = CLLocationCoordinate2D(latitude: 42.0, longitude: -128.0)
+    let point = MKMapPointForCoordinate(coordinate)
+    let pointsPerMeter = MKMapPointsPerMeterAtLatitude(coordinate.latitude)
+    self.mapView.setVisibleMapRect(MKMapRect(origin: point, size: MKMapSize(width: pointsPerMeter*1000000, height: pointsPerMeter*1000000)), animated: true)
+    
     let bundleRequest = NSBundleResourceRequest(tags:["SF_Map"])
     bundleRequest.beginAccessingResourcesWithCompletionHandler { (error : NSError?) -> Void in
       
