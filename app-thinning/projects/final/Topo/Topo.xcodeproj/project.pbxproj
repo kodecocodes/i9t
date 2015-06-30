@@ -22,14 +22,14 @@
 /* Begin PBXFileReference section */
 		A63B63AE1B4107CF002178B7 /* Topo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Topo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A63B63B11B4107CF002178B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapChromeViewController.swift; sourceTree = "<group>"; };
+		A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = MapChromeViewController.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		A63B63B61B4107CF002178B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A63B63B81B4107CF002178B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A63B63BB1B4107CF002178B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A63B63BD1B4107CF002178B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A63B63C31B41084D002178B7 /* TopographicMapOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopographicMapOverlayView.swift; sourceTree = "<group>"; };
 		A63B63C51B41086D002178B7 /* TopographicMapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopographicMapOverlay.swift; sourceTree = "<group>"; };
-		A65DC4301B4236480029ACDB /* ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentExtractor.swift; sourceTree = "<group>"; };
+		A65DC4301B4236480029ACDB /* ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ContentExtractor.swift; sourceTree = "<group>"; tabWidth = 2; };
 		A65DC43B1B4243030029ACDB /* auxilliary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = auxilliary.plist; sourceTree = "<group>"; };
 		A65DC4411B4244040029ACDB /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -51,7 +51,9 @@
 				A63B63B01B4107CF002178B7 /* Topo */,
 				A63B63AF1B4107CF002178B7 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		A63B63AF1B4107CF002178B7 /* Products */ = {
 			isa = PBXGroup;
@@ -134,7 +136,7 @@
 					Test,
 				);
 				LastUpgradeCheck = 0700;
-				ORGANIZATIONNAME = RayWenderlich;
+				ORGANIZATIONNAME = Razeware;
 				TargetAttributes = {
 					A63B63AD1B4107CF002178B7 = {
 						CreatedOnToolsVersion = 7.0;
@@ -298,7 +300,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Topo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.Topo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Topo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -309,7 +311,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Topo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.Topo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Topo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

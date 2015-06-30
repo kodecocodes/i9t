@@ -7,33 +7,33 @@
 //
 
 import UIKit
-import MapKit 
+import MapKit
 
 class TopographicMapOverlayView: MKOverlayRenderer {
-    private var overlayImage : UIImage!
+  private var overlayImage : UIImage!
+  
+  override init(overlay: MKOverlay) {
+    let image = (overlay as! TopographicMapOverlay).image
+    self.overlayImage = image
+    super.init(overlay: overlay)
+  }
+  
+  override func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
     
-    override init(overlay: MKOverlay) {
-        let image = (overlay as! TopographicMapOverlay).image
-        self.overlayImage = image
-        super.init(overlay: overlay)
-    }
+    let overlayRect = self.overlay.boundingMapRect;
+    let imageRef = self.overlayImage.CGImage
+    let rect = self.rectForMapRect(overlayRect)
     
-    override func drawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale, inContext context: CGContext) {
-        
-        let overlayRect = self.overlay.boundingMapRect;
-        let imageRef = self.overlayImage.CGImage
-        let rect = self.rectForMapRect(overlayRect)
-        
-        CGContextScaleCTM(context, 1.0, -1.0)
-        
-        // Debugging
-        CGContextSetFillColorWithColor(context, UIColor.purpleColor().CGColor)
-        CGContextTranslateCTM(context, 0.0, -rect.size.height)
-
-        CGContextFillRect(context, rect)
-        CGContextDrawImage(context, rect, imageRef)
-    }
-
+    CGContextScaleCTM(context, 1.0, -1.0)
+    
+    // Debugging
+    CGContextSetFillColorWithColor(context, UIColor.purpleColor().CGColor)
+    CGContextTranslateCTM(context, 0.0, -rect.size.height)
+    
+    CGContextFillRect(context, rect)
+    CGContextDrawImage(context, rect, imageRef)
+  }
+  
 }
 
 
