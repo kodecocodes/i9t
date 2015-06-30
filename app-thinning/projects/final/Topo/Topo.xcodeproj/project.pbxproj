@@ -17,6 +17,9 @@
 		A65DC4311B4236480029ACDB /* ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65DC4301B4236480029ACDB /* ContentExtractor.swift */; };
 		A65DC43E1B4243030029ACDB /* auxilliary.plist in Resources */ = {isa = PBXBuildFile; fileRef = A65DC43B1B4243030029ACDB /* auxilliary.plist */; settings = {ASSET_TAGS = (SF_Map, ); }; };
 		A65DC4421B4244040029ACDB /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A65DC4411B4244040029ACDB /* map.png */; settings = {ASSET_TAGS = (SF_Map, ); }; };
+		A667DCFF1B42F6BF00B8016C /* TopographicMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A667DCFE1B42F6BF00B8016C /* TopographicMapAnnotation.swift */; };
+		A667DD011B42FED000B8016C /* example_map.png in Resources */ = {isa = PBXBuildFile; fileRef = A667DD001B42FED000B8016C /* example_map.png */; };
+		A667DD041B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A667DD031B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +35,9 @@
 		A65DC4301B4236480029ACDB /* ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ContentExtractor.swift; sourceTree = "<group>"; tabWidth = 2; };
 		A65DC43B1B4243030029ACDB /* auxilliary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = auxilliary.plist; sourceTree = "<group>"; };
 		A65DC4411B4244040029ACDB /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		A667DCFE1B42F6BF00B8016C /* TopographicMapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopographicMapAnnotation.swift; sourceTree = "<group>"; };
+		A667DD001B42FED000B8016C /* example_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = example_map.png; sourceTree = "<group>"; };
+		A667DD031B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewOverlayTouchForwardingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +72,7 @@
 		A63B63B01B4107CF002178B7 /* Topo */ = {
 			isa = PBXGroup;
 			children = (
+				A667DD021B42FED600B8016C /* Map Thumbnails */,
 				A69695331B4131B70018D403 /* Map Bundles */,
 				A63B63B11B4107CF002178B7 /* AppDelegate.swift */,
 				A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */,
@@ -73,6 +80,8 @@
 				A63B63B51B4107CF002178B7 /* Main.storyboard */,
 				A63B63C31B41084D002178B7 /* TopographicMapOverlayView.swift */,
 				A63B63C51B41086D002178B7 /* TopographicMapOverlay.swift */,
+				A667DD031B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift */,
+				A667DCFE1B42F6BF00B8016C /* TopographicMapAnnotation.swift */,
 				A63B63B81B4107CF002178B7 /* Assets.xcassets */,
 				A63B63BA1B4107CF002178B7 /* LaunchScreen.storyboard */,
 				A63B63BD1B4107CF002178B7 /* Info.plist */,
@@ -87,6 +96,14 @@
 				A65DC4411B4244040029ACDB /* map.png */,
 			);
 			path = SF_Map;
+			sourceTree = "<group>";
+		};
+		A667DD021B42FED600B8016C /* Map Thumbnails */ = {
+			isa = PBXGroup;
+			children = (
+				A667DD001B42FED000B8016C /* example_map.png */,
+			);
+			name = "Map Thumbnails";
 			sourceTree = "<group>";
 		};
 		A69625A81B4295A30078499C /* SC_Map */ = {
@@ -171,6 +188,7 @@
 				A63B63B91B4107CF002178B7 /* Assets.xcassets in Resources */,
 				A63B63B71B4107CF002178B7 /* Main.storyboard in Resources */,
 				A65DC43E1B4243030029ACDB /* auxilliary.plist in Resources */,
+				A667DD011B42FED000B8016C /* example_map.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,7 +201,9 @@
 			files = (
 				A63B63B41B4107CF002178B7 /* MapChromeViewController.swift in Sources */,
 				A65DC4311B4236480029ACDB /* ContentExtractor.swift in Sources */,
+				A667DCFF1B42F6BF00B8016C /* TopographicMapAnnotation.swift in Sources */,
 				A63B63C41B41084D002178B7 /* TopographicMapOverlayView.swift in Sources */,
+				A667DD041B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift in Sources */,
 				A63B63C61B41086D002178B7 /* TopographicMapOverlay.swift in Sources */,
 				A63B63B21B4107CF002178B7 /* AppDelegate.swift in Sources */,
 			);

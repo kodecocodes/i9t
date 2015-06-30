@@ -23,27 +23,9 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     print(NSBundleResourceRequestLowDiskSpaceNotification)
     self.setupMapViewport()
     
-    let bundleRequest = NSBundleResourceRequest(tags:["SF_Map"])
-    bundleRequest.beginAccessingResourcesWithCompletionHandler { (error : NSError?) -> Void in
-      
-      if error != nil {
-        assert(false)
-      }
-      
-      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-        self.bundleRequests.insert(bundleRequest)
-        let (dict, image) = bundleRequest.extractMapContentBundleWithTitle("SF_Map")
-        let overlay = TopographicMapOverlay(auxillaryInfo: dict, image: image)
-        self.mapView.addOverlay(overlay)
-        
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-          Int64(6 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
-           NSNotificationCenter.defaultCenter().postNotificationName(NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
-        })
-        
-      })
-    }
+    let annotation = TopographicMapAnnotation()
+    self.mapView.addAnnotation(annotation)
+    
   }
   
   @IBAction func opacitySliderChanged(sender: UISlider) {
@@ -59,6 +41,31 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   
   func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
     return TopographicMapOverlayView(overlay: overlay)
+  }
+  
+  func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+    let bundleRequest = NSBundleResourceRequest(tags:["SF_Map"])
+    bundleRequest.beginAccessingResourcesWithCompletionHandler { (error : NSError?) -> Void in
+      
+      if error != nil {
+        assert(false)
+      }
+      
+      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+        self.bundleRequests.insert(bundleRequest)
+        let (dict, image) = bundleRequest.extractMapContentBundleWithTitle("SF_Map")
+        let overlay = TopographicMapOverlay(auxillaryInfo: dict, image: image)
+        self.mapView.addOverlay(overlay)
+        
+        //Used for debugging
+        //        let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+        //          Int64(6 * Double(NSEC_PER_SEC)))
+        //        dispatch_after(delayTime, dispatch_get_main_queue(), { () -> Void in
+        //           NSNotificationCenter.defaultCenter().postNotificationName(NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
+        //        })
+        
+      })
+    }
   }
   
   func handleLowDiskSpaceNotification(notification : NSNotification) {

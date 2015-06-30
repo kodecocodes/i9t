@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="14E17e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PcB-zg-alX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Map Chrome View Controller-->
@@ -41,15 +42,25 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hqs-2u-1NG">
                                 <rect key="frame" x="0.0" y="64" width="600" height="2"/>
                             </progressView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vw-UE-SPU">
+                                <rect key="frame" x="0.0" y="481" width="600" height="75"/>
+                                <connections>
+                                    <segue destination="vEM-2T-RWp" kind="embed" id="iDs-c0-vqK"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ULF-P8-N6P" firstAttribute="top" secondItem="8vw-UE-SPU" secondAttribute="bottom" id="7WL-Xo-hdW"/>
+                            <constraint firstItem="8vw-UE-SPU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="E9V-rf-UAt"/>
+                            <constraint firstItem="8vw-UE-SPU" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.125" id="SX5-j6-6Aw"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ULF-P8-N6P" secondAttribute="bottom" id="ULU-HU-IXH"/>
                             <constraint firstItem="Hqs-2u-1NG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ViO-ha-7h7"/>
                             <constraint firstItem="t9a-Zc-ehg" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="WTv-Dt-8qC"/>
                             <constraint firstItem="Hqs-2u-1NG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="aJa-0x-BOo"/>
                             <constraint firstItem="t9a-Zc-ehg" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="bRA-Ab-JwO"/>
                             <constraint firstItem="t9a-Zc-ehg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fd0-bf-U0X"/>
+                            <constraint firstItem="8vw-UE-SPU" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="kKq-77-8z9"/>
                             <constraint firstItem="Hqs-2u-1NG" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="oys-qh-y3I"/>
                             <constraint firstItem="ULF-P8-N6P" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="ty7-ag-HkX"/>
                             <constraint firstItem="ULF-P8-N6P" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yWh-a3-wlU"/>
@@ -85,5 +96,94 @@
             </objects>
             <point key="canvasLocation" x="-7" y="-329"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="3tq-Wk-9w5">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="vEM-2T-RWp" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sn8-wf-s2X"/>
+                        <viewControllerLayoutGuide type="bottom" id="LUb-6x-iST"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hcG-Cy-JXk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Y4-bQ-TVG">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="PCh-cI-uWn">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vXf-kB-V8N" customClass="ScrollViewOverlayTouchForwardingView" customModule="Topo" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="75"/>
+                                            <subviews>
+                                                <scrollView multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYl-zY-HFR">
+                                                    <rect key="frame" x="200" y="0.0" width="200" height="75"/>
+                                                    <subviews>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IrT-90-Rv1">
+                                                            <rect key="frame" x="0.0" y="0.0" width="2000" height="75"/>
+                                                            <subviews>
+                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="example_map.png" translatesAutoresizingMaskIntoConstraints="NO" id="BRU-R1-az7">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="200" height="75"/>
+                                                                </imageView>
+                                                            </subviews>
+                                                            <color key="backgroundColor" red="0.011122525345710904" green="0.97212357954545459" blue="0.064413074631051795" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstItem="BRU-R1-az7" firstAttribute="top" secondItem="IrT-90-Rv1" secondAttribute="top" id="1Bg-ZB-l50"/>
+                                                                <constraint firstAttribute="bottom" secondItem="BRU-R1-az7" secondAttribute="bottom" id="G8h-p1-mff"/>
+                                                                <constraint firstItem="BRU-R1-az7" firstAttribute="leading" secondItem="IrT-90-Rv1" secondAttribute="leading" id="PRR-S6-7pW"/>
+                                                                <constraint firstItem="BRU-R1-az7" firstAttribute="height" secondItem="IrT-90-Rv1" secondAttribute="height" id="cqu-nd-GIn"/>
+                                                                <constraint firstAttribute="width" secondItem="BRU-R1-az7" secondAttribute="width" multiplier="10" id="uwK-nJ-5dl"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.97212357954545459" green="0.29246250107294469" blue="0.27906369587156726" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="trailing" secondItem="IrT-90-Rv1" secondAttribute="trailing" id="CF3-BF-kfZ"/>
+                                                        <constraint firstItem="IrT-90-Rv1" firstAttribute="width" secondItem="eYl-zY-HFR" secondAttribute="width" multiplier="10" id="nd7-hx-Fcf"/>
+                                                        <constraint firstItem="IrT-90-Rv1" firstAttribute="top" secondItem="eYl-zY-HFR" secondAttribute="top" id="o8L-0a-UhA"/>
+                                                        <constraint firstItem="IrT-90-Rv1" firstAttribute="leading" secondItem="eYl-zY-HFR" secondAttribute="leading" id="rsy-0G-UcN"/>
+                                                        <constraint firstAttribute="bottom" secondItem="IrT-90-Rv1" secondAttribute="bottom" id="tVe-Oy-eGc"/>
+                                                        <constraint firstItem="IrT-90-Rv1" firstAttribute="height" secondItem="eYl-zY-HFR" secondAttribute="height" id="xn4-Mw-e0P"/>
+                                                    </constraints>
+                                                </scrollView>
+                                            </subviews>
+                                            <color key="backgroundColor" red="1" green="0.0" blue="0.040183829110187474" alpha="0.0" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="eYl-zY-HFR" firstAttribute="centerY" secondItem="vXf-kB-V8N" secondAttribute="centerY" id="HCG-vo-pbR"/>
+                                                <constraint firstItem="eYl-zY-HFR" firstAttribute="height" secondItem="vXf-kB-V8N" secondAttribute="height" id="Huw-ui-FCP"/>
+                                                <constraint firstItem="eYl-zY-HFR" firstAttribute="centerX" secondItem="vXf-kB-V8N" secondAttribute="centerX" id="MhH-xe-ipB"/>
+                                                <constraint firstAttribute="width" secondItem="eYl-zY-HFR" secondAttribute="width" multiplier="3" id="zEC-ve-lYK"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstItem="vXf-kB-V8N" firstAttribute="centerX" secondItem="PCh-cI-uWn" secondAttribute="centerX" id="6qR-Ln-UFk"/>
+                                        <constraint firstItem="vXf-kB-V8N" firstAttribute="width" secondItem="PCh-cI-uWn" secondAttribute="width" id="8uS-zo-9Ef"/>
+                                        <constraint firstItem="vXf-kB-V8N" firstAttribute="centerY" secondItem="PCh-cI-uWn" secondAttribute="centerY" id="ByM-jN-HUz"/>
+                                        <constraint firstItem="vXf-kB-V8N" firstAttribute="height" secondItem="PCh-cI-uWn" secondAttribute="height" id="KJb-0g-acx"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1Y4-bQ-TVG" firstAttribute="height" secondItem="hcG-Cy-JXk" secondAttribute="height" id="dfV-gl-nHQ"/>
+                            <constraint firstItem="1Y4-bQ-TVG" firstAttribute="centerX" secondItem="hcG-Cy-JXk" secondAttribute="centerX" id="hqW-5v-EFb"/>
+                            <constraint firstItem="1Y4-bQ-TVG" firstAttribute="centerY" secondItem="hcG-Cy-JXk" secondAttribute="centerY" id="jts-Ni-4yi"/>
+                            <constraint firstItem="1Y4-bQ-TVG" firstAttribute="width" secondItem="hcG-Cy-JXk" secondAttribute="width" id="lBf-yg-jmF"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cdm-3L-kUP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1316" y="348"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="example_map.png" width="759" height="758"/>
+    </resources>
 </document>
