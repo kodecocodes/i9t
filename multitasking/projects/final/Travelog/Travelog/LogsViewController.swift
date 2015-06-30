@@ -70,18 +70,14 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == UITableViewCellEditingStyle.Delete {
       let alertView = UIAlertView(title: "Confirm", message: "Are you sure you want to delete this log?", delegate: self, cancelButtonTitle: "No", otherButtonTitles: "I'm sure!")
-      alertView.tag = indexPath.row
-      alertView.show()
+      let alertController = UIAlertController(title: "Confirm", message: "Are you sure you want to delegate this log?", preferredStyle: UIAlertControllerStyle.Alert)
+      alertController.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
+      alertController.addAction(UIAlertAction(title: "Yes, I'm sure!", style: UIAlertActionStyle.Destructive, handler: { _ -> Void in
+        let store = LogStore.sharedStore
+        store.logCollection.removeLogAtIndex(alertView.tag)
+        store.save()
+      }))
+      presentViewController(alertController, animated: true, completion: nil)
     }
-  }
-  
-  // MARK: UIAlertViewDelegate
-  
-  func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
-    if buttonIndex != 1 { return }
-    // This is a delete!
-    let store = LogStore.sharedStore
-    store.logCollection.removeLogAtIndex(alertView.tag)
-    store.save()
   }
 }
