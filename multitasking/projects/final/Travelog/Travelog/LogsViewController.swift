@@ -23,7 +23,7 @@
 import UIKit
 import TravelogKit
 
-class LogsViewController: UITableViewController, LogStoreObserver {
+class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDelegate {
   
   var logs = [BaseLog]()
   
@@ -57,5 +57,31 @@ class LogsViewController: UITableViewController, LogStoreObserver {
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+  }
+  
+  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    return true
+  }
+  
+  override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+    return UITableViewCellEditingStyle.Delete
+  }
+  
+  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    if editingStyle == UITableViewCellEditingStyle.Delete {
+      let alertView = UIAlertView(title: "Confirm", message: "Are you sure you want to delete this log?", delegate: self, cancelButtonTitle: "No", otherButtonTitles: "I'm sure!")
+      alertView.tag = indexPath.row
+      alertView.show()
+    }
+  }
+  
+  // MARK: UIAlertViewDelegate
+  
+  func alertView(alertView: UIAlertView, clickedButtonAtIndex buttonIndex: Int) {
+    if buttonIndex != 1 { return }
+    // This is a delete!
+    let store = LogStore.sharedStore
+    store.logCollection.removeLogAtIndex(alertView.tag)
+    store.save()
   }
 }

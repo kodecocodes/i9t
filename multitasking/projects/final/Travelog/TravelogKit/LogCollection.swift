@@ -40,9 +40,20 @@ public class LogCollection {
   
   public init() {}
   
-  /// Adds a BaseLog or nay of its subclasses to the collection.
+  /// Adds a BaseLog or any of its subclasses to the collection.
   public func addLog(log: BaseLog) {
     logs.append(log)
+  }
+  
+  /// Removes a BaseLog or any of its subclasses from the collection.
+  public func removeLog(log: BaseLog) {
+    let index = logs.indexOf(log)
+    logs.removeAtIndex(index!)
+  }
+  
+  /// Removes a BaseLog or any of its subclasses from the collection.
+  public func removeLogAtIndex(index: Int) {
+    logs.removeAtIndex(index)
   }
   
   /// Returns an array of BaseLog or any of its subclasses sorted by date of creation.
