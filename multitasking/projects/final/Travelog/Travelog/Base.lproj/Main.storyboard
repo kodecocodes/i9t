@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QWS-6m-FVU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A204h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QWS-6m-FVU">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -74,21 +74,51 @@
         <scene sceneID="Qgr-SI-WLw">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="dYK-ey-wMo" customClass="LogsViewController" customModule="Travelog" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="IJy-j0-zjX">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="88" sectionHeaderHeight="10" sectionFooterHeight="10" id="IJy-j0-zjX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="oHt-aI-btR">
-                                <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCellIdentifier" id="oHt-aI-btR" customClass="LogCell" customModule="Travelog" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="88"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oHt-aI-btR" id="l8l-U1-OIP">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="87.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmL-ep-AJT">
+                                            <rect key="frame" x="20" y="0.0" width="560" height="87.5"/>
+                                            <animations/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="87.5" id="g7w-ZO-3DH"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TRV-cm-0d3">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
+                                            <animations/>
+                                        </imageView>
+                                    </subviews>
                                     <animations/>
+                                    <constraints>
+                                        <constraint firstItem="TRV-cm-0d3" firstAttribute="leading" secondItem="l8l-U1-OIP" secondAttribute="leadingMargin" constant="-8" id="8Bb-4n-gWZ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="jmL-ep-AJT" secondAttribute="bottom" constant="-8" id="N2m-86-WDY"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="jmL-ep-AJT" secondAttribute="trailing" constant="12" id="TkF-2v-wMR"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="TRV-cm-0d3" secondAttribute="bottom" constant="-8.5" id="Y1K-Hi-lkx"/>
+                                        <constraint firstItem="TRV-cm-0d3" firstAttribute="top" secondItem="l8l-U1-OIP" secondAttribute="topMargin" constant="-8" id="e8f-n8-uhD"/>
+                                        <constraint firstItem="jmL-ep-AJT" firstAttribute="top" secondItem="l8l-U1-OIP" secondAttribute="topMargin" constant="-8" id="eIl-eg-h00"/>
+                                        <constraint firstItem="jmL-ep-AJT" firstAttribute="leading" secondItem="l8l-U1-OIP" secondAttribute="leadingMargin" constant="12" id="hbT-oh-Y7s"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="TRV-cm-0d3" secondAttribute="trailing" constant="-8" id="pzy-fl-sGm"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <animations/>
+                                <connections>
+                                    <outlet property="customImageView" destination="TRV-cm-0d3" id="fue-FA-QDt"/>
+                                    <outlet property="customTextLabel" destination="jmL-ep-AJT" id="lR4-R0-Gzi"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -217,6 +247,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="29x-3E-FuY">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
