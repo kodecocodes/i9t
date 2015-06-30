@@ -22,44 +22,103 @@
 
 import Foundation
 
-class LogStore {
+/// A protocol to communicate with interested objects when there is a change in LogStore.
+public protocol LogStoreObserver {
   
-  static let sharedStore = LogStore()
+  func logStore(store: LogStore, didUpdateLogCollection collection: LogCollection)
+  
+}
+
+public class LogStore {
+  
+  public static let sharedStore = LogStore()
   let operationQueue: NSOperationQueue = {
     let queue = NSOperationQueue()
     queue.maxConcurrentOperationCount = 1
     return queue
   } ()
   
-  func storedLogs(completion: () -> LogCollection?) {
-    operationQueue.addOperationWithBlock { () -> Void in
-      let collection = LogCollection()
-      let dictionaryRepresentation = NSDictionary(contentsOfURL: self.storedLogsURL) as! Dictionary<NSDate, BaseLog>
-      for (_, log) in dictionaryRepresentation {
-        collection.addLog(log)
-      }
-      
-//      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//        completion(collection)
-//      })
+  public let logCollection = LogCollection()
+  
+  // MARK: Initialization
+  
+  init() {
+    unowned let weakSelf = self
+    readLogs { () -> Void in
+      weakSelf.notifyObserversWithUpdateLogCollection(weakSelf.logCollection)
     }
   }
   
-  func storeLogs(logCollection: LogCollection) {
-    let dictionaryRepresentation = logCollection.dictionaryRepresentation()
-    operationQueue.addOperationWithBlock { () -> Void in
-      (dictionaryRepresentation as NSDictionary).writeToURL(storedLogsURL, atomically: true)
+  // MARK: Communication with observers
+  
+  private var observers = Dictionary<Int, LogStoreObserver>()
+  
+  /// Register an observer to get notified when there's a change in the store.
+  public func registerObserver(observer: AnyObject) {
+    let identifier = ObjectIdentifier(observer ).hashValue
+    guard let observer = observer as? LogStoreObserver else { return }
+    observers[identifier] = observer
+  }
+  
+  /// Unregister an observer.
+  public func unregisterObserver(observer: AnyObject) {
+    let identifier = ObjectIdentifier(observer ).hashValue
+    guard let _ = observer as? LogStoreObserver else { return }
+    observers[identifier] = nil
+  }
+  
+  public func save() {
+    saveCollectionLog()
+    notifyObserversWithUpdateLogCollection(logCollection)
+  }
+  
+  /// An internal (private) helper method to notify observers when there is a change in the store.
+  private func notifyObserversWithUpdateLogCollection(updateCollection: LogCollection) {
+    for (_, observer) in observers {
+      observer.logStore(self, didUpdateLogCollection: updateCollection)
     }
   }
   
   // MARK: Private
   
+  /// Read and restore log collection from disk.
+  /// Upon completion it will notify observers.
+  private func readLogs(completion: (() -> Void)) {
+    // Read logs from disk in the background...
+    unowned let weakSelf = self
+    operationQueue.addOperationWithBlock { () -> Void in
+      guard let dataRepresentation = NSData(contentsOfURL: weakSelf.storedLogsURL) else { return }
+      guard let dictionaryRepresentation = NSKeyedUnarchiver.unarchiveObjectWithData(dataRepresentation) else { return }
+      for (_, log) in dictionaryRepresentation as! Dictionary<NSDate, BaseLog>{
+        weakSelf.logCollection.addLog(log)
+      }
+      
+      // Notfiy observers on the main thread.
+      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+        completion()
+      })
+    }
+  }
+  
+  /// Saves log collection to disk.
+  private func saveCollectionLog() {
+    // Get a dictionary representation of the log.
+    let dictionaryRepresentation = logCollection.dictionaryRepresentation()
+    unowned let weakSelf = self
+    operationQueue.addOperationWithBlock { () -> Void in
+      
+      let dataRepresentation = NSKeyedArchiver.archivedDataWithRootObject(dictionaryRepresentation)
+      let success = dataRepresentation.writeToURL(weakSelf.storedLogsURL, atomically: true)
+      print("Saved collection log: \(success)")
+    }
+  }
+  
   /// Returns the URL to the stored logs in user documents directory.
-  let storedLogsURL: NSURL = {
+  private let storedLogsURL: NSURL = {
     var URL: NSURL = NSURL()
     do {
       try URL = NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true)
-      URL = URL.URLByAppendingPathComponent("travel-logs")
+      URL = URL.URLByAppendingPathComponent("travel-logs.plist")
     }
     catch {}
     return URL

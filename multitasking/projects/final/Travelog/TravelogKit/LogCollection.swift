@@ -22,18 +22,11 @@
 
 import UIKit
 
-class LogCollection {
+public class LogCollection {
+  
+  // MARK: Private
   
   private var logs: Array <BaseLog> = []
-  
-  func addLog(log: BaseLog) {
-    logs.append(log)
-  }
-  
-  func sortedLogs(ordered: NSComparisonResult) -> Array<AnyObject> {
-    let sorted = logs.sort { return $0.date.compare($1.date) == ordered }
-    return sorted
-  }
   
   func dictionaryRepresentation() -> Dictionary <NSDate, NSCoding> {
     var dictionary: Dictionary <NSDate, NSCoding> = Dictionary()
@@ -41,6 +34,21 @@ class LogCollection {
       dictionary[log.date] = log
     }
     return dictionary
+  }
+  
+  // MARK: Public
+  
+  public init() {}
+  
+  /// Adds a BaseLog or nay of its subclasses to the collection.
+  public func addLog(log: BaseLog) {
+    logs.append(log)
+  }
+  
+  /// Returns an array of BaseLog or any of its subclasses sorted by date of creation.
+  public func sortedLogs(ordered: NSComparisonResult) -> [BaseLog] {
+    let sorted = logs.sort { return $0.date.compare($1.date) == ordered }
+    return sorted
   }
   
 }
