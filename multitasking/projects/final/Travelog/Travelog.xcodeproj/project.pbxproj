@@ -16,9 +16,10 @@
 		4B27FA971B40DC4400F356DB /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA961B40DC4400F356DB /* LogsViewController.swift */; };
 		4B27FA991B40DCB100F356DB /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA981B40DCB100F356DB /* TextViewController.swift */; };
 		4B27FAAB1B410C8100F356DB /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FAAA1B410C8100F356DB /* ColorPalette.swift */; };
-		615291521B41BE0500EB3A7F /* LogCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152914F1B41BE0500EB3A7F /* LogCollection.swift */; };
-		615291531B41BE0500EB3A7F /* LogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291501B41BE0500EB3A7F /* LogModels.swift */; };
-		615291541B41BE0500EB3A7F /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291511B41BE0500EB3A7F /* LogStore.swift */; };
+		4B53B98A1B422AFE00BF989E /* LogCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152914F1B41BE0500EB3A7F /* LogCollection.swift */; };
+		4B53B98B1B422AFE00BF989E /* LogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291501B41BE0500EB3A7F /* LogModels.swift */; };
+		4B53B98C1B422AFE00BF989E /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291511B41BE0500EB3A7F /* LogStore.swift */; };
+		4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B98E1B42495E00BF989E /* LogCell.swift */; };
 		6152915D1B41BE2C00EB3A7F /* TravelogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6152915C1B41BE2C00EB3A7F /* TravelogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6152916F1B41BE2C00EB3A7F /* TravelogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6152915A1B41BE2C00EB3A7F /* TravelogKit.framework */; };
 		615291701B41BE2C00EB3A7F /* TravelogKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6152915A1B41BE2C00EB3A7F /* TravelogKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -61,14 +62,13 @@
 		4B27FA961B40DC4400F356DB /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
 		4B27FA981B40DCB100F356DB /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		4B27FAAA1B410C8100F356DB /* ColorPalette.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
+		4B53B98E1B42495E00BF989E /* LogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
 		6152914F1B41BE0500EB3A7F /* LogCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCollection.swift; sourceTree = "<group>"; };
 		615291501B41BE0500EB3A7F /* LogModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogModels.swift; sourceTree = "<group>"; };
 		615291511B41BE0500EB3A7F /* LogStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogStore.swift; sourceTree = "<group>"; };
 		6152915A1B41BE2C00EB3A7F /* TravelogKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TravelogKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6152915C1B41BE2C00EB3A7F /* TravelogKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravelogKit.h; sourceTree = "<group>"; };
 		6152915E1B41BE2C00EB3A7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6152916A1B41BE2C00EB3A7F /* TravelogKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TravelogKitTests.swift; sourceTree = "<group>"; };
-		6152916C1B41BE2C00EB3A7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		615291781B41CFA800EB3A7F /* ActionProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,10 +94,8 @@
 		4B27FA741B40A7A700F356DB = {
 			isa = PBXGroup;
 			children = (
-				6152914E1B41BE0500EB3A7F /* TravelogKit */,
 				4B27FA7F1B40A7A700F356DB /* Travelog */,
 				6152915B1B41BE2C00EB3A7F /* TravelogKit */,
-				615291691B41BE2C00EB3A7F /* TravelogKitTests */,
 				4B27FA7E1B40A7A700F356DB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -115,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				4B27FAA91B410C8100F356DB /* Helpers */,
+				4B53B98D1B42491C00BF989E /* Custom Views */,
 				615291781B41CFA800EB3A7F /* ActionProtocol.swift */,
 				4B27FA801B40A7A800F356DB /* AppDelegate.swift */,
 				4B27FA921B40DBB700F356DB /* SplitViewController.swift */,
@@ -137,32 +136,24 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		6152914E1B41BE0500EB3A7F /* TravelogKit */ = {
+		4B53B98D1B42491C00BF989E /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				6152914F1B41BE0500EB3A7F /* LogCollection.swift */,
-				615291501B41BE0500EB3A7F /* LogModels.swift */,
-				615291511B41BE0500EB3A7F /* LogStore.swift */,
+				4B53B98E1B42495E00BF989E /* LogCell.swift */,
 			);
-			path = TravelogKit;
+			path = "Custom Views";
 			sourceTree = "<group>";
 		};
 		6152915B1B41BE2C00EB3A7F /* TravelogKit */ = {
 			isa = PBXGroup;
 			children = (
 				6152915C1B41BE2C00EB3A7F /* TravelogKit.h */,
+				6152914F1B41BE0500EB3A7F /* LogCollection.swift */,
+				615291501B41BE0500EB3A7F /* LogModels.swift */,
+				615291511B41BE0500EB3A7F /* LogStore.swift */,
 				6152915E1B41BE2C00EB3A7F /* Info.plist */,
 			);
 			path = TravelogKit;
-			sourceTree = "<group>";
-		};
-		615291691B41BE2C00EB3A7F /* TravelogKitTests */ = {
-			isa = PBXGroup;
-			children = (
-				6152916A1B41BE2C00EB3A7F /* TravelogKitTests.swift */,
-				6152916C1B41BE2C00EB3A7F /* Info.plist */,
-			);
-			path = TravelogKitTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,16 +268,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				615291531B41BE0500EB3A7F /* LogModels.swift in Sources */,
 				4B27FA991B40DCB100F356DB /* TextViewController.swift in Sources */,
 				4B27FAAB1B410C8100F356DB /* ColorPalette.swift in Sources */,
-				615291541B41BE0500EB3A7F /* LogStore.swift in Sources */,
+				4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */,
 				4B27FA951B40DC1B00F356DB /* DetailViewController.swift in Sources */,
 				4B27FA811B40A7A800F356DB /* AppDelegate.swift in Sources */,
 				4B27FA931B40DBB700F356DB /* SplitViewController.swift in Sources */,
 				615291791B41CFA800EB3A7F /* ActionProtocol.swift in Sources */,
 				4B27FA971B40DC4400F356DB /* LogsViewController.swift in Sources */,
-				615291521B41BE0500EB3A7F /* LogCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +283,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B53B98C1B422AFE00BF989E /* LogStore.swift in Sources */,
+				4B53B98B1B422AFE00BF989E /* LogModels.swift in Sources */,
+				4B53B98A1B422AFE00BF989E /* LogCollection.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,6 +406,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Travelog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.travelog;
@@ -425,6 +418,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Travelog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.travelog;
@@ -498,6 +492,7 @@
 				615291731B41BE2D00EB3A7F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
