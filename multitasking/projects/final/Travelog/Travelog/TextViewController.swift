@@ -21,6 +21,7 @@
 */
 
 import UIKit
+import TravelogKit
 
 class TextViewController: UIViewController, ActionProtocol {
   

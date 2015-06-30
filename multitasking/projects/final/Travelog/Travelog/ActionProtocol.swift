@@ -21,6 +21,7 @@
 */
 
 import Foundation
+import TravelogKit
 
 typealias SaveActionBlock = ((logToSave: BaseLog) -> Void)
 typealias CancelActionBlock = (() -> Void)

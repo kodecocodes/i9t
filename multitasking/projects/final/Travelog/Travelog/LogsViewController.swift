@@ -21,17 +21,38 @@
 */
 
 import UIKit
+import TravelogKit
 
-class LogsViewController: UITableViewController {
+class LogsViewController: UITableViewController, LogStoreObserver {
+  
+  var logs = [BaseLog]()
+  
+  // MARK: View Life Cycle
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    tableView.cellLayoutMarginsFollowReadableWidth = true
+    LogStore.sharedStore.registerObserver(self)
+  }
+  
+  // MARK: LogStoreObserver Protocol
+  
+  func logStore(store: LogStore, didUpdateLogCollection collection: LogCollection) {
+    // Update our data source.
+    logs = collection.sortedLogs(NSComparisonResult.OrderedAscending)
+    tableView.reloadData()
+  }
   
   // MARK: UITableView data source and delegate
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 0
+    return logs.count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("LogCellIdentifier", forIndexPath: indexPath)
+    let cell = tableView.dequeueReusableCellWithIdentifier("LogCellIdentifier", forIndexPath: indexPath) as! LogCell
+    let log = logs[indexPath.row]
+    cell.setLog(log)
     return cell
   }
   

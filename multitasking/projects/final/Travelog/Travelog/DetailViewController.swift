@@ -21,14 +21,17 @@
 */
 
 import UIKit
+import TravelogKit
 
 class DetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
   @IBOutlet var cameraButton: UIBarButtonItem!
   
-  let logCollection = LogCollection()
-  
   // MARK: Life Cycle
+  
+  deinit {
+    LogStore.sharedStore.unregisterObserver(self)
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -58,7 +61,11 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     guard let controller = textViewNavigationController.viewControllers.first as? TextViewController else { return }
     unowned let weakSelf = self
     controller.saveActionBlock = { (logToSave: BaseLog) -> () in
-      weakSelf.logCollection.addLog(logToSave)
+      
+      let store = LogStore.sharedStore
+      store.logCollection.addLog(logToSave)
+      store.save()
+      
       weakSelf.dismissViewControllerAnimated(true, completion: nil)
     }
     controller.cancelActionBlock = {
@@ -84,7 +91,10 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     // Only if an image can be successfully retrieved...
     if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
       let imageLog = ImageLog(image: image, date: NSDate())
-      logCollection.addLog(imageLog)
+      
+      let store = LogStore.sharedStore
+      store.logCollection.addLog(imageLog)
+      store.save()
     }
     
     picker.dismissViewControllerAnimated(false, completion: nil)
