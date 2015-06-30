@@ -23,9 +23,46 @@
 import UIKit
 import TravelogKit
 
+enum DetailViewState {
+  case DisplayNone
+  case DisplayTextLog
+  case DisplayImageLog
+}
+
 class DetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
   
-  @IBOutlet var cameraButton: UIBarButtonItem!
+  @IBOutlet private var photoLibraryButton: UIBarButtonItem!
+  @IBOutlet private var cameraButton: UIBarButtonItem!
+  @IBOutlet private var addNoteButton: UIBarButtonItem!
+  @IBOutlet private var editButton: UIBarButtonItem!
+  
+  @IBOutlet private var textView: UITextView!
+  @IBOutlet private var imageView: UIImageView!
+  @IBOutlet private var errorView: UIView!
+  
+  let dateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .LongStyle
+    formatter.timeStyle = .MediumStyle
+    return formatter
+  }()
+  
+  var selectedLog: BaseLog? {
+    didSet {
+      if let selectedLog = selectedLog as? TextLog {
+        textView.text = selectedLog.text
+        setDetailViewState(DetailViewState.DisplayTextLog)
+        title = self.dateFormatter.stringFromDate(selectedLog.date)
+      } else if let selectedLog = selectedLog as? ImageLog {
+        imageView.image = selectedLog.image
+        setDetailViewState(DetailViewState.DisplayImageLog)
+        title = self.dateFormatter.stringFromDate(selectedLog.date)
+      } else {
+        setDetailViewState(DetailViewState.DisplayNone)
+        title = nil
+      }
+    }
+  }
   
   // MARK: Life Cycle
   
@@ -38,6 +75,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     let hasCamera = UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Rear) ||
       UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Front)
     cameraButton.enabled = hasCamera
+    setDetailViewState(DetailViewState.DisplayNone)
   }
   
   // MARK: IBActions 
@@ -50,20 +88,69 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     presentCameraControllerForSourceType(UIImagePickerControllerSourceType.Camera)
   }
   
-  @IBAction func noteButtonTapped(sender: UIBarButtonItem?) {
-    presentTextViewController()
+  @IBAction func addNoteButtonTapped(sender: UIBarButtonItem?) {
+    presentTextViewController(nil)
+  }
+  
+  @IBAction func editButtonTapped(sender: UIBarButtonItem?) {
+    // Edit button is only visible when selected log is a text log.
+    guard let selectedLog = selectedLog as? TextLog else { return }
+    presentTextViewController(selectedLog.text)
   }
   
   // MARK: Private methods
-    
-  private func presentTextViewController() {
+  
+  /// Set the state of the Detail View (show or hide UI elements that are relevant).
+  private func setDetailViewState(state: DetailViewState) {
+    // If it's a text log, update label and hide image view.
+    // If it's an image log, update image view and hide label.
+    // If it's neither of them, hide both label and image view.
+    switch state {
+    case .DisplayNone:
+      errorView.hidden = false
+      textView.hidden = true
+      imageView.hidden = true
+      textView.text = nil
+      imageView.image = nil
+      navigationItem.setRightBarButtonItems([photoLibraryButton, cameraButton, addNoteButton], animated: true)
+      
+    case .DisplayTextLog:
+      errorView.hidden = true
+      textView.hidden = false
+      imageView.hidden = true
+      imageView.image = nil
+      navigationItem.setRightBarButtonItems([editButton], animated: true)
+      
+    case .DisplayImageLog:
+      errorView.hidden = true
+      textView.hidden = true
+      imageView.hidden = false
+      textView.text = nil
+      navigationItem.setRightBarButtonItems([photoLibraryButton, cameraButton], animated: true)
+    }
+  }
+  
+  /// Present a text view controller. Optionally you may pass in a text object to be edited.
+  private func presentTextViewController(textToEdit: String?) {
     guard let textViewNavigationController = storyboard?.instantiateViewControllerWithIdentifier("TextViewNavigationController") as? UINavigationController else { return }
     guard let controller = textViewNavigationController.viewControllers.first as? TextViewController else { return }
     unowned let weakSelf = self
-    controller.saveActionBlock = { (logToSave: BaseLog) -> () in
+    controller.saveActionBlock = { (text: String) -> () in
       
+      let textLogToSave: TextLog
+      
+      // If it was an edit to the existing log, update the log.
+      if let selectedLog = weakSelf.selectedLog {
+        textLogToSave = TextLog(text: text, date: selectedLog.date)
+        weakSelf.textView.text = text
+      } else {
+        // It is a new note (text log).
+        textLogToSave = TextLog(text: text, date: NSDate())
+      }
+      
+      // Save it.
       let store = LogStore.sharedStore
-      store.logCollection.addLog(logToSave)
+      store.logCollection.addLog(textLogToSave)
       store.save()
       
       weakSelf.dismissViewControllerAnimated(true, completion: nil)
@@ -71,7 +158,9 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     controller.cancelActionBlock = {
       weakSelf.dismissViewControllerAnimated(true, completion: nil)
     }
-    presentViewController(textViewNavigationController, animated: true, completion: nil)
+    presentViewController(textViewNavigationController, animated: true) { () -> Void in
+      controller.setText(textToEdit)
+    }
   }
   
   //// A helper method to configure and display image picker controller based on the source type. Assumption is that source types are either photo library or camera.
@@ -90,10 +179,21 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     // Only if an image can be successfully retrieved...
     if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
-      let imageLog = ImageLog(image: image, date: NSDate())
       
+      let imageLogToSave: ImageLog
+      
+      // If it was an edit to the existing log, update the log.
+      if let selectedLog = selectedLog {
+        imageLogToSave = ImageLog(image: image, date: selectedLog.date)
+        imageView.image = image
+      } else {
+        // It is a new image log.
+        imageLogToSave = ImageLog(image: image, date: NSDate())
+      }
+      
+      // Save it.
       let store = LogStore.sharedStore
-      store.logCollection.addLog(imageLog)
+      store.logCollection.addLog(imageLogToSave)
       store.save()
     }
     

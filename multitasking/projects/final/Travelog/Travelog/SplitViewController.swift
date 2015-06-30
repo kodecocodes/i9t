@@ -30,6 +30,14 @@ class SplitViewController: UISplitViewController, UISplitViewControllerDelegate 
     navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
     navigationItem.leftItemsSupplementBackButton = true
     delegate = self
+    
+    guard let secondaryNavigationController = viewControllers.last as? UINavigationController else { return }
+    guard let detailViewController = secondaryNavigationController.viewControllers.first as? DetailViewController else { return }
+    
+    guard let primaryNavigationController = viewControllers.first as? UINavigationController else { return }
+    guard let logsViewController = primaryNavigationController.viewControllers.first as? LogsViewController else { return }
+    
+    logsViewController.detailViewController = detailViewController
   }
   
   // MARK: UISplitViewControllerDelegate

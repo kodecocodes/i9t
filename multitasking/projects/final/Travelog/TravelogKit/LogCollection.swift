@@ -26,14 +26,10 @@ public class LogCollection {
   
   // MARK: Private
   
-  private var logs: Array <BaseLog> = []
+  private var logs: Dictionary <NSDate, NSCoding> = Dictionary()
   
   func dictionaryRepresentation() -> Dictionary <NSDate, NSCoding> {
-    var dictionary: Dictionary <NSDate, NSCoding> = Dictionary()
-    for log in logs {
-      dictionary[log.date] = log
-    }
-    return dictionary
+    return logs
   }
   
   // MARK: Public
@@ -42,23 +38,18 @@ public class LogCollection {
   
   /// Adds a BaseLog or any of its subclasses to the collection.
   public func addLog(log: BaseLog) {
-    logs.append(log)
+    logs[log.date] = log
   }
   
   /// Removes a BaseLog or any of its subclasses from the collection.
   public func removeLog(log: BaseLog) {
-    let index = logs.indexOf(log)
-    logs.removeAtIndex(index!)
-  }
-  
-  /// Removes a BaseLog or any of its subclasses from the collection.
-  public func removeLogAtIndex(index: Int) {
-    logs.removeAtIndex(index)
+    logs[log.date] = nil
   }
   
   /// Returns an array of BaseLog or any of its subclasses sorted by date of creation.
   public func sortedLogs(ordered: NSComparisonResult) -> [BaseLog] {
-    let sorted = logs.sort { return $0.date.compare($1.date) == ordered }
+    guard let allLogs = logs.values.array as? [BaseLog] else { return [] }
+    let sorted = allLogs.sort { return $0.date.compare($1.date) == ordered }
     return sorted
   }
   

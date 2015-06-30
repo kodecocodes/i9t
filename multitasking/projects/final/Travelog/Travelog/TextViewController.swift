@@ -21,16 +21,24 @@
 */
 
 import UIKit
-import TravelogKit
 
-class TextViewController: UIViewController, ActionProtocol {
+class TextViewController: UIViewController {
   
   @IBOutlet private var textView: UITextView!
   
   // MARK: ActionProtocol
   
+  typealias SaveActionBlock = ((text: String) -> Void)
+  typealias CancelActionBlock = (() -> Void)
+  
   var saveActionBlock: SaveActionBlock?
   var cancelActionBlock: CancelActionBlock?
+  
+  // MARK: Public
+  
+  func setText(text: String?) {
+    textView.text = text
+  }
   
   // MARK: Life Cycle
   
@@ -60,8 +68,7 @@ class TextViewController: UIViewController, ActionProtocol {
   
   @IBAction func saveButtonTapped(sender: UIBarButtonItem?) {
     guard let saveActionBlock = saveActionBlock else { return }
-    let textLog = TextLog(text: textView.text, date: NSDate())
-    saveActionBlock(logToSave: textLog)
+    saveActionBlock(text: textView.text)
   }
   
 }

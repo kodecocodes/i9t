@@ -18,36 +18,82 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nothing to dispaly!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4p-ig-OWK">
-                                <rect key="frame" x="232" y="290" width="137" height="19.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ePY-0B-R37" userLabel="Error View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sad-eyes" translatesAutoresizingMaskIntoConstraints="NO" id="pGB-vQ-PvW">
+                                        <rect key="frame" x="250" y="250" width="100" height="100"/>
+                                        <animations/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="KEK-XB-WGz"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="Zd0-La-bxs"/>
+                                            <constraint firstAttribute="height" constant="100" id="bMF-LT-S4D"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="fFg-hb-2jc"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Nothing to dispaly!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4p-ig-OWK">
+                                        <rect key="frame" x="231" y="338" width="137" height="19.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <color key="textColor" red="0.94509803920000002" green="0.15686274510000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <animations/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <color key="textColor" red="0.94509803920000002" green="0.15686274510000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sad-eyes" translatesAutoresizingMaskIntoConstraints="NO" id="pGB-vQ-PvW">
-                                <rect key="frame" x="250" y="202.5" width="100" height="100"/>
-                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="KEK-XB-WGz"/>
-                                    <constraint firstAttribute="height" constant="100" id="bMF-LT-S4D"/>
+                                    <constraint firstItem="R4p-ig-OWK" firstAttribute="centerY" secondItem="ePY-0B-R37" secondAttribute="centerY" id="0bL-7l-IFU"/>
+                                    <constraint firstItem="R4p-ig-OWK" firstAttribute="centerX" secondItem="ePY-0B-R37" secondAttribute="centerX" id="2Tr-iy-Bqe"/>
+                                    <constraint firstItem="pGB-vQ-PvW" firstAttribute="leading" secondItem="R4p-ig-OWK" secondAttribute="trailing" constant="-118" id="6bE-Hq-7ne"/>
+                                    <constraint firstItem="R4p-ig-OWK" firstAttribute="centerX" secondItem="ePY-0B-R37" secondAttribute="centerX" id="6h1-6f-21B"/>
+                                    <constraint firstItem="R4p-ig-OWK" firstAttribute="top" secondItem="pGB-vQ-PvW" secondAttribute="bottom" constant="-12" id="CVb-dJ-6wz"/>
+                                    <constraint firstItem="pGB-vQ-PvW" firstAttribute="centerY" secondItem="ePY-0B-R37" secondAttribute="centerY" id="Ca3-MD-eRv"/>
+                                    <constraint firstItem="pGB-vQ-PvW" firstAttribute="centerX" secondItem="ePY-0B-R37" secondAttribute="centerX" id="wsM-EV-hg3"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="6bE-Hq-7ne"/>
+                                        <exclude reference="0bL-7l-IFU"/>
+                                        <exclude reference="6h1-6f-21B"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="inr-52-DVx">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
                             </imageView>
+                            <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKz-yT-r5d">
+                                <rect key="frame" x="40" y="80" width="520" height="520"/>
+                                <animations/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                            </textView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="R4p-ig-OWK" firstAttribute="centerX" secondItem="Ipf-Ln-a9V" secondAttribute="centerX" id="Ghf-4e-py7"/>
-                            <constraint firstItem="pGB-vQ-PvW" firstAttribute="centerX" secondItem="Ipf-Ln-a9V" secondAttribute="centerX" id="H1a-72-axg"/>
-                            <constraint firstItem="R4p-ig-OWK" firstAttribute="centerY" secondItem="Ipf-Ln-a9V" secondAttribute="centerY" id="mLS-RJ-j34"/>
-                            <constraint firstItem="R4p-ig-OWK" firstAttribute="top" secondItem="pGB-vQ-PvW" secondAttribute="bottom" constant="-12" id="tNt-vS-Vks"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="inr-52-DVx" secondAttribute="trailing" constant="-20" id="3cn-BZ-J92"/>
+                            <constraint firstItem="85U-Ad-9Uy" firstAttribute="top" secondItem="WKz-yT-r5d" secondAttribute="bottom" id="5xX-Tp-SXs"/>
+                            <constraint firstItem="WKz-yT-r5d" firstAttribute="top" secondItem="Ipf-Ln-a9V" secondAttribute="topMargin" constant="80" id="8p6-zq-m9X"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="WKz-yT-r5d" secondAttribute="trailing" constant="20" id="Bfm-pj-t3L"/>
+                            <constraint firstItem="ePY-0B-R37" firstAttribute="leading" secondItem="Ipf-Ln-a9V" secondAttribute="leadingMargin" constant="-20" id="Cff-FZ-2lO"/>
+                            <constraint firstItem="85U-Ad-9Uy" firstAttribute="top" secondItem="ePY-0B-R37" secondAttribute="bottom" id="Q6Q-22-5iO"/>
+                            <constraint firstItem="inr-52-DVx" firstAttribute="top" secondItem="Ipf-Ln-a9V" secondAttribute="topMargin" id="dwc-hx-pEC"/>
+                            <constraint firstItem="ePY-0B-R37" firstAttribute="top" secondItem="Ipf-Ln-a9V" secondAttribute="topMargin" id="f7u-jD-ddK"/>
+                            <constraint firstItem="WKz-yT-r5d" firstAttribute="leading" secondItem="Ipf-Ln-a9V" secondAttribute="leadingMargin" constant="20" id="gZm-Kx-ILC"/>
+                            <constraint firstItem="inr-52-DVx" firstAttribute="leading" secondItem="Ipf-Ln-a9V" secondAttribute="leadingMargin" constant="-20" id="j57-eO-S1r"/>
+                            <constraint firstItem="85U-Ad-9Uy" firstAttribute="top" secondItem="inr-52-DVx" secondAttribute="bottom" id="sMo-co-sj8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ePY-0B-R37" secondAttribute="trailing" constant="-20" id="zXG-Yb-MXi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="oN9-4A-X0X">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="compose" id="FJC-FW-U6O">
                                 <connections>
-                                    <action selector="noteButtonTapped:" destination="geY-GQ-BJ3" id="HzW-w5-Fvy"/>
+                                    <action selector="addNoteButtonTapped:" destination="geY-GQ-BJ3" id="YJ3-xz-86k"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem systemItem="camera" id="3Bk-gm-Lnm">
@@ -55,15 +101,26 @@
                                     <action selector="cameraButtonTapped:" destination="geY-GQ-BJ3" id="yzd-A5-RtA"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem systemItem="organize" id="daY-NE-4f0">
+                            <barButtonItem image="photoLibrary-icon" id="daY-NE-4f0">
                                 <connections>
                                     <action selector="photoLibraryButtonTapped:" destination="geY-GQ-BJ3" id="kaB-6z-Hca"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="edit" id="U3d-7J-zzc">
+                                <connections>
+                                    <action selector="editButtonTapped:" destination="geY-GQ-BJ3" id="cMS-rV-Y8L"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="addNoteButton" destination="FJC-FW-U6O" id="HPa-pf-3C2"/>
                         <outlet property="cameraButton" destination="3Bk-gm-Lnm" id="RnQ-IU-SbJ"/>
+                        <outlet property="editButton" destination="U3d-7J-zzc" id="qYw-6P-ual"/>
+                        <outlet property="errorView" destination="ePY-0B-R37" id="S0V-Bh-6dk"/>
+                        <outlet property="imageView" destination="inr-52-DVx" id="SVt-RO-byz"/>
+                        <outlet property="photoLibraryButton" destination="daY-NE-4f0" id="A87-2f-nwW"/>
+                        <outlet property="textView" destination="WKz-yT-r5d" id="iFw-9L-h90"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W2z-EG-dxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -260,6 +317,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="photoLibrary-icon" width="22" height="22"/>
         <image name="sad-eyes" width="100" height="100"/>
     </resources>
     <color key="tintColor" red="0.94509803920000002" green="0.15686274510000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>

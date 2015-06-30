@@ -26,11 +26,13 @@ import TravelogKit
 class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDelegate {
   
   var logs = [BaseLog]()
+  var detailViewController: DetailViewController?
   
   // MARK: View Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    title = "Travel Log"
     tableView.cellLayoutMarginsFollowReadableWidth = true
     LogStore.sharedStore.registerObserver(self)
   }
@@ -57,6 +59,22 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let selectedLog = logs[indexPath.row]
+    
+    // If another item was previously selected...
+    if let previouslySelectedLog = detailViewController?.selectedLog {
+      if previouslySelectedLog == selectedLog {
+        // Deselect it.
+        detailViewController?.selectedLog = nil
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+      } else {
+        // Select the new one.
+        detailViewController?.selectedLog = selectedLog
+      }
+    } else {
+      // If nothing was selected, make is selected.
+      detailViewController?.selectedLog = selectedLog
+    }
   }
   
   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -69,11 +87,14 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == UITableViewCellEditingStyle.Delete {
+      unowned let weakSelf = self
       let alertController = UIAlertController(title: "Confirm", message: "Are you sure you want to delegate this log?", preferredStyle: UIAlertControllerStyle.Alert)
       alertController.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
       alertController.addAction(UIAlertAction(title: "Yes, I'm sure!", style: UIAlertActionStyle.Destructive, handler: { _ -> Void in
+        
+        let logToDelete = weakSelf.logs[indexPath.row]
         let store = LogStore.sharedStore
-        store.logCollection.removeLogAtIndex(indexPath.row)
+        store.logCollection.removeLog(logToDelete)
         store.save()
       }))
       presentViewController(alertController, animated: true, completion: nil)
