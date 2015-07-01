@@ -96,6 +96,11 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
         let store = LogStore.sharedStore
         store.logCollection.removeLog(logToDelete)
         store.save()
+        
+        // If the deleted log was also the selected log, update Detail View Controller.
+        if weakSelf.detailViewController?.selectedLog == logToDelete {
+          weakSelf.detailViewController?.selectedLog = nil
+        }
       }))
       presentViewController(alertController, animated: true, completion: nil)
     }
