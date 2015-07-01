@@ -158,8 +158,12 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     controller.cancelActionBlock = {
       weakSelf.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    // Present text view controller and pass on the textToEdit if any.
+    // Otherwise provide a placeholder.
     presentViewController(textViewNavigationController, animated: true) { () -> Void in
-      controller.setText(textToEdit)
+      if let textToEdit = textToEdit { controller.setText(textToEdit) }
+      else { controller.setText("Today, I'm going to write about ...") }
     }
   }
   
