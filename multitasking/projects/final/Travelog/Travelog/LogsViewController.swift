@@ -59,22 +59,25 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    guard let detailViewController = detailViewController else { return }
     let selectedLog = logs[indexPath.row]
     
     // If another item was previously selected...
-    if let previouslySelectedLog = detailViewController?.selectedLog {
+    if let previouslySelectedLog = detailViewController.selectedLog {
       if previouslySelectedLog == selectedLog {
         // Deselect it.
-        detailViewController?.selectedLog = nil
+        detailViewController.selectedLog = nil
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
       } else {
         // Select the new one.
-        detailViewController?.selectedLog = selectedLog
+        detailViewController.selectedLog = selectedLog
       }
     } else {
       // If nothing was selected, make is selected.
-      detailViewController?.selectedLog = selectedLog
+      detailViewController.selectedLog = selectedLog
     }
+    
+    showDetailViewController(detailViewController, sender: nil)
   }
   
   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QWS-6m-FVU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8121.20" systemVersion="15A204h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QWS-6m-FVU">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -162,9 +162,9 @@
                                     <animations/>
                                     <constraints>
                                         <constraint firstItem="TRV-cm-0d3" firstAttribute="leading" secondItem="l8l-U1-OIP" secondAttribute="leadingMargin" constant="-8" id="8Bb-4n-gWZ"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="jmL-ep-AJT" secondAttribute="bottom" constant="-8" id="N2m-86-WDY"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="jmL-ep-AJT" secondAttribute="bottom" priority="900" constant="-8" id="N2m-86-WDY"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="jmL-ep-AJT" secondAttribute="trailing" constant="12" id="TkF-2v-wMR"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="TRV-cm-0d3" secondAttribute="bottom" constant="-8.5" id="Y1K-Hi-lkx"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="TRV-cm-0d3" secondAttribute="bottom" priority="900" constant="-8" id="Y1K-Hi-lkx"/>
                                         <constraint firstItem="TRV-cm-0d3" firstAttribute="top" secondItem="l8l-U1-OIP" secondAttribute="topMargin" constant="-8" id="e8f-n8-uhD"/>
                                         <constraint firstItem="jmL-ep-AJT" firstAttribute="top" secondItem="l8l-U1-OIP" secondAttribute="topMargin" constant="-8" id="eIl-eg-h00"/>
                                         <constraint firstItem="jmL-ep-AJT" firstAttribute="leading" secondItem="l8l-U1-OIP" secondAttribute="leadingMargin" constant="12" id="hbT-oh-Y7s"/>

@@ -24,28 +24,33 @@ import UIKit
 
 class SplitViewController: UISplitViewController, UISplitViewControllerDelegate {
   
+  var logsNavigationController: UINavigationController!
+  var logsViewController: LogsViewController!
+  var detailNavigationController: UINavigationController!
+  var detailViewController: DetailViewController!
+  
   override func awakeFromNib() {
     super.awakeFromNib()
-    preferredDisplayMode = .AllVisible
+    delegate = self
     navigationItem.leftBarButtonItem = splitViewController?.displayModeButtonItem()
     navigationItem.leftItemsSupplementBackButton = true
-    delegate = self
     
-    guard let secondaryNavigationController = viewControllers.last as? UINavigationController else { return }
-    guard let detailViewController = secondaryNavigationController.viewControllers.first as? DetailViewController else { return }
-    
-    guard let primaryNavigationController = viewControllers.first as? UINavigationController else { return }
-    guard let logsViewController = primaryNavigationController.viewControllers.first as? LogsViewController else { return }
+    logsNavigationController = viewControllers.first as! UINavigationController
+    logsViewController = logsNavigationController.viewControllers.first as! LogsViewController
+    detailNavigationController = viewControllers.last as! UINavigationController
+    detailViewController = detailNavigationController.viewControllers.first as! DetailViewController
     
     logsViewController.detailViewController = detailViewController
   }
   
-  // MARK: UISplitViewControllerDelegate
-  
-  func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
-    
-    return false
-    
+  override func showDetailViewController(vc: UIViewController, sender: AnyObject?) {
+    if traitCollection.horizontalSizeClass == .Compact {
+      if logsNavigationController.viewControllers.contains(vc) == false {
+        logsNavigationController.pushViewController(vc, animated: true)
+      }
+    } else {
+      super.showDetailViewController(vc, sender: sender)
+    }
   }
   
 }
