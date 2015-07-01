@@ -1,10 +1,24 @@
-//
-//  SampleData.swift
-//  Prepped
-//
-//  Created by Caroline Begbie on 25/06/2015.
-//  Copyright © 2015 Caroline Begbie. All rights reserved.
-//
+/*
+* Copyright (c) 2015 Razeware LLC
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
+*/
 
 import Foundation
 
@@ -28,18 +42,6 @@ var checkListItemData:[[CheckListItem]] =
                             ("Whisky",          false,  " ") ],
                           [ ("Sharpen thing for getting stones out of horse's hooves", true, " ")],
                           [ ("Download Max Soderstrom’s Survival Guide App", true, " ")  ] ]
-
-
-//MARK: - Contact Notes Sample Data
-
-typealias ContactsData = (imageName:String, description:String)
-
-var contactsData:[ContactsData] =
-                   [  ("CaviarRage.png",     "Has food supplies. Might share."),
-                      ("CrossRage.png",      "Avoid if you can."),
-                      ("ShortFuseRage.png",  "Will help, but don't push it."),
-                      ("ThoughtfulRage.png", "Will come up with master plan which is too complicated to implement."),
-                      ("SlasherRage.png",    "Run. Just run.") ]
 
 
 //MARK: - Diary Sample Data

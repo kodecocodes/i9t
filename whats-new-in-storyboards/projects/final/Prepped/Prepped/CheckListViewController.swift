@@ -1,21 +1,29 @@
-//
-//  CheckListViewController.swift
-//  Prepped
-//
-//  Created by Caroline Begbie on 25/06/2015.
-//  Copyright © 2015 Caroline Begbie. All rights reserved.
-//
+/*
+* Copyright (c) 2015 Razeware LLC
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
+*/
+
 
 import UIKit
 
 class CheckListViewController: UITableViewController {
-  
-  @IBOutlet var networkView: UIView!
-
-  
-  override func viewDidLoad() {
-    checkNetwork()
-  }
   
   // MARK: - Table view data source
   
@@ -60,25 +68,5 @@ class CheckListViewController: UITableViewController {
     }
   }
   
-  @IBAction func refreshNetwork() {
-    checkNetwork()
-  }
-
-  func checkNetwork() {
-    if let url = NSURL(string: "https://www.google.com") {
-      let request = NSURLRequest(URL: url, cachePolicy: .ReloadIgnoringLocalAndRemoteCacheData, timeoutInterval: 5.0)
-      NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {(data, response, error) in
-        if error != nil {
-          print("Network Error: \(error?.localizedDescription)")
-          self.networkView.bounds.size.width = self.view.bounds.size.width
-          self.navigationController?.navigationBar.addSubview(self.networkView)
-        } else {
-          print("Network Available")
-          self.networkView.removeFromSuperview()
-        }
-      })?.resume()
-    }
-  }
-
   
 }
