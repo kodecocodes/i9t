@@ -23,6 +23,7 @@
 		6152915D1B41BE2C00EB3A7F /* TravelogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6152915C1B41BE2C00EB3A7F /* TravelogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6152916F1B41BE2C00EB3A7F /* TravelogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6152915A1B41BE2C00EB3A7F /* TravelogKit.framework */; };
 		615291701B41BE2C00EB3A7F /* TravelogKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6152915A1B41BE2C00EB3A7F /* TravelogKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		615C27E51B446E9C00BEEDBD /* LogsSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615C27E41B446E9C00BEEDBD /* LogsSeed.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		6152915A1B41BE2C00EB3A7F /* TravelogKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TravelogKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6152915C1B41BE2C00EB3A7F /* TravelogKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TravelogKit.h; sourceTree = "<group>"; };
 		6152915E1B41BE2C00EB3A7F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		615C27E41B446E9C00BEEDBD /* LogsSeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LogsSeed.swift; path = "Custom Views/LogsSeed.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 			children = (
 				4B27FAA91B410C8100F356DB /* Helpers */,
 				4B53B98D1B42491C00BF989E /* Custom Views */,
+				615C27E41B446E9C00BEEDBD /* LogsSeed.swift */,
 				4B27FA801B40A7A800F356DB /* AppDelegate.swift */,
 				4B27FA921B40DBB700F356DB /* SplitViewController.swift */,
 				4B27FA961B40DC4400F356DB /* LogsViewController.swift */,
@@ -272,6 +275,7 @@
 				4B27FA811B40A7A800F356DB /* AppDelegate.swift in Sources */,
 				4B27FA931B40DBB700F356DB /* SplitViewController.swift in Sources */,
 				4B27FA971B40DC4400F356DB /* LogsViewController.swift in Sources */,
+				615C27E51B446E9C00BEEDBD /* LogsSeed.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

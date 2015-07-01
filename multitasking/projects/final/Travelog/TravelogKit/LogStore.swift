@@ -32,22 +32,8 @@ public protocol LogStoreObserver {
 public class LogStore {
   
   public static let sharedStore = LogStore()
-  let operationQueue: NSOperationQueue = {
-    let queue = NSOperationQueue()
-    queue.maxConcurrentOperationCount = 1
-    return queue
-  } ()
   
   public let logCollection = LogCollection()
-  
-  // MARK: Initialization
-  
-  init() {
-    unowned let weakSelf = self
-    readLogs { () -> Void in
-      weakSelf.notifyObserversWithUpdateLogCollection(weakSelf.logCollection)
-    }
-  }
   
   // MARK: Communication with observers
   
@@ -68,7 +54,6 @@ public class LogStore {
   }
   
   public func save() {
-    saveCollectionLog()
     notifyObserversWithUpdateLogCollection(logCollection)
   }
   
@@ -79,48 +64,4 @@ public class LogStore {
     }
   }
   
-  // MARK: Private
-  
-  /// Read and restore log collection from disk.
-  /// Upon completion it will notify observers.
-  private func readLogs(completion: (() -> Void)) {
-    // Read logs from disk in the background...
-    unowned let weakSelf = self
-    operationQueue.addOperationWithBlock { () -> Void in
-      guard let dataRepresentation = NSData(contentsOfURL: weakSelf.storedLogsURL) else { return }
-      guard let dictionaryRepresentation = NSKeyedUnarchiver.unarchiveObjectWithData(dataRepresentation) else { return }
-      for (_, log) in dictionaryRepresentation as! Dictionary<NSDate, BaseLog>{
-        weakSelf.logCollection.addLog(log)
-      }
-      
-      // Notfiy observers on the main thread.
-      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-        completion()
-      })
-    }
-  }
-  
-  /// Saves log collection to disk.
-  private func saveCollectionLog() {
-    // Get a dictionary representation of the log.
-    let dictionaryRepresentation = logCollection.dictionaryRepresentation()
-    unowned let weakSelf = self
-    operationQueue.addOperationWithBlock { () -> Void in
-      
-      let dataRepresentation = NSKeyedArchiver.archivedDataWithRootObject(dictionaryRepresentation)
-      let success = dataRepresentation.writeToURL(weakSelf.storedLogsURL, atomically: true)
-      print("Saved collection log: \(success)")
-    }
-  }
-  
-  /// Returns the URL to the stored logs in user documents directory.
-  private let storedLogsURL: NSURL = {
-    var URL: NSURL = NSURL()
-    do {
-      try URL = NSFileManager.defaultManager().URLForDirectory(NSSearchPathDirectory.DocumentDirectory, inDomain: NSSearchPathDomainMask.UserDomainMask, appropriateForURL: nil, create: true)
-      URL = URL.URLByAppendingPathComponent("travel-logs.plist")
-    }
-    catch {}
-    return URL
-    }()
 }
