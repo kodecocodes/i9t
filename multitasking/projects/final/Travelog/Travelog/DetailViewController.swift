@@ -173,7 +173,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     controller.allowsEditing = true
     controller.delegate = self
     controller.sourceType = sourceType
-    controller.view.tintColor = ColorPalette.ultimateRedColor()
+    controller.view.tintColor = UIColor.ultimateRedColor()
     presentViewController(controller, animated: true, completion: nil)
   }
   

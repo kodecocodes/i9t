@@ -22,15 +22,11 @@
 
 import UIKit
 
-class ColorPalette {
+extension UIColor {
   
   /// Returns the Ultimate Red Color that's the theme and identity of the app.
   class func ultimateRedColor() -> UIColor {
     return UIColor(red: (241.0/255.0), green: (40.0/255.0), blue: (35.0/255.0), alpha: 1.0)
   }
   
-  /// Returns an off-white background color.
-  class func lightBackgroundColor() -> UIColor {
-    return UIColor(white: 0.92, alpha: 1.0)
-  }
 }
