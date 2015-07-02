@@ -131,38 +131,38 @@
         <scene sceneID="Qgr-SI-WLw">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="dYK-ey-wMo" customClass="LogsViewController" customModule="Travelog" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="88" sectionHeaderHeight="10" sectionFooterHeight="10" id="IJy-j0-zjX">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="100" sectionHeaderHeight="10" sectionFooterHeight="10" id="IJy-j0-zjX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCellIdentifier" id="oHt-aI-btR" customClass="LogCell" customModule="Travelog" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="113.5" width="600" height="88"/>
+                                <rect key="frame" x="0.0" y="113.5" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oHt-aI-btR" id="l8l-U1-OIP">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="87.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jmL-ep-AJT">
-                                            <rect key="frame" x="20" y="0.0" width="560" height="87.5"/>
+                                            <rect key="frame" x="20" y="0.0" width="560" height="80"/>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="87.5" id="g7w-ZO-3DH"/>
+                                                <constraint firstAttribute="height" constant="80" id="g7w-ZO-3DH"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TRV-cm-0d3">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="88"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                             <animations/>
                                         </imageView>
                                     </subviews>
                                     <animations/>
                                     <constraints>
                                         <constraint firstItem="TRV-cm-0d3" firstAttribute="leading" secondItem="l8l-U1-OIP" secondAttribute="leadingMargin" constant="-8" id="8Bb-4n-gWZ"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="jmL-ep-AJT" secondAttribute="bottom" priority="900" constant="-8" id="N2m-86-WDY"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="jmL-ep-AJT" secondAttribute="bottom" priority="900" constant="8" id="N2m-86-WDY"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="jmL-ep-AJT" secondAttribute="trailing" constant="12" id="TkF-2v-wMR"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="TRV-cm-0d3" secondAttribute="bottom" priority="900" constant="-8" id="Y1K-Hi-lkx"/>
                                         <constraint firstItem="TRV-cm-0d3" firstAttribute="top" secondItem="l8l-U1-OIP" secondAttribute="topMargin" constant="-8" id="e8f-n8-uhD"/>
