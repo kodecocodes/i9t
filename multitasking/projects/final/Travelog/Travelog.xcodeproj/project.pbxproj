@@ -20,6 +20,7 @@
 		4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B98E1B42495E00BF989E /* LogCell.swift */; };
 		4BFA875B1B44BAD1005291F4 /* LogsViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */; };
 		4BFA875D1B44CEF6005291F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BFA875C1B44CEF6005291F4 /* Assets.xcassets */; };
+		4BFA87611B44EAF7005291F4 /* KeyboardAdaptabilityProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFA87601B44EAF7005291F4 /* KeyboardAdaptabilityProtocol.swift */; };
 		6152915D1B41BE2C00EB3A7F /* TravelogKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 6152915C1B41BE2C00EB3A7F /* TravelogKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6152916F1B41BE2C00EB3A7F /* TravelogKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6152915A1B41BE2C00EB3A7F /* TravelogKit.framework */; };
 		615291701B41BE2C00EB3A7F /* TravelogKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6152915A1B41BE2C00EB3A7F /* TravelogKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -63,6 +64,7 @@
 		4B53B98E1B42495E00BF989E /* LogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
 		4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewControllerExtension.swift; sourceTree = "<group>"; };
 		4BFA875C1B44CEF6005291F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4BFA87601B44EAF7005291F4 /* KeyboardAdaptabilityProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardAdaptabilityProtocol.swift; sourceTree = "<group>"; };
 		6152914F1B41BE0500EB3A7F /* LogCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCollection.swift; sourceTree = "<group>"; };
 		615291501B41BE0500EB3A7F /* LogModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogModels.swift; sourceTree = "<group>"; };
 		615291511B41BE0500EB3A7F /* LogStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogStore.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */,
 				4B27FA941B40DC1B00F356DB /* DetailViewController.swift */,
 				4B27FA981B40DCB100F356DB /* TextViewController.swift */,
+				4BFA87601B44EAF7005291F4 /* KeyboardAdaptabilityProtocol.swift */,
 				4B27FA841B40A7A800F356DB /* Main.storyboard */,
 				4B27FA891B40A7A800F356DB /* LaunchScreen.storyboard */,
 				4BFA875C1B44CEF6005291F4 /* Assets.xcassets */,
@@ -270,6 +273,7 @@
 			files = (
 				4BFA875B1B44BAD1005291F4 /* LogsViewControllerExtension.swift in Sources */,
 				4B27FA991B40DCB100F356DB /* TextViewController.swift in Sources */,
+				4BFA87611B44EAF7005291F4 /* KeyboardAdaptabilityProtocol.swift in Sources */,
 				4B27FAAB1B410C8100F356DB /* UIColorExtension.swift in Sources */,
 				4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */,
 				4B27FA951B40DC1B00F356DB /* DetailViewController.swift in Sources */,

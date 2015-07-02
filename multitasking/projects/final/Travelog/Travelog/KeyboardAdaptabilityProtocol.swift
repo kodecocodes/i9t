@@ -22,11 +22,19 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+/// A protocol that an arbitrary object, e.g. a UIViewController adopts to
+/// so that it can adjust itself when keyboard is shown or hidden.
+/// The purpose of this protocol is to implement a set of standard rules
+/// that a number of objects can comply to, instead of individually listening
+/// to notications for keyboard appearance.
+protocol KeyboardAdaptabilityProtocol {
   
-  var window: UIWindow?
+  /// Return a UIView or any subclass of that that you want
+  /// make the adjustments in. For exmaple you may return a
+  /// a UIScrollView whose content inset you intend to update
+  /// when keyboard is shown or hidden.
+  var adaptiveView: UIView { get }
   
+  func adaptToKeyboardAppearnace() 
   
 }
-

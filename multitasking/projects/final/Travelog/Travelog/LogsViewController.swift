@@ -34,6 +34,11 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   
   // MARK: View Life Cycle
   
+  deinit {
+    LogStore.sharedStore.unregisterObserver(self)
+    NSNotificationCenter.defaultCenter().removeObserver(self)
+  }
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     splitViewController?.preferredDisplayMode = .AllVisible
@@ -48,6 +53,26 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     tableView.cellLayoutMarginsFollowReadableWidth = true
     LogStore.sharedStore.registerObserver(self)
     LogsSeed.preload()
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAppearanceDidChangeWithNotification:", name: UIKeyboardDidShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAppearanceDidChangeWithNotification:", name: UIKeyboardDidHideNotification, object: nil)
+  }
+  
+  /// Update view and content offset when keybaord appears or disappears.
+  func keyboardAppearanceDidChangeWithNotification(notification: NSNotification) {
+    guard let userInfo: [NSObject: AnyObject] = notification.userInfo else { return }
+    let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+    let convertedFrame = view.convertRect(keyboardEndFrame, fromView: nil)
+    let keyboardTop = CGRectGetMinY(convertedFrame)
+    let insets = tableView.contentInset
+    let tableViewContentMaxY = min(insets.top + tableView.contentSize.height, CGRectGetHeight(tableView.bounds))
+    var delta = tableViewContentMaxY - keyboardTop
+
+    // If delta is 0 or below that, it means keyboard doesn't overlap with content.
+    if delta < 0.0 { delta = 0.0 }
+    let offset = tableView.contentOffset
+    let newOffset = CGPoint(x: offset.x, y: offset.y + delta)
+    tableView.contentOffset = newOffset
   }
   
   // MARK: LogStoreObserver Protocol
@@ -164,6 +189,5 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     // Hide or show title in the navigation bar.
     title = (hidden) ? "" : "Travel Log"
   }
-  
   
 }

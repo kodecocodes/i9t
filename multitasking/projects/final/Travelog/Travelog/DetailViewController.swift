@@ -57,6 +57,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
   
   deinit {
     LogStore.sharedStore.unregisterObserver(self)
+    NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
   override func viewDidLoad() {
@@ -65,6 +66,9 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Front)
     cameraButton.enabled = hasCamera
     setDetailViewState(DetailViewState.DisplayNone)
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAppearanceDidChangeWithNotification:", name: UIKeyboardDidShowNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAppearanceDidChangeWithNotification:", name: UIKeyboardDidHideNotification, object: nil)
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -93,6 +97,24 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
   }
   
   // MARK: Private methods
+  
+  
+  /// Update view and content offset when keybaord appears or disappears.
+  private func keyboardAppearanceDidChangeWithNotification(notification: NSNotification) {
+    guard let userInfo: [NSObject: AnyObject] = notification.userInfo else { return }
+    let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+    let convertedFrame = view.convertRect(keyboardEndFrame, fromView: nil)
+    let keyboardTop = CGRectGetMinY(convertedFrame)
+    let insets = tableView.contentInset
+    let tableViewContentMaxY = min(insets.top + tableView.contentSize.height, CGRectGetHeight(tableView.bounds))
+    var delta = tableViewContentMaxY - keyboardTop
+    
+    // If delta is 0 or below that, it means keyboard doesn't overlap with content.
+    if delta < 0.0 { delta = 0.0 }
+    let offset = tableView.contentOffset
+    let newOffset = CGPoint(x: offset.x, y: offset.y + delta)
+    tableView.contentOffset = newOffset
+  }
   
   private func updateDetailView() {
     
