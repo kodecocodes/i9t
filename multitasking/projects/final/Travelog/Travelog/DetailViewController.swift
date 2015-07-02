@@ -167,6 +167,8 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       store.save()
       
       weakSelf.dismissViewControllerAnimated(true, completion: nil)
+      weakSelf.selectedLog = textLogToSave
+      weakSelf.updateDetailView()
     }
     controller.cancelActionBlock = {
       weakSelf.dismissViewControllerAnimated(true, completion: nil)
@@ -212,6 +214,9 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       let store = LogStore.sharedStore
       store.logCollection.addLog(imageLogToSave)
       store.save()
+      
+      selectedLog = imageLogToSave
+      updateDetailView()
     }
     
     picker.dismissViewControllerAnimated(false, completion: nil)

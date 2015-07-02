@@ -127,7 +127,7 @@
             </objects>
             <point key="canvasLocation" x="1590" y="514"/>
         </scene>
-        <!--Root View Controller-->
+        <!--Logs View Controller-->
         <scene sceneID="Qgr-SI-WLw">
             <objects>
                 <tableViewController clearsSelectionOnViewWillAppear="NO" id="dYK-ey-wMo" customClass="LogsViewController" customModule="Travelog" customModuleProvider="target" sceneMemberID="viewController">
@@ -136,8 +136,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <animations/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LogCellIdentifier" id="oHt-aI-btR" customClass="LogCell" customModule="Travelog" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LogCellIdentifier" id="oHt-aI-btR" customClass="LogCell" customModule="Travelog" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oHt-aI-btR" id="l8l-U1-OIP">
@@ -183,7 +184,32 @@
                             <outlet property="delegate" destination="dYK-ey-wMo" id="YAH-YZ-44G"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Root View Controller" id="GLr-cA-O2M"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="GLr-cA-O2M">
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="compose" id="VcL-Z9-47u">
+                                <connections>
+                                    <action selector="addNoteButtonTapped:" destination="dYK-ey-wMo" id="EQR-eb-BEC"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="camera" id="SIV-aE-TVq">
+                                <connections>
+                                    <action selector="cameraButtonTapped:" destination="dYK-ey-wMo" id="ojh-Yg-vJQ"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="photoLibrary-icon" id="nY8-TB-gXL">
+                                <connections>
+                                    <action selector="photoLibraryButtonTapped:" destination="dYK-ey-wMo" id="BnJ-O1-ySd"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="addNoteButton" destination="VcL-Z9-47u" id="jzE-eB-w0b"/>
+                        <outlet property="cameraButton" destination="SIV-aE-TVq" id="ujT-gw-Mxm"/>
+                        <outlet property="photoLibraryButton" destination="nY8-TB-gXL" id="6WX-I7-i5y"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="28Q-YZ-YH7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

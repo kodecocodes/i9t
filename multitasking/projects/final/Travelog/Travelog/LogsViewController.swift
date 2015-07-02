@@ -25,8 +25,12 @@ import TravelogKit
 
 class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDelegate {
   
-  var logs = [BaseLog]()
-  var selectedLog: BaseLog?
+  @IBOutlet private var photoLibraryButton: UIBarButtonItem!
+  @IBOutlet private var cameraButton: UIBarButtonItem!
+  @IBOutlet private var addNoteButton: UIBarButtonItem!
+  
+  private var logs = [BaseLog]()
+  private var selectedLog: BaseLog?
   
   // MARK: View Life Cycle
   
@@ -38,7 +42,6 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    title = "Travel Log"
     tableView.cellLayoutMarginsFollowReadableWidth = true
     LogStore.sharedStore.registerObserver(self)
     LogsSeed.preload()
@@ -50,6 +53,26 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     // Update our data source.
     logs = collection.sortedLogs(NSComparisonResult.OrderedAscending)
     tableView.reloadData()
+  }
+  
+  // MARK: IBActions
+  
+  @IBAction func photoLibraryButtonTapped(sender: UIBarButtonItem?) {
+    // Present detail view controller and forward the call.
+    let vc = presentDetailViewControllerWithSelectedLog(nil)
+    vc.photoLibraryButtonTapped(sender)
+  }
+  
+  @IBAction func cameraButtonTapped(sender: UIBarButtonItem?) {
+    // Present detail view controller and forward the call.
+    let vc = presentDetailViewControllerWithSelectedLog(nil)
+    vc.cameraButtonTapped(sender)
+  }
+  
+  @IBAction func addNoteButtonTapped(sender: UIBarButtonItem?) {
+    // Present detail view controller and forward the call.
+    let vc = presentDetailViewControllerWithSelectedLog(nil)
+    vc.addNoteButtonTapped(sender)
   }
   
   // MARK: Helper
@@ -67,10 +90,12 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   }
   
   /// Present DetailViewController with a given log.
-  func presentDetailViewControllerWithSelectedLog(log: BaseLog?) {
+  /// For convenience, returns a pointer to the controller that's just presented.
+  func presentDetailViewControllerWithSelectedLog(log: BaseLog?) -> DetailViewController {
     let vc = detailViewController()
     vc.selectedLog = log
     showDetailViewController(vc, sender: nil)
+    return vc
   }
   
   // MARK: UITableView data source and delegate
@@ -124,5 +149,17 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
       }))
       presentViewController(alertController, animated: true, completion: nil)
     }
+  }
+  
+  override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
+    super.traitCollectionDidChange(previousTraitCollection)
+    
+    // Hide or show bar button items based on the size class.
+    let isCompact = traitCollection.horizontalSizeClass == .Compact
+    let items: [UIBarButtonItem] = (isCompact) ? [addNoteButton, cameraButton, photoLibraryButton] : []
+    navigationItem.setRightBarButtonItems(items, animated: true)
+    
+    // Hide or show title in the navigation bar.
+    title = (isCompact) ? "" : "Travel Log"
   }
 }

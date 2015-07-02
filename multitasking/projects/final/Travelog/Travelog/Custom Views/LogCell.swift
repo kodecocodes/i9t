@@ -49,4 +49,16 @@ class LogCell: UITableViewCell {
       customImageView.image = nil
     }
   }
+  
+  override func setSelected(selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+    if selected {
+      backgroundColor = UIColor.ultimateRedColor().colorWithAlphaComponent(0.3)
+      layer.borderWidth = 2.0
+      layer.borderColor = UIColor.ultimateRedColor().CGColor
+    } else {
+      backgroundColor = UIColor.whiteColor()
+      layer.borderWidth = 0.0
+    }
+  }
 }
