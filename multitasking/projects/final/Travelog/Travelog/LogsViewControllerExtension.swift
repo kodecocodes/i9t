@@ -32,4 +32,18 @@ extension LogsViewController: UISplitViewControllerDelegate {
     return true
   }
   
+  func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
+    
+    guard let navController = secondaryViewController as? UINavigationController else { return false }
+    guard let detailVC = navController.viewControllers.first as? DetailViewController else { return false }
+    
+    // If detail view controller has nothing to display, do nothing.
+    if detailVC.selectedLog == nil {
+      // Return true so that split view controller also does nothing!
+      return true
+    }
+    
+    return false
+  }
+  
 }
