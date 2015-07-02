@@ -32,8 +32,13 @@ extension LogsViewController: UISplitViewControllerDelegate {
     return true
   }
   
+  func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
+    setNavgationBarItemsHidden(false)
+    return nil
+  }
+  
   func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
-    
+    setNavgationBarItemsHidden(true)
     guard let navController = secondaryViewController as? UINavigationController else { return false }
     guard let detailVC = navController.viewControllers.first as? DetailViewController else { return false }
     

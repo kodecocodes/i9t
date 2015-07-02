@@ -42,6 +42,9 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    let hasCamera = UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Rear) ||
+      UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Front)
+    cameraButton.enabled = hasCamera
     tableView.cellLayoutMarginsFollowReadableWidth = true
     LogStore.sharedStore.registerObserver(self)
     LogsSeed.preload()
@@ -151,15 +154,16 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     }
   }
   
-  override func traitCollectionDidChange(previousTraitCollection: UITraitCollection?) {
-    super.traitCollectionDidChange(previousTraitCollection)
-    
-    // Hide or show bar button items based on the size class.
-    let isCompact = splitViewController?.traitCollection.horizontalSizeClass == .Compact
-    let items: [UIBarButtonItem] = (isCompact) ? [addNoteButton, cameraButton, photoLibraryButton] : []
+  // MARK: Size changes
+  
+  func setNavgationBarItemsHidden(hidden: Bool) {
+    // Hide or show bar button items.
+    let items: [UIBarButtonItem] = (hidden) ? [addNoteButton, cameraButton, photoLibraryButton] : []
     navigationItem.setRightBarButtonItems(items, animated: true)
     
     // Hide or show title in the navigation bar.
-    title = (isCompact) ? "" : "Travel Log"
+    title = (hidden) ? "" : "Travel Log"
   }
+  
+  
 }
