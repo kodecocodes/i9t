@@ -17,10 +17,10 @@
 		A65DC4311B4236480029ACDB /* ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65DC4301B4236480029ACDB /* ContentExtractor.swift */; };
 		A65DC43E1B4243030029ACDB /* auxilliary.plist in Resources */ = {isa = PBXBuildFile; fileRef = A65DC43B1B4243030029ACDB /* auxilliary.plist */; settings = {ASSET_TAGS = (SF_Map, ); }; };
 		A65DC4421B4244040029ACDB /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A65DC4411B4244040029ACDB /* map.png */; settings = {ASSET_TAGS = (SF_Map, ); }; };
-		A667DCFF1B42F6BF00B8016C /* TopographicMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A667DCFE1B42F6BF00B8016C /* TopographicMapAnnotation.swift */; };
 		A667DD011B42FED000B8016C /* example_map.png in Resources */ = {isa = PBXBuildFile; fileRef = A667DD001B42FED000B8016C /* example_map.png */; };
-		A667DD041B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A667DD031B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift */; };
-		A667DD061B43206D00B8016C /* ThumbnailScrollingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A667DD051B43206D00B8016C /* ThumbnailScrollingViewController.swift */; };
+		A69035281B43C0DF00439C92 /* MapSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69035271B43C0DF00439C92 /* MapSplitViewController.swift */; };
+		A6C3D1311B4509AD009602C3 /* MapContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */; };
+		A6C3D1351B450EF5009602C3 /* TopoMapOverlayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C3D1341B450EF5009602C3 /* TopoMapOverlayData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,10 +36,10 @@
 		A65DC4301B4236480029ACDB /* ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ContentExtractor.swift; sourceTree = "<group>"; tabWidth = 2; };
 		A65DC43B1B4243030029ACDB /* auxilliary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = auxilliary.plist; sourceTree = "<group>"; };
 		A65DC4411B4244040029ACDB /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
-		A667DCFE1B42F6BF00B8016C /* TopographicMapAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopographicMapAnnotation.swift; sourceTree = "<group>"; };
 		A667DD001B42FED000B8016C /* example_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = example_map.png; sourceTree = "<group>"; };
-		A667DD031B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollViewOverlayTouchForwardingView.swift; sourceTree = "<group>"; };
-		A667DD051B43206D00B8016C /* ThumbnailScrollingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailScrollingViewController.swift; sourceTree = "<group>"; };
+		A69035271B43C0DF00439C92 /* MapSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSplitViewController.swift; sourceTree = "<group>"; };
+		A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContentTableViewController.swift; sourceTree = "<group>"; };
+		A6C3D1341B450EF5009602C3 /* TopoMapOverlayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopoMapOverlayData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,9 +82,9 @@
 				A63B63B51B4107CF002178B7 /* Main.storyboard */,
 				A63B63C31B41084D002178B7 /* TopographicMapOverlayView.swift */,
 				A63B63C51B41086D002178B7 /* TopographicMapOverlay.swift */,
-				A667DD031B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift */,
-				A667DD051B43206D00B8016C /* ThumbnailScrollingViewController.swift */,
-				A667DCFE1B42F6BF00B8016C /* TopographicMapAnnotation.swift */,
+				A69035271B43C0DF00439C92 /* MapSplitViewController.swift */,
+				A6C3D1341B450EF5009602C3 /* TopoMapOverlayData.swift */,
+				A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */,
 				A63B63B81B4107CF002178B7 /* Assets.xcassets */,
 				A63B63BA1B4107CF002178B7 /* LaunchScreen.storyboard */,
 				A63B63BD1B4107CF002178B7 /* Info.plist */,
@@ -203,13 +203,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A63B63B41B4107CF002178B7 /* MapChromeViewController.swift in Sources */,
-				A667DD061B43206D00B8016C /* ThumbnailScrollingViewController.swift in Sources */,
 				A65DC4311B4236480029ACDB /* ContentExtractor.swift in Sources */,
-				A667DCFF1B42F6BF00B8016C /* TopographicMapAnnotation.swift in Sources */,
 				A63B63C41B41084D002178B7 /* TopographicMapOverlayView.swift in Sources */,
-				A667DD041B43131500B8016C /* ScrollViewOverlayTouchForwardingView.swift in Sources */,
 				A63B63C61B41086D002178B7 /* TopographicMapOverlay.swift in Sources */,
 				A63B63B21B4107CF002178B7 /* AppDelegate.swift in Sources */,
+				A6C3D1311B4509AD009602C3 /* MapContentTableViewController.swift in Sources */,
+				A69035281B43C0DF00439C92 /* MapSplitViewController.swift in Sources */,
+				A6C3D1351B450EF5009602C3 /* TopoMapOverlayData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +323,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Topo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Topo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -334,6 +335,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Topo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Topo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

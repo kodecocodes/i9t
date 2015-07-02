@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapChromeViewController: UIViewController, MKMapViewDelegate, ThumbnailScrollingViewControllerDelegate {
+class MapChromeViewController: UIViewController, MKMapViewDelegate  {
   
   @IBOutlet weak var loadingProgressView: UIProgressView!
   @IBOutlet weak var mapView: MKMapView!
@@ -18,12 +18,15 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate, ThumbnailScr
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    let barButton = self.splitViewController!.displayModeButtonItem()
+    self.navigationItem.leftBarButtonItem = barButton
+    self.navigationItem.leftItemsSupplementBackButton = true 
+    
+    
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLowDiskSpaceNotification:", name: NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
     
     self.setupMapViewport()
     
-    let thumbnailScrollingViewController = self.childViewControllers.first as! ThumbnailScrollingViewController
-    thumbnailScrollingViewController.delegate = self
     
   }
   
