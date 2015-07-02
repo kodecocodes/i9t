@@ -155,7 +155,7 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     super.traitCollectionDidChange(previousTraitCollection)
     
     // Hide or show bar button items based on the size class.
-    let isCompact = traitCollection.horizontalSizeClass == .Compact
+    let isCompact = splitViewController?.traitCollection.horizontalSizeClass == .Compact
     let items: [UIBarButtonItem] = (isCompact) ? [addNoteButton, cameraButton, photoLibraryButton] : []
     navigationItem.setRightBarButtonItems(items, animated: true)
     
