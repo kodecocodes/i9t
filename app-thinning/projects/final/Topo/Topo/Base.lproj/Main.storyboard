@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
     </dependencies>
     <scenes>
-        <!--Woot-->
+        <!--Map Chrome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MapChromeViewController" customModule="Topo" customModuleProvider="target" sceneMemberID="viewController">
@@ -38,7 +38,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="JDf-TK-Uhm"/>
                                 </items>
                             </toolbar>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hqs-2u-1NG">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hqs-2u-1NG">
                                 <rect key="frame" x="0.0" y="64" width="600" height="2"/>
                             </progressView>
                         </subviews>
@@ -56,7 +56,7 @@
                             <constraint firstItem="t9a-Zc-ehg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zUR-ji-ETd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Woot" id="KEx-n5-XSA"/>
+                    <navigationItem key="navigationItem" id="KEx-n5-XSA"/>
                     <connections>
                         <outlet property="loadingProgressView" destination="Hqs-2u-1NG" id="DkZ-28-DD2"/>
                         <outlet property="mapView" destination="t9a-Zc-ehg" id="TZR-VH-W5K"/>
@@ -66,7 +66,7 @@
             </objects>
             <point key="canvasLocation" x="242" y="1335"/>
         </scene>
-        <!--Map Content Table View Controller-->
+        <!--Historic Overlays-->
         <scene sceneID="DbS-rK-E5o">
             <objects>
                 <tableViewController modalPresentationStyle="overFullScreen" id="Y0V-Ua-VB7" customClass="MapContentTableViewController" customModule="Topo" customModuleProvider="target" sceneMemberID="viewController">
@@ -75,7 +75,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapOverlayCell" textLabel="NuQ-gY-LkQ" imageView="Q8x-68-rC2" rowHeight="80" style="IBUITableViewCellStyleDefault" id="M32-lM-8bg" userLabel="Cell ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapOverlayCell" textLabel="NuQ-gY-LkQ" detailTextLabel="QJn-7r-dC5" imageView="Q8x-68-rC2" rowHeight="80" style="IBUITableViewCellStyleValue1" id="M32-lM-8bg" userLabel="Cell ">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" tableViewCell="M32-lM-8bg" id="P10-7C-Twc">
@@ -83,7 +83,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Santa Cruz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NuQ-gY-LkQ">
-                                            <rect key="frame" x="110" y="0.0" width="475" height="79.5"/>
+                                            <rect key="frame" x="110" y="30" width="80.5" height="19.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -93,6 +93,13 @@
                                             <rect key="frame" x="15" y="0.0" width="80" height="79.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </imageView>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QJn-7r-dC5">
+                                            <rect key="frame" x="543.5" y="30" width="41.5" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
@@ -106,7 +113,7 @@
                             <outlet property="delegate" destination="Y0V-Ua-VB7" id="Cft-RS-0Dg"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="0IU-RK-Jcu"/>
+                    <navigationItem key="navigationItem" title="Historic Overlays" id="0IU-RK-Jcu"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="db0-Xf-Kx8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
