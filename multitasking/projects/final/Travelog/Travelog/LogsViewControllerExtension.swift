@@ -28,9 +28,6 @@ extension LogsViewController: UISplitViewControllerDelegate {
     if splitViewController.traitCollection.horizontalSizeClass == .Compact {
       let navigationController = splitViewController.viewControllers.first as! UINavigationController
       navigationController.pushViewController(vc, animated: true)
-    } else {
-      let navigationController = splitViewController.viewControllers.last as! UINavigationController
-      navigationController.viewControllers = [vc]
     }
     return true
   }

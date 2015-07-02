@@ -26,12 +26,13 @@ import TravelogKit
 class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDelegate {
   
   var logs = [BaseLog]()
-  var detailViewController: DetailViewController?
+  var selectedLog: BaseLog?
   
   // MARK: View Life Cycle
   
   override func awakeFromNib() {
     super.awakeFromNib()
+    splitViewController?.preferredDisplayMode = .AllVisible
     splitViewController?.delegate = self
   }
   
@@ -51,6 +52,27 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     tableView.reloadData()
   }
   
+  // MARK: Helper
+  
+  /// Create or reuse a Detail View Controller object.
+  func detailViewController() -> DetailViewController {
+    if splitViewController?.traitCollection.horizontalSizeClass == .Compact {
+      let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
+      return detailViewController
+    }
+    
+    let navController = splitViewController?.viewControllers.last as! UINavigationController
+    let detailViewController = navController.viewControllers.first as! DetailViewController
+    return detailViewController
+  }
+  
+  /// Present DetailViewController with a given log.
+  func presentDetailViewControllerWithSelectedLog(log: BaseLog?) {
+    let vc = detailViewController()
+    vc.selectedLog = log
+    showDetailViewController(vc, sender: nil)
+  }
+  
   // MARK: UITableView data source and delegate
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,27 +87,14 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    
-    let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
-    let selectedLog = logs[indexPath.row]
-    
-    // If another item was previously selected...
-    if let previouslySelectedLog = detailViewController.selectedLog {
-      if previouslySelectedLog == selectedLog {
-        // Deselect it.
-        detailViewController.selectedLog = nil
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-      } else {
-        // Select the new one.
-        detailViewController.selectedLog = selectedLog
-      }
+    let newlySelectedLog = logs[indexPath.row]
+    if selectedLog == newlySelectedLog {
+      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+      selectedLog = nil
     } else {
-      // If nothing was selected, make is selected.
-      detailViewController.selectedLog = selectedLog
+      selectedLog = newlySelectedLog
     }
-    
-    self.detailViewController = detailViewController
-    showDetailViewController(detailViewController, sender: nil)
+    presentDetailViewControllerWithSelectedLog(selectedLog)
   }
   
   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -108,9 +117,9 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
         store.logCollection.removeLog(logToDelete)
         store.save()
         
-        // If the deleted log was also the selected log, update Detail View Controller.
-        if weakSelf.detailViewController?.selectedLog == logToDelete {
-          weakSelf.detailViewController?.selectedLog = nil
+        if weakSelf.selectedLog == logToDelete && weakSelf.splitViewController?.traitCollection.horizontalSizeClass == .Regular {
+          let vc = weakSelf.detailViewController()
+          vc.selectedLog = nil
         }
       }))
       presentViewController(alertController, animated: true, completion: nil)
