@@ -22,10 +22,17 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+extension LogsViewController: UISplitViewControllerDelegate {
   
-  var window: UIWindow?
+  func splitViewController(splitViewController: UISplitViewController, showDetailViewController vc: UIViewController, sender: AnyObject?) -> Bool {
+    if splitViewController.traitCollection.horizontalSizeClass == .Compact {
+      let navigationController = splitViewController.viewControllers.first as! UINavigationController
+      navigationController.pushViewController(vc, animated: true)
+    } else {
+      let navigationController = splitViewController.viewControllers.last as! UINavigationController
+      navigationController.viewControllers = [vc]
+    }
+    return true
+  }
   
 }
-

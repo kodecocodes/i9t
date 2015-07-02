@@ -49,18 +49,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
   
   var selectedLog: BaseLog? {
     didSet {
-      if let selectedLog = selectedLog as? TextLog {
-        textView.text = selectedLog.text
-        setDetailViewState(DetailViewState.DisplayTextLog)
-        title = self.dateFormatter.stringFromDate(selectedLog.date)
-      } else if let selectedLog = selectedLog as? ImageLog {
-        imageView.image = selectedLog.image
-        setDetailViewState(DetailViewState.DisplayImageLog)
-        title = self.dateFormatter.stringFromDate(selectedLog.date)
-      } else {
-        setDetailViewState(DetailViewState.DisplayNone)
-        title = nil
-      }
+      updateDetailView()
     }
   }
   
@@ -76,6 +65,11 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Front)
     cameraButton.enabled = hasCamera
     setDetailViewState(DetailViewState.DisplayNone)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    updateDetailView()
   }
   
   // MARK: IBActions 
@@ -99,6 +93,25 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
   }
   
   // MARK: Private methods
+  
+  private func updateDetailView() {
+    
+    guard let textView = textView else { return }
+    guard let imageView = imageView else { return }
+    
+    if let selectedLog = selectedLog as? TextLog {
+      textView.text = selectedLog.text
+      setDetailViewState(DetailViewState.DisplayTextLog)
+      title = self.dateFormatter.stringFromDate(selectedLog.date)
+    } else if let selectedLog = selectedLog as? ImageLog {
+      imageView.image = selectedLog.image
+      setDetailViewState(DetailViewState.DisplayImageLog)
+      title = self.dateFormatter.stringFromDate(selectedLog.date)
+    } else {
+      setDetailViewState(DetailViewState.DisplayNone)
+      title = nil
+    }
+  }
   
   /// Set the state of the Detail View (show or hide UI elements that are relevant).
   private func setDetailViewState(state: DetailViewState) {

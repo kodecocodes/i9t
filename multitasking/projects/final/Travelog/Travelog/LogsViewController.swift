@@ -30,11 +30,17 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   
   // MARK: View Life Cycle
   
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    splitViewController?.delegate = self
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     title = "Travel Log"
     tableView.cellLayoutMarginsFollowReadableWidth = true
     LogStore.sharedStore.registerObserver(self)
+    LogsSeed.preload()
   }
   
   // MARK: LogStoreObserver Protocol
@@ -59,7 +65,8 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    guard let detailViewController = detailViewController else { return }
+    
+    let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DetailViewController") as! DetailViewController
     let selectedLog = logs[indexPath.row]
     
     // If another item was previously selected...
@@ -77,6 +84,7 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
       detailViewController.selectedLog = selectedLog
     }
     
+    self.detailViewController = detailViewController
     showDetailViewController(detailViewController, sender: nil)
   }
   
