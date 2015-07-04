@@ -1,5 +1,5 @@
 //
-//  TopographicMapOverlay.swift
+//  HistoricMapOverlay.swift
 //  Topo
 //
 //  Created by Derek Selander on 6/28/15.
@@ -9,11 +9,12 @@
 import UIKit
 import MapKit
 
-class TopographicMapOverlay: NSObject, MKOverlay {
+class HistoricMapOverlay: NSObject, MKOverlay {
   
   
   var boundingMapRect: MKMapRect {get { return self.getMapRect() }}
   var coordinate: CLLocationCoordinate2D {get { return  self.getCoordinate() }}
+  var region: MKCoordinateRegion { get {return self.getRegion()}}
   
   let image : UIImage
   let auxillaryInfo : [String : AnyObject]
@@ -46,5 +47,14 @@ class TopographicMapOverlay: NSObject, MKOverlay {
     let bottomLeftPoint = MKMapPointForCoordinate(bottomLeftCoordinate)
     
     return MKMapRectMake(topLeftPoint.x, topLeftPoint.y, fabs(topLeftPoint.x - topRightPoint.x), fabs(topLeftPoint.y - bottomLeftPoint.y))
+  }
+  
+  private func getRegion()->MKCoordinateRegion {
+    let coordinateDict = self.auxillaryInfo["MapRegion"] as! [String: Double]
+    let lat = coordinateDict["lat"]
+    let lon = coordinateDict["lon"]
+    let sLat = coordinateDict["spanLat"]
+    let sLon = coordinateDict["spanLon"]
+    return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat!, longitude: lon!), span: MKCoordinateSpan(latitudeDelta: sLat!, longitudeDelta: sLon!))
   }
 }

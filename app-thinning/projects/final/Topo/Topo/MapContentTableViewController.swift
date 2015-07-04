@@ -11,6 +11,7 @@ import UIKit
 class MapContentTableViewController: UITableViewController {
   
   let dataSource: [TopoMapOverlayData] = TopoMapOverlayData.generateDefaultData()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -42,12 +43,17 @@ class MapContentTableViewController: UITableViewController {
     return cell
   }
   
+//  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//    let mapData = self.dataSource[indexPath.row]
+//  }
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let nav = segue.destinationViewController as? UINavigationController,
-      let indexPath = self.tableView.indexPathForSelectedRow
-    {
-      let mapData = self.dataSource[indexPath.row]
-      nav.topViewController?.title = mapData.title
+      let indexPath = self.tableView.indexPathForSelectedRow {
+        let mapData = self.dataSource[indexPath.row]
+        let mapViewController = nav.topViewController as! MapChromeViewController
+        mapViewController.mapOverlayData = mapData
+        mapViewController.title = mapData.title
     }
   }
   

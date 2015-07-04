@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8101.16"/>
     </dependencies>
     <scenes>
-        <!--Map Chrome View Controller-->
+        <!--California-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="MapChromeViewController" customModule="Topo" customModuleProvider="target" sceneMemberID="viewController">
@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="t9a-Zc-ehg">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="hybrid" translatesAutoresizingMaskIntoConstraints="NO" id="t9a-Zc-ehg">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="ilK-JC-TjL"/>
@@ -56,7 +56,9 @@
                             <constraint firstItem="t9a-Zc-ehg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zUR-ji-ETd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="KEx-n5-XSA"/>
+                    <navigationItem key="navigationItem" title="California" id="KEx-n5-XSA">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="6xQ-HB-TS5"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="loadingProgressView" destination="Hqs-2u-1NG" id="DkZ-28-DD2"/>
                         <outlet property="mapView" destination="t9a-Zc-ehg" id="TZR-VH-W5K"/>

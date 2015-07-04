@@ -1,5 +1,5 @@
 //
-//  TopographicMapOverlayView.swift
+//  HistoryMapOverlayView.swift
 //  Topo
 //
 //  Created by Derek Selander on 6/28/15.
@@ -9,11 +9,11 @@
 import UIKit
 import MapKit
 
-class TopographicMapOverlayView: MKOverlayRenderer {
+class HistoryMapOverlayView: MKOverlayRenderer {
   private var overlayImage : UIImage!
   
   override init(overlay: MKOverlay) {
-    let image = (overlay as! TopographicMapOverlay).image
+    let image = (overlay as! HistoricMapOverlay).image
     self.overlayImage = image
     super.init(overlay: overlay)
   }
@@ -26,11 +26,8 @@ class TopographicMapOverlayView: MKOverlayRenderer {
     
     CGContextScaleCTM(context, 1.0, -1.0)
     
-    // Debugging
-    CGContextSetFillColorWithColor(context, UIColor.purpleColor().CGColor)
     CGContextTranslateCTM(context, 0.0, -rect.size.height)
-    
-    CGContextFillRect(context, rect)
+//    CGContextFillRect(context, rect)
     CGContextDrawImage(context, rect, imageRef)
   }
   

@@ -12,8 +12,8 @@
 		A63B63B71B4107CF002178B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63B63B51B4107CF002178B7 /* Main.storyboard */; };
 		A63B63B91B4107CF002178B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A63B63B81B4107CF002178B7 /* Assets.xcassets */; };
 		A63B63BC1B4107CF002178B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63B63BA1B4107CF002178B7 /* LaunchScreen.storyboard */; };
-		A63B63C41B41084D002178B7 /* TopographicMapOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63C31B41084D002178B7 /* TopographicMapOverlayView.swift */; };
-		A63B63C61B41086D002178B7 /* TopographicMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63C51B41086D002178B7 /* TopographicMapOverlay.swift */; };
+		A63B63C41B41084D002178B7 /* HistoryMapOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63C31B41084D002178B7 /* HistoryMapOverlayView.swift */; };
+		A63B63C61B41086D002178B7 /* HistoricMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63C51B41086D002178B7 /* HistoricMapOverlay.swift */; };
 		A65DC4311B4236480029ACDB /* ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65DC4301B4236480029ACDB /* ContentExtractor.swift */; };
 		A65DC43E1B4243030029ACDB /* auxilliary.plist in Resources */ = {isa = PBXBuildFile; fileRef = A65DC43B1B4243030029ACDB /* auxilliary.plist */; settings = {ASSET_TAGS = (SF_Map, ); }; };
 		A65DC4421B4244040029ACDB /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A65DC4411B4244040029ACDB /* map.png */; settings = {ASSET_TAGS = (SF_Map, ); }; };
@@ -21,6 +21,8 @@
 		A69035281B43C0DF00439C92 /* MapSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69035271B43C0DF00439C92 /* MapSplitViewController.swift */; };
 		A6C3D1311B4509AD009602C3 /* MapContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */; };
 		A6C3D1351B450EF5009602C3 /* TopoMapOverlayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C3D1341B450EF5009602C3 /* TopoMapOverlayData.swift */; };
+		A6C3D1411B463DE5009602C3 /* auxilliary.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6C3D13F1B463DE5009602C3 /* auxilliary.plist */; };
+		A6C3D1421B463DE5009602C3 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C3D1401B463DE5009602C3 /* map.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,8 +33,8 @@
 		A63B63B81B4107CF002178B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A63B63BB1B4107CF002178B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A63B63BD1B4107CF002178B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A63B63C31B41084D002178B7 /* TopographicMapOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopographicMapOverlayView.swift; sourceTree = "<group>"; };
-		A63B63C51B41086D002178B7 /* TopographicMapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopographicMapOverlay.swift; sourceTree = "<group>"; };
+		A63B63C31B41084D002178B7 /* HistoryMapOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryMapOverlayView.swift; sourceTree = "<group>"; };
+		A63B63C51B41086D002178B7 /* HistoricMapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoricMapOverlay.swift; sourceTree = "<group>"; };
 		A65DC4301B4236480029ACDB /* ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ContentExtractor.swift; sourceTree = "<group>"; tabWidth = 2; };
 		A65DC43B1B4243030029ACDB /* auxilliary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = auxilliary.plist; sourceTree = "<group>"; };
 		A65DC4411B4244040029ACDB /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
@@ -40,6 +42,8 @@
 		A69035271B43C0DF00439C92 /* MapSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSplitViewController.swift; sourceTree = "<group>"; };
 		A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContentTableViewController.swift; sourceTree = "<group>"; };
 		A6C3D1341B450EF5009602C3 /* TopoMapOverlayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopoMapOverlayData.swift; sourceTree = "<group>"; };
+		A6C3D13F1B463DE5009602C3 /* auxilliary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = auxilliary.plist; sourceTree = "<group>"; };
+		A6C3D1401B463DE5009602C3 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +84,8 @@
 				A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */,
 				A65DC4301B4236480029ACDB /* ContentExtractor.swift */,
 				A63B63B51B4107CF002178B7 /* Main.storyboard */,
-				A63B63C31B41084D002178B7 /* TopographicMapOverlayView.swift */,
-				A63B63C51B41086D002178B7 /* TopographicMapOverlay.swift */,
+				A63B63C31B41084D002178B7 /* HistoryMapOverlayView.swift */,
+				A63B63C51B41086D002178B7 /* HistoricMapOverlay.swift */,
 				A69035271B43C0DF00439C92 /* MapSplitViewController.swift */,
 				A6C3D1341B450EF5009602C3 /* TopoMapOverlayData.swift */,
 				A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */,
@@ -119,10 +123,68 @@
 		A69695331B4131B70018D403 /* Map Bundles */ = {
 			isa = PBXGroup;
 			children = (
+				A6C3D1381B463DE5009602C3 /* Mont_Map */,
+				A6C3D1391B463DE5009602C3 /* Cap_Map */,
+				A6C3D13A1B463DE5009602C3 /* Yos_Map */,
+				A6C3D13B1B463DE5009602C3 /* Mav_Map */,
+				A6C3D13C1B463DE5009602C3 /* LA_Map */,
+				A6C3D13D1B463DE5009602C3 /* SD_Map */,
+				A6C3D13E1B463DE5009602C3 /* SB_Map */,
 				A69625A81B4295A30078499C /* SC_Map */,
 				A65DC43A1B4243030029ACDB /* SF_Map */,
 			);
 			name = "Map Bundles";
+			sourceTree = "<group>";
+		};
+		A6C3D1381B463DE5009602C3 /* Mont_Map */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mont_Map;
+			sourceTree = "<group>";
+		};
+		A6C3D1391B463DE5009602C3 /* Cap_Map */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cap_Map;
+			sourceTree = "<group>";
+		};
+		A6C3D13A1B463DE5009602C3 /* Yos_Map */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Yos_Map;
+			sourceTree = "<group>";
+		};
+		A6C3D13B1B463DE5009602C3 /* Mav_Map */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Mav_Map;
+			sourceTree = "<group>";
+		};
+		A6C3D13C1B463DE5009602C3 /* LA_Map */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LA_Map;
+			sourceTree = "<group>";
+		};
+		A6C3D13D1B463DE5009602C3 /* SD_Map */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SD_Map;
+			sourceTree = "<group>";
+		};
+		A6C3D13E1B463DE5009602C3 /* SB_Map */ = {
+			isa = PBXGroup;
+			children = (
+				A6C3D13F1B463DE5009602C3 /* auxilliary.plist */,
+				A6C3D1401B463DE5009602C3 /* map.png */,
+			);
+			path = SB_Map;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -186,11 +248,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6C3D1421B463DE5009602C3 /* map.png in Resources */,
 				A65DC4421B4244040029ACDB /* map.png in Resources */,
 				A63B63BC1B4107CF002178B7 /* LaunchScreen.storyboard in Resources */,
 				A63B63B91B4107CF002178B7 /* Assets.xcassets in Resources */,
 				A63B63B71B4107CF002178B7 /* Main.storyboard in Resources */,
 				A65DC43E1B4243030029ACDB /* auxilliary.plist in Resources */,
+				A6C3D1411B463DE5009602C3 /* auxilliary.plist in Resources */,
 				A667DD011B42FED000B8016C /* example_map.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,8 +268,8 @@
 			files = (
 				A63B63B41B4107CF002178B7 /* MapChromeViewController.swift in Sources */,
 				A65DC4311B4236480029ACDB /* ContentExtractor.swift in Sources */,
-				A63B63C41B41084D002178B7 /* TopographicMapOverlayView.swift in Sources */,
-				A63B63C61B41086D002178B7 /* TopographicMapOverlay.swift in Sources */,
+				A63B63C41B41084D002178B7 /* HistoryMapOverlayView.swift in Sources */,
+				A63B63C61B41086D002178B7 /* HistoricMapOverlay.swift in Sources */,
 				A63B63B21B4107CF002178B7 /* AppDelegate.swift in Sources */,
 				A6C3D1311B4509AD009602C3 /* MapContentTableViewController.swift in Sources */,
 				A69035281B43C0DF00439C92 /* MapSplitViewController.swift in Sources */,

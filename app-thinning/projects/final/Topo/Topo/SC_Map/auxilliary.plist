@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>MapRegion</key>
+	<dict>
+		<key>lat</key>
+		<real>39.185167</real>
+		<key>lon</key>
+		<real>-120</real>
+		<key>spanLat</key>
+		<integer>10</integer>
+		<key>spanLon</key>
+		<integer>10</integer>
+	</dict>
 	<key>Center</key>
 	<dict>
 		<key>lattitude</key>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 extension NSBundleResourceRequest {
   func extractMapContentBundleWithTitle(title: String) ->([String : AnyObject], UIImage) {

@@ -9,12 +9,23 @@
 import UIKit
 
 class MapSplitViewController: UISplitViewController, UISplitViewControllerDelegate {
+  var detailVC: MapChromeViewController!
+  var masterVC: MapContentTableViewController!
   
   @IBOutlet var masterNavigationController : UIViewController!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.delegate = self
     self.preferredDisplayMode = .AllVisible
+
+//    for navController in self.viewControllers as! [UINavigationController] {
+//      if let vc = navController.topViewController as? MapChromeViewController {
+//        self.detailVC = vc
+//      } else if let vc = navController.topViewController as? MapContentTableViewController {
+//        self.masterVC = vc
+//      }
+//    }
   }
   
  
