@@ -1,4 +1,3 @@
-## swift-2
+# Chapter 1: Swift 2.0
 
-Hi, welcome to your markdown document!
-
+It was nearing the end of the 2014 WWDC Keynote and Craig Federighi came back up on stage. Without much hesitation or fanfare he dropped the biggest bomb on Apple platform developers that they'd ever seen, Swift. A new language introduced, in a later criticized way, as "Objective-C without the C". This new language was filled with promises of terseness and safety, while being extremely expressive. After everyone picked their jaws up from the floor, many set out to explore the ins and outs of this brand new language. Swift made the period between WWDC 2014 and 2015 an extremely exciting time to be an Apple platform developer. Everyone was given a chance to reimagine and redefine the way that software for iOS and OS X is written.
