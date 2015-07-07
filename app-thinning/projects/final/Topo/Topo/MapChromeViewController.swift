@@ -14,7 +14,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   @IBOutlet weak var loadingProgressView: UIProgressView!
   @IBOutlet weak var mapView: MKMapView!
   
-  var mapOverlayData: TopoMapOverlayData!
+  var mapOverlayData: HistoricMapOverlayData!
   private var bundleRequests: Set<NSBundleResourceRequest> = []
   
   
@@ -25,6 +25,8 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.loadMapBundlesIfPresent()
+    self.downloadAndDisplayMapOverlay()
+
     
     let barButton = self.splitViewController!.displayModeButtonItem()
     self.navigationItem.leftBarButtonItem = barButton
@@ -36,9 +38,10 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLowDiskSpaceNotification:", name: NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
   }
   
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-    self.downloadAndDisplayMapOverlay()
+  override func didReceiveMemoryWarning() {
+    if let overlay = self.mapView.overlays.first {
+      self.mapView.removeOverlay(overlay)
+    }
   }
   
 //=============================================================================/
@@ -67,7 +70,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-    return HistoryMapOverlayView(overlay: overlay)
+    return HistoricMapOverlayView(overlay: overlay)
   }
   
 //=============================================================================/
@@ -75,18 +78,18 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   private func loadMapBundlesIfPresent() {
-    for data in TopoMapOverlayData.generateDefaultData() {
-      let bundleRequest = NSBundleResourceRequest(tags: [data.assetTitle])
-      bundleRequest.conditionallyBeginAccessingResourcesWithCompletionHandler({ (resourcesAvailable: Bool) -> Void in
-        if resourcesAvailable {
-          let (dict, image) = bundleRequest.extractMapContentBundleWithTitle(data.assetTitle)
-          let overlay = HistoricMapOverlay(auxillaryInfo: dict, image: image)
-          NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-            self.mapView.addOverlay(overlay)
-          })
-        }
-      })
-    }
+//    for data in HistoricMapOverlayData.generateDefaultData() {
+//      let bundleRequest = NSBundleResourceRequest(tags: [data.assetTitle])
+//      bundleRequest.conditionallyBeginAccessingResourcesWithCompletionHandler({ (resourcesAvailable: Bool) -> Void in
+//        if resourcesAvailable {
+//          let (dict, image) = bundleRequest.extractMapContentBundleWithTitle(data.assetTitle)
+//          let overlay = HistoricMapOverlay(auxillaryInfo: dict, image: image)
+//          NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+//            self.mapView.addOverlay(overlay)
+//          })
+//        }
+//      })
+//    }
   }
   
   private func downloadAndDisplayMapOverlay() {
@@ -100,13 +103,16 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
       
       if !resourcesAvailable {
         bundleRequest.beginAccessingResourcesWithCompletionHandler { (error : NSError?) -> Void in
-          
           NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-            self.bundleRequests.insert(bundleRequest)
-            let (dict, image) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
-            let overlay = HistoricMapOverlay(auxillaryInfo: dict, image: image)
-            self.mapView.addOverlay(overlay)
-            self.mapView.setRegion(overlay.region, animated: true)
+            if error != nil {
+              // Handle error here
+            } else {
+              self.bundleRequests.insert(bundleRequest)
+              let (dict, image) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
+              let overlay = HistoricMapOverlay(auxillaryInfo: dict, image: image)
+              self.mapView.addOverlay(overlay)
+              self.mapView.setRegion(overlay.region, animated: true)
+            }
           })
         }
       } else {

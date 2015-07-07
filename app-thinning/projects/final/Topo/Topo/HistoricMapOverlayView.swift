@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class HistoryMapOverlayView: MKOverlayRenderer {
+class HistoricMapOverlayView: MKOverlayRenderer {
   private var overlayImage : UIImage!
   
   override init(overlay: MKOverlay) {
@@ -25,9 +25,7 @@ class HistoryMapOverlayView: MKOverlayRenderer {
     let rect = self.rectForMapRect(overlayRect)
     
     CGContextScaleCTM(context, 1.0, -1.0)
-    
     CGContextTranslateCTM(context, 0.0, -rect.size.height)
-//    CGContextFillRect(context, rect)
     CGContextDrawImage(context, rect, imageRef)
   }
   

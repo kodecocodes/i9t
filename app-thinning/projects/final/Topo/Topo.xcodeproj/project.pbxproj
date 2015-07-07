@@ -12,17 +12,31 @@
 		A63B63B71B4107CF002178B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63B63B51B4107CF002178B7 /* Main.storyboard */; };
 		A63B63B91B4107CF002178B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A63B63B81B4107CF002178B7 /* Assets.xcassets */; };
 		A63B63BC1B4107CF002178B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63B63BA1B4107CF002178B7 /* LaunchScreen.storyboard */; };
-		A63B63C41B41084D002178B7 /* HistoryMapOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63C31B41084D002178B7 /* HistoryMapOverlayView.swift */; };
+		A63B63C41B41084D002178B7 /* HistoricMapOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63C31B41084D002178B7 /* HistoricMapOverlayView.swift */; };
 		A63B63C61B41086D002178B7 /* HistoricMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63C51B41086D002178B7 /* HistoricMapOverlay.swift */; };
-		A65DC4311B4236480029ACDB /* ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65DC4301B4236480029ACDB /* ContentExtractor.swift */; };
-		A65DC43E1B4243030029ACDB /* auxilliary.plist in Resources */ = {isa = PBXBuildFile; fileRef = A65DC43B1B4243030029ACDB /* auxilliary.plist */; settings = {ASSET_TAGS = (SF_Map, ); }; };
+		A65DC4311B4236480029ACDB /* NSBundleResourceRequest+ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65DC4301B4236480029ACDB /* NSBundleResourceRequest+ContentExtractor.swift */; };
+		A65DC43E1B4243030029ACDB /* SF_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A65DC43B1B4243030029ACDB /* SF_Map.plist */; settings = {ASSET_TAGS = (SF_Map, ); }; };
 		A65DC4421B4244040029ACDB /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A65DC4411B4244040029ACDB /* map.png */; settings = {ASSET_TAGS = (SF_Map, ); }; };
 		A667DD011B42FED000B8016C /* example_map.png in Resources */ = {isa = PBXBuildFile; fileRef = A667DD001B42FED000B8016C /* example_map.png */; };
+		A6852F4D1B4BB02700F8412A /* SC_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F4B1B4BB02700F8412A /* SC_Map.plist */; settings = {ASSET_TAGS = (SC_Map, ); }; };
+		A6852F4E1B4BB02700F8412A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6852F4C1B4BB02700F8412A /* map.png */; settings = {ASSET_TAGS = (SC_Map, ); }; };
+		A6852F511B4BB12700F8412A /* SD_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F4F1B4BB12700F8412A /* SD_Map.plist */; settings = {ASSET_TAGS = (SD_Map, ); }; };
+		A6852F521B4BB12700F8412A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6852F501B4BB12700F8412A /* map.png */; settings = {ASSET_TAGS = (SD_Map, ); }; };
+		A6852F551B4BB13700F8412A /* LA_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F531B4BB13700F8412A /* LA_Map.plist */; settings = {ASSET_TAGS = (LA_Map, ); }; };
+		A6852F561B4BB13700F8412A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6852F541B4BB13700F8412A /* map.png */; settings = {ASSET_TAGS = (LA_Map, ); }; };
+		A6852F6E1B4BB18900F8412A /* Mav_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F6C1B4BB18900F8412A /* Mav_Map.plist */; settings = {ASSET_TAGS = (Mav_Map, ); }; };
+		A6852F6F1B4BB18900F8412A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6852F6D1B4BB18900F8412A /* map.png */; settings = {ASSET_TAGS = (Mav_Map, ); }; };
+		A6852F721B4BB1A700F8412A /* Yos_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F701B4BB1A700F8412A /* Yos_Map.plist */; settings = {ASSET_TAGS = (Yos_Map, ); }; };
+		A6852F731B4BB1A700F8412A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6852F711B4BB1A700F8412A /* map.png */; settings = {ASSET_TAGS = (Yos_Map, ); }; };
+		A6852F761B4BB1B100F8412A /* Cap_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F741B4BB1B100F8412A /* Cap_Map.plist */; settings = {ASSET_TAGS = (Cap_Map, ); }; };
+		A6852F771B4BB1B100F8412A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6852F751B4BB1B100F8412A /* map.png */; settings = {ASSET_TAGS = (Cap_Map, ); }; };
+		A6852F7A1B4BB1BE00F8412A /* Mont_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F781B4BB1BE00F8412A /* Mont_Map.plist */; settings = {ASSET_TAGS = (Mont_Map, ); }; };
+		A6852F7B1B4BB1BE00F8412A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6852F791B4BB1BE00F8412A /* map.png */; settings = {ASSET_TAGS = (Mont_Map, ); }; };
 		A69035281B43C0DF00439C92 /* MapSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69035271B43C0DF00439C92 /* MapSplitViewController.swift */; };
 		A6C3D1311B4509AD009602C3 /* MapContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */; };
-		A6C3D1351B450EF5009602C3 /* TopoMapOverlayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C3D1341B450EF5009602C3 /* TopoMapOverlayData.swift */; };
-		A6C3D1411B463DE5009602C3 /* auxilliary.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6C3D13F1B463DE5009602C3 /* auxilliary.plist */; };
-		A6C3D1421B463DE5009602C3 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C3D1401B463DE5009602C3 /* map.png */; };
+		A6C3D1351B450EF5009602C3 /* HistoricMapOverlayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C3D1341B450EF5009602C3 /* HistoricMapOverlayData.swift */; };
+		A6C3D1411B463DE5009602C3 /* SB_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6C3D13F1B463DE5009602C3 /* SB_Map.plist */; settings = {ASSET_TAGS = (SB_Map, ); }; };
+		A6C3D1421B463DE5009602C3 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6C3D1401B463DE5009602C3 /* map.png */; settings = {ASSET_TAGS = (SB_Map, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,16 +47,30 @@
 		A63B63B81B4107CF002178B7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A63B63BB1B4107CF002178B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A63B63BD1B4107CF002178B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A63B63C31B41084D002178B7 /* HistoryMapOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryMapOverlayView.swift; sourceTree = "<group>"; };
+		A63B63C31B41084D002178B7 /* HistoricMapOverlayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoricMapOverlayView.swift; sourceTree = "<group>"; };
 		A63B63C51B41086D002178B7 /* HistoricMapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoricMapOverlay.swift; sourceTree = "<group>"; };
-		A65DC4301B4236480029ACDB /* ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = ContentExtractor.swift; sourceTree = "<group>"; tabWidth = 2; };
-		A65DC43B1B4243030029ACDB /* auxilliary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = auxilliary.plist; sourceTree = "<group>"; };
+		A65DC4301B4236480029ACDB /* NSBundleResourceRequest+ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "NSBundleResourceRequest+ContentExtractor.swift"; sourceTree = "<group>"; tabWidth = 2; };
+		A65DC43B1B4243030029ACDB /* SF_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SF_Map.plist; sourceTree = "<group>"; };
 		A65DC4411B4244040029ACDB /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		A667DD001B42FED000B8016C /* example_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = example_map.png; sourceTree = "<group>"; };
+		A6852F4B1B4BB02700F8412A /* SC_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SC_Map.plist; sourceTree = "<group>"; };
+		A6852F4C1B4BB02700F8412A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		A6852F4F1B4BB12700F8412A /* SD_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SD_Map.plist; sourceTree = "<group>"; };
+		A6852F501B4BB12700F8412A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		A6852F531B4BB13700F8412A /* LA_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LA_Map.plist; sourceTree = "<group>"; };
+		A6852F541B4BB13700F8412A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		A6852F6C1B4BB18900F8412A /* Mav_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Mav_Map.plist; sourceTree = "<group>"; };
+		A6852F6D1B4BB18900F8412A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		A6852F701B4BB1A700F8412A /* Yos_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Yos_Map.plist; sourceTree = "<group>"; };
+		A6852F711B4BB1A700F8412A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		A6852F741B4BB1B100F8412A /* Cap_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Cap_Map.plist; sourceTree = "<group>"; };
+		A6852F751B4BB1B100F8412A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
+		A6852F781B4BB1BE00F8412A /* Mont_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Mont_Map.plist; sourceTree = "<group>"; };
+		A6852F791B4BB1BE00F8412A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		A69035271B43C0DF00439C92 /* MapSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSplitViewController.swift; sourceTree = "<group>"; };
 		A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContentTableViewController.swift; sourceTree = "<group>"; };
-		A6C3D1341B450EF5009602C3 /* TopoMapOverlayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopoMapOverlayData.swift; sourceTree = "<group>"; };
-		A6C3D13F1B463DE5009602C3 /* auxilliary.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = auxilliary.plist; sourceTree = "<group>"; };
+		A6C3D1341B450EF5009602C3 /* HistoricMapOverlayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoricMapOverlayData.swift; sourceTree = "<group>"; };
+		A6C3D13F1B463DE5009602C3 /* SB_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SB_Map.plist; sourceTree = "<group>"; };
 		A6C3D1401B463DE5009602C3 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,12 +110,12 @@
 				A69695331B4131B70018D403 /* Map Bundles */,
 				A63B63B11B4107CF002178B7 /* AppDelegate.swift */,
 				A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */,
-				A65DC4301B4236480029ACDB /* ContentExtractor.swift */,
+				A65DC4301B4236480029ACDB /* NSBundleResourceRequest+ContentExtractor.swift */,
 				A63B63B51B4107CF002178B7 /* Main.storyboard */,
-				A63B63C31B41084D002178B7 /* HistoryMapOverlayView.swift */,
+				A63B63C31B41084D002178B7 /* HistoricMapOverlayView.swift */,
 				A63B63C51B41086D002178B7 /* HistoricMapOverlay.swift */,
 				A69035271B43C0DF00439C92 /* MapSplitViewController.swift */,
-				A6C3D1341B450EF5009602C3 /* TopoMapOverlayData.swift */,
+				A6C3D1341B450EF5009602C3 /* HistoricMapOverlayData.swift */,
 				A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */,
 				A63B63B81B4107CF002178B7 /* Assets.xcassets */,
 				A63B63BA1B4107CF002178B7 /* LaunchScreen.storyboard */,
@@ -99,7 +127,7 @@
 		A65DC43A1B4243030029ACDB /* SF_Map */ = {
 			isa = PBXGroup;
 			children = (
-				A65DC43B1B4243030029ACDB /* auxilliary.plist */,
+				A65DC43B1B4243030029ACDB /* SF_Map.plist */,
 				A65DC4411B4244040029ACDB /* map.png */,
 			);
 			path = SF_Map;
@@ -116,6 +144,8 @@
 		A69625A81B4295A30078499C /* SC_Map */ = {
 			isa = PBXGroup;
 			children = (
+				A6852F4B1B4BB02700F8412A /* SC_Map.plist */,
+				A6852F4C1B4BB02700F8412A /* map.png */,
 			);
 			path = SC_Map;
 			sourceTree = "<group>";
@@ -139,6 +169,8 @@
 		A6C3D1381B463DE5009602C3 /* Mont_Map */ = {
 			isa = PBXGroup;
 			children = (
+				A6852F781B4BB1BE00F8412A /* Mont_Map.plist */,
+				A6852F791B4BB1BE00F8412A /* map.png */,
 			);
 			path = Mont_Map;
 			sourceTree = "<group>";
@@ -146,6 +178,8 @@
 		A6C3D1391B463DE5009602C3 /* Cap_Map */ = {
 			isa = PBXGroup;
 			children = (
+				A6852F741B4BB1B100F8412A /* Cap_Map.plist */,
+				A6852F751B4BB1B100F8412A /* map.png */,
 			);
 			path = Cap_Map;
 			sourceTree = "<group>";
@@ -153,6 +187,8 @@
 		A6C3D13A1B463DE5009602C3 /* Yos_Map */ = {
 			isa = PBXGroup;
 			children = (
+				A6852F701B4BB1A700F8412A /* Yos_Map.plist */,
+				A6852F711B4BB1A700F8412A /* map.png */,
 			);
 			path = Yos_Map;
 			sourceTree = "<group>";
@@ -160,6 +196,8 @@
 		A6C3D13B1B463DE5009602C3 /* Mav_Map */ = {
 			isa = PBXGroup;
 			children = (
+				A6852F6C1B4BB18900F8412A /* Mav_Map.plist */,
+				A6852F6D1B4BB18900F8412A /* map.png */,
 			);
 			path = Mav_Map;
 			sourceTree = "<group>";
@@ -167,6 +205,8 @@
 		A6C3D13C1B463DE5009602C3 /* LA_Map */ = {
 			isa = PBXGroup;
 			children = (
+				A6852F531B4BB13700F8412A /* LA_Map.plist */,
+				A6852F541B4BB13700F8412A /* map.png */,
 			);
 			path = LA_Map;
 			sourceTree = "<group>";
@@ -174,6 +214,8 @@
 		A6C3D13D1B463DE5009602C3 /* SD_Map */ = {
 			isa = PBXGroup;
 			children = (
+				A6852F4F1B4BB12700F8412A /* SD_Map.plist */,
+				A6852F501B4BB12700F8412A /* map.png */,
 			);
 			path = SD_Map;
 			sourceTree = "<group>";
@@ -181,7 +223,7 @@
 		A6C3D13E1B463DE5009602C3 /* SB_Map */ = {
 			isa = PBXGroup;
 			children = (
-				A6C3D13F1B463DE5009602C3 /* auxilliary.plist */,
+				A6C3D13F1B463DE5009602C3 /* SB_Map.plist */,
 				A6C3D1401B463DE5009602C3 /* map.png */,
 			);
 			path = SB_Map;
@@ -214,8 +256,16 @@
 			isa = PBXProject;
 			attributes = {
 				KnownAssetTags = (
+					Cap_Map,
+					LA_Map,
+					Mav_Map,
+					Mont_Map,
+					SB_Map,
+					SC_Map,
+					SD_Map,
 					SF_Map,
 					Test,
+					Yos_Map,
 				);
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Razeware;
@@ -248,14 +298,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6852F731B4BB1A700F8412A /* map.png in Resources */,
+				A6852F521B4BB12700F8412A /* map.png in Resources */,
+				A6852F761B4BB1B100F8412A /* Cap_Map.plist in Resources */,
+				A6852F721B4BB1A700F8412A /* Yos_Map.plist in Resources */,
+				A6852F771B4BB1B100F8412A /* map.png in Resources */,
+				A6852F7A1B4BB1BE00F8412A /* Mont_Map.plist in Resources */,
 				A6C3D1421B463DE5009602C3 /* map.png in Resources */,
 				A65DC4421B4244040029ACDB /* map.png in Resources */,
 				A63B63BC1B4107CF002178B7 /* LaunchScreen.storyboard in Resources */,
+				A6852F561B4BB13700F8412A /* map.png in Resources */,
 				A63B63B91B4107CF002178B7 /* Assets.xcassets in Resources */,
+				A6852F551B4BB13700F8412A /* LA_Map.plist in Resources */,
+				A6852F4E1B4BB02700F8412A /* map.png in Resources */,
+				A6852F6F1B4BB18900F8412A /* map.png in Resources */,
 				A63B63B71B4107CF002178B7 /* Main.storyboard in Resources */,
-				A65DC43E1B4243030029ACDB /* auxilliary.plist in Resources */,
-				A6C3D1411B463DE5009602C3 /* auxilliary.plist in Resources */,
+				A6852F4D1B4BB02700F8412A /* SC_Map.plist in Resources */,
+				A6852F7B1B4BB1BE00F8412A /* map.png in Resources */,
+				A65DC43E1B4243030029ACDB /* SF_Map.plist in Resources */,
+				A6C3D1411B463DE5009602C3 /* SB_Map.plist in Resources */,
+				A6852F511B4BB12700F8412A /* SD_Map.plist in Resources */,
 				A667DD011B42FED000B8016C /* example_map.png in Resources */,
+				A6852F6E1B4BB18900F8412A /* Mav_Map.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,13 +331,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A63B63B41B4107CF002178B7 /* MapChromeViewController.swift in Sources */,
-				A65DC4311B4236480029ACDB /* ContentExtractor.swift in Sources */,
-				A63B63C41B41084D002178B7 /* HistoryMapOverlayView.swift in Sources */,
+				A65DC4311B4236480029ACDB /* NSBundleResourceRequest+ContentExtractor.swift in Sources */,
+				A63B63C41B41084D002178B7 /* HistoricMapOverlayView.swift in Sources */,
 				A63B63C61B41086D002178B7 /* HistoricMapOverlay.swift in Sources */,
 				A63B63B21B4107CF002178B7 /* AppDelegate.swift in Sources */,
 				A6C3D1311B4509AD009602C3 /* MapContentTableViewController.swift in Sources */,
 				A69035281B43C0DF00439C92 /* MapSplitViewController.swift in Sources */,
-				A6C3D1351B450EF5009602C3 /* TopoMapOverlayData.swift in Sources */,
+				A6C3D1351B450EF5009602C3 /* HistoricMapOverlayData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

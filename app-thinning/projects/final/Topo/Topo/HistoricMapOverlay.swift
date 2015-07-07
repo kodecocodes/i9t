@@ -12,9 +12,9 @@ import MapKit
 class HistoricMapOverlay: NSObject, MKOverlay {
   
   
-  var boundingMapRect: MKMapRect {get { return self.getMapRect() }}
-  var coordinate: CLLocationCoordinate2D {get { return  self.getCoordinate() }}
-  var region: MKCoordinateRegion { get {return self.getRegion()}}
+  var boundingMapRect: MKMapRect {          get{ return self.getMapRect() }}
+  var coordinate: CLLocationCoordinate2D {  get{ return self.getCoordinate() }}
+  var region: MKCoordinateRegion {          get{ return self.getRegion() }}
   
   let image : UIImage
   let auxillaryInfo : [String : AnyObject]
@@ -55,6 +55,9 @@ class HistoricMapOverlay: NSObject, MKOverlay {
     let lon = coordinateDict["lon"]
     let sLat = coordinateDict["spanLat"]
     let sLon = coordinateDict["spanLon"]
-    return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat!, longitude: lon!), span: MKCoordinateSpan(latitudeDelta: sLat!, longitudeDelta: sLon!))
+    let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat!, longitude: lon!), span: MKCoordinateSpan(latitudeDelta: sLat!, longitudeDelta: sLon!))
+    print("\(region)")
+//    return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat!, longitude: lon!), span: MKCoordinateSpan(latitudeDelta: sLat!, longitudeDelta: sLon!))
+    return region
   }
 }

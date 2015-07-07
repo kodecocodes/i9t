@@ -5,13 +5,13 @@
 	<key>MapRegion</key>
 	<dict>
 		<key>lat</key>
-		<real>39.185167</real>
+		<real>37.4915</real>
 		<key>lon</key>
-		<real>-120</real>
+		<real>-122.5083</real>
 		<key>spanLat</key>
-		<integer>10</integer>
+		<real>0.1</real>
 		<key>spanLon</key>
-		<integer>10</integer>
+		<real>0.1</real>
 	</dict>
 	<key>Center</key>
 	<dict>

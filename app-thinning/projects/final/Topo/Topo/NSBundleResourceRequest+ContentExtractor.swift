@@ -12,7 +12,7 @@ import MapKit
 extension NSBundleResourceRequest {
   func extractMapContentBundleWithTitle(title: String) ->([String : AnyObject], UIImage) {
     
-    let auxilliaryURL = self.bundle.URLForResource("auxilliary", withExtension: "plist")!
+    let auxilliaryURL = self.bundle.URLForResource(title, withExtension: "plist")!
     let auxilliaryDictionary = NSDictionary(contentsOfURL: auxilliaryURL)!
     
     let imageURL = self.bundle.URLForResource("map", withExtension: "png")!

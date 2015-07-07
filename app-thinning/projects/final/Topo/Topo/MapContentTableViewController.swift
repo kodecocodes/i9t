@@ -10,7 +10,7 @@ import UIKit
 
 class MapContentTableViewController: UITableViewController {
   
-  let dataSource: [TopoMapOverlayData] = TopoMapOverlayData.generateDefaultData()
+  let dataSource: [HistoricMapOverlayData] = HistoricMapOverlayData.generateDefaultData()
   
   override func viewDidLoad() {
     super.viewDidLoad()
