@@ -9,7 +9,11 @@
 import UIKit
 import Contacts
 
-struct Friend{
+func ==(lhs: Friend, rhs: Friend) -> Bool{
+	return lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.workEmail == rhs.workEmail && lhs.profilePicture == rhs.profilePicture
+}
+
+struct Friend: Equatable{
   let firstName: String
   let lastName: String
   let workEmail: String
