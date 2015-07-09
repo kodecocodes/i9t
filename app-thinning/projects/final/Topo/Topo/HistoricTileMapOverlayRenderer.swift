@@ -9,11 +9,11 @@
 import UIKit
 import MapKit
 
-class HistoricMapOverlayView: MKTileOverlayRenderer {
+class HistoricTileMapOverlayRenderer: MKTileOverlayRenderer {
   private var overlayImage : UIImage!
   
   override init(tileOverlay overlay: MKTileOverlay) {
-    let image = (overlay as! HistoricMapOverlay).image
+    let image = (overlay as! HistoricTileMapOverlay).image
     self.overlayImage = image
     super.init(overlay: overlay)
   }

@@ -24,6 +24,9 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.mapView.showsCompass = true
+    self.mapView.showsScale = true
+    self.mapView.showsTraffic = true 
     self.loadMapBundlesIfPresent()
     self.downloadAndDisplayMapOverlay()
 
@@ -70,8 +73,11 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-    return HistoricMapOverlayView(overlay: overlay)
+    
+    return HistoricTileMapOverlayRenderer(tileOverlay: overlay as! MKTileOverlay)
   }
+  
+  
   
 //=============================================================================/
 // Mark: Private Methods
@@ -113,18 +119,20 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
               // Handle error here
             } else {
               self.bundleRequests.insert(bundleRequest)
-              let (dict, image) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
-              let overlay = HistoricMapOverlay(auxillaryInfo: dict, image: image)
+              let (_, _, path) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
+              let overlay = HistoricTileMapOverlay(titleDirectory: path)
               self.mapView.addOverlay(overlay)
-              self.mapView.setRegion(overlay.region, animated: true)
+//              self.mapView.setRegion(overlay.boundingMapRect., animated: true)
+              
+//              self.mapView.setRegion(overlay.region, animated: true)
             }
           })
         }
       } else {
         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
           
-          let (dict, image) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
-          let overlay = HistoricMapOverlay(auxillaryInfo: dict, image: image)
+          let (_, _, path) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
+          let overlay = HistoricTileMapOverlay(titleDirectory: path)
           self.mapView.setRegion(overlay.region, animated: true)
         })
       }
