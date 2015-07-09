@@ -10,6 +10,7 @@
 		A636B0E51B4DFD3E0043657A /* SC_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A636B0E41B4DFD3E0043657A /* SC_Map.bundle */; settings = {ASSET_TAGS = (SC_Map, ); }; };
 		A636B3A11B4E4A4E0043657A /* ImageTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A636B3A01B4E4A4E0043657A /* ImageTile.swift */; };
 		A636B3A31B4EC2D60043657A /* SF_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A636B3A21B4EC2D60043657A /* SF_Map.bundle */; };
+		A636B3A51B4EC7DA0043657A /* LA_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A636B3A41B4EC7DA0043657A /* LA_Map.bundle */; };
 		A63B63B21B4107CF002178B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63B11B4107CF002178B7 /* AppDelegate.swift */; };
 		A63B63B41B4107CF002178B7 /* MapChromeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */; };
 		A63B63B71B4107CF002178B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63B63B51B4107CF002178B7 /* Main.storyboard */; };
@@ -21,8 +22,6 @@
 		A667DD011B42FED000B8016C /* example_map.png in Resources */ = {isa = PBXBuildFile; fileRef = A667DD001B42FED000B8016C /* example_map.png */; };
 		A6852F511B4BB12700F8412A /* SD_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F4F1B4BB12700F8412A /* SD_Map.plist */; settings = {ASSET_TAGS = (SD_Map, ); }; };
 		A6852F521B4BB12700F8412A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6852F501B4BB12700F8412A /* map.png */; settings = {ASSET_TAGS = (SD_Map, ); }; };
-		A6852F551B4BB13700F8412A /* LA_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F531B4BB13700F8412A /* LA_Map.plist */; settings = {ASSET_TAGS = (LA_Map, ); }; };
-		A6852F561B4BB13700F8412A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6852F541B4BB13700F8412A /* map.png */; settings = {ASSET_TAGS = (LA_Map, ); }; };
 		A6852F6E1B4BB18900F8412A /* Mav_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F6C1B4BB18900F8412A /* Mav_Map.plist */; settings = {ASSET_TAGS = (Mav_Map, ); }; };
 		A6852F6F1B4BB18900F8412A /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = A6852F6D1B4BB18900F8412A /* map.png */; settings = {ASSET_TAGS = (Mav_Map, ); }; };
 		A6852F721B4BB1A700F8412A /* Yos_Map.plist in Resources */ = {isa = PBXBuildFile; fileRef = A6852F701B4BB1A700F8412A /* Yos_Map.plist */; settings = {ASSET_TAGS = (Yos_Map, ); }; };
@@ -42,6 +41,7 @@
 		A636B0E41B4DFD3E0043657A /* SC_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = SC_Map.bundle; path = SB_Map/SC_Map.bundle; sourceTree = "<group>"; };
 		A636B3A01B4E4A4E0043657A /* ImageTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTile.swift; sourceTree = "<group>"; };
 		A636B3A21B4EC2D60043657A /* SF_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SF_Map.bundle; sourceTree = "<group>"; };
+		A636B3A41B4EC7DA0043657A /* LA_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LA_Map.bundle; sourceTree = "<group>"; };
 		A63B63AE1B4107CF002178B7 /* Topo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Topo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A63B63B11B4107CF002178B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = MapChromeViewController.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
@@ -55,8 +55,6 @@
 		A667DD001B42FED000B8016C /* example_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = example_map.png; sourceTree = "<group>"; };
 		A6852F4F1B4BB12700F8412A /* SD_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SD_Map.plist; sourceTree = "<group>"; };
 		A6852F501B4BB12700F8412A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
-		A6852F531B4BB13700F8412A /* LA_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LA_Map.plist; sourceTree = "<group>"; };
-		A6852F541B4BB13700F8412A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		A6852F6C1B4BB18900F8412A /* Mav_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Mav_Map.plist; sourceTree = "<group>"; };
 		A6852F6D1B4BB18900F8412A /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = map.png; sourceTree = "<group>"; };
 		A6852F701B4BB1A700F8412A /* Yos_Map.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Yos_Map.plist; sourceTree = "<group>"; };
@@ -134,13 +132,13 @@
 		A69695331B4131B70018D403 /* Map Bundles */ = {
 			isa = PBXGroup;
 			children = (
+				A636B3A41B4EC7DA0043657A /* LA_Map.bundle */,
 				A636B3A21B4EC2D60043657A /* SF_Map.bundle */,
 				A636B0E41B4DFD3E0043657A /* SC_Map.bundle */,
 				A6C3D1381B463DE5009602C3 /* Mont_Map */,
 				A6C3D1391B463DE5009602C3 /* Cap_Map */,
 				A6C3D13A1B463DE5009602C3 /* Yos_Map */,
 				A6C3D13B1B463DE5009602C3 /* Mav_Map */,
-				A6C3D13C1B463DE5009602C3 /* LA_Map */,
 				A6C3D13D1B463DE5009602C3 /* SD_Map */,
 				A6C3D13E1B463DE5009602C3 /* SB_Map */,
 			);
@@ -181,15 +179,6 @@
 				A6852F6D1B4BB18900F8412A /* map.png */,
 			);
 			path = Mav_Map;
-			sourceTree = "<group>";
-		};
-		A6C3D13C1B463DE5009602C3 /* LA_Map */ = {
-			isa = PBXGroup;
-			children = (
-				A6852F531B4BB13700F8412A /* LA_Map.plist */,
-				A6852F541B4BB13700F8412A /* map.png */,
-			);
-			path = LA_Map;
 			sourceTree = "<group>";
 		};
 		A6C3D13D1B463DE5009602C3 /* SD_Map */ = {
@@ -288,10 +277,9 @@
 				A6852F7A1B4BB1BE00F8412A /* Mont_Map.plist in Resources */,
 				A6C3D1421B463DE5009602C3 /* map.png in Resources */,
 				A63B63BC1B4107CF002178B7 /* LaunchScreen.storyboard in Resources */,
-				A6852F561B4BB13700F8412A /* map.png in Resources */,
 				A63B63B91B4107CF002178B7 /* Assets.xcassets in Resources */,
-				A6852F551B4BB13700F8412A /* LA_Map.plist in Resources */,
 				A6852F6F1B4BB18900F8412A /* map.png in Resources */,
+				A636B3A51B4EC7DA0043657A /* LA_Map.bundle in Resources */,
 				A63B63B71B4107CF002178B7 /* Main.storyboard in Resources */,
 				A6852F7B1B4BB1BE00F8412A /* map.png in Resources */,
 				A6C3D1411B463DE5009602C3 /* SB_Map.plist in Resources */,
