@@ -18,10 +18,6 @@ extension NSBundleResourceRequest {
     let auxilliaryURL = loadedBundle.URLForResource(title, withExtension: "plist")!
     let auxilliaryDictionary = NSDictionary(contentsOfURL: auxilliaryURL)!
     
-//    let imageURL = loadedBundle.URLForResource("map", withExtension: "png")!
-//    let data = NSData(contentsOfURL: imageURL)!
-//    let image = UIImage(data: data)!
-    
     return (auxilliaryDictionary as! [String : AnyObject], loadedBundle.bundlePath)
   }
 }
