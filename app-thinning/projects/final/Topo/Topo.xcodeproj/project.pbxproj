@@ -12,6 +12,7 @@
 		A636B3A31B4EC2D60043657A /* SF_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A636B3A21B4EC2D60043657A /* SF_Map.bundle */; };
 		A636B3A51B4EC7DA0043657A /* LA_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A636B3A41B4EC7DA0043657A /* LA_Map.bundle */; };
 		A636B3A71B4ECD150043657A /* SD_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A636B3A61B4ECD150043657A /* SD_Map.bundle */; };
+		A636B3A91B4ED04A0043657A /* SNVL_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A636B3A81B4ED04A0043657A /* SNVL_Map.bundle */; };
 		A63B63B21B4107CF002178B7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63B11B4107CF002178B7 /* AppDelegate.swift */; };
 		A63B63B41B4107CF002178B7 /* MapChromeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */; };
 		A63B63B71B4107CF002178B7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A63B63B51B4107CF002178B7 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 		A636B3A21B4EC2D60043657A /* SF_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SF_Map.bundle; sourceTree = "<group>"; };
 		A636B3A41B4EC7DA0043657A /* LA_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LA_Map.bundle; sourceTree = "<group>"; };
 		A636B3A61B4ECD150043657A /* SD_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SD_Map.bundle; sourceTree = "<group>"; };
+		A636B3A81B4ED04A0043657A /* SNVL_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SNVL_Map.bundle; sourceTree = "<group>"; };
 		A63B63AE1B4107CF002178B7 /* Topo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Topo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A63B63B11B4107CF002178B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = MapChromeViewController.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
@@ -130,6 +132,7 @@
 		A69695331B4131B70018D403 /* Map Bundles */ = {
 			isa = PBXGroup;
 			children = (
+				A636B3A81B4ED04A0043657A /* SNVL_Map.bundle */,
 				A636B3A61B4ECD150043657A /* SD_Map.bundle */,
 				A636B3A41B4EC7DA0043657A /* LA_Map.bundle */,
 				A636B3A21B4EC2D60043657A /* SF_Map.bundle */,
@@ -268,6 +271,7 @@
 				A63B63BC1B4107CF002178B7 /* LaunchScreen.storyboard in Resources */,
 				A63B63B91B4107CF002178B7 /* Assets.xcassets in Resources */,
 				A6852F6F1B4BB18900F8412A /* map.png in Resources */,
+				A636B3A91B4ED04A0043657A /* SNVL_Map.bundle in Resources */,
 				A636B3A51B4EC7DA0043657A /* LA_Map.bundle in Resources */,
 				A63B63B71B4107CF002178B7 /* Main.storyboard in Resources */,
 				A6852F7B1B4BB1BE00F8412A /* map.png in Resources */,
