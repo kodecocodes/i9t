@@ -9,11 +9,13 @@
 import UIKit
 import MapKit
 
-class HistoricMapOverlay: NSObject, MKOverlay {
+class HistoricMapOverlay: MKTileOverlay {
   
   
-  var boundingMapRect: MKMapRect {          get{ return self.getMapRect() }}
-  var coordinate: CLLocationCoordinate2D {  get{ return self.getCoordinate() }}
+  override var boundingMapRect: MKMapRect {          get{ return self.getMapRect() }}
+  override var coordinate: CLLocationCoordinate2D {  get{ return self.getCoordinate() }}
+  override var title: String? { get {return "title"}}
+  override var subtitle: String? { get {return "test subtitle"}}
   var region: MKCoordinateRegion {          get{ return self.getRegion() }}
   
   let image : UIImage
@@ -22,7 +24,7 @@ class HistoricMapOverlay: NSObject, MKOverlay {
   init(auxillaryInfo : [String : AnyObject], image : UIImage) {
     self.auxillaryInfo = auxillaryInfo
     self.image = image
-    super.init()
+    super.init(URLTemplate: "test")
   }
   
   private func getCoordinate()->CLLocationCoordinate2D {
@@ -55,9 +57,6 @@ class HistoricMapOverlay: NSObject, MKOverlay {
     let lon = coordinateDict["lon"]
     let sLat = coordinateDict["spanLat"]
     let sLon = coordinateDict["spanLon"]
-    let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat!, longitude: lon!), span: MKCoordinateSpan(latitudeDelta: sLat!, longitudeDelta: sLon!))
-    print("\(region)")
-//    return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat!, longitude: lon!), span: MKCoordinateSpan(latitudeDelta: sLat!, longitudeDelta: sLon!))
-    return region
+    return  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat!, longitude: lon!), span: MKCoordinateSpan(latitudeDelta: sLat!, longitudeDelta: sLon!))
   }
 }

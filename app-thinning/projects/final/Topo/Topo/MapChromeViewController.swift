@@ -102,8 +102,13 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     bundleRequest.conditionallyBeginAccessingResourcesWithCompletionHandler { (resourcesAvailable) -> Void in
       
       if !resourcesAvailable {
+        self.loadingProgressView.observedProgress = bundleRequest.progress
         bundleRequest.beginAccessingResourcesWithCompletionHandler { (error : NSError?) -> Void in
+          
+          
           NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            self.loadingProgressView.hidden = true 
+            
             if error != nil {
               // Handle error here
             } else {

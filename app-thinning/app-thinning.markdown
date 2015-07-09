@@ -1,5 +1,6 @@
-## app-thinning
+# Chapter _: App Thinning
 
+Some text here because Deckle doesn't seem to work this correctly. blah blha blha blahblahblah
 
 
 ## Introduction
@@ -7,9 +8,8 @@
 Recently, Apple has begun pushing developers to adopt a universal approach for building for both iPhone and iPad applications. Having a universal app that works across all iOS devices creates a more seamless experience for the user. However, as apps become more complex combined with this unification of ___ has a cost. Apps are now consuming a larger amount of disk space resulting in longer download times, more disk usage, and potentially more memory consumption.  
 
 Apple has introduced several solutions to circumvent this problem: 
-<ol><li>**App Slicing** __hello </li>
-<li>**On Demand Resources** __hello </li>
-</ol>
+- **App Slicing** __hello
+- **On Demand Resources** __hello 
 
 Packaged together, these techniques are known as **App Thinning**.
 
@@ -28,7 +28,6 @@ Stop the application and change the scheme to be an iPad (any iPad type will do)
 By default, Xcode 7 will only include the active architecture and resources on DEBUG builds. This speeds up the build process as there are less resources to copy over to the device or simulator. When switching over to a RELEASE build, all architectures will be included when you submit your IPA to the App Store. However, in iOS 9, Apple will now rip apart your App and separate the different architectures and resources unique to each device.
 
 This is all done for you be default in Xcode 7 on iOS 9 provided that you follow some simple guidelines.
-
 
 
 Asset Catalogs
