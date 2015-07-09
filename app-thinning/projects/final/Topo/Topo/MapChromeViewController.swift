@@ -118,7 +118,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
               // Handle error here
             } else {
               self.bundleRequests.insert(bundleRequest)
-              let (_, _, path) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
+              let (_, path) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
               let overlay = HistoricTileMapOverlay(titleDirectory: path)
               self.mapView.addOverlay(overlay)
 //              let rect = self.mapView.mapRectThatFits(overlay.boundingMapRect, edgePadding: UIEdgeInsets(top: 10, left: 1000, bottom: 10, right: 1000=))
@@ -132,7 +132,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
       } else {
         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
           
-          let (_, _, path) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
+          let (_, path) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
           let overlay = HistoricTileMapOverlay(titleDirectory: path)
           self.mapView.addOverlay(overlay) // Needed ?
           self.mapView.setVisibleMapRect(overlay.boundingMapRect, animated: true)
