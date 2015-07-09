@@ -27,7 +27,6 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     self.mapView.showsCompass = true
     self.mapView.showsScale = true
     self.mapView.showsTraffic = true 
-    self.loadMapBundlesIfPresent()
     self.downloadAndDisplayMapOverlay()
 
     
@@ -83,20 +82,20 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 // Mark: Private Methods
 //=============================================================================/
   
-  private func loadMapBundlesIfPresent() {
-//    for data in HistoricMapOverlayData.generateDefaultData() {
-//      let bundleRequest = NSBundleResourceRequest(tags: [data.assetTitle])
-//      bundleRequest.conditionallyBeginAccessingResourcesWithCompletionHandler({ (resourcesAvailable: Bool) -> Void in
-//        if resourcesAvailable {
-//          let (dict, image) = bundleRequest.extractMapContentBundleWithTitle(data.assetTitle)
-//          let overlay = HistoricMapOverlay(auxillaryInfo: dict, image: image)
-//          NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-//            self.mapView.addOverlay(overlay)
-//          })
-//        }
-//      })
-//    }
-  }
+//  private func loadMapBundlesIfPresent() {
+////    for data in HistoricMapOverlayData.generateDefaultData() {
+////      let bundleRequest = NSBundleResourceRequest(tags: [data.assetTitle])
+////      bundleRequest.conditionallyBeginAccessingResourcesWithCompletionHandler({ (resourcesAvailable: Bool) -> Void in
+////        if resourcesAvailable {
+////          let (dict, image) = bundleRequest.extractMapContentBundleWithTitle(data.assetTitle)
+////          let overlay = HistoricMapOverlay(auxillaryInfo: dict, image: image)
+////          NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+////            self.mapView.addOverlay(overlay)
+////          })
+////        }
+////      })
+////    }
+//  }
   
   private func downloadAndDisplayMapOverlay() {
     guard let mapData = self.mapOverlayData else {
@@ -122,7 +121,9 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
               let (_, _, path) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
               let overlay = HistoricTileMapOverlay(titleDirectory: path)
               self.mapView.addOverlay(overlay)
-//              self.mapView.setRegion(overlay.boundingMapRect., animated: true)
+//              let rect = self.mapView.mapRectThatFits(overlay.boundingMapRect, edgePadding: UIEdgeInsets(top: 10, left: 1000, bottom: 10, right: 1000=))
+//              self.mapView.setVisibleMapRect(rect, animated: true)
+              self.mapView.setVisibleMapRect(overlay.boundingMapRect, animated: true)
               
 //              self.mapView.setRegion(overlay.region, animated: true)
             }
@@ -133,7 +134,8 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
           
           let (_, _, path) = bundleRequest.extractMapContentBundleWithTitle(mapData.assetTitle)
           let overlay = HistoricTileMapOverlay(titleDirectory: path)
-          self.mapView.setRegion(overlay.region, animated: true)
+          self.mapView.addOverlay(overlay) // Needed ?
+          self.mapView.setVisibleMapRect(overlay.boundingMapRect, animated: true)
         })
       }
     }

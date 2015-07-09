@@ -15,17 +15,16 @@ let kTileSize = 256.0
 class HistoricTileMapOverlay: MKTileOverlay {
   
   
-  override var boundingMapRect: MKMapRect { get { return self.p__boundingRect }}
+  override var boundingMapRect: MKMapRect { get { return self.private_boundingRect }}
   override var coordinate: CLLocationCoordinate2D { get { return self.getCoordinate() }}
   override var title: String? { get {return "title"}}
   override var subtitle: String? { get {return "test subtitle"}}
-  override var URLTemplate: String? { get { return ""} }
   
-  
-  var region: MKCoordinateRegion {          get{ return self.getRegion() }}
+//  var region: MKCoordinateRegion {  get{ return self.getRegion() }}
   
   private var tileSet = Set<String>()
-  private var p__boundingRect: MKMapRect!
+  private var private_boundingRect: MKMapRect!
+//  private var private_URLTemplate: String?
   private var baseDirectoryPath: String!
   
   var image : UIImage
@@ -40,14 +39,6 @@ class HistoricTileMapOverlay: MKTileOverlay {
     self.geometryFlipped = true
   }
   
-  
-
-  
-  private func getCoordinate()->CLLocationCoordinate2D {
-    let centerDict = self.auxillaryInfo["Center"] as! [String : Double]
-    return CLLocationCoordinate2D(latitude: centerDict["lattitude"]!, longitude: centerDict["longitude"]!)
-  }
-  
   override func URLForTilePath(path: MKTileOverlayPath) -> NSURL {
     let url =  super.URLForTilePath(path)
     return url
@@ -57,32 +48,8 @@ class HistoricTileMapOverlay: MKTileOverlay {
     super.loadTileAtPath(path, result: result)
   }
   
-  private func getMapRect()-> MKMapRect {
-    
-    let topLeftDict = self.auxillaryInfo["TopLeft"] as! [String : Double]
-    let topLeftCoordinate = CLLocationCoordinate2D(latitude: topLeftDict["lattitude"]!, longitude: topLeftDict["longitude"]!)
-    
-    let topRightDict = self.auxillaryInfo["TopRight"] as! [String : Double]
-    let topRightCoordinate = CLLocationCoordinate2D(latitude: topRightDict["lattitude"]!, longitude: topRightDict["longitude"]!)
-    
-    
-    let bottomLeftDict = self.auxillaryInfo["BottomLeft"] as! [String : Double]
-    let bottomLeftCoordinate = CLLocationCoordinate2D(latitude: bottomLeftDict["lattitude"]!, longitude: bottomLeftDict["longitude"]!)
-    
-    let topLeftPoint = MKMapPointForCoordinate(topLeftCoordinate)
-    let topRightPoint = MKMapPointForCoordinate(topRightCoordinate)
-    let bottomLeftPoint = MKMapPointForCoordinate(bottomLeftCoordinate)
-    
-    return MKMapRectMake(topLeftPoint.x, topLeftPoint.y, fabs(topLeftPoint.x - topRightPoint.x), fabs(topLeftPoint.y - bottomLeftPoint.y))
-  }
-  
-  private func getRegion()->MKCoordinateRegion {
-    let coordinateDict = self.auxillaryInfo["MapRegion"] as! [String: Double]
-    let lat = coordinateDict["lat"]
-    let lon = coordinateDict["lon"]
-    let sLat = coordinateDict["spanLat"]
-    let sLon = coordinateDict["spanLon"]
-    return  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat!, longitude: lon!), span: MKCoordinateSpan(latitudeDelta: sLat!, longitudeDelta: sLon!))
+  private func getCoordinate()->CLLocationCoordinate2D {
+    return MKCoordinateForMapPoint(MKMapPoint(x: MKMapRectGetMidX(self.boundingMapRect), y: MKMapRectGetMidY(self.boundingMapRect)))
   }
   
   private func parseShit(tileDirectory : String) {
@@ -135,7 +102,6 @@ class HistoricTileMapOverlay: MKTileOverlay {
       }
     }
     
-    
     let tilesAtZ = Int(pow(2.0, Double(minZ)))
     let sizeAtZ = Double(tilesAtZ) * kTileSize
     let zoomScaleAtMinZ = sizeAtZ / MKMapSizeWorld.width
@@ -148,48 +114,42 @@ class HistoricTileMapOverlay: MKTileOverlay {
     let y0 = (Double(flippedMaxY) * kTileSize) / zoomScaleAtMinZ
     let y1 = ((Double(flippedMinY) + 1) * kTileSize) / zoomScaleAtMinZ
     
-    self.p__boundingRect = MKMapRect(origin: MKMapPoint(x: x0, y: y0), size: MKMapSize(width: x1-x0, height: y1-y0))
+    self.private_boundingRect = MKMapRect(origin: MKMapPoint(x: x0, y: y0), size: MKMapSize(width: x1-x0, height: y1-y0))
     self.tileSet = pathSet
     
   }
   
-  func zoomScaleToZoomLevel(scale: MKZoomScale)->Int {
+  private func zoomScaleToZoomLevel(scale: MKZoomScale)->Int {
     let numTilesAt1_0 = MKMapSizeWorld.width / kTileSize
     let zoomLevelAt1_0 = log2(numTilesAt1_0)
     let zoomLevel = max(0, zoomLevelAt1_0 + Double(floor(log2(scale) + 0.5)))
     return Int(zoomLevel)
   }
   
-  
-  
-  func tilesInMapRect(rect: MKMapRect, scale: MKZoomScale)->[ImageTile]? {
+  func tilesInMapRect(rect: MKMapRect, scale: MKZoomScale)->[ImageTile] {
     
+    var tiles = [ImageTile]()
     let z = self.zoomScaleToZoomLevel(scale)
-    let tilesAtZ = pow(2.0, Double(z))
+    let tilesAtZ = Int(pow(2.0, Double(z)))
     
-    let minX = floor((MKMapRectGetMinX(rect) * Double(scale)) / kTileSize)
-    let maxX = floor((MKMapRectGetMaxX(rect) * Double(scale)) / kTileSize)
-    let minY = floor((MKMapRectGetMinY(rect) * Double(scale)) / kTileSize)
-    let maxY = floor((MKMapRectGetMaxY(rect) * Double(scale)) / kTileSize)
+    let minX = Int(floor((MKMapRectGetMinX(rect) * Double(scale)) / kTileSize))
+    let maxX = Int(floor((MKMapRectGetMaxX(rect) * Double(scale)) / kTileSize))
+    let minY = Int(floor((MKMapRectGetMinY(rect) * Double(scale)) / kTileSize))
+    let maxY = Int(floor((MKMapRectGetMaxY(rect) * Double(scale)) / kTileSize))
     
-    var tiles : [ImageTile]? = nil
     for var x = minX; x <= maxX; x++  {
       for var y = minY; y <= maxY; y++ {
         let flippedY = abs(y + 1 - tilesAtZ)
         let tileKey = "\(z)/\(x)/\(flippedY)"
         
         if tileSet.contains(tileKey) {
-          if tiles == nil {
-            tiles = [ImageTile]()
-          }
-          
-          let point = MKMapPoint(x: (x * kTileSize) / Double(scale), y: (y * kTileSize) / Double(scale))
+          let point = MKMapPoint(x: (Double(x) * kTileSize) / Double(scale), y: (Double(y) * kTileSize) / Double(scale))
           let size = MKMapSize(width: kTileSize / Double(scale), height: kTileSize / Double(scale))
           let frame = MKMapRect(origin: point, size: size)
           
-          let fullPath = "\(self.baseDirectoryPath)/\(tileKey).png"
+          let fullPath = "\(self.baseDirectoryPath)/Tiles/\(tileKey).png"
           let tile = ImageTile(imagePath: fullPath, mapRect: frame)
-          tiles?.append(tile)
+          tiles.append(tile)
         }
       }
     }
