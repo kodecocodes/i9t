@@ -52,13 +52,20 @@ class LogCell: UITableViewCell {
   
   override func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
-    if selected {
-      backgroundColor = UIColor.ultimateRedColor().colorWithAlphaComponent(0.3)
-      layer.borderWidth = 2.0
-      layer.borderColor = UIColor.ultimateRedColor().CGColor
-    } else {
-      backgroundColor = UIColor.whiteColor()
-      layer.borderWidth = 0.0
+    
+    // A block of animation code to run when cell is selected.
+    let animationBlockSelected: (() -> Void) = {
+      self.contentView.alpha = 0.5
+      self.backgroundColor = UIColor.ultimateRedColor().colorWithAlphaComponent(0.3)
     }
+    
+    // A block of animation code to run when cell is unselected.
+    let animationBlockUnselected: (() -> Void) = {
+      self.contentView.alpha = 1.0
+      self.backgroundColor = UIColor.whiteColor()
+    }
+    
+    let animationBlock = (selected) ? animationBlockSelected : animationBlockUnselected
+    UIView.animateWithDuration(0.25, animations: animationBlock)
   }
 }
