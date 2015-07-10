@@ -30,7 +30,32 @@ class ItemViewController: UITableViewController {
   
   var checkListIndex:Int = 0
   var itemArray:[CheckListItem] = checkListItemData[0]
+
+  // MARK: - Unwind segue methods
   
+  @IBAction func cancelToItemViewController(segue: UIStoryboardSegue) {
+  }
+  
+  @IBAction func saveToItemViewController(segue: UIStoryboardSegue) {
+    if let  controller = segue.sourceViewController as? ItemDetailViewController,
+      text = controller.checkListDescription.text,
+      notes = controller.checkListNotes.text {
+        let checkListItem:CheckListItem = (text, false, notes)
+        itemArray.append(checkListItem)
+        checkListItemData[checkListIndex].append(checkListItem)
+        let indexPath = NSIndexPath(forRow: itemArray.count-1, inSection: 0)
+        self.tableView.beginUpdates()
+        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+        self.tableView.endUpdates()
+    }
+  }
+}
+
+extension ItemViewController {
+  // MARK: - Table view delegate
+}
+
+extension ItemViewController {
   // MARK: - Table view data source
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -42,7 +67,7 @@ class ItemViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("CheckListItemCell", forIndexPath: indexPath) as! ItemTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("ItemTableViewCell", forIndexPath: indexPath) as! ItemTableViewCell
     cell.delegate = self
     let checkListItem = itemArray[indexPath.row]
     cell.lblListText?.text = checkListItem.description

@@ -93,7 +93,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CheckListItemCell" rowHeight="64" id="bLy-cc-3qx" customClass="ItemTableViewCell" customModule="Prepped" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemTableViewCell" rowHeight="64" id="bLy-cc-3qx" customClass="ItemTableViewCell" customModule="Prepped" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="22" width="600" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bLy-cc-3qx" id="8Yd-cc-NIa">
@@ -257,7 +257,7 @@
             </objects>
             <point key="canvasLocation" x="2678" y="-168"/>
         </scene>
-        <!--Item Detail View Controller-->
+        <!--Add Item-->
         <scene sceneID="cqJ-9h-ZZE">
             <objects>
                 <tableViewController storyboardIdentifier="ItemDetailViewController" id="lYR-bK-nN9" customClass="ItemDetailViewController" customModule="Prepped" customModuleProvider="target" sceneMemberID="viewController">
@@ -266,7 +266,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="Check List Description" id="vHf-lU-tHG">
+                            <tableViewSection headerTitle="Item Description" id="vHf-lU-tHG">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="60" id="XiQ-Ud-6TX">
                                         <rect key="frame" x="0.0" y="114" width="600" height="60"/>
@@ -332,7 +332,7 @@
                             <outlet property="delegate" destination="lYR-bK-nN9" id="V7y-co-cJm"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="K88-sY-FzU">
+                    <navigationItem key="navigationItem" title="Add Item" id="K88-sY-FzU">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="yIq-b7-8w1">
                             <connections>
                                 <segue destination="NJ8-BM-8kh" kind="unwind" unwindAction="cancelToCheckListItemViewController:" id="zXO-9f-HrM"/>
