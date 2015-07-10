@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		82063B5D1B4E2F6E00B5CDC7 /* DiaryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82063B5A1B4E2F6E00B5CDC7 /* DiaryDetailViewController.swift */; };
-		82063B5E1B4E2F6E00B5CDC7 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82063B5B1B4E2F6E00B5CDC7 /* DiaryViewController.swift */; };
 		822CBE831B3BC1D10007FC19 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822CBE821B3BC1D10007FC19 /* CheckListViewController.swift */; };
 		822CBEA81B3CFF950007FC19 /* CheckListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822CBEA71B3CFF950007FC19 /* CheckListDetailViewController.swift */; };
 		8230E19E1B3B94720058CA5E /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230E19D1B3B94710058CA5E /* ItemDetailViewController.swift */; };
@@ -24,8 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		82063B5A1B4E2F6E00B5CDC7 /* DiaryDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryDetailViewController.swift; sourceTree = "<group>"; };
-		82063B5B1B4E2F6E00B5CDC7 /* DiaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
 		822CBE821B3BC1D10007FC19 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
 		822CBEA71B3CFF950007FC19 /* CheckListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListDetailViewController.swift; sourceTree = "<group>"; };
 		8230E19D1B3B94710058CA5E /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
@@ -53,15 +49,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		82063B581B4E2F6E00B5CDC7 /* Diary */ = {
-			isa = PBXGroup;
-			children = (
-				82063B5A1B4E2F6E00B5CDC7 /* DiaryDetailViewController.swift */,
-				82063B5B1B4E2F6E00B5CDC7 /* DiaryViewController.swift */,
-			);
-			path = Diary;
-			sourceTree = "<group>";
-		};
 		825E94641B38DC9C007F9483 = {
 			isa = PBXGroup;
 			children = (
@@ -108,7 +95,6 @@
 			children = (
 				825E94741B38DC9C007F9483 /* Main.storyboard */,
 				825E94791B38DC9C007F9483 /* LaunchScreen.storyboard */,
-				82063B581B4E2F6E00B5CDC7 /* Diary */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -218,9 +204,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8230E19E1B3B94720058CA5E /* ItemDetailViewController.swift in Sources */,
-				82063B5D1B4E2F6E00B5CDC7 /* DiaryDetailViewController.swift in Sources */,
 				822CBE831B3BC1D10007FC19 /* CheckListViewController.swift in Sources */,
-				82063B5E1B4E2F6E00B5CDC7 /* DiaryViewController.swift in Sources */,
 				826C499B1B3BAB4300297EB4 /* BorderedView.swift in Sources */,
 				824F75CA1B3B77B300111FE3 /* ItemTableViewCell.swift in Sources */,
 				824F75CE1B3B840D00111FE3 /* SampleData.swift in Sources */,
