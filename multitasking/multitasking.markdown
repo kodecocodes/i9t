@@ -2,20 +2,60 @@
 
 By Soheil Azarpour
 
-* Introduction:
-* What is Multitasking in iOS 9?
-* Why is it important and why should you adopt it?
+Apple introduced a game changing feature for iPad in iOS 9 called __multitasking__. Multitasking completely changes the way a lot of users use their iPads. Users can now consider the iPad as a serious computer replacement.
 
-Apple introduced a game changing feature for iPad in iOS 9 that will completely change the way a lot of us use our tablets, called __multitasking__. It will make it much easier for users to use the iPad as a serious computer replacement.
+There are three different aspects to multitasking on the iPad: Slide Over, Split View, and Picture in Picture. You activate Slide Over by swiping from the right edge of the screen (or the left edge if you have changed your iPad locale to a region with right-to-left language). You will see a list of multitasking-ready apps on your iPad in that list, from which you can tap and launch an app. If your app is not multitasking-ready, it won't show up in this list!
+
+You can then pin the Slide Over and activate Split View. In Split View the screen is divided between the two apps. You can use both apps independently and both are fully functional.
+
+The Picture in Picture multitasking feature works similarly to the picture-in-picture function on televisions. When watching a video or participating in a FaceTime call, the video window can be minimized to one corner of the iPad so you can continue to use other apps while you watch or chat.
+
+In this chapter your will learn how to update an existing app so that it plays nicely in a split view along with other apps.
+
+## Getting started
+
+Slide-Over supported hardware: app iPads
+PIP supported hardware: iPad Air, iPad Air 2, iPad Mini 2, iPad Mini 3.
+
+Change Multitasking behavior under Settings > General > Multitasking:
+- Allow multiple apps (on/off)
+- Persistent video overlay (on/off)
+Provide adaptive video stream.
+
+Why adopt it?
+  user is in control
+
+How to adopt it?
+  make your app universal
+  design for adaptivity
+  in iOS 8 you learned about size classes
+  iPhone portrait = compact horizontal size class
+  iPhone landscape = compact horizontal size class
+    except for iPhone 6 Plus which is regular
+  iPad portrait = regular horizongtal size class
+  iPad landscape = regular horizongtal size class
+
+  Slide over
+  - the app on the right starts with compact horizontal size class; user starts with iPhone experience
+  - when the right-side app takes over, it becomes regular horizontal size class; this is iPad traditional user experience
+
+  when user slides over, user wants to see your app in the list!
+  let users get into your app more and spend more time in your app while using your app alongside / in concert with other apps.
+
+  if you start a new project with Xcode 7, it's automatically set for multitasking.
+
+  HOW TO MAKE YOUR EXISITING APP MULTITASKING
+  (1) universal app
+  (2) build the app with iOS 9 SDK
+  (3) support all orientations (in the build settings)
+  (4) use launch storyboard
+
+  Think about orientation as bound size changes!
+  User is in control what orientation they look at the iPad.
+
+  IF YOU REALLY REALLY WANT FULLSCREEN, no multitasking you can opt out: UIRequiresFullscreen key in Info.plist
 
 
-There are three different aspects to multitasking on the iPad: Slide Over, Split View, and Picture in Picture. Slide Over can be activated in any supported app. Pull over from the right side of the screen to the left to open up a second window, which takes up 1/3 of the screen.
-
-This isn't true multitasking because it pauses the background window, but it's a way to quickly send an email or answer an incoming email without having to stop what you're doing. You can change the app shown in the Slide Over by swiping down from the top of the screen.
-
-On an iPad Air 2, if you pull the Slide Over window further to the left, it'll enter Split View. Split View shows two apps at once and is a true multitasking feature. You can use both apps independently of one another and both are fully functional, with each taking up half the screen.
-
-The third new multitasking feature is Picture in Picture, which works similarly to the picture-in-picture function on televisions. When watching a video or participating in a FaceTime call, the video window can be minimized to one corner of the iPad so you can continue to use other apps while you watch (or chat).
 
 
 * Learn about slide over, pin, drag, take over
@@ -76,46 +116,9 @@ Optimize your app (Memory managemnet) for multitasking
 		Before: fullscreen
 		After: Slide over, split view, picture in picture.
 
-		Slide-Over supported hardware: app iPads
-		PIP supported hardware: iPad Air, iPad Air 2, iPad Mini 2, iPad Mini 3.
 
-		Change Multitasking behavior under Settings > General > Multitasking:
-		- Allow multiple apps (on/off)
-		- Persistent video overlay (on/off)
-		Provide adaptive video stream.
 
-	Why adopt it?
-		user is in control
 
-	How to adopt it?
-		make your app universal
-		design for adaptivity
-		in iOS 8 you learned about size classes
-		iPhone portrait = compact horizontal size class
-		iPhone landscape = compact horizontal size class
-			except for iPhone 6 Plus which is regular
-		iPad portrait = regular horizongtal size class
-		iPad landscape = regular horizongtal size class
-
-		Slide over
-		- the app on the right starts with compact horizontal size class; user starts with iPhone experience
-		- when the right-side app takes over, it becomes regular horizontal size class; this is iPad traditional user experience
-
-		when user slides over, user wants to see your app in the list!
-		let users get into your app more and spend more time in your app while using your app alongside / in concert with other apps.
-
-		if you start a new project with Xcode 7, it's automatically set for multitasking.
-
-		HOW TO MAKE YOUR EXISITING APP MULTITASKING
-		(1) universal app
-		(2) build the app with iOS 9 SDK
-		(3) support all orientations (in the build settings)
-		(4) use launch storyboard
-
-		Think about orientation as bound size changes!
-		User is in control what orientation they look at the iPad.
-
-		IF YOU REALLY REALLY WANT FULLSCREEN, no multitasking you can opt out: UIRequiresFullscreen key in Info.plist
 
 	2. Changes in UIKit for better adoption
 		UIScreen.bounds = visible bounds of the entire display. This is still true even though your app may not be full screen.
