@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <TileMap version="1.0.0" tilemapservice="http://tms.osgeo.org/1.0.0">
+      <Title>O3711912.NES.51454.vrt</Title>
+      <Abstract></Abstract>
+      <SRS>EPSG:900913</SRS>
+      <BoundingBox minx="-119.56922139434828" miny="37.80824361518970" maxx="-119.49435918920275" maxy="37.87915791094143"/>
+      <Origin x="-119.56922139434828" y="37.80824361518970"/>
+      <TileFormat width="256" height="256" mime-type="image/png" extension="png"/>
+      <TileSets profile="mercator">
+        <TileSet href="11" units-per-pixel="76.43702827148438" order="11"/>
+        <TileSet href="12" units-per-pixel="38.21851413574219" order="12"/>
+        <TileSet href="13" units-per-pixel="19.10925706787109" order="13"/>
+        <TileSet href="14" units-per-pixel="9.55462853393555" order="14"/>
+        <TileSet href="15" units-per-pixel="4.77731426696777" order="15"/>
+        <TileSet href="16" units-per-pixel="2.38865713348389" order="16"/>
+      </TileSets>
+    </TileMap>
+    
