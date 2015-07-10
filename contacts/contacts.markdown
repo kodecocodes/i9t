@@ -1,6 +1,6 @@
 # Chapter 11: Contacts
 
-A long time ago in an operating system far far away, developers used C APIs to access the user’s contacts. They dealt with the pain of ancient structs and Core Foundation types in an object-oriented world.
+A long time ago in an operating system far far away, developers used a C API to access the user’s contacts. They dealt with the pain of ancient structs and Core Foundation types in an object-oriented world.
 
 This nightmare wasn’t so long ago – even iOS 8 uses this dreaded Address Book framework!
 
@@ -9,18 +9,18 @@ In iOS 9, Apple deprecated the Address Book (hoorah!). In its stead, they introd
 The new Contacts framework is very powerful, and opens up many possibilities for developers. In this tutorial, you will learn how to do all of the following:
 
 1. Utilize the ContactsUI framework to display and select contacts.
-2. Add, update and delete contacts
-3. Search the user’s contacts using NSPredicate
+2. Add contacts to the user's contact store.
+3. Search the user’s contacts and filter using NSPredicate.
 
 Along the way, you will also learn the best practices for dealing with the user’s contacts and how best to take advantage of the Contacts framework.
 
 ## Getting Started
 
-In this chapter, you will work on RWConnect, a social network for iOS developers. The app has a friends list so you can keep in touch with all the great developers you know via email.
+In this chapter, you will create RWConnect, a social network for iOS developers. The app has a friends list so you can keep in touch with all the great developers you know via email.
 
->**Note**: I recommend that you use the simulator instead of a real device. You will want to be able to reset the device in order to test the permissions, and I don't think you want to reset your personal iPhone, do you?
+>**Note**: I recommend that you use the simulator instead of a real device for this chapter. You will want to be able to reset the device in order to test the permissions, and I don't think you want to reset your personal iPhone, do you?
 
-Open the starter project, named `RWConnect-Starter` and run it on the iPhone 6 Simulator.
+Open the starter project, named **RWConnect-Starter** and run it on the iPhone 6 Simulator.
 
 ![iphone](/images/1-StarterProjectScreenshot.png)
 
@@ -34,21 +34,13 @@ Open **Friend.swift**. In it is a struct named **Friend**, which will represent 
 
 Now, open **FriendsViewController.swift**. The `friendsList` property calls the `defaultContacts()` method of Friend to get the sample friends when the app launches.
 
-The UITableViewDataSource methods in the table are relatively simple. The table has one section with a cell for each friend. Each cell shows a picture of a friend as well as all the friend's information.
+The **UITableViewDataSource** methods in the table are relatively simple. The table has one section with a cell for each friend. Each cell shows a picture of a friend as well as all the friend's information.
 
-How are you going to make this friends list better? You are going to allow the user to:
-
-1. View their friends' information in a more familiar interface.
-
-2. Import contacts into their friends list.
-
-3. Save friends into their Contacts.
-
-Let's get started!
+Let's get started making this app better using the Contacts and ContactsUI frameworks. By the time you're done, the user will have a much more familiar experience using their contacts in your app.
 
 ## Displaying a Contact
 
-Open **Main.storyboard** and select the table view cell in the FriendsViewController.
+Open **Main.storyboard** and select the table view cell in the **FriendsViewController**.
 
 In the **Attributes Inspector**, open the dropdown menu next to **Accessory** and select **Disclosure Indicator**.
 
@@ -62,7 +54,7 @@ The table view cell now has an arrow on the right, showing the user that selecti
 
 Before you can display the friend to the user, you need to convert the Friend instance into a CNContact.
 
-In the Contacts framework, a contact is represented by a CNContact. CNContacts have many properties that defines who the contact is, such as `givenName`, `familyName`, `emailAddresses`, and `imageData`.
+In the Contacts framework, a contact is represented by a **CNContact**. **CNContacts** have many properties that defines who the contact is, such as `givenName`, `familyName`, `emailAddresses`, and `imageData`.
 
 Go into **Friends.swift** and extend it with the following computed property:
 
@@ -88,16 +80,16 @@ extension Friend{
 
 Let's explain this code line by line:
 
-1. CNMutableContacts are initialized by calling its designated initializer, which has no arguments.
+1. **CNMutableContact**s are initialized by calling its designated initializer, which has no arguments.
 2. The contact's properties can be assigned simply by setting it equal to a new value – in this case, with the Friend's members.
-3. `emailAddresses` is an array of CNLabeledValues. This means that each email address also has a label to go with it. There are many labels that can be found in the Contacts documentation.
-4. Finally, if the Friend has a profile picture, you set the contact's image data to the profile picture's JPEG representation.
+3. `emailAddresses` is an array of **CNLabeledValue**s. This means that each email address also has a label to go with it. There are many labels that can be found in the Contacts documentation.
+4. Finally, if the **Friend** has a profile picture, you set the contact's image data to the profile picture's JPEG representation.
 
-> **Note**: CNMutableContact is the mutable counterpart to CNContact. While the properties of a CNContact are read-only, the properties of a CNMutableContact can be changed. For this reason, you will be using CNMutableContacts more often in this tutorial.
+> **Note**: **CNMutableContact** is the mutable counterpart of **CNContact**. While the properties of a **CNContact** are read-only, the properties of a **CNMutableContact** can be changed. For this reason, you will be using **CNMutableContact**s more often in this tutorial.
 
-Now that you implemented this method, you can now convert any Friend to a CNMutableContact.
+Now that you implemented this method, you can now convert any **Friend** to a **CNMutableContact**.
 
-[TODO: image]
+[Editor: should a "Mission Accomplished" meme go here?]
 
 ### Showing the Contact Info
 
@@ -122,12 +114,12 @@ extension FriendsViewController{
 }
 ```
 
-Some of this code should look new to you, so let's break it into bite-sized pieces to make it easier to understand:
+Some of this code should look new to you, so let's break it down to make it easier to understand:
 
-1. Use the index path of the accessory button's cell to get the friend that was selected, and convert it to a CNMutableContact.
-2. Create a CNContactViewController. This view controller shows the contact's information to the user. You instantiate the view controller using its `forUnknownContact` initializer because the contact you are showing is not part of the user's contact store.
-3. You set `allowsEditing` and `allowsActions` to `false` so that the user cannot do anything but view the contact information.
-4. First, you set `edgesForExtendedLayout` to `false` so that the CNContactViewController shows below the navigation bar. Then, you push this view controller onto the navigation stack.
+1. Use the index path of the accessory button's cell to get the friend that was selected, and convert it to a **CNMutableContact**.
+2. Create a **CNContactViewController**. This view controller shows the contact's information to the user. You instantiate the view controller using its `forUnknownContact` initializer because the contact you are showing is not part of the user's contact store.
+3. You set `allowsEditing` and `allowsActions` to `false` so that the user can only view the contact information.
+4. First you set `edgesForExtendedLayout` to `false` so that the **CNContactViewController** shows below the navigation bar. Then, you push this view controller onto the navigation stack.
 
 Build and run the app, and tap on one of the table view cells. The ContactsUI framework will display the friend's information as shown below:
 
@@ -135,21 +127,17 @@ Build and run the app, and tap on one of the table view cells. The ContactsUI fr
 
 ## Picking your Friends
 
-What good is a friends list if you can't add more friends? Lucky for you, the ContactsUI framework has a class named CNContactPickerViewController that lets the user select contacts to use in the app!
+What good is a friends list if you can't add more friends? Lucky for you, the ContactsUI framework has a class named **CNContactPickerViewController** that lets the user select contacts to use in the app!
 
-Open **Main.storyboard** and go to FriendsViewController. In the Object library, drag a Bar Button Item to the right side of the navigation bar, as shown below:
+Open **Main.storyboard** and go to **FriendsViewController**. In the **Object library**, drag a **Bar Button Item** to the right side of the navigation bar, as shown below:
 
 ![bordered width=50%](/images/5-BarButtonDrag.png)
 
-In the Attributes inspector, select the dropdown menu next to **System Item** and select **Add**
+In the **Attributes inspector**, select the dropdown menu next to **System Item** and select **Add**.
 
 ![bordered width=40%](/images/6-ButtonAdd.png)
 
-Show the Assistant Editor and change it to show **Automatic**, as shown below:
-
-![bordered width=50%](/images/7-AssistantAutomatic.png)
-
-If **FriendsViewController.swift** is not open in the Assistant Editor, select **FriendsViewController** in the storyboard. At the bottom of the file, create another extension of FriendsViewController with the following code:
+Now, open **FriendsViewController.swift**, and create a new extension of **FriendsViewController** with the following code:
 
 ```swift
 extension FriendsViewController: CNContactPickerDelegate {
@@ -157,15 +145,19 @@ extension FriendsViewController: CNContactPickerDelegate {
 }
 ```
 
-In this extension, FriendsViewController conforms to **CNContactPickerDelegate**. This protocol lets you customize the behavior of a **CNContactPickerViewController**, which gives the user a simple means of choosing contacts to use in the app.
+In this extension, **FriendsViewController** conforms to **CNContactPickerDelegate**. This protocol lets you customize the behavior of a **CNContactPickerViewController**, which gives the user a simple means of choosing contacts to use in the app.
 
 ### Setting Up the User Interface
 
-In the storyboard, select the bar button item you just dragged in. Control-Drag into the extension in the Assistant editor and create a new action named **addFriends** that takes a UIBarButtonItem as a parameter, as shown below:
+Show the **Assistant Editor** and change it to show **Automatic**, as shown below:
+
+![bordered width=50%](/images/7-AssistantAutomatic.png)
+
+In the storyboard, select the bar button item you just dragged in. **Control-Drag** into the **FriendsViewController** extension in the **Assistant editor** and create a new action named **addFriends** that takes a **UIBarButtonItem** as a parameter, as shown below:
 
 ![bordered width=40%](/images/8-addAction.png)
 
-When the user presses the Add button, you want to present a CNContactPickerViewController so that the user can import their friends.
+When the user presses the Add button, you want to present a **CNContactPickerViewController** so that the user can import their friends.
 
 In `addFriends(_:)`, add the following lines of code:
 
@@ -174,19 +166,19 @@ let contactPicker = CNContactPickerViewController()
 presentViewController(contactPicker, animated: true, completion: nil)
 ```
 
-Build and run, and press the Add button in the navigation bar. The app now presents the CNContactPickerViewController.
+Build and run, and press the **Add** button in the navigation bar. The app now presents the **CNContactPickerViewController**.
 
 ![iphone](/images/9-PickerFirstView.png)
 
 ### Conforming to CNContactPickerDelegate
 
-Currently, the user cannot import contacts. When the user selects a contact, the CNContactPickerViewController only shows more information about the contact.
+Currently, the user cannot import contacts. When the user selects a contact, the **CNContactPickerViewController** only shows more information about the contact.
 
-In order to fix this problem, you need to take advantage of CNContactPickerDelegate methods.
+In order to fix this problem, you need to take advantage of **CNContactPickerDelegate** methods.
 
-CNContactPickerDelegate has five optional methods, but the one that you are most interested in is `contactPicker(_:didSelectContacts:)`. By implementing this method, the CNContactPickerViewController knows that you want to support multiple selection.
+**CNContactPickerDelegate** has five optional methods, but the one that you are most interested in is `contactPicker(_:didSelectContacts:)`. By implementing this method, the **CNContactPickerViewController** knows that you want to support multiple selection.
 
-Add this delegate method to the CNContactPickerDelegate extension with an empty implementation:
+Add this delegate method to the **CNContactPickerDelegate** extension with an empty implementation:
 
 ```swift
 func contactPicker(picker: CNContactPickerViewController, didSelectContacts contacts: [CNContact]) {
@@ -194,7 +186,7 @@ func contactPicker(picker: CNContactPickerViewController, didSelectContacts cont
 }
 ```
 
-Here are your two goals in this CNContactPickerDelegate method:
+Here are your two goals in this **CNContactPickerDelegate** method:
 
 1. Create new Friends from CNContacts
 
@@ -202,7 +194,7 @@ Here are your two goals in this CNContactPickerDelegate method:
 
 ### Create a Friend from a CNContact
 
-To easily create a Friend from a CNContact, create a new initializer for Friend that takes a CNContact as a parameter. Open **Friend.swift**, and add the following initializer in the extension:
+To easily create a Friend from a CNContact, create a new initializer for Friend that takes a **CNContact** as a parameter. Open **Friend.swift**, and add the following initializer in the extension:
 
 ```swift
 init(contact: CNContact){
@@ -251,23 +243,19 @@ When you press the **Done** button, you will have a few more friends than you di
 
 ![width=32%](/images/11-ContactsAddedFromPicker.png)
 
-There is a chance that when you select certain contacts that the app will crash. This occurs when any of the contacts you selected do not have email addresses.
+There is a chance that when you select certain contacts, the app will crash. This occurs when any of the contacts you selected do not have email addresses.
 
-In the Friend `init(contact:)` initializer, you force-unwrap the first email from the contact's email addresses. When there is no email address, the app will crash.
+![width=30%](/images/What'sTheProblem.png)
 
-[TODO: image?]
+In the **Friend** `init(contact:)` initializer, you force-unwrap the first email from the contact's email addresses. When there is no email address, the app will crash.
 
 Is there a way to make sure that the user can only select contacts with emails? You betcha!
 
-Add the following line before `presentViewController(_:aniamted:completion:)`:
+Add the following line before `presentViewController(_:animated:completion:)`:
 
-```swift
-contactPicker.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0", argumentArray: nil)
-```
+    contactPicker.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0", argumentArray: nil)
 
-CNContactPickerViewController has a really handy property that lets you decide which contacts you want to be selectable. By giving the picker an NSPredicate, it can figure out which contacts can be selected.
-
-In this case, you want to make sure that the number of email addresses is more than 0, because a Friend needs an email address to be initialized.
+The contact picker's `predicateForEnablingContacts` let you decide which contacts can be selected. In this case, you want the user to only select contacts with email addresses.
 
 Run the app again. When you press the Add button, some of the contacts will be grayed out – this makes sure that the user only picks contacts with email addresses!
 
@@ -306,11 +294,11 @@ Run the app, and slide left on a table view cell. The row action will appear as 
 
 Whenever you want to access or modify the user's contacts, it is important to make sure that you have the user's permission so you don't violate their privacy.
 
-Not only is this part of being a good citizen, it is built into the Contacts framework. You cannot access the user's contacts without their permission.
+Not only is this part of being a good citizen in the iOS app development community, it is built into the Contacts framework. You cannot access the user's contacts without their permission.
 
-> **Note**: When you used the CNContactPickerViewController, you did not have to ask the user for permission.
+> **Note**: When you used the **CNContactPickerViewController**, you did not have to ask the user for permission.
 
-> CNContactPickerViewController is **out-of-process**, meaning that your app does not have access to the contacts shown in the picker.
+> **CNContactPickerViewController** is **out-of-process**, meaning that your app does not have access to the contacts shown in the picker.
 
 > The benefit of this is that the user does not have to grant permission when this is shown. If the user selects contacts and presses **Done**, they implicitly give you permission to use the contacts.
 
@@ -323,9 +311,9 @@ contactStore.requestAccessForEntityType(CNEntityType.Contacts) { userGrantedAcce
 }
 ```
 
-In this code, you create a CNContactStore instance. CNContactStore represents the user's address book, containing all of the user's contacts.
+In this code, you create a **CNContactStore** instance. **CNContactStore** represents the user's address book, containing all of the user's contacts.
 
-After you initialize the CNContactStore, you call the instance method `requestAccessForEntityType(:completion:)`.
+After you initialize the **CNContactStore**, you call the instance method `requestAccessForEntityType(:completion:)`.
 
 The completion handler returns a boolean value: whether or not the user granted the app permission to access their contacts.
 
@@ -333,7 +321,7 @@ The first time you call this method, the system presents an alert asking the use
 
 First, let's handle the case when the user does **not** give you permission to access their contacts. The best practice is to let the user easily go to the app's setting.
 
-Add the following method to the FriendsViewController extension:
+Add the following method to the **FriendsViewController** extension:
 
 ```swift
 func presentPermissionErrorAlert(){
@@ -382,7 +370,7 @@ Press **Settings** on your alert to see the Settings app open to your app's sett
 
 After the `guard` statement you added, you can be sure that you have permission to access and modify the user's contacts. The next thing to do is actually save the Friend to the user's contact store.
 
-Add the following method to the FriendsViewController extension:
+Add the following method to the **FriendsViewController** extension:
 
 ```swift
 func saveFriendToContacts(friend: Friend){
@@ -405,10 +393,10 @@ func saveFriendToContacts(friend: Friend){
 
 There's a lot of new stuff in this code, so let's break it apart:
 
-1. Convert the Friend parameter into a CNMutableContact, so you can use it with the Contacts framework.
-2. Create a new **CNSaveRequest**: this object lets you tell a CNContactStore the changes you want to make to the user's contacts, such as contacts to add, update, or delete.
-3. Tell the CNSaveRequest that you want to add the friend to the user's contacts.
-4. Try to execute a save request on a CNContactStore. This method either succeeds and execution continues, or an error is thrown. If no error is thrown, you assume that the save request succeeded.
+1. Convert the Friend parameter into a **CNMutableContact**, so you can use it with the Contacts framework.
+2. Create a new **CNSaveRequest**: this object lets you tell a **CNContactStore** the changes you want to make to the user's contacts, such as contacts to add, update, or delete.
+3. Tell the **CNSaveRequest** that you want to add the friend to the user's contacts.
+4. Try to execute a save request on a **CNContactStore**. This method either succeeds and execution continues, or an error is thrown. If no error is thrown, you assume that the save request succeeded.
 
 > **Note**: The `catch` block does not create a custom alert for each possible error that could be thrown; instead, you use a generic error message. If you need to handle an individual error case, you must catch a CNErrorCode. These are not documented, but you can find their declaration in **CNError.h**.
 
@@ -426,11 +414,11 @@ dispatch_async(dispatch_get_main_queue()){
 Also, add the following code at `// Show Failure Alert`:
 
 ```swift
-let alert = UIAlertController(title: "Could Not Save Contact", message: "An unknown error occurred.", preferredStyle: .Alert)
+let failureAlert = UIAlertController(title: "Could Not Save Contact", message: "An unknown error occurred.", preferredStyle: .Alert)
 let dismissAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
-alert.addAction(dismissAction)
+failureAlert.addAction(dismissAction)
 dispatch_async(dispatch_get_main_queue()){
-  self.presentViewController(alert, animated: true, completion: nil)
+  self.presentViewController(failureAlert, animated: true, completion: nil)
 }
 ```
 
@@ -487,17 +475,19 @@ if !matchingContacts.isEmpty{
 }
 ```
 
-CNContactFormatter creates a name based on the information in a given contact. This name is generated using the contact's given and family name as well as any titles and suffixes (e.g. Jr.) associated with the contact.
+**CNContactFormatter** creates a name based on the information in a given contact. This name is generated using the contact's given and family name as well as any titles and suffixes (e.g. Jr.) associated with the contact.
 
-CNContactStore allows you to query the user's contacts for those matching a predicate. In this case, you used CNContact's `predicateForContactsMatchingName(_:)` method to create an NSPredicate that finds contacts with a name similar to the provided string. You only save the contact if there are no contacts matching the name, in order to prevent duplicates.
+**CNContactStore** allows you to query the user's contacts for those matching a predicate. In this case, you used **CNContact**'s `predicateForContactsMatchingName(_:)` method to create an **NSPredicate** that finds contacts with a name similar to the provided string. You only save the contact if there are no contacts matching the name, in order to prevent duplicates.
 
 > **Note**: `unifiedContactsMatchingPredicate(_:keysToFetch:)` has a `keysToFetch` parameter that you ultimately ignore by passing in an empty array. However, if you were to try to access or modify the contacts that were fetched, it would throw an error because the keys were not fetched. If you wanted to access the fetched contacts' first names, for example, you would have to add `CNContactGivenNameKey` to `keysToFetch`.
 
 Run the app, and try to add the same contact multiple times. Once the contact has been added, the app will not add the contact a second time.
 
+Congratulations – You have now dramatically improved RWConnect and learned a ton about the new Contacts framework while doing so!
+
 ## Where to Go From Here
 
-By this point, you now know just about everything you need to use the Contacts and ContactsUI frameworks in your own apps. As is the case with anything, there is still more to learn about both frameworks if you want to dig even deeper.
+By this point, you now know just about everything you need to use the Contacts and ContactsUI frameworks in your own apps. However, there is still more to learn about the frameworks if you want to dig even deeper.
 
 To learn more, be sure to visit the Contact framework guide (https://developer.apple.com/library/prerelease/ios/documentation/Contacts/Reference/Contacts_Framework/index.html#//apple_ref/doc/uid/TP40015328).
 

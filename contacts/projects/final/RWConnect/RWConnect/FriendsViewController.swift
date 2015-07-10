@@ -126,11 +126,11 @@ extension FriendsViewController{
 				self.presentViewController(successAlert, animated: true, completion: nil)
 			}
 		} catch {
-			let alert = UIAlertController(title: "Could Not Save Contact", message: "An unknown error occurred.", preferredStyle: .Alert)
+			let failureAlert = UIAlertController(title: "Could Not Save Contact", message: "An unknown error occurred.", preferredStyle: .Alert)
 			let dismissAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
-			alert.addAction(dismissAction)
+			failureAlert.addAction(dismissAction)
 			dispatch_async(dispatch_get_main_queue()){
-				self.presentViewController(alert, animated: true, completion: nil)
+				self.presentViewController(failureAlert, animated: true, completion: nil)
 			}
 		}
 	}
