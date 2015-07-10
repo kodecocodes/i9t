@@ -33,6 +33,7 @@ class HistoricTileMapOverlay: MKTileOverlay {
     super.init(URLTemplate: titleDirectory)
     self.setupTileContentWithTileDirectory(titleDirectory)
     self.geometryFlipped = true
+    self.canReplaceMapContent = false
   }
   
 //=============================================================================/
@@ -78,6 +79,8 @@ class HistoricTileMapOverlay: MKTileOverlay {
   override func loadTileAtPath(path: MKTileOverlayPath, result: (NSData?, NSError?) -> Void) {
     super.loadTileAtPath(path, result: result)
   }
+  
+  
   
 //=============================================================================/
 // Mark: Private Methods

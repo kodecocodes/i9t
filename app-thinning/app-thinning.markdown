@@ -1,38 +1,41 @@
 # Chapter _: App Thinning
 
-Some text here because Deckle doesn't seem to work this correctly. blah blha blha blahblahblah
+Back in the days of iOS 8, Apple began pushing developers to adopt a universal approach for building both iPhone and iPad applications into one universal application resulting in a seamless experience for the user. 
 
+However, apps have become more complex combined with supporting numerous arhcitectures with and numerous resources specific to each device . As a result, apps are now consuming a larger amount of disk space resulting in longer download times, more disk usage, and potentially consuming more memory. And why should users download everything if the majority of users will ?
 
-## Introduction
-
-Recently, Apple has begun pushing developers to adopt a universal approach for building for both iPhone and iPad applications. Having a universal app that works across all iOS devices creates a more seamless experience for the user. However, as apps become more complex combined with this unification of ___ has a cost. Apps are now consuming a larger amount of disk space resulting in longer download times, more disk usage, and potentially more memory consumption.  
-
-Apple has introduced several solutions to circumvent this problem: 
-- **App Slicing** __hello
-- **On Demand Resources** __hello 
+Fortunately, in iOS 9, Apple has introduced several solutions to circumvent this problem: 
+- **App Slicing**: Compiling only the resources and executable architecture specific to the device an app is running on. 
+- **On Demand Resources**:   
 
 Packaged together, these techniques are known as **App Thinning**.
 
 ## Getting Started
 
-Download the <a href="">Sample Project</a>. This is a close to final (although simple) project about to be sent to the App Store. __Name__ displays historical map sattelite overlays of different parts of California. Unfortunately, the resources for this app take up a lot of space. You will use the App-Thinning techniques to hack and slash the end product to a more managable size.
+In this chapter, you'll work with __Name__, which displays historical sattelite overlays over different parts of California. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this app take up a lot of space. You will use the App-Thinning techniques to hack and slash the end product to a more managable size.
 
-Open __Sample_Project.proj__. Select the iPhone 6 Simulator as the **scheme destination**, then build and run the application. Take note of the iPhone specific title image in the navigation bar.  
+Open __Sample_Project.proj__. Select the `iPhone 6 Simulator` as the **scheme destination**, then build and run the application.
 
-Stop the application and change the scheme to be an iPad (any iPad type will do) and build and run the application. Take note of the iPad specific thumbnail images as well as the iPad specific navigation bar.
+Play around with the app for a bit. Tap on `Santa Cruz` and other overlays and see how the historical maps overlay with the present maps. 
+
+[Image needed Santa Cruz -> Map]
+
+These overlays are created from image tiles found in `NSBundle`s and passed into a `MKTileOverlayRenderer` for drawing. All of this stuff is well beyond the scope of this tutorial on how to setup; think of this stuff as a black box. All you care about is how to make you app as small as possible to the end user. :] 
 
 ### App Slicing
 
-**Note:**  It isn't best practice to have the same iPhone/iPad in images. However, for this particular example, having images which visually show the device will help aid in what is being displayed (and what is being ommitted).
+By default, Xcode 7 will only include the active architecture and resources on `DEBUG` builds. This speeds up the build process as there is less content to copy over to the device or simulator. When switching over to a `RELEASE` build, all architectures will be packaged together (known as the fat binary that you are used to in the days of iOS 8 and earlier) when you submit your app to the App Store. However, in iOS 9, Apple will now rip apart your App and separate the different packages specific to each device. 
 
-By default, Xcode 7 will only include the active architecture and resources on DEBUG builds. This speeds up the build process as there are less resources to copy over to the device or simulator. When switching over to a RELEASE build, all architectures will be included when you submit your IPA to the App Store. However, in iOS 9, Apple will now rip apart your App and separate the different architectures and resources unique to each device.
+Enabling App Slicing is a super easy process provided that you follow Apple's rules. 
 
-This is all done for you be default in Xcode 7 on iOS 9 provided that you follow some simple guidelines.
+Build the __Name__ for the iPhone 6 Simulator. Navigate to the products folder in the `Project Navigator` and right-click __Name__.app. Select `Show in Finder`. With Finder open, select `Debug-iphonesimulator` and then right click on the __Name__ IPA and select `Show Package Contents`  
 
+### Executable Thinning
+
+
+### Resource Thinning with Asset Catalogs
 
 Asset Catalogs
-
-#### Transitioning PNGs into Asset Catalogs
 
 
 Build & Archive app, check out IPA size App Slicing [Theory, Instruction]
