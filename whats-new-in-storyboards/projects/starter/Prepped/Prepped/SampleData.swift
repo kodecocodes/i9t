@@ -36,7 +36,7 @@ var checkListItemData:[[CheckListItem]] =
                         [ [ ("Baked Beans",     true,   "Must be Heinz"),
                             ("Noodles",         false,  "Check gas and water available for cooking"),
                             ("Custard",         true,   "Long life"),
-                            ("Dried Apricots",  true,   " " )  ],
+                            ("Dried Apricots",  true,   "For Aunt Beatrice" )  ],
                           [ ("Aspirin",         false,  " "),
                             ("Bandages",        false,  " "),
                             ("Whisky",          false,  " ") ],

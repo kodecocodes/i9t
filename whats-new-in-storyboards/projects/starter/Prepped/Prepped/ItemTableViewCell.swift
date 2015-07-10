@@ -23,13 +23,13 @@
 
 import UIKit
 
-protocol CheckListTableViewCellDelegate {
+protocol ItemTableViewCellDelegate {
   func cellCheckMarkTapped(cell:UITableViewCell, checked:Bool)
 }
 
-class CheckListTableViewCell: UITableViewCell {
+class ItemTableViewCell: UITableViewCell {
   
-  var delegate:CheckListTableViewCellDelegate? = nil
+  var delegate:ItemTableViewCellDelegate? = nil
   var checked = false {
     didSet {
       checkMark.text = checked ? CheckMark : " "

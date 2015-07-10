@@ -23,13 +23,13 @@
 
 import UIKit
 
-class CheckListItemViewController: UITableViewController {
+class ItemViewController: UITableViewController {
   
   let cellHeight:CGFloat = 64
   let cellPadding: CGFloat = 10
   
   var checkListIndex:Int = 0
-  var itemArray = [CheckListItem]()
+  var itemArray:[CheckListItem] = checkListItemData[0]
   
   // MARK: - Table view data source
   
@@ -42,7 +42,7 @@ class CheckListItemViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("CheckListItemCell", forIndexPath: indexPath) as! CheckListTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("CheckListItemCell", forIndexPath: indexPath) as! ItemTableViewCell
     cell.delegate = self
     let checkListItem = itemArray[indexPath.row]
     cell.lblListText?.text = checkListItem.description
@@ -51,7 +51,7 @@ class CheckListItemViewController: UITableViewController {
   }
 }
 
-extension CheckListItemViewController: CheckListTableViewCellDelegate {
+extension ItemViewController: ItemTableViewCellDelegate {
   func cellCheckMarkTapped(cell: UITableViewCell, checked: Bool) {
     if let indexPath = tableView.indexPathForCell(cell) {
       itemArray[indexPath.row].checked = checked

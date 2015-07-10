@@ -28,18 +28,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
-    let barColor = UIColor(red: 11/255, green: 86/255, blue: 14/255, alpha: 1.0)
     
+    //Set up app appearance
+    let barColor = UIColor(red: 11/255, green: 86/255, blue: 14/255, alpha: 1.0)
+    let unselectedBarItemColor = UIColor(red: 9/255, green: 34/255, blue: 2/255, alpha: 1.0)
+    
+    UINavigationBar.appearance().translucent = true
     UINavigationBar.appearance().titleTextAttributes =
-    [NSForegroundColorAttributeName : UIColor.whiteColor()]
-
+      [NSForegroundColorAttributeName : UIColor.whiteColor()]
     UINavigationBar.appearance().barTintColor = barColor
     UINavigationBar.appearance().tintColor = UIColor.whiteColor()
     
+    UITabBar.appearance().translucent = true
     UITabBar.appearance().barTintColor = barColor
     UITabBar.appearance().tintColor = UIColor.whiteColor()
-
+    
+    UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName:unselectedBarItemColor], forState: UIControlState.Normal)
+    UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName:UIColor.whiteColor()], forState: UIControlState.Selected)
+    
     return true
     
   }
