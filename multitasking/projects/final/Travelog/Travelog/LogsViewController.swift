@@ -88,19 +88,19 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   @IBAction func photoLibraryButtonTapped(sender: UIBarButtonItem?) {
     // Present detail view controller and forward the call.
     let vc = presentDetailViewControllerWithSelectedLog(nil)
-    vc.photoLibraryButtonTapped(sender)
+    vc.presentCameraControllerForSourceType(UIImagePickerControllerSourceType.PhotoLibrary)
   }
   
   @IBAction func cameraButtonTapped(sender: UIBarButtonItem?) {
     // Present detail view controller and forward the call.
     let vc = presentDetailViewControllerWithSelectedLog(nil)
-    vc.cameraButtonTapped(sender)
+    vc.presentCameraControllerForSourceType(UIImagePickerControllerSourceType.Camera)
   }
   
   @IBAction func addNoteButtonTapped(sender: UIBarButtonItem?) {
     // Present detail view controller and forward the call.
     let vc = presentDetailViewControllerWithSelectedLog(nil)
-    vc.addNoteButtonTapped(sender)
+    vc.presentTextViewController(nil)
   }
   
   // MARK: Helper
@@ -162,8 +162,8 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     if editingStyle == UITableViewCellEditingStyle.Delete {
       unowned let weakSelf = self
       let alertController = UIAlertController(title: "Confirm", message: "Are you sure you want to delegate this log?", preferredStyle: UIAlertControllerStyle.Alert)
-      alertController.addAction(UIAlertAction(title: "No", style: UIAlertActionStyle.Cancel, handler: nil))
-      alertController.addAction(UIAlertAction(title: "Yes, I'm sure!", style: UIAlertActionStyle.Destructive, handler: { _ -> Void in
+      alertController.addAction(UIAlertAction(title: "Oh no!", style: UIAlertActionStyle.Cancel, handler: nil))
+      alertController.addAction(UIAlertAction(title: "Yes, I'm!", style: UIAlertActionStyle.Destructive, handler: { _ -> Void in
         
         let logToDelete = weakSelf.logs[indexPath.row]
         let store = LogStore.sharedStore
@@ -177,17 +177,6 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
       }))
       presentViewController(alertController, animated: true, completion: nil)
     }
-  }
-  
-  // MARK: Size changes
-  
-  func setNavgationBarItemsHidden(hidden: Bool) {
-    // Hide or show bar button items.
-    let items: [UIBarButtonItem] = (hidden) ? [addNoteButton, cameraButton, photoLibraryButton] : []
-    navigationItem.setRightBarButtonItems(items, animated: true)
-    
-    // Hide or show title in the navigation bar.
-    title = (hidden) ? "" : "Travel Log"
   }
   
 }

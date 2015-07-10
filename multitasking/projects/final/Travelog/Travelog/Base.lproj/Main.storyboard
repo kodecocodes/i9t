@@ -91,11 +91,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="oN9-4A-X0X">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="compose" id="FJC-FW-U6O">
-                                <connections>
-                                    <action selector="addNoteButtonTapped:" destination="geY-GQ-BJ3" id="YJ3-xz-86k"/>
-                                </connections>
-                            </barButtonItem>
                             <barButtonItem systemItem="camera" id="3Bk-gm-Lnm">
                                 <connections>
                                     <action selector="cameraButtonTapped:" destination="geY-GQ-BJ3" id="yzd-A5-RtA"/>
@@ -114,7 +109,6 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="addNoteButton" destination="FJC-FW-U6O" id="HPa-pf-3C2"/>
                         <outlet property="cameraButton" destination="3Bk-gm-Lnm" id="RnQ-IU-SbJ"/>
                         <outlet property="editButton" destination="U3d-7J-zzc" id="qYw-6P-ual"/>
                         <outlet property="errorView" destination="ePY-0B-R37" id="S0V-Bh-6dk"/>
