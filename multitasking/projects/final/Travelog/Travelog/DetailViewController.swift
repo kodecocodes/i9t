@@ -37,6 +37,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
   
   @IBOutlet private var textView: UITextView!
   @IBOutlet private var imageView: UIImageView!
+  @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var errorView: UIView!
   
   let dateFormatter: NSDateFormatter = {
@@ -147,15 +148,15 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     if let selectedLog = selectedLog as? TextLog {
       textView.text = selectedLog.text
+      titleLabel.text = self.dateFormatter.stringFromDate(selectedLog.date)
       setDetailViewState(DetailViewState.DisplayTextLog)
-      title = self.dateFormatter.stringFromDate(selectedLog.date)
     } else if let selectedLog = selectedLog as? ImageLog {
       imageView.image = selectedLog.image
+      titleLabel.text = self.dateFormatter.stringFromDate(selectedLog.date)
       setDetailViewState(DetailViewState.DisplayImageLog)
-      title = self.dateFormatter.stringFromDate(selectedLog.date)
     } else {
       setDetailViewState(DetailViewState.DisplayNone)
-      title = nil
+      titleLabel.text = nil
     }
   }
   
@@ -169,6 +170,8 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       errorView.hidden = false
       textView.hidden = true
       imageView.hidden = true
+      titleLabel.hidden = true
+      
       textView.text = nil
       imageView.image = nil
       navigationItem.setRightBarButtonItems([], animated: true)
@@ -177,6 +180,8 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       errorView.hidden = true
       textView.hidden = false
       imageView.hidden = true
+      titleLabel.hidden = false
+      
       imageView.image = nil
       navigationItem.setRightBarButtonItems([editButton], animated: true)
       
@@ -184,6 +189,8 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       errorView.hidden = true
       textView.hidden = true
       imageView.hidden = false
+      titleLabel.hidden = false
+      
       textView.text = nil
       navigationItem.setRightBarButtonItems([photoLibraryButton, cameraButton], animated: true)
     }

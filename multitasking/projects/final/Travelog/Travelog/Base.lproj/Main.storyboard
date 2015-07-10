@@ -32,7 +32,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Nothing to display!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R4p-ig-OWK">
-                                        <rect key="frame" x="231" y="338" width="137" height="19.5"/>
+                                        <rect key="frame" x="231" y="338" width="136.5" height="19.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <color key="textColor" red="0.94509803920000002" green="0.15686274510000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -59,11 +59,11 @@
                                 </variation>
                             </view>
                             <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="inr-52-DVx">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="160" width="600" height="380"/>
                                 <animations/>
                             </imageView>
                             <textView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WKz-yT-r5d">
-                                <rect key="frame" x="40" y="80" width="520" height="520"/>
+                                <rect key="frame" x="40" y="160" width="520" height="440"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
@@ -71,23 +71,42 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="S5C-Hi-rp6" userLabel="Title Label">
+                                <rect key="frame" x="60" y="100" width="480" height="40"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="VSF-TT-kgK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="24"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="inr-52-DVx" secondAttribute="trailing" constant="-20" id="3cn-BZ-J92"/>
                             <constraint firstItem="85U-Ad-9Uy" firstAttribute="top" secondItem="WKz-yT-r5d" secondAttribute="bottom" id="5xX-Tp-SXs"/>
-                            <constraint firstItem="WKz-yT-r5d" firstAttribute="top" secondItem="Ipf-Ln-a9V" secondAttribute="topMargin" constant="80" id="8p6-zq-m9X"/>
+                            <constraint firstItem="WKz-yT-r5d" firstAttribute="top" secondItem="Ipf-Ln-a9V" secondAttribute="topMargin" constant="160" id="8p6-zq-m9X"/>
                             <constraint firstItem="ePY-0B-R37" firstAttribute="leading" secondItem="Ipf-Ln-a9V" secondAttribute="leadingMargin" constant="-20" id="Alc-qr-HKY"/>
                             <constraint firstAttribute="trailingMargin" secondItem="WKz-yT-r5d" secondAttribute="trailing" constant="20" id="Bfm-pj-t3L"/>
-                            <constraint firstItem="inr-52-DVx" firstAttribute="top" secondItem="Ipf-Ln-a9V" secondAttribute="topMargin" id="dwc-hx-pEC"/>
+                            <constraint firstItem="S5C-Hi-rp6" firstAttribute="leading" secondItem="Ipf-Ln-a9V" secondAttribute="leadingMargin" constant="40" id="LwA-W6-6bi"/>
+                            <constraint firstItem="WKz-yT-r5d" firstAttribute="top" secondItem="S5C-Hi-rp6" secondAttribute="bottom" constant="20" id="QBn-Mb-DiJ"/>
+                            <constraint firstItem="inr-52-DVx" firstAttribute="top" secondItem="WKz-yT-r5d" secondAttribute="top" id="Z65-Wx-v3f"/>
+                            <constraint firstItem="inr-52-DVx" firstAttribute="top" secondItem="Ipf-Ln-a9V" secondAttribute="topMargin" constant="130" id="dwc-hx-pEC"/>
                             <constraint firstItem="85U-Ad-9Uy" firstAttribute="top" secondItem="ePY-0B-R37" secondAttribute="bottom" id="eoI-Sl-x4R"/>
                             <constraint firstItem="ePY-0B-R37" firstAttribute="top" secondItem="Ipf-Ln-a9V" secondAttribute="topMargin" id="eoL-YQ-MtB"/>
                             <constraint firstItem="WKz-yT-r5d" firstAttribute="leading" secondItem="Ipf-Ln-a9V" secondAttribute="leadingMargin" constant="20" id="gZm-Kx-ILC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="S5C-Hi-rp6" secondAttribute="trailing" constant="40" id="glK-FB-TIU"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ePY-0B-R37" secondAttribute="trailing" constant="-20" id="iEO-Z2-Jyr"/>
                             <constraint firstItem="inr-52-DVx" firstAttribute="leading" secondItem="Ipf-Ln-a9V" secondAttribute="leadingMargin" constant="-20" id="j57-eO-S1r"/>
-                            <constraint firstItem="85U-Ad-9Uy" firstAttribute="top" secondItem="inr-52-DVx" secondAttribute="bottom" id="sMo-co-sj8"/>
+                            <constraint firstItem="85U-Ad-9Uy" firstAttribute="top" secondItem="inr-52-DVx" secondAttribute="bottom" constant="60" id="sMo-co-sj8"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="dwc-hx-pEC"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="oN9-4A-X0X">
                         <rightBarButtonItems>
@@ -115,6 +134,7 @@
                         <outlet property="imageView" destination="inr-52-DVx" id="SVt-RO-byz"/>
                         <outlet property="photoLibraryButton" destination="daY-NE-4f0" id="A87-2f-nwW"/>
                         <outlet property="textView" destination="WKz-yT-r5d" id="iFw-9L-h90"/>
+                        <outlet property="titleLabel" destination="S5C-Hi-rp6" id="xBO-sU-MT8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W2z-EG-dxv" userLabel="First Responder" sceneMemberID="firstResponder"/>
