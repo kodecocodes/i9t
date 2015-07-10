@@ -18,14 +18,6 @@ class MapSplitViewController: UISplitViewController, UISplitViewControllerDelega
     super.viewDidLoad()
     self.delegate = self
     self.preferredDisplayMode = .AllVisible
-
-//    for navController in self.viewControllers as! [UINavigationController] {
-//      if let vc = navController.topViewController as? MapChromeViewController {
-//        self.detailVC = vc
-//      } else if let vc = navController.topViewController as? MapContentTableViewController {
-//        self.masterVC = vc
-//      }
-//    }
   }
   
  
