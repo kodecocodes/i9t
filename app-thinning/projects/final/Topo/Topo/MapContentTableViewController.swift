@@ -14,14 +14,8 @@ class MapContentTableViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = false
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    self.clearsSelectionOnViewWillAppear = false
   }
-  
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
@@ -43,10 +37,6 @@ class MapContentTableViewController: UITableViewController {
     return cell
   }
   
-//  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//    let mapData = self.dataSource[indexPath.row]
-//  }
-  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let nav = segue.destinationViewController as? UINavigationController,
       let indexPath = self.tableView.indexPathForSelectedRow {
@@ -56,5 +46,4 @@ class MapContentTableViewController: UITableViewController {
         mapViewController.title = mapData.title
     }
   }
-  
 }

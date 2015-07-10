@@ -20,22 +20,17 @@ class HistoricTileMapOverlay: MKTileOverlay {
   override var title: String? { get {return "title"}}
   override var subtitle: String? { get {return "test subtitle"}}
   
-//  var region: MKCoordinateRegion {  get{ return self.getRegion() }}
+//  var image : UIImage
+  var auxillaryInfo : [String : AnyObject]
   
   private var tileSet = Set<String>()
   private var private_boundingRect: MKMapRect!
-//  private var private_URLTemplate: String?
   private var baseDirectoryPath: String!
   
-  var image : UIImage
-  var auxillaryInfo : [String : AnyObject]!
-  
-  init(titleDirectory: String) {
-    self.image = UIImage() // change me
-    self.auxillaryInfo = [:] // change me
-    
+  init(titleDirectory: String, auxillaryInfo: [String : AnyObject]) {
+    self.auxillaryInfo = auxillaryInfo
     super.init(URLTemplate: titleDirectory)
-    self.parseShit(titleDirectory)
+    self.setupTileContentWithTileDirectory(titleDirectory)
     self.geometryFlipped = true
   }
   
@@ -52,7 +47,7 @@ class HistoricTileMapOverlay: MKTileOverlay {
     return MKCoordinateForMapPoint(MKMapPoint(x: MKMapRectGetMidX(self.boundingMapRect), y: MKMapRectGetMidY(self.boundingMapRect)))
   }
   
-  private func parseShit(tileDirectory : String) {
+  private func setupTileContentWithTileDirectory(tileDirectory : String) {
     self.baseDirectoryPath = tileDirectory
     let fileManager = NSFileManager.defaultManager()
     

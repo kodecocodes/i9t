@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 class ImageTile: NSObject {
-
+  
   let imagePath: String
   let mapRect: MKMapRect
   

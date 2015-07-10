@@ -10,11 +10,12 @@ import UIKit
 import MapKit
 
 class HistoricTileMapOverlayRenderer: MKTileOverlayRenderer {
-  private var overlayImage : UIImage!
+  
+//  private var overlayImage : UIImage!
   
   override init(tileOverlay overlay: MKTileOverlay) {
-    let image = (overlay as! HistoricTileMapOverlay).image
-    self.overlayImage = image
+//    let image = (overlay as! HistoricTileMapOverlay).image
+//    self.overlayImage = image
     super.init(overlay: overlay)
   }
   
@@ -24,7 +25,6 @@ class HistoricTileMapOverlayRenderer: MKTileOverlayRenderer {
     let tilesInRect = historicOverlay.tilesInMapRect(mapRect, scale: zoomScale)
     
     for tile in tilesInRect {
-    
       let rect = self.rectForMapRect(tile.mapRect)
       let image = UIImage(contentsOfFile: tile.imagePath)!
       CGContextSaveGState(context);
@@ -35,12 +35,8 @@ class HistoricTileMapOverlayRenderer: MKTileOverlayRenderer {
       let drawRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
       CGContextDrawImage(context, drawRect, image.CGImage);
       CGContextRestoreGState(context);
-      
     }
-    
- 
   }
-  
   
   override func canDrawMapRect(mapRect: MKMapRect, zoomScale: MKZoomScale) -> Bool {
     let historicOverlay = self.overlay as! HistoricTileMapOverlay
@@ -48,9 +44,6 @@ class HistoricTileMapOverlayRenderer: MKTileOverlayRenderer {
     return tilesInRect.count > 0 ? true : false
   }
 
-  
-  
-  
 }
 
 
