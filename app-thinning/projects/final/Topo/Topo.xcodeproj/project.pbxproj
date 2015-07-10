@@ -86,17 +86,14 @@
 		A63B63B01B4107CF002178B7 /* Topo */ = {
 			isa = PBXGroup;
 			children = (
+				A674F90D1B4F8366004EB45B /* Map Overlays & Data */,
 				A667DD021B42FED600B8016C /* Map Thumbnails */,
 				A69695331B4131B70018D403 /* Map Bundles */,
 				A63B63B11B4107CF002178B7 /* AppDelegate.swift */,
 				A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */,
-				A636B3A01B4E4A4E0043657A /* ImageTile.swift */,
 				A65DC4301B4236480029ACDB /* NSBundle+ContentExtractor.swift */,
 				A63B63B51B4107CF002178B7 /* Main.storyboard */,
-				A63B63C31B41084D002178B7 /* HistoricTileMapOverlayRenderer.swift */,
-				A63B63C51B41086D002178B7 /* HistoricTileMapOverlay.swift */,
 				A69035271B43C0DF00439C92 /* MapSplitViewController.swift */,
-				A6C3D1341B450EF5009602C3 /* HistoricMapOverlayData.swift */,
 				A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */,
 				A63B63B81B4107CF002178B7 /* Assets.xcassets */,
 				A63B63BA1B4107CF002178B7 /* LaunchScreen.storyboard */,
@@ -111,6 +108,17 @@
 				A667DD001B42FED000B8016C /* example_map.png */,
 			);
 			name = "Map Thumbnails";
+			sourceTree = "<group>";
+		};
+		A674F90D1B4F8366004EB45B /* Map Overlays & Data */ = {
+			isa = PBXGroup;
+			children = (
+				A63B63C31B41084D002178B7 /* HistoricTileMapOverlayRenderer.swift */,
+				A63B63C51B41086D002178B7 /* HistoricTileMapOverlay.swift */,
+				A6C3D1341B450EF5009602C3 /* HistoricMapOverlayData.swift */,
+				A636B3A01B4E4A4E0043657A /* ImageTile.swift */,
+			);
+			name = "Map Overlays & Data";
 			sourceTree = "<group>";
 		};
 		A69695331B4131B70018D403 /* Map Bundles */ = {

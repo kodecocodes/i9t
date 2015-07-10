@@ -39,12 +39,6 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLowDiskSpaceNotification:", name: NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
   }
   
-  override func didReceiveMemoryWarning() {
-    if let overlay = self.mapView.overlays.first {
-      self.mapView.removeOverlay(overlay)
-    }
-  }
-  
 //=============================================================================/
 // Mark: IBAction Methods
 //=============================================================================/
