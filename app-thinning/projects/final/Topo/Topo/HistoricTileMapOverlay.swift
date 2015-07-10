@@ -9,29 +9,65 @@
 import UIKit
 import MapKit
 
-let kTileSize = 256.0
-
+private let kTileSize = 256.0
 
 class HistoricTileMapOverlay: MKTileOverlay {
   
-  
   override var boundingMapRect: MKMapRect { get { return self.private_boundingRect }}
   override var coordinate: CLLocationCoordinate2D { get { return self.getCoordinate() }}
-  override var title: String? { get {return "title"}}
-  override var subtitle: String? { get {return "test subtitle"}}
+  override var title: String? { get {return "title"}} // TODO: change me
+  override var subtitle: String? { get {return "test subtitle"}} // TODO: change me
   
-//  var image : UIImage
   var auxillaryInfo : [String : AnyObject]
   
   private var tileSet = Set<String>()
   private var private_boundingRect: MKMapRect!
   private var baseDirectoryPath: String!
   
+//=============================================================================/
+// Mark: Lifetime
+//=============================================================================/
+  
   init(titleDirectory: String, auxillaryInfo: [String : AnyObject]) {
     self.auxillaryInfo = auxillaryInfo
     super.init(URLTemplate: titleDirectory)
     self.setupTileContentWithTileDirectory(titleDirectory)
     self.geometryFlipped = true
+  }
+  
+//=============================================================================/
+// Mark: Public Methods
+//=============================================================================/
+  
+  func tilesInMapRect(rect: MKMapRect, scale: MKZoomScale)->[ImageTile] {
+    
+    var tiles = [ImageTile]()
+    let z = self.zoomScaleToZoomLevel(scale)
+    let tilesAtZ = Int(pow(2.0, Double(z)))
+    
+    let minX = Int(floor((MKMapRectGetMinX(rect) * Double(scale)) / kTileSize))
+    let maxX = Int(floor((MKMapRectGetMaxX(rect) * Double(scale)) / kTileSize))
+    let minY = Int(floor((MKMapRectGetMinY(rect) * Double(scale)) / kTileSize))
+    let maxY = Int(floor((MKMapRectGetMaxY(rect) * Double(scale)) / kTileSize))
+    
+    for var x = minX; x <= maxX; x++  {
+      for var y = minY; y <= maxY; y++ {
+        let flippedY = abs(y + 1 - tilesAtZ)
+        let tileKey = "\(z)/\(x)/\(flippedY)"
+        
+        if tileSet.contains(tileKey) {
+          let point = MKMapPoint(x: (Double(x) * kTileSize) / Double(scale), y: (Double(y) * kTileSize) / Double(scale))
+          let size = MKMapSize(width: kTileSize / Double(scale), height: kTileSize / Double(scale))
+          let frame = MKMapRect(origin: point, size: size)
+          
+          let fullPath = "\(self.baseDirectoryPath)/Tiles/\(tileKey).png"
+          let tile = ImageTile(imagePath: fullPath, mapRect: frame)
+          tiles.append(tile)
+        }
+      }
+    }
+    
+    return tiles
   }
   
   override func URLForTilePath(path: MKTileOverlayPath) -> NSURL {
@@ -42,6 +78,10 @@ class HistoricTileMapOverlay: MKTileOverlay {
   override func loadTileAtPath(path: MKTileOverlayPath, result: (NSData?, NSError?) -> Void) {
     super.loadTileAtPath(path, result: result)
   }
+  
+//=============================================================================/
+// Mark: Private Methods
+//=============================================================================/
   
   private func getCoordinate()->CLLocationCoordinate2D {
     return MKCoordinateForMapPoint(MKMapPoint(x: MKMapRectGetMidX(self.boundingMapRect), y: MKMapRectGetMidY(self.boundingMapRect)))
@@ -111,7 +151,6 @@ class HistoricTileMapOverlay: MKTileOverlay {
     
     self.private_boundingRect = MKMapRect(origin: MKMapPoint(x: x0, y: y0), size: MKMapSize(width: x1-x0, height: y1-y0))
     self.tileSet = pathSet
-    
   }
   
   private func zoomScaleToZoomLevel(scale: MKZoomScale)->Int {
@@ -119,36 +158,5 @@ class HistoricTileMapOverlay: MKTileOverlay {
     let zoomLevelAt1_0 = log2(numTilesAt1_0)
     let zoomLevel = max(0, zoomLevelAt1_0 + Double(floor(log2(scale) + 0.5)))
     return Int(zoomLevel)
-  }
-  
-  func tilesInMapRect(rect: MKMapRect, scale: MKZoomScale)->[ImageTile] {
-    
-    var tiles = [ImageTile]()
-    let z = self.zoomScaleToZoomLevel(scale)
-    let tilesAtZ = Int(pow(2.0, Double(z)))
-    
-    let minX = Int(floor((MKMapRectGetMinX(rect) * Double(scale)) / kTileSize))
-    let maxX = Int(floor((MKMapRectGetMaxX(rect) * Double(scale)) / kTileSize))
-    let minY = Int(floor((MKMapRectGetMinY(rect) * Double(scale)) / kTileSize))
-    let maxY = Int(floor((MKMapRectGetMaxY(rect) * Double(scale)) / kTileSize))
-    
-    for var x = minX; x <= maxX; x++  {
-      for var y = minY; y <= maxY; y++ {
-        let flippedY = abs(y + 1 - tilesAtZ)
-        let tileKey = "\(z)/\(x)/\(flippedY)"
-        
-        if tileSet.contains(tileKey) {
-          let point = MKMapPoint(x: (Double(x) * kTileSize) / Double(scale), y: (Double(y) * kTileSize) / Double(scale))
-          let size = MKMapSize(width: kTileSize / Double(scale), height: kTileSize / Double(scale))
-          let frame = MKMapRect(origin: point, size: size)
-          
-          let fullPath = "\(self.baseDirectoryPath)/Tiles/\(tileKey).png"
-          let tile = ImageTile(imagePath: fullPath, mapRect: frame)
-          tiles.append(tile)
-        }
-      }
-    }
-    
-    return tiles
   }
 }

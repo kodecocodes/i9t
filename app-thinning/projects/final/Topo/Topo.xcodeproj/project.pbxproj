@@ -21,7 +21,7 @@
 		A63B63C61B41086D002178B7 /* HistoricTileMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63B63C51B41086D002178B7 /* HistoricTileMapOverlay.swift */; };
 		A63B92B51B4F4FCF00C67CCC /* Yos_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A63B92B41B4F4FCF00C67CCC /* Yos_Map.bundle */; settings = {ASSET_TAGS = (Yos_Map, ); }; };
 		A63B92B71B4F769D00C67CCC /* SC_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A63B92B61B4F769D00C67CCC /* SC_Map.bundle */; settings = {ASSET_TAGS = (SC_Map, ); }; };
-		A65DC4311B4236480029ACDB /* NSBundleResourceRequest+ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65DC4301B4236480029ACDB /* NSBundleResourceRequest+ContentExtractor.swift */; };
+		A65DC4311B4236480029ACDB /* NSBundle+ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65DC4301B4236480029ACDB /* NSBundle+ContentExtractor.swift */; };
 		A667DD011B42FED000B8016C /* example_map.png in Resources */ = {isa = PBXBuildFile; fileRef = A667DD001B42FED000B8016C /* example_map.png */; };
 		A674F90B1B4F77DC004EB45B /* Mont_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A674F90A1B4F77DC004EB45B /* Mont_Map.bundle */; settings = {ASSET_TAGS = (Mont_Map, ); }; };
 		A69035281B43C0DF00439C92 /* MapSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69035271B43C0DF00439C92 /* MapSplitViewController.swift */; };
@@ -46,7 +46,7 @@
 		A63B63C51B41086D002178B7 /* HistoricTileMapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoricTileMapOverlay.swift; sourceTree = "<group>"; };
 		A63B92B41B4F4FCF00C67CCC /* Yos_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Yos_Map.bundle; sourceTree = "<group>"; };
 		A63B92B61B4F769D00C67CCC /* SC_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SC_Map.bundle; sourceTree = "<group>"; };
-		A65DC4301B4236480029ACDB /* NSBundleResourceRequest+ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "NSBundleResourceRequest+ContentExtractor.swift"; sourceTree = "<group>"; tabWidth = 2; };
+		A65DC4301B4236480029ACDB /* NSBundle+ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = "NSBundle+ContentExtractor.swift"; sourceTree = "<group>"; tabWidth = 2; };
 		A667DD001B42FED000B8016C /* example_map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = example_map.png; sourceTree = "<group>"; };
 		A674F90A1B4F77DC004EB45B /* Mont_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Mont_Map.bundle; sourceTree = "<group>"; };
 		A69035271B43C0DF00439C92 /* MapSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSplitViewController.swift; sourceTree = "<group>"; };
@@ -91,7 +91,7 @@
 				A63B63B11B4107CF002178B7 /* AppDelegate.swift */,
 				A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */,
 				A636B3A01B4E4A4E0043657A /* ImageTile.swift */,
-				A65DC4301B4236480029ACDB /* NSBundleResourceRequest+ContentExtractor.swift */,
+				A65DC4301B4236480029ACDB /* NSBundle+ContentExtractor.swift */,
 				A63B63B51B4107CF002178B7 /* Main.storyboard */,
 				A63B63C31B41084D002178B7 /* HistoricTileMapOverlayRenderer.swift */,
 				A63B63C51B41086D002178B7 /* HistoricTileMapOverlay.swift */,
@@ -219,7 +219,7 @@
 			files = (
 				A636B3A11B4E4A4E0043657A /* ImageTile.swift in Sources */,
 				A63B63B41B4107CF002178B7 /* MapChromeViewController.swift in Sources */,
-				A65DC4311B4236480029ACDB /* NSBundleResourceRequest+ContentExtractor.swift in Sources */,
+				A65DC4311B4236480029ACDB /* NSBundle+ContentExtractor.swift in Sources */,
 				A63B63C41B41084D002178B7 /* HistoricTileMapOverlayRenderer.swift in Sources */,
 				A63B63C61B41086D002178B7 /* HistoricTileMapOverlay.swift in Sources */,
 				A63B63B21B4107CF002178B7 /* AppDelegate.swift in Sources */,

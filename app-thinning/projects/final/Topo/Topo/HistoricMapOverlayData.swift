@@ -27,8 +27,8 @@ extension HistoricMapOverlayData {
   static func generateDefaultData()->[HistoricMapOverlayData] {
     return [
       HistoricMapOverlayData(title: "Santa Cruz", thumbnailImageTitle: "example_map", bundleTitle: "SC_Map", year:1992),
-      HistoricMapOverlayData(title: "San Francisco", thumbnailImageTitle: "example_map", bundleTitle: "SF_Map", year:1992),
       HistoricMapOverlayData(title: "Sunnyvale", thumbnailImageTitle: "example_map", bundleTitle: "SNVL_Map", year:1948),
+      HistoricMapOverlayData(title: "San Francisco", thumbnailImageTitle: "example_map", bundleTitle: "SF_Map", year:1992),
       HistoricMapOverlayData(title: "San Diego", thumbnailImageTitle: "example_map", bundleTitle: "SD_Map", year:1994),
       HistoricMapOverlayData(title: "Los Angelos", thumbnailImageTitle: "example_map", bundleTitle: "LA_Map", year:1994),
       HistoricMapOverlayData(title: "Yosemite", thumbnailImageTitle: "example_map", bundleTitle: "Yos_Map", year:1987),
