@@ -44,29 +44,12 @@ class CheckListViewController: UITableViewController {
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "CheckListItem" {
       if let  cell = sender as? UITableViewCell,
-              controller = segue.destinationViewController as? CheckListItemViewController,
+              controller = segue.destinationViewController as? ItemViewController,
               indexPath = self.tableView.indexPathForCell(cell) {
         controller.checkListIndex = indexPath.row
         controller.itemArray = checkListItemData[indexPath.row]
+        controller.title = checkListData[indexPath.row]
       }
     }
   }
-  
-  @IBAction func cancelToCheckListViewController(segue: UIStoryboardSegue) {
-    
-  }
-  
-  @IBAction func saveToCheckListViewController(segue: UIStoryboardSegue) {
-    if let  controller = segue.sourceViewController as? CheckListDetailViewController,
-            text = controller.checkList.text {
-      checkListData.append(text)
-      checkListItemData.append([])
-      let indexPath = NSIndexPath(forRow: checkListData.count-1, inSection: 0)
-      self.tableView.beginUpdates()
-      self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
-      self.tableView.endUpdates()
-    }
-  }
-  
-  
 }

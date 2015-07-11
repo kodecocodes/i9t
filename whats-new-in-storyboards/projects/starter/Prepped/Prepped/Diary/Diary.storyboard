@@ -108,7 +108,7 @@
             </objects>
             <point key="canvasLocation" x="2106" y="-227"/>
         </scene>
-        <!--Diary Detail View Controller-->
+        <!--Diary Entry-->
         <scene sceneID="V1A-LT-Lq6">
             <objects>
                 <tableViewController id="RHl-A8-MCl" customClass="DiaryDetailViewController" customModule="Prepped" customModuleProvider="target" sceneMemberID="viewController">
@@ -149,7 +149,7 @@
                             <outlet property="delegate" destination="RHl-A8-MCl" id="3DG-z1-nA8"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="8Ta-N9-j1y">
+                    <navigationItem key="navigationItem" title="Diary Entry" id="8Ta-N9-j1y">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Tp3-Wf-H6D">
                             <connections>
                                 <segue destination="K1k-j0-laR" kind="unwind" unwindAction="cancelToDiaryViewController:" id="ahb-Te-J7A"/>

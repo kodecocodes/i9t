@@ -23,58 +23,54 @@
 
 import UIKit
 
-class CheckListItemViewController: UITableViewController {
+class ItemViewController: UITableViewController {
   
+  let cellHeight:CGFloat = 64
+  let cellPadding: CGFloat = 10
+  
+  var selectedIndexPath:NSIndexPath?
   
   @IBOutlet var notesView: UIView!
   @IBOutlet var notesTextView: UITextView!
   
-  var selectedIndexPath:NSIndexPath?
-  let cellHeight:CGFloat = 64
-  let cellPadding: CGFloat = 10
-  
   var checkListIndex:Int = 0
-  var itemArray = [CheckListItem]()
+  var itemArray:[CheckListItem] = checkListItemData[0]
   
-  // MARK: - Table view data source
+  override func viewDidLoad() {
+    self.navigationItem.rightBarButtonItem = self.editButtonItem()
+  }
+
+  // MARK: - Unwind segue methods
   
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 1
+  @IBAction func cancelToItemViewController(segue: UIStoryboardSegue) {
   }
   
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return itemArray.count
-  }
-  
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("CheckListItemCell", forIndexPath: indexPath) as! CheckListTableViewCell
-    cell.delegate = self
-    let checkListItem = itemArray[indexPath.row]
-    cell.lblListText?.text = checkListItem.description
-    cell.checked = checkListItem.checked
-    return cell
-  }
-  
-  override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    return true
-  }
-  
-  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    if selectedIndexPath == indexPath {
-      return cellHeight + cellPadding + notesView.bounds.height
-    }
-    else {
-      return cellHeight
+  @IBAction func saveToItemViewController(segue: UIStoryboardSegue) {
+    if let  controller = segue.sourceViewController as? ItemDetailViewController,
+      text = controller.checkListDescription.text,
+      notes = controller.checkListNotes.text {
+        let checkListItem:CheckListItem = (text, false, notes)
+        itemArray.append(checkListItem)
+        checkListItemData[checkListIndex].append(checkListItem)
+        let indexPath = NSIndexPath(forRow: itemArray.count-1, inSection: 0)
+        self.tableView.beginUpdates()
+        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+        self.tableView.endUpdates()
     }
   }
-  
+}
+
+extension ItemViewController {
+  // MARK: - Table view delegate
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.beginUpdates()
     if selectedIndexPath == indexPath {
       selectedIndexPath = nil
+      //remove notes view from cell
       notesView.removeFromSuperview()
     } else {
       selectedIndexPath = indexPath
+      //add notes view to cell
       notesTextView.text = itemArray[indexPath.row].notes
       if let cell = tableView.cellForRowAtIndexPath(indexPath) {
         notesView.frame.origin.x = cellPadding
@@ -85,49 +81,52 @@ class CheckListItemViewController: UITableViewController {
     tableView.endUpdates()
   }
   
+  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    if selectedIndexPath == indexPath {
+      return cellHeight + cellPadding + notesView.bounds.height
+    } else {
+      return cellHeight
+    }
+  }
+
+}
+
+extension ItemViewController {
+  // MARK: - Table view data source
   
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
+      // 1
       selectedIndexPath = nil
+      // 2
       notesView.removeFromSuperview()
+      // 3
       itemArray.removeAtIndex(indexPath.row)
       checkListItemData[checkListIndex].removeAtIndex(indexPath.row)
+      // 4
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     }
   }
   
-  @IBAction func cancelToCheckListItemViewController(segue: UIStoryboardSegue) {
-    
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return 1
   }
   
-  @IBAction func saveToCheckListItemViewController(segue: UIStoryboardSegue) {
-    if let  controller = segue.sourceViewController as? CheckListItemDetailViewController,
-            text = controller.checkListDescription.text,
-            notes = controller.checkListNotes.text {
-        let checkListItem:CheckListItem = (text, false, notes)
-        itemArray.append(checkListItem)
-        checkListItemData[checkListIndex].append(checkListItem)
-        let indexPath = NSIndexPath(forRow: itemArray.count-1, inSection: 0)
-        self.tableView.beginUpdates()
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
-        self.tableView.endUpdates()
-    }
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return itemArray.count
   }
   
-  
-  @IBAction func btnEdit(button:UIBarButtonItem) {
-    if self.editing {
-      button.title = "Edit"
-      super.setEditing(false, animated: true)
-    } else {
-      button.title = "Done"
-      super.setEditing(true, animated: true)
-    }
-    
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("ItemTableViewCell", forIndexPath: indexPath) as! ItemTableViewCell
+    cell.delegate = self
+    let checkListItem = itemArray[indexPath.row]
+    cell.lblListText?.text = checkListItem.description
+    cell.checked = checkListItem.checked
+    return cell
   }
 }
 
-extension CheckListItemViewController: CheckListTableViewCellDelegate {
+extension ItemViewController: ItemTableViewCellDelegate {
   func cellCheckMarkTapped(cell: UITableViewCell, checked: Bool) {
     if let indexPath = tableView.indexPathForCell(cell) {
       itemArray[indexPath.row].checked = checked

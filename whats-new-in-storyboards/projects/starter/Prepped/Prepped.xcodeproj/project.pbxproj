@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		822CBE831B3BC1D10007FC19 /* CheckListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822CBE821B3BC1D10007FC19 /* CheckListViewController.swift */; };
-		822CBEA81B3CFF950007FC19 /* CheckListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822CBEA71B3CFF950007FC19 /* CheckListDetailViewController.swift */; };
 		8230E19E1B3B94720058CA5E /* ItemDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230E19D1B3B94710058CA5E /* ItemDetailViewController.swift */; };
 		824F75CA1B3B77B300111FE3 /* ItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824F75C91B3B77B300111FE3 /* ItemTableViewCell.swift */; };
 		824F75CC1B3B789900111FE3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824F75CB1B3B789900111FE3 /* Config.swift */; };
@@ -23,7 +22,6 @@
 
 /* Begin PBXFileReference section */
 		822CBE821B3BC1D10007FC19 /* CheckListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListViewController.swift; sourceTree = "<group>"; };
-		822CBEA71B3CFF950007FC19 /* CheckListDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckListDetailViewController.swift; sourceTree = "<group>"; };
 		8230E19D1B3B94710058CA5E /* ItemDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemDetailViewController.swift; sourceTree = "<group>"; };
 		824F75C91B3B77B300111FE3 /* ItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemTableViewCell.swift; sourceTree = "<group>"; };
 		824F75CB1B3B789900111FE3 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -118,7 +116,6 @@
 			isa = PBXGroup;
 			children = (
 				822CBE821B3BC1D10007FC19 /* CheckListViewController.swift */,
-				822CBEA71B3CFF950007FC19 /* CheckListDetailViewController.swift */,
 			);
 			name = "Check Lists";
 			sourceTree = "<group>";
@@ -210,7 +207,6 @@
 				824F75CE1B3B840D00111FE3 /* SampleData.swift in Sources */,
 				824F75CC1B3B789900111FE3 /* Config.swift in Sources */,
 				825E94831B38DF2F007F9483 /* ItemViewController.swift in Sources */,
-				822CBEA81B3CFF950007FC19 /* CheckListDetailViewController.swift in Sources */,
 				825E94711B38DC9C007F9483 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

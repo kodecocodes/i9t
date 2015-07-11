@@ -52,22 +52,4 @@ class CheckListViewController: UITableViewController {
       }
     }
   }
-  
-  @IBAction func cancelToCheckListViewController(segue: UIStoryboardSegue) {
-    
-  }
-  
-  @IBAction func saveToCheckListViewController(segue: UIStoryboardSegue) {
-    if let  controller = segue.sourceViewController as? CheckListDetailViewController,
-            text = controller.checkList.text {
-      checkListData.append(text)
-      checkListItemData.append([])
-      let indexPath = NSIndexPath(forRow: checkListData.count-1, inSection: 0)
-      self.tableView.beginUpdates()
-      self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
-      self.tableView.endUpdates()
-    }
-  }
-  
-  
 }

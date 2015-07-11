@@ -22,7 +22,7 @@
 
 import UIKit
 
-class CheckListItemDetailViewController: UITableViewController {
+class ItemDetailViewController: UITableViewController {
   
   @IBOutlet var checkListDescription: UITextField!
   @IBOutlet var checkListNotes: UITextView!
