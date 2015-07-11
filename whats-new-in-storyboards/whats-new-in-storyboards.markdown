@@ -424,7 +424,7 @@ This is what's happening here:
 
 Build and run the application, choose a Check List, tap the Edit button and delete an item from the check list. Tap the Done button to complete Editing.
 
-## Where to go to from here
+## Where to go to from here?
 
 Congratulations! You are now prepared to survive the apocalypse, and as an added bonus, you learned about:
 
