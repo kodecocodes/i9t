@@ -68,7 +68,7 @@
 		A63B63A51B4107CF002178B7 = {
 			isa = PBXGroup;
 			children = (
-				A63B63B01B4107CF002178B7 /* Topo */,
+				A63B63B01B4107CF002178B7 /* GoodOldCA */,
 				A63B63AF1B4107CF002178B7 /* Products */,
 			);
 			indentWidth = 2;
@@ -83,7 +83,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A63B63B01B4107CF002178B7 /* Topo */ = {
+		A63B63B01B4107CF002178B7 /* GoodOldCA */ = {
 			isa = PBXGroup;
 			children = (
 				A63B63B11B4107CF002178B7 /* AppDelegate.swift */,
@@ -96,7 +96,7 @@
 				A63B63BA1B4107CF002178B7 /* LaunchScreen.storyboard */,
 				A63B63BD1B4107CF002178B7 /* Info.plist */,
 			);
-			path = Topo;
+			path = GoodOldCA;
 			sourceTree = "<group>";
 		};
 		A667DD021B42FED600B8016C /* Map Thumbnails */ = {
@@ -367,7 +367,7 @@
 				INFOPLIST_FILE = Topo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Topo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.GoodOldCA;
 				PRODUCT_NAME = GoodOldCA;
 				PROVISIONING_PROFILE = "";
 			};
@@ -382,7 +382,7 @@
 				INFOPLIST_FILE = Topo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Topo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.raywenderlich.GoodOldCA;
 				PRODUCT_NAME = GoodOldCA;
 				PROVISIONING_PROFILE = "";
 			};

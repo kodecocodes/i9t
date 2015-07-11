@@ -6,15 +6,17 @@ Back in the days of iOS 8, Apple began pushing developers to adopt a universal a
 
 However, packaging an universal app with device-specific content combined with an always increasing complexity to apps has its drawbacks. Apps are demanding more disk space, resulting in longer download times, more disk usage, and potentially consuming more memory.
 
-Fortunately, in iOS 9, Apple has introduced several solutions to circumvent this problem: 
-- **App Slicing**: Compiling only the resources and executable architecture specific to the device the app is executing on. 
-- **On Demand Resources**: Resources for an application that are downloaded as needed an can be removed if the iOS device needs to make room for other storage on disk.
+Fortunately, in iOS 9, Apple has introduced several solutions to circumvent this problem:
+
+- **App Slicing:** Compiling only the resources and executable architecture specific to the device the app is executing on. 
+- **On Demand Resources:** Resources for an application that are downloaded as needed an can be removed if the iOS device needs to make room for other storage on disk.
+- **Bitcode:** An intermmediate representation that is sent along with your app to the App Store. This allows Apple to re-optimize your app as future optimizations are made on their compiler and then applied to your code. Since this 100% on Apple's end (minus allowing Xcode to send Bitcode), this will not be discussed in depth in this chapter. 
 
 Packaged together, these techniques are known as **App Thinning**.
 
 ## Getting Started
 
-You'll work with an app named **Good ol' CA**, which displays historical aerial overlays over different parts of California. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this app take up quite a bit of space. You'll use the App Thinning techniques to hack-and-slash the end product to a more managable size.
+You'll work with an app named **Good ol' CA**, which displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this app take up quite a bit of disk space. You'll use the App Thinning techniques to hack-and-slash the end product to a more managable size.
 
 Open **GoodOldCA.proj**. Select the **iPad Air 2 Simulator** as the **scheme destination**, then build and run the application.
 
@@ -24,7 +26,7 @@ Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and
 
 >**Note:** These overlays are created from image tiles found in **NSBundle**s and passed into a **MKTileOverlayRenderer** for drawing. All of this is well beyond the scope of this tutorial on how it works. Think of this stuff as a black box--all you care about is how to make you app as small as possible to the end user. :] 
 
-Once you are done seeing how much development occurred in Sunnyvale since 1948 (hometown of Apple's HQ), navigate to Xcode's **Project Navigator**, open **Products**, then 
+Once you're done seeing how much development occurred in Sunnyvale since 1948, select **iOS Device** in the scheme destination and build the target. Navigate to Xcode's **Project Navigator**, open **Products**, then right click the **GoodOldCA** app and select **Show in Finder**. 
 
 ### App Slicing
 
@@ -45,7 +47,7 @@ In order to properly enable App Slicing on the executable, all you have to do is
 
 ### Resource Thinning with Asset Catalogs
 
-Selectively grooming your app for assets takes a tiny bit more work (but not much!). 
+Selectively grooming your app for assets takes a tiny bit more work than doing nothing (but not much!). 
 
 
 Build & Archive app, check out IPA size App Slicing [Theory, Instruction]
