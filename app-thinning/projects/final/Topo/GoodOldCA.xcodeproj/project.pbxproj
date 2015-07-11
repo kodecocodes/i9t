@@ -35,7 +35,7 @@
 		A636B3A41B4EC7DA0043657A /* LA_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LA_Map.bundle; sourceTree = "<group>"; };
 		A636B3A61B4ECD150043657A /* SD_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SD_Map.bundle; sourceTree = "<group>"; };
 		A636B3A81B4ED04A0043657A /* SNVL_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SNVL_Map.bundle; sourceTree = "<group>"; };
-		A63B63AE1B4107CF002178B7 /* Topo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Topo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A63B63AE1B4107CF002178B7 /* GoodOldCA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodOldCA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A63B63B11B4107CF002178B7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = MapChromeViewController.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		A63B63B61B4107CF002178B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -78,7 +78,7 @@
 		A63B63AF1B4107CF002178B7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A63B63AE1B4107CF002178B7 /* Topo.app */,
+				A63B63AE1B4107CF002178B7 /* GoodOldCA.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -86,16 +86,13 @@
 		A63B63B01B4107CF002178B7 /* Topo */ = {
 			isa = PBXGroup;
 			children = (
-				A674F90D1B4F8366004EB45B /* Map Overlays & Data */,
-				A667DD021B42FED600B8016C /* Map Thumbnails */,
-				A69695331B4131B70018D403 /* Map Bundles */,
 				A63B63B11B4107CF002178B7 /* AppDelegate.swift */,
-				A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */,
-				A65DC4301B4236480029ACDB /* NSBundle+ContentExtractor.swift */,
-				A63B63B51B4107CF002178B7 /* Main.storyboard */,
-				A69035271B43C0DF00439C92 /* MapSplitViewController.swift */,
-				A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */,
+				A674F90E1B50C1D5004EB45B /* View Controllers */,
+				A674F90D1B4F8366004EB45B /* Map Overlays & Data */,
+				A69695331B4131B70018D403 /* Map Bundles */,
+				A674F90F1B50C1FE004EB45B /* misc */,
 				A63B63B81B4107CF002178B7 /* Assets.xcassets */,
+				A63B63B51B4107CF002178B7 /* Main.storyboard */,
 				A63B63BA1B4107CF002178B7 /* LaunchScreen.storyboard */,
 				A63B63BD1B4107CF002178B7 /* Info.plist */,
 			);
@@ -113,12 +110,31 @@
 		A674F90D1B4F8366004EB45B /* Map Overlays & Data */ = {
 			isa = PBXGroup;
 			children = (
+				A667DD021B42FED600B8016C /* Map Thumbnails */,
 				A63B63C31B41084D002178B7 /* HistoricTileMapOverlayRenderer.swift */,
 				A63B63C51B41086D002178B7 /* HistoricTileMapOverlay.swift */,
 				A6C3D1341B450EF5009602C3 /* HistoricMapOverlayData.swift */,
 				A636B3A01B4E4A4E0043657A /* ImageTile.swift */,
 			);
 			name = "Map Overlays & Data";
+			sourceTree = "<group>";
+		};
+		A674F90E1B50C1D5004EB45B /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A63B63B31B4107CF002178B7 /* MapChromeViewController.swift */,
+				A6C3D1301B4509AD009602C3 /* MapContentTableViewController.swift */,
+				A69035271B43C0DF00439C92 /* MapSplitViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		A674F90F1B50C1FE004EB45B /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				A65DC4301B4236480029ACDB /* NSBundle+ContentExtractor.swift */,
+			);
+			name = misc;
 			sourceTree = "<group>";
 		};
 		A69695331B4131B70018D403 /* Map Bundles */ = {
@@ -138,9 +154,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A63B63AD1B4107CF002178B7 /* Topo */ = {
+		A63B63AD1B4107CF002178B7 /* GoodOldCA */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A63B63C01B4107CF002178B7 /* Build configuration list for PBXNativeTarget "Topo" */;
+			buildConfigurationList = A63B63C01B4107CF002178B7 /* Build configuration list for PBXNativeTarget "GoodOldCA" */;
 			buildPhases = (
 				A63B63AA1B4107CF002178B7 /* Sources */,
 				A63B63AB1B4107CF002178B7 /* Frameworks */,
@@ -150,9 +166,9 @@
 			);
 			dependencies = (
 			);
-			name = Topo;
+			name = GoodOldCA;
 			productName = Topo;
-			productReference = A63B63AE1B4107CF002178B7 /* Topo.app */;
+			productReference = A63B63AE1B4107CF002178B7 /* GoodOldCA.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -194,7 +210,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A63B63AD1B4107CF002178B7 /* Topo */,
+				A63B63AD1B4107CF002178B7 /* GoodOldCA */,
 			);
 		};
 /* End PBXProject section */
@@ -352,7 +368,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Topo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GoodOldCA;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -367,7 +383,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Topo;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = GoodOldCA;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -384,7 +400,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A63B63C01B4107CF002178B7 /* Build configuration list for PBXNativeTarget "Topo" */ = {
+		A63B63C01B4107CF002178B7 /* Build configuration list for PBXNativeTarget "GoodOldCA" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A63B63C11B4107CF002178B7 /* Debug */,

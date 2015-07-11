@@ -1,0 +1,130 @@
+{
+  "images" : [
+    {
+      "idiom" : "iphone",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "1x",
+      "heightClass" : "regular"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "heightClass" : "regular"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "heightClass" : "regular"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "1x",
+      "widthClass" : "regular"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "2x",
+      "widthClass" : "regular"
+    },
+    {
+      "idiom" : "iphone",
+      "scale" : "3x",
+      "widthClass" : "regular"
+    },
+    {
+      "heightClass" : "regular",
+      "idiom" : "iphone",
+      "widthClass" : "regular",
+      "scale" : "1x"
+    },
+    {
+      "heightClass" : "regular",
+      "idiom" : "iphone",
+      "widthClass" : "regular",
+      "scale" : "2x"
+    },
+    {
+      "heightClass" : "regular",
+      "idiom" : "iphone",
+      "widthClass" : "regular",
+      "scale" : "3x"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "heightClass" : "regular"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "heightClass" : "regular"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "1x",
+      "widthClass" : "regular"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x",
+      "widthClass" : "regular"
+    },
+    {
+      "heightClass" : "regular",
+      "idiom" : "ipad",
+      "widthClass" : "regular",
+      "scale" : "1x"
+    },
+    {
+      "heightClass" : "regular",
+      "idiom" : "ipad",
+      "widthClass" : "regular",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "watch",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "watch",
+      "screenWidth" : "{130,145}",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "watch",
+      "screenWidth" : "{146,165}",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "mac",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "mac",
+      "scale" : "2x"
+    }
+  ],
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  }
+}

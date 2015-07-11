@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8124.4"/>
     </dependencies>
     <scenes>
-        <!--California-->
+        <!--Map Chrome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MapChromeViewController" customModule="Topo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MapChromeViewController" customModule="GoodOldCA" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -56,9 +56,7 @@
                             <constraint firstItem="t9a-Zc-ehg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zUR-ji-ETd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="California" id="KEx-n5-XSA">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="6xQ-HB-TS5"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="KEx-n5-XSA"/>
                     <connections>
                         <outlet property="loadingProgressView" destination="Hqs-2u-1NG" id="DkZ-28-DD2"/>
                         <outlet property="mapView" destination="t9a-Zc-ehg" id="TZR-VH-W5K"/>
@@ -71,7 +69,7 @@
         <!--Map Content Table View Controller-->
         <scene sceneID="DbS-rK-E5o">
             <objects>
-                <tableViewController modalPresentationStyle="overFullScreen" id="Y0V-Ua-VB7" customClass="MapContentTableViewController" customModule="Topo" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController modalPresentationStyle="overFullScreen" id="Y0V-Ua-VB7" customClass="MapContentTableViewController" customModule="GoodOldCA" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" id="cPY-gW-lMu">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -124,7 +122,7 @@
         <!--Map Split View Controller-->
         <scene sceneID="jY8-Rj-A3V">
             <objects>
-                <splitViewController id="GdC-YM-3bv" customClass="MapSplitViewController" customModule="Topo" customModuleProvider="target" sceneMemberID="viewController">
+                <splitViewController id="GdC-YM-3bv" customClass="MapSplitViewController" customModule="GoodOldCA" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="hLn-lT-OBZ" kind="relationship" relationship="detailViewController" id="YKN-Bh-jpx"/>
                         <segue destination="rrX-h5-BiT" kind="relationship" relationship="masterViewController" id="6uv-LF-yCQ"/>
