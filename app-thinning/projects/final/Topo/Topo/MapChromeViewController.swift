@@ -29,7 +29,6 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   @IBOutlet weak var mapView: MKMapView!
   
   var mapOverlayData: HistoricMapOverlayData!
-  private var bundleRequests: Set<NSBundleResourceRequest> = []
   
 //=============================================================================/
 // Mark: Lifetime
@@ -73,9 +72,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   }
   
   func handleLowDiskSpaceNotification(notification: NSNotification) {
-    for bundleRequest in self.bundleRequests {
-      bundleRequest.endAccessingResources()
-    }
+    // TODO : determine something
   }
   
 //=============================================================================/
@@ -92,42 +89,41 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   private func downloadAndDisplayMapOverlay() {
-    guard let mapData = self.mapOverlayData else {
+    guard let mapOverlay = self.mapOverlayData else {
       return
     }
     
-    let bundleRequest = NSBundleResourceRequest(tags:[mapData.bundleTitle])
+    let bundleRequest = NSBundleResourceRequest(tags:[mapOverlay.bundleTitle])
     
     bundleRequest.conditionallyBeginAccessingResourcesWithCompletionHandler { (resourcesAvailable) -> Void in
       
       if resourcesAvailable == false {
         self.loadingProgressView.observedProgress = bundleRequest.progress
-        self.loadingProgressView.hidden = false 
+        self.loadingProgressView.hidden = false
         bundleRequest.beginAccessingResourcesWithCompletionHandler { (error : NSError?) -> Void in
           
           NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
             self.loadingProgressView.hidden = true
-            
             if error != nil {
-              // Handle error here
+              // Handle error
             } else {
-              self.bundleRequests.insert(bundleRequest)
-              let (auxillaryInfo, path) = bundleRequest.bundle.extractMapContentBundleWithTitle(mapData.bundleTitle)
-              let overlay = HistoricTileMapOverlay(titleDirectory: path, auxillaryInfo: auxillaryInfo)
-              self.mapView.addOverlay(overlay)
-              self.mapView.setVisibleMapRect(overlay.boundingMapRect, animated: true)
+              self.displayOverlayFromBundle(bundleRequest.bundle)
             }
-            
           })
         }
       } else {
         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-          let (auxillaryInfo, path) = bundleRequest.bundle.extractMapContentBundleWithTitle(mapData.bundleTitle)
-          let overlay = HistoricTileMapOverlay(titleDirectory: path, auxillaryInfo: auxillaryInfo)
-          self.mapView.setVisibleMapRect(overlay.boundingMapRect, animated: true)
+          self.displayOverlayFromBundle(bundleRequest.bundle)
         })
       }
     }
+  }
+  
+  func displayOverlayFromBundle(bundle: NSBundle) {
+    let (auxillaryInfo, path) = bundle.extractMapContentBundleWithTitle(self.mapOverlayData.bundleTitle)
+    let overlay = HistoricTileMapOverlay(titleDirectory: path, auxillaryInfo: auxillaryInfo)
+    self.mapView.addOverlay(overlay)
+    self.mapView.setVisibleMapRect(overlay.boundingMapRect, animated: true)
   }
   
 }
