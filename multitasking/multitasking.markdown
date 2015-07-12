@@ -17,28 +17,33 @@ You can then pin the Slide Over and activate Split View. In Split View the scree
 
 ![width=90% ipad](images/mt01.png)
 
-The Picture in Picture (PIP) multitasking feature works similarly to the picture-in-picture function on televisions. When watching a video or participating in a FaceTime call, the video window can be minimized to one corner of the iPad so you can continue to use other apps while you watch or chat.
+If for any reason, you really don't want to participate in a multitasking environment, you can opt out of this feature by checking __Requires full screen__ box in the General tab of the target settings.
 
 ![width=90% ipad](images/mt02.png)
+
+
+The Picture in Picture (PIP) multitasking feature works similarly to the picture-in-picture function on televisions. When watching a video or participating in a FaceTime call, the video window can be minimized to one corner of the iPad so you can continue to use other apps while you watch or chat.
+
+![width=90% ipad](images/mt03.png)
 
 
 > **Note:** At the time of writing this chapter, Slide Over is supported on iPad Air 2 only. Picture in Picture is supported on iPad Air, iPad Air 2, iPad Mini 2, and iPad Mini 3 only.
 
 If you are not sure whether your iPad supports multitasking, go to __Settings > General__ on your iPad. If you see __Multitasking__ in the list, your iPad is multitasking capable. As a user you can disable multitasking.
 
-![width=90% ipad](images/mt03.png)
+![width=90% ipad](images/mt04.png)
 
 ## The starter project
 
 The starter project you’ll use for the remainder of this chapter is called __Travelog__. Open the project file in Xcode and build and run the application for iPad simulator. Make sure you select iPad Air 2 because that's the only simulator that supports multitasking. You’ll see the following screens:
 
-![width=90% ipad](images/mt04.png)
+![width=90% ipad](images/mt05.png)
 
 Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. If you tap on an entry it's displayed in the right hand view. Rotate the device and you'll see both master and detail views of the Split View Controller are visible in both orientations. However, the master view is narrower in portrait orientation to give more room to the detail view.
 
 It's time to see how the app behaves in a multitasking environment. Swipe from the right edge of the screen to expose the list of multitasking-ready apps on your iPad. Tap on one of the apps, like Calendar app to launch it. You notice that there is a handle in the divider that suggests you can pin the divider. Go ahead and do that.
 
-![width=90% ipad](images/mt05.png)
+![width=90% ipad](images/mt06.png)
 
 How did that happen? It turns out if you start a new project in Xcode 7, it's automatically multitasking ready. An existing app automatically becomes multitasking-ready if the following conditions are met:
 * a universal app
@@ -54,11 +59,69 @@ With that said, there are some strategies that you can use to improve your code 
 1. __Universal:__ Make your app universal. Your users will be happier and feel more like home when they can interactive with your app on their iPad, for example, very much the same way they interact with it on their iPhone. If you look around you'll see that's how most of the apps that you also use on a daily basis behave. For example Mail, Calendar, and Notes just to name a few provide almost an identical experience whether you use them on a Mac, on an iPad or on your iPhone.
 2. __Be flexible:__ You need to step away from a pixle-perfect design for various platforms and orientations. You need to think about different sizes and how you can have a flixble app that responds to size changes appropriately.
 3. __Use Auto Layout:__ If you still have some legacy code with hardcoded sizes or code that manually changes size of elements, it's time to consider Auto Layout to make your code more flexible and easier to maintain.
-4. __Use Size classes:__ It's great to have universal storyboards, but one single layout doesn't always fit all displays. Use size classes to build a base layout and then customize each specific size class based on the individual needs of that size class. Don’t treat each of the size classes as a completely separate design because as you will see later in multitasking, the app on the single device can go from one size class to another size class. Your user is in control. You don't want to make a dramatic change as user drags the divider! To learn more about size classes, you can check out __Adaptive Layout__ in iOS 8 By Tutorials.
+4. __Use Size classes:__ It's great to have universal storyboards, but one single layout doesn't always fit all displays. Use size classes to build a base layout and then customize each specific size class based on the individual needs of that size class. Don’t treat each of the size classes as a completely separate design because as you will see later in multitasking, the app on the single device can go from one size class to another size class. You don't want to make a dramatic change as user drags the divider! To refresh your memories,   iPhone portrait is compact horizontal size class; iPhone landscape is compact horizontal size class except for iPhone 6 Plus which is regular horizontal size class. iPad has regular horizontal size class in both portrait and landscape orientations. To learn more about size classes, you can check out __Adaptive Layout__ in iOS 8 By Tutorials.
 5. __UIAdaptivePresentationControllerDelegate:__ This is another great tool that's been around since iOS 8. You can easily change the presentation of a view controller based on the current context and the environment of the app. For example you can present a view controller either in a popover or modally depending on the current size class.
 6. __UISplitViewController:__ This is probably the oldest you have in your toolbox for adaptivity and it's still very useful. Out of the box, `UISplitViewController` provides some great adaptivity to make your life easier. Make sure you check out the latest documentation for `UISplitViewController` for the updated API.
 
 You will use some of these strategies in this tutorial to improve Travelog. It's time to explore the app and examine it while in multitasking. Still in multitasking, if you look at the app in landscape orientation you'll notice even though the master view is displayed appropriately, table view cells are too cramped! Knowing that in portrait orientation you gave the master view a narrower width, you want to achieve the same look here.
+
+### Adative to size not orientation
+You need to think about orientation changes as bound size changes! In a multitasking environment, `UIScreen.bounds` still returns the visible bounds of the entire display. This is true even though your app may not be full screen.
+
+On the other hand, `UIWindow.bounds` is not necessarily the same as UIScreen size anymore. `UIWindow`'s origin is always `(0, 0)`. Let's take a quick view at how orientation and size changes affect your app. Let's also refer to the app that you open in the Slide Over as __secondary app__ and the app that's already open on the left hand side as __primary app__.
+
+![width=90% ipad](images/mt07.png)
+
+When the app starts as slide over it is in compact horizontal size class. When user pins your app, the app is still in Then it becomes regular horizontal size class (50-50). Use size class transition.
+Not all size changes triggers a size class change.
+UIView.readableContentGuide
+UITableView.cellLayoutMArginsFollowReadableWidth = YES / NO
+cell content view is laid out to maintain legibility
+
+DO NOT USE ORIENTATION
+when iPad is in landscape but your app is in multitasking and iPhone size, it's better to provide portrait experience!
+
+if view.bounds.size.width > view.bounds.size.height { ... }
+if traitCollection.horizontalSizeClass ==.Regular { ... }
+
+- willTransitionToTraitCollection
+- viewWillTransitionToSize
+
+Rotation
+1. willTransitionToTraitCollection - setup
+2. viewWillTransitionToSize - setup
+3. traitCollectionDidChange - with transition coordinator
+4. animateAlongsideTranstion - create animation
+
+
+Open __SplitViewController.swift__. This is a subclass of `UISplitViewController` and overrides `viewDidLayoutSubviews()` to update the maximum width of primary column by calling into a helper method, `updateMaximumPrimaryColumnWidth()`. In the implementation of `updateMaximumPrimaryColumnWidth()`, the code checks for status bar orientation to decide determine the maximum width. Clearly this approach doesn't work anymore, because the app can now have a narrow window even though it's in landscape orientation.
+
+To get away from orientation mindset, remove the implementation of both `viewDidLayoutSubviews()` and `updateMaximumPrimaryColumnWidth()`, then update `SplitViewController` with the following methods instead:
+
+```swift
+override func viewDidLoad() {
+  super.viewDidLoad()
+  updateMaximumPrimaryColumnWidthBasedOnSize(view.bounds.size)
+}
+
+override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+  super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+  updateMaximumPrimaryColumnWidthBasedOnSize(size)
+}
+
+// MARK: Helper
+
+func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
+  let width = size.width
+  if width < CGRectGetWidth(UIScreen.mainScreen().bounds) {
+    maximumPrimaryColumnWidth = 160.0
+  } else {
+    maximumPrimaryColumnWidth = UISplitViewControllerAutomaticDimension
+  }
+}
+```
+
+Here you add a new helper method that takes in a `size` parameter and instead of updating the `maximumPrimaryColumnWidth` property of split view controller based on the overall size of the split view itself. You do the update once the split view is initially loaded and once when its size is changed.
 
 
 
@@ -67,23 +130,12 @@ How to adopt it?
   make your app universal
   design for adaptivity
   in iOS 8 you learned about size classes
-  iPhone portrait = compact horizontal size class
-  iPhone landscape = compact horizontal size class
-    except for iPhone 6 Plus which is regular
-  iPad portrait = regular horizongtal size class
-  iPad landscape = regular horizongtal size class
+
 
   Slide over
   - the app on the right starts with compact horizontal size class; user starts with iPhone experience
   - when the right-side app takes over, it becomes regular horizontal size class; this is iPad traditional user experience
 
-
-
-
-  Think about orientation as bound size changes!
-  User is in control what orientation they look at the iPad.
-
-  IF YOU REALLY REALLY WANT FULLSCREEN, no multitasking you can opt out: UIRequiresFullscreen key in Info.plist
 
 
 
@@ -103,7 +155,6 @@ A brief about changes in UIKit for better adoption: [Reference]
 
 Deal with keyboard even though it's not your app presenting it. [Instruction]
 Deal with camera since it's a resource that may not be available to your app in multitasking [Theory & Instruction]
-Oops! Fix that UIAlertView :] [Instruction]
 Be prepared for size changes during system snapshots [Theory]
 Be a good citizen [Theory]
 testing alongside a resource intensive app: e.g. run the app alongside with Maps.app flyover.
@@ -139,32 +190,6 @@ Optimize your app (Memory managemnet) for multitasking
 
 
 	2. Changes in UIKit for better adoption
-		UIScreen.bounds = visible bounds of the entire display. This is still true even though your app may not be full screen.
-		UIWindow.bounds is not necessarily the same as UIScreen size.
-		UIWindow origin is ALWAYS 0,0. Focus only on your own experience.
-
-		EXAMPLE:
-		App start as slide over in compact horizontal size class.
-		Then it becomes regular horizontal size class (50-50). Use size class transition.
-		Not all size changes triggers a size class change.
-		UIView.readableContentGuide
-		UITableView.cellLayoutMArginsFollowReadableWidth = YES / NO
-		cell content view is laid out to maintain legibility
-
-		DO NOT USE ORIENTATION
-		when iPad is in landscape but your app is in multitasking and iPhone size, it's better to provide portrait experience!
-
-		if view.bounds.size.width > view.bounds.size.height { ... }
-		if traitCollection.horizontalSizeClass ==.Regular { ... }
-
-		- willTransitionToTraitCollection
-		- viewWillTransitionToSize
-
-		Rotation
-		1. willTransitionToTraitCollection - setup
-		2. viewWillTransitionToSize - setup
-		3. traitCollectionDidChange - with transition coordinator
-		4. animateAlongsideTranstion - create animation
 
 // IF THE FIRST 2 STEP take too long, the app is terminated!
 // DO NOT ASSUME that if Trait is changed, size is changed too.

@@ -24,8 +24,8 @@ import UIKit
 
 class SplitViewController: UISplitViewController {
   
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
+  override func viewDidLoad() {
+    super.viewDidLoad()
     updateMaximumPrimaryColumnWidthBasedOnSize(view.bounds.size)
   }
   
