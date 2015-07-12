@@ -12,25 +12,32 @@ There are three different aspects to multitasking on the iPad: Slide Over, Split
 
 You can then pin the Slide Over and activate Split View. In Split View the screen is divided between the two apps. You can use both apps independently and both are fully functional.
 
-![width=30% ipad](images/mt01.png)
+![width=90% ipad](images/mt01.png)
 
 The Picture in Picture (PIP) multitasking feature works similarly to the picture-in-picture function on televisions. When watching a video or participating in a FaceTime call, the video window can be minimized to one corner of the iPad so you can continue to use other apps while you watch or chat.
 
-![width=30% ipad](images/mt02.png)
+![width=90% ipad](images/mt02.png)
 
 
 > **Note:** At the time of writing this chapter, Slide Over is supported on iPad Air 2 only. Picture in Picture is supported on iPad Air, iPad Air 2, iPad Mini 2, and iPad Mini 3 only.
 
 If you are not sure whether your iPad supports multitasking, go to __Settings > General__ on your iPad. If you see __Multitasking__ in the list, your iPad is multitasking capable. As a user you can disable multitasking.
 
-![width=30% ipad](images/mt03.png)
+![width=90% ipad](images/mt03.png)
 
 ## The sample project
 
-The starter project you’ll use for the remainder of this chapter is called __Travelog__. Open the project file in Xcode and build and run the application for iPad simulator. Make sure you select iPad Air 2 because that's the only simulator that supports multitasking.
+The starter project you’ll use for the remainder of this chapter is called __Travelog__. Open the project file in Xcode and build and run the application for iPad simulator. Make sure you select iPad Air 2 because that's the only simulator that supports multitasking. You’ll see the following screens:
 
- Build and run in an iPhone simulator. You’ll see the following screens:
+![bordered width=90% ipad](images/mt04.png)
 
+Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. If you tap on an entry it's displayed in the right hand view. Rotate the device and you'll see both master and detail views of the Split View Controller are visible in both orientations.
+
+Give it a try and see how the app behaves in multitasking environment. Swipe from the right edge of the screen to expose the list of multitasking-ready apps on your iPad. Tap on one of the apps, like Calendar app to launch it. You notice that there is a handle in the divider that suggests you can pin the divider. Go ahead and do that.
+
+![width=90% ipad](images/mt07.png)
+
+How did that happen?
 
 
 Why adopt it?
