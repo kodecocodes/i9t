@@ -174,7 +174,7 @@ Pay close attention to the commented lines, 1 and 2. This is where the errors ar
 
 When calling a method that `throws` it is required by the compiler that you precede the call to that method with **`try`**. In order to capture the thrown errors you must wrap your "trying" call in a `do {}` block followed by `catch {}` blocks. You can choose to catch specific types of errors and respond accordingly and/or provide a "catch-all" if you're not certain of the types of errors that can be thrown.
 
-> **Note**: At the time of this writing, Apple has not provided a way to infer the exact type of errors that can be thrown from a method or function. As an API writer it is a good practice to include this information in your method's documentation.
+> **Note**: At the time of this writing, Apple has not provided a way to infer the exact type of errors that can be thrown from a method or function. There is also no way to declare what type of error can be thrown. As an API writer it is a good practice to include this information in your method's documentation.
 
 ```
 do {
