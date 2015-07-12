@@ -31,3 +31,81 @@ Now what you really came to read about. What is it that Apple introduced with Sw
 - Additional minor enhancements
 
 So sit tight, this will be chapter packed to the gills with information, feel free to read it end to end or use it as as a reference while you work with Swift 2.0.
+
+## Control Flow
+
+Control flow in any programming language is a fundamental concept, if you're not familiar with the term, just know that `if/else` is a control flow. Any construct or keyword that can cause the execution of your program at runtime to take a different path can be considered "control flow". With Swift 2.0 Apple has added to the control flow features and made some minor changes to existing ones. In this section you will read about two new control flow features, the included Playground has all of the code used for this on the "Control Flow" page.
+
+### `repeat`
+
+The `do/while` control flow feature has been renamed to `repeat/while`. Nothing has changed with how this operates, it is simply a name change to reduce confusion with the new usage of `do`. This flow simply means "`repeat` this block of code `while` some condition remains `true`".
+
+```
+var jamJarBeer = Beer()
+
+repeat {
+  jamJarBeer.sip()
+} while (!jamJarBeer.isEmpty) // always finish your beer!
+```
+
+The example above repeats the line `jamJarBeer.sip()` until `jamJarBeer.isEmpty` is `true`. This was a common occurrence after hours at RWDevCon 2015 :]
+
+### `guard`
+
+Often times its necessary to do pre-condition checks in your routines to ensure proper state or that valid arguments were passed in. The new `guard` control flow is the perfect tool for doing these checks. Consider the `Beer().sip()` method from above. What happens when you sip an empty beer? What does that even mean? (It probably means you've had too many or need a refill.) Perhaps it would make sense to verify that there is beer available for sipping!
+
+```
+struct Beer {
+  var percentRemaining = 100
+  var isEmpty: Bool { return percentRemaining <= 0 }
+  var owner: Patron?
+
+  mutating func sip() {
+    guard percentRemaining > 0 else { // 1
+      print("Your beer is empty, order another!")
+      return
+    }
+
+    percentRemaining -= 10
+    print("Mmmm \(percentRemaining)% left")
+  }
+}
+```
+
+Notice the line commented with "1" in the code above. Here a `guard` is used to verify that the amount of beer left is greater than 0, if it is not, then the code in the trailing `else` block is executed. Which in this case instructs you to order another brew! The method then returns immediately so that you don't end up in some weird state where you have a negative amount of beer. Beer debt is not a good thing.
+
+The `guard` control is defined as `guard (condition) else { // code to execute if condition is false }`. Now you might be thinking, "Why not just use an if statement?". Take a look at how you'd have to write that logic.
+
+```
+if beer.isEmpty {
+  print("Your beer is empty, order another!")
+  return
+}
+```
+
+Pretty simple... But, you had to flip the logic to check that the beer is empty rather than checking that the beer isn't empty, which is of more interest because you'll look silly sipping empty beers. Six of one, half a dozen of the other... right?
+
+This really comes down to expressiveness which is a goal of the Swift language. There's nothing wrong with checking the positive vs negative condition, but what `guard` clearly states to anyone reading this code is that you're performing a pre-condition check. Using a plain ole `if` statement does not deliberately convey that information.
+
+Now, before you write-off `guard` as _just_ an enhancement in expressiveness, take a look at its true power, which is working with Optionals.
+
+Side story: In the world of bartending it is very important to sell more beers. A bartender sees a beer nearing empty and they locate the owner to offer another. A harsh reality though, is that beer owners may abandon a half-drank beer (known as a wounded soldier), hence the reason the `owner` property is Optional on `Beer`.
+
+So how should a bartender behave?
+
+```
+struct Bartender {
+  func offerOwnerOfBeerAnother(beer: Beer) {
+    guard let owner = beer.owner else {
+      print("Egads, another wounded soldier to attend to.")
+      return
+    }
+
+    print("\(owner.name), would you care for another?") // 1
+  }
+}
+```
+
+Notice the last line of the method where `owner` is accessed as a non-optional value. Since `guard` was used as `guard let owner = beer.owner` the unwrapped optional value becomes available in the same scope that `guard` was called. If the value of `beer.owner` were `nil` then the defined `else` block will be executed and the method immediately returns.
+
+This feature allows you to do your optional binding upfront in a very explicit manner. After writing the `guard` conditions you can continue to define your method as if you were working inside of an `if let` block, but without the extra indention! This makes writing code in books _that_ much easier ;]
