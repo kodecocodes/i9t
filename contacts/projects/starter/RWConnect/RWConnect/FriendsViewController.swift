@@ -42,7 +42,7 @@ extension FriendsViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FriendCell")!
+        let cell = tableView.dequeueReusableCellWithIdentifier("FriendCell", forIndexPath:indexPath)
         
         let friend = friendsList[indexPath.row]
         cell.textLabel?.text = friend.firstName + " " + friend.lastName
