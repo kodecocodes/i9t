@@ -94,6 +94,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     }
     
     let bundleRequest = NSBundleResourceRequest(tags:[mapOverlay.bundleTitle])
+    bundleRequest.loadingPriority = 1.0 
     
     bundleRequest.conditionallyBeginAccessingResourcesWithCompletionHandler { (resourcesAvailable) -> Void in
       

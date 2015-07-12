@@ -70,13 +70,13 @@
         <scene sceneID="DbS-rK-E5o">
             <objects>
                 <tableViewController modalPresentationStyle="overFullScreen" id="Y0V-Ua-VB7" customClass="MapContentTableViewController" customModule="GoodOldCA" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="80" sectionHeaderHeight="10" sectionFooterHeight="10" id="cPY-gW-lMu">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="22" sectionFooterHeight="22" id="cPY-gW-lMu">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapOverlayCell" textLabel="NuQ-gY-LkQ" detailTextLabel="QJn-7r-dC5" imageView="Q8x-68-rC2" rowHeight="80" style="IBUITableViewCellStyleValue1" id="M32-lM-8bg" userLabel="Cell ">
-                                <rect key="frame" x="0.0" y="113.5" width="600" height="80"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" tableViewCell="M32-lM-8bg" id="P10-7C-Twc">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="79.5"/>
