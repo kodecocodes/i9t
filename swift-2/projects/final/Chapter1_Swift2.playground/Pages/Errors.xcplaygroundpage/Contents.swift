@@ -11,7 +11,7 @@ In Swift 2.0, methods and functions can now declare that they "throw" an error. 
 */
 
 protocol JSONParsable {
-    static func parse(json: [String: AnyObject]) throws -> Self
+  static func parse(json: [String: AnyObject]) throws -> Self
 }
 
 /*:
@@ -23,7 +23,7 @@ It's time to create your own error type.
 */
 
 enum PersonParsingError: ErrorType {
-    case MissingAttribute(message: String)
+  case MissingAttribute(message: String)
 }
 
 /*:
@@ -33,20 +33,20 @@ Pretty easy, right? This error has a single case and includes an associative val
 */
 
 struct Person: JSONParsable {
-    let firstName: String
-    let lastName: String
-    
-    static func parse(json: [String : AnyObject]) throws -> Person {
-        guard let firstName = json["first_name"] as? String else {
-            throw PersonParsingError.MissingAttribute(message: "Expected first_name String") // <-- The interesting bits
-        }
-        
-        guard let lastName = json["last_name"] as? String else {
-            throw PersonParsingError.MissingAttribute(message: "Expected last_name String") // <-- The interesting bits
-        }
-        
-        return Person(firstName: firstName, lastName: lastName)
+  let firstName: String
+  let lastName: String
+  
+  static func parse(json: [String : AnyObject]) throws -> Person {
+    guard let firstName = json["first_name"] as? String else {
+      throw PersonParsingError.MissingAttribute(message: "Expected first_name String") // <-- The interesting bits
     }
+    
+    guard let lastName = json["last_name"] as? String else {
+      throw PersonParsingError.MissingAttribute(message: "Expected last_name String") // <-- The interesting bits
+    }
+    
+    return Person(firstName: firstName, lastName: lastName)
+  }
 }
 
 /*:
@@ -55,16 +55,16 @@ To see the benefit this it is time to put it into action. When calling a method 
 */
 
 do {
-    let person = try Person.parse(["foo": "bar"])
+  let person = try Person.parse(["foo": "bar"])
 } catch PersonParsingError.MissingAttribute(let message) {
-    print(message)
+  print(message)
 }
 
-/*: 
+/*:
 
 In case where you can guarantee that the call will never fail by throwing an error or when catching the error does not provide any benefit (such as a critical situation where the app cannot continue operating); you can bypass the `do/catch` requirement. To do so, you simply type an `!` after `try`. Try (no pun intended) entering the following into the playground. You should notice a runtime error appear.
 
-    try! Person.parse(["foo": "bar"])
+try! Person.parse(["foo": "bar"])
 
 */
 
