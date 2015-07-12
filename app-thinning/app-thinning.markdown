@@ -100,7 +100,19 @@ dump_asset_names
 - San Francisco,
 - Sunnyvale
 
-The fix for this is quite simple. Just stick the Santa Cruz group of files into the Asset Catalog present in the project. 
+The fix for this is quite simple. Just stick the Santa Cruz PNG group into the Asset Catalog present in the project. 
+
+Click the **Assets.xcassets**, then click on the plus button and select **New Image Set**. Drag over the Santa Cruz images from the project navigator into their respective @1x, @2x, @3x slots and make sure the **Image Set** name is labeled **Santa Cruz**.
+
+Once the images are copied over into the Assets catalog, remove the Santa Cruz pngs from the resources folder.
+
+Build and run the application. Notice that the Santa Cruz image is still being displayed and if you use **dump_app_contents**, the Santa Cruz set of images will no longer be displayed. You can verify the Assets catalog has the name "Santa Cruz" by typing **dump_asset_names** in **LLDB**. Finally, you can see how many copies of the Santa Cruz image are currently in the app by typing in LLDB:
+
+```
+assets_for_name Santa Cruz
+```
+
+This will spit out an `NSArray` containing 1 image. 
 
 >**Note:** Although PNGs are a good way to provide resources, you should also consider using vectorized PDFs. Xcode breaks down the PDF and resizes the image as needed, essentially future-proofing your app for whatever screen sizes Apple will dream up next. All the other thumbnail images use vectorized PDFs to achieve this in the sample project.
 
@@ -113,12 +125,17 @@ Build and run app on simulator. Check out visually different images being select
 
 ## On Demand Slicing Explanation [Theory]
 
-Now that you have provided the infratstructure for Apple to slice your Asset Catalog resources, it's time to take a more aggressive approach at limiting content. That is, "lazily downloading", where you only get the resource when it will be needed (in the near future).
+Now that you have provided the infratstructure for Apple to slice your Asset Catalog resources, it's time to take a more aggressive approach at limiting content on the initial download. That is, you'll incorporate "lazily downloading", where you only get the resource when it's needed immediately or in the near future.
 
 The primary class responsible for dealing with on-demand resources is called **NSBundleResourceRequest**. This class is responsible for fetching the resources that need to be downloaded from the App Store. 
 
-In order to mark a resource as downloadable for on-demand resources, you simply need to tag it. Xcode will take care of the hard work packaging and sending the information to the App Store. 
+Wait so what's a resource? A resource can be a number of things, an image, images, NSBundles, NSBundleResourcesRequests can load a number of things--it just can't be executable code (what about steganography?). 
 
+Time to whip out the coding skrillz. Navigate to **MapChromeViewController.swift** and hunt down the **downloadAndDisplayMapOverlay** function. It is here that you will replace the content of an MKTileOverlay rendered on the device instead of online. 
+
+
+
+In order to mark a resource as downloadable for on-demand resources, you simply need to tag it. Xcode will take care of the hard work of attaching this resource to a separate directory and make it available to download from the App Store. 
 
 
 
