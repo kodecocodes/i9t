@@ -187,6 +187,45 @@ Go through each bundle and give name the tag the same name as the bundle name. F
 
 >**Note:** Make sure you spell the tag name in the exact same spelling and case. If you misstype it, you could result in some subtle errors.  
 
+The app now waits until the content is downloaded then displays the map when completed. 
+
+Build and run the application with all the tags applied to the bundles in your project. Select **Los Angeles** as the overlay and watch what happens. 
+
+Now try with a larger bundle. The Santa Cruz or the San Diego map is over 100MB respectively. Click on either one and see how long it takes to display the content.
+
+That took a little bit too long. You should probably indicate to the user that something is happening. Fortunately, MapChromeViewController has a IBOutlet property called **loadingProgressView** which is a `UIProgressView`. You'll hook up the progress to this display to indicate to the user that a download is occuring. 
+
+Navigate back to **downloadAndDisplayMapOverlay()** and replace the content with the following:
+
+```swift
+  private func downloadAndDisplayMapOverlay() {
+    guard let bundleTitle = self.mapOverlayData?.bundleTitle else {
+      return
+    }
+    
+    let bundleResource = NSBundleResourceRequest(tags: [bundleTitle])
+    bundleResource.loadingPriority = NSBundleResourceRequestLoadingPriorityUrgent // 1
+
+
+    self.loadingProgressView.observedProgress = bundleResource.progress // 2
+    self.loadingProgressView.hidden = false // 3
+    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    
+    bundleResource.beginAccessingResourcesWithCompletionHandler { (error) -> Void in
+      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+        self.loadingProgressView.hidden = true // 4
+        if error == nil {
+          self.displayOverlayFromBundle(bundleResource.bundle)
+        }
+      })
+    }
+  }
+```
+
+
+
+Now would be a good time to look at the before and after of your IPA size. Originally, the app was over 300 MB! Now the app is around 10MB. Xcode has achieved this by removing the bundle resources found in the IPA and downloads them if they are not present on the app.
+
 
 In order to mark a resource as downloadable for on-demand resources, you simply need to tag it. Xcode will take care of the hard work of attaching this resource to a separate directory and make it available to download from the App Store. 
 
