@@ -28,6 +28,7 @@
 		A6FF4BC11B5259CF00D33719 /* Santa Cruz.png in Resources */ = {isa = PBXBuildFile; fileRef = A6FF4BBE1B5259CF00D33719 /* Santa Cruz.png */; };
 		A6FF4BC21B5259CF00D33719 /* Santa Cruz@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6FF4BBF1B5259CF00D33719 /* Santa Cruz@2x.png */; };
 		A6FF4BC31B5259CF00D33719 /* Santa Cruz@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A6FF4BC01B5259CF00D33719 /* Santa Cruz@3x.png */; };
+		A6FF4BC61B52E95900D33719 /* GettingStarted.txt in Resources */ = {isa = PBXBuildFile; fileRef = A6FF4BC51B52E95900D33719 /* GettingStarted.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,7 @@
 		A6FF4BBE1B5259CF00D33719 /* Santa Cruz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz.png"; sourceTree = "<group>"; };
 		A6FF4BBF1B5259CF00D33719 /* Santa Cruz@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz@2x.png"; sourceTree = "<group>"; };
 		A6FF4BC01B5259CF00D33719 /* Santa Cruz@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz@3x.png"; sourceTree = "<group>"; };
+		A6FF4BC51B52E95900D33719 /* GettingStarted.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GettingStarted.txt; path = GoodOldCA/GettingStarted.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 		A63B63A51B4107CF002178B7 = {
 			isa = PBXGroup;
 			children = (
+				A6FF4BC51B52E95900D33719 /* GettingStarted.txt */,
 				A63B63B01B4107CF002178B7 /* GoodOldCA */,
 				A63B63AF1B4107CF002178B7 /* Products */,
 			);
@@ -172,6 +175,7 @@
 				A63B63AA1B4107CF002178B7 /* Sources */,
 				A63B63AB1B4107CF002178B7 /* Frameworks */,
 				A63B63AC1B4107CF002178B7 /* Resources */,
+				A6FF4BC41B52DFAA00D33719 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -237,6 +241,7 @@
 				A6FF4BC21B5259CF00D33719 /* Santa Cruz@2x.png in Resources */,
 				A63B63B91B4107CF002178B7 /* Assets.xcassets in Resources */,
 				A636B3A91B4ED04A0043657A /* SNVL_Map.bundle in Resources */,
+				A6FF4BC61B52E95900D33719 /* GettingStarted.txt in Resources */,
 				A636B3A51B4EC7DA0043657A /* LA_Map.bundle in Resources */,
 				A63B92B71B4F769D00C67CCC /* SC_Map.bundle in Resources */,
 				A63B63B71B4107CF002178B7 /* Main.storyboard in Resources */,
@@ -247,6 +252,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A6FF4BC41B52DFAA00D33719 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/sh\n\necho \"App Size in KB: `du -sk ${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app`\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A63B63AA1B4107CF002178B7 /* Sources */ = {

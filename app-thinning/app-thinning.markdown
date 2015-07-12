@@ -18,7 +18,7 @@ Packaged together, these techniques are known as **App Thinning**.
 
 Before you get to have any fun, you'll need to eat your vegatables (also known as setup some debugging commands). 
 
-Open up **Terminal** and paste this big angry blob of text into the console and press enter:
+Navigate to GettingStarted.txt, copy the command. Then open up **Terminal** and paste this big angry blob of text into the console and press enter:
 
 ```
 echo -e "command alias dump_app_contents e -l objc++ -O -- [[NSFileManager defaultManager] contentsOfDirectoryAtPath:((id)[[NSBundle mainBundle] bundlePath]) error:nil]\ncommand alias dump_asset_names e -l objc++ -O --  [[[CUICatalog alloc] initWithName:@\"Assets\" fromBundle:[NSBundle mainBundle] error:nil] allImageNames]\ncommand regex assets_for_name 's/(.+)/e -l objc++ -O -- [[[CUICatalog alloc] initWithName:@\"Assets\" fromBundle:[NSBundle mainBundle] error:nil] imagesWithName: @\"%1\"]/'" >> ~/.lldbinit 
@@ -30,7 +30,7 @@ This will add 3 niffty commands pertaining to App Thinning to help aid in unders
 - **dump_asset_names:** This lists image resources names found in the **Assets.car** file. What's the Assets.car file? You'll learn about that in a second...
 - **assets_for_name [name]** This will list all the resources found for a specific image name in the Assets.car file.
 
-**Note:** The last to commands use Apple's private APIs, so make sure you never include these methods in your app.   
+**Note:** The last to commands use Apple's private APIs, so make sure you not to include these classes in your app.   
 
 Now you can check out the project! You'll work with an app named **Good ol' CA**, which displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this app take up quite a bit of disk space. You'll use the App Thinning techniques to hack-and-slash the end product to a more managable size.
 
