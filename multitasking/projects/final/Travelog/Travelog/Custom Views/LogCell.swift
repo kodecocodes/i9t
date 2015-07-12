@@ -25,8 +25,17 @@ import TravelogKit
 
 class LogCell: UITableViewCell {
   
+  @IBOutlet private var compactView: UIView!
+  @IBOutlet private var compactDayLabel: UILabel!
+  @IBOutlet private var compactMonthYearLabel: UILabel!
+  
+  @IBOutlet private var regularView: UIView!
+  @IBOutlet private var regularDayLabel: UILabel!
+  @IBOutlet private var regularMonthYearLabel: UILabel!
   @IBOutlet private var customTextLabel: UILabel!
   @IBOutlet private var customImageView: UIImageView!
+  
+  let logDateFormatter = LogDateFormatter.sharedFormatter
   
   func setLog(log: BaseLog?) {
     // If it's a textLog, update label and hide image view.
@@ -48,6 +57,19 @@ class LogCell: UITableViewCell {
       customTextLabel.text = nil
       customImageView.image = nil
     }
+    
+    var formattedDay: String? = nil
+    var formattedMonthYear: String? = nil
+    
+    if let date = log?.date {
+      formattedDay = logDateFormatter.formattedComponent(FormattedComponentRequest.Day, fromDate: date)
+      formattedMonthYear = logDateFormatter.formattedComponent(FormattedComponentRequest.MonthYear, fromDate: date)
+    }
+    
+    compactDayLabel.text = formattedDay
+    compactMonthYearLabel.text = formattedMonthYear
+    regularDayLabel.text = formattedDay
+    regularMonthYearLabel.text = formattedMonthYear
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
@@ -67,5 +89,12 @@ class LogCell: UITableViewCell {
     
     let animationBlock = (selected) ? animationBlockSelected : animationBlockUnselected
     UIView.animateWithDuration(0.25, animations: animationBlock)
+  }
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    let isTooNarrow = CGRectGetWidth(bounds) <= 160
+    compactView.hidden = !isTooNarrow
+    regularView.hidden = isTooNarrow
   }
 }

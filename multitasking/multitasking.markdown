@@ -4,23 +4,34 @@ By Soheil Azarpour
 
 Apple introduced a game changing feature for iPad in iOS 9 called __multitasking__. Multitasking completely changes the way a lot of users use their iPads. Users can now consider the iPad as a serious computer replacement.
 
-There are three different aspects to multitasking on the iPad: Slide Over, Split View, and Picture in Picture. You activate Slide Over by swiping from the right edge of the screen (or the left edge if you have changed your iPad locale to a region with right-to-left language). You will see a list of multitasking-ready apps on your iPad in that list, from which you can tap and launch an app. If your app is not multitasking-ready, it won't show up in this list!
-
-You can then pin the Slide Over and activate Split View. In Split View the screen is divided between the two apps. You can use both apps independently and both are fully functional.
-
-The Picture in Picture multitasking feature works similarly to the picture-in-picture function on televisions. When watching a video or participating in a FaceTime call, the video window can be minimized to one corner of the iPad so you can continue to use other apps while you watch or chat.
-
 In this chapter your will learn how to update an existing app so that it plays nicely in a split view along with other apps.
 
 ## Getting started
 
-Slide-Over supported hardware: app iPads
-PIP supported hardware: iPad Air, iPad Air 2, iPad Mini 2, iPad Mini 3.
+There are three different aspects to multitasking on the iPad: Slide Over, Split View, and Picture in Picture. You activate Slide Over by swiping from the right edge of the screen (or the left edge if you have changed your iPad locale to a region with right-to-left language). You will see a list of multitasking-ready apps on your iPad in that list, from which you can tap and launch an app. If your app is not multitasking-ready, it won't show up in this list!
 
-Change Multitasking behavior under Settings > General > Multitasking:
-- Allow multiple apps (on/off)
-- Persistent video overlay (on/off)
-Provide adaptive video stream.
+You can then pin the Slide Over and activate Split View. In Split View the screen is divided between the two apps. You can use both apps independently and both are fully functional.
+
+![width=30% ipad](images/mt01.png)
+
+The Picture in Picture (PIP) multitasking feature works similarly to the picture-in-picture function on televisions. When watching a video or participating in a FaceTime call, the video window can be minimized to one corner of the iPad so you can continue to use other apps while you watch or chat.
+
+![width=30% ipad](images/mt02.png)
+
+
+> **Note:** At the time of writing this chapter, Slide Over is supported on iPad Air 2 only. Picture in Picture is supported on iPad Air, iPad Air 2, iPad Mini 2, and iPad Mini 3 only.
+
+If you are not sure whether your iPad supports multitasking, go to __Settings > General__ on your iPad. If you see __Multitasking__ in the list, your iPad is multitasking capable. As a user you can disable multitasking.
+
+![width=30% ipad](images/mt03.png)
+
+## The sample project
+
+The starter project you’ll use for the remainder of this chapter is called __Travelog__. Open the project file in Xcode and build and run the application for iPad simulator. Make sure you select iPad Air 2 because that's the only simulator that supports multitasking.
+
+ Build and run in an iPhone simulator. You’ll see the following screens:
+
+
 
 Why adopt it?
   user is in control

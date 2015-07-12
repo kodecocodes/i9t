@@ -33,6 +33,9 @@ extension LogsViewController: UISplitViewControllerDelegate {
   }
   
   func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
+    if let selectedIndexPath = selectedIndexPath {
+      tableView.selectRowAtIndexPath(selectedIndexPath, animated: false, scrollPosition: UITableViewScrollPosition.Middle)
+    }
     return nil
   }
   

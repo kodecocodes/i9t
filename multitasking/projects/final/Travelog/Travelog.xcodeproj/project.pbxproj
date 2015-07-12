@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4B10884C1B52908600FB0CFB /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B10884B1B52908600FB0CFB /* SplitViewController.swift */; };
 		4B27FA811B40A7A800F356DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA801B40A7A800F356DB /* AppDelegate.swift */; };
 		4B27FA861B40A7A800F356DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B27FA841B40A7A800F356DB /* Main.storyboard */; };
 		4B27FA8B1B40A7A800F356DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B27FA891B40A7A800F356DB /* LaunchScreen.storyboard */; };
@@ -18,6 +19,7 @@
 		4B53B98B1B422AFE00BF989E /* LogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291501B41BE0500EB3A7F /* LogModels.swift */; };
 		4B53B98C1B422AFE00BF989E /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291511B41BE0500EB3A7F /* LogStore.swift */; };
 		4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B98E1B42495E00BF989E /* LogCell.swift */; };
+		4BCD3BE81B52973000BC44D8 /* LogDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD3BE71B52973000BC44D8 /* LogDateFormatter.swift */; };
 		4BD957551B48174600E2D162 /* LogsSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD957541B48174600E2D162 /* LogsSeed.swift */; };
 		4BFA875B1B44BAD1005291F4 /* LogsViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */; };
 		4BFA875D1B44CEF6005291F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BFA875C1B44CEF6005291F4 /* Assets.xcassets */; };
@@ -51,6 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4B10884B1B52908600FB0CFB /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		4B27FA7D1B40A7A700F356DB /* Travelog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Travelog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B27FA801B40A7A800F356DB /* AppDelegate.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
 		4B27FA851B40A7A800F356DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 		4B27FA981B40DCB100F356DB /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		4B27FAAA1B410C8100F356DB /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		4B53B98E1B42495E00BF989E /* LogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
+		4BCD3BE71B52973000BC44D8 /* LogDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDateFormatter.swift; sourceTree = "<group>"; };
 		4BD957541B48174600E2D162 /* LogsSeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsSeed.swift; sourceTree = "<group>"; };
 		4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewControllerExtension.swift; sourceTree = "<group>"; };
 		4BFA875C1B44CEF6005291F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				4B27FA801B40A7A800F356DB /* AppDelegate.swift */,
+				4B10884B1B52908600FB0CFB /* SplitViewController.swift */,
 				4B27FA961B40DC4400F356DB /* LogsViewController.swift */,
 				4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */,
 				4B27FA941B40DC1B00F356DB /* DetailViewController.swift */,
@@ -132,6 +137,7 @@
 			children = (
 				4BD957541B48174600E2D162 /* LogsSeed.swift */,
 				4B27FAAA1B410C8100F356DB /* UIColorExtension.swift */,
+				4BCD3BE71B52973000BC44D8 /* LogDateFormatter.swift */,
 			);
 			name = Helpers;
 			path = Travelog/Helpers;
@@ -220,9 +226,11 @@
 				TargetAttributes = {
 					4B27FA7C1B40A7A700F356DB = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 2X468FT7VV;
 					};
 					615291591B41BE2C00EB3A7F = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 2X468FT7VV;
 					};
 				};
 			};
@@ -275,9 +283,11 @@
 				4BD957551B48174600E2D162 /* LogsSeed.swift in Sources */,
 				4B27FAAB1B410C8100F356DB /* UIColorExtension.swift in Sources */,
 				4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */,
+				4B10884C1B52908600FB0CFB /* SplitViewController.swift in Sources */,
 				4B27FA951B40DC1B00F356DB /* DetailViewController.swift in Sources */,
 				4B27FA811B40A7A800F356DB /* AppDelegate.swift in Sources */,
 				4B27FA971B40DC4400F356DB /* LogsViewController.swift in Sources */,
+				4BCD3BE81B52973000BC44D8 /* LogDateFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +418,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Travelog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -420,6 +431,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = Travelog/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -431,6 +443,7 @@
 		615291721B41BE2D00EB3A7F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -450,6 +463,7 @@
 		615291731B41BE2D00EB3A7F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

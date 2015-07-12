@@ -31,6 +31,7 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   
   private var logs = [BaseLog]()
   private var selectedLog: BaseLog?
+  var selectedIndexPath: NSIndexPath?
   
   // MARK: View Life Cycle
   
@@ -144,8 +145,10 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     if selectedLog == newlySelectedLog {
       tableView.deselectRowAtIndexPath(indexPath, animated: true)
       selectedLog = nil
+      selectedIndexPath = nil
     } else {
       selectedLog = newlySelectedLog
+      selectedIndexPath = indexPath
     }
     presentDetailViewControllerWithSelectedLog(selectedLog)
   }
@@ -171,6 +174,7 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
         store.save()
         
         if weakSelf.selectedLog == logToDelete && weakSelf.splitViewController?.traitCollection.horizontalSizeClass == .Regular {
+          weakSelf.selectedIndexPath = nil
           let vc = weakSelf.detailViewController()
           vc.selectedLog = nil
         }
