@@ -40,7 +40,7 @@
 		A645B2B21B52F894004103C7 /* MapSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSplitViewController.swift; sourceTree = "<group>"; };
 		A645B2B71B52F8B6004103C7 /* HistoricTileMapOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoricTileMapOverlayRenderer.swift; sourceTree = "<group>"; };
 		A645B2B81B52F8B6004103C7 /* HistoricTileMapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoricTileMapOverlay.swift; sourceTree = "<group>"; };
-		A645B2B91B52F8B6004103C7 /* HistoricMapOverlayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoricMapOverlayData.swift; sourceTree = "<group>"; };
+		A645B2B91B52F8B6004103C7 /* HistoricMapOverlayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HistoricMapOverlayData.swift; sourceTree = "<group>"; tabWidth = 2; };
 		A645B2BA1B52F8B6004103C7 /* ImageTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTile.swift; sourceTree = "<group>"; };
 		A645B2C01B52F8EC004103C7 /* LA_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LA_Map.bundle; sourceTree = "<group>"; };
 		A645B2C11B52F8EC004103C7 /* SC_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SC_Map.bundle; sourceTree = "<group>"; };
@@ -74,7 +74,9 @@
 				A645B29A1B52F86A004103C7 /* Old CA Maps */,
 				A645B2991B52F86A004103C7 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		A645B2991B52F86A004103C7 /* Products */ = {
 			isa = PBXGroup;
