@@ -76,16 +76,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   private func downloadAndDisplayMapOverlay() {
-    guard let bundleTitle = self.mapOverlayData?.bundleTitle else {
-        return
-    }
-    
-    let bundleResource = NSBundleResourceRequest(tags: [bundleTitle])
-    bundleResource.beginAccessingResourcesWithCompletionHandler { (error) -> Void in
-        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-            self.displayOverlayFromBundle(NSBundle.mainBundle())
-        })
-    }
+    self.displayOverlayFromBundle(NSBundle.mainBundle())
   }
   
   func displayOverlayFromBundle(bundle: NSBundle) {

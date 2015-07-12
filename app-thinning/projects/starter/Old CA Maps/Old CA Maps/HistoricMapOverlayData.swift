@@ -47,4 +47,12 @@ extension HistoricMapOverlayData {
       HistoricMapOverlayData(title: "Los Angeles", thumbnailImageTitle: "Los Angeles", bundleTitle: "LA_Map", year:1994),
     ]
   }
+  
+  static func generateAllBundleTitles()->Set<String> {
+    var titles = Set<String>()
+    for mapOverlayData in self.generateDefaultData() {
+      titles.insert(mapOverlayData.bundleTitle)
+    }
+    return titles
+  }
 }
