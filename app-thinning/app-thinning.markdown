@@ -1,6 +1,6 @@
 # Chapter _: App Thinning
 
-Kicking yourself that you didn't drop the extra dinero to multiply your iOS device disk storage size by a factor of 2? Well, don't be! Apple is now taking a more frugal approach to the apps stored on your device!
+Kicking yourself that you didn't drop the extra dinero to multiply your iOS device's disk storage size by a factor of 2? Well, don't be! Apple is now taking a more frugal approach to the apps stored on your device!
 
 Back in the days of iOS 8, Apple began pushing developers to adopt a universal approach for building across devices. UISplitViewControllers, Trait Collections, and (a more respectable) Auto Layout led to a seamless experience for the iOS developer to build universal application for both iPhone & iPad.
 
@@ -16,7 +16,23 @@ Packaged together, these techniques are known as **App Thinning**.
 
 ## Getting Started
 
-You'll work with an app named **Good ol' CA**, which displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this app take up quite a bit of disk space. You'll use the App Thinning techniques to hack-and-slash the end product to a more managable size.
+Before you get to have any fun, you'll need to eat your vegatables (also known as setup some debugging commands). 
+
+Open up **Terminal** and paste this big angry blob of text into the console and press enter:
+
+```
+echo -e "command alias dump_app_contents e -l objc++ -O -- [[NSFileManager defaultManager] contentsOfDirectoryAtPath:((id)[[NSBundle mainBundle] bundlePath]) error:nil]\ncommand alias dump_asset_names e -l objc++ -O --  [[[CUICatalog alloc] initWithName:@\"Assets\" fromBundle:[NSBundle mainBundle] error:nil] allImageNames]\ncommand regex assets_for_name 's/(.+)/e -l objc++ -O -- [[[CUICatalog alloc] initWithName:@\"Assets\" fromBundle:[NSBundle mainBundle] error:nil] imagesWithName: @\"%1\"]/'" >> ~/.lldbinit 
+```
+
+This will add 3 niffty commands pertaining to App Thinning to help aid in understanding what content is being placed into your application and help debug your content when things go awry. They do the following:
+
+- **dump_app_contents:** This will list all the top level files found in your application bundle. This does not display files found in deeper levels. 
+- **dump_asset_names:** This lists image resources names found in the **Assets.car** file. What's the Assets.car file? You'll learn about that in a second...
+- **assets_for_name [name]** This will list all the resources found for a specific image name in the Assets.car file.
+
+**Note:** The last to commands use Apple's private APIs, so make sure you never include these methods in your app.   
+
+Now you can check out the project! You'll work with an app named **Good ol' CA**, which displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this app take up quite a bit of disk space. You'll use the App Thinning techniques to hack-and-slash the end product to a more managable size.
 
 Open **GoodOldCA.proj**. Select the **iPad Air 2 Simulator** as the **scheme destination**, then build and run the application.
 
@@ -26,13 +42,9 @@ Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and
 
 >**Note:** These overlays are created from image tiles found in **NSBundle**s and passed into a **MKTileOverlayRenderer** for drawing. All of this is well beyond the scope of this tutorial on how it works. Think of this stuff as a black box--all you care about is how to make you app as small as possible to the end user. :] 
 
-Once you're done seeing how much development occurred in Sunnyvale since 1948, select **iOS Device** in the scheme destination and build the target. Navigate to Xcode's **Project Navigator**, open **Products**, then right click the **GoodOldCA** app and select **Show in Finder**. Navigate to the **Debug-iphoneos** directory and right click the **GoodOldCA** app and select **Show Package Contents**
-
-This is pretty much what the end users will have on the phone in iOS 9. Take note of the 3 images, **Santa_Cruz.png**, **Santa_Cruz@2x.png**, and **Santa_Cruz@3x.png**. You'll be filtering those soon so only one will be displayed on the appropriate device... 
-
 ### App Slicing
 
-For example, apps  
+<!-- For example, apps  
 
 Enabling App Slicing is a super easy process provided that you follow Apple's rules. 
 
@@ -42,12 +54,55 @@ Build the GoodOldCA for the iPhone 6 Simulator. Navigate to the products folder 
 
 By default, Xcode will only include the active architecture and resources on **DEBUG** builds. This speeds up the build process as there is less content to copy over to the device/simulator. When switching over to a **RELEASE** build, all architectures will be packaged together (known as a fat binary) when you submit your app to the App Store. However, in iOS 9, Apple will now rip apart your App and separate the different packages specific to each device resulting in a smaller IPA. 
 
-In order to properly enable App Slicing on the executable, all you have to do is... compile against iOS 9. See, wasn't that easy!?
+In order to properly enable App Slicing on the executable, all you have to do is... compile against iOS 9. See, wasn't that easy!? -->
 
-### Resource Thinning with Asset Catalogs
+<!-- ### Resource Thinning with Asset Catalogs -->
 
-Selectively grooming your app for assets takes a tiny bit more work than doing nothing (but not much!). 
+Slicing down resources is a good warmup for widdling away your apps "metaphorical pounds" known as Megabytes. Apple, by default 
 
+something something ____ fat binary
+
+Selectively grooming your app for assets takes a tiny bit more work than doing nothing (but not much!). All you have to do is make sure that your resources are compiled into Asset Catalogs. If they are not, then Xcode won't be able to figure out how to properly slice your resources for you. 
+
+With GoodOldCA running, pause the application in navigate to the debugger. In LLDB:
+
+```
+dump_app_contents
+```
+
+This will spit out a list of the content that occupies the IPA bundle for **Good Ol' CA**. 
+
+- Assets.car,
+- Base.lproj,
+- example_map.png,
+- Frameworks,
+- GoodOldCA,
+- Info.plist,
+- LA_Map.bundle,
+- PkgInfo,
+- Santa Cruz.png,
+- Santa Cruz@2x.png,
+- Santa Cruz@3x.png,
+- SC_Map.bundle,
+- SD_Map.bundle,
+- SF_Map.bundle,
+- SNVL_Map.bundle
+
+Notice that there are 3 images of different sizes by the name **Santa Cruz**. This means that the these sets of images are not being put into an Asset Catalog. Make sure this is the case by dumping all of the image names of the Asset Catalog in LLDB.
+
+```
+dump_asset_names
+```
+
+- Image,
+- Los Angeles,
+- San Diego,
+- San Francisco,
+- Sunnyvale
+
+The fix for this is quite simple. Just stick the Santa Cruz group of files into the Asset Catalog present in the project. 
+
+>**Note:** Although PNGs are a good way to provide resources, you should also consider using vectorized PDFs. Xcode breaks down the PDF and resizes the image as needed, essentially future-proofing your app for whatever screen sizes Apple will dream up next. All the other thumbnail images use vectorized PDFs to achieve this in the sample project.
 
 Build & Archive app, check out IPA size App Slicing [Theory, Instruction]
 Explanation
@@ -56,13 +111,9 @@ Convert image group into Asset Catalogs
 Build and run app on simulator. Check out visually different images being selectively loaded from the asset catalog
 (If space permitting... unlikely) 
 
-```objectivec
-[[[CUICatalog alloc] initWithName:@"Assets" fromBundle:[NSBundle mainBundle] error:nil] allImageNames]
-```
-
 ## On Demand Slicing Explanation [Theory]
 
-Now that you have provided the infratstructure for Apple to slice your predefined resources, it's time to take a more aggressive approach at limiting resources. That is, "lazily downloading", where you only get the resource when it will be needed (in the near future).
+Now that you have provided the infratstructure for Apple to slice your Asset Catalog resources, it's time to take a more aggressive approach at limiting content. That is, "lazily downloading", where you only get the resource when it will be needed (in the near future).
 
 The primary class responsible for dealing with on-demand resources is called **NSBundleResourceRequest**. This class is responsible for fetching the resources that need to be downloaded from the App Store. 
 
