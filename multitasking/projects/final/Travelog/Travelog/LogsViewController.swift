@@ -73,7 +73,13 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     if delta < 0.0 { delta = 0.0 }
     let offset = tableView.contentOffset
     let newOffset = CGPoint(x: offset.x, y: offset.y + delta)
+    
+    let visibleIndexPaths = tableView.indexPathsForVisibleRows
     tableView.contentOffset = newOffset
+    
+    if let topMostVisibileIndexPath = visibleIndexPaths?.first {
+      tableView.scrollToRowAtIndexPath(topMostVisibileIndexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+    }
   }
   
   // MARK: LogStoreObserver Protocol
