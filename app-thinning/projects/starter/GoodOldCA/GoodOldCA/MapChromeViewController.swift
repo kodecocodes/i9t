@@ -28,7 +28,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   @IBOutlet weak var loadingProgressView: UIProgressView!
   @IBOutlet weak var mapView: MKMapView!
   
-  var mapOverlayData: HistoricMapOverlayData!
+  var mapOverlayData: HistoricMapOverlayData?
   
 //=============================================================================/
 // Mark: Lifetime
@@ -76,16 +76,15 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   private func downloadAndDisplayMapOverlay() {
-    if self.mapOverlayData == nil {
-      return
-    }
-    
     self.displayOverlayFromBundle(NSBundle.mainBundle())
-  
   }
   
   func displayOverlayFromBundle(bundle: NSBundle) {
-    let (auxillaryInfo, path) = bundle.extractMapContentBundleWithTitle(self.mapOverlayData.bundleTitle)
+    guard let mapOverlayData = self.mapOverlayData else {
+      return
+    }
+    
+    let (auxillaryInfo, path) = bundle.extractMapContentBundleWithTitle(mapOverlayData.bundleTitle)
     let overlay = HistoricTileMapOverlay(titleDirectory: path, auxillaryInfo: auxillaryInfo)
     self.mapView.addOverlay(overlay)
     self.mapView.setVisibleMapRect(overlay.boundingMapRect, animated: true)
