@@ -58,6 +58,26 @@ In order to properly enable App Slicing on the executable, all you have to do is
 
 <!-- ### Resource Thinning with Asset Catalogs -->
 
+### Measuring Your Work
+
+It would be a good idea to see how much content you are slicing off your app when working with App Thinning (qualitative results). You'll add a custom **Build Script** to list the IPA size in Kilobytes whenever you successfully build the application.
+
+Click on the Project, click on the GoodOldCA under the Targets header, then click on **Build Phases**. Click on the + button and select **New Run Script Phase** 
+
+paste the following script into dialog box:
+
+```
+echo "App Size in KB: `du -sk ${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app`"
+```
+
+This command will display the size of your IPA whenever you build your application.
+
+Build your application, then click on the **Show Report Navigator** and then click on the most recent Build. Make sure **All Messages** is selected. 
+
+[image needed here]
+
+### Being Smart With Resources
+
 Slicing down resources is a good warmup for widdling away your apps "metaphorical pounds" known as Megabytes. Apple, by default 
 
 something something ____ fat binary
@@ -80,9 +100,9 @@ This will spit out a list of the content that occupies the IPA bundle for **Good
 - Info.plist,
 - LA_Map.bundle,
 - PkgInfo,
-- Santa Cruz.png,
-- Santa Cruz@2x.png,
-- Santa Cruz@3x.png,
+- **Santa Cruz.png**,
+- **Santa Cruz@2x.png**,
+- **Santa Cruz@3x.png**,
 - SC_Map.bundle,
 - SD_Map.bundle,
 - SF_Map.bundle,
@@ -104,7 +124,7 @@ The fix for this is quite simple. Just stick the Santa Cruz PNG group into the A
 
 Click the **Assets.xcassets**, then click on the plus button and select **New Image Set**. Drag over the Santa Cruz images from the project navigator into their respective @1x, @2x, @3x slots and make sure the **Image Set** name is labeled **Santa Cruz**.
 
-Once the images are copied over into the Assets catalog, remove the Santa Cruz pngs from the resources folder.
+Once the images are copied over into the Assets catalog, delete the "Santa Cruz" PNGs from the resources folder.
 
 Build and run the application. Notice that the Santa Cruz image is still being displayed and if you use **dump_app_contents**, the Santa Cruz set of images will no longer be displayed. You can verify the Assets catalog has the name "Santa Cruz" by typing **dump_asset_names** in **LLDB**. Finally, you can see how many copies of the Santa Cruz image are currently in the app by typing in LLDB:
 
