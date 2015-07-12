@@ -16,36 +16,35 @@ Packaged together, these techniques are known as **App Thinning**.
 
 ## Getting Started
 
-Before you get to have any fun, you'll need to eat your vegatables (also known as setup some debugging commands). 
+Before you get to have any fun, you'll need to eat your vegatables (AKA setup some **LLDB debugging commands**). 
 
-Navigate to GettingStarted.txt, copy the command. Then open up **Terminal** and paste this big angry blob of text into the console and press enter:
+Open the project called **Old CA Maps**. Navigate to **GettingStarted.txt**. Copy/paste the command into **Terminal** and press enter. 
 
 ```
 echo -e "command alias dump_app_contents e -l objc++ -O -- [[NSFileManager defaultManager] contentsOfDirectoryAtPath:((id)[[NSBundle mainBundle] bundlePath]) error:nil]\ncommand alias dump_asset_names e -l objc++ -O --  [[[CUICatalog alloc] initWithName:@\"Assets\" fromBundle:[NSBundle mainBundle] error:nil] allImageNames]\ncommand regex assets_for_name 's/(.+)/e -l objc++ -O -- [[[CUICatalog alloc] initWithName:@\"Assets\" fromBundle:[NSBundle mainBundle] error:nil] imagesWithName: @\"%1\"]/'" >> ~/.lldbinit 
 ```
 
-This will add 3 niffty commands pertaining to App Thinning to help aid in understanding what content is being placed into your application and help debug your content when things go awry. They do the following:
+This angry blob of text will add 3 niffty commands pertaining to App Thinning to help aid in understanding what content is being placed into your application and help debug your content when things go awry. They do the following:
 
 - **dump_app_contents:** This will list all the top level files found in your application bundle. This does not display files found in deeper levels. 
-- **dump_asset_names:** This lists image resources names found in the **Assets.car** file. What's the Assets.car file? You'll learn about that in a second...
+- **dump_asset_names:** This lists image resources names found in the **Assets.car** file. Wait, what's the Assets.car file? You'll learn about that in a second...
 - **assets_for_name [name]** This will list all the resources found for a specific image name in the Assets.car file.
 
-**Note:** The last to commands use Apple's private APIs, so make sure you not to include these classes in your app.   
+>**Note:** The last to commands use Apple's private APIs, so make sure you not to include these classes in your app.   
 
-Now you can check out the project! You'll work with an app named **Good ol' CA**, which displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this app take up quite a bit of disk space. You'll use the App Thinning techniques to hack-and-slash the end product to a more managable size.
+With the Terminal command entered, you can open and explore **Old CA Maps**. This application displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this simple app take up a huge amount of disk space (over 300 Megabytes!). You'll use the App Thinning techniques to hack-and-slash the end product to a more managable size.
 
-Open **GoodOldCA.proj**. Select the **iPad Air 2 Simulator** as the **scheme destination**, then build and run the application.
+Select the **iPad Air 2 Simulator** as the **scheme destination**, then build and run the application.
 
 Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and see how the historical maps overlay with the present day maps. 
 
-[Image needed Santa Cruz -> Map]
+![ipad-landscape](./images/ipad_air_2_starter_landscape.png)
 
 >**Note:** These overlays are created from image tiles found in **NSBundle**s and passed into a **MKTileOverlayRenderer** for drawing. All of this is well beyond the scope of this tutorial on how it works. Think of this stuff as a black box--all you care about is how to make you app as small as possible to the end user. :] 
 
 ### App Slicing
 
-<!-- For example, apps  
-
+When creating variants for the different devices, App Slicing will break apart your executable as well as your resources provided they are correctly setup. 
 Enabling App Slicing is a super easy process provided that you follow Apple's rules. 
 
 Build the GoodOldCA for the iPhone 6 Simulator. Navigate to the products folder in the **Project Navigator** and right-click **GoodOldCA.app**. Select **Show in Finder**. With Finder open, select **Debug-iphonesimulator** and then right click on the **GoodOldCA** IPA and select **Show Package Contents**  
@@ -54,7 +53,7 @@ Build the GoodOldCA for the iPhone 6 Simulator. Navigate to the products folder 
 
 By default, Xcode will only include the active architecture and resources on **DEBUG** builds. This speeds up the build process as there is less content to copy over to the device/simulator. When switching over to a **RELEASE** build, all architectures will be packaged together (known as a fat binary) when you submit your app to the App Store. However, in iOS 9, Apple will now rip apart your App and separate the different packages specific to each device resulting in a smaller IPA. 
 
-In order to properly enable App Slicing on the executable, all you have to do is... compile against iOS 9. See, wasn't that easy!? -->
+In order to properly enable App Slicing on the executable, all you have to do is... compile against iOS 9. See, wasn't that easy!? 
 
 <!-- ### Resource Thinning with Asset Catalogs -->
 
@@ -173,8 +172,8 @@ Change the downloadAndDisplayMapOverlay function to now look like
 ```
 
 Breaking this change apart:
-- Using the new features in Swift 2.0, you are using the **Guard** statement. This lets you maintain the "Golden Path" of code in an easier manner.
-- You're instantiating a `NSBundleResourceRequest` with the tag associated with your bundle. You Will add tags to all the content bundles in one sec... 
+- Using the new features in Swift 2.0, you are using the **guard** statement. This lets you maintain the "Golden Path" of code in an easier manner.
+- You're instantiating a `NSBundleResourceRequest` with the tag associated with your bundle. You will add tags to all the content bundles in one sec... 
 - The `beginAccessingResourcesWithCompletionHandler` method will call the completion block when your app finishs downloading your on-demand content or upon error.  
 - The completion handler is not called on the main queue, so you'll need to supply a block to the main thread to handle any updates to the UI. 
 - `NSBundleResourceRequest` has a read-only variable called bundle. Replacing `NSBundle.mainBundle()` with this varaible makes the code more extendible if you were to move the location of your bundles around. 
@@ -210,10 +209,12 @@ Navigate back to **downloadAndDisplayMapOverlay()** and replace the content with
     self.loadingProgressView.observedProgress = bundleResource.progress // 2
     self.loadingProgressView.hidden = false // 3
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-    
+
     bundleResource.beginAccessingResourcesWithCompletionHandler { (error) -> Void in
       NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
         self.loadingProgressView.hidden = true // 4
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+
         if error == nil {
           self.displayOverlayFromBundle(bundleResource.bundle)
         }
@@ -222,6 +223,10 @@ Navigate back to **downloadAndDisplayMapOverlay()** and replace the content with
   }
 ```
 
+- This tells the system that the user is "patiently" waiting for this download to occur and to divert all resources to getting these download to complete ASAP. 
+- The **loadingPorgressView** can hook into the `NSProgress` of the `NSBundleResourceRquest`. 
+- Display the loadingProgressView and also the network activity indicator to indicator to the user a network request is occurring.
+- Once the download completes, hiden the loadingProgressView and network activity indicator. With this code, you can run into the chance of a race condition with another download affect the display of the network indicator, but that is not important to resolve for now. 
 
 
 Now would be a good time to look at the before and after of your IPA size. Originally, the app was over 300 MB! Now the app is around 10MB. Xcode has achieved this by removing the bundle resources found in the IPA and downloads them if they are not present on the app.
