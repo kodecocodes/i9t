@@ -200,3 +200,203 @@ let p = try! Person.parse(["first_name": "Ray",
 ```
 
 Excellent! You now have the basics down for using Swift 2.0 errors!
+
+## The Project
+
+Now it is time to focus on a specific problem to solve rather than contrived examples. For this next section of the chapter you will be solving a String validation problem using some of the features discussed above as well as more new Swift 2.0 features. The problem involves String validation and the desired outcome is to be able to write validators that given an input string, validate that the string conforms to any number of rules. You will specifically be creating a password requirement validator that ensures a user has chosen a strong password.
+
+Switch to the next page in the chapter's playground, "String Validation".
+
+### String Validation Error
+
+Now that you're familiar with defining custom `ErrorType`s it is time to make use of aa pretty robust one for possible validation errors.
+
+Take a look at the `ErrorType` defined at the top of the playground's "String Validation" page right below `import UIKit`. This `ErrorType` has a number of cases with varying associative values that are used to help describe the error.
+
+After the definition of the cases you will see a computed variable `description`, this is here to conform to the `CustomStringConvertible` protocol and to allow displaying the error in a human readable format that can then be actioned on.
+
+With the error types defined it is time to start throwing them! First, start with a protocol that defines a rule. You are going to be using protocol oriented programming patterns to make this solution robust and extendable.
+
+Add the following protocol definition to the playground.
+
+```
+protocol StringValidationRule {
+  func validate(string: String) throws -> Bool
+  var errorType: StringValidationError { get }
+}
+```
+
+This protocol requires a method that returns a `Bool` regarding the validity of a given string. It can also throw an error! It also requires that you provide the type of error that can be thrown
+
+> **Note**: Although it may appear so, the `errorType` property is not a Swift requirement. This property is accessed later to help describe the rule's requirements.
+
+To use multiple rules together, define a `StringValidator` protocol.
+
+```
+protocol StringValidator {
+  var validationRules: [StringValidationRule] { get }
+  func validate(string: String) -> (valid: Bool,
+    errors: [StringValidationError])
+}
+```
+
+This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is the `Bool` that designates if the string is valid or not, the second is an array of `StringValidationError`s. In this case you are not using `throws` but rather returning an array of error types being that multiple errors can occur. In the case of string validation it is always a better user experience to let the user know of every rule they've broken so that they can resolve each one in a single pass.
+
+Now take a step back and think of how you might implement a `StringValidator`'s `validate(string:)` method. It will probably be that you iterate over each item in `validationRules`, collect any errors, and determine the status based on whether or not any errors have occurred. This logic will likely be the same for any `StringValidator`.
+
+Surely you don't want to copy/paste that implementation into ALL of your `StringValidator`s, right? Well, good news, Swift 2.0 introduces Protocol Extensions that allow you to define default implementations for all types that specify conformance to the protocol.
+
+Extend the `StringValidator` protocol to define a default implementation for `validate(string:)`
+
+```
+extension StringValidator {                          // 1
+  func validate(string: String) -> (valid: Bool,
+    errors: [StringValidationError]) {               // 2
+      var errors = [StringValidationError]()         // 3
+      for rule in validationRules {                  // 4
+        do {                                         // 5
+          try rule.validate(string)                  // 6
+        } catch let error as StringValidationError { // 7
+          errors.append(error)                       // 8
+        } catch let error {                          // 9
+          fatalError("Unexpected error type: \(error)")
+        }
+      }
+
+      return (valid: errors.isEmpty, errors: errors) // 10
+  }
+}
+```
+
+This method's process is broken down by commented line number below:
+
+1. Create an extension for `StringValidator`
+2. Define the default implementation for `func validate(string: String) -> (valid: Bool,
+  errors: [StringValidationError])`
+3. Create a mutable array to hold any errors that might occur
+4. Iterate over each rule that the validator has
+5. Specify a `do` block as you will be catching errors if they are thrown
+6. Execute `validate(string:)` for each rule, note that you must precede the call with `try` as this method can throw
+7. Catch any errors of the type `StringValidationError`
+8. Capture the error in your `errors` array
+9. If some error other than `StringValidationError` is thrown, crash with a message including what error occurred. This is optional depending on your API design. In this case it would be a developer error that this occurred and it is best to be aware of it as soon as possible, crashes are a simple way to make that obvious. In production code you may prefer to log the error and move on as long as doing so would not put your application in an unstable state.
+10. Return the resultant tuple, if there are no errors then validation passed, include the array of errors even if empty.
+
+Excellent! Now any and every `StringValidator` that you implement will have this method by default so that you do not need to copy/paste it in everywhere. Time to implement your very first `StringValidationRule`, starting with the first error type `.MustStartWith`.
+
+```
+struct StartsWithCharacterStringValidationRule: StringValidationRule {
+  let characterSet: NSCharacterSet            // 1
+  let description: String                     // 2
+  var errorType: StringValidationError {      // 3
+    return .MustStartWith(set: characterSet,
+      description: description)
+  }
+
+  func validate(string: String) throws -> Bool {
+    if string.startsWithCharacterFromSet(characterSet) {
+      return true
+    } else {
+      throw errorType                         // 4
+    }
+  }
+}
+```
+
+Breaking this method down...
+
+1. The rule has two properties, the character set that the rule uses to verify the string starts with a character in the given set
+2. A description of the rules requirement, if you used a set of numbers you would define "number" for this
+3. Define the type of error that this rule can throw
+4. Throw the error if validation fails
+
+Time to take this new rule for a spin!
+
+```
+let letterSet = NSCharacterSet.letterCharacterSet()
+let startsWithRule = StartsWithCharacterStringValidationRule(
+  characterSet: letterSet,
+  description: "letter")
+
+do {
+  try startsWithRule.validate("foo")
+  try startsWithRule.validate("123")
+} catch let error {
+  print(error)
+}
+```
+
+You should see the following output in your playground. You can get the result to display inline with your code by pressing the **Show Result** circle button to the right of the output in the playground's timeline.
+
+<!-- Something is amiss with the image below, the top border is clipped, I believe it has to do with the image starting at the top of the page. !-->
+
+![bordered height=16%](./images/starts_with_rule_result.png)
+
+Great work! You've written your first validation rule, now create one for "Must End With".
+
+```
+struct EndsWithCharacterStringValidationRule: StringValidationRule {
+  let characterSet: NSCharacterSet
+  let description: String
+  var errorType: StringValidationError {
+    return .MustEndWith(set: characterSet,
+      description: description)
+  }
+
+  func validate(string: String) throws -> Bool {
+    if string.endsWithCharacterFromSet(characterSet) {
+      return true
+    } else {
+      throw errorType
+    }
+  }
+}
+```
+
+This logic is very similar. You've two different rules so now you can create your own `StringValidator`.
+
+```
+struct StartsAndEndsWithStringValidator: StringValidator {
+  let startsWithSet: NSCharacterSet             // 1
+  let startsWithDescription: String
+  let endsWithSet: NSCharacterSet               // 2
+  let endsWithDescription: String
+
+  var validationRules: [StringValidationRule] { // 3
+    return [
+      StartsWithCharacterStringValidationRule(
+        characterSet: startsWithSet,
+        description: startsWithDescription),
+      EndsWithCharacterStringValidationRule(
+        characterSet: endsWithSet ,
+        description: endsWithDescription)
+    ]
+  }
+}
+```
+
+Since you wrote a protocol extension for `StringValidator` that provides a default implementation of `func validate(string: String) -> (valid: Bool, errors: [StringValidationError])` the definition of this implementation is very basic.
+
+1. Provide a property to set the character set for the starts with rule
+2. Provide another set for the ends with rule
+3. Create an array with both rules for `validationRules` which the `StringValidator` protocol requires
+
+Now give your new validator a try!
+
+```
+let numberSet = NSCharacterSet.decimalDigitCharacterSet()
+
+let startsAndEndsWithStringValidator = StartsAndEndsWithStringValidator(
+  startsWithSet: letterSet,
+  startsWithDescription: "letter",
+  endsWithSet: numberSet,
+  endsWithDescription: "number")
+
+startsAndEndsWithStringValidator.validate("1foo").errors
+startsAndEndsWithStringValidator.validate("foo").errors
+startsAndEndsWithStringValidator.validate("foo1").valid
+```
+
+You should see the following result.
+
+![bordered height=30%](/images/starts_and_ends_with_validator_result.png)
