@@ -49,11 +49,6 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     let barButton = self.splitViewController!.displayModeButtonItem()
     self.navigationItem.leftBarButtonItem = barButton
     self.navigationItem.leftItemsSupplementBackButton = true
-    
-    // Uncomment this for debugging
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Debug", style: UIBarButtonItemStyle.Plain, target: self, action: "debugButtonTapped:")
-    
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLowDiskSpaceNotification:", name: NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
   }
   
 //=============================================================================/
@@ -65,14 +60,6 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
       let renderer = self.mapView.rendererForOverlay(overlay)
       renderer?.alpha = CGFloat(sender.value)
     }
-  }
-  
-  func debugButtonTapped(button: UIBarButtonItem) {
-    NSNotificationCenter.defaultCenter().postNotificationName(NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
-  }
-  
-  func handleLowDiskSpaceNotification(notification: NSNotification) {
-    // TODO : determine something
   }
   
 //=============================================================================/
@@ -89,35 +76,12 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   private func downloadAndDisplayMapOverlay() {
-    guard let mapOverlay = self.mapOverlayData else {
+    if self.mapOverlayData == nil {
       return
     }
     
-    let bundleRequest = NSBundleResourceRequest(tags:[mapOverlay.bundleTitle])
-    bundleRequest.loadingPriority = 1.0 
-    
-    bundleRequest.conditionallyBeginAccessingResourcesWithCompletionHandler { (resourcesAvailable) -> Void in
-      
-      if resourcesAvailable == false {
-        self.loadingProgressView.observedProgress = bundleRequest.progress
-        self.loadingProgressView.hidden = false
-        bundleRequest.beginAccessingResourcesWithCompletionHandler { (error : NSError?) -> Void in
-          
-          NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-            self.loadingProgressView.hidden = true
-            if error != nil {
-              // Handle error
-            } else {
-              self.displayOverlayFromBundle(bundleRequest.bundle)
-            }
-          })
-        }
-      } else {
-        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-          self.displayOverlayFromBundle(bundleRequest.bundle)
-        })
-      }
-    }
+    self.displayOverlayFromBundle(NSBundle.mainBundle())
+  
   }
   
   func displayOverlayFromBundle(bundle: NSBundle) {
