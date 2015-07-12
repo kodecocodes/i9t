@@ -62,7 +62,7 @@ In order to properly enable App Slicing on the executable, all you have to do is
 
 It would be a good idea to see how much content you are slicing off your app when working with App Thinning (qualitative results). You'll add a custom **Build Script** to list the IPA size in Kilobytes whenever you successfully build the application.
 
-Click on the Project, click on the GoodOldCA under the Targets header, then click on **Build Phases**. Click on the + button and select **New Run Script Phase** 
+Click on the Project, cslick on the GoodOldCA under the Targets header, then click on **Build Phases**. Click on the + button and select **New Run Script Phase** 
 
 paste the following script into dialog box:
 
@@ -153,6 +153,39 @@ Wait so what's a resource? A resource can be a number of things, an image, image
 
 Time to whip out the coding skrillz. Navigate to **MapChromeViewController.swift** and hunt down the **downloadAndDisplayMapOverlay** function. It is here that you will replace the content of an MKTileOverlay rendered on the device instead of online. 
 
+Change the downloadAndDisplayMapOverlay function to now look like
+    
+```swift 
+  private func downloadAndDisplayMapOverlay() {
+    guard let bundleTitle = self.mapOverlayData?.bundleTitle else { // 1
+      return
+    }
+    
+    let bundleResource = NSBundleResourceRequest(tags: [bundleTitle]) // 2 
+    bundleResource.beginAccessingResourcesWithCompletionHandler { (error) -> Void in // 3 
+      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in // 4
+        if error == nil {
+          self.displayOverlayFromBundle(bundleResource.bundle) // 5
+        }
+      })
+    }
+  }
+```
+
+Breaking this change apart:
+- Using the new features in Swift 2.0, you are using the **Guard** statement. This lets you maintain the "Golden Path" of code in an easier manner.
+- You're instantiating a `NSBundleResourceRequest` with the tag associated with your bundle. You Will add tags to all the content bundles in one sec... 
+- The `beginAccessingResourcesWithCompletionHandler` method will call the completion block when your app finishs downloading your on-demand content or upon error.  
+- The completion handler is not called on the main queue, so you'll need to supply a block to the main thread to handle any updates to the UI. 
+- `NSBundleResourceRequest` has a read-only variable called bundle. Replacing `NSBundle.mainBundle()` with this varaible makes the code more extendible if you were to move the location of your bundles around. 
+
+Try building and running your application right now and click on one of the cities. Xcode will fail to load an overlay and spit out an error at you in the console. This is because you have told the `NSBundleResourceRequest` to look for tags that don't exist yet. You'll change that now. 
+
+Navigate to the Project Navigator tab and expand the **Map Bundles** folder. Open the Xcode's **File Inspector** tab on the right. In the File Inspector column find the **On Demand Resource Tags** section. 
+
+Go through each bundle and give name the tag the same name as the bundle name. For example, for **LA_Map.bundle** give it the name **LA_Map** tag. Do this for each of the 5 bundles in the applciation.
+
+>**Note:** Make sure you spell the tag name in the exact same spelling and case. If you misstype it, you could result in some subtle errors.  
 
 
 In order to mark a resource as downloadable for on-demand resources, you simply need to tag it. Xcode will take care of the hard work of attaching this resource to a separate directory and make it available to download from the App Store. 
