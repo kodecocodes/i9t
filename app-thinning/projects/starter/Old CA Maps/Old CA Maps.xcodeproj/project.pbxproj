@@ -154,6 +154,7 @@
 				A645B2941B52F86A004103C7 /* Sources */,
 				A645B2951B52F86A004103C7 /* Frameworks */,
 				A645B2961B52F86A004103C7 /* Resources */,
+				A645B2D91B52FD11004103C7 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -217,6 +218,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A645B2D91B52FD11004103C7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"App Size in KB: `du -sk \\\"${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app\\\"`\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A645B2941B52F86A004103C7 /* Sources */ = {

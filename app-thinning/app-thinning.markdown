@@ -67,7 +67,7 @@ Click on the Project, click on the GoodOldCA under the Targets header, then clic
 paste the following script into dialog box:
 
 ```
-echo "App Size in KB: `du -sk ${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app`"
+echo "App Size in KB: `du -sk \"${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app\"`"
 ```
 
 This command will display the size of your IPA whenever you build your application.
