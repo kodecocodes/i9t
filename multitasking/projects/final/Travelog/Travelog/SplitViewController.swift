@@ -24,15 +24,25 @@ import UIKit
 
 class SplitViewController: UISplitViewController {
   
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+    updateMaximumPrimaryColumnWidthBasedOnSize(view.bounds.size)
+  }
+  
   override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
     super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-    
+    updateMaximumPrimaryColumnWidthBasedOnSize(size)
+  }
+  
+  // MARK: Helper
+  
+  func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
     let width = size.width
-    let screenWidth = CGRectGetWidth(UIScreen.mainScreen().bounds)
-    if width < screenWidth {
-      maximumPrimaryColumnWidth = 160
+    if width < CGRectGetWidth(UIScreen.mainScreen().bounds) {
+      maximumPrimaryColumnWidth = 160.0
     } else {
       maximumPrimaryColumnWidth = UISplitViewControllerAutomaticDimension
     }
   }
+  
 }
