@@ -52,7 +52,7 @@ The example above repeats the line `jamJarBeer.sip()` until `jamJarBeer.isEmpty`
 
 ### `guard`
 
-Often times its necessary to do pre-condition checks in your routines to ensure proper state or that valid arguments were passed in. The new `guard` control flow is the perfect tool for doing these checks. Consider the `Beer().sip()` method from above. What happens when you sip an empty beer? What does that even mean? (It probably means you've had too many or need a refill.) Perhaps it would make sense to verify that there is beer available for sipping!
+Often times it's necessary to do pre-condition checks in your routines to ensure proper state or that valid arguments were passed in. The new `guard` control flow is the perfect tool for doing these checks. Consider the `Beer().sip()` method from above. What happens when you sip an empty beer? What does that even mean? (It probably means you've had too many or need a refill.) Perhaps it would make sense to verify that there is beer available for sipping!
 
 ```
 struct Beer {
