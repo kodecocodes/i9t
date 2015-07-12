@@ -16,18 +16,17 @@
 		A645B2BC1B52F8B6004103C7 /* HistoricTileMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2B81B52F8B6004103C7 /* HistoricTileMapOverlay.swift */; };
 		A645B2BD1B52F8B6004103C7 /* HistoricMapOverlayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2B91B52F8B6004103C7 /* HistoricMapOverlayData.swift */; };
 		A645B2BE1B52F8B6004103C7 /* ImageTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2BA1B52F8B6004103C7 /* ImageTile.swift */; };
-		A645B2C51B52F8EC004103C7 /* LA_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C01B52F8EC004103C7 /* LA_Map.bundle */; settings = {ASSET_TAGS = (LA_Map, ); }; };
-		A645B2C61B52F8EC004103C7 /* SC_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C11B52F8EC004103C7 /* SC_Map.bundle */; settings = {ASSET_TAGS = (SC_Map, ); }; };
-		A645B2C71B52F8EC004103C7 /* SD_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C21B52F8EC004103C7 /* SD_Map.bundle */; settings = {ASSET_TAGS = (SD_Map, ); }; };
-		A645B2C81B52F8EC004103C7 /* SF_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C31B52F8EC004103C7 /* SF_Map.bundle */; settings = {ASSET_TAGS = (SF_Map, ); }; };
-		A645B2C91B52F8EC004103C7 /* SNVL_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C41B52F8EC004103C7 /* SNVL_Map.bundle */; settings = {ASSET_TAGS = (SNVL_Map, ); }; };
+		A645B2C51B52F8EC004103C7 /* LA_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C01B52F8EC004103C7 /* LA_Map.bundle */; settings = {ASSET_TAGS = (); }; };
+		A645B2C61B52F8EC004103C7 /* SC_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C11B52F8EC004103C7 /* SC_Map.bundle */; settings = {ASSET_TAGS = (); }; };
+		A645B2C71B52F8EC004103C7 /* SD_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C21B52F8EC004103C7 /* SD_Map.bundle */; settings = {ASSET_TAGS = (); }; };
+		A645B2C81B52F8EC004103C7 /* SF_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C31B52F8EC004103C7 /* SF_Map.bundle */; settings = {ASSET_TAGS = (); }; };
+		A645B2C91B52F8EC004103C7 /* SNVL_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C41B52F8EC004103C7 /* SNVL_Map.bundle */; settings = {ASSET_TAGS = (); }; };
 		A645B2CB1B52F904004103C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A645B2CA1B52F904004103C7 /* Assets.xcassets */; };
 		A645B2CD1B52F918004103C7 /* NSBundle+ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */; };
 		A645B2CF1B52F959004103C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A645B2CE1B52F959004103C7 /* Main.storyboard */; };
 		A645B2D31B52F98F004103C7 /* Santa Cruz.png in Resources */ = {isa = PBXBuildFile; fileRef = A645B2D01B52F98F004103C7 /* Santa Cruz.png */; };
 		A645B2D41B52F98F004103C7 /* Santa Cruz@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A645B2D11B52F98F004103C7 /* Santa Cruz@2x.png */; };
 		A645B2D51B52F98F004103C7 /* Santa Cruz@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A645B2D21B52F98F004103C7 /* Santa Cruz@3x.png */; };
-		A645B2D71B52FA6F004103C7 /* GettingStarted.txt in Resources */ = {isa = PBXBuildFile; fileRef = A645B2D61B52FA6F004103C7 /* GettingStarted.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -212,7 +211,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A645B2A61B52F86A004103C7 /* LaunchScreen.storyboard in Resources */,
-				A645B2D71B52FA6F004103C7 /* GettingStarted.txt in Resources */,
 				A645B2D31B52F98F004103C7 /* Santa Cruz.png in Resources */,
 				A645B2D51B52F98F004103C7 /* Santa Cruz@3x.png in Resources */,
 				A645B2C71B52F8EC004103C7 /* SD_Map.bundle in Resources */,
@@ -240,7 +238,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"App Size in KB:  `du -sk \\\"${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app\\\"`\"";
+			shellScript = "echo \"App Size in KB:  `du -sk \\\"${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app\\\"`\"\nopen ${CONFIGURATION_BUILD_DIR}";
 		};
 /* End PBXShellScriptBuildPhase section */
 
