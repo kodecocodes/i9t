@@ -10,6 +10,9 @@ In this chapter your will learn how to update an existing app so that it plays n
 
 There are three different aspects to multitasking on the iPad: Slide Over, Split View, and Picture in Picture. You activate Slide Over by swiping from the right edge of the screen (or the left edge if you have changed your iPad locale to a region with right-to-left language). You will see a list of multitasking-ready apps on your iPad in that list, from which you can tap and launch an app. If your app is not multitasking-ready, it won't show up in this list!
 
+This is a great opportunity and you want your users to see your app in the list!
+This allows users get into your app more often and spend more time in it while using your app alongside with other apps.
+
 You can then pin the Slide Over and activate Split View. In Split View the screen is divided between the two apps. You can use both apps independently and both are fully functional.
 
 ![width=90% ipad](images/mt01.png)
@@ -25,23 +28,40 @@ If you are not sure whether your iPad supports multitasking, go to __Settings > 
 
 ![width=90% ipad](images/mt03.png)
 
-## The sample project
+## The starter project
 
 The starter project you’ll use for the remainder of this chapter is called __Travelog__. Open the project file in Xcode and build and run the application for iPad simulator. Make sure you select iPad Air 2 because that's the only simulator that supports multitasking. You’ll see the following screens:
 
-![bordered width=90% ipad](images/mt04.png)
+![width=90% ipad](images/mt04.png)
 
-Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. If you tap on an entry it's displayed in the right hand view. Rotate the device and you'll see both master and detail views of the Split View Controller are visible in both orientations.
+Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. If you tap on an entry it's displayed in the right hand view. Rotate the device and you'll see both master and detail views of the Split View Controller are visible in both orientations. However, the master view is narrower in portrait orientation to give more room to the detail view.
 
-Give it a try and see how the app behaves in multitasking environment. Swipe from the right edge of the screen to expose the list of multitasking-ready apps on your iPad. Tap on one of the apps, like Calendar app to launch it. You notice that there is a handle in the divider that suggests you can pin the divider. Go ahead and do that.
+It's time to see how the app behaves in a multitasking environment. Swipe from the right edge of the screen to expose the list of multitasking-ready apps on your iPad. Tap on one of the apps, like Calendar app to launch it. You notice that there is a handle in the divider that suggests you can pin the divider. Go ahead and do that.
 
-![width=90% ipad](images/mt07.png)
+![width=90% ipad](images/mt05.png)
 
-How did that happen?
+How did that happen? It turns out if you start a new project in Xcode 7, it's automatically multitasking ready. An existing app automatically becomes multitasking-ready if the following conditions are met:
+* a universal app
+* compiled with SDK 9.x
+* supports all orientations
+* uses launch storyboard
+
+Since all the required criteria are in place, Travelog becomes multitasking ready. That's good news but just because it's multitasking ready, doesn't mean that everything will work as expected.
+
+There has been some great tools in UIKit to prepare you for multitasking and adaptivity. Auto Layout, Size Classes are couple of them. If you are not using them already, it's time to update your code. In addition to those, there are  some new tools in UIKit to further assist you with multitasking; `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth` are two of those. You can learn more about __UIStackView and Auto Layout Changes__ in chapter XX of this book.
+
+With that said, there are some strategies that you can use to improve your code in a multitasking environment:
+1. __Universal:__ Make your app universal. Your users will be happier and feel more like home when they can interactive with your app on their iPad, for example, very much the same way they interact with it on their iPhone. If you look around you'll see that's how most of the apps that you also use on a daily basis behave. For example Mail, Calendar, and Notes just to name a few provide almost an identical experience whether you use them on a Mac, on an iPad or on your iPhone.
+2. __Be flexible:__ You need to step away from a pixle-perfect design for various platforms and orientations. You need to think about different sizes and how you can have a flixble app that responds to size changes appropriately.
+3. __Use Auto Layout:__ If you still have some legacy code with hardcoded sizes or code that manually changes size of elements, it's time to consider Auto Layout to make your code more flexible and easier to maintain.
+4. __Use Size classes:__ It's great to have universal storyboards, but one single layout doesn't always fit all displays. Use size classes to build a base layout and then customize each specific size class based on the individual needs of that size class. Don’t treat each of the size classes as a completely separate design because as you will see later in multitasking, the app on the single device can go from one size class to another size class. Your user is in control. You don't want to make a dramatic change as user drags the divider! To learn more about size classes, you can check out __Adaptive Layout__ in iOS 8 By Tutorials.
+5. __UIAdaptivePresentationControllerDelegate:__ This is another great tool that's been around since iOS 8. You can easily change the presentation of a view controller based on the current context and the environment of the app. For example you can present a view controller either in a popover or modally depending on the current size class.
+6. __UISplitViewController:__ This is probably the oldest you have in your toolbox for adaptivity and it's still very useful. Out of the box, `UISplitViewController` provides some great adaptivity to make your life easier. Make sure you check out the latest documentation for `UISplitViewController` for the updated API.
+
+You will use some of these strategies in this tutorial to improve Travelog. It's time to explore the app and examine it while in multitasking. Still in multitasking, if you look at the app in landscape orientation you'll notice even though the master view is displayed appropriately, table view cells are too cramped! Knowing that in portrait orientation you gave the master view a narrower width, you want to achieve the same look here.
 
 
-Why adopt it?
-  user is in control
+
 
 How to adopt it?
   make your app universal
@@ -57,16 +77,8 @@ How to adopt it?
   - the app on the right starts with compact horizontal size class; user starts with iPhone experience
   - when the right-side app takes over, it becomes regular horizontal size class; this is iPad traditional user experience
 
-  when user slides over, user wants to see your app in the list!
-  let users get into your app more and spend more time in your app while using your app alongside / in concert with other apps.
 
-  if you start a new project with Xcode 7, it's automatically set for multitasking.
 
-  HOW TO MAKE YOUR EXISITING APP MULTITASKING
-  (1) universal app
-  (2) build the app with iOS 9 SDK
-  (3) support all orientations (in the build settings)
-  (4) use launch storyboard
 
   Think about orientation as bound size changes!
   User is in control what orientation they look at the iPad.
@@ -84,23 +96,11 @@ How to adopt it?
 
 
 ## Tutorial
-All new apps created with Xcode 7 will automatically be multi-tasking enabled. [Theory]
-In this tutorial you will learn how to adopt iOS 9 Multitasking in an old app. [Theory & Instruction]
-Here is what you need: [Theory & Instruction]
-(1) universal app
-(2) build the app with iOS 9 SDK
-(3) support all orientations (in the build settings)
-(4) use launch storyboard
+
 A brief about changes in UIKit for better adoption: [Reference]
-(1) UIScreen, UIWindow, UIView.readableContentGuide, UITableView.cellLayoutMArginsFollowReadableWidth
-(2) Refer reader to learn more about it in Auto Layout, Size Classes, etc.
-Before Dive into the code, here are strategies you can take: [Theory & Instruction]
-(1) Be flexible
-(2) Use Auto Layout
-(3) Use Size classes
-(4) UIAdaptivePresentationControllerDelegate
-(5) UISplitViewController
-You will use some of these strategies in the tutorial.
+
+
+
 Deal with keyboard even though it's not your app presenting it. [Instruction]
 Deal with camera since it's a resource that may not be available to your app in multitasking [Theory & Instruction]
 Oops! Fix that UIAlertView :] [Instruction]

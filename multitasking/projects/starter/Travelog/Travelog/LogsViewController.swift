@@ -23,7 +23,7 @@
 import UIKit
 import TravelogKit
 
-class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDelegate {
+class LogsViewController: UITableViewController, LogStoreObserver {
   
   @IBOutlet private var photoLibraryButton: UIBarButtonItem!
   @IBOutlet private var cameraButton: UIBarButtonItem!
@@ -179,5 +179,4 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
       deleteLog(log)
     }
   }
-  
 }
