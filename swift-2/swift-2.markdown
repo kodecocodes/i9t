@@ -519,7 +519,7 @@ Great work! You've been able to use protocol oriented programming with Swift 2.0
 
 ## Additional Things
 
-The previous sections covered a number of new features in Swift 2.0, but there are even more. For the rest of this chapter you will be experimenting further with some of the previously mentioned features and more new ones. The examples will not be as concrete as the string validation problem, but hopefully still interesting!
+The previous sections covered a number of new features in Swift 2.0, but there are even more (is this starting to sound like an infomercial?). For the rest of this chapter you will be experimenting further with some of the previously mentioned features and more new ones. The examples will not be as concrete as the string validation problem, but hopefully still interesting!
 
 ### Going further with Extensions
 
@@ -562,7 +562,7 @@ If your results are not shuffled, verify that you typed the algorithm correctly 
 
 With the introduction of `guard` and `throws`, exiting scope early is now a "first-class" scenario in Swift 2.0. This means that you have to be careful to execute any necessary routines prior to an early exit from occurring. Thankfully Apple has provided `defer { ... }` to ensure that a block of code will always execute before the current scope is exited.
 
-Type the following into the playground and notice the `defer` block defined at the beginning of the `dispenseFunds(amount:account)` method.
+Review the following and notice the `defer` block defined at the beginning of the `dispenseFunds(amount:account:)` method.
 
 ```
 struct ATM {
@@ -600,14 +600,11 @@ struct ATM {
 }
 ```
 
-In this example there are a multiple places that the method can return without proceeding further. One thing is for certain though, an ATM should always return the card to the user, regardless of what error occurs (okay maybe some types of errors would deem keeping the card). The use of the `defer` block guarantees that no matter when the method returns, the user's card will be returned.
+In this example there are a multiple places that the method can exit early. One thing is for certain though, an ATM should always return the card to the user, regardless of what happens. The use of the `defer` block guarantees that no matter when the method exits, the user's card will be returned.
 
-Type the following to try this out.
+Type the following to try dispensing funds from Bill's account.
 
 ```
-var atm = ATM()
-
-var billsAccount = Account(name: "Bill's Account", balance: 500.00, locked: true)
 do {
   try atm.dispenseFunds(200.00, account: &billsAccount)
 } catch let error {
@@ -619,15 +616,15 @@ Attempting to dispense funds from a locked account throws an `ATMError.AccountLo
 
 ![bordered height=15%](/images/defer_result.png)
 
+Bill's card was returned even though the method exited early.
 
 ### Pattern Matching
 
-Swift has always had amazing pattern matching capabilities, especially with cases in `switch` statements. Swift 2.0 continues to add to the language's ability in this area. Here are a few brief examples.
+Swift has had amazing pattern matching capabilities since the beginning, especially with cases in `switch` statements. Swift 2.0 continues to add to the language's ability in this area. Here are a few brief examples.
 
-"for ... in" filtering provides the ability to iterate as you normally would using a for-in loop, except that you can provide a `where` statement so that only iterations whose `where` statement is true will be executed.
+"for ... in" filtering provides the ability to iterate as you normally would using a for-in loop, except that you can provide a `where` statement so that only iterations whose `where` statement is true will be executed. Use for ... in filtering to create an array of names that start with "C".
 
 ```
-let names = ["Charlie", "Chris", "Mic", "John", "Craig", "Felipe"]
 var namesThatStartWithC = [String]()
 
 for cName in names where cName.hasPrefix("C") {
@@ -635,17 +632,9 @@ for cName in names where cName.hasPrefix("C") {
 }
 ```
 
-You can also iterate over a collection of enums of the same type and filter out for a specific case.
+You can also iterate over a collection of enums of the same type and filter out for a specific case. Given the array `authorStatuses` in the playground, write a for loop that matches on the `Late(Int)` case and calculates the total number of days that authors are behind.
 
 ```
-let authors = [
-  Author(name: "Chris Wagner", status: .Late(daysLate: 5)),
-  Author(name: "Charlie Fulton", status: .Late(daysLate: 10)),
-  Author(name: "Evan Dekhayser", status: .OnTime)
-]
-
-let authorStatuses = authors.map { $0.status }
-
 var totalDaysLate = 0
 
 for case let .Late(daysLate) in authorStatuses {
@@ -653,7 +642,7 @@ for case let .Late(daysLate) in authorStatuses {
 }
 ```
 
-"if case" matching allows you to write more terse conditions rather than using `switch` statements that require a `default` case.
+"if case" matching allows you to write more terse conditions rather than using `switch` statements that require a `default` case. The following iterates over the `authors` array and slaps each other who is late!
 
 ```
 var slapLog = ""
