@@ -203,9 +203,17 @@ Display the progress is a marginally better experience, but it still feels like 
 
 So... the Santa Cruz asset is big and also is likely the first overlay the user will click since it's the top item in the `UITableView`. You might want to require the Santa Cruz asset to be included along with the application itself so it feels snappy, yet still have the ability to remove this > 100 MB overlay if the user gets a low disk space notifcation. 
 
-This means that this asset should be switched to the **Initial Install Tags** group where it will be counted along with it's IPA towards the total size and downloaded initially. 
+This means that this asset should be switched to the **Initial Install Tags** group where it will be counted along with it's IPA towards the total size and downloaded initially along with the app itself. 
 
-Open up the **Old CA Maps Project**, click on the Old CA Maps target and then select **Resource Tags** 
+Open up the **Old CA Maps Project**, click on the Old CA Maps in the **Target** section and then select **Resource Tags**. There are 3 types of cataloging for assets. 
+
+- **Initial Install Tags:** These are installed along with your application. Wait why not just include them in the application? Well, you can remove this content when you no longer need it. This is perfect for onboarding content where you would use resources only once. 
+- **Prefected Tag Order:** These tags are downloaded one the application finishes downloading. They could start depending on available system resources, but you can assum that these resources will start or have started downloading when have launched your application for the first time. 
+- **Download Only On Demand:** These resources are the ones you have worked with and are called when you call them through code. 
+
+You will want to move Santa Cruz bundle with the SC_Map tag from the Download Only on Demand section to the Initial Install Tag section. To do this drag the Tag and drag it into the Initial Install Tag area. 
+
+[Image needed here] 
 
 
 ## ODR Best Practices [Theory]
