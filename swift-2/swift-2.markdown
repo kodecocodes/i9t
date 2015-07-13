@@ -406,7 +406,7 @@ You should see the following result.
 
 ### Password Requirement Validation
 
-Now it is time to put the StringValidator pattern that you've created to real-world use. Often times when signing up often times when signing up for an account you are required to meet a number of rules to ensure that your password is complex. As the software engineer tasked with creating the sign-up form for your company's app you have been told that passwords must meet the follwing requirements.
+Now it is time to put the StringValidator pattern that you've created to real-world use. Often times when signing up for an account you are required to meet a number of rules to ensure that your password is complex. As the software engineer tasked with creating the sign-up form for your company's app you have been told that passwords must meet the following requirements.
 
 - Must be at least 8 characters long
 - Must contain at least 1 uppercase letter
@@ -421,8 +421,9 @@ Start by switching to the "Password Validation" page in the chapter's playground
 #### `LengthStringValidationRule`
 
 A rule that validates a string is a specified length, this rule has two Types:
-- `.Min(length: Int)`: must be at least `length` long
-- `.Max(length: Int)`: cannot exceed `length`
+- `Min(length: Int)`: must be at least `length` long
+- `Max(length: Int)`: cannot exceed `length`
+
 Both types can be combined in a `StringValidator` to ensure the String is between a specific range in length.
 
 ```
@@ -442,11 +443,11 @@ The second rule is `ContainsCharacterStringValidationRule`.
 
 #### `ContainsCharacterStringValidationRule`
 
-A rule that validates a string contains a specific character. There are multiple Types available:
-- `.MustContain`: the string must contain a character in the provided set
-- `.CannotContain`: the string cannot contain a character in the provided set
-- `.OnlyContain`: the string can only contain characters in the provided set
-- `.ContainAtLeast(count: Int)`: the string must contain at least `count` characters in the provided set
+A rule that validates a string contains specific character(s). There are multiple Types available:
+- `MustContain`: the string must contain a character in the provided set
+- `CannotContain`: the string cannot contain a character in the provided set
+- `OnlyContain`: the string can only contain characters in the provided set
+- `ContainAtLeast(count: Int)`: the string must contain at least `count` characters in the provided set
 
 ```
 public struct ContainsCharacterStringValidationRule : StringValidationRule {
@@ -467,7 +468,7 @@ public struct ContainsCharacterStringValidationRule : StringValidationRule {
 }
 ```
 
-With these two new rules in your back pocket you can easily implement the password requirement validator.
+With these two new rules in your back pocket you can quickly implement the password requirement validator.
 
 ```
 struct PasswordRequirementStringValidator: StringValidator {
@@ -514,7 +515,7 @@ You should see the following result:
 
 ![bordered height=25%](/images/password_validator_result.png)
 
-Great work!
+Great work! You've been able to use protocol oriented programming with Swift 2.0 features to implement a solution to a real-world problem.
 
 ## Additional Things
 
