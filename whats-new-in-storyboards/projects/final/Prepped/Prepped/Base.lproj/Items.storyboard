@@ -68,7 +68,7 @@
                                 <connections>
                                     <outlet property="checkMark" destination="a6r-Dp-CHG" id="UNS-rD-6n1"/>
                                     <outlet property="lblListText" destination="acR-NM-VyC" id="x5T-sb-BCQ"/>
-                                    <outlet property="selectedBackgroundView" destination="eyz-1U-YTR" id="5P2-8X-NFL"/>
+                                    <outlet property="selectedBackgroundView" destination="qzo-fL-Mot" id="rZL-wj-lg7"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -79,10 +79,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Check List" id="FoA-jx-unA">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="edit" id="cWq-jX-yeH"/>
-                            <barButtonItem systemItem="add" id="pcE-zQ-5ai">
+                            <barButtonItem systemItem="edit" id="98V-sc-6NA"/>
+                            <barButtonItem systemItem="add" id="FQY-kd-9bF">
                                 <connections>
-                                    <segue destination="2No-Qd-Mcd" kind="presentation" id="N5Y-9p-4TB"/>
+                                    <segue destination="2No-Qd-Mcd" kind="presentation" id="ZjO-aS-lNx"/>
                                 </connections>
                             </barButtonItem>
                         </rightBarButtonItems>
@@ -90,28 +90,28 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="notesTextView" destination="c3E-On-Ypw" id="hyJ-HO-18I"/>
-                        <outlet property="notesView" destination="3oB-bi-qPS" id="0e9-ZS-fyy"/>
+                        <outlet property="notesTextView" destination="q0R-E5-RFX" id="pkr-wG-keB"/>
+                        <outlet property="notesView" destination="C3P-zo-ONC" id="stx-K5-xLd"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V3P-3G-Zhz" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <view contentMode="scaleToFill" id="eyz-1U-YTR">
-                    <rect key="frame" x="0.0" y="0.0" width="58" height="54"/>
+                <view contentMode="scaleToFill" id="qzo-fL-Mot">
+                    <rect key="frame" x="0.0" y="0.0" width="62" height="46"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.93725490196078431" green="0.97647058823529409" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <view contentMode="scaleToFill" id="3oB-bi-qPS">
-                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                <view contentMode="scaleToFill" id="C3P-zo-ONC">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="140"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notes:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nsg-9O-ac8">
-                            <rect key="frame" x="8" y="8" width="73" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notes:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSL-jj-g2E">
+                            <rect key="frame" x="8" y="8" width="55" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c3E-On-Ypw">
-                            <rect key="frame" x="0.0" y="37" width="240" height="83"/>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q0R-E5-RFX">
+                            <rect key="frame" x="8" y="37" width="224" height="95"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -218,12 +218,12 @@
                     <navigationItem key="navigationItem" title="Add Item" id="K88-sY-FzU">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="yIq-b7-8w1">
                             <connections>
-                                <segue destination="NJ8-BM-8kh" kind="unwind" unwindAction="cancelToItemViewController:" id="Syx-E8-mkC"/>
+                                <segue destination="NJ8-BM-8kh" kind="unwind" unwindAction="cancelToItemViewController:" id="DeQ-Dl-hPt"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Save" id="aCR-5Q-8qQ">
                             <connections>
-                                <segue destination="NJ8-BM-8kh" kind="unwind" unwindAction="saveToItemViewController:" id="cXr-FU-pr5"/>
+                                <segue destination="NJ8-BM-8kh" kind="unwind" unwindAction="saveToItemViewController:" id="QpL-73-8WI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

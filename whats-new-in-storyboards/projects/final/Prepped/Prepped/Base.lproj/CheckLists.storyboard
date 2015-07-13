@@ -7,7 +7,7 @@
         <!--Check Lists Navigation Controller-->
         <scene sceneID="x9u-Om-lKJ">
             <objects>
-                <navigationController storyboardIdentifier="UIViewController-gtY-c7-gYu" automaticallyAdjustsScrollViewInsets="NO" id="gtY-c7-gYu" userLabel="Check Lists Navigation Controller" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="gtY-c7-gYu" userLabel="Check Lists Navigation Controller" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Check Lists" image="Check List Unselected Icon" id="L3U-yg-Bwr" userLabel="Check Lists">
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="Check List Icon"/>
@@ -45,7 +45,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="KD6-7Z-sNI" kind="show" identifier="CheckListItem" id="gbK-sd-ZSp"/>
+                                    <segue destination="lHy-EH-aCa" kind="show" identifier="CheckListItem" id="T2b-ME-dlu"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -61,28 +61,12 @@
             <point key="canvasLocation" x="1837" y="-900"/>
         </scene>
         <!--UIViewController-Ojl-L4-CsV-->
-        <scene sceneID="OoQ-ex-j3b">
+        <scene sceneID="jZG-KU-ieT">
             <objects>
-                <viewControllerPlaceholder storyboardName="Items" referencedIdentifier="UIViewController-Ojl-L4-CsV" id="KD6-7Z-sNI" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yh2-Lj-SSM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="Items" referencedIdentifier="UIViewController-Ojl-L4-CsV" id="lHy-EH-aCa" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mK2-be-gR3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2583" y="-900"/>
-        </scene>
-        <!--ItemNavigationController-->
-        <scene sceneID="y9I-dl-Kfh">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="ItemNavigationController" storyboardName="Items" referencedIdentifier="ItemNavigationController" id="lOg-dx-6ho" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="d1I-Vl-Jek" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2583" y="-168"/>
-        </scene>
-        <!--ItemDetailViewController-->
-        <scene sceneID="fTu-u5-yLQ">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="ItemDetailViewController" storyboardName="Items" referencedIdentifier="ItemDetailViewController" id="EeF-Xf-WBg" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wZr-dW-nu2" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3325" y="-168"/>
         </scene>
     </scenes>
     <resources>

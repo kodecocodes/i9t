@@ -28,18 +28,19 @@ class ItemViewController: UITableViewController {
   let cellHeight:CGFloat = 64
   let cellPadding: CGFloat = 10
   
-  var selectedIndexPath:NSIndexPath?
   
   @IBOutlet var notesView: UIView!
   @IBOutlet var notesTextView: UITextView!
   
   var checkListIndex:Int = 0
   var itemArray:[CheckListItem] = checkListItemData[0]
+
+  var selectedIndexPath:NSIndexPath?
   
   override func viewDidLoad() {
-    self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    navigationItem.rightBarButtonItem = editButtonItem()
   }
-
+  
   // MARK: - Unwind segue methods
   
   @IBAction func cancelToItemViewController(segue: UIStoryboardSegue) {
@@ -53,9 +54,9 @@ class ItemViewController: UITableViewController {
         itemArray.append(checkListItem)
         checkListItemData[checkListIndex].append(checkListItem)
         let indexPath = NSIndexPath(forRow: itemArray.count-1, inSection: 0)
-        self.tableView.beginUpdates()
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
-        self.tableView.endUpdates()
+        tableView.beginUpdates()
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+        tableView.endUpdates()
     }
   }
 }
@@ -66,11 +67,11 @@ extension ItemViewController {
     tableView.beginUpdates()
     if selectedIndexPath == indexPath {
       selectedIndexPath = nil
-      //remove notes view from cell
+      // remove notes view from cell
       notesView.removeFromSuperview()
     } else {
       selectedIndexPath = indexPath
-      //add notes view to cell
+      // add notes view to cell
       notesTextView.text = itemArray[indexPath.row].notes
       if let cell = tableView.cellForRowAtIndexPath(indexPath) {
         notesView.frame.origin.x = cellPadding
@@ -88,25 +89,10 @@ extension ItemViewController {
       return cellHeight
     }
   }
-
 }
 
 extension ItemViewController {
   // MARK: - Table view data source
-  
-  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-      // 1
-      selectedIndexPath = nil
-      // 2
-      notesView.removeFromSuperview()
-      // 3
-      itemArray.removeAtIndex(indexPath.row)
-      checkListItemData[checkListIndex].removeAtIndex(indexPath.row)
-      // 4
-      tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    }
-  }
   
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
@@ -123,6 +109,20 @@ extension ItemViewController {
     cell.lblListText?.text = checkListItem.description
     cell.checked = checkListItem.checked
     return cell
+  }
+  
+  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    if editingStyle == .Delete {
+      // 1
+      selectedIndexPath = nil
+      // 2
+      notesView.removeFromSuperview()
+      // 3
+      itemArray.removeAtIndex(indexPath.row)
+      checkListItemData[checkListIndex].removeAtIndex(indexPath.row)
+      // 4
+      tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    }
   }
 }
 

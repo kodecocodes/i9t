@@ -45,7 +45,7 @@ class CheckListViewController: UITableViewController {
     if segue.identifier == "CheckListItem" {
       if let  cell = sender as? UITableViewCell,
               controller = segue.destinationViewController as? ItemViewController,
-              indexPath = self.tableView.indexPathForCell(cell) {
+              indexPath = tableView.indexPathForCell(cell) {
         controller.checkListIndex = indexPath.row
         controller.itemArray = checkListItemData[indexPath.row]
         controller.title = checkListData[indexPath.row]

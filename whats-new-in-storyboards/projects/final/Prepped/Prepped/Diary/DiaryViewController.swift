@@ -91,9 +91,9 @@ class DiaryViewController: UITableViewController {
       let diary:DiaryData = (currentDate, diaryEntry)
       diaryData.append(diary)
       let indexPath = NSIndexPath(forRow: diaryData.count-1, inSection: 0)
-      self.tableView.beginUpdates()
-      self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
-      self.tableView.endUpdates()
+      tableView.beginUpdates()
+      tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+      tableView.endUpdates()
     }
   }
 }
