@@ -203,6 +203,10 @@ Display the progress is a marginally better experience, but it still feels like 
 
 So... the Santa Cruz asset is big and also is likely the first overlay the user will click since it's the top item in the `UITableView`. You might want to require the Santa Cruz asset to be included along with the application itself so it feels snappy, yet still have the ability to remove this > 100 MB overlay if the user gets a low disk space notifcation. 
 
+This means that this asset should be switched to the **Initial Install Tags** group where it will be counted along with it's IPA towards the total size and downloaded initially. 
+
+Open up the **Old CA Maps Project**, click on the Old CA Maps target and then select **Resource Tags** 
+
 
 ## ODR Best Practices [Theory]
 
