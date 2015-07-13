@@ -113,8 +113,6 @@ namesThatStartWithC
 
 //: You can also iterate over a collection of enums of the same type and filter out for a specific case.
 
-
-
 let authors = [
   Author(name: "Chris Wagner", status: .Late(daysLate: 5)),
   Author(name: "Charlie Fulton", status: .Late(daysLate: 10)),
