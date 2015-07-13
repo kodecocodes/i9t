@@ -4,19 +4,19 @@ Kicking yourself that you didn't drop the extra dinero to multiply your iOS devi
 
 Back in the days of iOS 8, Apple began pushing developers to adopt a universal approach for building across devices. UISplitViewControllers, Trait Collections, and (a more respectable) Auto Layout led to a seamless experience for the iOS developer to build universal application for both iPhone & iPad.
 
-However, packaging an universal app with device-specific content combined with an always increasing complexity of images, sounds, and video packaged into apps has its drawbacks. Apps are demanding more disk space, resulting in longer download times, more disk usage, and potentially consuming more memory.
+However, packaging a universal app with device-specific content combined with an always increasing complexity of images, sounds, and video packaged into apps has its drawbacks. Apps are demanding more disk space, resulting in longer download times, more disk usage, and potentially consuming more memory.
 
 Fortunately, in iOS 9, Apple has introduced several solutions to circumvent this problem:
 
-- **App Slicing:** Compiling only the resources and executable architecture specific to the device the app is executing on. 
+- **App Slicing:** Compiling only the resources and executable architecture into variants specific to each device. 
 - **On Demand Resources:** Resources for an application that are downloaded as needed an can be removed if the iOS device needs to make room for other storage on disk.
-- **Bitcode:** An intermmediate representation that is sent along with your app to the App Store. This allows Apple to re-optimize your app as future optimizations are made on their compiler and then applied to your code. Since this 100% on Apple's end (minus allowing Xcode to send Bitcode), this will not be discussed in depth in this chapter. 
-
+- **Bitcode:** An intermmediate representation that is sent along with your app to the App Store. This allows Apple to re-optimize your app as future optimizations are made to their compiler technology and applied to your intermediate code.
+ 
 Packaged together, these techniques are known as **App Thinning**.
 
 ## Getting Started
 
-Before you get to have any fun, you'll need to eat your vegatables (AKA setup some **LLDB debugging commands**). 
+Before you get to have any fun, you'll need to eat your vegatables (AKA setup some **LLDB debugging commands** :] ). 
 
 Open the project called **Old CA Maps**. Navigate to **GettingStarted.txt**. Copy/paste the command into **Terminal** and press enter. 
 
@@ -28,9 +28,9 @@ This angry blob of text will add 3 niffty commands pertaining to App Thinning to
 
 - **dump_app_contents:** This will list all the top level files found in your application bundle. This does not display files found in deeper levels. 
 - **dump_asset_names:** This lists image resources names found in the **Assets.car** file. Wait, what's the Assets.car file? You'll learn about that in a second...
-- **assets_for_name [name]** This will list all the resources found for a specific image name in the Assets.car file.
+- **assets_for_name:** This will list all the resources found for a specific image name in the Assets.car file.
 
->**Note:** The last to commands use Apple's private APIs, so make sure you not to include these classes in your app.   
+>**Note:** The last two commands use Apple's private APIs, so make sure you don't include these classes in your app.   
 
 With the Terminal command entered, you can open and explore **Old CA Maps**. This application displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this simple app take up a huge amount of disk space (over 300 Megabytes!). You'll use the App Thinning techniques to hack-and-slash the end product to a more managable size.
 
@@ -42,70 +42,40 @@ Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and
 
 >**Note:** These overlays are created from image tiles found in **NSBundle**s and passed into a **MKTileOverlayRenderer** for drawing. All of this is well beyond the scope of this tutorial on how it works. Think of this stuff as a black box--all you care about is how to make you app as small as possible to the end user. :] 
 
-### App Slicing
+### The Anatomy of Old CA Maps 
 
-When creating variants for the different devices, App Slicing will break apart your executable as well as your resources provided they are correctly setup. 
-Enabling App Slicing is a super easy process provided that you follow Apple's rules. 
+Need content here....  
 
-Build the GoodOldCA for the iPhone 6 Simulator. Navigate to the products folder in the **Project Navigator** and right-click **GoodOldCA.app**. Select **Show in Finder**. With Finder open, select **Debug-iphonesimulator** and then right click on the **GoodOldCA** IPA and select **Show Package Contents**  
-
-### Executable Thinning
-
-By default, Xcode will only include the active architecture and resources on **DEBUG** builds. This speeds up the build process as there is less content to copy over to the device/simulator. When switching over to a **RELEASE** build, all architectures will be packaged together (known as a fat binary) when you submit your app to the App Store. However, in iOS 9, Apple will now rip apart your App and separate the different packages specific to each device resulting in a smaller IPA. 
-
-In order to properly enable App Slicing on the executable, all you have to do is... compile against iOS 9. See, wasn't that easy!? 
-
-<!-- ### Resource Thinning with Asset Catalogs -->
 
 ### Measuring Your Work
 
-It would be a good idea to see how much content you are slicing off your app when working with App Thinning (qualitative results). You'll add a custom **Build Script** to list the IPA size in Kilobytes whenever you successfully build the application.
+It would be a good idea to quantitatively measure you progress when working with App Thinning. That is, how big is the IPA when before and after you touched this project. Fortunately, there is already a **Build Script** included in **Old CA Maps** that lists the size of the IPA in Kilobytes. 
 
-Click on the Project, cslick on the GoodOldCA under the Targets header, then click on **Build Phases**. Click on the + button and select **New Run Script Phase** 
+To view the size of an app you built, first build the project, then navigate to the Report Navigator, and select the build you wish to inspect. Make sure the **All** and **All Messages** are selected and find the **Run Custom Shell Script** output.
 
-paste the following script into dialog box:
+![bordered width=90%](./images/app_size_viewing.png)
 
-```
-echo "App Size in KB: `du -sk \"${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app\"`"
-```
+### App Slicing
 
-This command will display the size of your IPA whenever you build your application.
+App Slicing can be further broken down into two parts: executable slicing and resource slicing. 
 
-Build your application, then click on the **Show Report Navigator** and then click on the most recent Build. Make sure **All Messages** is selected. 
-
-[image needed here]
+Fortunately, there is not much you need to do to enable App Slicing for your executable. The build setting, **ONLY_ACTIVE_ARCH** is enabled by default for **DEBUG** builds, and is off for **RELEASE** builds. Even though you're sending up an executable that has multiple builds attached to it in a Release configuration, the Apple will automatically create the variants needed on your behalf. All you have to do is just compile for iOS 9. 
 
 ### Being Smart With Resources
 
-Slicing down resources is a good warmup for widdling away your apps "metaphorical pounds" known as Megabytes. Apple, by default 
+Resource Slicing takes a tiny bit more work than doing absolutely nothing, but not by very much. 
 
-something something ____ fat binary
+All you have to do is make sure that your resources are compiled into Asset Catalogs. If they are not, then Xcode won't be able to figure out how to properly slice your resources for you. 
 
-Selectively grooming your app for assets takes a tiny bit more work than doing nothing (but not much!). All you have to do is make sure that your resources are compiled into Asset Catalogs. If they are not, then Xcode won't be able to figure out how to properly slice your resources for you. 
+Let's try migrating image assets into an Asset Catalog.
 
-With GoodOldCA running, pause the application in navigate to the debugger. In LLDB:
+With Old CA Maps running, pause the application open up the LLDB debugger console. In LLDB, type:
 
 ```
 dump_app_contents
 ```
 
-This will spit out a list of the content that occupies the IPA bundle for **Good Ol' CA**. 
-
-- Assets.car,
-- Base.lproj,
-- example_map.png,
-- Frameworks,
-- GoodOldCA,
-- Info.plist,
-- LA_Map.bundle,
-- PkgInfo,
-- **Santa Cruz.png**,
-- **Santa Cruz@2x.png**,
-- **Santa Cruz@3x.png**,
-- SC_Map.bundle,
-- SD_Map.bundle,
-- SF_Map.bundle,
-- SNVL_Map.bundle
+This will spit out a list of the content that occupies the IPA bundle for Old CA Maps. 
 
 Notice that there are 3 images of different sizes by the name **Santa Cruz**. This means that the these sets of images are not being put into an Asset Catalog. Make sure this is the case by dumping all of the image names of the Asset Catalog in LLDB.
 
@@ -144,11 +114,11 @@ Build and run app on simulator. Check out visually different images being select
 
 ## On Demand Slicing Explanation [Theory]
 
-Now that you have provided the infratstructure for Apple to slice your Asset Catalog resources, it's time to take a more aggressive approach at limiting content on the initial download. That is, you'll incorporate "lazily downloading", where you only get the resource when it's needed immediately or in the near future.
+Now that you have provided the infrastructure for Apple to slice your Asset Catalog resources, it's time to take a more aggressive approach at limiting content on the initial download. That is, you'll incorporate "lazily downloading", where you only get the resource when it's needed immediately or in the near future.
 
 The primary class responsible for dealing with on-demand resources is called **NSBundleResourceRequest**. This class is responsible for fetching the resources that need to be downloaded from the App Store. 
 
-Wait so what's a resource? A resource can be a number of things, an image, images, NSBundles, NSBundleResourcesRequests can load a number of things--it just can't be executable code (what about steganography?). 
+Wait so what's an on-demand resource? It can consist of images, data, openGL shaders, SpriteKit Particles, Watchkit Complications etc. The main thing to note is that it just can't be executable code. You will use on-demand resources to load a data file using Bundles
 
 Time to whip out the coding skrillz. Navigate to **MapChromeViewController.swift** and hunt down the **downloadAndDisplayMapOverlay** function. It is here that you will replace the content of an MKTileOverlay rendered on the device instead of online. 
 
