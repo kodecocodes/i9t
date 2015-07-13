@@ -208,12 +208,18 @@ This means that this asset should be switched to the **Initial Install Tags** gr
 Open up the **Old CA Maps Project**, click on the Old CA Maps in the **Target** section and then select **Resource Tags**. There are 3 types of cataloging for assets. 
 
 - **Initial Install Tags:** These are installed along with your application. Wait why not just include them in the application? Well, you can remove this content when you no longer need it. This is perfect for onboarding content where you would use resources only once. 
-- **Prefected Tag Order:** These tags are downloaded one the application finishes downloading. They could start depending on available system resources, but you can assum that these resources will start or have started downloading when have launched your application for the first time. 
+- **Perferred Tag Order:** These tags are downloaded one the application finishes downloading. They could start depending on available system resources, but you can assum that these resources will start or have started downloading when have launched your application for the first time. 
 - **Download Only On Demand:** These resources are the ones you have worked with and are called when you call them through code. 
 
 You will want to move Santa Cruz bundle with the SC_Map tag from the Download Only on Demand section to the Initial Install Tag section. To do this drag the Tag and drag it into the Initial Install Tag area. 
 
 [Image needed here] 
+
+In addition, to having Santa Cruz load with the application, since San Diego is such a large file, you should move that resource to the Perferred Tag Order group. Drag the SD_Map tag up to the appropriate area. 
+
+Clean, and build and run the application. Try clicking on Santa Cruz then San Diego. You will notice a marked increase in responsiveness. 
+
+
 
 
 ## ODR Best Practices [Theory]
