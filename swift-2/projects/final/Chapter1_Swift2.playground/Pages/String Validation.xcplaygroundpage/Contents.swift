@@ -1,4 +1,5 @@
-//: [Previous](@previous)
+//: Go back to [Errors](@previous)
+
 import UIKit
 //: # String Validation Errors
 //: Now that you're familiar with creating custom `ErrorType`s, it's time to create a pretty robust one for string validation.
@@ -41,19 +42,27 @@ enum StringValidationError: ErrorType, CustomStringConvertible {
   }
 }
 
-//: While pretty big, this ErrorType is not too bad, at the top you can skim through the different types, each type has a different set of associative values that are pertinent to the type of error. The rest is a `description` computed property to satisfy the `CustomStringConvertible` conformance specified. This will allow you to print out human readable error messages for the thrown error type.
+/*: 
 
-//: With the error types defined it is time to start throwing them! First, start with a protocol that defines a rule. You are going to be using protocol oriented programming patterns to make this solution robust and extendable.
+While pretty big, this ErrorType is not too bad, at the top you can skim through the different types. Each type has a different set of associative values that are pertinent to the type of error. The rest is a `description` computed property to satisfy the `CustomStringConvertible` conformance specified. This will allow you to print out human readable error messages for the thrown error type.
+
+With the error types defined it is time to start throwing them! First, start with a protocol that defines a rule. You are going to be using protocol oriented programming patterns to make this solution robust and extendable.
+*/
 
 protocol StringValidationRule {
   func validate(string: String) throws -> Bool
   var errorType: StringValidationError { get }
 }
 
-//: This protocol requires a method that returns a `Bool` regarding the validity of a given string. It can also throw an error! It also requires that you provide the type of error that can be thrown
-//: - Note: Although it may appear so, the `errorType` property is not a Swift requirement. This property is accessed later to help describe the rule's requirements.
+/*:
 
-//: To use multiple rules together, define a `StringValidator` protocol.
+This protocol requires a method that returns a `Bool` regarding the validity of a given string. It can also throw an error! It also requires that you provide the type of error that can be thrown
+
+  - Note: Although it may appear so, the `errorType` property is not a Swift requirement. This property is accessed later to help describe the rule's requirements.
+
+To use multiple rules together, define a `StringValidator` protocol.
+
+*/
 
 protocol StringValidator {
   var validationRules: [StringValidationRule] { get }
@@ -61,12 +70,15 @@ protocol StringValidator {
     errors: [StringValidationError])
 }
 
-//: This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is the `Bool` that designates if the string is valid or not, the second is an array of `StringValidationError`s. In this case you are not using `throws` but rather returning an array of error types being that multiple errors can occur. In the case of string validation it is always a better user experience to let the user know of every rule they've broken so that they can resolve each one in a single attempt.
+/*: 
 
-//: Now take a step back and think of how you might implement a `StringValidator`'s `validate(string:)` method. It will probably be that you iterate over each item in `validationRules`, collect any errors, and determine the status based on whether or not any errors occurred. This logic will likely be the same for any `StringValidator`. Surely you don't want to copy/paste that implementation into ALL of your `StringValidator`s, right? Well, good news, Swift 2.0 introduces Protocol Extensions.
+This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is the `Bool` that designates if the string is valid or not, the second is an array of `StringValidationError`s. In this case you are not using `throws` but rather returning an array of error types being that multiple errors can occur. In the case of string validation it is always a better user experience to let the user know of every rule they've broken so that they can resolve each one in a single attempt.
 
-//: Extend the `StringValidator` protocol to define a default implementation for `validate(string:)`
+Now take a step back and think of how you might implement a `StringValidator`'s `validate(string:)` method. It will probably be that you iterate over each item in `validationRules`, collect any errors, and determine the status based on whether or not any errors occurred. This logic will likely be the same for any `StringValidator`. Surely you don't want to copy/paste that implementation into ALL of your `StringValidator`s, right? Well, good news, Swift 2.0 introduces Protocol Extensions.
 
+Extend the `StringValidator` protocol to define a default implementation for `validate(string:)`
+
+*/
 
 extension StringValidator {                          // 1
   func validate(string: String) -> (valid: Bool,
@@ -140,6 +152,8 @@ struct EndsWithCharacterStringValidationRule: StringValidationRule {
   }
 }
 
+//: Create a `StringValidator` that uses both the StartsWith an EndsWith rules.
+
 struct StartsAndEndsWithStringValidator: StringValidator {
   let startsWithSet: NSCharacterSet             // 1
   let startsWithDescription: String
@@ -160,6 +174,8 @@ struct StartsAndEndsWithStringValidator: StringValidator {
 
 let numberSet = NSCharacterSet.decimalDigitCharacterSet()
 
+//: Create a new instance of the validator to be used.
+
 let startsAndEndsWithStringValidator = StartsAndEndsWithStringValidator(
   startsWithSet: letterSet,
   startsWithDescription: "letter",
@@ -171,4 +187,7 @@ startsAndEndsWithStringValidator.validate("1foo").errors
 startsAndEndsWithStringValidator.validate("foo").errors
 
 startsAndEndsWithStringValidator.validate("foo1").valid
+
+
+//: Move on to [Password Validation](@next)
 

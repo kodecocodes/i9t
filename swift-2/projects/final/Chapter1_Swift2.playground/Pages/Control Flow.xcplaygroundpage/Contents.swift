@@ -49,3 +49,6 @@ struct Bartender {
 
 let bartender = Bartender()
 bartender.offerOwnerOfBeerAnother(jamJarBeer)
+
+
+//: Move on to [Errors](@next)

@@ -1,4 +1,4 @@
-//: [Previous](@previous)
+//: Go back to [Password Validation](@previous)
 
 import Foundation
 
@@ -141,7 +141,7 @@ for author in authors {
 slapLog
 
 
-//: [Next](@next)
+//: ### OptionSetType Example
 
 
 struct RectangleBorderOptions: OptionSetType {
@@ -155,7 +155,4 @@ struct RectangleBorderOptions: OptionSetType {
   static let Left = RectangleBorderOptions(rawValue: 3)
   static let All: RectangleBorderOptions = [Top, Right, Bottom, Left]
 }
-
-
-
 
