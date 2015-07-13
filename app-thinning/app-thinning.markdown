@@ -195,8 +195,13 @@ Navigate back to **downloadAndDisplayMapOverlay()** and replace the content with
 
 Build and run the application again. Try the lightweight bundle (< 20 MB) (Los Angeles, Sunnyvale), medium sized bundle (~ 40 BM)(San Francisco), and the Heavy Bundles (> 100 MB) (Santa Cruz, San Diego).
 
-Display the progress is a marginally better experience, butit still feels like the Heavy weight bundles take too long to load. Try doing this on an actual device and see how long the weight time is. 
+Display the progress is a marginally better experience, but it still feels like the Heavy weight bundles take too long to load. Try doing this on an actual device and see how long the weight time is. 
 
+## Prioritizing Resources 
+
+[NOTE TO EDITOR: This section currently does not work. Am waiting on a reply here: https://forums.developer.apple.com/message/25090#25090, might require me to run El Capitan. Future research needed so continue this section with caution... ]
+
+So... the Santa Cruz asset is big and also is likely the first overlay the user will click since it's the top item in the `UITableView`. You might want to require the Santa Cruz asset to be included along with the application itself so it feels snappy, yet still have the ability to remove this > 100 MB overlay if the user gets a low disk space notifcation. 
 
 
 ## ODR Best Practices [Theory]
