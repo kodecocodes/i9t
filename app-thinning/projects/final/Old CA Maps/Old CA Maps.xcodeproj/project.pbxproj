@@ -1,0 +1,405 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A645B2A61B52F86A004103C7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A645B2A41B52F86A004103C7 /* LaunchScreen.storyboard */; };
+		A645B2AE1B52F87D004103C7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2AD1B52F87D004103C7 /* AppDelegate.swift */; };
+		A645B2B31B52F894004103C7 /* MapChromeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2B01B52F894004103C7 /* MapChromeViewController.swift */; };
+		A645B2B41B52F894004103C7 /* MapContentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2B11B52F894004103C7 /* MapContentTableViewController.swift */; };
+		A645B2B51B52F894004103C7 /* MapSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2B21B52F894004103C7 /* MapSplitViewController.swift */; };
+		A645B2BB1B52F8B6004103C7 /* HistoricTileMapOverlayRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2B71B52F8B6004103C7 /* HistoricTileMapOverlayRenderer.swift */; };
+		A645B2BC1B52F8B6004103C7 /* HistoricTileMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2B81B52F8B6004103C7 /* HistoricTileMapOverlay.swift */; };
+		A645B2BD1B52F8B6004103C7 /* HistoricMapOverlayData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2B91B52F8B6004103C7 /* HistoricMapOverlayData.swift */; };
+		A645B2BE1B52F8B6004103C7 /* ImageTile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2BA1B52F8B6004103C7 /* ImageTile.swift */; };
+		A645B2C51B52F8EC004103C7 /* LA_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C01B52F8EC004103C7 /* LA_Map.bundle */; settings = {ASSET_TAGS = (LA_Map, ); }; };
+		A645B2C61B52F8EC004103C7 /* SC_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C11B52F8EC004103C7 /* SC_Map.bundle */; settings = {ASSET_TAGS = (SC_Map, ); }; };
+		A645B2C71B52F8EC004103C7 /* SD_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C21B52F8EC004103C7 /* SD_Map.bundle */; settings = {ASSET_TAGS = (SD_Map, ); }; };
+		A645B2C81B52F8EC004103C7 /* SF_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C31B52F8EC004103C7 /* SF_Map.bundle */; settings = {ASSET_TAGS = (SF_Map, ); }; };
+		A645B2C91B52F8EC004103C7 /* SNVL_Map.bundle in Resources */ = {isa = PBXBuildFile; fileRef = A645B2C41B52F8EC004103C7 /* SNVL_Map.bundle */; settings = {ASSET_TAGS = (SNVL_Map, ); }; };
+		A645B2CB1B52F904004103C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A645B2CA1B52F904004103C7 /* Assets.xcassets */; };
+		A645B2CD1B52F918004103C7 /* NSBundle+ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */; };
+		A645B2CF1B52F959004103C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A645B2CE1B52F959004103C7 /* Main.storyboard */; };
+		A645B2D31B52F98F004103C7 /* Santa Cruz.png in Resources */ = {isa = PBXBuildFile; fileRef = A645B2D01B52F98F004103C7 /* Santa Cruz.png */; };
+		A645B2D41B52F98F004103C7 /* Santa Cruz@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A645B2D11B52F98F004103C7 /* Santa Cruz@2x.png */; };
+		A645B2D51B52F98F004103C7 /* Santa Cruz@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A645B2D21B52F98F004103C7 /* Santa Cruz@3x.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A645B2981B52F86A004103C7 /* Old CA Maps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Old CA Maps.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A645B2A51B52F86A004103C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A645B2A71B52F86A004103C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A645B2AD1B52F87D004103C7 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A645B2B01B52F894004103C7 /* MapChromeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapChromeViewController.swift; sourceTree = "<group>"; };
+		A645B2B11B52F894004103C7 /* MapContentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapContentTableViewController.swift; sourceTree = "<group>"; };
+		A645B2B21B52F894004103C7 /* MapSplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapSplitViewController.swift; sourceTree = "<group>"; };
+		A645B2B71B52F8B6004103C7 /* HistoricTileMapOverlayRenderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoricTileMapOverlayRenderer.swift; sourceTree = "<group>"; };
+		A645B2B81B52F8B6004103C7 /* HistoricTileMapOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoricTileMapOverlay.swift; sourceTree = "<group>"; };
+		A645B2B91B52F8B6004103C7 /* HistoricMapOverlayData.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = HistoricMapOverlayData.swift; sourceTree = "<group>"; tabWidth = 2; };
+		A645B2BA1B52F8B6004103C7 /* ImageTile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTile.swift; sourceTree = "<group>"; };
+		A645B2C01B52F8EC004103C7 /* LA_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LA_Map.bundle; sourceTree = "<group>"; };
+		A645B2C11B52F8EC004103C7 /* SC_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SC_Map.bundle; sourceTree = "<group>"; };
+		A645B2C21B52F8EC004103C7 /* SD_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SD_Map.bundle; sourceTree = "<group>"; };
+		A645B2C31B52F8EC004103C7 /* SF_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SF_Map.bundle; sourceTree = "<group>"; };
+		A645B2C41B52F8EC004103C7 /* SNVL_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SNVL_Map.bundle; sourceTree = "<group>"; };
+		A645B2CA1B52F904004103C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+ContentExtractor.swift"; sourceTree = "<group>"; };
+		A645B2CE1B52F959004103C7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A645B2D01B52F98F004103C7 /* Santa Cruz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz.png"; sourceTree = "<group>"; };
+		A645B2D11B52F98F004103C7 /* Santa Cruz@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz@2x.png"; sourceTree = "<group>"; };
+		A645B2D21B52F98F004103C7 /* Santa Cruz@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz@3x.png"; sourceTree = "<group>"; };
+		A645B2D61B52FA6F004103C7 /* GettingStarted.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GettingStarted.txt; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A645B2951B52F86A004103C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A645B28F1B52F86A004103C7 = {
+			isa = PBXGroup;
+			children = (
+				A645B2D61B52FA6F004103C7 /* GettingStarted.txt */,
+				A645B29A1B52F86A004103C7 /* Old CA Maps */,
+				A645B2991B52F86A004103C7 /* Products */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+		};
+		A645B2991B52F86A004103C7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A645B2981B52F86A004103C7 /* Old CA Maps.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A645B29A1B52F86A004103C7 /* Old CA Maps */ = {
+			isa = PBXGroup;
+			children = (
+				A645B2D01B52F98F004103C7 /* Santa Cruz.png */,
+				A645B2D11B52F98F004103C7 /* Santa Cruz@2x.png */,
+				A645B2D21B52F98F004103C7 /* Santa Cruz@3x.png */,
+				A645B2AF1B52F883004103C7 /* View Controllers */,
+				A645B2BF1B52F8D7004103C7 /* Map Bundles */,
+				A645B2B61B52F8A0004103C7 /* Map Overlays & Data */,
+				A645B2AD1B52F87D004103C7 /* AppDelegate.swift */,
+				A645B2D81B52FAA8004103C7 /* misc */,
+				A645B2CA1B52F904004103C7 /* Assets.xcassets */,
+				A645B2A41B52F86A004103C7 /* LaunchScreen.storyboard */,
+				A645B2A71B52F86A004103C7 /* Info.plist */,
+			);
+			path = "Old CA Maps";
+			sourceTree = "<group>";
+		};
+		A645B2AF1B52F883004103C7 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A645B2B01B52F894004103C7 /* MapChromeViewController.swift */,
+				A645B2B11B52F894004103C7 /* MapContentTableViewController.swift */,
+				A645B2B21B52F894004103C7 /* MapSplitViewController.swift */,
+				A645B2CE1B52F959004103C7 /* Main.storyboard */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		A645B2B61B52F8A0004103C7 /* Map Overlays & Data */ = {
+			isa = PBXGroup;
+			children = (
+				A645B2B71B52F8B6004103C7 /* HistoricTileMapOverlayRenderer.swift */,
+				A645B2B81B52F8B6004103C7 /* HistoricTileMapOverlay.swift */,
+				A645B2B91B52F8B6004103C7 /* HistoricMapOverlayData.swift */,
+				A645B2BA1B52F8B6004103C7 /* ImageTile.swift */,
+			);
+			name = "Map Overlays & Data";
+			sourceTree = "<group>";
+		};
+		A645B2BF1B52F8D7004103C7 /* Map Bundles */ = {
+			isa = PBXGroup;
+			children = (
+				A645B2C01B52F8EC004103C7 /* LA_Map.bundle */,
+				A645B2C11B52F8EC004103C7 /* SC_Map.bundle */,
+				A645B2C21B52F8EC004103C7 /* SD_Map.bundle */,
+				A645B2C31B52F8EC004103C7 /* SF_Map.bundle */,
+				A645B2C41B52F8EC004103C7 /* SNVL_Map.bundle */,
+			);
+			name = "Map Bundles";
+			sourceTree = "<group>";
+		};
+		A645B2D81B52FAA8004103C7 /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */,
+			);
+			name = misc;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A645B2971B52F86A004103C7 /* Old CA Maps */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A645B2AA1B52F86A004103C7 /* Build configuration list for PBXNativeTarget "Old CA Maps" */;
+			buildPhases = (
+				A645B2941B52F86A004103C7 /* Sources */,
+				A645B2951B52F86A004103C7 /* Frameworks */,
+				A645B2961B52F86A004103C7 /* Resources */,
+				A645B2D91B52FD11004103C7 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Old CA Maps";
+			productName = "Old CA Maps";
+			productReference = A645B2981B52F86A004103C7 /* Old CA Maps.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A645B2901B52F86A004103C7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				KnownAssetTags = (
+					LA_Map,
+					SC_Map,
+					SD_Map,
+					SF_Map,
+					SNVL_Map,
+				);
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = RayWenderlich;
+				TargetAttributes = {
+					A645B2971B52F86A004103C7 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = A645B2931B52F86A004103C7 /* Build configuration list for PBXProject "Old CA Maps" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A645B28F1B52F86A004103C7;
+			productRefGroup = A645B2991B52F86A004103C7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A645B2971B52F86A004103C7 /* Old CA Maps */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A645B2961B52F86A004103C7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A645B2A61B52F86A004103C7 /* LaunchScreen.storyboard in Resources */,
+				A645B2D31B52F98F004103C7 /* Santa Cruz.png in Resources */,
+				A645B2D51B52F98F004103C7 /* Santa Cruz@3x.png in Resources */,
+				A645B2C71B52F8EC004103C7 /* SD_Map.bundle in Resources */,
+				A645B2C61B52F8EC004103C7 /* SC_Map.bundle in Resources */,
+				A645B2CF1B52F959004103C7 /* Main.storyboard in Resources */,
+				A645B2C81B52F8EC004103C7 /* SF_Map.bundle in Resources */,
+				A645B2C51B52F8EC004103C7 /* LA_Map.bundle in Resources */,
+				A645B2CB1B52F904004103C7 /* Assets.xcassets in Resources */,
+				A645B2C91B52F8EC004103C7 /* SNVL_Map.bundle in Resources */,
+				A645B2D41B52F98F004103C7 /* Santa Cruz@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A645B2D91B52FD11004103C7 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"App Size in KB:  `du -sk \\\"${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app\\\"`\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A645B2941B52F86A004103C7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A645B2B51B52F894004103C7 /* MapSplitViewController.swift in Sources */,
+				A645B2BD1B52F8B6004103C7 /* HistoricMapOverlayData.swift in Sources */,
+				A645B2AE1B52F87D004103C7 /* AppDelegate.swift in Sources */,
+				A645B2BE1B52F8B6004103C7 /* ImageTile.swift in Sources */,
+				A645B2BC1B52F8B6004103C7 /* HistoricTileMapOverlay.swift in Sources */,
+				A645B2B31B52F894004103C7 /* MapChromeViewController.swift in Sources */,
+				A645B2BB1B52F8B6004103C7 /* HistoricTileMapOverlayRenderer.swift in Sources */,
+				A645B2B41B52F894004103C7 /* MapContentTableViewController.swift in Sources */,
+				A645B2CD1B52F918004103C7 /* NSBundle+ContentExtractor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		A645B2A41B52F86A004103C7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A645B2A51B52F86A004103C7 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A645B2A81B52F86A004103C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A645B2A91B52F86A004103C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A645B2AB1B52F86A004103C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Old CA Maps/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.raywenderlich.Old-CA-Maps";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A645B2AC1B52F86A004103C7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "Old CA Maps/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.raywenderlich.Old-CA-Maps";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A645B2931B52F86A004103C7 /* Build configuration list for PBXProject "Old CA Maps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A645B2A81B52F86A004103C7 /* Debug */,
+				A645B2A91B52F86A004103C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A645B2AA1B52F86A004103C7 /* Build configuration list for PBXNativeTarget "Old CA Maps" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A645B2AB1B52F86A004103C7 /* Debug */,
+				A645B2AC1B52F86A004103C7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A645B2901B52F86A004103C7 /* Project object */;
+}

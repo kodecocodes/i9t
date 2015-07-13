@@ -20,31 +20,22 @@
 * THE SOFTWARE.
 */
 
-import Foundation
+import UIKit
+import MapKit
 
-struct HistoricMapOverlayData {
-  let title: String
-  let thumbnailImageTitle: String
-  let bundleTitle: String
-  let year: Int
+extension NSBundle {
   
-  init(title: String, thumbnailImageTitle: String, bundleTitle: String, year: Int) {
-    self.title = title
-    self.thumbnailImageTitle = thumbnailImageTitle
-    self.bundleTitle = bundleTitle
-    self.year = year
+  func extractMapContentBundleWithTitle(title: String) ->([String : AnyObject], String) {
+    let bundleURL = self.URLForResource(title, withExtension:"bundle")!
+    let loadedBundle = NSBundle(URL: bundleURL)!
     
+    let auxilliaryURL = loadedBundle.URLForResource(title, withExtension: "plist")!
+    let auxilliaryDictionary = NSDictionary(contentsOfURL: auxilliaryURL)!
+    
+    let priority = self.preservationPriorityForTag(title)
+    self.setPreservationPriority(priority + 0.01, forTags: [title])
+    
+    return (auxilliaryDictionary as! [String : AnyObject], loadedBundle.bundlePath)
   }
-}
-
-extension HistoricMapOverlayData {
-  static func generateDefaultData()->[HistoricMapOverlayData] {
-    return [
-      HistoricMapOverlayData(title: "Santa Cruz", thumbnailImageTitle: "Santa Cruz", bundleTitle: "SC_Map", year:1992),
-      HistoricMapOverlayData(title: "Sunnyvale", thumbnailImageTitle: "Sunnyvale", bundleTitle: "SNVL_Map", year:1948),
-      HistoricMapOverlayData(title: "San Francisco", thumbnailImageTitle: "San Francisco", bundleTitle: "SF_Map", year:1992),
-      HistoricMapOverlayData(title: "San Diego", thumbnailImageTitle: "San Diego", bundleTitle: "SD_Map", year:1994),
-      HistoricMapOverlayData(title: "Los Angeles", thumbnailImageTitle: "Los Angeles", bundleTitle: "LA_Map", year:1994),
-    ]
-  }
+  
 }

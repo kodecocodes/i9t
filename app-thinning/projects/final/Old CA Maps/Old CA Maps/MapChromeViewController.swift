@@ -28,7 +28,8 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   @IBOutlet weak var loadingProgressView: UIProgressView!
   @IBOutlet weak var mapView: MKMapView!
   
-  var mapOverlayData: HistoricMapOverlayData!
+  var mapOverlayData: HistoricMapOverlayData?
+  var bundleResource: NSBundleResourceRequest?
   
 //=============================================================================/
 // Mark: Lifetime
@@ -45,15 +46,21 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     
     self.downloadAndDisplayMapOverlay()
     
-    
     let barButton = self.splitViewController!.displayModeButtonItem()
     self.navigationItem.leftBarButtonItem = barButton
     self.navigationItem.leftItemsSupplementBackButton = true
     
-    // Uncomment this for debugging
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Debug", style: UIBarButtonItemStyle.Plain, target: self, action: "debugButtonTapped:")
+    let debugButton = UIBarButtonItem(title: "Bundle Debug", style: .Done, target: self, action: "debugActionTapped:")
+    self.navigationItem.rightBarButtonItem = debugButton
     
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleLowDiskSpaceNotification:", name: NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDiskSpaceNotification:", name: NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
+  }
+  
+  override func viewWillDisappear(animated: Bool) {
+    super.viewWillDisappear(animated)
+    self.bundleResource?.progress.cancel()
+    self.bundleResource?.endAccessingResources()
+    
   }
   
 //=============================================================================/
@@ -67,12 +74,14 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     }
   }
   
-  func debugButtonTapped(button: UIBarButtonItem) {
+  func debugActionTapped(sender: UIBarButtonItem) {
     NSNotificationCenter.defaultCenter().postNotificationName(NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
   }
   
-  func handleLowDiskSpaceNotification(notification: NSNotification) {
-    // TODO : determine something
+  func handleDiskSpaceNotification(notification: NSNotification) {
+    let tags = HistoricMapOverlayData.generateAllBundleTitles()
+    let bundleResource = NSBundleResourceRequest(tags: tags)
+    bundleResource.endAccessingResources()
   }
   
 //=============================================================================/
@@ -80,7 +89,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-    
+
     return HistoricTileMapOverlayRenderer(tileOverlay: overlay as! MKTileOverlay)
   }
   
@@ -89,39 +98,36 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   private func downloadAndDisplayMapOverlay() {
-    guard let mapOverlay = self.mapOverlayData else {
+    guard let bundleTitle = self.mapOverlayData?.bundleTitle else {
       return
     }
     
-    let bundleRequest = NSBundleResourceRequest(tags:[mapOverlay.bundleTitle])
-    bundleRequest.loadingPriority = 1.0 
+    self.bundleResource = NSBundleResourceRequest(tags: [bundleTitle])
+    let bundleResource = self.bundleResource!
+    bundleResource.loadingPriority = NSBundleResourceRequestLoadingPriorityUrgent
+
+    self.loadingProgressView.observedProgress = bundleResource.progress
     
-    bundleRequest.conditionallyBeginAccessingResourcesWithCompletionHandler { (resourcesAvailable) -> Void in
-      
-      if resourcesAvailable == false {
-        self.loadingProgressView.observedProgress = bundleRequest.progress
-        self.loadingProgressView.hidden = false
-        bundleRequest.beginAccessingResourcesWithCompletionHandler { (error : NSError?) -> Void in
-          
-          NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-            self.loadingProgressView.hidden = true
-            if error != nil {
-              // Handle error
-            } else {
-              self.displayOverlayFromBundle(bundleRequest.bundle)
-            }
-          })
+    self.loadingProgressView.hidden = false
+    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    
+    bundleResource.beginAccessingResourcesWithCompletionHandler { (error) -> Void in
+      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+        self.loadingProgressView.hidden = true
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        if error == nil {
+          self.displayOverlayFromBundle(bundleResource.bundle)
         }
-      } else {
-        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-          self.displayOverlayFromBundle(bundleRequest.bundle)
-        })
-      }
+      })
     }
   }
   
   func displayOverlayFromBundle(bundle: NSBundle) {
-    let (auxillaryInfo, path) = bundle.extractMapContentBundleWithTitle(self.mapOverlayData.bundleTitle)
+    guard let mapOverlayData = self.mapOverlayData else {
+      return
+    }
+    
+    let (auxillaryInfo, path) = bundle.extractMapContentBundleWithTitle(mapOverlayData.bundleTitle)
     let overlay = HistoricTileMapOverlay(titleDirectory: path, auxillaryInfo: auxillaryInfo)
     self.mapView.addOverlay(overlay)
     self.mapView.setVisibleMapRect(overlay.boundingMapRect, animated: true)

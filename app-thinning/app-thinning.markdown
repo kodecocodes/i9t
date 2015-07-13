@@ -221,7 +221,6 @@ Clean, and build and run the application. Try clicking on Santa Cruz then San Di
 
 
 
-
 ## ODR Best Practices [Theory]
 
 When to call NSBundleResourceRequest
