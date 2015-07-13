@@ -208,7 +208,7 @@ Excellent! You now know the basics of using Swift 2.0 errors.
 
 ## The Project
 
-Now it is time to focus on a specific problem to solve rather than contrived examples. For this next section of the chapter you will be solving a String validation problem using some of the features discussed above as well as more new Swift 2.0 features. The problem involves String validation and the desired outcome is to be able to write validators that given an input string, validate that the string conforms to any number of rules. You will specifically be creating a password requirement validator that ensures a user has chosen a strong password.
+Now it's time to focus on a specific problem to solve rather than contrived examples. For this next section of the chapter you will be solving a String validation problem using some of the features discussed above as well as more Swift 2.0 features. The desired outcome is to be able to write string validators that given an input string, validate the string conforms to any number of rules. You will ultimately be creating a password requirements validator that ensures a user has chosen a complex password.
 
 Switch to the next page in the chapter's playground, "String Validation".
 
@@ -231,9 +231,9 @@ protocol StringValidationRule {
 }
 ```
 
-This protocol requires a method that returns a `Bool` regarding the validity of a given string. It can also throw an error! It also requires that you provide the type of error that can be thrown
+This protocol requires a method that returns a `Bool` regarding the validity of a given string and can throw an error. It also requires that you provide the type of error that can be thrown
 
-> **Note**: Although it may appear so, the `errorType` property is not a Swift requirement. This property is accessed later to help describe the rule's requirements.
+> **Note**: Although it may appear so, the `errorType` property is not a Swift requirement. This property is here simple as the design of the solution.
 
 To use multiple rules together, define a `StringValidator` protocol.
 
@@ -245,13 +245,13 @@ protocol StringValidator {
 }
 ```
 
-This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is the `Bool` that designates if the string is valid or not, the second is an array of `StringValidationError`s. In this case you are not using `throws` but rather returning an array of error types being that multiple errors can occur. In the case of string validation it is always a better user experience to let the user know of every rule they've broken so that they can resolve each one in a single pass.
+This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is a `Bool` that designates if the string is valid or not, the second is an array of `StringValidationError`s. In this case you are not using `throws` but rather returning an array of error types as each rule can throw its own error. In the case of string validation it's a better user experience to let the user know of every rule they've broken so that they can resolve each one in a single pass.
 
 Now take a step back and think of how you might implement a `StringValidator`'s `validate(string:)` method. It will probably be that you iterate over each item in `validationRules`, collect any errors, and determine the status based on whether or not any errors have occurred. This logic will likely be the same for any `StringValidator`.
 
-Surely you don't want to copy/paste that implementation into ALL of your `StringValidator`s, right? Well, good news, Swift 2.0 introduces Protocol Extensions that allow you to define default implementations for all types that specify conformance to the protocol.
+Surely you don't want to copy/paste that implementation into ALL of your `StringValidator`s, right? Well, good news, Swift 2.0 introduces Protocol Extensions that allow you to define default implementations for all types that specify conformance to a protocol.
 
-Extend the `StringValidator` protocol to define a default implementation for `validate(string:)`
+Extend the `StringValidator` protocol to define a default implementation for `validate(string:)`.
 
 ```
 extension StringValidator {                          // 1
@@ -278,14 +278,14 @@ This method's process is broken down by commented line number below:
 1. Create an extension for `StringValidator`
 2. Define the default implementation for `func validate(string: String) -> (valid: Bool,
   errors: [StringValidationError])`
-3. Create a mutable array to hold any errors that might occur
-4. Iterate over each rule that the validator has
+3. Create a mutable array to hold any errors that might be thrown
+4. Iterate over each of the the validator's rules
 5. Specify a `do` block as you will be catching errors if they are thrown
 6. Execute `validate(string:)` for each rule, note that you must precede the call with `try` as this method can throw
 7. Catch any errors of the type `StringValidationError`
 8. Capture the error in your `errors` array
-9. If some error other than `StringValidationError` is thrown, crash with a message including what error occurred. This is optional depending on your API design. In this case it would be a developer error that this occurred and it is best to be aware of it as soon as possible, crashes are a simple way to make that obvious. In production code you may prefer to log the error and move on as long as doing so would not put your application in an unstable state.
-10. Return the resultant tuple, if there are no errors then validation passed, include the array of errors even if empty.
+9. If some error other than `StringValidationError` is thrown, crash with a message including which error occurred. This is optional depending on your API design. In this case it would be a developer error that this occurred and it is best to be aware of it as soon as possible, crashes are a simple way to make that obvious. In production code you may prefer to log the error and move on as long as doing so would not put your application in an unstable state.
+10. Return the resultant tuple. If there are no errors validation passed, return the array of errors even if empty.
 
 Excellent! Now any and every `StringValidator` that you implement will have this method by default so that you do not need to copy/paste it in everywhere. Time to implement your very first `StringValidationRule`, starting with the first error type `.MustStartWith`.
 
@@ -310,9 +310,9 @@ struct StartsWithCharacterStringValidationRule: StringValidationRule {
 
 Breaking this method down...
 
-1. The rule has two properties, the character set that the rule uses to verify the string starts with a character in the given set
-2. A description of the rules requirement, if you used a set of numbers you would define "number" for this
-3. Define the type of error that this rule can throw
+1. The character set to describe what the string can start with
+2. A description of the character set, if you used a set of numbers you might define "number" for this
+3. Type of error that this rule can throw
 4. Throw the error if validation fails
 
 Time to take this new rule for a spin!
@@ -332,8 +332,6 @@ do {
 ```
 
 You should see the following output in your playground. You can get the result to display inline with your code by pressing the **Show Result** circle button to the right of the output in the playground's timeline.
-
-<!-- Something is amiss with the image below, the top border is clipped, I believe it has to do with the image starting at the top of the page. !-->
 
 ![bordered height=16%](./images/starts_with_rule_result.png)
 
@@ -358,7 +356,7 @@ struct EndsWithCharacterStringValidationRule: StringValidationRule {
 }
 ```
 
-This logic is very similar. You've two different rules so now you can create your own `StringValidator`.
+This logic is very similar. Now that you have two different rules you can create your own `StringValidator`. Write a validator that verifies a string both starts and ends with characters in respective character sets.
 
 ```
 struct StartsAndEndsWithStringValidator: StringValidator {
@@ -382,8 +380,8 @@ struct StartsAndEndsWithStringValidator: StringValidator {
 
 Since you wrote a protocol extension for `StringValidator` that provides a default implementation of `func validate(string: String) -> (valid: Bool, errors: [StringValidationError])` the definition of this implementation is very basic.
 
-1. Provide a property to set the character set for the starts with rule
-2. Provide another set for the ends with rule
+1. A character set for the starts with rule
+2. A character set for the ends with rule
 3. Create an array with both rules for `validationRules` which the `StringValidator` protocol requires
 
 Now give your new validator a try!
