@@ -666,7 +666,9 @@ guard #available(iOS 9.0, *) else { return }
 // do some iOS 9 or higher only thing
 ```
 
-The code above "guards" on the OS version running the application. If the OS version is less than 9.0 the routine will exit immediately. This allows you to freely write against iOS 9 specific APIs beyond the `guard` statement without constantly checking for API availability using methods like `respondsToSelector(:)`.
+The code above "guards" on the iOS version running the application. If the iOS version is less than 9.0 the routine will exit immediately. This allows you to freely write against iOS 9 specific APIs beyond the `guard` statement without constantly checking for API availability using methods like `respondsToSelector(:)`.
+
+The compiler will also you know if you've used a new API when your deployment target is set to some OS version where the API is not available.
 
 ### Option Sets
 
@@ -696,7 +698,7 @@ struct RectangleBorderOptions: OptionSetType {
 
 ## Where to go from here?
 
-While this chapter covered a lot of ground, you mostly just dipped your toes into each feature. There is a ton of power in the new features to Swift 2.0. And there are even more that were not covered here. It is highly recommended that you continue down the path of learning about Swift 2.0 features so that you can write better code and make better apps even faster. Never hesitate to open a new Xcode Playground and start typing away, prototyping ideas has never been easier. One pro-tip is to keep a playground in your Mac's Dock so that you can jump right in at a moment's notice.
+While this chapter covered a lot of ground, you mostly just dipped your toes into each feature. There is a ton of power in the new features of Swift 2.0. And there are even more that were not covered here. It is highly recommended that you continue down the path of learning about Swift 2.0 features so that you can write better code and make better apps even faster. Never hesitate to crack open an  Xcode Playground and start hacking away, prototyping ideas has never been easier. One pro-tip is to keep a playground in your Mac's Dock so that you can jump right in at a moment's notice.
 
 You also should not miss the following WWDC 2015 sessions:
 - [What's New In Swift](https://developer.apple.com/videos/wwdc/2015/?id=106)
