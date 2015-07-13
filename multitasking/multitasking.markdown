@@ -192,7 +192,10 @@ Build and run. Verify that when you are looking at the table of logs, and a seco
 
 ## Camera
 
-Deal with camera since it's a resource that may not be available to your app in multitasking [Theory & Instruction]
+Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are good to go because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button. If your app uses `AVCaptureSession` you may need to do some additional work and beef up your code to better cover cases where the camera feed is suspended.
+
+![width=90%](images/mt12.png)
+
 Be prepared for size changes during system snapshots [Theory]
 Be a good citizen [Theory]
 testing alongside a resource intensive app: e.g. run the app alongside with Maps.app flyover.
@@ -208,20 +211,19 @@ Be smart in new ways
 The system may change the app’s size to take a snapshot.
 Optimize your app (Memory managemnet) for multitasking
 
-- Getting started
-	What is it?
-		slide from left to right = sldie over
-		tap the divider to pin it side by side = split view
-		user can tap the divider and change it to 50-50
-		then user can move all the way to the left to take over
-		then can bring in another view from right
+## Best Practises
 
-		concept of PRIMARY app vs. SECONDARY app.
-		primary app is always on the left (unless device is set to right-to-left, e.g. Arabic)
+## Where to go from here
+Adopting Multitasking Enhancements on iPad [https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html]
+Getting Started with Multitasking on iPad in iOS 9 (Session 205) [https://developer.apple.com/videos/wwdc/2015/?id=205]
+Multitasking Essentials for Media-Based Apps on iPad in iOS 9 (session 211) [https://developer.apple.com/videos/wwdc/2015/?id=211]
+Optimizing Your App for Multitasking on iPad in iOS 9 (Session 212) [https://developer.apple.com/videos/wwdc/2015/?id=212]
 
-		You can have up to 3 apps on screen at the same time:
-		Before: fullscreen
-		After: Slide over, split view, picture in picture.
+
+
+
+
+
 
 
 
@@ -247,9 +249,6 @@ To maintain the pointing arrow of the popover to the correct location:
 popoverPresentationController.barButtonItem = sender OR
 popoverPresentationController.sourceView = button
 popoverPresentationController.sourceRect = button.bounds
-
-Keyboard
-keyboard appears on both apps. Use UIScrollViewContentInset It may not be your app that is displaying keyboard.
 
 UIKeyboard WillShow / DidShow / WillHide / DidHide / WillChangeFrame / DidChangeFrame Notification
 
@@ -296,23 +295,6 @@ switch
 .regular
 .unspecified // don't do anything
 
-// provide a block of animation
-let animation = { (context: UIViewControllerTranstionCoordinatorContext) -> Void in
-	// change your UI here. it will animate from the old to the new.
- }
-coordinator.animateAlongsideTransition(animation, completion: nil)
-
-5: High-level APIs
-Adaptive presentation controller
-UITableView, UICollectionView, UIStackView
-
-
-6: UISplitViewController - the root view controller
-PrimaryViewController
-SecondaryViewController
-
-
-Adaptive Photo sample App
 
 
 Guidelines:
@@ -407,10 +389,3 @@ NSData.initWithcontentFoFiles Optons… error
 Not appropriate for small chunks of data
 Virtual memory misuses: fragmentation and exhaustion
 Abuse of VM results in termination too!
-
-
-## Where to go from here
-Adopting Multitasking Enhancements on iPad [https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html]
-Getting Started with Multitasking on iPad in iOS 9 (Session 205) [https://developer.apple.com/videos/wwdc/2015/?id=205]
-Multitasking Essentials for Media-Based Apps on iPad in iOS 9 (session 211) [https://developer.apple.com/videos/wwdc/2015/?id=211]
-Optimizing Your App for Multitasking on iPad in iOS 9 (Session 212) [https://developer.apple.com/videos/wwdc/2015/?id=212]
