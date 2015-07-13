@@ -660,10 +660,59 @@ for author in authors {
 }
 ```
 
+This section concludes the use of the chapter's playground, so you can put that aside.
+
 ### OS Availability
+
+As Apple continually introduces new versions of iOS (and OS X) they give developers new frameworks and APIs to utilize. The problem with this is that unless you drop support for previous versions of the OS you cannot safely use the new APIs without a lot of messy runtime checks which always leads to missed cases and basic human error, resulting in a crashing app.
+
+In Swift 2.0 you can now let the compiler help you. There is not enough time to cover all of the use cases here but as a quick introduction consider the following example.
+
+```
+guard #available(iOS 9.0, *) else { return }
+// do some iOS 9 or higher only thing
+```
+
+The code above "guards" on the OS version running the application. If the OS version is less than 9.0 the routine will exit immediately. This allows you to freely write against iOS 9 specific APIs beyond the `guard` statement without constantly checking for API availability using methods like `respondsToSelector(:)`.
 
 ### Option Sets
 
+The final feature this chapter will discuss is changes to option sets. Prior to Swift 2.0 in both Swift and Objective-C bitmasks were often used to describe a set of options flags. This should be familiar if you've ever done animations with UIKit.
 
+You can now type a set of option flags like you would any other `Set<T>`, which was introduced in Swift 1.2.
+
+```
+animationOptions = [.Repeat, .CurveEaseIn]
+```
+
+Also, the fact that this is a Swift Set, you get all of the functionality that Sets have to offer. Creating your own option set is as simple as defining a structure that conforms to the `OptionSetType` protocol.
+
+```
+struct RectangleBorderOptions: OptionSetType {
+  let rawValue: Int
+
+  init(rawValue: Int) { self.rawValue = rawValue }
+
+  static let Top = RectangleBorderOptions(rawValue: 0)
+  static let Right = RectangleBorderOptions(rawValue: 1)
+  static let Bottom = RectangleBorderOptions(rawValue: 2)
+  static let Left = RectangleBorderOptions(rawValue: 3)
+  static let All: RectangleBorderOptions = [Top, Right, Bottom, Left]
+}
+```
 
 ## Where to go from here?
+
+While this chapter covered a lot of ground, you mostly just dipped your toes into each feature. There is a ton of power in the new features to Swift 2.0. And there are even more that were not covered here. It is highly recommended that you continue down the path of learning about Swift 2.0 features so that you can write better code and make better apps even faster. Never hesitate to open a new Xcode Playground and start typing away, prototyping ideas has never been easier. One pro-tip is to keep a playground in your Mac's Dock so that you can jump right in at a moment's notice.
+
+You also should not miss the following WWDC 2015 sessions:
+- [What's New In Swift](https://developer.apple.com/videos/wwdc/2015/?id=106)
+- [Protocol-Oriented Programming in Swift](https://developer.apple.com/videos/wwdc/2015/?id=408)
+- [Building Better Apps with Value Types in Swift](https://developer.apple.com/videos/wwdc/2015/?id=414)
+- [Improving Your Existing Apps with Swift](https://developer.apple.com/videos/wwdc/2015/?id=403)
+- [Swift and Objective-C Interoperability](https://developer.apple.com/videos/wwdc/2015/?id=401)
+- [Swift in Practice](https://developer.apple.com/videos/wwdc/2015/?id=411)
+
+All of these and more can be found at [https://developer.apple.com/videos/wwdc/2015/](https://developer.apple.com/videos/wwdc/2015/).
+
+And of course keep the official [Swift Programming Language Book](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/index.html) handy!

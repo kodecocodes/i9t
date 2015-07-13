@@ -144,6 +144,18 @@ slapLog
 //: [Next](@next)
 
 
+struct RectangleBorderOptions: OptionSetType {
+  let rawValue: Int
+  
+  init(rawValue: Int) { self.rawValue = rawValue }
+  
+  static let Top = RectangleBorderOptions(rawValue: 0)
+  static let Right = RectangleBorderOptions(rawValue: 1)
+  static let Bottom = RectangleBorderOptions(rawValue: 2)
+  static let Left = RectangleBorderOptions(rawValue: 3)
+  static let All: RectangleBorderOptions = [Top, Right, Bottom, Left]
+}
+
 
 
 
