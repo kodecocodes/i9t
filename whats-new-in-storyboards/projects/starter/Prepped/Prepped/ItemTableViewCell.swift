@@ -40,7 +40,7 @@ class ItemTableViewCell: UITableViewCell {
   
   override func awakeFromNib() {
     let tap = UITapGestureRecognizer(target: self, action: "checkMarkTapped:")
-    self.checkMark.addGestureRecognizer(tap)
+    checkMark.addGestureRecognizer(tap)
   }
   
   func checkMarkTapped(gesture: UITapGestureRecognizer) {

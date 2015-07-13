@@ -44,9 +44,9 @@ class ItemViewController: UITableViewController {
         itemArray.append(checkListItem)
         checkListItemData[checkListIndex].append(checkListItem)
         let indexPath = NSIndexPath(forRow: itemArray.count-1, inSection: 0)
-        self.tableView.beginUpdates()
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
-        self.tableView.endUpdates()
+        tableView.beginUpdates()
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+        tableView.endUpdates()
     }
   }
 }
