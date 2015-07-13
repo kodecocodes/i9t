@@ -127,9 +127,71 @@ func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
 
 Here you add a new helper method that takes in a `size` parameter and instead of updating the `maximumPrimaryColumnWidth` property of split view controller based on the overall size of the split view itself. You do the update once the split view is initially loaded and once when its size is changed.
 
+Build and run. Verify that when you pin a slide over in landscape orientation, it nicely changes the width of the master view to give more room to the detail view.
+
+![bordered width=90% ipad](images/mt09.png)
+
 ## Keyboard
 
-Deal with keyboard even though it's not your app presenting it. [Instruction]
+Dealing with keyboard presentation has always been an interesting topic in iOS. It's very likely that you have the experience of adjusting your view layout when a keyboard is presented to give user some room to scroll the content or move some buttons to the visible rect while keyboard is up.
+
+In a multitasking environment, you'll continue doing that with a new requirement: you are not the only person who will present the keyboard anymore!
+
+The other app that's running side by side, next to your app, may present the keyboard and you need to adjust your layout so that your user can conveniently continue using your app -- or they may leave you bad reviews in the App Store! :]
+
+In Travelog, the only time you display a keyboard is when user edits a text log, in modally presented, full screen view:
+
+![bordered width=90% ipad](images/mt10.png)
+
+So the rest of the app didn't use to make any adjustment for keyboard presentation. This is about to change. Open __LogsViewController.swift__ and find `viewDidLoad()`, then update its implementation as follows:
+
+```swift
+override func viewDidLoad() {
+  // ... some code ...
+  NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAppearanceDidChangeWithNotification:", name: UIKeyboardDidShowNotification, object: nil)
+  NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAppearanceDidChangeWithNotification:", name: UIKeyboardDidHideNotification, object: nil)
+}
+```
+
+Here you simply start listening for `UIKeyboardDidShowNotification` and `UIKeyboardDidHideNotification` notifications.
+
+To balance the calls, unregister for the notifications you've registered for in `deinit`:
+
+```swift
+deinit {
+  // ... some code ...
+  NSNotificationCenter.defaultCenter().removeObserver(self)
+}
+```
+
+Now add the implementation of `keyboardAppearanceDidChangeWithNotification(_)` as follows:
+
+```swift
+func keyboardAppearanceDidChangeWithNotification(notification: NSNotification) {
+  guard let userInfo: [NSObject: AnyObject] = notification.userInfo else { return }
+  let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
+  let convertedFrame = view.convertRect(keyboardEndFrame, fromView: nil)
+  let keyboardTop = CGRectGetMinY(convertedFrame)
+  let delta = max(0.0, CGRectGetMaxY(tableView.bounds) - keyboardTop)
+  var contentInset = tableView.contentInset
+  contentInset.bottom = delta
+  tableView.contentInset = contentInset
+  tableView.scrollIndicatorInsets = contentInset
+
+  if let selectedIndexPath = selectedIndexPath {
+    tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+  }
+}
+```
+
+The code blob may seem lengthy but it's quite straight forward. You find what's the frame of the keyboard in respect to your app's coordinate system. If it's intersecting with your table view, you adjust the `contentInset` of the `tableView` or reset the `contentInset` to zero. To make it look nicer, you try to scroll the table view so that user doesn't loose selected row, if any.
+
+Build and run. Verify that when you are looking at the table of logs, and a secondary app presents the keyboard, the table view adjusts itself and you can scroll the entire table view.
+
+![width=90%](images/mt11.png)
+
+## Camera
+
 Deal with camera since it's a resource that may not be available to your app in multitasking [Theory & Instruction]
 Be prepared for size changes during system snapshots [Theory]
 Be a good citizen [Theory]

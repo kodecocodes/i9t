@@ -65,20 +65,14 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
     let convertedFrame = view.convertRect(keyboardEndFrame, fromView: nil)
     let keyboardTop = CGRectGetMinY(convertedFrame)
-    let insets = tableView.contentInset
-    let tableViewContentMaxY = min(insets.top + tableView.contentSize.height, CGRectGetHeight(tableView.bounds))
-    var delta = tableViewContentMaxY - keyboardTop
-
-    // If delta is 0 or below that, it means keyboard doesn't overlap with content.
-    if delta < 0.0 { delta = 0.0 }
-    let offset = tableView.contentOffset
-    let newOffset = CGPoint(x: offset.x, y: offset.y + delta)
+    let delta = max(0.0, CGRectGetMaxY(tableView.bounds) - keyboardTop)
+    var contentInset = tableView.contentInset
+    contentInset.bottom = delta
+    tableView.contentInset = contentInset
+    tableView.scrollIndicatorInsets = contentInset
     
-    let visibleIndexPaths = tableView.indexPathsForVisibleRows
-    tableView.contentOffset = newOffset
-    
-    if let topMostVisibileIndexPath = visibleIndexPaths?.first {
-      tableView.scrollToRowAtIndexPath(topMostVisibileIndexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+    if let selectedIndexPath = selectedIndexPath {
+      tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
     }
   }
   
