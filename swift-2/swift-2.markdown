@@ -400,3 +400,270 @@ startsAndEndsWithStringValidator.validate("foo1").valid
 You should see the following result.
 
 ![bordered height=30%](/images/starts_and_ends_with_validator_result.png)
+
+### Password Requirement Validation
+
+Now it is time to put the StringValidator pattern that you've created to real-world use. Often times when signing up often times when signing up for an account you are required to meet a number of rules to ensure that your password is complex. As the software engineer tasked with creating the sign-up form for your company's app you have been told that passwords must meet the follwing requirements.
+
+- Must be at least 8 characters long
+- Must contain at least 1 uppercase letter
+- Must contain at least 1 lowercase letter
+- Must contain at least 1 number
+- Must contain at least 1 of the following "\!\@\#\$\%\^\&\*\(\)\_\-\+\<\>\?\/\\\[\]\{\}"
+
+Before coming up with the protocol oriented solution that you just built, you might have looked at this list of requirements and groaned a little. But, groan no more! You can take the pattern that you've built and quickly create a `StringValidator` that contains the rules for this password requirement.
+
+Start by switching to the "Password Validation" page in the chapter's playground. For brevity purposes this playground page tucks away all of the previous work you did on the String Validation page as a source file for this page. That source file also contains two new rules that you will be using. The first is `LengthStringValidationRule` with the following interface.
+
+#### `LengthStringValidationRule`
+
+A rule that validates a string is a specified length, this rule has two Types:
+- `.Min(length: Int)`: must be at least `length` long
+- `.Max(length: Int)`: cannot exceed `length`
+Both types can be combined in a `StringValidator` to ensure the String is between a specific range in length.
+
+```
+public struct LengthStringValidationRule : StringValidationRule {
+    public enum Type {
+        case Min(length: Int)
+        case Max(length: Int)
+    }
+    public let type: Type
+    public var errorType: StringValidationError { get }
+    public init(type: Type)
+    public func validate(string: String) throws -> Bool
+}
+```
+
+The second rule is `ContainsCharacterStringValidationRule`.
+
+#### `ContainsCharacterStringValidationRule`
+
+A rule that validates a string contains a specific character. There are multiple Types available:
+- `.MustContain`: the string must contain a character in the provided set
+- `.CannotContain`: the string cannot contain a character in the provided set
+- `.OnlyContain`: the string can only contain characters in the provided set
+- `.ContainAtLeast(count: Int)`: the string must contain at least `count` characters in the provided set
+
+```
+public struct ContainsCharacterStringValidationRule : StringValidationRule {
+    public enum Type {
+        case MustContain
+        case CannotContain
+        case OnlyContain
+        case ContainAtLeast(Int)
+    }
+    public let characterSet: NSCharacterSet
+    public let description: String
+    public let type: Type
+    public var errorType: StringValidationError { get }
+    public init(characterSet: NSCharacterSet,
+      description: String,
+      type: Type)
+    public func validate(string: String) throws -> Bool
+}
+```
+
+With these two new rules in your back pocket you can easily implement the password requirement validator.
+
+```
+struct PasswordRequirementStringValidator: StringValidator {
+
+  var validationRules: [StringValidationRule] {
+    let upper = NSCharacterSet.uppercaseLetterCharacterSet()
+    let lower = NSCharacterSet.lowercaseLetterCharacterSet()
+    let number = NSCharacterSet.decimalDigitCharacterSet()
+    let special = NSCharacterSet(
+      charactersInString: "!@#$%^&*()_-+<>?/\\[]}{")
+
+    return [
+      LengthStringValidationRule(type: .Min(length: 8)),
+      ContainsCharacterStringValidationRule(
+        characterSet:upper ,
+        description: "upper case letter",
+        type: .ContainAtLeast(1)),
+      ContainsCharacterStringValidationRule(
+        characterSet: lower,
+        description: "lower case letter",
+        type: .ContainAtLeast(1)),
+      ContainsCharacterStringValidationRule(
+        characterSet:number ,
+        description: "number",
+        type: .ContainAtLeast(1)),
+      ContainsCharacterStringValidationRule(
+        characterSet:special,
+        description: "special character",
+        type: .ContainAtLeast(1))
+    ]
+  }
+}
+```
+
+Now, try it out!
+
+```
+let passwordValidator = PasswordRequirementStringValidator()
+passwordValidator.validate("abc1").errors
+passwordValidator.validate("abc1!Fjk").errors
+```
+
+You should see the following result:
+
+![bordered height=25%](/images/password_validator_result.png)
+
+Great work!
+
+## Additional Things
+
+The previous sections covered a number of new features in Swift 2.0, but there are even more. For the rest of this chapter you will be experimenting further with some of the previously mentioned features and more new ones. The examples will not be as concrete as the string validation problem, but hopefully still interesting!
+
+### Going further with Extensions
+
+One other amazing thing that you can do with Extensions is provide functionality with generic type parameters. This means that you can provide a method on Arrays that contain a specific type. You can even do this with protocol extensions.
+
+Say that you wanted to make a method that shuffles an array of names to determine the order in which players in a game will take turns. Seems easy enough, right? Take an array of names, mix it up and return it. But what if you later find that you also want to shuffle an array of cards for the game? Now you've got to either reproduce that shuffle logic for an array of cards, or create some kind of generic method that can shuffle both cards and names. There's got to be a better way, right?
+
+Right! How about creating an extension on the `MutableCollectionType` protocol where conformers of the protocol have an Index (you need to use ordered collections if you want to retain sort order).
+
+Type the following into the "Additional Things" page in the chapter's playground.
+
+```
+extension MutableCollectionType where Self.Index == Int {
+  mutating func shuffleInPlace() {
+    let c = self.count
+    for i in 0..<(c - 1) {
+      let j = Int(arc4random_uniform(UInt32(c - i))) + i
+      swap(&self[i], &self[j])
+    }
+  }
+}
+```
+
+Next create an array of people and invoke your new method.
+
+```
+var people = ["Chris", "Ray", "Sam", "Jake", "Charlie"]
+people.shuffleInPlace()
+```
+
+You should see that the `people` array has been shuffled like the following.
+
+![bordered height=20%](/images/shuffle_result.png)
+
+If your results are not shuffled, verify that you typed the algorithm correctly or go buy a lottery ticket because it shuffled them into the same order that was received! You can reshuffle to see different results by pointing to **Editor/Execute Playground**.
+
+> **Note:** Extending functionality to generic type parameters is only available to classes and protocols. You will need to create an intermediate protocol to achieve the same with structs.
+
+### Using `defer`
+
+With the introduction of `guard` and `throws`, exiting scope early is now a "first-class" scenario in Swift 2.0. This means that you have to be careful to execute any necessary routines prior to an early exit from occurring. Thankfully Apple has provided `defer { ... }` to ensure that a block of code will always execute before the current scope is exited.
+
+Type the following into the playground and notice the `defer` block defined at the beginning of the `dispenseFunds(amount:account)` method.
+
+```
+struct ATM {
+  var log = ""
+
+  mutating func dispenseFunds(amount: Float,
+    inout account: Account) throws {
+
+    defer {
+      log += "Card for \(account.name) has been returned to customer.\n"
+      ejectCard()
+    }
+
+    log += "====================\n"
+    log += "Attempted to dispense \(amount) from \(account.name)\n"
+
+    guard account.locked == false else {
+      log += "Account Locked\n"
+      throw ATMError.AccountLocked
+    }
+
+    guard account.balance >= amount else {
+      log += "Insufficient Funds\n"
+      throw ATMError.InsufficientFunds
+    }
+
+    account.balance -= amount
+    log += "Dispensed \(amount) from \(account.name)."
+    log += " Remaining balance: \(account.balance)\n"
+  }
+
+  func ejectCard() {
+    // physically eject card
+  }
+}
+```
+
+In this example there are a multiple places that the method can return without proceeding further. One thing is for certain though, an ATM should always return the card to the user, regardless of what error occurs (okay maybe some types of errors would deem keeping the card). The use of the `defer` block guarantees that no matter when the method returns, the user's card will be returned.
+
+Type the following to try this out.
+
+```
+var atm = ATM()
+
+var billsAccount = Account(name: "Bill's Account", balance: 500.00, locked: true)
+do {
+  try atm.dispenseFunds(200.00, account: &billsAccount)
+} catch let error {
+  print(error)
+}
+```
+
+Attempting to dispense funds from a locked account throws an `ATMError.AccountLocked` but notice the events that occurred by checking the `atm.log`.
+
+![bordered height=15%](/images/defer_result.png)
+
+
+### Pattern Matching
+
+Swift has always had amazing pattern matching capabilities, especially with cases in `switch` statements. Swift 2.0 continues to add to the language's ability in this area. Here are a few brief examples.
+
+"for ... in" filtering provides the ability to iterate as you normally would using a for-in loop, except that you can provide a `where` statement so that only iterations whose `where` statement is true will be executed.
+
+```
+let names = ["Charlie", "Chris", "Mic", "John", "Craig", "Felipe"]
+var namesThatStartWithC = [String]()
+
+for cName in names where cName.hasPrefix("C") {
+  namesThatStartWithC.append(cName)
+}
+```
+
+You can also iterate over a collection of enums of the same type and filter out for a specific case.
+
+```
+let authors = [
+  Author(name: "Chris Wagner", status: .Late(daysLate: 5)),
+  Author(name: "Charlie Fulton", status: .Late(daysLate: 10)),
+  Author(name: "Evan Dekhayser", status: .OnTime)
+]
+
+let authorStatuses = authors.map { $0.status }
+
+var totalDaysLate = 0
+
+for case let .Late(daysLate) in authorStatuses {
+  totalDaysLate += daysLate
+}
+```
+
+"if case" matching allows you to write more terse conditions rather than using `switch` statements that require a `default` case.
+
+```
+var slapLog = ""
+for author in authors {
+  if case .Late(let daysLate) = author.status where daysLate > 2 {
+    slapLog += "Ray slaps \(author.name) around a bit with a large trout.\n"
+  }
+}
+```
+
+### OS Availability
+
+### Option Sets
+
+
+
+## Where to go from here?

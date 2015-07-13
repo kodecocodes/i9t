@@ -10,67 +10,55 @@ import Foundation
 
 
 extension MutableCollectionType where Self.Index == Int {
-    mutating func shuffleInPlace() {
-        let c = self.count
-        for i in 0..<(c - 1) {
-            let j = Int(arc4random_uniform(UInt32(c - i))) + i
-            swap(&self[i], &self[j])
-        }
+  mutating func shuffleInPlace() {
+    let c = self.count
+    for i in 0..<(c - 1) {
+      let j = Int(arc4random_uniform(UInt32(c - i))) + i
+      swap(&self[i], &self[j])
     }
+  }
 }
 
 var people = ["Chris", "Ray", "Sam", "Jake", "Charlie"]
 people.shuffleInPlace()
-var rules = people.reduce("We will take turns in the following order: ") { $0 + $1 + ", "}
-rules.replaceRange(advance(rules.endIndex, -2)..<rules.endIndex, with: ".")
 
 //: As of Beta 2 extending functionality to generic type parameters is only available to classes and protocols. You will need to create an intermediate protocol to achieve the same with structs.
 
 //: ### Using `defer`
 //: With the introduction of `guard` and `throws`, exiting scope early is now a "first-class" scenario in Swift 2.0. This means that you have to be careful to execute any necessary routines prior to an early exit from occurring. Thankfully Apple has provided `defer { ... }` to ensure that a block of code will always execute before the current scope is exited.
 
-struct Account {
-    var name: String
-    var balance: Float
-    var locked: Bool = false
-}
-
-enum ATMError: ErrorType {
-    case InsufficientFunds
-    case AccountLocked
-}
 
 
 //: Notice the `defer` block defined at the beginning of the `dispenseFunds(amount:account)` method
 struct ATM {
-    var log = ""
-    
-    mutating func dispenseFunds(amount: Float, inout account: Account) throws{
-        defer {
-            log += "Card for \(account.name) has been returned to customer.\n"
-            ejectCard()
-        }
-        
-        log += "====================\n"
-        log += "Attempted to dispense \(amount) from \(account.name)\n"
-        
-        guard account.locked == false else {
-            log += "Account Locked\n"
-            throw ATMError.AccountLocked
-        }
-        
-        guard account.balance >= amount else {
-            log += "Insufficient Funds\n"
-            throw ATMError.InsufficientFunds
-        }
-        
-        account.balance -= amount
-        log += "Dispensed \(amount) from \(account.name). Remaining balance: \(account.balance)\n"
+  var log = ""
+  
+  mutating func dispenseFunds(amount: Float, inout account: Account) throws{
+    defer {
+      log += "Card for \(account.name) has been returned to customer.\n"
+      ejectCard()
     }
     
-    func ejectCard() {
-        // physically eject card
+    log += "====================\n"
+    log += "Attempted to dispense \(amount) from \(account.name)\n"
+    
+    guard account.locked == false else {
+      log += "Account Locked\n"
+      throw ATMError.AccountLocked
     }
+    
+    guard account.balance >= amount else {
+      log += "Insufficient Funds\n"
+      throw ATMError.InsufficientFunds
+    }
+    
+    account.balance -= amount
+    log += "Dispensed \(amount) from \(account.name). Remaining balance: \(account.balance)\n"
+  }
+  
+  func ejectCard() {
+    // physically eject card
+  }
 }
 
 var atm = ATM()
@@ -78,9 +66,9 @@ var atm = ATM()
 //: Attempting to dispense funds from a locked account throws an `ATMError.AccountLocked`
 var billsAccount = Account(name: "Bill's Account", balance: 500.00, locked: true)
 do {
-    try atm.dispenseFunds(200.00, account: &billsAccount)
+  try atm.dispenseFunds(200.00, account: &billsAccount)
 } catch let error {
-    print(error)
+  print(error)
 }
 
 
@@ -89,18 +77,18 @@ atm.log
 
 var janesAccount = Account(name: "Jane's Account", balance:1500.00, locked: false)
 do {
-    try atm.dispenseFunds(360.00, account: &janesAccount)
+  try atm.dispenseFunds(360.00, account: &janesAccount)
 } catch let error {
-    print(error)
+  print(error)
 }
 
 atm.log
 
 var margretsAccount = Account(name: "Margret's Account", balance: 50.00, locked: false)
 do {
-    try atm.dispenseFunds(80.00, account: &margretsAccount)
+  try atm.dispenseFunds(80.00, account: &margretsAccount)
 } catch let error {
-    print(error)
+  print(error)
 }
 
 atm.log
@@ -118,27 +106,19 @@ let names = ["Charlie", "Chris", "Mic", "John", "Craig", "Felipe"]
 var namesThatStartWithC = [String]()
 
 for cName in names where cName.hasPrefix("C") {
-    namesThatStartWithC.append(cName)
+  namesThatStartWithC.append(cName)
 }
 
 namesThatStartWithC
 
 //: You can also iterate over a collection of enums of the same type and filter out for a specific case.
 
-enum AuthorStatus {
-    case OnTime
-    case Late(daysLate: Int)
-}
 
-struct Author {
-    let name: String
-    let status: AuthorStatus
-}
 
 let authors = [
-    Author(name: "Chris Wagner", status: .Late(daysLate: 5)),
-    Author(name: "Charlie Fulton", status: .Late(daysLate: 10)),
-    Author(name: "Evan Dekhayser", status: .OnTime)
+  Author(name: "Chris Wagner", status: .Late(daysLate: 5)),
+  Author(name: "Charlie Fulton", status: .Late(daysLate: 10)),
+  Author(name: "Evan Dekhayser", status: .OnTime)
 ]
 
 let authorStatuses = authors.map { $0.status }
@@ -146,22 +126,21 @@ let authorStatuses = authors.map { $0.status }
 var totalDaysLate = 0
 
 for case let .Late(daysLate) in authorStatuses {
-    totalDaysLate += daysLate
+  totalDaysLate += daysLate
 }
 
 totalDaysLate
 
 //: "if case" matching allows you to write more terse conditions rather than using `switch` statements that require a `default` case.
 
-
-let authorChris = Author(name: "Chris Wagner", status: .Late(daysLate: 5))
-
+var slapLog = ""
 for author in authors {
-    if case .Late(let daysLate) = author.status where daysLate > 2 {
-        print("Ray slaps \(author.name) around a bit with a large trout.")
-    }
+  if case .Late(let daysLate) = author.status where daysLate > 2 {
+    slapLog += "Ray slaps \(author.name) around a bit with a large trout.\n"
+  }
 }
 
+slapLog
 
 
 //: [Next](@next)
