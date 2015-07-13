@@ -1,6 +1,8 @@
 # Chapter 1: Swift 2.0
 
-It was nearing the end of the 2014 WWDC Keynote and Craig Federighi came back up on stage. Without much hesitation or fanfare he dropped the biggest bomb on Apple platform developers that they'd ever seen, Swift. A new language introduced, in a later criticized way, as "Objective-C without the C". This new language was filled with promises of terseness and safety, while being extremely expressive. After everyone picked their jaws up from the floor, many set out to explore the ins and outs of this brand new language. Swift made the period between WWDC 2014 and 2015 an extremely exciting time to be an Apple platform developer. Everyone was given a chance to reimagine and redefine the way that software for iOS and OS X is written.
+It was nearing the end of the 2014 WWDC Keynote and Craig Federighi was seemingly wrapping up the show. Then, out of left field he dropped the biggest bomb on Apple platform developers that they'd likely ever seen, Swift. A new programming language that he teed up, in a later criticized way, as "Objective-C without the baggage of C". This new language was presented with promises of terseness and safety, while being extremely expressive.
+
+After everyone picked up their jaws from the floor of Presidio in Moscone West (or their keyboards at home), many set out to explore the ins and outs of this brand new language. Swift made the period between WWDC 2014 and 2015 an extremely exciting time to be an Apple platform developer. Everyone was given a chance to reimagine and redefine the way that software for iOS and OS X is written.
 
 ## But Why?
 
@@ -12,29 +14,29 @@ This year's big announcement is that Apple will be open sourcing Swift by the en
 
 - Swift source code will be released under an OSI-approved permissive license.
 - Contributions from the community will be accepted — and encouraged.
-- At launch we intend to contribute ports for OS X, iOS, and Linux.
+- At launch Apple intends to contribute ports for OS X, iOS, and Linux.
 - Source code will include the Swift compiler and standard library.
 
-A natural thought when hearing this news might be along the lines of... "This is amazing news, I can write Android apps using Swift! Write once, debug everywhere!!" Well, back that excitement train up and put it in park for a minute. While this is great news it may not mean exactly what you think. First and foremost is that it is highly unlikely that Apple has any intentions of open sourcing Cocoa or Cocoa Touch frameworks. These frameworks are what makes it so "easy" to write Mac and iOS apps, consider writing Objective-C programs without NS*Anything* or UI*Anything*. While Swift offers a lot out of the box, you still will not have access to those frameworks on other platforms.
+A natural thought when hearing this news might be along the lines of... "This is amazing news, I can write Android apps using Swift! Write once, debug everywhere!!" Well, back that excitement train up and put it in park for a minute. While this is great news it may not mean exactly what you think. First and foremost is that it is highly unlikely that Apple has any intentions of open sourcing the Cocoa or Cocoa Touch frameworks we love so much. These frameworks are what makes it so "easy" to write Mac and iOS apps; consider writing Objective-C programs without NS*Anything* or UI*Anything*. While Swift offers a lot out of the box, you will not have access to those frameworks on other platforms.
 
-But don't let that get you down! The open source community does amazing things every day. The fact that Swift will be open source will attract an entire new set of extremely smart people to make this language even better by providing Swift-only libraries and frameworks that will usable across platforms. There are so many theoretical possibilities, consider just these two... Using Swift in embedded environments like Arduino boards or writing server-side Swift. Pretty exciting.
+But don't let that get you down! The open source community does amazing things every day. The fact that Swift will be open source will attract an entire new set of extremely smart people to make this language even better by providing Swift-only libraries and frameworks that will be usable across platforms. There are so many theoretical possibilities, consider just these two... Using Swift in embedded environments like with Arduino boards or writing server-side Swift for the web and web services. Pretty exciting.
 
 ## What Makes Swift, "2.0"?
 
 Now what you really came to read about. What is it that Apple introduced with Swift 2.0 and what will this chapter cover?
 
 - New control flow using `guard`, `repeat`, `do`, and `defer`
-- New error handling model
+- An entirely new error handling model
 - Protocol Extensions
 - Pattern Matching enhancements
-- Availability Checking
+- API Availability Checking
 - Additional minor enhancements
 
-So sit tight, this will be chapter packed to the gills with information, feel free to read it end to end or use it as as a reference while you work with Swift 2.0.
+So sit tight, this chapter will be packed to the gills with information, feel free to read it end to end or use it as as a reference while you work with Swift 2.0.
 
 ## The Logistics
 
-Unlike most chapters in this book, you will _not_ be writing or extending an app in this one. Instead you will be working in a multipage Xcode Playground so that the Swift language features themselves are the focus. For the first part of the chapter you will be introduced to some new features using contrived examples. You will then move on to solving a specific String validation problem using Swift 2.0 features in a tutorial style playground.
+Unlike most chapters in this book, you will _not_ be writing or extending an app. Instead you will be working in a multipage Xcode Playground so that the Swift language features themselves are the focus. For the first part of the chapter you will be introduced to some new features using contrived examples. You will then move on to solving a specific String validation problem using Swift 2.0 features in a tutorial led playground.
 
 Open the provided **Chapter1_Swift2.playground** file in Xcode 7 and continue reading the chapter before diving into the playground.
 
@@ -46,7 +48,7 @@ Control flow in any programming language is a fundamental concept, if you're not
 
 ### `repeat`
 
-The `do/while` control flow feature has been renamed to `repeat/while`. Nothing has changed with how this operates, it is simply a name change to reduce confusion with the new usage of `do`. This flow simply means "`repeat` this block of code `while` some condition remains `true`".
+The `do/while` control flow feature has been renamed to `repeat/while`. Nothing has changed with how this operates, it is simply a name change to reduce confusion with a new usage of `do` described later. This flow simply means "`repeat` this block of code `while` some condition remains `true`".
 
 ```
 var jamJarBeer = Beer()
@@ -60,7 +62,7 @@ The example above repeats the line `jamJarBeer.sip()` until `jamJarBeer.isEmpty`
 
 ### `guard`
 
-Often times it's necessary to do pre-condition checks in your routines to ensure proper state or that valid arguments were passed in. The new `guard` control flow is the perfect tool for doing these checks. Consider the `Beer().sip()` method from above. What happens when you sip an empty beer? What does that even mean? (It probably means you've had too many or need a refill.) Perhaps it would make sense to verify that there is beer available for sipping!
+Often times it's necessary to do pre-condition checks in your routines to ensure proper state or that valid arguments were passed in. The new `guard` control flow is the perfect tool for doing these checks. Consider the `Beer().sip()` method from above. What happens when you sip an empty beer? What does that even mean? (It probably means you've had too many _or_ need a refill.) Perhaps it would make sense to verify that there is beer available for sipping!
 
 ```
 struct Beer {
@@ -69,7 +71,7 @@ struct Beer {
   var owner: Patron?
 
   mutating func sip() {
-    guard percentRemaining > 0 else { // 1
+    guard percentRemaining > 0 else {             // 1
       print("Your beer is empty, order another!")
       return
     }
@@ -103,7 +105,7 @@ So how should a bartender behave?
 
 ```
 struct Bartender {
-  func offerOwnerOfBeerAnother(beer: Beer) {
+  func offerAnotherToOwnerOfBeer(beer: Beer) {
     guard let owner = beer.owner else {
       print("Egads, another wounded soldier to attend to.")
       return
@@ -114,15 +116,15 @@ struct Bartender {
 }
 ```
 
-Notice the last line of the method where `owner` is accessed as a non-optional value. Since `guard` was used as `guard let owner = beer.owner` the unwrapped optional value becomes available in the same scope that `guard` was called. If the value of `beer.owner` were `nil` then the defined `else` block will be executed and the method immediately returns.
+Notice the last line of the method where `owner` is accessed as a non-optional value. Since `guard` was used as `guard let owner = beer.owner` the unwrapped optional value becomes available in the same scope that `guard` was called. If the value of `beer.owner` were `nil` then the `else` block would be executed.
 
 This feature allows you to do your optional binding upfront in a very explicit manner. After writing the `guard` conditions you can continue to define your method as if you were working inside of an `if let` block, but without the extra indention! This makes writing code in books _that_ much easier ;]
 
 ## Error handling
 
-When Swift was first introduced you would often find questions on Stack Overflow about error handling. A lot of people were looking for exceptions that are found in many popular languages. Instead Apple opted to stick to the `NSError` approach that Cocoa has had since the beginning. This was an OK solution given that having not shipped Swift until they finalized error handling would arguably been worse.
+When Swift was first introduced you would often find questions on Stack Overflow about error handling. A lot of people were looking for exceptions that are found in many popular languages. Instead Apple opted to stick to the `NSError` approach that Cocoa has had since the beginning. This was an OK solution given that having not shipped Swift until they finalized error handling would arguably had been worse.
 
-The good news is that Swift 2.0 now has a first-class error handling model. It's now possible to define that a method or function `throws` an error. When you declare this, you are letting the caller/consumer know that an error may occur. And what's even better, the compiler enforces that they write extra code to handle the error.
+The good news is that Swift 2.0 now has a first-class error handling model. It's now possible to define that a method or function `throws` an error. When you declare this, you are letting the caller/consumer know that an error may occur. And what's even better, the compiler enforces that extra code is written to handle the error or explicitly ignore it.
 
 All of the code for this section is included on the "Errors" page of the chapter's Xcode Playground.
 
@@ -148,6 +150,7 @@ enum ParseError: ErrorType {
 
 Pretty easy, right? This error has a single case and includes an associative value of the type `String` as a message. Now when you throw this error type you can include some extra information about what is missing. Being that enums are used when creating `ErrorType`s you can include any kind of associative values that you deem necessary for your use case.
 
+Take a look at this `struct` that implements `JSONParsable` and throws some errors.
 
 ```
 struct Person: JSONParsable {
@@ -170,11 +173,11 @@ struct Person: JSONParsable {
 }
 ```
 
-Pay close attention to the commented lines, 1 and 2. This is where the errors are being thrown. If either `guard` statement fails to validate, an error is thrown and the method returns without proceeding further. Also, notice the usage of `gaurd`. It becomes very clear as to what is happening with the added expressiveness that `gaurd` provides.
+Pay close attention to the commented lines, 1 and 2. This is where the errors are being thrown. If either `guard` statement fails to validate, an error is thrown and the method returns without proceeding further. Also, notice how the usage of `gaurd` makes it very clear as to what is happening due to the expressiveness that it provides.
 
 When calling a method that `throws` it is required by the compiler that you precede the call to that method with **`try`**. In order to capture the thrown errors you must wrap your "trying" call in a `do {}` block followed by `catch {}` blocks. You can choose to catch specific types of errors and respond accordingly and/or provide a "catch-all" if you're not certain of the types of errors that can be thrown.
 
-> **Note**: At the time of this writing, Apple has not provided a way to infer the exact type of errors that can be thrown from a method or function. There is also no way to declare what type of error can be thrown. As an API writer it is a good practice to include this information in your method's documentation.
+> **Note**: At the time of this writing, Apple has not provided a way to infer the exact types of errors that can be thrown from a method or function. There is also no way for an API writer to declare what type of error can be thrown. It is a good practice to include this information in your method's documentation.
 
 ```
 do {
@@ -186,7 +189,9 @@ do {
 }
 ```
 
-In case where you can guarantee that the call will never fail by throwing an error or when catching the error does not provide any benefit (such as a critical situation where the app cannot continue operating); you can bypass the `do/catch` requirement. To do so, you simply type an `!` after `try`. Try (no pun intended) entering the following into the playground. You should notice a runtime error appear.
+In a situation where you can guarantee that a throwing call will never fail or when catching a thrown error does not provide any benefit (such as a critical situation where the app cannot continue operating); you can bypass the `do/catch` requirement. To do so, you simply type an `!` after `try`.
+
+Try (no pun intended) entering the following into the playground. You should notice a runtime error appear.
 
 ```
 let p = try! Person.parse(["foo": "bar"])
@@ -199,7 +204,7 @@ let p = try! Person.parse(["first_name": "Ray",
   "last_name": "Wenderlich"])
 ```
 
-Excellent! You now have the basics down for using Swift 2.0 errors!
+Excellent! You now know the basics of using Swift 2.0 errors.
 
 ## The Project
 

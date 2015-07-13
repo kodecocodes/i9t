@@ -13,10 +13,12 @@ enum ParseError: ErrorType {
   case MissingAttribute(message: String)
 }
 
-//: Pretty easy, right? This error has a single case and includes an associative value of the type `String` as a message. Now when you throw this error type you can include some extra information about what is missing. Being that enums are used when creating `ErrorType`s you can include any kind of associative values that you deem necessary for your use case.
+/*:
+Pretty easy, right? This error has a single case and includes an associative value of the type `String` as a message. Now when you throw this error type you can include some extra information about what is missing. Being that enums are used when creating `ErrorType`s you can include any kind of associative values that you deem necessary for your use case.
 
+Define a `struct` that implements `JSONParsable` and throws some errors.
 
-//: Define a `struct` that implements `JSONParsable` and throws some errors.
+*/
 struct Person: JSONParsable {
   let firstName: String
   let lastName: String

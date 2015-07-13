@@ -37,7 +37,7 @@ repeat {
 
 //: A Bartender has a simple method to offer another beer to its owner, `guard` is used within the method to unwrap the owner if one exists.
 struct Bartender {
-  func offerOwnerOfBeerAnother(beer: Beer) {
+  func offerAnotherToOwnerOfBeer(beer: Beer) {
     guard let owner = beer.owner else {
       print("*sigh* another wounded soldier to attend to.")
       return
@@ -48,7 +48,7 @@ struct Bartender {
 }
 
 let bartender = Bartender()
-bartender.offerOwnerOfBeerAnother(jamJarBeer)
+bartender.offerAnotherToOwnerOfBeer(jamJarBeer)
 
 
 //: Move on to [Errors](@next)
