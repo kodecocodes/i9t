@@ -8,9 +8,9 @@ However, packaging a universal app with device-specific content combined with an
 
 Fortunately, in iOS 9, Apple has introduced several solutions to circumvent this problem:
 
-- **App Slicing:** Compiling only the resources and executable architecture into variants specific to each device. 
-- **On Demand Resources:** Resources for an application that are downloaded as needed an can be removed if the iOS device needs to make room for other storage on disk.
-- **Bitcode:** An intermmediate representation that is sent along with your app to the App Store. This allows Apple to re-optimize your app as future optimizations are made to their compiler technology and applied to your intermediate code.
+- **App Slicing:** When downloading an app from the App Store in iOS 9, Apple will compile resources and executable architecture into variants specific to each device. The device will only download the variant specific to its architecture, Size classes, screen scaling, etc. 
+- **On Demand Resources:** Resources for an application that are downloaded as needed and can be removed if the iOS device needs to make room for other storage on disk.
+- **Bitcode:** An intermmediate representation that is sent along with your app when submiting to the App Store. This allows Apple to re-optimize your app as future optimizations are made to their compiler and applied to your intermediate code.
  
 Packaged together, these techniques are known as **App Thinning**.
 
@@ -32,7 +32,7 @@ This angry blob of text will add 3 niffty commands pertaining to App Thinning to
 
 >**Note:** The last two commands use Apple's private APIs, so make sure you don't include these classes in your app.   
 
-With the Terminal command entered, you can open and explore **Old CA Maps**. This application displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this simple app take up a huge amount of disk space (over 300 Megabytes!). You'll use the App Thinning techniques to hack-and-slash the end product to a more managable size.
+With the Terminal command entered, you can open and explore **Old CA Maps**. This application displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this simple app takes up a huge amount of disk space (over 300 Megabytes!). You'll use the App Thinning techniques to hack-and-slash the end product to a more managable size.
 
 Select the **iPad Air 2 Simulator** as the **scheme destination**, then build and run the application.
 
@@ -42,20 +42,34 @@ Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and
 
 >**Note:** These overlays are created from image tiles found in **NSBundle**s and passed into a **MKTileOverlayRenderer** for drawing. All of this is well beyond the scope of this tutorial on how it works. Think of this stuff as a black box--all you care about is how to make you app as small as possible to the end user. :] 
 
-### The Anatomy of Old CA Maps 
+### The Anatomy of an App 
 
-Need content here....  
+When compiling your application into an app (aka an IPA), it's good to see what Xcode does with your content.
+
+Below is a side-by-side comparison of the **Old CA Maps Xcode project**'s directory (on the left) and Old CA Map's archived bundle's contents (on the right).
+
+![bordered width=%60](./images/Directory_IPA_Comparison.png)
+
+There's a couple important items to take note of:
+
+- The assets catalog in Xcode named **Assets.xcassets** will turn into the **Assets.car** file in the IPA. This file's job is to hold resources specific to different scales, size classes, and devices in one specific place. The debugging commands your setup will help you explore this file at runtime. 
+- Check out the sizes of each of the bundles. Notice the **SC_Map.bundle** is over 130 MB! 
+- Notice that since the 3 **Santa Cruz PNGs** found in Xcode were not copied into the **Assets.car** file, but instead copied over in the top-level directory.
+
+For example, this project contains 
 
 
 ### Measuring Your Work
 
-It would be a good idea to quantitatively measure you progress when working with App Thinning. That is, how big is the IPA when before and after you touched this project. Fortunately, there is already a **Build Script** included in **Old CA Maps** that lists the size of the IPA in Kilobytes. 
+It would be a good idea to quantitatively measure your progress when working with App Thinning. That is, how big is the IPA before and after you touched this project. Fortunately, there is already a **Build Script** included in **Old CA Maps** that lists the size of the IPA in Kilobytes. 
 
 To view the size of an app you built, first build the project, then navigate to the Report Navigator, and select the build you wish to inspect. Make sure the **All** and **All Messages** are selected and find the **Run Custom Shell Script** output.
 
 ![bordered width=90%](./images/app_size_viewing.png)
 
-### App Slicing
+You should occassionally come back to this view to see your progress of making your IPA smaller.
+
+## App Slicing
 
 App Slicing can be further broken down into two parts: executable slicing and resource slicing. 
 
@@ -77,7 +91,7 @@ With Old CA Maps running, pause the application open up the LLDB debugger consol
 
 This will spit out a list of the content that occupies the IPA bundle for Old CA Maps. 
 
-Notice that there are 3 images of different sizes by the name **Santa Cruz**. This means that the these sets of images are not being put into an Asset Catalog. Make sure this is the case by dumping all of the image names of the Asset Catalog in LLDB. Again in LLDB, type: 
+Notice that there are 3 images of different sizes by the name **Santa Cruz**. This means that the these sets of images are not being put into an Asset Catalog. Make sure this is the case by dumping all of the image names of the Asset Catalog. Again in LLDB, type: 
 
 ```
 (lldb) dump_asset_names
@@ -93,26 +107,24 @@ Click the **Assets.xcassets**, then click on the plus button and select **New Im
 
 Once the images are copied over into the Assets catalog, delete the Santa Cruz PNGs from the resources folder.
 
-Build and run the application. Notice that the Santa Cruz image is still being displayed and if you use **dump_app_contents**, the Santa Cruz set of images will no longer be displayed. You can verify the Assets catalog has the name Santa Cruz by typing **dump_asset_names** in **LLDB**. Finally, you can see how many copies of the Santa Cruz image are currently in the app by typing in LLDB:
+Build and run the application. Notice that the Santa Cruz image is still being displayed and if you use **dump_app_contents**, the Santa Cruz set of images will no longer be part of the top level content in the IPA. You can verify the Assets catalog has the name Santa Cruz by typing **dump_asset_names** in **LLDB**. Finally, you can see how many copies of the Santa Cruz image are currently in the app by typing in LLDB:
 
 ```
 (lldb) assets_for_name Santa Cruz
 ```
 
-This will spit out an `NSArray` containing 1 image. 
 
->**Note:** Although PNGs are a good way to provide resources, you should also consider using vectorized PDFs. Xcode breaks down the PDF and resizes the image as needed, essentially future-proofing your app for whatever screen sizes Apple will dream up next. All the other thumbnail images use vectorized PDFs to achieve this in the sample project.
-
+>**Note:** Although PNGs are a good way to provide resources, you should also consider using vectorized PDFs. Xcode breaks down the PDF and resizes the image as needed, essentially future-proofing your app for whatever screen sizes Apple will dream up next. All the other thumbnail images in Old CA Maps use vectorized PDFs.
 
 ## Lazily (Down)Loading Content
 
-Now that you have provided the infrastructure for Apple to slice your Asset Catalog resources, it's time to take a more aggressive approach at limiting content by using **On-Demand Resources** or **ODR**. 
+Now that you've provided the infrastructure for Apple to slice your Asset Catalog resources, it's time to take a more aggressive approach at limiting content by using **On-Demand Resources**, or simply, **ODR**. 
 
-The primary class responsible for dealing with ODR is called **NSBundleResourceRequest**. This class is responsible for fetching the resources that need to be downloaded from the App Store through **Tags**. These Tags are string names you can attach to resources to properly identify which group of resources to download. 
+The primary class responsible for dealing with ODR is called **NSBundleResourceRequest**. This class is handles fetching the resources that need to be downloaded from the App Store through **Tags**. These Tags are string names you can attach to resources to properly identify which group of resources to download. 
 
-Wait so what's an on-demand resource? It can consist of images, data, OpenGL shaders, SpriteKit Particles, Watchkit Complications etc. The main thing to note is that ODR can't be executable code. Fortunately, NSBundles fall into the data file category, so you can apply ODR to the bundles without changing any of the bundle infrastructure within Old CA Maps. 
+Wait so what's the resource consist of for the On-Demand Resources? It can consist of images, data, OpenGL shaders, SpriteKit Particles, Watchkit Complications etc. The main thing to note is that ODR can't be executable code. Fortunately, NSBundles fall into the data file category, so you can apply ODR to the bundles without changing any of the bundle infrastructure within Old CA Maps. 
 
-Time to finally whip out the coding skrillz. Navigate to **MapChromeViewController.swift** and hunt down the **downloadAndDisplayMapOverlay()** function. It is here that you will replace the content of a local bundle with the content of an ODR bundle.
+Time to finally whip out some coding skrillz. Navigate to **MapChromeViewController.swift** and hunt down the **downloadAndDisplayMapOverlay()** function. It's here that you'll replace the synchronous loading of a local bundle into an asynchronous load for a remote bundle
 
 Change the **downloadAndDisplayMapOverlay** function to now look like:
     
@@ -133,29 +145,32 @@ Change the **downloadAndDisplayMapOverlay** function to now look like:
   }
 ```
 
-Breaking this change apart:
-- Using the new features in Swift 2.0, you are using the **guard** statement. This lets you maintain the "Golden Path" of code in an easier manner.
-- You're instantiating a `NSBundleResourceRequest` with the tag associated with your bundle. You will add tags to all the content bundles in one sec... 
-- The `beginAccessingResourcesWithCompletionHandler` method will call the completion block when your app finishs downloading your on-demand content or upon error.  
-- The completion handler is not called on the main queue, so you'll need to supply a block to the main thread to handle any updates to the UI. 
-- `NSBundleResourceRequest` has a read-only variable called bundle. Replacing `NSBundle.mainBundle()` with this varaible makes the code more extendible if you were to move the location of your bundles around. 
+Breaking this down:
+1. Using the new features in Swift 2.0, you're using the **guard** statement. This lets you maintain the "Golden Path" of code in an easier manner.
+2. You're instantiating a `NSBundleResourceRequest` with the tag associated with your bundle. You will add tags to all the content bundles in one sec... 
+3. The `beginAccessingResourcesWithCompletionHandler` method will call the completion block when your app finishs downloading your on-demand content or upon error.  
+4. The completion handler is not called on the main thread, so you'll need to supply a block to the main queue to handle any updates to the UI. 
+5. `NSBundleResourceRequest` has a read-only variable called bundle. Replacing `NSBundle.mainBundle()` with this varaible makes the code more extendible if you were to move the location of your resources around.
 
-Try building and running your application right now and click on one of the cities. Xcode will fail to load an overlay and spit out an error at you in the console. This is because you have told the `NSBundleResourceRequest` to look for tags that don't exist yet. You'll change that now. 
+Try building and running your application right now and click on one of the cities. Xcode will fail to load an overlay and spit out an error at you in the console. This is because you've told the `NSBundleResourceRequest` to look for Tags that don't exist yet... Time to fix that.
 
-Navigate to the Project Navigator tab and expand the **Map Bundles** folder. Open the Xcode's **File Inspector** tab on the right. In the File Inspector column find the **On Demand Resource Tags** section. 
+Navigate to the Project Navigator tab and expand the **Map Bundles** folder. Open the Xcode's **File Inspector** tab on the right. In the File Inspector column, find the **On Demand Resource Tags** section. 
 
 Go through each bundle and give the tag the same name as the bundle name. For example, for **LA_Map.bundle** give it the Tag name **LA_Map**. Do this for each of the 5 bundles in the applciation.
 
+![bordered width=80%](./images/Xcode_Asset_Tagging.png)
+
 >**Note:** Make sure you spell the tag name in the exact same spelling and case. If you misstype it, you could come against some subtle errors.  
 
-Build your application, but don't run it yet. Now would be a good time to look at the before and after of your IPA size. Originally, the app was over 300 MB! Now the app is around 10MB. Xcode has achieved this by removing the bundle resources found in the IPA and downloads them if they are not present on the app.
+Build your application, but don't run it yet. Now would be a good time to look at the before and after of your IPA size. Originally, the app was over 300 MB, now Old CA Maps is around 10MB. Xcode has achieved this by removing the bundle resources found in the IPA and downloads them if they are not present on the app. You can observe this by typing **dump_app_contents** in LLDB when the app is running.
 
+Build and run your application again. Select **Los Angeles** as the overlay and observe what happens. The app now waits until the content is downloaded then displays the overlay and adjusts the map when completed. 
 
-Build and run your application again. Select **Los Angeles** as the overlay and watch what happens. The app now waits until the content is downloaded then displays the overlay and adjusts the map when completed. 
+>**Note:** When your app is live in the App Store, it will download these resources from there. However, to achieve the same affect while developing, Xcode makes a local network request from your computer to your device (or simulator) to download the assets. This means that if you're testing your application and you turn your computer off, ODR will fail to work.
 
 ## Uuhh... This is Taking Too Long
 
-Now try with a larger bundle. The Santa Cruz or the San Diego map is over 100 MB respectively. Click on either one and see how long it takes to display the content.
+Now try clicking on an overlay that contains a larger bundle like Santa Cruz or San Diego. Click on either one and see how long it takes to display the content.
 
 That took a little bit too long to display, right?. Running this on a real device will only be worse. You should probably indicate to the user that something is happening while you're downloading the ODR. Fortunately, MapChromeViewController has a **IBOutlet property** called **loadingProgressView** which is a `UIProgressView`. You'll hook up the progress to this display to indicate to the user that a download is occuring while also displaying the network activity indicator.
 
@@ -188,45 +203,82 @@ Navigate back to **downloadAndDisplayMapOverlay()** and replace the content with
   }
 ```
 
-- This tells the system that the user is "patiently" waiting for this download to occur and to divert all resources to getting these download to complete ASAP. 
-- The **loadingPorgressView** can hook into the `NSProgress` of the `NSBundleResourceRquest`. 
-- Display the loadingProgressView and also the network activity indicator to indicator to the user a network request is occurring.
-- Once the download completes, hide the loadingProgressView and network activity indicator. Note that with this code, you can run into the chance of a race condition with another download affecting the display of the network indicator, but that is not important to resolve for now. 
+1. This tells the system that the user is "patiently" waiting for this download to occur and to divert all resources to complete this download ASAP. 
+2. The **loadingPorgressView** can hook into the `NSProgress` of the `NSBundleResourceRquest`. 
+3. Display the loadingProgressView and also the network activity indicator to inform the user a network request is occurring.
+4. Once the download completes, hide the loadingProgressView and network activity indicator. Note that with this code, you can run into the chance of a race condition with another download affecting the display of the network indicator, but that is not important to resolve for now. 
 
-Build and run the application again. Try the lightweight bundle (< 20 MB) (Los Angeles, Sunnyvale), medium sized bundle (~ 40 BM)(San Francisco), and the Heavy Bundles (> 100 MB) (Santa Cruz, San Diego).
+Build and run the application again. Try all the bundles again and observe the difference. 
 
-Display the progress is a marginally better experience, but it still feels like the Heavy weight bundles take too long to load. Try doing this on an actual device and see how long the weight time is. 
 
 ## Prioritizing Resources 
 
-[NOTE TO EDITOR: This section currently does not work. Am waiting on a reply here: https://forums.developer.apple.com/message/25090#25090, might require me to run El Capitan. Future research needed so continue this section with caution... ]
+[NOTE TO EDITOR: This section currently does not work. Am waiting on a reply here: https://forums.developer.apple.com/message/25090#25090. If I can't get this section to work, I'll put this stuff under the "Where to Go From Here"]
 
-So... the Santa Cruz asset is big and also is likely the first overlay the user will click since it's the top item in the `UITableView`. You might want to require the Santa Cruz asset to be included along with the application itself so it feels snappy, yet still have the ability to remove this > 100 MB overlay if the user gets a low disk space notifcation. 
+Displaying the progress is a marginally better experience, but it still feels like the large bundles take too long to load. Again, you're testing on a controlled device with the Simulator, image a real world user moving around in and out of Wifi/cell towers... 
+
+So... the Santa Cruz asset is big and also is likely the first overlay the user will click since it's the first item displayed. You want the Santa Cruz asset to be included along with the application itself so it feels snappy, yet still be flexible enough to have the ability to remove this overlay if the user gets a low disk space notifcation. 
 
 This means that this asset should be switched to the **Initial Install Tags** group where it will be counted along with it's IPA towards the total size and downloaded initially along with the app itself. 
 
 Open up the **Old CA Maps Project**, click on the Old CA Maps in the **Target** section and then select **Resource Tags**. There are 3 types of cataloging for assets. 
 
 - **Initial Install Tags:** These are installed along with your application. Wait why not just include them in the application? Well, you can remove this content when you no longer need it. This is perfect for onboarding content where you would use resources only once. 
-- **Perferred Tag Order:** These tags are downloaded one the application finishes downloading. They could start depending on available system resources, but you can assum that these resources will start or have started downloading when have launched your application for the first time. 
-- **Download Only On Demand:** These resources are the ones you have worked with and are called when you call them through code. 
+- **Perferred Tag Order:** These tags are downloaded once the application finishes downloading. 
+- **Download Only On Demand:** These resources are the ones you've worked with and are called when you call them through code. 
 
-You will want to move Santa Cruz bundle with the SC_Map tag from the Download Only on Demand section to the Initial Install Tag section. To do this drag the Tag and drag it into the Initial Install Tag area. 
+Move the Santa Cruz bundle with the SC_Map tag from the **Download Only on Demand** section to the **Initial Install Tag** section. To do this, select the Tag and drag it into the Initial Install Tag section. 
 
-[Image needed here] 
+![bordered width=60%](./images/Initial_Install_Tags.png)
 
-In addition, to having Santa Cruz load with the application, since San Diego is such a large file, you should move that resource to the Perferred Tag Order group. Drag the SD_Map tag up to the appropriate area. 
+In addition, to having Santa Cruz load with the application, since San Diego is such a large file, it would be wise to move the San Diego overlay to the Preferred Tag Order group. Drag SD_Map over to the Preferred Tag Order section.
 
-Clean, and build and run the application. Try clicking on Santa Cruz then San Diego. You will notice a marked increase in responsiveness. 
+Clean, build, then run the application. Try clicking on Santa Cruz then San Diego. You will notice a marked increase in responsiveness. 
+
+## Prioritizing Storage 
+
+The great thing about ODR resources is that if the user is low on space, the OS will actively look for resources to purge. You can help the system determine what resources their device will throw out by specifying a priority to the ODR content.
+
+The OS will tell you via the **NSBundleResourceRequestLowDiskSpaceNotification** that it's looking into your app to see what resources can be purged. You should listen for this notification and see if there are any items you can let go of. 
+
+Unfortunately, the simulator does not have an option to call this system notification for you. As a result, you will build a debug UIBarButtonItem and call the notification yourself.
+
+Head back to **MapChromeViewController.swift** and at the bottom of **viewDidLoad**, insert this code: 
+
+```swift
+    let debugButton = UIBarButtonItem(title: "Bundle Debug", style: .Done, target: self, action: "debugActionTapped:")
+    self.navigationItem.rightBarButtonItem = debugButton
+    
+    NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDiskSpaceNotification:", name: NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
+```
+
+This code will insert a `UIBarButtonItem` into your navigationBar which calls **debugActionTapped\(\_\:\)**. In addition, you are telling this view controller to call **handleDiskSpaceNotification\(\_\:\)** when the low disk space notification occurs. 
+
+However, you added the targets, but you also need to add the methods.
+
+Add these two functions in the IBActions section of MapChromeViewController.swift: 
+
+```swift
+  func debugActionTapped(sender: UIBarButtonItem) {
+    NSNotificationCenter.defaultCenter().postNotificationName(NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
+  }
+  
+  func handleDiskSpaceNotification(notification: NSNotification) {
+    let tags = HistoricMapOverlayData.generateAllBundleTitles()
+    for tag in tags {
+      let resource = NSBundleResourceRequest(tags: [tag])
+      resource.conditionallyBeginAccessingResourcesWithCompletionHandler({ (hasResource) -> Void in
+        resource.endAccessingResources()
+      })
+    }
+  }
+```
+
+Now once you tap on the debug button, your ODR content will be freed up! 
 
 
+## Where to Go From Here? 
 
-## ODR Best Practices [Theory]
+Congratulations, you've learned the in and outs of App Thinning! Remember that the same cellular limits apply for ODR resources so you can't download > 100MB without being on a WIFI network. 
 
-When to call NSBundleResourceRequest
-How to best group tagged asset bundles based upon situation
-Final Project
-Before/After size drop
-(If space permitting) Terminal command `file` for ARCH
-Where to Go From Here? Bitcode?
-Build Machine ODR Testing? 
+As a challenge try to determine if the user is not on a WIFI network and prompt the user to be on a network before downloading any assets. 

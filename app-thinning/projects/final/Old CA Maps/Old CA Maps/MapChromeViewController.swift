@@ -1,3 +1,4 @@
+
 /*
 * Copyright (c) 2015 Razeware LLC
 *
@@ -80,8 +81,12 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   
   func handleDiskSpaceNotification(notification: NSNotification) {
     let tags = HistoricMapOverlayData.generateAllBundleTitles()
-    let bundleResource = NSBundleResourceRequest(tags: tags)
-    bundleResource.endAccessingResources()
+    for tag in tags {
+      let resource = NSBundleResourceRequest(tags: [tag])
+      resource.conditionallyBeginAccessingResourcesWithCompletionHandler({ (hasResource) -> Void in
+        resource.endAccessingResources()
+      })
+    }
   }
   
 //=============================================================================/
