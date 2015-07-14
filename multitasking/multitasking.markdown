@@ -194,7 +194,28 @@ Build and run. Verify that when you are looking at the table of logs, and a seco
 
 ## Camera
 
-Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are good to go because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button. If your app uses `AVCaptureSession` and provides live preview, you may need to do some additional work and beef up your code to better cover cases where the camera feed is suspended while the app is running.
+Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are good to go because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button.
+
+If your app uses `AVCaptureSession`, you may need to do some additional work and beef up your code to better cover cases where the camera feed is suspended while the app is running.
+
+--------------------------------------------------------------------------
+
+AVCaptureSession
+only availabe when fullscreen. ACVsession can be intruppted otherwise.
+AVCaptureSessionWasInterruptedNotification
+Check interruption reason: AVCaptureSessionInterruptionReasonKey
+-VideoDeviceNotAvailableWithMultipleForegroundApps
+Update UI.
+AVCaptureSession automatically restores.
+AVCaptureSessionInterruptionEndedNotification
+
+Camera is available only to one app at a time.
+UIImagePicker:
+if single app then (1) camera preview, (2) photo capture, (3) video capture.
+if multiple app then (1) camera preview, (2) photo capture. There is no video capture.
+UIImagePickerController.startVideoCapture() returns false!
+
+--------------------------------------------------------------------------
 
 ![width=90%](images/mt12.png)
 
@@ -352,13 +373,3 @@ use completion blocks for slow actions
 
 When the size changes, do as little work as possible.
 Use completion blocks for slow work
-
-Camera is available only to one app at a time.
-UIImagePicker:
-if single app then (1) camera preview, (2) photo capture, (3) video capture.
-if multiple app then (1) camera preview, (2) photo capture. There is no video capture.
-UIImagePickerController.startVideoCapture() returns false!
-
-
-
-DO NOT call **layoutIfNeeded** while transitioning (or in animation blocks). Use setNeedsLayout
