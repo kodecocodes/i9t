@@ -24,9 +24,6 @@
 		A645B2CB1B52F904004103C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A645B2CA1B52F904004103C7 /* Assets.xcassets */; };
 		A645B2CD1B52F918004103C7 /* NSBundle+ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */; };
 		A645B2CF1B52F959004103C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A645B2CE1B52F959004103C7 /* Main.storyboard */; };
-		A645B2D31B52F98F004103C7 /* Santa Cruz.png in Resources */ = {isa = PBXBuildFile; fileRef = A645B2D01B52F98F004103C7 /* Santa Cruz.png */; };
-		A645B2D41B52F98F004103C7 /* Santa Cruz@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A645B2D11B52F98F004103C7 /* Santa Cruz@2x.png */; };
-		A645B2D51B52F98F004103C7 /* Santa Cruz@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A645B2D21B52F98F004103C7 /* Santa Cruz@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,9 +46,6 @@
 		A645B2CA1B52F904004103C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+ContentExtractor.swift"; sourceTree = "<group>"; };
 		A645B2CE1B52F959004103C7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		A645B2D01B52F98F004103C7 /* Santa Cruz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz.png"; sourceTree = "<group>"; };
-		A645B2D11B52F98F004103C7 /* Santa Cruz@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz@2x.png"; sourceTree = "<group>"; };
-		A645B2D21B52F98F004103C7 /* Santa Cruz@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz@3x.png"; sourceTree = "<group>"; };
 		A645B2D61B52FA6F004103C7 /* GettingStarted.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GettingStarted.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -88,9 +82,6 @@
 		A645B29A1B52F86A004103C7 /* Old CA Maps */ = {
 			isa = PBXGroup;
 			children = (
-				A645B2D01B52F98F004103C7 /* Santa Cruz.png */,
-				A645B2D11B52F98F004103C7 /* Santa Cruz@2x.png */,
-				A645B2D21B52F98F004103C7 /* Santa Cruz@3x.png */,
 				A645B2AF1B52F883004103C7 /* View Controllers */,
 				A645B2BF1B52F8D7004103C7 /* Map Bundles */,
 				A645B2B61B52F8A0004103C7 /* Map Overlays & Data */,
@@ -211,8 +202,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A645B2A61B52F86A004103C7 /* LaunchScreen.storyboard in Resources */,
-				A645B2D31B52F98F004103C7 /* Santa Cruz.png in Resources */,
-				A645B2D51B52F98F004103C7 /* Santa Cruz@3x.png in Resources */,
 				A645B2C71B52F8EC004103C7 /* SD_Map.bundle in Resources */,
 				A645B2C61B52F8EC004103C7 /* SC_Map.bundle in Resources */,
 				A645B2CF1B52F959004103C7 /* Main.storyboard in Resources */,
@@ -220,7 +209,6 @@
 				A645B2C51B52F8EC004103C7 /* LA_Map.bundle in Resources */,
 				A645B2CB1B52F904004103C7 /* Assets.xcassets in Resources */,
 				A645B2C91B52F8EC004103C7 /* SNVL_Map.bundle in Resources */,
-				A645B2D41B52F98F004103C7 /* Santa Cruz@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
