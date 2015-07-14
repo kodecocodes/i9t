@@ -33,22 +33,22 @@ extension LogsViewController: UISplitViewControllerDelegate {
   }
   
   func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
-    if let selectedIndexPath = selectedIndexPath {
-      tableView.selectRowAtIndexPath(selectedIndexPath, animated: false, scrollPosition: UITableViewScrollPosition.Middle)
-    }
-    return nil
+    clearsSelectionOnViewWillAppear = false
+    let primaryNavController = primaryViewController as! UINavigationController
+    primaryNavController.popToRootViewControllerAnimated(false)
+    
+    let detailNavigationController = storyboard!.instantiateViewControllerWithIdentifier("DetailNavigationController") as! UINavigationController
+    let detailViewController = detailNavigationController.viewControllers.first as! DetailViewController
+    detailViewController.selectedLog = selectedLog
+    return detailNavigationController
   }
   
   func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool {
-    guard let navController = secondaryViewController as? UINavigationController else { return false }
-    guard let detailVC = navController.viewControllers.first as? DetailViewController else { return false }
-    
-    // If detail view controller has nothing to display, do nothing.
-    if detailVC.selectedLog == nil {
-      // Return true so that split view controller also does nothing!
+    clearsSelectionOnViewWillAppear = true
+    if selectedIndexPath == nil {
+      navigationController?.popToRootViewControllerAnimated(false)
       return true
     }
-    
     return false
   }
   

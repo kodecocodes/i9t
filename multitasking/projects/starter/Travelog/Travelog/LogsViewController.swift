@@ -30,7 +30,7 @@ class LogsViewController: UITableViewController, LogStoreObserver {
   @IBOutlet private var addNoteButton: UIBarButtonItem!
   
   private var logs = [BaseLog]()
-  private var selectedLog: BaseLog?
+  var selectedLog: BaseLog?
   var selectedIndexPath: NSIndexPath?
   
   // MARK: View Life Cycle
@@ -47,12 +47,24 @@ class LogsViewController: UITableViewController, LogStoreObserver {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     let hasCamera = UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Rear) ||
       UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Front)
     cameraButton.enabled = hasCamera
+    
     tableView.cellLayoutMarginsFollowReadableWidth = true
     LogStore.sharedStore.registerObserver(self)
     LogsSeed.preload()
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    if clearsSelectionOnViewWillAppear == true {
+      selectedIndexPath = nil
+      selectedLog = nil
+    } else if let selectedIndexPath = selectedIndexPath {
+      tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: false)
+    }
   }
   
   // MARK: LogStoreObserver Protocol
@@ -128,6 +140,7 @@ class LogsViewController: UITableViewController, LogStoreObserver {
     let cell = tableView.dequeueReusableCellWithIdentifier("LogCellIdentifier", forIndexPath: indexPath) as! LogCell
     let log = logs[indexPath.row]
     cell.setLog(log)
+    cell.selected = (log == selectedLog)
     return cell
   }
   
@@ -158,4 +171,5 @@ class LogsViewController: UITableViewController, LogStoreObserver {
       deleteLog(log)
     }
   }
+  
 }

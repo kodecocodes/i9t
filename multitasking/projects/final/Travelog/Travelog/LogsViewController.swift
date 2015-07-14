@@ -23,14 +23,14 @@
 import UIKit
 import TravelogKit
 
-class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDelegate {
+class LogsViewController: UITableViewController, LogStoreObserver {
   
   @IBOutlet private var photoLibraryButton: UIBarButtonItem!
   @IBOutlet private var cameraButton: UIBarButtonItem!
   @IBOutlet private var addNoteButton: UIBarButtonItem!
   
   private var logs = [BaseLog]()
-  private var selectedLog: BaseLog?
+  var selectedLog: BaseLog?
   var selectedIndexPath: NSIndexPath?
   
   // MARK: View Life Cycle
@@ -48,15 +48,27 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     let hasCamera = UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Rear) ||
       UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Front)
     cameraButton.enabled = hasCamera
+    
     tableView.cellLayoutMarginsFollowReadableWidth = true
     LogStore.sharedStore.registerObserver(self)
     LogsSeed.preload()
     
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAppearanceDidChangeWithNotification:", name: UIKeyboardDidShowNotification, object: nil)
     NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAppearanceDidChangeWithNotification:", name: UIKeyboardDidHideNotification, object: nil)
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    if clearsSelectionOnViewWillAppear == true {
+      selectedIndexPath = nil
+      selectedLog = nil
+    } else if let selectedIndexPath = selectedIndexPath {
+      tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: false)
+    }
   }
   
   /// Update view and content offset when keybaord appears or disappears.
@@ -149,6 +161,7 @@ class LogsViewController: UITableViewController, LogStoreObserver, UIAlertViewDe
     let cell = tableView.dequeueReusableCellWithIdentifier("LogCellIdentifier", forIndexPath: indexPath) as! LogCell
     let log = logs[indexPath.row]
     cell.setLog(log)
+    cell.selected = (log == selectedLog)
     return cell
   }
   

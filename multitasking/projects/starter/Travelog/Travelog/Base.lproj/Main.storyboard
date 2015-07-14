@@ -430,7 +430,7 @@
         <!--Navigation Controller-->
         <scene sceneID="gAX-za-dht">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eZV-rI-pUp" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="DetailNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="eZV-rI-pUp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="nJr-do-aVs">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

@@ -192,10 +192,39 @@ Build and run. Verify that when you are looking at the table of logs, and a seco
 
 ## Camera
 
-Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are good to go because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button. If your app uses `AVCaptureSession` you may need to do some additional work and beef up your code to better cover cases where the camera feed is suspended.
+Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are good to go because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button. If your app uses `AVCaptureSession` and provides live preview, you may need to do some additional work and beef up your code to better cover cases where the camera feed is suspended while the app is running.
 
 ![width=90%](images/mt12.png)
 
+## System snapshot
+
+You are probably familiar with iOS system snapshots. To refresh your memeories, when your app becomes inactive and enters background, the OS takes a snapshot of the app's window. The OS uses that snapshot later on when users activates App Switcher by double tapping the Home button:
+
+![width=90%](images/mt13.png)
+
+System snapshots happen automatically, and historically all you had to do was either obscuring your view if you were displaying some sensitive information or  nothing. New in a multitasking environment, the OS now changes your view sizes and takes multiple snapshots. To see this in practice, open __SplitViewController.swift__ and update implementation of `viewWillTransitionToSize(_, withTransitionCoordinator:)` as follows:
+
+```swift
+override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+  if UIApplication.sharedApplication().applicationState == UIApplicationState.Background {
+    print(__FUNCTION__ + "\(size)")
+  }
+  // ... some code ...
+}
+```
+
+Build and run. Make sure the debugger console is open. Once the app is launched, activate multitasking mode by sliding over another app and pin it. Then while the app is still in that split view mode, press the __Home__ button (or __CMD+H__ in simulator). You will see the following logs:
+
+```bash
+viewWillTransitionToSize(_:withTransitionCoordinator:)(768.0, 1024.0)
+viewWillTransitionToSize(_:withTransitionCoordinator:)(1024.0, 768.0)
+viewWillTransitionToSize(_:withTransitionCoordinator:)(694.0, 768.0)
+```
+
+If you only follow the above mentioned steps and nothing else, then the first line in the console log refers to the time you pinned the slide over. The app briefly goes into an inactive state and you get an updated size. The last three lines in the log refer to the time you pressed the Home button. That's when the system changed your app's window size while in the background to take different snapshots.
+
+
+ you may need to
 Be prepared for size changes during system snapshots [Theory]
 Be a good citizen [Theory]
 testing alongside a resource intensive app: e.g. run the app alongside with Maps.app flyover.
