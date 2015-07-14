@@ -92,3 +92,33 @@ public class ImageLog: BaseLog {
   }
   
 }
+
+public class VideoLog: BaseLog {
+  
+  public let URL: NSURL
+  public let previewImage: UIImage
+  
+  public required init(URL: NSURL, previewImage: UIImage, date: NSDate) {
+    self.URL = URL
+    self.previewImage = previewImage
+    super.init(date: date)
+  }
+  
+  // MARK: NSCoding
+  
+  public required init?(coder aDecoder: NSCoder) {
+    self.URL = aDecoder.decodeObjectForKey("URL") as! NSURL
+    let data = aDecoder.decodeObjectForKey("previewImage") as! NSData
+    let image = UIImage(data: data)!
+    self.previewImage = image
+    super.init(coder: aDecoder)
+  }
+  
+  public override func encodeWithCoder(aCoder: NSCoder) {
+    aCoder.encodeObject(self.URL, forKey: "URL")
+    let data = UIImageJPEGRepresentation(self.previewImage, 1.0)
+    aCoder.encodeObject(data, forKey: "previewImage")
+    super.encodeWithCoder(aCoder)
+  }
+  
+}

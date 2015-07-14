@@ -72,6 +72,8 @@ You need to think about orientation changes as bound size changes! In a multitas
 
 On the other hand, `UIWindow.bounds` is not necessarily the same as UIScreen size anymore. `UIWindow`'s origin is always `(0, 0)`. Let's take a quick view at how orientation and size changes affect your app. Let's also refer to the app that you open in the Slide Over as __secondary app__ and the app that's already open on the left hand side as __primary app__.
 
+> **Note:** In iOS 9 you can create a new instance if `UIWindow` by simply calling `let window = UIWindow()`. You don’t have to pass a frame. The system will automatically give it the right frame that matches your application's frame.
+
 ![width=90% ipad](images/mt07.png)
 
 When you launch an app in slide over, it starts in compact horizontal size class. When you pin the app, it is still in compact horizontal size class. But it's different for the primary app. If the orientation is portrait, the primary changes from regular horizontal size class to compact horizontal size class. If orientation is landscape, the primary app stays in regular horizontal size class.
@@ -200,7 +202,7 @@ Another area that you have to think about in a multitasking environment is avail
 
 You are probably familiar with iOS system snapshots. To refresh your memeories, when your app becomes inactive and enters background, the OS takes a snapshot of the app's window. The OS uses that snapshot later on when users activates App Switcher by double tapping the Home button:
 
-![width=90%](images/mt13.png)
+![width=90% ipad](images/mt13.png)
 
 System snapshots happen automatically, and historically all you had to do was either obscuring your view if you were displaying some sensitive information or  nothing. New in a multitasking environment, the OS now changes your view sizes and takes multiple snapshots. To see this in practice, open __SplitViewController.swift__ and update implementation of `viewWillTransitionToSize(_, withTransitionCoordinator:)` as follows:
 
@@ -221,26 +223,38 @@ viewWillTransitionToSize(_:withTransitionCoordinator:)(1024.0, 768.0)
 viewWillTransitionToSize(_:withTransitionCoordinator:)(694.0, 768.0)
 ```
 
-If you only follow the above mentioned steps and nothing else, then the first line in the console log refers to the time you pinned the slide over. The app briefly goes into an inactive state and you get an updated size. The last three lines in the log refer to the time you pressed the Home button. That's when the system changed your app's window size while in the background to take different snapshots.
+If you only follow the above mentioned steps and nothing else, then the three lines in the console log refer to the time you pressed the Home button. That's when the system changed your app's window size while in the background to take different snapshots. This becomes tricky when your app has a complicated layout. Be sure to keep this in mind when you write your multitasking-ready app and avoid making jarring changes or losing user's selection.
 
+## Good memory citizen
 
- you may need to
-Be prepared for size changes during system snapshots [Theory]
-Be a good citizen [Theory]
-testing alongside a resource intensive app: e.g. run the app alongside with Maps.app flyover.
-sharing CPU / memory
-some useful strategies (e.g. NSCache)
-Best practices
-User control's your app size.
-Apps cannot prevent or cause size changes
-Size changes can happen at any time
-Keep the user orientated.
-Don’t make abrupt changes
-Be smart in new ways
-The system may change the app’s size to take a snapshot.
-Optimize your app (Memory managemnet) for multitasking
+Memory is another limited resource. You've always been told to be a good memory citizen. In a multitasking enabled iPad, you can potentially have up to 3 apps running at full speed at the same time: the primary app, the secondary and the picture-in-picture. It's important to understand how these apps interact and how they affect available memory.
 
-## Best Practises
+When your is launched, some memory is already allocated by the operating system. Your app claims some of the available memory. There is still some free memory left and everybody's happy!
+
+![width=90%](images/mt14.png)
+
+Then the secondary app comes along and user may also launch a video in picture-in-picture mode.
+
+![width=90%](images/mt15.png)
+
+You may heard about __Springboard__. It's a built-in system application that manages display of icons and user's home screen. Springboard is a also `UIApplication` and is a multitasking app in its own right. Springboard always runs in the foreground. When system is under memory pressure, primary app and the secondary app are the first apps to be ditched. That's because the system wants to reclaim some memory to make its Springboard stable. Picture-in-picture is considered a background task of the Springboard. Both primary and secondary app, though, run as foreground apps, so they are the first apps to get jettisoned under memory pressure.
+
+It's crucial that you reduce your app's memory footprint and optimize its memory use in for multitasking environment. You can use the following strategies:
+* __Fix leaks, retain cycles and algorithms__: Check your app for memory leaks, remove retain cycles and unbounded memory growth, and fix inefficient algorithms. Manage CPU time better and do as little work as possible on the main thread. Keep in mind that main thread’s main responsibility is responding to user interactions. Perform any other tasks in the background with appropriate Quality of Service (QoS) priority.
+
+> **Note:** `NSOperation` and `NSOperationQueue` are your friends. Make sure you check out their documentation for the latest updates. There is a great talk in WWDC 2015, Session 226: Advanced NSOperations that you can check out for practical examples.
+
+* __Working set__: A __working set__ refers to critical objects and resources that you need right now. Listen to memory warnings and free up anything that is not in your working set.
+* __NSCache__: Take advantage of `NSCache`. It's a collection-like container similar to the `NSDictionary` class that incorporates various auto-removal policies. The system automatically carries out these policies if memory is needed by other applications too minimizing the memory footprint. You can add, remove, and query items in a `NSCache` object from different threads without having to lock the cache yourself. Unlike an `NSMutableDictionary` object, a cache does not copy the key objects. It's a great tool for objects that can be regenerated on demand.
+* __Test__: Test your app in different multitasking modes and run memory intensive apps alongside it. The Maps app Flyover mode is a great candidate for testing memory pressure in a multitasking environment.
+* __Instruments__: Use Instruments to profile your app and monitor both its memory and VM footprint. Look out for virtual memory misuses because abuse of VM causes in fragmentation and eventually results in termination too!
+
+## Best Practices
+Before you go, consider these few thoughts on multitasking best practices.
+* __User control's your app size__: You can't prevent or cause size changes. User can change the size of the window your app is displayed in it at any time. The system may change the app’s window size to take a snapshot. Make your app flexible!
+* __Keep the user oriented__: With size changes, it's easy to confuse user. Make sure you keep your users oriented and avoid abrupt changes. You need to be smart in new ways.
+* __Consider size and Size Class instead of orientation__: Think about how to respond to transition from one size to another, instead of device orientation. Make your app universal and use adaptive presentations. Make sure you check out `UIAdaptivePresentationControllerDelegate` protocol, its two helpful delegate callback, `adaptivePresentationStyleForPresentationController(_:)` and `presentationController(_:,
+viewControllerForAdaptivePresentationStyle:)`.
 
 ## Where to go from here
 Adopting Multitasking Enhancements on iPad [https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html]
@@ -263,16 +277,14 @@ Optimizing Your App for Multitasking on iPad in iOS 9 (Session 212) [https://dev
 // IF THE FIRST 2 STEP take too long, the app is terminated!
 // DO NOT ASSUME that if Trait is changed, size is changed too.
 
-[[UIWindow alloc] init] Don’t pass frame.
+
 
 UIPresentationController
 to provide custom presentaitons: A look inside presentation controller (WWDC 2014)
 
 Popover presentation becomes modal presentation or may become form sheet
 
-UIAdaptivePresentationControllerDelegate
-- adaptivePresentationStyleForPresentationController
-- willPresentWithAdaptiveStyle
+
 
 To maintain the pointing arrow of the popover to the correct location:
 popoverPresentationController.barButtonItem = sender OR
@@ -282,13 +294,10 @@ popoverPresentationController.sourceRect = button.bounds
 UIKeyboard WillShow / DidShow / WillHide / DidHide / WillChangeFrame / DidChangeFrame Notification
 
 Best practices:
-1. Consider size and Size Class instead of orientation
-2. Think about how to respond to transition
-3. Use adaptive presentations
+
 
 Making the most out of Multitasking
-1. Make your app universal
-2. Design user experiences for Compact and Regular widths
+1.
 3. Use adaptivity to change between them
 
 Strategies
@@ -350,71 +359,6 @@ if single app then (1) camera preview, (2) photo capture, (3) video capture.
 if multiple app then (1) camera preview, (2) photo capture. There is no video capture.
 UIImagePickerController.startVideoCapture() returns false!
 
-AVCaptureSession
-only availabe when fullscreen. ACVsession can be intruppted otherwise.
-AVCaptureSessionWasInterruptedNotification
-Check interruption reason: AVCaptureSessionInterruptionReasonKey
--VideoDeviceNotAvailableWithMultipleForegroundApps
-Update UI.
-AVCaptureSession automatically restores.
-AVCaptureSessionInterruptionEndedNotification
 
 
 DO NOT call **layoutIfNeeded** while transitioning (or in animation blocks). Use setNeedsLayout
-
-
-
-Optimization
-
-iPad multitasking
-your app is no more full screen
-your app doesn’t have full access to resources, e.g. CPU, memory, etc.
-[	system	][	your app	][	free	]
-[	system	][	your app	][	second app	][	free  ]
-[	system	][	your app	][ 	second app	][	PIP	]
-
-Springboard is a UIApplication. It’s a multitasking app. It’s always running in the foreground.
-Fix memory leaks
-Fix retain cycles and unbounded memory growth
-Fix inefficient algorithms
-Great performance has trade offs
-
-Working set
-critical objects are resources you need NOW!
-keep it small
-don’t let it grow unbounded
-it might change based on context
-manage CPU time better. do as little work as possible on the main thread
-main thread’s main responsibility is responding to user interactions
-
-QoS override
-lower priority queues can be temporarily boosted when a high priority queue is waiting for it
-dispatch_sync
-dispatch_sync_wait
-
-Listen to memory warnings
-System is under memory pressure
-remove anything that is not in your working set
-NSCache great for objects that can be regenerated on demand
-
-Run your app in multitasking with Maps Flyover. If it runs smoothly, you are in good shape.
-Dirty, pursuable, clean
-pursuable can be reclaimed by the OS.
-
-NSPurgeableData : NSMutableData
-beginContentAccess
-endContentAccess
-isContentDiscarded
-
-Cache some data to file
-
-Memory backed by a file on disk is considered clean
-Memory and file contents must match exactly
-Good for data that’s static and doesn’t change
-Data in memory is evicted and reloaded on your behalf
-
-NSData.initWithcontentFoFiles Optons… error
-
-Not appropriate for small chunks of data
-Virtual memory misuses: fragmentation and exhaustion
-Abuse of VM results in termination too!

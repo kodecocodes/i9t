@@ -53,6 +53,11 @@ class LogCell: UITableViewCell {
       customImageView.hidden = false
       customTextLabel.text = nil
       customImageView.image = log.image
+    } else if let log = log as? VideoLog {
+      customTextLabel.hidden = true
+      customImageView.hidden = false
+      customTextLabel.text = nil
+      customImageView.image = log.previewImage
     } else {
       customTextLabel.hidden = true
       customImageView.hidden = true

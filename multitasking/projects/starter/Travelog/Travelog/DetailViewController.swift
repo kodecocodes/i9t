@@ -22,6 +22,8 @@
 
 import UIKit
 import TravelogKit
+import MobileCoreServices
+import AVFoundation
 
 enum DetailViewState {
   case DisplayNone
@@ -72,7 +74,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     updateDetailView()
   }
   
-  // MARK: IBActions 
+  // MARK: IBActions
   
   @IBAction func photoLibraryButtonTapped(sender: UIBarButtonItem?) {
     presentCameraControllerForSourceType(UIImagePickerControllerSourceType.PhotoLibrary)
@@ -129,12 +131,12 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
   }
   
-  //// A helper method to configure and display image picker controller based on the source type. Assumption is that source types are either photo library or camera.
+  //// A helper method to configure and display image picker controller based on the source type.
   func presentCameraControllerForSourceType(sourceType: UIImagePickerControllerSourceType) {
     let controller = UIImagePickerController()
-    controller.allowsEditing = true
     controller.delegate = self
     controller.sourceType = sourceType
+    controller.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
     controller.view.tintColor = UIColor.ultimateRedColor()
     presentViewController(controller, animated: true, completion: nil)
   }
@@ -152,6 +154,10 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       setDetailViewState(DetailViewState.DisplayTextLog)
     } else if let selectedLog = selectedLog as? ImageLog {
       imageView.image = selectedLog.image
+      titleLabel.text = self.dateFormatter.stringFromDate(selectedLog.date)
+      setDetailViewState(DetailViewState.DisplayImageLog)
+    } else if let selectedLog = selectedLog as? VideoLog {
+      imageView.image = selectedLog.previewImage
       titleLabel.text = self.dateFormatter.stringFromDate(selectedLog.date)
       setDetailViewState(DetailViewState.DisplayImageLog)
     } else {
@@ -196,11 +202,8 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
   }
   
-  // MARK: UIImagePickerControllerDelegate
-  
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-    
-    // Only if an image can be successfully retrieved...
+  /// A helper method to extract the image in the info dictionary that returns from UIImagePickerController.
+  private func extractImageFromImagePickerControllerMediaInfo(info: [String : AnyObject]) {
     if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
       
       let imageLogToSave: ImageLog
@@ -222,7 +225,65 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       selectedLog = imageLogToSave
       updateDetailView()
     }
+  }
+  
+  /// Create an snapshot of a movie at a given URL and return UIImage.
+  func snapshotFromMovieAtURL(movieURL: NSURL) -> UIImage {
+    let asset = AVAsset(URL: movieURL)
+    let generator: AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
+    generator.appliesPreferredTrackTransform = true
+    let time: CMTime = CMTimeMake(1, 60)
+    do {
+      let imageRef: CGImageRef = try generator.copyCGImageAtTime(time, actualTime: nil)
+      let snapshot = UIImage(CGImage: imageRef)
+      return snapshot
+    }
+    catch {}
+    return UIImage()
+  }
+  
+  // MARK: UIImagePickerControllerDelegate
+  
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
     
+    var logToSave: BaseLog?
+    
+    // What did user pick? Is it a movie or is it an image?
+    let mediaType = info[UIImagePickerControllerMediaType] as! String
+    if mediaType == String(kUTTypeImage) {
+      let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+      
+      // If it was an edit to the existing log, update the log.
+      if let selectedLog = selectedLog {
+        logToSave = ImageLog(image: image, date: selectedLog.date)
+        imageView.image = image
+      } else {
+        // It is a new image log.
+        logToSave = ImageLog(image: image, date: NSDate())
+      }
+    } else if mediaType == String(kUTTypeMovie) {
+      let assetURL = info[UIImagePickerControllerMediaURL] as! NSURL
+      let previewImage = snapshotFromMovieAtURL(assetURL)
+      
+      // If it was an edit to the existing log, update the log.
+      if let selectedLog = selectedLog {
+        logToSave = VideoLog(URL: assetURL, previewImage: previewImage, date: selectedLog.date)
+        imageView.image = previewImage
+      } else {
+        // It is a new image log.
+        logToSave = VideoLog(URL: assetURL, previewImage: previewImage, date: NSDate())
+      }
+    }
+    
+    // Save it.
+    if let log = logToSave {
+      let store = LogStore.sharedStore
+      store.logCollection.addLog(log)
+      store.save()
+      
+      selectedLog = log
+      updateDetailView()
+    }
     picker.dismissViewControllerAnimated(false, completion: nil)
   }
   
