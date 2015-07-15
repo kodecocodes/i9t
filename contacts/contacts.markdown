@@ -34,7 +34,7 @@ Open **Friend.swift**. In it is a struct named `Friend`, which will represent ea
 
 Now, open **FriendsViewController.swift**. The `friendsList` property is created with the results of `defaultContacts()` to get the sample friends when the app launches.
 
-The `UITableViewDataSource` methods in the view controller are simple. The table has one section with a cell for each friend. Each cell shows a picture of a friend as well as all the friend's information.
+The `UITableViewDataSource` methods in the view controller are simple. The table has one section with a cell for each friend in `friendsList`. Each cell shows a picture of a friend as well as all the friend's information.
 
 It's time to make this app better using the Contacts and ContactsUI frameworks. By the time you're done, the user will have a much more familiar experience using their contacts in your app.
 
@@ -99,7 +99,7 @@ Switch over to **FriendsViewController.swift** and add the following extension t
 
 ```swift
 //MARK: UITableViewDelegate
-extension FriendsViewController{
+extension FriendsViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.deselectRowAtIndexPath(indexPath, animated: true)
     // 1
@@ -246,7 +246,7 @@ Is there a way to make sure that the user can only select contacts with emails? 
 
 Add the following line before `presentViewController(_:animated:completion:)`:
 
-    contactPicker.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0", argumentArray: nil)
+    contactPicker.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0")
 
 The contact picker's `predicateForEnablingContacts` let you decide which contacts can be selected. In this case, you want the user to only select contacts with email addresses.
 
@@ -289,7 +289,7 @@ Not only is this part of being a good citizen in the iOS app development communi
 
 > **Note**: When you used the `CNContactPickerViewController`, you did not have to ask the user for permission. `CNContactPickerViewController` is **out-of-process**, meaning that your app does not have access to the contacts shown in the picker. The benefit of this is that the user does not have to grant permission when this is shown. If the user selects contacts and presses **Done**, they implicitly give you permission to use the contacts.
 
-To ask the user for permission, replace the `TODO` comment with the following code:
+To ask the user for permission, replace the `TODO` comment in the row action you created with the following code:
 
 ```swift
 let contactStore = CNContactStore()
@@ -312,8 +312,8 @@ First, you'll handle the case when the user does **not** give you permission to 
 Add the following method to `FriendsViewController`:
 
 ```swift
-func presentPermissionErrorAlert(){
-  dispatch_async(dispatch_get_main_queue()){
+func presentPermissionErrorAlert() {
+  dispatch_async(dispatch_get_main_queue()) {
     let alert = UIAlertController(title: "Could Not Save Contact", message: "How am I supposed to add the contact if you didn't give me permission?", preferredStyle: .Alert)
 
     let openSettingsAction = UIAlertAction(title: "Settings", style: .Default, handler: { alert in
@@ -361,14 +361,14 @@ After the `guard` statement you added, you can be sure that you have permission 
 Add the following method to `FriendsViewController`:
 
 ```swift
-func saveFriendToContacts(friend: Friend){
+func saveFriendToContacts(friend: Friend) {
   // 1
   let contact = friend.contactValue.mutableCopy() as! CNMutableContact
   // 2
   let saveRequest = CNSaveRequest()
   // 3
   saveRequest.addContact(contact, toContainerWithIdentifier: nil)
-  do{
+  do {
     // 4
     let contactStore = CNContactStore()
     try contactStore.executeSaveRequest(saveRequest)
@@ -391,7 +391,7 @@ There's a lot of new stuff in this code, so let's break it apart:
 Add the following code to show the alert at `// Show Success Alert`:
 
 ```swift
-dispatch_async(dispatch_get_main_queue()){
+dispatch_async(dispatch_get_main_queue()) {
   let successAlert = UIAlertController(title: "Contacts Saved", message: nil, preferredStyle: .Alert)
   successAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
   self.presentViewController(successAlert, animated: true, completion: nil)
@@ -401,15 +401,14 @@ dispatch_async(dispatch_get_main_queue()){
 Also, add the following code at `// Show Failure Alert`:
 
 ```swift
-dispatch_async(dispatch_get_main_queue()){
+dispatch_async(dispatch_get_main_queue()) {
   let failureAlert = UIAlertController(title: "Could Not Save Contact", message: "An unknown error occurred.", preferredStyle: .Alert)
-  let dismissAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
-failureAlert.addAction(dismissAction)
+  failureAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
   self.presentViewController(failureAlert, animated: true, completion: nil)
 }
 ```
 
-Go back to `tableView(_:editActionsForRowAtIndexPath:)` and add the following code under the `guard` block:
+Go back to `tableView(_:editActionsForRowAtIndexPath:)` and add the following code after the `guard` block:
 
 ```swift
 let friend = self.friendsList[indexPath.row]
@@ -446,10 +445,10 @@ let contactName = contactFormatter.stringFromContact(friend.contactValue)!
 //3
 let predicateForMatchingName = CNContact.predicateForContactsMatchingName(contactName)
 //4
-let matchingContacts = try! contactStore.unifiedContactsMatchingPredicate(predicateForMatchingName, keysToFetch: [])
+let matchingContacts = try! CNContactStore().unifiedContactsMatchingPredicate(predicateForMatchingName, keysToFetch: [])
 //4
 guard matchingContacts.isEmpty else {
-  dispatch_async(dispatch_get_main_queue()){
+  dispatch_async(dispatch_get_main_queue()) {
     let alert = UIAlertController(title: "Contact Already Exists", message: nil, preferredStyle: .Alert)
     alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
     self.presentViewController(alert, animated: true, completion: nil)
@@ -468,7 +467,7 @@ Here's the breakdown:
 
 > **Note**: `unifiedContactsMatchingPredicate(_:keysToFetch:)` has a `keysToFetch` parameter that you ultimately ignore by passing in an empty array. However, if you were to try to access or modify the contacts that were fetched, it would throw an error because the keys were not fetched. If you wanted to access the fetched contacts' first names, for example, you would have to add `CNContactGivenNameKey` to `keysToFetch`.
 
-Run the app, and try to add the same contact multiple times. Once the contact has been added, the app will not add the contact a second time.
+Run the app, and try to use the **Create Contact** action on the same friend multiple times. Once the contact has been added, the app will not add the contact a second time.
 
 Congratulations – You have now dramatically improved RWConnect and learned a ton about the new Contacts framework while doing so!
 
