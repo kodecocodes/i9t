@@ -21,11 +21,9 @@ If for any reason, you really don't want to participate in a multitasking enviro
 
 ![width=90% ipad](images/mt02.png)
 
-
 The Picture in Picture (PIP) multitasking feature works similarly to the picture-in-picture function on televisions. When watching a video or participating in a FaceTime call, the video window can be minimized to one corner of the iPad so you can continue to use other apps while you watch or chat.
 
 ![width=90% ipad](images/mt03.png)
-
 
 > **Note:** At the time of writing this chapter, Slide Over is supported on iPad Air 2 only. Picture in Picture is supported on iPad Air, iPad Air 2, iPad Mini 2, and iPad Mini 3 only.
 
@@ -194,36 +192,29 @@ Build and run. Verify that when you are looking at the table of logs, and a seco
 
 ## Camera
 
-Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are good to go because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button.
+Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are in better shape because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button. To see it in action, run __Travelog__ on an iPad Air 2 device. Make sure you are in multitasking mode by sliding over another app and pin it on top of Travelog. Now add a new multimedia log by tapping the camera button and select __PHOTO__ mode:
 
-If your app uses `AVCaptureSession`, you may need to do some additional work and beef up your code to better cover cases where the camera feed is suspended while the app is running.
+![width=90% ipad](images/mt12.png)
 
---------------------------------------------------------------------------
+You will be presented with a full screen camera controller:
 
-AVCaptureSession
-only availabe when fullscreen. ACVsession can be intruppted otherwise.
-AVCaptureSessionWasInterruptedNotification
-Check interruption reason: AVCaptureSessionInterruptionReasonKey
--VideoDeviceNotAvailableWithMultipleForegroundApps
-Update UI.
-AVCaptureSession automatically restores.
-AVCaptureSessionInterruptionEndedNotification
+![width=90% ipad](images/mt13.png)
 
-Camera is available only to one app at a time.
-UIImagePicker:
-if single app then (1) camera preview, (2) photo capture, (3) video capture.
-if multiple app then (1) camera preview, (2) photo capture. There is no video capture.
-UIImagePickerController.startVideoCapture() returns false!
+Now switch to __VIDEO__. You'll see that the camera view is now blocked:
 
---------------------------------------------------------------------------
+![width=90% ipad](images/mt14.png)
 
-![width=90%](images/mt12.png)
+Camera view for PHOTO mode is also blocked if you bring up another app in the slide over that uses camera:
+
+![width=90% ipad](images/mt15.png)
+
+If your app uses `AVCaptureSession`, you may need to do some additional work and beef up your code to better cover cases where the camera feed is suspended while the app is running. There are two important `NSNotification`s that you want to listen to: `AVCaptureSessionWasInterruptedNotification` and `AVCaptureSessionInterruptionEndedNotification`. In the `userInfo` of the notification you'll receive a key named `AVCaptureSessionInterruptionReasonKey` with a value that explains why camera feed is interrupted. In the multitasking mode the value is `AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableWithMultipleForegroundApps`.
 
 ## System snapshot
 
 You are probably familiar with iOS system snapshots. To refresh your memeories, when your app becomes inactive and enters background, the OS takes a snapshot of the app's window. The OS uses that snapshot later on when users activates App Switcher by double tapping the Home button:
 
-![width=90% ipad](images/mt13.png)
+![width=90% ipad](images/mt16.png)
 
 System snapshots happen automatically, and historically all you had to do was either obscuring your view if you were displaying some sensitive information or  nothing. New in a multitasking environment, the OS now changes your view sizes and takes multiple snapshots. To see this in practice, open __SplitViewController.swift__ and update implementation of `viewWillTransitionToSize(_, withTransitionCoordinator:)` as follows:
 
@@ -252,11 +243,11 @@ Memory is another limited resource. You've always been told to be a good memory 
 
 When your is launched, some memory is already allocated by the operating system. Your app claims some of the available memory. There is still some free memory left and everybody's happy!
 
-![width=90%](images/mt14.png)
+![width=90%](images/mt17.png)
 
 Then the secondary app comes along and user may also launch a video in picture-in-picture mode.
 
-![width=90%](images/mt15.png)
+![width=90%](images/mt18.png)
 
 You may heard about __Springboard__. It's a built-in system application that manages display of icons and user's home screen. Springboard is a also `UIApplication` and is a multitasking app in its own right. Springboard always runs in the foreground. When system is under memory pressure, primary app and the secondary app are the first apps to be ditched. That's because the system wants to reclaim some memory to make its Springboard stable. Picture-in-picture is considered a background task of the Springboard. Both primary and secondary app, though, run as foreground apps, so they are the first apps to get jettisoned under memory pressure.
 
@@ -278,98 +269,8 @@ Before you go, consider these few thoughts on multitasking best practices.
 viewControllerForAdaptivePresentationStyle:)`.
 
 ## Where to go from here
-Adopting Multitasking Enhancements on iPad [https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html]
-Getting Started with Multitasking on iPad in iOS 9 (Session 205) [https://developer.apple.com/videos/wwdc/2015/?id=205]
-Multitasking Essentials for Media-Based Apps on iPad in iOS 9 (session 211) [https://developer.apple.com/videos/wwdc/2015/?id=211]
-Optimizing Your App for Multitasking on iPad in iOS 9 (Session 212) [https://developer.apple.com/videos/wwdc/2015/?id=212]
-
-
-
-
-
-
-
-
-
-
-
-	2. Changes in UIKit for better adoption
-
-// IF THE FIRST 2 STEP take too long, the app is terminated!
-// DO NOT ASSUME that if Trait is changed, size is changed too.
-
-
-
-UIPresentationController
-to provide custom presentaitons: A look inside presentation controller (WWDC 2014)
-
-Popover presentation becomes modal presentation or may become form sheet
-
-
-
-To maintain the pointing arrow of the popover to the correct location:
-popoverPresentationController.barButtonItem = sender OR
-popoverPresentationController.sourceView = button
-popoverPresentationController.sourceRect = button.bounds
-
-UIKeyboard WillShow / DidShow / WillHide / DidHide / WillChangeFrame / DidChangeFrame Notification
-
-Best practices:
-
-
-Making the most out of Multitasking
-1.
-3. Use adaptivity to change between them
-
-Strategies
-1: Be flexible. Don’t hard code size. Don’t make assumptions. React to changes in size. Try all multitasking sizes and take notes of what works or not. Don't worry about animations:
-
-slide over
-resize bigger
-make it bigger again
-slide over another app
-pin the slider
-rotate device : size class change but no size change [?]
-concentrate on layout - NOT animation, etc.
-USE AUTO LAYOUT
-Margines and guides
-Use asset catalogs
-Change view attributes
-change font
-
-2: Auto Layout
-let label = UILabel()
-let readableContentGuide = self.view.readableContentGuide
-let constraints =  [label.leadingAnchor.constraintEqualToAnchor(readableContentGuide.leadingAnchor), label.trailingAnchor.contraintEqualToAnchor(readableContentGuide.trailingAnchor)]
-NSLayoutConstraint.activateConstraints(constraints)
-
-3: Take advantage of Size classes in Xcode (storyboard)
-You can preview in storyboard
-
-// want to present different UI for different size classes
-willTransitonToTraitCollection
-super…
-switch
-.compact
-.regular
-.unspecified // don't do anything
-
-
-
-Guidelines:
-User control's your app size
-Apps cannot and should not prevent size changes
-Apps cannot cause size changes
-Size changes can happen at any time
-Keep the user orientated.
-Don’t make abrupt changes
-Be smart in new ways
-The system may change the app’s size to take a snapshot and then re-resize it.
-When the app is deactivated, remember the size and location for as long as the app is inactive maintain that state!
-On size change --> if inactive && newSize == originalSize { apply remembered state }
-
-in case of multi screen only the primary app gets the second screen
-use completion blocks for slow actions
-
-When the size changes, do as little work as possible.
-Use completion blocks for slow work
+In this chapter you learned about basics of Multitasking. Multitasking completely changes the way users use their iPads. Here are a number of resources that you can bookmark for future reference:
+* [Adopting Multitasking Enhancements on iPad](https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html)
+* [Getting Started with Multitasking on iPad in iOS 9 (Session 205)](https://developer.apple.com/videos/wwdc/2015/?id=205)
+* [Multitasking Essentials for Media-Based Apps on iPad in iOS 9 (session 211)](https://developer.apple.com/videos/wwdc/2015/?id=211)
+* [Optimizing Your App for Multitasking on iPad in iOS 9 (Session 212)](https://developer.apple.com/videos/wwdc/2015/?id=212)
