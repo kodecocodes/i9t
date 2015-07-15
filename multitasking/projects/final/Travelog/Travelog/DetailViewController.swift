@@ -24,11 +24,13 @@ import UIKit
 import TravelogKit
 import MobileCoreServices
 import AVFoundation
+import AVKit
 
 enum DetailViewState {
   case DisplayNone
   case DisplayTextLog
   case DisplayImageLog
+  case DisplayVideoLog
 }
 
 class DetailViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -41,6 +43,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
   @IBOutlet private var imageView: UIImageView!
   @IBOutlet private var titleLabel: UILabel!
   @IBOutlet private var errorView: UIView!
+  @IBOutlet private var playButton: UIButton!
   
   let dateFormatter: NSDateFormatter = {
     let formatter = NSDateFormatter()
@@ -88,6 +91,11 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     // Edit button is only visible when selected log is a text log.
     guard let selectedLog = selectedLog as? TextLog else { return }
     presentTextViewController(selectedLog.text)
+  }
+  
+  @IBAction func playButtonTapped(sender: UIButton?) {
+    guard let videoLog = selectedLog as? VideoLog else { return }
+    playVideoAtURL(videoLog.URL)
   }
   
   // MARK: Public methods
@@ -159,7 +167,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     } else if let selectedLog = selectedLog as? VideoLog {
       imageView.image = selectedLog.previewImage
       titleLabel.text = self.dateFormatter.stringFromDate(selectedLog.date)
-      setDetailViewState(DetailViewState.DisplayImageLog)
+      setDetailViewState(DetailViewState.DisplayVideoLog)
     } else {
       setDetailViewState(DetailViewState.DisplayNone)
       titleLabel.text = nil
@@ -177,6 +185,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       textView.hidden = true
       imageView.hidden = true
       titleLabel.hidden = true
+      playButton.hidden = true
       
       textView.text = nil
       imageView.image = nil
@@ -187,6 +196,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       textView.hidden = false
       imageView.hidden = true
       titleLabel.hidden = false
+      playButton.hidden = true
       
       imageView.image = nil
       navigationItem.setRightBarButtonItems([editButton], animated: true)
@@ -196,6 +206,17 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       textView.hidden = true
       imageView.hidden = false
       titleLabel.hidden = false
+      playButton.hidden = true
+      
+      textView.text = nil
+      navigationItem.setRightBarButtonItems([photoLibraryButton, cameraButton], animated: true)
+      
+    case .DisplayVideoLog:
+      errorView.hidden = true
+      textView.hidden = true
+      imageView.hidden = false
+      titleLabel.hidden = false
+      playButton.hidden = false
       
       textView.text = nil
       navigationItem.setRightBarButtonItems([photoLibraryButton, cameraButton], animated: true)
@@ -228,7 +249,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
   }
   
   /// Create an snapshot of a movie at a given URL and return UIImage.
-  func snapshotFromMovieAtURL(movieURL: NSURL) -> UIImage {
+  private func snapshotFromMovieAtURL(movieURL: NSURL) -> UIImage {
     let asset = AVAsset(URL: movieURL)
     let generator: AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
     generator.appliesPreferredTrackTransform = true
@@ -240,6 +261,15 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     catch {}
     return UIImage()
+  }
+  
+  /// Plays back a movie item using AVPlayerViewController that's presented modally.
+  private func playVideoAtURL(URL: NSURL) {
+    let controller = AVPlayerViewController()
+    controller.player = AVPlayer(URL: URL)
+    presentViewController(controller, animated: true) { () -> Void in
+      controller.player?.play()
+    }
   }
   
   // MARK: UIImagePickerControllerDelegate
