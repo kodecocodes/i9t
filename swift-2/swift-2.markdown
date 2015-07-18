@@ -233,7 +233,7 @@ protocol StringValidationRule {
 
 This protocol requires a method that returns a `Bool` regarding the validity of a given string and can throw an error. It also requires that you provide the type of error that can be thrown
 
-> **Note**: Although it may appear so, the `errorType` property is not a Swift requirement. This property is here simple as the design of the solution.
+> **Note**: The `errorType` property is not a Swift requirement. It's here so that you can be clear about the types of error that might be returned.
 
 To use multiple rules together, define a `StringValidator` protocol.
 
@@ -245,13 +245,13 @@ protocol StringValidator {
 }
 ```
 
-This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is a `Bool` that designates if the string is valid or not, the second is an array of `StringValidationError`s. In this case you are not using `throws` but rather returning an array of error types as each rule can throw its own error. In the case of string validation it's a better user experience to let the user know of every rule they've broken so that they can resolve each one in a single pass.
+This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is a `Bool` that designates if the string is valid or not, the second is an array of `StringValidationError`s. In this case you are not using `throws`. Instead, you're returning an array of error types as each rule can throw its own error. In the case of string validation it's a better user experience to let the user know of every rule they've broken so that they can resolve each one in a single pass.
 
 Now take a step back and think of how you might implement a `StringValidator`'s `validate(string:)` method. It will probably be that you iterate over each item in `validationRules`, collect any errors, and determine the status based on whether or not any errors have occurred. This logic will likely be the same for any `StringValidator`.
 
 Surely you don't want to copy/paste that implementation into ALL of your `StringValidator`s, right? Well, good news, Swift 2.0 introduces Protocol Extensions that allow you to define default implementations for all types that specify conformance to a protocol.
 
-Extend the `StringValidator` protocol to define a default implementation for `validate(string:)`.
+Extend the `StringValidator` protocol to define a default implementation for `validate(string:)`. Add the following code to the playground:
 
 ```
 extension StringValidator {                          // 1
@@ -284,10 +284,10 @@ This method's process is broken down by commented line number below:
 6. Execute `validate(string:)` for each rule, note that you must precede the call with `try` as this method can throw
 7. Catch any errors of the type `StringValidationError`
 8. Capture the error in your `errors` array
-9. If some error other than `StringValidationError` is thrown, crash with a message including which error occurred. This is optional depending on your API design. In this case it would be a developer error that this occurred and it is best to be aware of it as soon as possible, crashes are a simple way to make that obvious. In production code you may prefer to log the error and move on as long as doing so would not put your application in an unstable state.
+9. If some error other than `StringValidationError` is thrown, crash with a message including which error occurred. Like a switch statement, your error catching has to be exhaustive, or you'll get a compiler error. 
 10. Return the resultant tuple. If there are no errors validation passed, return the array of errors even if empty.
 
-Excellent! Now any and every `StringValidator` that you implement will have this method by default so that you do not need to copy/paste it in everywhere. Time to implement your very first `StringValidationRule`, starting with the first error type `.MustStartWith`.
+Excellent! Now any and every `StringValidator` that you implement will have this method by default so that you do not need to copy/paste it in everywhere. Time to implement your very first `StringValidationRule`, starting with the first error type `.MustStartWith`. Add the following code to the playground:
 
 ```
 struct StartsWithCharacterStringValidationRule: StringValidationRule {
@@ -315,7 +315,7 @@ Breaking this method down...
 3. Type of error that this rule can throw
 4. Throw the error if validation fails
 
-Time to take this new rule for a spin!
+Time to take this new rule for a spin! Add the following code to the playground:
 
 ```
 let letterSet = NSCharacterSet.letterCharacterSet()
@@ -335,7 +335,7 @@ You should see the following output in your playground. You can get the result t
 
 ![bordered height=16%](./images/starts_with_rule_result.png)
 
-Great work! You've written your first validation rule, now create one for "Must End With".
+Great work! You've written your first validation rule, now create one for "Must End With", by adding the following to the playground:
 
 ```
 struct EndsWithCharacterStringValidationRule: StringValidationRule {
@@ -356,7 +356,7 @@ struct EndsWithCharacterStringValidationRule: StringValidationRule {
 }
 ```
 
-This logic is very similar. Now that you have two different rules you can create your own `StringValidator`. Write a validator that verifies a string both starts and ends with characters in respective character sets.
+This logic is very similar. Now that you have two different rules, you can create your own `StringValidator`. Create a validator that verifies a string both starts and ends with characters in specific character sets by adding the following code:
 
 ```
 struct StartsAndEndsWithStringValidator: StringValidator {
@@ -384,7 +384,7 @@ Since you wrote a protocol extension for `StringValidator` that provides a defau
 2. A character set for the ends with rule
 3. Create an array with both rules for `validationRules` which the `StringValidator` protocol requires
 
-Now give your new validator a try!
+Now give your new validator a try! Add the following to the playground:
 
 ```
 let numberSet = NSCharacterSet.decimalDigitCharacterSet()
@@ -416,7 +416,9 @@ Now it is time to put the StringValidator pattern that you've created to real-wo
 
 Before coming up with the protocol oriented solution that you just built, you might have looked at this list of requirements and groaned a little. But, groan no more! You can take the pattern that you've built and quickly create a `StringValidator` that contains the rules for this password requirement.
 
-Start by switching to the "Password Validation" page in the chapter's playground. For brevity purposes this playground page tucks away all of the previous work you did on the String Validation page as a source file for this page. That source file also contains two new rules that you will be using. The first is `LengthStringValidationRule` with the following interface.
+Start by switching to the **Password Validation** page in the chapter's playground. For brevity purposes this playground page tucks away all of the previous work you did on the String Validation page as a source file. That source file also contains two new rules that you will be using. You can view the code by clicking **Password Validation** > **Sources** > **StringValiation.swift** in the jump bar. 
+
+The first new rule is `LengthStringValidationRule` with the following features:
 
 #### `LengthStringValidationRule`
 
@@ -468,7 +470,7 @@ public struct ContainsCharacterStringValidationRule : StringValidationRule {
 }
 ```
 
-With these two new rules in your back pocket you can quickly implement the password requirement validator.
+With these two new rules in your back pocket you can quickly implement the password requirement validator. In the **Password Validation** page in the playground, add the following:
 
 ```
 struct PasswordRequirementStringValidator: StringValidator {
@@ -503,7 +505,7 @@ struct PasswordRequirementStringValidator: StringValidator {
 }
 ```
 
-Now, try it out!
+Now, try it out! Add the following to the playground:
 
 ```
 let passwordValidator = PasswordRequirementStringValidator()
@@ -529,7 +531,7 @@ Say that you wanted to make a method that shuffles an array of names to determin
 
 Right! How about creating an extension on the `MutableCollectionType` protocol where conformers of the protocol have an Index (you need to use ordered collections if you want to retain sort order).
 
-Type the following into the "Additional Things" page in the chapter's playground.
+Type the following into the **Additional Things** page in the chapter's playground.
 
 ```
 extension MutableCollectionType where Self.Index == Int {
@@ -543,7 +545,7 @@ extension MutableCollectionType where Self.Index == Int {
 }
 ```
 
-Next create an array of people and invoke your new method.
+Next create an array of people and invoke your new method. Add the following code:
 
 ```
 var people = ["Chris", "Ray", "Sam", "Jake", "Charlie"]
@@ -602,7 +604,7 @@ struct ATM {
 
 In this example there are a multiple places that the method can exit early. One thing is for certain though, an ATM should always return the card to the user, regardless of what happens. The use of the `defer` block guarantees that no matter when the method exits, the user's card will be returned.
 
-Type the following to try dispensing funds from Bill's account.
+Find the line where `billsAccount` is declared and after it type the following to try dispensing funds:
 
 ```
 do {
@@ -612,7 +614,7 @@ do {
 }
 ```
 
-Attempting to dispense funds from a locked account throws an `ATMError.AccountLocked` but notice the events that occurred by checking the `atm.log`.
+Attempting to dispense funds from a locked account throws an `ATMError.AccountLocked`, but add `atm.log` and read the output:
 
 ![bordered height=15%](/images/defer_result.png)
 
@@ -622,7 +624,7 @@ Bill's card was returned even though the method exited early.
 
 Swift has had amazing pattern matching capabilities since the beginning, especially with cases in `switch` statements. Swift 2.0 continues to add to the language's ability in this area. Here are a few brief examples.
 
-"for ... in" filtering provides the ability to iterate as you normally would using a for-in loop, except that you can provide a `where` statement so that only iterations whose `where` statement is true will be executed. Use for ... in filtering to create an array of names that start with "C".
+"for ... in" filtering combines a for-in loop and a `where` statement so that only iterations whose `where` statement is true will be executed. Use for ... in filtering to create an array of names that start with "C". Find the **Pattern Matching** section of the page and enter the following:
 
 ```
 var namesThatStartWithC = [String]()
@@ -653,26 +655,9 @@ for author in authors {
 }
 ```
 
-This section concludes the use of the chapter's playground, so you can put that aside.
-
-### OS Availability
-
-As Apple continually introduces new versions of iOS (and OS X) they give developers new frameworks and APIs to utilize. The problem with this is that unless you drop support for previous versions of the OS you cannot safely use the new APIs without a lot of messy runtime checks which always leads to missed cases and basic human error, resulting in a crashing app.
-
-In Swift 2.0 you can now let the compiler help you. There is not enough time to cover all of the use cases here but as a quick introduction consider the following example.
-
-```
-guard #available(iOS 9.0, *) else { return }
-// do some iOS 9 or higher only thing
-```
-
-The code above "guards" on the iOS version running the application. If the iOS version is less than 9.0 the routine will exit immediately. This allows you to freely write against iOS 9 specific APIs beyond the `guard` statement without constantly checking for API availability using methods like `respondsToSelector(:)`.
-
-The compiler will also you know if you've used a new API when your deployment target is set to some OS version where the API is not available.
-
 ### Option Sets
 
-The final feature this chapter will discuss is changes to option sets. Prior to Swift 2.0 in both Swift and Objective-C bitmasks were often used to describe a set of options flags. This should be familiar if you've ever done animations with UIKit.
+Prior to Swift 2.0 in both Swift and Objective-C bitmasks were often used to describe a set of options flags. This should be familiar if you've ever done animations with UIKit.
 
 You can now type a set of option flags like you would any other `Set<T>`, which was introduced in Swift 1.2.
 
@@ -696,18 +681,35 @@ struct RectangleBorderOptions: OptionSetType {
 }
 ```
 
+This section concludes the use of the chapter's playground, so you can put that aside.
+
+### OS Availability
+
+As Apple continually introduces new versions of iOS (and OS X) they give developers new frameworks and APIs to utilize. The problem with this is that unless you drop support for previous versions of the OS you cannot safely use the new APIs without a lot of messy runtime checks which always leads to missed cases and basic human error, resulting in a crashing app.
+
+In Swift 2.0 you can now let the compiler help you. There is not enough time to cover all of the use cases here but as a quick introduction consider the following example.
+
+```
+guard #available(iOS 9.0, *) else { return }
+// do some iOS 9 or higher only thing
+```
+
+The code above "guards" on the iOS version running the application. If the iOS version is less than 9.0 the routine will exit immediately. This allows you to freely write against iOS 9 specific APIs beyond the `guard` statement without constantly checking for API availability using methods like `respondsToSelector(:)`.
+
+The compiler will also you know if you've used a new API when your deployment target is set to some OS version where the API is not available.
+
 ## Where to go from here?
 
 While this chapter covered a lot of ground, you mostly just dipped your toes into each feature. There is a ton of power in the new features of Swift 2.0. And there are even more that were not covered here. It is highly recommended that you continue down the path of learning about Swift 2.0 features so that you can write better code and make better apps even faster. Never hesitate to crack open an  Xcode Playground and start hacking away, prototyping ideas has never been easier. One pro-tip is to keep a playground in your Mac's Dock so that you can jump right in at a moment's notice.
 
 You also should not miss the following WWDC 2015 sessions:
-- [What's New In Swift](https://developer.apple.com/videos/wwdc/2015/?id=106)
-- [Protocol-Oriented Programming in Swift](https://developer.apple.com/videos/wwdc/2015/?id=408)
-- [Building Better Apps with Value Types in Swift](https://developer.apple.com/videos/wwdc/2015/?id=414)
-- [Improving Your Existing Apps with Swift](https://developer.apple.com/videos/wwdc/2015/?id=403)
-- [Swift and Objective-C Interoperability](https://developer.apple.com/videos/wwdc/2015/?id=401)
-- [Swift in Practice](https://developer.apple.com/videos/wwdc/2015/?id=411)
+- [What's New In Swift (http://apple.co/1IBTu8q)](https://developer.apple.com/videos/wwdc/2015/?id=106)
+- [Protocol-Oriented Programming in Swift (http://apple.co/1B8r2LE)](https://developer.apple.com/videos/wwdc/2015/?id=408)
+- [Building Better Apps with Value Types in Swift (http://apple.co/1KMQesY)](https://developer.apple.com/videos/wwdc/2015/?id=414)
+- [Improving Your Existing Apps with Swift (http://apple.co/1LiO462)](https://developer.apple.com/videos/wwdc/2015/?id=403)
+- [Swift and Objective-C Interoperability (http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=401)
+- [Swift in Practice (http://apple.co/1LPx2cq)](https://developer.apple.com/videos/wwdc/2015/?id=411)
 
-All of these and more can be found at [https://developer.apple.com/videos/wwdc/2015/](https://developer.apple.com/videos/wwdc/2015/).
+All of these and more can be found at [https://developer.apple.com/videos/wwdc/2015/ (http://apple.co/1HXDwT7)](https://developer.apple.com/videos/wwdc/2015/).
 
-And of course keep the official [Swift Programming Language Book](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/index.html) handy!
+And of course keep the official [Swift Programming Language Book (http://apple.co/1n5tB6q)](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/index.html) handy!
