@@ -44,7 +44,7 @@ Enough premise, time for some code!
 
 ## Control Flow
 
-Control flow in any programming language is a fundamental concept, if you're not familiar with the term, just know that `if/else` is a control flow. Any construct or keyword that can cause the execution of your program at runtime to take a different path can be considered "control flow". With Swift 2.0 Apple has added to the control flow features and made some minor changes to existing ones. In this section you will read about two new control flow features, the chapter's Playground has all of the code used for this on the "Control Flow" page.
+Control flow in any programming language is a fundamental concept, if you're not familiar with the term, just know that `if/else` is a control flow. Any construct or keyword that can cause the execution of your program at runtime to take a different path can be considered "control flow". With Swift 2.0 Apple has added to the control flow features and made some minor changes to existing ones. In this section you will read about two new control flow features, the chapter's Playground has all of the code used for this on the **Control Flow** page.
 
 ### `repeat`
 
@@ -95,7 +95,7 @@ if beer.isEmpty {
 
 Pretty simple... But, you had to flip the logic to check that the beer is empty rather than checking that the beer isn't empty, which is of more interest because you'll look silly sipping empty beers. Six of one, half a dozen of the other... right?
 
-This really comes down to expressiveness which is a goal of the Swift language. There's nothing wrong with checking the positive vs negative condition, but what `guard` clearly states to anyone reading this code is that you're performing a pre-condition check. Using a plain ole `if` statement does not deliberately convey that information.
+This really comes down to expressiveness which is a goal of the Swift language. There's nothing wrong with checking the positive vs negative condition, but what `guard` clearly states to anyone reading this code is that you're performing a pre-condition check. Using a plain old `if` statement does not deliberately convey that information.
 
 Now, before you write-off `guard` as _just_ an enhancement in expressiveness, take a look at its true power, which is working with Optionals.
 
@@ -122,11 +122,11 @@ This feature allows you to do your optional binding upfront in a very explicit m
 
 ## Error handling
 
-When Swift was first introduced you would often find questions on Stack Overflow about error handling. A lot of people were looking for exceptions that are found in many popular languages. Instead Apple opted to stick to the `NSError` approach that Cocoa has had since the beginning. This was an OK solution given that having not shipped Swift until they finalized error handling would arguably had been worse.
+When Swift was first introduced you would often find questions on Stack Overflow about error handling. A lot of people were looking for exceptions that are found in many popular languages. Instead Apple opted to stick to the `NSError` approach that Cocoa has had since the beginning. This was a better solution than not shipping Swift until they finalized error handling.
 
 The good news is that Swift 2.0 now has a first-class error handling model. It's now possible to define that a method or function `throws` an error. When you declare this, you are letting the caller/consumer know that an error may occur. And what's even better, the compiler enforces that extra code is written to handle the error or explicitly ignore it.
 
-All of the code for this section is included on the "Errors" page of the chapter's Xcode Playground.
+All of the code for this section is included on the **Errors** page of the chapter's Xcode Playground.
 
 Consider the following protocol.
 
@@ -138,7 +138,7 @@ protocol JSONParsable {
 
 This protocol defines a single static method that takes a JSON dictionary and returns an instance of `Self` (where `Self` is the type that conforms to this protocol). The method also declares that it can throw an error.
 
-Now you might be asking yourself, what is a Swift error? Is it an `NSError`? The answer to that question is, yes and no. A pure Swift error is represented as an `enum` that conforms to the protocol `ErrorType`. As for the "yes" part of the answer... Apple Engineers have graciously made `NSError` conform to the `ErrorType` protocol which makes this pattern interoperate very well between Swift and Objective-C. For more information on interoperability the [Swift and Objective-C Interoperability](https://developer.apple.com/videos/wwdc/2015/?id=401) session should not be missed!
+Now you might be asking yourself, what is a Swift error? Is it an `NSError`? The answer to that question is, yes and no. A pure Swift error is represented as an `enum` that conforms to the protocol `ErrorType`. As for the "yes" part of the answer... Apple Engineers have graciously made `NSError` conform to the `ErrorType` protocol which makes this pattern interoperate very well between Swift and Objective-C. For more information on interoperability the Swift and Objective-C Interoperability [(http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=401) session should not be missed!
 
 It's time to create your own error type.
 
@@ -173,7 +173,7 @@ struct Person: JSONParsable {
 }
 ```
 
-Pay close attention to the commented lines, 1 and 2. This is where the errors are being thrown. If either `guard` statement fails to validate, an error is thrown and the method returns without proceeding further. Also, notice how the usage of `gaurd` makes it very clear as to what is happening due to the expressiveness that it provides.
+Pay close attention to the commented lines, 1 and 2. This is where the errors are being thrown. If either `guard` statement fails to validate, an error is thrown and the method returns without proceeding further. Also, notice how the use of `guard` makes it very clear as to what is happening due to the expressiveness that it provides.
 
 When calling a method that `throws` it is required by the compiler that you precede the call to that method with **`try`**. In order to capture the thrown errors you must wrap your "trying" call in a `do {}` block followed by `catch {}` blocks. You can choose to catch specific types of errors and respond accordingly and/or provide a "catch-all" if you're not certain of the types of errors that can be thrown.
 
@@ -191,16 +191,16 @@ do {
 
 In a situation where you can guarantee that a throwing call will never fail or when catching a thrown error does not provide any benefit (such as a critical situation where the app cannot continue operating); you can bypass the `do/catch` requirement. To do so, you simply type an `!` after `try`.
 
-Try (no pun intended) entering the following into the playground. You should notice a runtime error appear.
+Find and uncomment the following line in the playground. You should notice a runtime error appear.
 
 ```
-let p = try! Person.parse(["foo": "bar"])
+let p1 = try! Person.parse(["foo": "bar"])
 ```
 
 Notice that the following works fine without producing an error.
 
 ```
-let p = try! Person.parse(["first_name": "Ray",
+let p2 = try! Person.parse(["first_name": "Ray",
   "last_name": "Wenderlich"])
 ```
 
@@ -210,7 +210,7 @@ Excellent! You now know the basics of using Swift 2.0 errors.
 
 Now it's time to focus on a specific problem to solve rather than contrived examples. For this next section of the chapter you will be solving a String validation problem using some of the features discussed above as well as more Swift 2.0 features. The desired outcome is to be able to write string validators that given an input string, validate the string conforms to any number of rules. You will ultimately be creating a password requirements validator that ensures a user has chosen a complex password.
 
-Switch to the next page in the chapter's playground, "String Validation".
+Switch to the next page in the chapter's playground, **String Validation**.
 
 ### String Validation Error
 
