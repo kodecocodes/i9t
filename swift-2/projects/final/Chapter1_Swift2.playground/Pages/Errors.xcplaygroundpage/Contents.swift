@@ -49,10 +49,10 @@ do {
 
 //: In a case where you can guarantee that a call will never throw an error or when catching the error does not provide any benefit (such as a critical situation where the app cannot continue operating); you can bypass the `do/catch` requirement. To do so, you simply type an `!` after `try`. Try (no pun intended) entering the following into the playground. You should notice a runtime error appear. Uncomment the following line to see the error.
 
-//  let p = try! Person.parse(["foo": "bar"])
+//  let p1 = try! Person.parse(["foo": "bar"])
 
 //: Notice that this line does not fail because it meets the requirements of the `parse()` implementation.
-let p = try! Person.parse(["first_name": "Ray",
+let p2 = try! Person.parse(["first_name": "Ray",
   "last_name": "Wenderlich"])
 
 //: Move on to [String Validation](@next)

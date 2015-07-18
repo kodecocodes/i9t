@@ -2,14 +2,14 @@ import UIKit
 
 //: # Chapter 1: Swift 2.0
 //: ## Control Flow
-//: **Note**: Be sure to turn on the Debug Area to see output by typing **CMD+SHIFT+UP** or pointing to **View/Debug Area/Show Debug Area**
+//: **Note**: Be sure to turn on the Debug Area to see output by typing **CMD+SHIFT+Y** or pointing to **View/Debug Area/Show Debug Area**
 
 //: Patron is defined for usage below.
 struct Patron {
   let name: String
 }
 
-//: The Beer struct provides a very basic structure for tracking the amount of beer remaining in a container and also the Patron who the beer belongs to.
+//: The Beer struct provides a very basic structure for tracking the amount of beer remaining in a container and also the Patron to whom the beer belongs.
 struct Beer {
   var percentRemaining = 100
   var isEmpty: Bool { return percentRemaining <= 0 }
@@ -39,7 +39,7 @@ repeat {
 struct Bartender {
   func offerAnotherToOwnerOfBeer(beer: Beer) {
     guard let owner = beer.owner else {
-      print("*sigh* another wounded soldier to attend to.")
+      print("Egads, another wounded soldier to attend to.")
       return
     }
     
