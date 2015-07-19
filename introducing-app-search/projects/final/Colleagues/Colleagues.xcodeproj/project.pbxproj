@@ -214,7 +214,9 @@
 				07B46B9A1B5AF7E400B55262 /* EmployeeKitTests */,
 				07689C061B562E170030E71C /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		07689C061B562E170030E71C /* Products */ = {
 			isa = PBXGroup;

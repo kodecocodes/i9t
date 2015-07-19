@@ -23,16 +23,16 @@
 import Foundation
 
 class FileHelper {
-    
-    static var bundle: NSBundle {
-        return NSBundle(forClass: self)
-    }
-    
-    static var bundlePath: String {
-        return self.bundle.bundlePath
-    }
-    
-    static var employeesJsonFilePath: String {
-        return self.bundle.pathForResource("employees", ofType: "json")!
-    }    
+  
+  static var bundle: NSBundle {
+    return NSBundle(forClass: self)
+  }
+  
+  static var bundlePath: String {
+    return self.bundle.bundlePath
+  }
+  
+  static var employeesJsonFilePath: String {
+    return self.bundle.pathForResource("employees", ofType: "json")!
+  }
 }

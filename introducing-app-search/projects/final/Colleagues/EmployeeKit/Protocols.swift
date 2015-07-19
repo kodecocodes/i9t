@@ -23,9 +23,9 @@
 import Foundation
 
 public enum JSONDecodingError: ErrorType {
-    case MissingAttribute(String)
+  case MissingAttribute(String)
 }
 
 public protocol JSONDecodable {
-    init(json: [NSObject: AnyObject]) throws
+  init(json: [NSObject: AnyObject]) throws
 }

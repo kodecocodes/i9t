@@ -24,17 +24,17 @@ import UIKit
 import EmployeeKit
 
 class EmployeeListCell: UITableViewCell {
-    
-    var employee: Employee! {
-        didSet {
-            pictureImageView.image = employee.loadPicture()
-            nameLabel.text = employee.name
-            titleLabel.text = employee.title
-        }
+  
+  var employee: Employee! {
+    didSet {
+      pictureImageView.image = employee.loadPicture()
+      nameLabel.text = employee.name
+      titleLabel.text = employee.title
     }
-    
-    @IBOutlet private weak var pictureImageView: UIImageView!
-    @IBOutlet private weak var nameLabel: UILabel!
-    @IBOutlet private weak var titleLabel: UILabel!
-
+  }
+  
+  @IBOutlet private weak var pictureImageView: UIImageView!
+  @IBOutlet private weak var nameLabel: UILabel!
+  @IBOutlet private weak var titleLabel: UILabel!
+  
 }
