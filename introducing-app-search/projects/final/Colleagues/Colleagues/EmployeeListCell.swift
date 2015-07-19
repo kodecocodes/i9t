@@ -23,11 +23,4 @@ class EmployeeListCell: UITableViewCell {
     @IBOutlet private weak var nameLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!
 
-    @IBAction private func call(sender: AnyObject) {
-        employee.call()
-    }
-    
-    @IBAction private func email(sender: AnyObject) {
-        employee.sendEmail()
-    }
 }
