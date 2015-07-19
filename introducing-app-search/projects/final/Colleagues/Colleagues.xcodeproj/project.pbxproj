@@ -51,6 +51,7 @@
 		07B46BE81B5B0BB900B55262 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46BE71B5B0BB900B55262 /* FileHelper.swift */; };
 		07B46BEA1B5B1B9500B55262 /* EmployeeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46BE91B5B1B9500B55262 /* EmployeeListViewController.swift */; };
 		07B46BEC1B5B21EC00B55262 /* EmployeeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46BEB1B5B21EC00B55262 /* EmployeeListCell.swift */; };
+		07B46BEE1B5B2ECD00B55262 /* EmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46BED1B5B2ECD00B55262 /* EmployeeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +158,7 @@
 		07B46BE71B5B0BB900B55262 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		07B46BE91B5B1B9500B55262 /* EmployeeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeListViewController.swift; sourceTree = "<group>"; };
 		07B46BEB1B5B21EC00B55262 /* EmployeeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeListCell.swift; sourceTree = "<group>"; };
+		07B46BED1B5B2ECD00B55262 /* EmployeeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +235,7 @@
 				07689C111B562E170030E71C /* LaunchScreen.storyboard */,
 				07689C141B562E170030E71C /* Info.plist */,
 				07B46BE91B5B1B9500B55262 /* EmployeeListViewController.swift */,
+				07B46BED1B5B2ECD00B55262 /* EmployeeViewController.swift */,
 				07B46BEB1B5B21EC00B55262 /* EmployeeListCell.swift */,
 			);
 			path = Colleagues;
@@ -554,6 +557,7 @@
 			files = (
 				07B46BEC1B5B21EC00B55262 /* EmployeeListCell.swift in Sources */,
 				07689C091B562E170030E71C /* AppDelegate.swift in Sources */,
+				07B46BEE1B5B2ECD00B55262 /* EmployeeViewController.swift in Sources */,
 				07B46BEA1B5B1B9500B55262 /* EmployeeListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

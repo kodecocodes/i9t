@@ -15,8 +15,25 @@ class EmployeeListViewController: UIViewController {
     
     private var employeeList = [Employee]()
     
+    private var selectedIndexPath: NSIndexPath?
+    
     override func viewDidLoad() {
         employeeList = EmployeeService().fetchEmployees()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if let selectedIndexPath = selectedIndexPath {
+            tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ViewEmployee",
+            let cell = sender as? EmployeeListCell,
+            let employeeViewController = segue.destinationViewController as? EmployeeViewController {
+            employeeViewController.employee = cell.employee
+        }
     }
 }
 
@@ -33,5 +50,9 @@ extension EmployeeListViewController: UITableViewDataSource, UITableViewDelegate
         cell.employee = employeeList[indexPath.row]
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        selectedIndexPath = indexPath
     }
 }
