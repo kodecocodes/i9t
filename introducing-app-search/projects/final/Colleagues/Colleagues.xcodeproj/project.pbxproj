@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		07689C091B562E170030E71C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07689C081B562E170030E71C /* AppDelegate.swift */; };
-		07689C0B1B562E170030E71C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07689C0A1B562E170030E71C /* ViewController.swift */; };
 		07689C0E1B562E170030E71C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07689C0C1B562E170030E71C /* Main.storyboard */; };
 		07689C101B562E170030E71C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07689C0F1B562E170030E71C /* Assets.xcassets */; };
 		07689C131B562E170030E71C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07689C111B562E170030E71C /* LaunchScreen.storyboard */; };
@@ -22,34 +21,36 @@
 		07B46BAA1B5AF80500B55262 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46BA91B5AF80500B55262 /* Employee.swift */; };
 		07B46BAC1B5AF91D00B55262 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46BAB1B5AF91D00B55262 /* Protocols.swift */; };
 		07B46BAE1B5AFAAD00B55262 /* EmployeeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46BAD1B5AFAAD00B55262 /* EmployeeService.swift */; };
-		07B46BCB1B5AFF0500B55262 /* addison.hanson.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB11B5AFF0500B55262 /* addison.hanson.jpg */; };
-		07B46BCC1B5AFF0500B55262 /* bradley.simmons.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB21B5AFF0500B55262 /* bradley.simmons.jpg */; };
-		07B46BCD1B5AFF0500B55262 /* brent.reid.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB31B5AFF0500B55262 /* brent.reid.jpg */; };
-		07B46BCE1B5AFF0500B55262 /* cary.iowa.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB41B5AFF0500B55262 /* cary.iowa.jpg */; };
-		07B46BCF1B5AFF0500B55262 /* clifford.lewis.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB51B5AFF0500B55262 /* clifford.lewis.jpg */; };
-		07B46BD01B5AFF0500B55262 /* daniel.hall.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB61B5AFF0500B55262 /* daniel.hall.jpg */; };
-		07B46BD11B5AFF0500B55262 /* edna.owens.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB71B5AFF0500B55262 /* edna.owens.jpg */; };
-		07B46BD21B5AFF0500B55262 /* felix.ryan.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB81B5AFF0500B55262 /* felix.ryan.jpg */; };
-		07B46BD31B5AFF0500B55262 /* jack.gomez.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB91B5AFF0500B55262 /* jack.gomez.jpg */; };
-		07B46BD41B5AFF0500B55262 /* joann.russel.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBA1B5AFF0500B55262 /* joann.russel.jpg */; };
-		07B46BD51B5AFF0500B55262 /* johnni.walker.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBB1B5AFF0500B55262 /* johnni.walker.jpg */; };
-		07B46BD61B5AFF0500B55262 /* kay.kennedy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBC1B5AFF0500B55262 /* kay.kennedy.jpg */; };
-		07B46BD71B5AFF0500B55262 /* kristin.castillo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBD1B5AFF0500B55262 /* kristin.castillo.jpg */; };
-		07B46BD81B5AFF0500B55262 /* kurt.horton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBE1B5AFF0500B55262 /* kurt.horton.jpg */; };
-		07B46BD91B5AFF0500B55262 /* leona.weaver.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBF1B5AFF0500B55262 /* leona.weaver.jpg */; };
-		07B46BDA1B5AFF0500B55262 /* leslie.daniels.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC01B5AFF0500B55262 /* leslie.daniels.jpg */; };
-		07B46BDB1B5AFF0500B55262 /* louis.campbell.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC11B5AFF0500B55262 /* louis.campbell.jpg */; };
-		07B46BDC1B5AFF0500B55262 /* melissa.ellis.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC21B5AFF0500B55262 /* melissa.ellis.jpg */; };
-		07B46BDD1B5AFF0500B55262 /* randy.mckinney.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC31B5AFF0500B55262 /* randy.mckinney.jpg */; };
-		07B46BDE1B5AFF0500B55262 /* ricardo.meyer.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC41B5AFF0500B55262 /* ricardo.meyer.jpg */; };
-		07B46BDF1B5AFF0500B55262 /* richard.george.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC51B5AFF0500B55262 /* richard.george.jpg */; };
-		07B46BE01B5AFF0500B55262 /* terrence.myers.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC61B5AFF0500B55262 /* terrence.myers.jpg */; };
-		07B46BE11B5AFF0500B55262 /* terrence.phillips.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC71B5AFF0500B55262 /* terrence.phillips.jpg */; };
-		07B46BE21B5AFF0500B55262 /* tracy.brown.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC81B5AFF0500B55262 /* tracy.brown.jpg */; };
-		07B46BE31B5AFF0500B55262 /* wayne.lucas.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC91B5AFF0500B55262 /* wayne.lucas.jpg */; };
-		07B46BE41B5AFF0500B55262 /* wendy.morris.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BCA1B5AFF0500B55262 /* wendy.morris.jpg */; };
+		07B46BCB1B5AFF0500B55262 /* addison.hanson@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB11B5AFF0500B55262 /* addison.hanson@2x.jpg */; };
+		07B46BCC1B5AFF0500B55262 /* bradley.simmons@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB21B5AFF0500B55262 /* bradley.simmons@2x.jpg */; };
+		07B46BCD1B5AFF0500B55262 /* brent.reid@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB31B5AFF0500B55262 /* brent.reid@2x.jpg */; };
+		07B46BCE1B5AFF0500B55262 /* cary.iowa@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB41B5AFF0500B55262 /* cary.iowa@2x.jpg */; };
+		07B46BCF1B5AFF0500B55262 /* clifford.lewis@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB51B5AFF0500B55262 /* clifford.lewis@2x.jpg */; };
+		07B46BD01B5AFF0500B55262 /* daniel.hall@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB61B5AFF0500B55262 /* daniel.hall@2x.jpg */; };
+		07B46BD11B5AFF0500B55262 /* edna.owens@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB71B5AFF0500B55262 /* edna.owens@2x.jpg */; };
+		07B46BD21B5AFF0500B55262 /* felix.ryan@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB81B5AFF0500B55262 /* felix.ryan@2x.jpg */; };
+		07B46BD31B5AFF0500B55262 /* jack.gomez@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BB91B5AFF0500B55262 /* jack.gomez@2x.jpg */; };
+		07B46BD41B5AFF0500B55262 /* joann.russel@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBA1B5AFF0500B55262 /* joann.russel@2x.jpg */; };
+		07B46BD51B5AFF0500B55262 /* johnni.walker@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBB1B5AFF0500B55262 /* johnni.walker@2x.jpg */; };
+		07B46BD61B5AFF0500B55262 /* kay.kennedy@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBC1B5AFF0500B55262 /* kay.kennedy@2x.jpg */; };
+		07B46BD71B5AFF0500B55262 /* kristin.castillo@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBD1B5AFF0500B55262 /* kristin.castillo@2x.jpg */; };
+		07B46BD81B5AFF0500B55262 /* kurt.horton@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBE1B5AFF0500B55262 /* kurt.horton@2x.jpg */; };
+		07B46BD91B5AFF0500B55262 /* leona.weaver@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BBF1B5AFF0500B55262 /* leona.weaver@2x.jpg */; };
+		07B46BDA1B5AFF0500B55262 /* leslie.daniels@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC01B5AFF0500B55262 /* leslie.daniels@2x.jpg */; };
+		07B46BDB1B5AFF0500B55262 /* louis.campbell@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC11B5AFF0500B55262 /* louis.campbell@2x.jpg */; };
+		07B46BDC1B5AFF0500B55262 /* melissa.ellis@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC21B5AFF0500B55262 /* melissa.ellis@2x.jpg */; };
+		07B46BDD1B5AFF0500B55262 /* randy.mckinney@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC31B5AFF0500B55262 /* randy.mckinney@2x.jpg */; };
+		07B46BDE1B5AFF0500B55262 /* ricardo.meyer@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC41B5AFF0500B55262 /* ricardo.meyer@2x.jpg */; };
+		07B46BDF1B5AFF0500B55262 /* richard.george@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC51B5AFF0500B55262 /* richard.george@2x.jpg */; };
+		07B46BE01B5AFF0500B55262 /* terrence.myers@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC61B5AFF0500B55262 /* terrence.myers@2x.jpg */; };
+		07B46BE11B5AFF0500B55262 /* terrence.phillips@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC71B5AFF0500B55262 /* terrence.phillips@2x.jpg */; };
+		07B46BE21B5AFF0500B55262 /* tracy.brown@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC81B5AFF0500B55262 /* tracy.brown@2x.jpg */; };
+		07B46BE31B5AFF0500B55262 /* wayne.lucas@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC91B5AFF0500B55262 /* wayne.lucas@2x.jpg */; };
+		07B46BE41B5AFF0500B55262 /* wendy.morris@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BCA1B5AFF0500B55262 /* wendy.morris@2x.jpg */; };
 		07B46BE61B5AFF1100B55262 /* employees.json in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BE51B5AFF1100B55262 /* employees.json */; };
 		07B46BE81B5B0BB900B55262 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46BE71B5B0BB900B55262 /* FileHelper.swift */; };
+		07B46BEA1B5B1B9500B55262 /* EmployeeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46BE91B5B1B9500B55262 /* EmployeeListViewController.swift */; };
+		07B46BEC1B5B21EC00B55262 /* EmployeeListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46BEB1B5B21EC00B55262 /* EmployeeListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,7 +108,6 @@
 /* Begin PBXFileReference section */
 		07689C051B562E170030E71C /* Colleagues.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colleagues.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07689C081B562E170030E71C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		07689C0A1B562E170030E71C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		07689C0D1B562E170030E71C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		07689C0F1B562E170030E71C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		07689C121B562E170030E71C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -127,34 +127,36 @@
 		07B46BA91B5AF80500B55262 /* Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
 		07B46BAB1B5AF91D00B55262 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		07B46BAD1B5AFAAD00B55262 /* EmployeeService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeService.swift; sourceTree = "<group>"; };
-		07B46BB11B5AFF0500B55262 /* addison.hanson.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = addison.hanson.jpg; sourceTree = "<group>"; };
-		07B46BB21B5AFF0500B55262 /* bradley.simmons.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bradley.simmons.jpg; sourceTree = "<group>"; };
-		07B46BB31B5AFF0500B55262 /* brent.reid.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = brent.reid.jpg; sourceTree = "<group>"; };
-		07B46BB41B5AFF0500B55262 /* cary.iowa.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cary.iowa.jpg; sourceTree = "<group>"; };
-		07B46BB51B5AFF0500B55262 /* clifford.lewis.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = clifford.lewis.jpg; sourceTree = "<group>"; };
-		07B46BB61B5AFF0500B55262 /* daniel.hall.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = daniel.hall.jpg; sourceTree = "<group>"; };
-		07B46BB71B5AFF0500B55262 /* edna.owens.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = edna.owens.jpg; sourceTree = "<group>"; };
-		07B46BB81B5AFF0500B55262 /* felix.ryan.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = felix.ryan.jpg; sourceTree = "<group>"; };
-		07B46BB91B5AFF0500B55262 /* jack.gomez.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = jack.gomez.jpg; sourceTree = "<group>"; };
-		07B46BBA1B5AFF0500B55262 /* joann.russel.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = joann.russel.jpg; sourceTree = "<group>"; };
-		07B46BBB1B5AFF0500B55262 /* johnni.walker.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = johnni.walker.jpg; sourceTree = "<group>"; };
-		07B46BBC1B5AFF0500B55262 /* kay.kennedy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kay.kennedy.jpg; sourceTree = "<group>"; };
-		07B46BBD1B5AFF0500B55262 /* kristin.castillo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kristin.castillo.jpg; sourceTree = "<group>"; };
-		07B46BBE1B5AFF0500B55262 /* kurt.horton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kurt.horton.jpg; sourceTree = "<group>"; };
-		07B46BBF1B5AFF0500B55262 /* leona.weaver.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = leona.weaver.jpg; sourceTree = "<group>"; };
-		07B46BC01B5AFF0500B55262 /* leslie.daniels.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = leslie.daniels.jpg; sourceTree = "<group>"; };
-		07B46BC11B5AFF0500B55262 /* louis.campbell.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = louis.campbell.jpg; sourceTree = "<group>"; };
-		07B46BC21B5AFF0500B55262 /* melissa.ellis.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = melissa.ellis.jpg; sourceTree = "<group>"; };
-		07B46BC31B5AFF0500B55262 /* randy.mckinney.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = randy.mckinney.jpg; sourceTree = "<group>"; };
-		07B46BC41B5AFF0500B55262 /* ricardo.meyer.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = ricardo.meyer.jpg; sourceTree = "<group>"; };
-		07B46BC51B5AFF0500B55262 /* richard.george.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = richard.george.jpg; sourceTree = "<group>"; };
-		07B46BC61B5AFF0500B55262 /* terrence.myers.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = terrence.myers.jpg; sourceTree = "<group>"; };
-		07B46BC71B5AFF0500B55262 /* terrence.phillips.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = terrence.phillips.jpg; sourceTree = "<group>"; };
-		07B46BC81B5AFF0500B55262 /* tracy.brown.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tracy.brown.jpg; sourceTree = "<group>"; };
-		07B46BC91B5AFF0500B55262 /* wayne.lucas.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wayne.lucas.jpg; sourceTree = "<group>"; };
-		07B46BCA1B5AFF0500B55262 /* wendy.morris.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = wendy.morris.jpg; sourceTree = "<group>"; };
+		07B46BB11B5AFF0500B55262 /* addison.hanson@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "addison.hanson@2x.jpg"; sourceTree = "<group>"; };
+		07B46BB21B5AFF0500B55262 /* bradley.simmons@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bradley.simmons@2x.jpg"; sourceTree = "<group>"; };
+		07B46BB31B5AFF0500B55262 /* brent.reid@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "brent.reid@2x.jpg"; sourceTree = "<group>"; };
+		07B46BB41B5AFF0500B55262 /* cary.iowa@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "cary.iowa@2x.jpg"; sourceTree = "<group>"; };
+		07B46BB51B5AFF0500B55262 /* clifford.lewis@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "clifford.lewis@2x.jpg"; sourceTree = "<group>"; };
+		07B46BB61B5AFF0500B55262 /* daniel.hall@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "daniel.hall@2x.jpg"; sourceTree = "<group>"; };
+		07B46BB71B5AFF0500B55262 /* edna.owens@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "edna.owens@2x.jpg"; sourceTree = "<group>"; };
+		07B46BB81B5AFF0500B55262 /* felix.ryan@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "felix.ryan@2x.jpg"; sourceTree = "<group>"; };
+		07B46BB91B5AFF0500B55262 /* jack.gomez@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "jack.gomez@2x.jpg"; sourceTree = "<group>"; };
+		07B46BBA1B5AFF0500B55262 /* joann.russel@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "joann.russel@2x.jpg"; sourceTree = "<group>"; };
+		07B46BBB1B5AFF0500B55262 /* johnni.walker@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "johnni.walker@2x.jpg"; sourceTree = "<group>"; };
+		07B46BBC1B5AFF0500B55262 /* kay.kennedy@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "kay.kennedy@2x.jpg"; sourceTree = "<group>"; };
+		07B46BBD1B5AFF0500B55262 /* kristin.castillo@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "kristin.castillo@2x.jpg"; sourceTree = "<group>"; };
+		07B46BBE1B5AFF0500B55262 /* kurt.horton@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "kurt.horton@2x.jpg"; sourceTree = "<group>"; };
+		07B46BBF1B5AFF0500B55262 /* leona.weaver@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "leona.weaver@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC01B5AFF0500B55262 /* leslie.daniels@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "leslie.daniels@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC11B5AFF0500B55262 /* louis.campbell@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "louis.campbell@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC21B5AFF0500B55262 /* melissa.ellis@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "melissa.ellis@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC31B5AFF0500B55262 /* randy.mckinney@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "randy.mckinney@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC41B5AFF0500B55262 /* ricardo.meyer@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ricardo.meyer@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC51B5AFF0500B55262 /* richard.george@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "richard.george@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC61B5AFF0500B55262 /* terrence.myers@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "terrence.myers@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC71B5AFF0500B55262 /* terrence.phillips@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "terrence.phillips@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC81B5AFF0500B55262 /* tracy.brown@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "tracy.brown@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC91B5AFF0500B55262 /* wayne.lucas@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wayne.lucas@2x.jpg"; sourceTree = "<group>"; };
+		07B46BCA1B5AFF0500B55262 /* wendy.morris@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "wendy.morris@2x.jpg"; sourceTree = "<group>"; };
 		07B46BE51B5AFF1100B55262 /* employees.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = employees.json; sourceTree = "<group>"; };
 		07B46BE71B5B0BB900B55262 /* FileHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
+		07B46BE91B5B1B9500B55262 /* EmployeeListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeListViewController.swift; sourceTree = "<group>"; };
+		07B46BEB1B5B21EC00B55262 /* EmployeeListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeListCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,11 +228,12 @@
 			isa = PBXGroup;
 			children = (
 				07689C081B562E170030E71C /* AppDelegate.swift */,
-				07689C0A1B562E170030E71C /* ViewController.swift */,
 				07689C0C1B562E170030E71C /* Main.storyboard */,
 				07689C0F1B562E170030E71C /* Assets.xcassets */,
 				07689C111B562E170030E71C /* LaunchScreen.storyboard */,
 				07689C141B562E170030E71C /* Info.plist */,
+				07B46BE91B5B1B9500B55262 /* EmployeeListViewController.swift */,
+				07B46BEB1B5B21EC00B55262 /* EmployeeListCell.swift */,
 			);
 			path = Colleagues;
 			sourceTree = "<group>";
@@ -288,32 +291,32 @@
 		07B46BB01B5AFEC500B55262 /* pictures */ = {
 			isa = PBXGroup;
 			children = (
-				07B46BB11B5AFF0500B55262 /* addison.hanson.jpg */,
-				07B46BB21B5AFF0500B55262 /* bradley.simmons.jpg */,
-				07B46BB31B5AFF0500B55262 /* brent.reid.jpg */,
-				07B46BB41B5AFF0500B55262 /* cary.iowa.jpg */,
-				07B46BB51B5AFF0500B55262 /* clifford.lewis.jpg */,
-				07B46BB61B5AFF0500B55262 /* daniel.hall.jpg */,
-				07B46BB71B5AFF0500B55262 /* edna.owens.jpg */,
-				07B46BB81B5AFF0500B55262 /* felix.ryan.jpg */,
-				07B46BB91B5AFF0500B55262 /* jack.gomez.jpg */,
-				07B46BBA1B5AFF0500B55262 /* joann.russel.jpg */,
-				07B46BBB1B5AFF0500B55262 /* johnni.walker.jpg */,
-				07B46BBC1B5AFF0500B55262 /* kay.kennedy.jpg */,
-				07B46BBD1B5AFF0500B55262 /* kristin.castillo.jpg */,
-				07B46BBE1B5AFF0500B55262 /* kurt.horton.jpg */,
-				07B46BBF1B5AFF0500B55262 /* leona.weaver.jpg */,
-				07B46BC01B5AFF0500B55262 /* leslie.daniels.jpg */,
-				07B46BC11B5AFF0500B55262 /* louis.campbell.jpg */,
-				07B46BC21B5AFF0500B55262 /* melissa.ellis.jpg */,
-				07B46BC31B5AFF0500B55262 /* randy.mckinney.jpg */,
-				07B46BC41B5AFF0500B55262 /* ricardo.meyer.jpg */,
-				07B46BC51B5AFF0500B55262 /* richard.george.jpg */,
-				07B46BC61B5AFF0500B55262 /* terrence.myers.jpg */,
-				07B46BC71B5AFF0500B55262 /* terrence.phillips.jpg */,
-				07B46BC81B5AFF0500B55262 /* tracy.brown.jpg */,
-				07B46BC91B5AFF0500B55262 /* wayne.lucas.jpg */,
-				07B46BCA1B5AFF0500B55262 /* wendy.morris.jpg */,
+				07B46BB11B5AFF0500B55262 /* addison.hanson@2x.jpg */,
+				07B46BB21B5AFF0500B55262 /* bradley.simmons@2x.jpg */,
+				07B46BB31B5AFF0500B55262 /* brent.reid@2x.jpg */,
+				07B46BB41B5AFF0500B55262 /* cary.iowa@2x.jpg */,
+				07B46BB51B5AFF0500B55262 /* clifford.lewis@2x.jpg */,
+				07B46BB61B5AFF0500B55262 /* daniel.hall@2x.jpg */,
+				07B46BB71B5AFF0500B55262 /* edna.owens@2x.jpg */,
+				07B46BB81B5AFF0500B55262 /* felix.ryan@2x.jpg */,
+				07B46BB91B5AFF0500B55262 /* jack.gomez@2x.jpg */,
+				07B46BBA1B5AFF0500B55262 /* joann.russel@2x.jpg */,
+				07B46BBB1B5AFF0500B55262 /* johnni.walker@2x.jpg */,
+				07B46BBC1B5AFF0500B55262 /* kay.kennedy@2x.jpg */,
+				07B46BBD1B5AFF0500B55262 /* kristin.castillo@2x.jpg */,
+				07B46BBE1B5AFF0500B55262 /* kurt.horton@2x.jpg */,
+				07B46BBF1B5AFF0500B55262 /* leona.weaver@2x.jpg */,
+				07B46BC01B5AFF0500B55262 /* leslie.daniels@2x.jpg */,
+				07B46BC11B5AFF0500B55262 /* louis.campbell@2x.jpg */,
+				07B46BC21B5AFF0500B55262 /* melissa.ellis@2x.jpg */,
+				07B46BC31B5AFF0500B55262 /* randy.mckinney@2x.jpg */,
+				07B46BC41B5AFF0500B55262 /* ricardo.meyer@2x.jpg */,
+				07B46BC51B5AFF0500B55262 /* richard.george@2x.jpg */,
+				07B46BC61B5AFF0500B55262 /* terrence.myers@2x.jpg */,
+				07B46BC71B5AFF0500B55262 /* terrence.phillips@2x.jpg */,
+				07B46BC81B5AFF0500B55262 /* tracy.brown@2x.jpg */,
+				07B46BC91B5AFF0500B55262 /* wayne.lucas@2x.jpg */,
+				07B46BCA1B5AFF0500B55262 /* wendy.morris@2x.jpg */,
 			);
 			path = pictures;
 			sourceTree = "<group>";
@@ -505,33 +508,33 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07B46BDE1B5AFF0500B55262 /* ricardo.meyer.jpg in Resources */,
+				07B46BDE1B5AFF0500B55262 /* ricardo.meyer@2x.jpg in Resources */,
 				07B46BE61B5AFF1100B55262 /* employees.json in Resources */,
-				07B46BCD1B5AFF0500B55262 /* brent.reid.jpg in Resources */,
-				07B46BE31B5AFF0500B55262 /* wayne.lucas.jpg in Resources */,
-				07B46BD71B5AFF0500B55262 /* kristin.castillo.jpg in Resources */,
-				07B46BE11B5AFF0500B55262 /* terrence.phillips.jpg in Resources */,
-				07B46BD11B5AFF0500B55262 /* edna.owens.jpg in Resources */,
-				07B46BCE1B5AFF0500B55262 /* cary.iowa.jpg in Resources */,
-				07B46BD01B5AFF0500B55262 /* daniel.hall.jpg in Resources */,
-				07B46BE21B5AFF0500B55262 /* tracy.brown.jpg in Resources */,
-				07B46BD91B5AFF0500B55262 /* leona.weaver.jpg in Resources */,
-				07B46BCB1B5AFF0500B55262 /* addison.hanson.jpg in Resources */,
-				07B46BD21B5AFF0500B55262 /* felix.ryan.jpg in Resources */,
-				07B46BCF1B5AFF0500B55262 /* clifford.lewis.jpg in Resources */,
-				07B46BDF1B5AFF0500B55262 /* richard.george.jpg in Resources */,
-				07B46BCC1B5AFF0500B55262 /* bradley.simmons.jpg in Resources */,
-				07B46BD51B5AFF0500B55262 /* johnni.walker.jpg in Resources */,
-				07B46BE01B5AFF0500B55262 /* terrence.myers.jpg in Resources */,
-				07B46BDC1B5AFF0500B55262 /* melissa.ellis.jpg in Resources */,
-				07B46BE41B5AFF0500B55262 /* wendy.morris.jpg in Resources */,
-				07B46BD81B5AFF0500B55262 /* kurt.horton.jpg in Resources */,
-				07B46BDD1B5AFF0500B55262 /* randy.mckinney.jpg in Resources */,
-				07B46BD31B5AFF0500B55262 /* jack.gomez.jpg in Resources */,
-				07B46BDA1B5AFF0500B55262 /* leslie.daniels.jpg in Resources */,
-				07B46BD41B5AFF0500B55262 /* joann.russel.jpg in Resources */,
-				07B46BD61B5AFF0500B55262 /* kay.kennedy.jpg in Resources */,
-				07B46BDB1B5AFF0500B55262 /* louis.campbell.jpg in Resources */,
+				07B46BCD1B5AFF0500B55262 /* brent.reid@2x.jpg in Resources */,
+				07B46BE31B5AFF0500B55262 /* wayne.lucas@2x.jpg in Resources */,
+				07B46BD71B5AFF0500B55262 /* kristin.castillo@2x.jpg in Resources */,
+				07B46BE11B5AFF0500B55262 /* terrence.phillips@2x.jpg in Resources */,
+				07B46BD11B5AFF0500B55262 /* edna.owens@2x.jpg in Resources */,
+				07B46BCE1B5AFF0500B55262 /* cary.iowa@2x.jpg in Resources */,
+				07B46BD01B5AFF0500B55262 /* daniel.hall@2x.jpg in Resources */,
+				07B46BE21B5AFF0500B55262 /* tracy.brown@2x.jpg in Resources */,
+				07B46BD91B5AFF0500B55262 /* leona.weaver@2x.jpg in Resources */,
+				07B46BCB1B5AFF0500B55262 /* addison.hanson@2x.jpg in Resources */,
+				07B46BD21B5AFF0500B55262 /* felix.ryan@2x.jpg in Resources */,
+				07B46BCF1B5AFF0500B55262 /* clifford.lewis@2x.jpg in Resources */,
+				07B46BDF1B5AFF0500B55262 /* richard.george@2x.jpg in Resources */,
+				07B46BCC1B5AFF0500B55262 /* bradley.simmons@2x.jpg in Resources */,
+				07B46BD51B5AFF0500B55262 /* johnni.walker@2x.jpg in Resources */,
+				07B46BE01B5AFF0500B55262 /* terrence.myers@2x.jpg in Resources */,
+				07B46BDC1B5AFF0500B55262 /* melissa.ellis@2x.jpg in Resources */,
+				07B46BE41B5AFF0500B55262 /* wendy.morris@2x.jpg in Resources */,
+				07B46BD81B5AFF0500B55262 /* kurt.horton@2x.jpg in Resources */,
+				07B46BDD1B5AFF0500B55262 /* randy.mckinney@2x.jpg in Resources */,
+				07B46BD31B5AFF0500B55262 /* jack.gomez@2x.jpg in Resources */,
+				07B46BDA1B5AFF0500B55262 /* leslie.daniels@2x.jpg in Resources */,
+				07B46BD41B5AFF0500B55262 /* joann.russel@2x.jpg in Resources */,
+				07B46BD61B5AFF0500B55262 /* kay.kennedy@2x.jpg in Resources */,
+				07B46BDB1B5AFF0500B55262 /* louis.campbell@2x.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,8 +552,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07689C0B1B562E170030E71C /* ViewController.swift in Sources */,
+				07B46BEC1B5B21EC00B55262 /* EmployeeListCell.swift in Sources */,
 				07689C091B562E170030E71C /* AppDelegate.swift in Sources */,
+				07B46BEA1B5B1B9500B55262 /* EmployeeListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
