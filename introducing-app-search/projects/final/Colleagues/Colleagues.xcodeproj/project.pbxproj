@@ -40,8 +40,8 @@
 		07B46BDA1B5AFF0500B55262 /* leslie.daniels@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC01B5AFF0500B55262 /* leslie.daniels@2x.jpg */; };
 		07B46BDB1B5AFF0500B55262 /* louis.campbell@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC11B5AFF0500B55262 /* louis.campbell@2x.jpg */; };
 		07B46BDC1B5AFF0500B55262 /* melissa.ellis@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC21B5AFF0500B55262 /* melissa.ellis@2x.jpg */; };
-		07B46BDD1B5AFF0500B55262 /* randy.mckinney@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC31B5AFF0500B55262 /* randy.mckinney@2x.jpg */; };
-		07B46BDE1B5AFF0500B55262 /* ricardo.meyer@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC41B5AFF0500B55262 /* ricardo.meyer@2x.jpg */; };
+		07B46BDD1B5AFF0500B55262 /* priscilla.meyer@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC31B5AFF0500B55262 /* priscilla.meyer@2x.jpg */; };
+		07B46BDE1B5AFF0500B55262 /* randy.mckinney@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC41B5AFF0500B55262 /* randy.mckinney@2x.jpg */; };
 		07B46BDF1B5AFF0500B55262 /* richard.george@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC51B5AFF0500B55262 /* richard.george@2x.jpg */; };
 		07B46BE01B5AFF0500B55262 /* terrence.myers@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC61B5AFF0500B55262 /* terrence.myers@2x.jpg */; };
 		07B46BE11B5AFF0500B55262 /* terrence.phillips@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 07B46BC71B5AFF0500B55262 /* terrence.phillips@2x.jpg */; };
@@ -148,8 +148,8 @@
 		07B46BC01B5AFF0500B55262 /* leslie.daniels@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "leslie.daniels@2x.jpg"; sourceTree = "<group>"; };
 		07B46BC11B5AFF0500B55262 /* louis.campbell@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "louis.campbell@2x.jpg"; sourceTree = "<group>"; };
 		07B46BC21B5AFF0500B55262 /* melissa.ellis@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "melissa.ellis@2x.jpg"; sourceTree = "<group>"; };
-		07B46BC31B5AFF0500B55262 /* randy.mckinney@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "randy.mckinney@2x.jpg"; sourceTree = "<group>"; };
-		07B46BC41B5AFF0500B55262 /* ricardo.meyer@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ricardo.meyer@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC31B5AFF0500B55262 /* priscilla.meyer@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "priscilla.meyer@2x.jpg"; sourceTree = "<group>"; };
+		07B46BC41B5AFF0500B55262 /* randy.mckinney@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "randy.mckinney@2x.jpg"; sourceTree = "<group>"; };
 		07B46BC51B5AFF0500B55262 /* richard.george@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "richard.george@2x.jpg"; sourceTree = "<group>"; };
 		07B46BC61B5AFF0500B55262 /* terrence.myers@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "terrence.myers@2x.jpg"; sourceTree = "<group>"; };
 		07B46BC71B5AFF0500B55262 /* terrence.phillips@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "terrence.phillips@2x.jpg"; sourceTree = "<group>"; };
@@ -317,8 +317,8 @@
 				07B46BC01B5AFF0500B55262 /* leslie.daniels@2x.jpg */,
 				07B46BC11B5AFF0500B55262 /* louis.campbell@2x.jpg */,
 				07B46BC21B5AFF0500B55262 /* melissa.ellis@2x.jpg */,
-				07B46BC31B5AFF0500B55262 /* randy.mckinney@2x.jpg */,
-				07B46BC41B5AFF0500B55262 /* ricardo.meyer@2x.jpg */,
+				07B46BC31B5AFF0500B55262 /* priscilla.meyer@2x.jpg */,
+				07B46BC41B5AFF0500B55262 /* randy.mckinney@2x.jpg */,
 				07B46BC51B5AFF0500B55262 /* richard.george@2x.jpg */,
 				07B46BC61B5AFF0500B55262 /* terrence.myers@2x.jpg */,
 				07B46BC71B5AFF0500B55262 /* terrence.phillips@2x.jpg */,
@@ -516,7 +516,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07B46BDE1B5AFF0500B55262 /* ricardo.meyer@2x.jpg in Resources */,
+				07B46BDE1B5AFF0500B55262 /* randy.mckinney@2x.jpg in Resources */,
 				07B46BE61B5AFF1100B55262 /* employees.json in Resources */,
 				07B46BCD1B5AFF0500B55262 /* brent.reid@2x.jpg in Resources */,
 				07B46BE31B5AFF0500B55262 /* wayne.lucas@2x.jpg in Resources */,
@@ -537,7 +537,7 @@
 				07B46BDC1B5AFF0500B55262 /* melissa.ellis@2x.jpg in Resources */,
 				07B46BE41B5AFF0500B55262 /* wendy.morris@2x.jpg in Resources */,
 				07B46BD81B5AFF0500B55262 /* kurt.horton@2x.jpg in Resources */,
-				07B46BDD1B5AFF0500B55262 /* randy.mckinney@2x.jpg in Resources */,
+				07B46BDD1B5AFF0500B55262 /* priscilla.meyer@2x.jpg in Resources */,
 				07B46BD31B5AFF0500B55262 /* jack.gomez@2x.jpg in Resources */,
 				07B46BDA1B5AFF0500B55262 /* leslie.daniels@2x.jpg in Resources */,
 				07B46BD41B5AFF0500B55262 /* joann.russel@2x.jpg in Resources */,
