@@ -32,25 +32,25 @@ public struct Employee: JSONDecodable {
   public let skills: [String]
   
   public init(json: [NSObject: AnyObject]) throws {
-    guard let objectId = json["objectId"] as? String  else {
+    guard let objectId = json["objectId"] as? String else {
       throw JSONDecodingError.MissingAttribute("objectId")
     }
-    guard let department = json["department"] as? String  else {
+    guard let department = json["department"] as? String else {
       throw JSONDecodingError.MissingAttribute("department")
     }
-    guard let email = json["email"] as? String  else {
+    guard let email = json["email"] as? String else {
       throw JSONDecodingError.MissingAttribute("email")
     }
-    guard let name = json["name"] as? String  else {
+    guard let name = json["name"] as? String else {
       throw JSONDecodingError.MissingAttribute("name")
     }
-    guard let phone = json["phone"] as? String  else {
+    guard let phone = json["phone"] as? String else {
       throw JSONDecodingError.MissingAttribute("phone")
     }
-    guard let title = json["title"] as? String  else {
+    guard let title = json["title"] as? String else {
       throw JSONDecodingError.MissingAttribute("title")
     }
-    guard let skills = json["skills"] as? [String]  else {
+    guard let skills = json["skills"] as? [String] else {
       throw JSONDecodingError.MissingAttribute("skills")
     }
     
