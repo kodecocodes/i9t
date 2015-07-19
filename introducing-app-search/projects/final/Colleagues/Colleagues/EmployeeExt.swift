@@ -24,14 +24,18 @@ import Foundation
 import EmployeeKit
 
 extension Employee {
+  
+  /// Dial the employee's phone number use the system dialer.
   func call() {
     let sanitizedPhoneNumber = phone.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
     let callUrl = NSURL(string: "tel:" + sanitizedPhoneNumber)!
     UIApplication.sharedApplication().openURL(callUrl)
   }
   
+  /// Open the system email client with the employee's email address populated in the TO field.
   func sendEmail() {
     let mailUrl = NSURL(string: "mailto:" + email)!
     UIApplication.sharedApplication().openURL(mailUrl)
   }
+  
 }

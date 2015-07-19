@@ -26,6 +26,7 @@ public struct EmployeeService {
   
   public init() { }
   
+  /// Return an array of all employees in the database
   public func fetchEmployees() -> [Employee] {
     let jsonData = loadEmployeesJSONData()
     
