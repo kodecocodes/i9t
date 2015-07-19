@@ -13,7 +13,7 @@
 					"php",
 					"ruby"
 				],
-        "title": "web developer",
+        "title": "Web Developer",
         "updatedAt": "2015-07-18T19:41:23.363Z"
     },
 	{
@@ -27,7 +27,7 @@
             "leadership",
             "operations"
         ],
-        "title": "coo",
+        "title": "COO",
         "updatedAt": "2015-07-18T19:50:40.022Z"
     },
 	{
@@ -43,7 +43,7 @@
             "saas",
             "software"
         ],
-        "title": "cto",
+        "title": "CTO",
         "updatedAt": "2015-07-18T19:51:04.296Z"
     },
 	{
@@ -59,7 +59,7 @@
             "checks",
             "accounting"
         ],
-        "title": "cfo",
+        "title": "CFO",
         "updatedAt": "2015-07-18T19:51:28.026Z"
     },
 	{
@@ -74,7 +74,7 @@
             "planning",
             "strategy"
         ],
-        "title": "ceo",
+        "title": "CEO",
         "updatedAt": "2015-07-18T19:51:46.115Z"
     },
 	{
@@ -88,7 +88,7 @@
             "psychology",
             "conflict resolution"
         ],
-        "title": "counselor",
+        "title": "Counselor",
         "updatedAt": "2015-07-18T19:52:13.952Z"
     },
 	{
@@ -104,7 +104,7 @@
             "dental",
             "retirement"
         ],
-        "title": "benefits director",
+        "title": "Benefits Director",
         "updatedAt": "2015-07-18T19:52:28.832Z"
     },
 	{
@@ -120,7 +120,7 @@
             "hiring",
             "interviewing"
         ],
-        "title": "hiring manager",
+        "title": "Hiring Manager",
         "updatedAt": "2015-07-18T19:52:48.976Z"
     },
 	{
@@ -135,7 +135,7 @@
             "advertising",
             "reporting"
         ],
-        "title": "press release manager",
+        "title": "PR Manager",
         "updatedAt": "2015-07-18T19:53:24.426Z"
     },
 	{
@@ -152,7 +152,7 @@
             "marketing",
             "engagement"
         ],
-        "title": "social media expert",
+        "title": "Social Media Expert",
         "updatedAt": "2015-07-18T19:53:42.595Z"
     },
 	{
@@ -168,7 +168,7 @@
             "marketing",
             "branding"
         ],
-        "title": "manager",
+        "title": "Manager",
         "updatedAt": "2015-07-18T19:54:00.736Z"
     },
 	{
@@ -184,7 +184,7 @@
             "leadership",
             "relationships"
         ],
-        "title": "team lead",
+        "title": "Team Lead",
         "updatedAt": "2015-07-18T19:54:29.314Z"
     },
 	{
@@ -199,7 +199,7 @@
             "servers",
             "software"
         ],
-        "title": "tier 3 rep",
+        "title": "Tier 3 Rep",
         "updatedAt": "2015-07-18T19:54:51.308Z"
     },
 	{
@@ -214,7 +214,7 @@
             "communication",
             "anger management"
         ],
-        "title": "tier 2 rep",
+        "title": "Tier 2 Rep",
         "updatedAt": "2015-07-18T19:55:09.100Z"
     },
 	{
@@ -228,13 +228,13 @@
             "triage",
             "troubleshooting"
         ],
-        "title": "tier 1 rep",
+        "title": "Tier 1 Rep",
         "updatedAt": "2015-07-18T19:55:18.829Z"
     },
 	{
         "createdAt": "2015-07-18T19:34:11.707Z",
         "department": "support",
-        "email": "edna.ownes@example.com",
+        "email": "edna.owens@example.com",
         "name": "Edna Owens",
         "objectId": "KEwySHNxTo",
         "phone": "(694)-465-4131",
@@ -243,7 +243,7 @@
             "support",
             "triage"
         ],
-        "title": "manager",
+        "title": "Manager",
         "updatedAt": "2015-07-18T19:55:35.276Z"
     },
 	{
@@ -258,7 +258,7 @@
             "automation",
             "software"
         ],
-        "title": "quality engineer",
+        "title": "Quality Engineer",
         "updatedAt": "2015-07-18T19:55:48.912Z"
     },
 	{
@@ -275,7 +275,7 @@
             "swift",
             "java"
         ],
-        "title": "engineer",
+        "title": "Engineer",
         "updatedAt": "2015-07-18T19:58:52.929Z"
     },
 	{
@@ -290,7 +290,7 @@
             "training",
             "speaking"
         ],
-        "title": "manager",
+        "title": "Manager",
         "updatedAt": "2015-07-18T19:56:16.165Z"
     },
 	{
@@ -305,7 +305,7 @@
             "influencing",
             "task management"
         ],
-        "title": "representative",
+        "title": "Representative",
         "updatedAt": "2015-07-18T19:56:51.417Z"
     },
 	{
@@ -319,7 +319,7 @@
             "sales",
             "lead generation"
         ],
-        "title": "representative",
+        "title": "Representative",
         "updatedAt": "2015-07-18T19:57:06.198Z"
     },
 	{
@@ -336,7 +336,7 @@
             "influencing",
             "lead generation"
         ],
-        "title": "manager",
+        "title": "Manager",
         "updatedAt": "2015-07-18T19:57:30.899Z"
     },
 	{
@@ -351,7 +351,7 @@
             "trouble shooting",
             "architecture"
         ],
-        "title": "developer evangelist",
+        "title": "Developer Evangelist",
         "updatedAt": "2015-07-18T20:01:22.718Z"
     },
 	{
@@ -366,7 +366,7 @@
             "postgresql",
             "cassandra"
         ],
-        "title": "database administrator",
+        "title": "Database Administrator",
         "updatedAt": "2015-07-18T19:58:04.568Z"
     },
 	{
@@ -381,7 +381,7 @@
             "html",
             "css"
         ],
-        "title": "engineer",
+        "title": "Engineer",
         "updatedAt": "2015-07-18T19:58:23.838Z"
     },
 	{
@@ -396,7 +396,7 @@
             "apache",
             "docker"
         ],
-        "title": "systems administrator",
+        "title": "Systems Administrator",
         "updatedAt": "2015-07-18T19:58:39.298Z"
     }
 ] }

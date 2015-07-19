@@ -9,11 +9,16 @@
 import Foundation
 
 class FileHelper {
-    static var employeesJsonFilePath: String {
-        return NSBundle(forClass: self).pathForResource("employees", ofType: "json")!
+    
+    static var bundle: NSBundle {
+        return NSBundle(forClass: self)
     }
     
-    static func employeePictureFilePath(name: String) -> String? {
-        return NSBundle(forClass: self).pathForResource(name, ofType: "jpg")!
+    static var bundlePath: String {
+        return self.bundle.bundlePath
     }
+    
+    static var employeesJsonFilePath: String {
+        return self.bundle.pathForResource("employees", ofType: "json")!
+    }    
 }
