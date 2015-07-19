@@ -18,7 +18,7 @@
     },
 	{
         "createdAt": "2015-07-18T19:46:55.135Z",
-        "department": "Executive",
+        "department": "C-Level",
         "email": "wendy.morris@example.com",
         "name": "Wendy Morris",
         "objectId": "qB5TDjlRJX",
@@ -32,7 +32,7 @@
     },
 	{
         "createdAt": "2015-07-18T19:46:30.742Z",
-        "department": "Executive",
+        "department": "C-Level",
         "email": "bradley.simmons@example.com",
         "name": "Bradley Simmons",
         "objectId": "x7FHdo3YzB",
@@ -48,7 +48,7 @@
     },
 	{
         "createdAt": "2015-07-18T19:45:52.574Z",
-        "department": "Executive",
+        "department": "C-Level",
         "email": "brent.reid@example.com",
         "name": "Brent Reid",
         "objectId": "Huu9atRWYU",
@@ -64,7 +64,7 @@
     },
 	{
         "createdAt": "2015-07-18T19:44:48.353Z",
-        "department": "Executive",
+        "department": "C-Level",
         "email": "joann.russel@example.com",
         "name": "Joann Russel",
         "objectId": "YgEjFuLMr3",
