@@ -158,20 +158,74 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i9M-Ej-w4T">
+                                <rect key="frame" x="52" y="181" width="31.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="skills" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMx-3W-10k">
+                                <rect key="frame" x="53" y="207" width="30.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(555) 123-4567" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQT-c8-eZA">
+                                <rect key="frame" x="94" y="151" width="486" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="full.name@example.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dho-Qr-Yeb">
+                                <rect key="frame" x="94" y="177" width="486" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill 1, Skill 2, Skill 3" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUv-As-fDQ">
+                                <rect key="frame" x="94" y="204" width="486" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="phone" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="upJ-Db-uUA">
+                                <rect key="frame" x="46" y="154" width="37.5" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rWp-rq-LA7" firstAttribute="top" secondItem="I0K-66-Zbt" secondAttribute="bottom" constant="8" id="0hu-Lb-Jdi"/>
+                            <constraint firstItem="DUv-As-fDQ" firstAttribute="top" secondItem="Dho-Qr-Yeb" secondAttribute="bottom" constant="5" id="3zL-0N-34d"/>
+                            <constraint firstItem="Dho-Qr-Yeb" firstAttribute="top" secondItem="nQT-c8-eZA" secondAttribute="bottom" constant="5" id="66W-gS-k14"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nQT-c8-eZA" secondAttribute="trailing" id="7zW-Jb-UI2"/>
+                            <constraint firstItem="DUv-As-fDQ" firstAttribute="centerY" secondItem="xMx-3W-10k" secondAttribute="centerY" id="9oG-bk-tx0"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Dho-Qr-Yeb" secondAttribute="trailing" id="BRl-Hc-qLD"/>
+                            <constraint firstItem="nQT-c8-eZA" firstAttribute="top" secondItem="rWp-rq-LA7" secondAttribute="bottom" constant="15" id="Bh0-WN-KZT"/>
+                            <constraint firstItem="Dho-Qr-Yeb" firstAttribute="leading" secondItem="rWp-rq-LA7" secondAttribute="leading" id="F4E-rD-yUe"/>
+                            <constraint firstItem="xMx-3W-10k" firstAttribute="trailing" secondItem="Upz-9T-SCT" secondAttribute="trailing" id="FEP-5z-Ere"/>
                             <constraint firstItem="Upz-9T-SCT" firstAttribute="top" secondItem="I0K-66-Zbt" secondAttribute="bottom" constant="8" id="HnI-wp-PPu"/>
+                            <constraint firstItem="DUv-As-fDQ" firstAttribute="leading" secondItem="rWp-rq-LA7" secondAttribute="leading" id="KC4-Tt-JB3"/>
                             <constraint firstItem="Upz-9T-SCT" firstAttribute="leading" secondItem="pBI-vv-5NG" secondAttribute="leadingMargin" id="TbI-Hr-3Bl"/>
+                            <constraint firstItem="i9M-Ej-w4T" firstAttribute="trailing" secondItem="Upz-9T-SCT" secondAttribute="trailing" id="Us0-f6-Yz3"/>
                             <constraint firstItem="rWp-rq-LA7" firstAttribute="leading" secondItem="Upz-9T-SCT" secondAttribute="trailing" constant="10" id="WHS-aQ-Q6i"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="DUv-As-fDQ" secondAttribute="trailing" id="XVv-op-QfC"/>
+                            <constraint firstItem="upJ-Db-uUA" firstAttribute="trailing" secondItem="Upz-9T-SCT" secondAttribute="trailing" id="c7c-yu-W55"/>
+                            <constraint firstItem="nQT-c8-eZA" firstAttribute="leading" secondItem="rWp-rq-LA7" secondAttribute="leading" id="cOO-LI-rpD"/>
+                            <constraint firstItem="nQT-c8-eZA" firstAttribute="centerY" secondItem="upJ-Db-uUA" secondAttribute="centerY" id="eBn-L3-iCD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rWp-rq-LA7" secondAttribute="trailing" id="j3N-zF-laQ"/>
+                            <constraint firstItem="Dho-Qr-Yeb" firstAttribute="centerY" secondItem="i9M-Ej-w4T" secondAttribute="centerY" id="wua-eg-SxS"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="departmentLabel" destination="Ryu-WK-gDa" id="kLu-8S-cmR"/>
+                        <outlet property="emailLabel" destination="Dho-Qr-Yeb" id="eGm-tM-IKK"/>
                         <outlet property="nameLabel" destination="AuB-Aw-9G9" id="jbb-F7-eAT"/>
+                        <outlet property="phoneLabel" destination="nQT-c8-eZA" id="FZY-8a-7f8"/>
                         <outlet property="pictureImageView" destination="Upz-9T-SCT" id="hVQ-Rj-XMU"/>
+                        <outlet property="skillsLabel" destination="DUv-As-fDQ" id="2T6-tn-BI5"/>
                         <outlet property="titleLabel" destination="yxe-sp-49c" id="9jK-BX-Y1E"/>
                     </connections>
                 </viewController>
