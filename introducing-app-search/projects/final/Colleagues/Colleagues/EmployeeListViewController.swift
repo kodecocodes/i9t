@@ -32,6 +32,8 @@ class EmployeeListViewController: UIViewController {
   private var selectedIndexPath: NSIndexPath?
   
   override func viewDidLoad() {
+    super.viewDidLoad()
+    
     employeeList = EmployeeService().fetchEmployees()
     employeeList.sortInPlace { $0.name < $1.name }
   }
