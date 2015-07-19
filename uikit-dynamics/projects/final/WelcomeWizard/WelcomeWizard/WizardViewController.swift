@@ -9,6 +9,9 @@
 import UIKit
 
 class WizardViewController: UIViewController {
+    @IBOutlet var previousButton: UIBarButtonItem!
+    @IBOutlet var nextButton: UIBarButtonItem!
+    @IBOutlet var textView: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
