@@ -51,4 +51,12 @@ class EmployeeViewController: UIViewController {
         skillsLabel.text = ", ".join(employee.skills)
         otherEmployeesLabel.text = "Other employees in \(employee.department)"
     }
+    
+    @IBAction func call(sender: UITapGestureRecognizer) {
+        employee.call()
+    }
+    
+    @IBAction func email(sender: UITapGestureRecognizer) {
+        employee.sendEmail()
+    }
 }

@@ -24,10 +24,10 @@ class EmployeeListCell: UITableViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
 
     @IBAction private func call(sender: AnyObject) {
-        print("Call touched for \(employee.name)")
+        employee.call()
     }
     
     @IBAction private func email(sender: AnyObject) {
-        print("Email touched for \(employee.name)")
+        employee.sendEmail()
     }
 }

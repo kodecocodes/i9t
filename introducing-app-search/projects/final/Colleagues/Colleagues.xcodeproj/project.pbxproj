@@ -13,6 +13,7 @@
 		07689C131B562E170030E71C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07689C111B562E170030E71C /* LaunchScreen.storyboard */; };
 		07689C1E1B562E170030E71C /* ColleaguesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07689C1D1B562E170030E71C /* ColleaguesTests.swift */; };
 		07689C291B562E170030E71C /* ColleaguesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07689C281B562E170030E71C /* ColleaguesUITests.swift */; };
+		07B0383E1B5B79F600FA765D /* EmployeeExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B0383D1B5B79F600FA765D /* EmployeeExt.swift */; };
 		07B46B8E1B5AF7E400B55262 /* EmployeeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 07B46B8D1B5AF7E400B55262 /* EmployeeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07B46B951B5AF7E400B55262 /* EmployeeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B46B8B1B5AF7E400B55262 /* EmployeeKit.framework */; };
 		07B46B9C1B5AF7E400B55262 /* EmployeeKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B46B9B1B5AF7E400B55262 /* EmployeeKitTests.swift */; };
@@ -119,6 +120,7 @@
 		07689C241B562E170030E71C /* ColleaguesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColleaguesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07689C281B562E170030E71C /* ColleaguesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColleaguesUITests.swift; sourceTree = "<group>"; };
 		07689C2A1B562E170030E71C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		07B0383D1B5B79F600FA765D /* EmployeeExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeExt.swift; sourceTree = "<group>"; };
 		07B46B8B1B5AF7E400B55262 /* EmployeeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EmployeeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B46B8D1B5AF7E400B55262 /* EmployeeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmployeeKit.h; sourceTree = "<group>"; };
 		07B46B8F1B5AF7E400B55262 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -237,6 +239,7 @@
 				07B46BE91B5B1B9500B55262 /* EmployeeListViewController.swift */,
 				07B46BED1B5B2ECD00B55262 /* EmployeeViewController.swift */,
 				07B46BEB1B5B21EC00B55262 /* EmployeeListCell.swift */,
+				07B0383D1B5B79F600FA765D /* EmployeeExt.swift */,
 			);
 			path = Colleagues;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				07B46BEC1B5B21EC00B55262 /* EmployeeListCell.swift in Sources */,
+				07B0383E1B5B79F600FA765D /* EmployeeExt.swift in Sources */,
 				07689C091B562E170030E71C /* AppDelegate.swift in Sources */,
 				07B46BEE1B5B2ECD00B55262 /* EmployeeViewController.swift in Sources */,
 				07B46BEA1B5B1B9500B55262 /* EmployeeListViewController.swift in Sources */,
@@ -911,6 +915,7 @@
 				07B46BA31B5AF7E400B55262 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		07B46BA81B5AF7E400B55262 /* Build configuration list for PBXNativeTarget "EmployeeKitTests" */ = {
 			isa = XCConfigurationList;
@@ -919,6 +924,7 @@
 				07B46BA51B5AF7E400B55262 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

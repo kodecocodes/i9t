@@ -170,17 +170,25 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(555) 123-4567" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQT-c8-eZA">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(555) 123-4567" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nQT-c8-eZA">
                                 <rect key="frame" x="94" y="151" width="486" height="21.5"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="fWy-U3-m7b" appends="YES" id="l26-gZ-J2h"/>
+                                </connections>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="full.name@example.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dho-Qr-Yeb">
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="full.name@example.com" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dho-Qr-Yeb">
                                 <rect key="frame" x="94" y="177" width="486" height="21.5"/>
+                                <gestureRecognizers/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="yhE-jj-MVp" appends="YES" id="M3y-zq-8X7"/>
+                                </connections>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Skill 1, Skill 2, Skill 3" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DUv-As-fDQ">
                                 <rect key="frame" x="94" y="204" width="486" height="21.5"/>
@@ -259,6 +267,16 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nKv-99-giG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="fWy-U3-m7b" userLabel="Tap Phone Gesture Recognizer">
+                    <connections>
+                        <action selector="call:" destination="fG0-ox-5Qw" id="riI-Z8-PTJ"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="yhE-jj-MVp" userLabel="Tap Email Gesture Recognizer">
+                    <connections>
+                        <action selector="email:" destination="fG0-ox-5Qw" id="b0a-jX-647"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1907" y="377"/>
         </scene>
