@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8152.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gnL-tR-Hvh">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8124.4"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Colleagues-->
@@ -122,8 +123,57 @@
                     <view key="view" contentMode="scaleToFill" id="pBI-vv-5NG">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="Upz-9T-SCT">
+                                <rect key="frame" x="20" y="72" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="fH0-dx-rz6"/>
+                                    <constraint firstAttribute="height" constant="64" id="lEM-M4-j97"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="32"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="rWp-rq-LA7">
+                                <rect key="frame" x="94" y="72" width="486" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="600" fixedFrame="YES" text="Full Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AuB-Aw-9G9">
+                                        <rect key="frame" x="0.0" y="0.0" width="93" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="500" fixedFrame="YES" text="Department" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ryu-WK-gDa">
+                                        <rect key="frame" x="0.0" y="27" width="77" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yxe-sp-49c">
+                                        <rect key="frame" x="0.0" y="47" width="28" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="14"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rWp-rq-LA7" firstAttribute="top" secondItem="I0K-66-Zbt" secondAttribute="bottom" constant="8" id="0hu-Lb-Jdi"/>
+                            <constraint firstItem="Upz-9T-SCT" firstAttribute="top" secondItem="I0K-66-Zbt" secondAttribute="bottom" constant="8" id="HnI-wp-PPu"/>
+                            <constraint firstItem="Upz-9T-SCT" firstAttribute="leading" secondItem="pBI-vv-5NG" secondAttribute="leadingMargin" id="TbI-Hr-3Bl"/>
+                            <constraint firstItem="rWp-rq-LA7" firstAttribute="leading" secondItem="Upz-9T-SCT" secondAttribute="trailing" constant="10" id="WHS-aQ-Q6i"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="rWp-rq-LA7" secondAttribute="trailing" id="j3N-zF-laQ"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="departmentLabel" destination="Ryu-WK-gDa" id="kLu-8S-cmR"/>
+                        <outlet property="nameLabel" destination="AuB-Aw-9G9" id="jbb-F7-eAT"/>
+                        <outlet property="pictureImageView" destination="Upz-9T-SCT" id="hVQ-Rj-XMU"/>
+                        <outlet property="titleLabel" destination="yxe-sp-49c" id="9jK-BX-Y1E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nKv-99-giG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
