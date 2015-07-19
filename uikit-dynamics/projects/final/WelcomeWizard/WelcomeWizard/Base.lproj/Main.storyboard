@@ -38,10 +38,10 @@
             </objects>
             <point key="canvasLocation" x="273" y="429"/>
         </scene>
-        <!--View Controller-->
+        <!--Wizard View Controller-->
         <scene sceneID="Evu-z9-Ixd">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Dad-ES-SV5" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Dad-ES-SV5" customClass="WizardViewController" customModule="WelcomeWizard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ivq-Rc-KFp"/>
                         <viewControllerLayoutGuide type="bottom" id="Hft-JX-XEE"/>
