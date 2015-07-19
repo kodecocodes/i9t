@@ -8,7 +8,7 @@
         <!--Colleagues-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="EmployeeListViewController" customModule="Colleagues" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EmployeeList" automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="EmployeeListViewController" customModule="Colleagues" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -194,14 +194,38 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5t-rn-Eu6">
+                                <rect key="frame" x="0.0" y="235" width="600" height="20"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other employees in department" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pTj-uj-aWg">
+                                        <rect key="frame" x="15" y="1.5" width="570" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="pTj-uj-aWg" firstAttribute="leading" secondItem="c5t-rn-Eu6" secondAttribute="leading" constant="15" id="OMZ-KT-itE"/>
+                                    <constraint firstAttribute="trailing" secondItem="pTj-uj-aWg" secondAttribute="trailing" constant="15" id="bdp-9a-egU"/>
+                                    <constraint firstAttribute="height" constant="20" id="dVm-pM-2jH"/>
+                                    <constraint firstItem="pTj-uj-aWg" firstAttribute="centerY" secondItem="c5t-rn-Eu6" secondAttribute="centerY" id="dp3-qW-WXb"/>
+                                </constraints>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HQE-8J-FON">
+                                <rect key="frame" x="0.0" y="255" width="600" height="345"/>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="HQE-8J-FON" firstAttribute="top" secondItem="c5t-rn-Eu6" secondAttribute="bottom" id="0hg-Ea-DjP"/>
                             <constraint firstItem="rWp-rq-LA7" firstAttribute="top" secondItem="I0K-66-Zbt" secondAttribute="bottom" constant="8" id="0hu-Lb-Jdi"/>
                             <constraint firstItem="DUv-As-fDQ" firstAttribute="top" secondItem="Dho-Qr-Yeb" secondAttribute="bottom" constant="5" id="3zL-0N-34d"/>
+                            <constraint firstAttribute="trailing" secondItem="HQE-8J-FON" secondAttribute="trailing" id="4gL-0b-SSQ"/>
                             <constraint firstItem="Dho-Qr-Yeb" firstAttribute="top" secondItem="nQT-c8-eZA" secondAttribute="bottom" constant="5" id="66W-gS-k14"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nQT-c8-eZA" secondAttribute="trailing" id="7zW-Jb-UI2"/>
+                            <constraint firstItem="MhB-9A-sY4" firstAttribute="top" secondItem="HQE-8J-FON" secondAttribute="bottom" id="8sC-Oz-sio"/>
                             <constraint firstItem="DUv-As-fDQ" firstAttribute="centerY" secondItem="xMx-3W-10k" secondAttribute="centerY" id="9oG-bk-tx0"/>
+                            <constraint firstItem="HQE-8J-FON" firstAttribute="leading" secondItem="pBI-vv-5NG" secondAttribute="leading" id="B0q-nt-5Sn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Dho-Qr-Yeb" secondAttribute="trailing" id="BRl-Hc-qLD"/>
                             <constraint firstItem="nQT-c8-eZA" firstAttribute="top" secondItem="rWp-rq-LA7" secondAttribute="bottom" constant="15" id="Bh0-WN-KZT"/>
                             <constraint firstItem="Dho-Qr-Yeb" firstAttribute="leading" secondItem="rWp-rq-LA7" secondAttribute="leading" id="F4E-rD-yUe"/>
@@ -209,22 +233,27 @@
                             <constraint firstItem="Upz-9T-SCT" firstAttribute="top" secondItem="I0K-66-Zbt" secondAttribute="bottom" constant="8" id="HnI-wp-PPu"/>
                             <constraint firstItem="DUv-As-fDQ" firstAttribute="leading" secondItem="rWp-rq-LA7" secondAttribute="leading" id="KC4-Tt-JB3"/>
                             <constraint firstItem="Upz-9T-SCT" firstAttribute="leading" secondItem="pBI-vv-5NG" secondAttribute="leadingMargin" id="TbI-Hr-3Bl"/>
+                            <constraint firstItem="c5t-rn-Eu6" firstAttribute="leading" secondItem="pBI-vv-5NG" secondAttribute="leading" id="UES-ug-Id3"/>
                             <constraint firstItem="i9M-Ej-w4T" firstAttribute="trailing" secondItem="Upz-9T-SCT" secondAttribute="trailing" id="Us0-f6-Yz3"/>
                             <constraint firstItem="rWp-rq-LA7" firstAttribute="leading" secondItem="Upz-9T-SCT" secondAttribute="trailing" constant="10" id="WHS-aQ-Q6i"/>
                             <constraint firstAttribute="trailingMargin" secondItem="DUv-As-fDQ" secondAttribute="trailing" id="XVv-op-QfC"/>
+                            <constraint firstAttribute="trailing" secondItem="c5t-rn-Eu6" secondAttribute="trailing" id="a7F-rH-O5D"/>
                             <constraint firstItem="upJ-Db-uUA" firstAttribute="trailing" secondItem="Upz-9T-SCT" secondAttribute="trailing" id="c7c-yu-W55"/>
                             <constraint firstItem="nQT-c8-eZA" firstAttribute="leading" secondItem="rWp-rq-LA7" secondAttribute="leading" id="cOO-LI-rpD"/>
                             <constraint firstItem="nQT-c8-eZA" firstAttribute="centerY" secondItem="upJ-Db-uUA" secondAttribute="centerY" id="eBn-L3-iCD"/>
                             <constraint firstAttribute="trailingMargin" secondItem="rWp-rq-LA7" secondAttribute="trailing" id="j3N-zF-laQ"/>
                             <constraint firstItem="Dho-Qr-Yeb" firstAttribute="centerY" secondItem="i9M-Ej-w4T" secondAttribute="centerY" id="wua-eg-SxS"/>
+                            <constraint firstItem="c5t-rn-Eu6" firstAttribute="top" secondItem="DUv-As-fDQ" secondAttribute="bottom" constant="10" id="zMr-we-Vqj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="departmentLabel" destination="Ryu-WK-gDa" id="kLu-8S-cmR"/>
                         <outlet property="emailLabel" destination="Dho-Qr-Yeb" id="eGm-tM-IKK"/>
                         <outlet property="nameLabel" destination="AuB-Aw-9G9" id="jbb-F7-eAT"/>
+                        <outlet property="otherEmployeesLabel" destination="pTj-uj-aWg" id="R0T-RA-pns"/>
                         <outlet property="phoneLabel" destination="nQT-c8-eZA" id="FZY-8a-7f8"/>
                         <outlet property="pictureImageView" destination="Upz-9T-SCT" id="hVQ-Rj-XMU"/>
+                        <outlet property="sameDepartmentContainerView" destination="HQE-8J-FON" id="H0Z-PQ-cAL"/>
                         <outlet property="skillsLabel" destination="DUv-As-fDQ" id="2T6-tn-BI5"/>
                         <outlet property="titleLabel" destination="yxe-sp-49c" id="9jK-BX-Y1E"/>
                     </connections>

@@ -19,6 +19,7 @@ class EmployeeListViewController: UIViewController {
     
     override func viewDidLoad() {
         employeeList = EmployeeService().fetchEmployees()
+        employeeList.sortInPlace { $0.name < $1.name }
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -34,6 +35,10 @@ class EmployeeListViewController: UIViewController {
             let employeeViewController = segue.destinationViewController as? EmployeeViewController {
             employeeViewController.employee = cell.employee
         }
+    }
+    
+    func runFilter(filter: (Employee -> Bool)) {
+        employeeList = employeeList.filter(filter)
     }
 }
 
