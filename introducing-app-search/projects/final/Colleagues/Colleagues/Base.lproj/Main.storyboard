@@ -101,7 +101,7 @@
         <!--Employee View Controller-->
         <scene sceneID="LwZ-D5-y7l">
             <objects>
-                <viewController id="fG0-ox-5Qw" customClass="EmployeeViewController" customModule="Colleagues" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EmployeeView" id="fG0-ox-5Qw" customClass="EmployeeViewController" customModule="Colleagues" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="I0K-66-Zbt"/>
                         <viewControllerLayoutGuide type="bottom" id="MhB-9A-sY4"/>
@@ -282,7 +282,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jVH-xE-L2k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="300" y="-315"/>
+            <point key="canvasLocation" x="352" y="377"/>
         </scene>
     </scenes>
 </document>
