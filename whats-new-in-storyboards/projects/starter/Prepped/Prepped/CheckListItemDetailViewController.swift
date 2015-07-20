@@ -20,31 +20,32 @@
 * THE SOFTWARE.
 */
 
-
 import UIKit
 
-protocol ItemTableViewCellDelegate {
-  func cellCheckMarkTapped(cell:UITableViewCell, checked:Bool)
-}
-
-class ItemTableViewCell: UITableViewCell {
+class CheckListItemDetailViewController: UITableViewController {
   
-  var delegate:ItemTableViewCellDelegate? = nil
-  var checked = false {
-    didSet {
-      checkMark.text = checked ? CheckMark : " "
+  @IBOutlet var checkListNameTextField: UITextField!
+  @IBOutlet var checkListNotesTextView: UITextView!
+  
+  var checkListItem: CheckListItem? {
+    if let name = checkListNameTextField.text, notes = checkListNotesTextView.text {
+      return CheckListItem(name, checked: false, notes: notes)
+    } else {
+      return nil
     }
   }
-  @IBOutlet var checkMark: UILabel!
-  @IBOutlet var lblListText: UILabel!
   
-  override func awakeFromNib() {
-    let tap = UITapGestureRecognizer(target: self, action: "checkMarkTapped:")
-    checkMark.addGestureRecognizer(tap)
+  override func viewDidLoad() {
+    checkListNameTextField.becomeFirstResponder()
   }
   
-  func checkMarkTapped(gesture: UITapGestureRecognizer) {
-    checked = !checked
-    delegate?.cellCheckMarkTapped(self, checked: checked)
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    if indexPath.section == 0 {
+      checkListNameTextField.becomeFirstResponder()
+    }
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    checkListNameTextField.resignFirstResponder()
   }
 }

@@ -23,64 +23,51 @@
 
 import UIKit
 
-class ItemViewController: UITableViewController {
+class CheckListDetailViewController: UITableViewController {
   
-  let cellHeight:CGFloat = 64
-  let cellPadding: CGFloat = 10
+  let cellHeight = 64.0
+  let cellPadding = 10.0
   
-  var checkListIndex:Int = 0
-  var itemArray:[CheckListItem] = checkListItemData[0]
-
+  var checkList: CheckList!
+  
   // MARK: - Unwind segue methods
   
-  @IBAction func cancelToItemViewController(segue: UIStoryboardSegue) {
+  @IBAction func cancelToCheckListDetailViewController(segue: UIStoryboardSegue) {
   }
   
-  @IBAction func saveToItemViewController(segue: UIStoryboardSegue) {
-    if let  controller = segue.sourceViewController as? ItemDetailViewController,
-      text = controller.checkListDescription.text,
-      notes = controller.checkListNotes.text {
-        let checkListItem:CheckListItem = (text, false, notes)
-        itemArray.append(checkListItem)
-        checkListItemData[checkListIndex].append(checkListItem)
-        let indexPath = NSIndexPath(forRow: itemArray.count-1, inSection: 0)
+  @IBAction func saveToCheckListDetailViewController(segue: UIStoryboardSegue) {
+    if let controller = segue.sourceViewController as? CheckListItemDetailViewController,
+      item = controller.checkListItem {
+        checkList.items.append(item)
+
         tableView.beginUpdates()
+        let indexPath = NSIndexPath(forRow: checkList.items.count - 1, inSection: 0)
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
         tableView.endUpdates()
     }
   }
 }
 
-extension ItemViewController {
-  // MARK: - Table view delegate
+// MARK: - UITableViewDelegate
+extension CheckListDetailViewController {
 }
 
-extension ItemViewController {
-  // MARK: - Table view data source
-  
+// MARK: - UITableViewDataSource
+extension CheckListDetailViewController {
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return itemArray.count
+    return checkList.items.count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("ItemTableViewCell", forIndexPath: indexPath) as! ItemTableViewCell
-    cell.delegate = self
-    let checkListItem = itemArray[indexPath.row]
-    cell.lblListText?.text = checkListItem.description
-    cell.checked = checkListItem.checked
+    let cell = tableView.dequeueReusableCellWithIdentifier("CheckListItemCell", forIndexPath: indexPath) as! CheckListItemTableViewCell
+    
+    let checkListItem = checkList.items[indexPath.row]
+    cell.checkListItem = checkListItem
+    
     return cell
-  }
-}
-
-extension ItemViewController: ItemTableViewCellDelegate {
-  func cellCheckMarkTapped(cell: UITableViewCell, checked: Bool) {
-    if let indexPath = tableView.indexPathForCell(cell) {
-      itemArray[indexPath.row].checked = checked
-      checkListItemData[checkListIndex][indexPath.row].checked = checked
-    }
   }
 }

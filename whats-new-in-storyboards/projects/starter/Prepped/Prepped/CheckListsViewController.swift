@@ -20,4 +20,35 @@
 * THE SOFTWARE.
 */
 
-let CheckMark = "✔️"
+
+import UIKit
+
+class CheckListsViewController: UITableViewController {
+  
+  // MARK: - UITableViewDataSource
+  
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return checkLists.count
+  }
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("CheckListCell", forIndexPath: indexPath)
+    
+    cell.textLabel?.text = checkLists[indexPath.row].title
+    
+    return cell
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "CheckListItem" {
+      if let controller = segue.destinationViewController as? CheckListDetailViewController,
+        indexPath = tableView.indexPathForSelectedRow {
+          controller.checkList = checkLists[indexPath.row]
+      }
+    }
+  }
+}

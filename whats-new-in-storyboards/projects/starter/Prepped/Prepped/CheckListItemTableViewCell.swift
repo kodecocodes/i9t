@@ -22,16 +22,47 @@
 
 import UIKit
 
-@IBDesignable
+let CheckMark = "✔️"
 
+class CheckListItemTableViewCell: UITableViewCell {
+  
+  @IBOutlet var checkMarkLabel: UILabel!
+  @IBOutlet var itemNameLabel: UILabel!
+  
+  var checkListItem: CheckListItem! {
+    didSet {
+      itemNameLabel.text = checkListItem.name
+      checked = checkListItem.checked
+    }
+  }
+  
+  var checked = false {
+    didSet {
+      checkMarkLabel.text = checked ? CheckMark : " "
+    }
+  }
+  
+  override func awakeFromNib() {
+    let recognizer = UITapGestureRecognizer(target: self, action: "checkMarkTapped:")
+    checkMarkLabel.addGestureRecognizer(recognizer)
+  }
+  
+  func checkMarkTapped(gesture: UITapGestureRecognizer) {
+    checked = !checked
+    checkListItem.checked = checked
+  }
+}
+
+@IBDesignable
 class BorderedView: UIView {
   
-  @IBInspectable var borderColor:UIColor = UIColor.darkGrayColor()
-  @IBInspectable var lineWidth:CGFloat = 2.0
-  @IBInspectable var cornerRadius:CGFloat = 5.0
+  @IBInspectable var borderColor = UIColor.darkGrayColor()
+  @IBInspectable var lineWidth: CGFloat = 2.0
+  @IBInspectable var cornerRadius: CGFloat = 5.0
   
   override func drawRect(rect: CGRect) {
     borderColor.setStroke()
+    
     let path = UIBezierPath(roundedRect: CGRectInset(rect, lineWidth/2, lineWidth/2), cornerRadius: cornerRadius)
     path.lineWidth = lineWidth
     path.stroke()
