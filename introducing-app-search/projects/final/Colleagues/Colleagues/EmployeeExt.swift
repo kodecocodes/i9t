@@ -22,8 +22,28 @@
 
 import Foundation
 import EmployeeKit
+import CoreSpotlight
+import MobileCoreServices
 
 extension Employee {
+  
+  var userActivity: NSUserActivity {
+    let activity = NSUserActivity(activityType: "com.raywenderlich.colleagues.employee")
+    activity.title = name
+    activity.eligibleForSearch = true
+    activity.userInfo = [
+      "id": objectId
+    ]
+    activity.keywords = [email, department]
+    
+    let contentAttributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeContact as String)
+    contentAttributeSet.thumbnailData = UIImageJPEGRepresentation(loadPicture(), 0.9)
+    contentAttributeSet.phoneNumbers = [phone]
+    contentAttributeSet.contentDescription = "\(department), \(title)\n\(phone)"
+    
+    activity.contentAttributeSet = contentAttributeSet
+    return activity
+  }
   
   /// Dial the employee's phone number use the system dialer.
   func call() {
