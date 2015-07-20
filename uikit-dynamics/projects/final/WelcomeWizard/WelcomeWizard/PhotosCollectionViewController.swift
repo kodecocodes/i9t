@@ -110,8 +110,6 @@ class PhotosCollectionViewController: UICollectionViewController, UIDynamicAnima
     let pushBehavior = UIPushBehavior(items: [fullPhotoView], mode: .Instantaneous)
     pushBehavior.pushDirection = CGVectorMake(0, -1)
     animator!.addBehavior(pushBehavior)
-    
-    
   }
   
   func showFullImageView(image: UIImage) {
@@ -140,7 +138,6 @@ class PhotosCollectionViewController: UICollectionViewController, UIDynamicAnima
     let slidingAttachment = UIAttachmentBehavior.slidingAttachmentWithItem(fullPhotoView, attachmentAnchor: view.center, axisOfTranslation: CGVectorMake(0, 1))
     slidingAttachment.attachmentRange = UIFloatRange(minimum: fullPhotoView.frame.size.height * -1, maximum: fullPhotoView.frame.size.height + 1)
     animator!.addBehavior(slidingAttachment)
-    
   }
   
   // MARK: UIDynamicAnimatorDelegate methods
