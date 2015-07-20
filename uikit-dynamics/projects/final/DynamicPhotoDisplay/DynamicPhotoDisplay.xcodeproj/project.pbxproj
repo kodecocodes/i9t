@@ -69,7 +69,6 @@
 				93A0C54E1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift */,
 				93A0C54C1B5C563500A5EB09 /* PhotosCollectionViewController.swift */,
 			);
-			name = DynamicPhotoDisplay;
 			path = DynamicPhotoDisplay;
 			sourceTree = "<group>";
 		};

@@ -46,7 +46,9 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     addChildViewController(fullPhotoViewController)
     view.addSubview(fullPhotoView)
-    fullPhotoView.frame = view.frame
+    fullPhotoViewController.didMoveToParentViewController(self)
+    
+    fullPhotoView.frame = view.bounds
     fullPhotoView.setNeedsLayout()
     fullPhotoView.hidden = true
     
@@ -127,34 +129,30 @@ class PhotosCollectionViewController: UICollectionViewController {
     animator!.addBehavior(gravityBehavior)
     
     let collisionBehavior = UICollisionBehavior(items: [fullPhotoView])
-    collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPointMake(0, fullPhotoView.frame.size.height + 1), toPoint: CGPointMake(fullPhotoView.frame.size.width, fullPhotoView.frame.size.height + 1))
+    collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPointMake(0, fullPhotoView.frame.size.height), toPoint: CGPointMake(fullPhotoView.frame.size.width, fullPhotoView.frame.size.height))
     animator!.addBehavior(collisionBehavior)
     
     let slidingAttachment = UIAttachmentBehavior.slidingAttachmentWithItem(fullPhotoView, attachmentAnchor: view.center, axisOfTranslation: CGVectorMake(0, 1))
     slidingAttachment.attachmentRange = UIFloatRange(minimum: fullPhotoView.frame.size.height * -1, maximum: fullPhotoView.frame.size.height + 1)
     animator!.addBehavior(slidingAttachment)
-    
-    animator!.addBehavior(heavyCurtainBehavior)
-    heavyCurtainBehavior.isEnabled = true
   }
   
   func pan(pan: UIPanGestureRecognizer) {
-    var location = pan.locationInView(view)
+    var location = pan.translationInView(view)
     
     switch pan.state {
     case .Began:
       // Capture the initial touch offset from the itemView's center.
       let center = fullPhotoView.center
-      offset.x = location.x - center.x
+      offset.x = 0
       offset.y = location.y - center.y
       
       // Disable the behavior while the item is manipulated by the pan recognizer.
-      heavyCurtainBehavior.isEnabled = false
+      animator!.removeAllBehaviors()
       
     case .Changed:
       // Get reference bounds.
       let referenceBounds = view.bounds
-      let referenceWidth = referenceBounds.width
       let referenceHeight = referenceBounds.height
       
       // Get item bounds.
@@ -163,13 +161,10 @@ class PhotosCollectionViewController: UICollectionViewController {
       let itemHalfHeight = itemBounds.height / 2.0
       
       // Apply the initial offset.
-      location.x -= offset.x
       location.y -= offset.y
       
       // Bound the item position inside the reference view.
-      location.x = max(itemHalfWidth, location.x)
-      location.x = min(referenceWidth - itemHalfWidth, location.x)
-//      location.y = max(itemHalfHeight, location.y)
+      location.x = itemHalfWidth
       location.y = min(referenceHeight - itemHalfHeight, location.y)
       
       // Apply the resulting item center.
@@ -177,13 +172,30 @@ class PhotosCollectionViewController: UICollectionViewController {
       
     case .Cancelled, .Ended:
       // Get the current velocity of the item from the pan gesture recognizer.
-      let velocity = pan.velocityInView(view)
+      var velocity = pan.velocityInView(view)
+      velocity.x = 0
       
-      // Re-enable the stickyCornersBehavior.
+      // Re-enable the heavyCurtainBehavior.
       heavyCurtainBehavior.isEnabled = true
-      
-      // Add the current velocity to the sticky corners behavior.
-      heavyCurtainBehavior.addLinearVelocity(velocity)
+      animator!.addBehavior(heavyCurtainBehavior)
+
+      if velocity.y < 0.0 && fullPhotoView.center.y < 0 {
+        // If we're more than half way up with the full photo, dismiss it with a push
+        animator!.removeAllBehaviors()
+        // Sets the delegate which will hide the view after animations complete
+        animator!.delegate = self
+
+        let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
+        dynamicItemBehavior.elasticity = 0.2
+        dynamicItemBehavior.density = 0.005
+        animator!.addBehavior(dynamicItemBehavior)
+        
+        let pushBehavior = UIPushBehavior(items: [fullPhotoView], mode: .Instantaneous)
+        pushBehavior.pushDirection = CGVectorMake(0, -1)
+        animator!.addBehavior(pushBehavior)
+      } else {
+        heavyCurtainBehavior.addLinearVelocity(velocity)
+      }
       
     default: ()
     }
@@ -195,5 +207,6 @@ extension PhotosCollectionViewController: UIDynamicAnimatorDelegate {
   func dynamicAnimatorDidPause(animator: UIDynamicAnimator) {
     fullPhotoView.hidden = true
     animator.delegate = nil
+    animator.removeAllBehaviors()
   }
 }
