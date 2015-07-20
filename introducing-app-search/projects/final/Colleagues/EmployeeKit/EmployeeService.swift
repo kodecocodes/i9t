@@ -26,6 +26,16 @@ public struct EmployeeService {
   
   public init() { }
   
+  /** Lookup an Employee by its `objectId`
+  - Parameter objectId: The `objectId` of the employee to lookup
+  - Returns: The employee or `nil` if one does not exist
+  */
+  public func employeeWithObjectId(objectId: String) -> Employee? {
+    let employees = fetchEmployees()
+    let filteredEmployees = employees.filter { $0.objectId == objectId }
+    return filteredEmployees.first
+  }
+  
   /// Return an array of all employees in the database
   public func fetchEmployees() -> [Employee] {
     let jsonData = loadEmployeesJSONData()
