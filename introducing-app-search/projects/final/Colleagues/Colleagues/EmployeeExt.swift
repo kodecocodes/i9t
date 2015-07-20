@@ -27,12 +27,14 @@ import MobileCoreServices
 
 extension Employee {
   
+  static let userActivityType = "com.raywenderlich.colleagues.employee"
+  
   var userActivityUserInfo: [NSObject: AnyObject] {
     return ["id": objectId]
   }
   
   var userActivity: NSUserActivity {
-    let activity = NSUserActivity(activityType: "com.raywenderlich.colleagues.employee")
+    let activity = NSUserActivity(activityType: self.dynamicType.userActivityType)
     activity.title = name
     activity.eligibleForSearch = true
     activity.userInfo = userActivityUserInfo
