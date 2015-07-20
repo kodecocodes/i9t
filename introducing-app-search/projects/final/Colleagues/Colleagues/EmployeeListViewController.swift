@@ -27,6 +27,7 @@ class EmployeeListViewController: UIViewController {
   
   @IBOutlet weak var tableView: UITableView!
   
+  private let navigationStackLimit = 2
   private var employeeList = [Employee]()
   
   private var selectedIndexPath: NSIndexPath?
@@ -43,6 +44,18 @@ class EmployeeListViewController: UIViewController {
     if let selectedIndexPath = selectedIndexPath {
       tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
     }
+  }
+  
+  override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+    if identifier == "ViewEmployee" && navigationController?.viewControllers.count > navigationStackLimit {
+      // prevent the user from going TOO deep
+      if let cell = sender as? UITableViewCell, indexPath = tableView.indexPathForCell(cell) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+      }
+      return false
+    }
+    
+    return true
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -67,8 +80,13 @@ extension EmployeeListViewController: UITableViewDataSource, UITableViewDelegate
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("Employee", forIndexPath: indexPath) as! EmployeeListCell
-    
     cell.employee = employeeList[indexPath.row]
+    
+    if navigationController?.viewControllers.count > navigationStackLimit {
+      cell.accessoryType = .None
+    } else {
+      cell.accessoryType = .DisclosureIndicator
+    }
     
     return cell
   }
