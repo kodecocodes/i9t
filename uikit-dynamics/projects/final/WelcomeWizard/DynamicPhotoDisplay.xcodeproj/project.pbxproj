@@ -13,11 +13,11 @@
 		93A0C5431B5C000600A5EB09 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93A0C5411B5C000600A5EB09 /* LaunchScreen.storyboard */; };
 		93A0C54D1B5C563500A5EB09 /* PhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A0C54C1B5C563500A5EB09 /* PhotosCollectionViewController.swift */; };
 		93A0C54F1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A0C54E1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift */; };
-		93DE925E1B5D162100330A7B /* SquishyCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DE925D1B5D162100330A7B /* SquishyCollectionViewLayout.swift */; };
+		93DE92601B5D528400330A7B /* HeavyCurtainDynamicBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93DE925F1B5D528400330A7B /* HeavyCurtainDynamicBehavior.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		93A0C5351B5C000600A5EB09 /* WelcomeWizard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WelcomeWizard.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A0C5351B5C000600A5EB09 /* DynamicPhotoDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DynamicPhotoDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A0C5381B5C000600A5EB09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93A0C53D1B5C000600A5EB09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		93A0C53F1B5C000600A5EB09 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -25,7 +25,7 @@
 		93A0C5441B5C000600A5EB09 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93A0C54C1B5C563500A5EB09 /* PhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		93A0C54E1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
-		93DE925D1B5D162100330A7B /* SquishyCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquishyCollectionViewLayout.swift; sourceTree = "<group>"; };
+		93DE925F1B5D528400330A7B /* HeavyCurtainDynamicBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeavyCurtainDynamicBehavior.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,7 +42,7 @@
 		93A0C52C1B5C000600A5EB09 = {
 			isa = PBXGroup;
 			children = (
-				93A0C5371B5C000600A5EB09 /* WelcomeWizard */,
+				93A0C5371B5C000600A5EB09 /* DynamicPhotoDisplay */,
 				93A0C5361B5C000600A5EB09 /* Products */,
 			);
 			indentWidth = 2;
@@ -52,31 +52,33 @@
 		93A0C5361B5C000600A5EB09 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				93A0C5351B5C000600A5EB09 /* WelcomeWizard.app */,
+				93A0C5351B5C000600A5EB09 /* DynamicPhotoDisplay.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		93A0C5371B5C000600A5EB09 /* WelcomeWizard */ = {
+		93A0C5371B5C000600A5EB09 /* DynamicPhotoDisplay */ = {
 			isa = PBXGroup;
 			children = (
 				93A0C5381B5C000600A5EB09 /* AppDelegate.swift */,
+				93A0C53F1B5C000600A5EB09 /* Assets.xcassets */,
+				93DE925F1B5D528400330A7B /* HeavyCurtainDynamicBehavior.swift */,
+				93A0C5441B5C000600A5EB09 /* Info.plist */,
+				93A0C5411B5C000600A5EB09 /* LaunchScreen.storyboard */,
 				93A0C53C1B5C000600A5EB09 /* Main.storyboard */,
 				93A0C54E1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift */,
-				93A0C53F1B5C000600A5EB09 /* Assets.xcassets */,
-				93A0C5411B5C000600A5EB09 /* LaunchScreen.storyboard */,
-				93A0C5441B5C000600A5EB09 /* Info.plist */,
 				93A0C54C1B5C563500A5EB09 /* PhotosCollectionViewController.swift */,
 			);
+			name = DynamicPhotoDisplay;
 			path = WelcomeWizard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		93A0C5341B5C000600A5EB09 /* WelcomeWizard */ = {
+		93A0C5341B5C000600A5EB09 /* DynamicPhotoDisplay */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 93A0C5471B5C000600A5EB09 /* Build configuration list for PBXNativeTarget "WelcomeWizard" */;
+			buildConfigurationList = 93A0C5471B5C000600A5EB09 /* Build configuration list for PBXNativeTarget "DynamicPhotoDisplay" */;
 			buildPhases = (
 				93A0C5311B5C000600A5EB09 /* Sources */,
 				93A0C5321B5C000600A5EB09 /* Frameworks */,
@@ -86,9 +88,9 @@
 			);
 			dependencies = (
 			);
-			name = WelcomeWizard;
+			name = DynamicPhotoDisplay;
 			productName = WelcomeWizard;
-			productReference = 93A0C5351B5C000600A5EB09 /* WelcomeWizard.app */;
+			productReference = 93A0C5351B5C000600A5EB09 /* DynamicPhotoDisplay.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -105,7 +107,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 93A0C5301B5C000600A5EB09 /* Build configuration list for PBXProject "WelcomeWizard" */;
+			buildConfigurationList = 93A0C5301B5C000600A5EB09 /* Build configuration list for PBXProject "DynamicPhotoDisplay" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -118,7 +120,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				93A0C5341B5C000600A5EB09 /* WelcomeWizard */,
+				93A0C5341B5C000600A5EB09 /* DynamicPhotoDisplay */,
 			);
 		};
 /* End PBXProject section */
@@ -144,6 +146,7 @@
 				93A0C54F1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift in Sources */,
 				93A0C5391B5C000600A5EB09 /* AppDelegate.swift in Sources */,
 				93A0C54D1B5C563500A5EB09 /* PhotosCollectionViewController.swift in Sources */,
+				93DE92601B5D528400330A7B /* HeavyCurtainDynamicBehavior.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,8 +261,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WelcomeWizard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.WelcomeWizard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.DynamicPhotoDisplay;
+				PRODUCT_NAME = DynamicPhotoDisplay;
 			};
 			name = Debug;
 		};
@@ -269,15 +272,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = WelcomeWizard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.WelcomeWizard;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.DynamicPhotoDisplay;
+				PRODUCT_NAME = DynamicPhotoDisplay;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		93A0C5301B5C000600A5EB09 /* Build configuration list for PBXProject "WelcomeWizard" */ = {
+		93A0C5301B5C000600A5EB09 /* Build configuration list for PBXProject "DynamicPhotoDisplay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				93A0C5451B5C000600A5EB09 /* Debug */,
@@ -286,7 +289,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		93A0C5471B5C000600A5EB09 /* Build configuration list for PBXNativeTarget "WelcomeWizard" */ = {
+		93A0C5471B5C000600A5EB09 /* Build configuration list for PBXNativeTarget "DynamicPhotoDisplay" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				93A0C5481B5C000600A5EB09 /* Debug */,
