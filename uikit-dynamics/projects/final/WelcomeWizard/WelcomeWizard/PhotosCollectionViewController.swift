@@ -18,7 +18,6 @@ class PhotosCollectionViewController: UICollectionViewController {
         super.viewDidLoad()
 
         animator = UIDynamicAnimator(referenceView: navigationController!.view)
-//        animator!.setValue(true, forKey: "debugEnabled")
         
         photos.append(UIImage(named: "400-0.jpeg")!)
         photos.append(UIImage(named: "400-1.jpeg")!)
