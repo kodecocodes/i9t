@@ -70,7 +70,7 @@
 				93A0C54C1B5C563500A5EB09 /* PhotosCollectionViewController.swift */,
 			);
 			name = DynamicPhotoDisplay;
-			path = WelcomeWizard;
+			path = DynamicPhotoDisplay;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,7 +89,7 @@
 			dependencies = (
 			);
 			name = DynamicPhotoDisplay;
-			productName = WelcomeWizard;
+			productName = DynamicPhotoDisplay;
 			productReference = 93A0C5351B5C000600A5EB09 /* DynamicPhotoDisplay.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -259,7 +259,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = WelcomeWizard/Info.plist;
+				INFOPLIST_FILE = DynamicPhotoDisplay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.DynamicPhotoDisplay;
 				PRODUCT_NAME = DynamicPhotoDisplay;
@@ -270,7 +270,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = WelcomeWizard/Info.plist;
+				INFOPLIST_FILE = DynamicPhotoDisplay/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.DynamicPhotoDisplay;
 				PRODUCT_NAME = DynamicPhotoDisplay;
