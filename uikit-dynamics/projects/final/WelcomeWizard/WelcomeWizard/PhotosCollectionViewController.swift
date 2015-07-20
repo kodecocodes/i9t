@@ -12,10 +12,14 @@ private let reuseIdentifier = "PhotoCell"
 
 class PhotosCollectionViewController: UICollectionViewController {
     var photos = [UIImage]()
+    var animator: UIDynamicAnimator?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        animator = UIDynamicAnimator(referenceView: view)
+        animator!.setValue(true, forKey: "debugEnabled")
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -59,6 +63,15 @@ class PhotosCollectionViewController: UICollectionViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "FullImage" {
+            let indexPath = collectionView!.indexPathForCell(sender! as! UICollectionViewCell)
+            let image = self.photos[indexPath!.item]
+            let fullPhotoVC = segue.destinationViewController as! FullPhotoViewController
+            fullPhotoVC.image = image
+        }
+    }
 
     // MARK: UICollectionViewDataSource
 
@@ -83,7 +96,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     }
 
     // MARK: UICollectionViewDelegate
-
+    
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
     override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -112,5 +125,10 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     }
     */
-
+    
+    @IBAction func unwindToPhotos(sender: UIStoryboardSegue) {
+        self.childViewControllers[0].view.removeFromSuperview()
+        self.childViewControllers[0].removeFromParentViewController()
+    }
+    
 }

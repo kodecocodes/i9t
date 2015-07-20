@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9315F5421B5C745E0011110F /* FullPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9315F5411B5C745E0011110F /* FullPhotoViewController.swift */; };
+		9315F5441B5C767B0011110F /* SwishDownStoryboardSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9315F5431B5C767B0011110F /* SwishDownStoryboardSegue.swift */; };
 		93A0C5391B5C000600A5EB09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A0C5381B5C000600A5EB09 /* AppDelegate.swift */; };
 		93A0C53B1B5C000600A5EB09 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A0C53A1B5C000600A5EB09 /* ViewController.swift */; };
 		93A0C53E1B5C000600A5EB09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93A0C53C1B5C000600A5EB09 /* Main.storyboard */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9315F5411B5C745E0011110F /* FullPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullPhotoViewController.swift; sourceTree = "<group>"; };
+		9315F5431B5C767B0011110F /* SwishDownStoryboardSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwishDownStoryboardSegue.swift; sourceTree = "<group>"; };
 		93A0C5351B5C000600A5EB09 /* WelcomeWizard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WelcomeWizard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A0C5381B5C000600A5EB09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93A0C53A1B5C000600A5EB09 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,6 +73,8 @@
 				93A0C5441B5C000600A5EB09 /* Info.plist */,
 				93A0C54A1B5C054300A5EB09 /* WizardViewController.swift */,
 				93A0C54C1B5C563500A5EB09 /* PhotosCollectionViewController.swift */,
+				9315F5411B5C745E0011110F /* FullPhotoViewController.swift */,
+				9315F5431B5C767B0011110F /* SwishDownStoryboardSegue.swift */,
 			);
 			path = WelcomeWizard;
 			sourceTree = "<group>";
@@ -143,7 +149,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9315F5421B5C745E0011110F /* FullPhotoViewController.swift in Sources */,
 				93A0C54B1B5C054300A5EB09 /* WizardViewController.swift in Sources */,
+				9315F5441B5C767B0011110F /* SwishDownStoryboardSegue.swift in Sources */,
 				93A0C54F1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift in Sources */,
 				93A0C53B1B5C000600A5EB09 /* ViewController.swift in Sources */,
 				93A0C5391B5C000600A5EB09 /* AppDelegate.swift in Sources */,
@@ -297,6 +305,7 @@
 				93A0C5491B5C000600A5EB09 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
