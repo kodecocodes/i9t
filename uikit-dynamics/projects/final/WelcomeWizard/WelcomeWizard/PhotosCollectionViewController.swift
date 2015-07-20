@@ -17,13 +17,9 @@ class PhotosCollectionViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        animator = UIDynamicAnimator(referenceView: view)
-        animator!.setValue(true, forKey: "debugEnabled")
+        animator = UIDynamicAnimator(referenceView: navigationController!.view)
+//        animator!.setValue(true, forKey: "debugEnabled")
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Do any additional setup after loading the view.
         photos.append(UIImage(named: "400-0.jpeg")!)
         photos.append(UIImage(named: "400-1.jpeg")!)
         photos.append(UIImage(named: "400-2.jpeg")!)
@@ -54,15 +50,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "FullImage" {
@@ -73,12 +61,16 @@ class PhotosCollectionViewController: UICollectionViewController {
         }
     }
 
+    @IBAction func unwindToPhotos(sender: UIStoryboardSegue) {
+        sender.sourceViewController.view.removeFromSuperview()
+        sender.sourceViewController.removeFromParentViewController()
+    }
+    
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
     }
-
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.photos.count
@@ -125,10 +117,5 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     }
     */
-    
-    @IBAction func unwindToPhotos(sender: UIStoryboardSegue) {
-        self.childViewControllers[0].view.removeFromSuperview()
-        self.childViewControllers[0].removeFromParentViewController()
-    }
     
 }
