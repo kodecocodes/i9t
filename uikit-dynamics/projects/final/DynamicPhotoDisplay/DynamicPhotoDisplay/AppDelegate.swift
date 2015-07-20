@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  WelcomeWizard
+//  DynamicPhotoDisplay
 //
 //  Created by Aaron Douglas on 7/19/15.
 //  Copyright © 2015 Razeware LLC. All rights reserved.
