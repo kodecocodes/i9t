@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "PhotoCell"
 
-class PhotosCollectionViewController: UICollectionViewController, UIDynamicAnimatorDelegate {
+class PhotosCollectionViewController: UICollectionViewController {
   var photos = [UIImage]()
   var animator: UIDynamicAnimator?
   
@@ -22,29 +22,11 @@ class PhotosCollectionViewController: UICollectionViewController, UIDynamicAnima
     super.viewDidLoad()
     
     animator = UIDynamicAnimator(referenceView: self.view)
-    
-    photos.append(UIImage(named: "400-0.jpeg")!)
-    photos.append(UIImage(named: "400-1.jpeg")!)
-    photos.append(UIImage(named: "400-2.jpeg")!)
-    photos.append(UIImage(named: "400-3.jpeg")!)
-    photos.append(UIImage(named: "400-4.jpeg")!)
-    photos.append(UIImage(named: "400-5.jpeg")!)
-    photos.append(UIImage(named: "400-6.jpeg")!)
-    photos.append(UIImage(named: "400-7.jpeg")!)
-    photos.append(UIImage(named: "400-8.jpeg")!)
-    photos.append(UIImage(named: "400-9.jpeg")!)
-    photos.append(UIImage(named: "400-10.jpeg")!)
-    photos.append(UIImage(named: "400-11.jpeg")!)
-    photos.append(UIImage(named: "400-12.jpeg")!)
-    photos.append(UIImage(named: "400-13.jpeg")!)
-    photos.append(UIImage(named: "400-14.jpeg")!)
-    photos.append(UIImage(named: "400-15.jpeg")!)
-    photos.append(UIImage(named: "400-16.jpeg")!)
-    photos.append(UIImage(named: "400-17.jpeg")!)
-    photos.append(UIImage(named: "400-18.jpeg")!)
-    photos.append(UIImage(named: "400-19.jpeg")!)
-    photos.append(UIImage(named: "400-20.jpeg")!)
-    photos.append(UIImage(named: "400-21.jpeg")!)
+
+    // Data initialization
+    (0...21).map({
+      photos.append(UIImage(named: "400-\($0).jpeg")!)
+    })
     
     // Add full image view to top view controller
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -140,8 +122,9 @@ class PhotosCollectionViewController: UICollectionViewController, UIDynamicAnima
     animator!.addBehavior(slidingAttachment)
   }
   
-  // MARK: UIDynamicAnimatorDelegate methods
-  
+}
+
+extension PhotosCollectionViewController: UIDynamicAnimatorDelegate {
   func dynamicAnimatorDidPause(animator: UIDynamicAnimator) {
     fullPhotoView.hidden = true
     animator.delegate = nil
