@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8152.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Let-uc-op4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8124.4"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -50,7 +51,6 @@
                                 </view>
                                 <connections>
                                     <outlet property="imageView" destination="0xM-pu-TRf" id="rDo-I6-lnw"/>
-                                    <segue destination="dYc-72-Bbx" kind="custom" identifier="FullImage" customClass="SwishDownStoryboardSegue" customModule="WelcomeWizard" customModuleProvider="target" animates="NO" id="SjP-yT-a1V"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -67,48 +67,42 @@
             <point key="canvasLocation" x="253" y="1007"/>
         </scene>
         <!--Full Photo View Controller-->
-        <scene sceneID="gKm-6R-TSa">
+        <scene sceneID="UM5-oM-vqe">
             <objects>
-                <viewController id="dYc-72-Bbx" customClass="FullPhotoViewController" customModule="WelcomeWizard" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FullPhotoVC" id="JwI-pd-wXW" userLabel="Full Photo View Controller" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Inu-hf-GfN"/>
-                        <viewControllerLayoutGuide type="bottom" id="NpF-Yb-inj"/>
+                        <viewControllerLayoutGuide type="top" id="bBY-sZ-P5s"/>
+                        <viewControllerLayoutGuide type="bottom" id="UBF-i3-N78"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="B0z-cA-Tdb">
+                    <view key="view" contentMode="scaleToFill" id="co3-gS-QwA">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o7p-fr-Gbi">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="542"/>
+                            <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o7p-fr-Gbi">
+                                <rect key="frame" x="0.0" y="40" width="600" height="503"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wvL-e7-1mk">
-                                <rect key="frame" x="282" y="550" width="37" height="30"/>
+                            <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wvL-e7-1mk">
+                                <rect key="frame" x="282" y="551" width="37" height="30"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
-                                    <action selector="unwindToPhotos:" destination="FfV-Uq-Ch9" eventType="touchUpInside" id="fdP-Ab-zVs"/>
-                                    <segue destination="dti-Zi-g1P" kind="unwind" unwindAction="unwindToPhotos:" id="l70-Ga-hpC"/>
+                                    <action selector="unwindToPhotos:" destination="2Hb-1A-G2M" eventType="touchUpInside" id="UZI-nd-vXv"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="wvL-e7-1mk" firstAttribute="centerX" secondItem="B0z-cA-Tdb" secondAttribute="centerX" id="Neo-7O-pBm"/>
-                            <constraint firstAttribute="trailing" secondItem="o7p-fr-Gbi" secondAttribute="trailing" id="Pk2-NP-KED"/>
-                            <constraint firstItem="o7p-fr-Gbi" firstAttribute="top" secondItem="B0z-cA-Tdb" secondAttribute="top" id="Tvg-ks-ND5"/>
-                            <constraint firstItem="o7p-fr-Gbi" firstAttribute="leading" secondItem="B0z-cA-Tdb" secondAttribute="leading" id="ad8-ht-K90"/>
-                            <constraint firstItem="NpF-Yb-inj" firstAttribute="top" secondItem="o7p-fr-Gbi" secondAttribute="bottom" constant="58" id="d7T-rG-KdK"/>
-                            <constraint firstItem="wvL-e7-1mk" firstAttribute="top" secondItem="o7p-fr-Gbi" secondAttribute="bottom" constant="8" id="efP-7d-GAL"/>
+                            <constraint firstItem="wvL-e7-1mk" firstAttribute="centerX" secondItem="co3-gS-QwA" secondAttribute="centerX" id="C18-ov-Vfj"/>
+                            <constraint firstItem="UBF-i3-N78" firstAttribute="top" secondItem="o7p-fr-Gbi" secondAttribute="bottom" constant="57" id="Gaw-cS-Hay"/>
+                            <constraint firstItem="o7p-fr-Gbi" firstAttribute="leading" secondItem="co3-gS-QwA" secondAttribute="leadingMargin" constant="-20" id="K73-nw-Dl5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="o7p-fr-Gbi" secondAttribute="trailing" constant="-20" id="YhS-vV-oU9"/>
+                            <constraint firstItem="o7p-fr-Gbi" firstAttribute="top" secondItem="bBY-sZ-P5s" secondAttribute="bottom" constant="20" id="llr-1g-LMs"/>
+                            <constraint firstItem="wvL-e7-1mk" firstAttribute="top" secondItem="o7p-fr-Gbi" secondAttribute="bottom" constant="8" id="n7Y-1N-gzj"/>
                         </constraints>
                     </view>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                    <connections>
-                        <outlet property="imageView" destination="o7p-fr-Gbi" id="Hrg-do-H6b"/>
-                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FfV-Uq-Ch9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="dti-Zi-g1P" userLabel="Exit" sceneMemberID="exit"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hqt-Y3-gA3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="957" y="1007"/>
+            <point key="canvasLocation" x="890" y="617"/>
         </scene>
     </scenes>
 </document>

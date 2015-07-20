@@ -10,14 +10,18 @@ import UIKit
 
 private let reuseIdentifier = "PhotoCell"
 
-class PhotosCollectionViewController: UICollectionViewController {
+class PhotosCollectionViewController: UICollectionViewController, UIDynamicAnimatorDelegate {
     var photos = [UIImage]()
     var animator: UIDynamicAnimator?
+    
+    @IBOutlet var fullPhotoViewController: UIViewController!
+    @IBOutlet var fullPhotoView: UIView!
+    @IBOutlet var imageView: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        animator = UIDynamicAnimator(referenceView: navigationController!.view)
+        animator = UIDynamicAnimator(referenceView: self.view)
         
         photos.append(UIImage(named: "400-0.jpeg")!)
         photos.append(UIImage(named: "400-1.jpeg")!)
@@ -42,6 +46,21 @@ class PhotosCollectionViewController: UICollectionViewController {
         photos.append(UIImage(named: "400-20.jpeg")!)
         photos.append(UIImage(named: "400-21.jpeg")!)
         
+        // Add full image view to top view controller
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        fullPhotoViewController = storyBoard.instantiateViewControllerWithIdentifier("FullPhotoVC")
+        fullPhotoView = fullPhotoViewController.view
+        imageView = fullPhotoView.viewWithTag(100) as! UIImageView
+        let button = fullPhotoView.viewWithTag(200) as! UIButton
+        button.addTarget(self, action: "dismissFullPhoto:", forControlEvents: UIControlEvents.AllEvents)
+
+        addChildViewController(fullPhotoViewController)
+        view.addSubview(fullPhotoView)
+        fullPhotoView.frame = view.frame
+        fullPhotoView.setNeedsLayout()
+//        fullPhotoView.autoresizingMask = [UIViewAutoresizing.FlexibleHeight, UIViewAutoresizing.FlexibleWidth]
+//        fullPhotoView.translatesAutoresizingMaskIntoConstraints = true
+        fullPhotoView.hidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,22 +68,6 @@ class PhotosCollectionViewController: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Navigation
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "FullImage" {
-            let indexPath = collectionView!.indexPathForCell(sender! as! UICollectionViewCell)
-            let image = self.photos[indexPath!.item]
-            let fullPhotoVC = segue.destinationViewController as! FullPhotoViewController
-            fullPhotoVC.image = image
-        }
-    }
-
-    @IBAction func unwindToPhotos(sender: UIStoryboardSegue) {
-        sender.sourceViewController.view.removeFromSuperview()
-        sender.sourceViewController.removeFromParentViewController()
-    }
-    
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -72,7 +75,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.photos.count
+        return photos.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -80,7 +83,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     
         // Configure the cell
         if let photoCell = cell as? PhotoCollectionViewCell {
-            photoCell.imageView.image = self.photos[indexPath.item]
+            photoCell.imageView.image = photos[indexPath.item]
         }
     
         return cell
@@ -88,33 +91,64 @@ class PhotosCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDelegate
     
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        showFullImageView(photos[indexPath.item])
     }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
     
-    }
-    */
     
+    @IBAction func dismissFullPhoto(sender: UIButton) {
+        animator!.removeAllBehaviors()
+        animator!.delegate = self
+
+        let slidingAttachment = UIAttachmentBehavior.slidingAttachmentWithItem(fullPhotoView, attachmentAnchor: navigationController!.view.center, axisOfTranslation: CGVectorMake(0, 1))
+        slidingAttachment.attachmentRange = UIFloatRange(minimum: fullPhotoView.frame.size.height * -1, maximum: fullPhotoView.frame.size.height + 1)
+        animator!.addBehavior(slidingAttachment)
+
+        let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
+        dynamicItemBehavior.elasticity = 0.2
+        dynamicItemBehavior.density = 0.001
+        animator!.addBehavior(dynamicItemBehavior)
+
+        let pushBehavior = UIPushBehavior(items: [fullPhotoView], mode: .Instantaneous)
+        pushBehavior.pushDirection = CGVectorMake(0, -1)
+        animator!.addBehavior(pushBehavior)
+        
+
+    }
+    
+    func showFullImageView(image: UIImage) {        
+        fullPhotoView.frame = view.frame
+        fullPhotoView.setNeedsLayout()
+
+        imageView.image = image
+        fullPhotoView.center = CGPointMake(fullPhotoView.center.x, fullPhotoView.frame.size.height / -2)
+        fullPhotoView.hidden = false
+        
+        animator!.removeAllBehaviors()
+        
+        let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
+        dynamicItemBehavior.elasticity = 0.2
+        dynamicItemBehavior.density = 400
+        animator!.addBehavior(dynamicItemBehavior)
+        
+        let gravityBehavior = UIGravityBehavior(items: [fullPhotoView])
+        gravityBehavior.magnitude = 5.0
+        animator!.addBehavior(gravityBehavior)
+        
+        let collisionBehavior = UICollisionBehavior(items: [fullPhotoView])
+        collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPointMake(0, fullPhotoView.frame.size.height + 1), toPoint: CGPointMake(fullPhotoView.frame.size.width, fullPhotoView.frame.size.height + 1))
+        animator!.addBehavior(collisionBehavior)
+        
+        let slidingAttachment = UIAttachmentBehavior.slidingAttachmentWithItem(fullPhotoView, attachmentAnchor: view.center, axisOfTranslation: CGVectorMake(0, 1))
+        slidingAttachment.attachmentRange = UIFloatRange(minimum: fullPhotoView.frame.size.height * -1, maximum: fullPhotoView.frame.size.height + 1)
+        animator!.addBehavior(slidingAttachment)
+
+    }
+    
+    // MARK: UIDynamicAnimatorDelegate methods
+    
+    func dynamicAnimatorDidPause(animator: UIDynamicAnimator) {
+        fullPhotoView.hidden = true
+        animator.delegate = nil
+    }
 }
