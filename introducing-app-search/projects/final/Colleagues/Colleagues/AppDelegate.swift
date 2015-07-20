@@ -21,11 +21,30 @@
 */
 
 import UIKit
+import EmployeeKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
+  
+  func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+    
+    if userActivity.activityType == Employee.userActivityType,
+      let objectId = userActivity.userInfo?["id"] as? String,
+      navController = window?.rootViewController as? UINavigationController,
+      employeeListViewController = navController.viewControllers.first as? EmployeeListViewController,
+      employee = EmployeeService().employeeWithObjectId(objectId)
+    {
+      navController.popToRootViewControllerAnimated(false)
+      
+      let employeeViewController = employeeListViewController.storyboard?.instantiateViewControllerWithIdentifier("EmployeeView") as! EmployeeViewController
+      employeeViewController.employee = employee
+      navController.pushViewController(employeeViewController, animated: false)
+    }
+    
+    return true
+  }
   
 }
 
