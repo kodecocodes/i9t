@@ -13,6 +13,7 @@ private let reuseIdentifier = "PhotoCell"
 class PhotosCollectionViewController: UICollectionViewController {
   var photos = [UIImage]()
   var animator: UIDynamicAnimator?
+  var heavyCurtainBehavior: HeavyCurtainDynamicBehavior!
   
   @IBOutlet var fullPhotoViewController: UIViewController!
   @IBOutlet var fullPhotoView: UIView!
@@ -48,6 +49,10 @@ class PhotosCollectionViewController: UICollectionViewController {
     fullPhotoView.frame = view.frame
     fullPhotoView.setNeedsLayout()
     fullPhotoView.hidden = true
+    
+    heavyCurtainBehavior = HeavyCurtainDynamicBehavior(item: fullPhotoView)
+    heavyCurtainBehavior.isEnabled = false
+    animator?.addBehavior(heavyCurtainBehavior)
   }
   
   override func didReceiveMemoryWarning() {
@@ -128,6 +133,9 @@ class PhotosCollectionViewController: UICollectionViewController {
     let slidingAttachment = UIAttachmentBehavior.slidingAttachmentWithItem(fullPhotoView, attachmentAnchor: view.center, axisOfTranslation: CGVectorMake(0, 1))
     slidingAttachment.attachmentRange = UIFloatRange(minimum: fullPhotoView.frame.size.height * -1, maximum: fullPhotoView.frame.size.height + 1)
     animator!.addBehavior(slidingAttachment)
+    
+    animator!.addBehavior(heavyCurtainBehavior)
+    heavyCurtainBehavior.isEnabled = true
   }
   
   func pan(pan: UIPanGestureRecognizer) {
@@ -141,7 +149,7 @@ class PhotosCollectionViewController: UICollectionViewController {
       offset.y = location.y - center.y
       
       // Disable the behavior while the item is manipulated by the pan recognizer.
-//      stickyBehavior.isEnabled = false
+      heavyCurtainBehavior.isEnabled = false
       
     case .Changed:
       // Get reference bounds.
@@ -172,10 +180,10 @@ class PhotosCollectionViewController: UICollectionViewController {
       let velocity = pan.velocityInView(view)
       
       // Re-enable the stickyCornersBehavior.
-//      stickyBehavior.isEnabled = true
+      heavyCurtainBehavior.isEnabled = true
       
       // Add the current velocity to the sticky corners behavior.
-//      stickyBehavior.addLinearVelocity(velocity)
+      heavyCurtainBehavior.addLinearVelocity(velocity)
       
     default: ()
     }
