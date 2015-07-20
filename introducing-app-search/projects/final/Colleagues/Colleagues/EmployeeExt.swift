@@ -27,13 +27,15 @@ import MobileCoreServices
 
 extension Employee {
   
+  var userActivityUserInfo: [NSObject: AnyObject] {
+    return ["id": objectId]
+  }
+  
   var userActivity: NSUserActivity {
     let activity = NSUserActivity(activityType: "com.raywenderlich.colleagues.employee")
     activity.title = name
     activity.eligibleForSearch = true
-    activity.userInfo = [
-      "id": objectId
-    ]
+    activity.userInfo = userActivityUserInfo
     activity.keywords = [email, department]
     
     let contentAttributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeContact as String)

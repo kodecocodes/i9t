@@ -67,7 +67,11 @@ class EmployeeViewController: UIViewController {
     
     userActivity = employee.userActivity
   }
-    
+  
+  override func updateUserActivityState(activity: NSUserActivity) {
+    activity.addUserInfoEntriesFromDictionary(employee.userActivityUserInfo)
+  }
+  
   @IBAction func call(sender: UITapGestureRecognizer) {
     employee.call()
   }
