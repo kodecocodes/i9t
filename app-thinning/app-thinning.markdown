@@ -214,11 +214,11 @@ Clean, build, then run the application. Try clicking on Santa Cruz then San Dieg
 
 ## Prioritizing Storage 
 
-The great thing about ODR resources is that if the user is low on space, the OS will actively look for resources to purge. You can help the system determine what resources their device will throw out by specifying a priority to the ODR content.
+It's important to note that with ODR resources, if the user's device is low on space, the OS will actively look for resources to purge. You can help the system determine what resources their device will throw out by specifying a priority to the ODR content.
 
 The OS will tell you via the **NSBundleResourceRequestLowDiskSpaceNotification** that it's looking into your app to see what resources can be purged. You should listen for this notification and see if there are any items you can let go of. 
 
-Unfortunately, the simulator does not have an option to call this system notification for you. As a result, you will build a debug UIBarButtonItem and call the notification yourself.
+Unfortunately, the Simulator does not have an option to call this system notification for you. As a result, you will build a debug UIBarButtonItem and call the notification yourself.
 
 Head back to **MapChromeViewController.swift** and at the bottom of **viewDidLoad**, insert this code: 
 
