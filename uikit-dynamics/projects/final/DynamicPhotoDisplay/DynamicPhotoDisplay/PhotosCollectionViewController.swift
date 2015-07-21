@@ -131,7 +131,7 @@ class PhotosCollectionViewController: UICollectionViewController {
   }
   
   func showFullImageView(image: UIImage) {
-    fullPhotoView.frame = view.frame
+    fullPhotoView.frame = view.bounds
     fullPhotoView.setNeedsLayout()
     
     imageView.image = image
@@ -150,11 +150,11 @@ class PhotosCollectionViewController: UICollectionViewController {
     animator!.addBehavior(gravityBehavior)
     
     let collisionBehavior = UICollisionBehavior(items: [fullPhotoView])
-    collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPointMake(0, fullPhotoView.frame.size.height), toPoint: CGPointMake(fullPhotoView.frame.size.width, fullPhotoView.frame.size.height))
+    collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPointMake(0, fullPhotoView.frame.size.height + 1.5), toPoint: CGPointMake(fullPhotoView.frame.size.width, fullPhotoView.frame.size.height + 1.5))
     animator!.addBehavior(collisionBehavior)
     
     let slidingAttachment = UIAttachmentBehavior.slidingAttachmentWithItem(fullPhotoView, attachmentAnchor: view.center, axisOfTranslation: CGVectorMake(0, 1))
-    slidingAttachment.attachmentRange = UIFloatRange(minimum: fullPhotoView.frame.size.height * -1, maximum: fullPhotoView.frame.size.height + 1)
+    slidingAttachment.attachmentRange = UIFloatRange(minimum: fullPhotoView.frame.size.height * -1, maximum: fullPhotoView.frame.size.height)
     animator!.addBehavior(slidingAttachment)
   }
   
