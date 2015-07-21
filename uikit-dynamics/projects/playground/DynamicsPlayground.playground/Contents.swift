@@ -38,41 +38,41 @@ animator.addBehavior(bounce)
 //animator.addBehavior(stringAttachment)
 
 if #available(iOS 9, *) {
-    let fieldVisualization = UIView(frame: CGRectMake(50, 250, 200, 200))
-    fieldVisualization.backgroundColor = UIColor.lightGrayColor()
-    view.insertSubview(fieldVisualization, atIndex: 0)
-    
-    let parentBehavior = UIDynamicBehavior()
-    
-    let collisionBehavor = UICollisionBehavior(items: [subView])
-    collisionBehavor.translatesReferenceBoundsIntoBoundary = true
-    parentBehavior.addChildBehavior(collisionBehavor)
-    
-    let viewBehavior = UIDynamicItemBehavior(items: [subView])
-    viewBehavior.density = 0.01
-    viewBehavior.resistance = 10
-    viewBehavior.friction = 0.0
-    viewBehavior.allowsRotation = false
-    parentBehavior.addChildBehavior(viewBehavior)
-    
-    // Add a spring region for the swinging thing to get caught in
-    let fieldBehavior = UIFieldBehavior.springField()
-    fieldBehavior.addItem(subView)
-    fieldBehavior.position = CGPointMake(150, 350)
-    fieldBehavior.region = UIRegion(size: CGSizeMake(200, 200))
-    fieldBehavior.strength = 10.0
-    parentBehavior.addChildBehavior(fieldBehavior)
-    
-    animator.addBehavior(parentBehavior)
+  let fieldVisualization = UIView(frame: CGRectMake(50, 250, 200, 200))
+  fieldVisualization.backgroundColor = UIColor.lightGrayColor()
+  view.insertSubview(fieldVisualization, atIndex: 0)
+  
+  let parentBehavior = UIDynamicBehavior()
+  
+  let collisionBehavor = UICollisionBehavior(items: [subView])
+  collisionBehavor.translatesReferenceBoundsIntoBoundary = true
+  parentBehavior.addChildBehavior(collisionBehavor)
+  
+  let viewBehavior = UIDynamicItemBehavior(items: [subView])
+  viewBehavior.density = 0.01
+  viewBehavior.resistance = 10
+  viewBehavior.friction = 0.0
+  viewBehavior.allowsRotation = false
+  parentBehavior.addChildBehavior(viewBehavior)
+  
+  // Add a spring region for the swinging thing to get caught in
+  let fieldBehavior = UIFieldBehavior.springField()
+  fieldBehavior.addItem(subView)
+  fieldBehavior.position = CGPointMake(150, 350)
+  fieldBehavior.region = UIRegion(size: CGSizeMake(200, 200))
+  fieldBehavior.strength = 10.0
+  parentBehavior.addChildBehavior(fieldBehavior)
+  
+  animator.addBehavior(parentBehavior)
 }
 
 let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-    Int64(2 * Double(NSEC_PER_SEC)))
+  Int64(2 * Double(NSEC_PER_SEC)))
 
 dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
-    let pushBehavior = UIPushBehavior(items: [subView], mode: .Instantaneous)
-    pushBehavior.pushDirection = CGVectorMake(0, -10.5)
-    animator.addBehavior(pushBehavior)
+  let pushBehavior = UIPushBehavior(items: [subView], mode: .Instantaneous)
+  pushBehavior.pushDirection = CGVectorMake(0, -10.5)
+  animator.addBehavior(pushBehavior)
 }
 
 // Can be anywhere in code
