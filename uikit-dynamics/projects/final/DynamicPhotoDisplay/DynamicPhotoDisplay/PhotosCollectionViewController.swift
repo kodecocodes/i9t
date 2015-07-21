@@ -43,6 +43,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     self.installsStandardGestureForInteractiveMovement = true
     
     animator = UIDynamicAnimator(referenceView: self.view)
+//    animator?.setValue(true, forKey: "debugEnabled")
 
     // Data initialization
     (0...21).map({
