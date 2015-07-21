@@ -80,13 +80,13 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   }
   
   func handleDiskSpaceNotification(notification: NSNotification) {
-    let tags = HistoricMapOverlayData.generateAllBundleTitles()
-    for tag in tags {
-      let resource = NSBundleResourceRequest(tags: [tag])
-      resource.conditionallyBeginAccessingResourcesWithCompletionHandler({ (hasResource) -> Void in
-        resource.endAccessingResources()
-      })
-    }
+//    let tags = HistoricMapOverlayData.generateAllBundleTitles()
+//    for tag in tags {
+//      let resource = NSBundleResourceRequest(tags: [tag])
+//      resource.conditionallyBeginAccessingResourcesWithCompletionHandler({ (hasResource) -> Void in
+//        resource.endAccessingResources()
+//      })
+//    }
   }
   
 //=============================================================================/

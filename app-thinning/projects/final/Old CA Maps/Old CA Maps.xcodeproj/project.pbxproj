@@ -46,7 +46,6 @@
 		A645B2CA1B52F904004103C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+ContentExtractor.swift"; sourceTree = "<group>"; };
 		A645B2CE1B52F959004103C7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		A645B2D61B52FA6F004103C7 /* GettingStarted.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GettingStarted.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +62,6 @@
 		A645B28F1B52F86A004103C7 = {
 			isa = PBXGroup;
 			children = (
-				A645B2D61B52FA6F004103C7 /* GettingStarted.txt */,
 				A645B29A1B52F86A004103C7 /* Old CA Maps */,
 				A645B2991B52F86A004103C7 /* Products */,
 			);
@@ -350,6 +348,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Old CA Maps/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = SC_Map;
+				ON_DEMAND_RESOURCES_PREFETCH_ORDER = SD_Map;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raywenderlich.Old-CA-Maps";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -361,6 +361,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "Old CA Maps/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ON_DEMAND_RESOURCES_INITIAL_INSTALL_TAGS = SC_Map;
+				ON_DEMAND_RESOURCES_PREFETCH_ORDER = SD_Map;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.raywenderlich.Old-CA-Maps";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

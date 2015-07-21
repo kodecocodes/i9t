@@ -52,7 +52,6 @@
 		A645B2D01B52F98F004103C7 /* Santa Cruz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz.png"; sourceTree = "<group>"; };
 		A645B2D11B52F98F004103C7 /* Santa Cruz@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz@2x.png"; sourceTree = "<group>"; };
 		A645B2D21B52F98F004103C7 /* Santa Cruz@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz@3x.png"; sourceTree = "<group>"; };
-		A645B2D61B52FA6F004103C7 /* GettingStarted.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GettingStarted.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,7 +68,6 @@
 		A645B28F1B52F86A004103C7 = {
 			isa = PBXGroup;
 			children = (
-				A645B2D61B52FA6F004103C7 /* GettingStarted.txt */,
 				A645B29A1B52F86A004103C7 /* Old CA Maps */,
 				A645B2991B52F86A004103C7 /* Products */,
 			);
@@ -397,6 +395,7 @@
 				A645B2AC1B52F86A004103C7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
