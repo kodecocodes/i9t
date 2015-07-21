@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9301A6971B5EE27400C29DE3 /* FullPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301A6961B5EE27400C29DE3 /* FullPhotoViewController.swift */; };
 		93A0C5391B5C000600A5EB09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A0C5381B5C000600A5EB09 /* AppDelegate.swift */; };
 		93A0C53E1B5C000600A5EB09 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93A0C53C1B5C000600A5EB09 /* Main.storyboard */; };
 		93A0C5401B5C000600A5EB09 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93A0C53F1B5C000600A5EB09 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9301A6961B5EE27400C29DE3 /* FullPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullPhotoViewController.swift; sourceTree = "<group>"; };
 		93A0C5351B5C000600A5EB09 /* DynamicPhotoDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DynamicPhotoDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93A0C5381B5C000600A5EB09 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93A0C53D1B5C000600A5EB09 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				93A0C53C1B5C000600A5EB09 /* Main.storyboard */,
 				93A0C54E1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift */,
 				93A0C54C1B5C563500A5EB09 /* PhotosCollectionViewController.swift */,
+				9301A6961B5EE27400C29DE3 /* FullPhotoViewController.swift */,
 			);
 			path = DynamicPhotoDisplay;
 			sourceTree = "<group>";
@@ -144,6 +147,7 @@
 			files = (
 				93A0C54F1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift in Sources */,
 				93A0C5391B5C000600A5EB09 /* AppDelegate.swift in Sources */,
+				9301A6971B5EE27400C29DE3 /* FullPhotoViewController.swift in Sources */,
 				93A0C54D1B5C563500A5EB09 /* PhotosCollectionViewController.swift in Sources */,
 				93DE92601B5D528400330A7B /* HeavyCurtainDynamicBehavior.swift in Sources */,
 			);
