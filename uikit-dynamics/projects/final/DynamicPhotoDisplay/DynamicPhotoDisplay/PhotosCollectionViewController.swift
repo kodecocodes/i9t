@@ -203,7 +203,7 @@ class PhotosCollectionViewController: UICollectionViewController {
       heavyCurtainBehavior.isEnabled = true
       animator!.addBehavior(heavyCurtainBehavior)
 
-      if velocity.y < 0.0 && fullPhotoView.center.y < 0 {
+      if velocity.y < 0.0 && (fullPhotoView.center.y < 0 || velocity.y < -1200) {
         // If we're more than half way up with the full photo, dismiss it with a push
         animator!.removeAllBehaviors()
         // Sets the delegate which will hide the view after animations complete
