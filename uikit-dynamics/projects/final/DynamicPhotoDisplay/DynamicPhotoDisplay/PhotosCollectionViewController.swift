@@ -213,6 +213,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         
         let pushBehavior = UIPushBehavior(items: [fullPhotoView], mode: .Instantaneous)
         pushBehavior.pushDirection = CGVectorMake(0, -1)
+        pushBehavior.magnitude = 4
         animator!.addBehavior(pushBehavior)
       } else {
         heavyCurtainBehavior.addLinearVelocity(velocity)

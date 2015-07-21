@@ -32,7 +32,7 @@ class HeavyCurtainDynamicBehavior: UIDynamicBehavior {
   var isEnabled = true {
     didSet {
       if isEnabled {
-        collisionBehavior.addBoundaryWithIdentifier("Bottom Border", fromPoint: CGPointMake(0, item.frame.size.height), toPoint: CGPointMake(item.frame.size.width, item.frame.size.height))
+        collisionBehavior.addBoundaryWithIdentifier("Bottom Border", fromPoint: CGPointMake(0, item.frame.size.height + 1), toPoint: CGPointMake(item.frame.size.width, item.frame.size.height + 1))
         itemBehavior.addItem(item)
         gravityBehavior.addItem(item)
       } else {
@@ -47,12 +47,11 @@ class HeavyCurtainDynamicBehavior: UIDynamicBehavior {
     self.item = item
     
     collisionBehavior = UICollisionBehavior(items: [item])
-    collisionBehavior.addBoundaryWithIdentifier("Bottom Border", fromPoint: CGPointMake(0, item.frame.size.height), toPoint: CGPointMake(item.frame.size.width, item.frame.size.height))
+    collisionBehavior.addBoundaryWithIdentifier("Bottom Border", fromPoint: CGPointMake(0, item.frame.size.height + 1), toPoint: CGPointMake(item.frame.size.width, item.frame.size.height + 1))
 
     itemBehavior = UIDynamicItemBehavior(items: [item])
+    itemBehavior.elasticity = 0.35
     itemBehavior.density = 400
-    itemBehavior.resistance = 10
-    itemBehavior.friction = 0.0
     itemBehavior.allowsRotation = false
 
     gravityBehavior = UIGravityBehavior(items: [item])
