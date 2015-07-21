@@ -140,6 +140,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     fullPhotoView.hidden = false
     
     animator!.removeAllBehaviors()
+    animator!.delegate = nil
     
     let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
     dynamicItemBehavior.elasticity = 0.2
@@ -171,6 +172,7 @@ class PhotosCollectionViewController: UICollectionViewController {
       
       // Disable the behavior while the item is manipulated by the pan recognizer.
       animator!.removeAllBehaviors()
+      animator!.delegate = nil
       
     case .Changed:
       // Get reference bounds.
