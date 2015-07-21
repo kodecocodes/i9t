@@ -40,6 +40,8 @@ class PhotosCollectionViewController: UICollectionViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    self.installsStandardGestureForInteractiveMovement = true
+    
     animator = UIDynamicAnimator(referenceView: self.view)
 
     // Data initialization
@@ -95,6 +97,11 @@ class PhotosCollectionViewController: UICollectionViewController {
     }
     
     return cell
+  }
+  
+  override func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+    let photo = photos.removeAtIndex(sourceIndexPath.item)
+    photos.insert(photo, atIndex: destinationIndexPath.item)
   }
   
   // MARK: UICollectionViewDelegate
