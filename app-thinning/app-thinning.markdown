@@ -4,7 +4,9 @@ Kicking yourself that you didn't drop the extra dinero to multiply your iOS devi
 
 Back in the days of iOS 8, Apple began pushing developers to adopt a universal approach for building across devices. UISplitViewControllers, Trait Collections, and (a more respectable) Auto Layout led to a seamless experience for the iOS developer to build universal application for both iPhone & iPad.
 
-However, packaging a universal app with device-specific content combined with an always increasing complexity of images, sounds, and video packaged into apps has its drawbacks. Apps are demanding more disk space, resulting in longer download times, more disk usage, and potentially consuming more memory.
+However, packaging a universal app with device-specific content is rather wasteful... look at all chart below to see at the wasted 1s and 0s being stored on your device never to be used. 
+
+[NOTE TO EDITOR: Breakdown chart needed here...]
 
 Fortunately, in iOS 9, Apple has introduced several solutions to circumvent this problem:
 
