@@ -30,7 +30,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   @IBOutlet weak var mapView: MKMapView!
   
   var mapOverlayData: HistoricMapOverlayData?
-  var bundleResource: NSBundleResourceRequest?
+  var overlayBundleResource: NSBundleResourceRequest?
   
 //=============================================================================/
 // Mark: Lifetime
@@ -50,20 +50,13 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     let barButton = self.splitViewController!.displayModeButtonItem()
     self.navigationItem.leftBarButtonItem = barButton
     self.navigationItem.leftItemsSupplementBackButton = true
-    
-    let debugButton = UIBarButtonItem(title: "Bundle Debug", style: .Done, target: self, action: "debugActionTapped:")
-    self.navigationItem.rightBarButtonItem = debugButton
-    
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleDiskSpaceNotification:", name: NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
   }
   
-  override func viewWillDisappear(animated: Bool) {
-    super.viewWillDisappear(animated)
-    self.bundleResource?.progress.cancel()
-    self.bundleResource?.endAccessingResources()
-    
-  }
-  
+//  override func viewDidDisappear(animated: Bool) {
+//    super.viewDidDisappear(animated)
+//    self.overlayBundleResource?.endAccessingResources()
+//  }
+//  
 //=============================================================================/
 // Mark: IBAction Methods
 //=============================================================================/
@@ -73,20 +66,6 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
       let renderer = self.mapView.rendererForOverlay(overlay)
       renderer?.alpha = CGFloat(sender.value)
     }
-  }
-  
-  func debugActionTapped(sender: UIBarButtonItem) {
-    NSNotificationCenter.defaultCenter().postNotificationName(NSBundleResourceRequestLowDiskSpaceNotification, object: nil)
-  }
-  
-  func handleDiskSpaceNotification(notification: NSNotification) {
-//    let tags = HistoricMapOverlayData.generateAllBundleTitles()
-//    for tag in tags {
-//      let resource = NSBundleResourceRequest(tags: [tag])
-//      resource.conditionallyBeginAccessingResourcesWithCompletionHandler({ (hasResource) -> Void in
-//        resource.endAccessingResources()
-//      })
-//    }
   }
   
 //=============================================================================/
@@ -107,8 +86,8 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
       return
     }
     
-    self.bundleResource = NSBundleResourceRequest(tags: [bundleTitle])
-    let bundleResource = self.bundleResource!
+    let bundleResource = NSBundleResourceRequest(tags: [bundleTitle])
+    self.overlayBundleResource = bundleResource
     bundleResource.loadingPriority = NSBundleResourceRequestLoadingPriorityUrgent
 
     self.loadingProgressView.observedProgress = bundleResource.progress
@@ -116,12 +95,12 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     self.loadingProgressView.hidden = false
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     
-    bundleResource.beginAccessingResourcesWithCompletionHandler { (error) -> Void in
+    bundleResource.beginAccessingResourcesWithCompletionHandler {[weak self] (error) -> Void in
       NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-        self.loadingProgressView.hidden = true
+        self?.loadingProgressView.hidden = true
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         if error == nil {
-          self.displayOverlayFromBundle(bundleResource.bundle)
+          self?.displayOverlayFromBundle(bundleResource.bundle)
         }
       })
     }
