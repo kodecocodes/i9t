@@ -29,7 +29,7 @@ class PhotosCollectionViewController: UICollectionViewController {
   var animator: UIDynamicAnimator?
   var heavyCurtainBehavior: HeavyCurtainDynamicBehavior!
   
-  @IBOutlet var fullPhotoViewController: UIViewController!
+  @IBOutlet var fullPhotoViewController: FullPhotoViewController!
   @IBOutlet var fullPhotoView: UIView!
   @IBOutlet var imageView: UIImageView!
 
@@ -52,7 +52,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     // Add full image view to top view controller
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-    fullPhotoViewController = storyBoard.instantiateViewControllerWithIdentifier("FullPhotoVC")
+    fullPhotoViewController = storyBoard.instantiateViewControllerWithIdentifier("FullPhotoVC") as! FullPhotoViewController
     fullPhotoView = fullPhotoViewController.view
     imageView = fullPhotoView.viewWithTag(100) as! UIImageView
     let button = fullPhotoView.viewWithTag(200) as! UIButton
@@ -117,7 +117,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     animator!.removeAllBehaviors()
     animator!.delegate = self
     
-    let slidingAttachment = UIAttachmentBehavior.slidingAttachmentWithItem(fullPhotoView, attachmentAnchor: navigationController!.view.center, axisOfTranslation: CGVectorMake(0, 1))
+    let slidingAttachment = UIAttachmentBehavior.slidingAttachmentWithItem(fullPhotoView, attachmentAnchor: view.center, axisOfTranslation: CGVectorMake(0, 1))
     slidingAttachment.attachmentRange = UIFloatRange(minimum: fullPhotoView.frame.size.height * -1, maximum: fullPhotoView.frame.size.height + 1)
     animator!.addBehavior(slidingAttachment)
     
@@ -216,7 +216,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         
         let pushBehavior = UIPushBehavior(items: [fullPhotoView], mode: .Instantaneous)
         pushBehavior.pushDirection = CGVectorMake(0, -1)
-        pushBehavior.magnitude = 4
+        pushBehavior.magnitude = 5
         animator!.addBehavior(pushBehavior)
       } else {
         heavyCurtainBehavior.addLinearVelocity(velocity)

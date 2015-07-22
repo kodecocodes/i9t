@@ -23,6 +23,7 @@
 import UIKit
 
 class FullPhotoViewController: UIViewController {
+  @IBOutlet var imageView: UIImageView!
   private var animator: UIDynamicAnimator!
   
   override func viewDidLoad() {
@@ -30,6 +31,5 @@ class FullPhotoViewController: UIViewController {
     
     animator = UIDynamicAnimator(referenceView: view)
   }
-
   
 }

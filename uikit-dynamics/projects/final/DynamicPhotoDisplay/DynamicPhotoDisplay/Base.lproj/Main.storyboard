@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Let-uc-op4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -77,26 +78,29 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o7p-fr-Gbi">
-                                <rect key="frame" x="0.0" y="40" width="600" height="503"/>
+                                <rect key="frame" x="25" y="25" width="550" height="495"/>
                             </imageView>
                             <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wvL-e7-1mk">
-                                <rect key="frame" x="282" y="551" width="37" height="30"/>
+                                <rect key="frame" x="282" y="533" width="37" height="30"/>
                                 <state key="normal" title="Done"/>
                                 <connections>
                                     <action selector="unwindToPhotos:" destination="2Hb-1A-G2M" eventType="touchUpInside" id="UZI-nd-vXv"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="wvL-e7-1mk" firstAttribute="centerX" secondItem="co3-gS-QwA" secondAttribute="centerX" id="C18-ov-Vfj"/>
-                            <constraint firstItem="UBF-i3-N78" firstAttribute="top" secondItem="o7p-fr-Gbi" secondAttribute="bottom" constant="57" id="Gaw-cS-Hay"/>
-                            <constraint firstItem="o7p-fr-Gbi" firstAttribute="leading" secondItem="co3-gS-QwA" secondAttribute="leading" id="K73-nw-Dl5"/>
-                            <constraint firstAttribute="trailing" secondItem="o7p-fr-Gbi" secondAttribute="trailing" id="YhS-vV-oU9"/>
-                            <constraint firstItem="o7p-fr-Gbi" firstAttribute="top" secondItem="bBY-sZ-P5s" secondAttribute="bottom" constant="20" id="llr-1g-LMs"/>
-                            <constraint firstItem="wvL-e7-1mk" firstAttribute="top" secondItem="o7p-fr-Gbi" secondAttribute="bottom" constant="8" id="n7Y-1N-gzj"/>
+                            <constraint firstItem="UBF-i3-N78" firstAttribute="top" secondItem="o7p-fr-Gbi" secondAttribute="bottom" constant="80" id="31O-N0-M0H"/>
+                            <constraint firstItem="wvL-e7-1mk" firstAttribute="top" secondItem="o7p-fr-Gbi" secondAttribute="bottom" constant="13" id="64L-OO-c18"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="o7p-fr-Gbi" secondAttribute="trailing" constant="5" id="O5w-XH-J36"/>
+                            <constraint firstItem="o7p-fr-Gbi" firstAttribute="leading" secondItem="co3-gS-QwA" secondAttribute="leadingMargin" constant="5" id="S8P-gz-nz3"/>
+                            <constraint firstItem="wvL-e7-1mk" firstAttribute="centerX" secondItem="co3-gS-QwA" secondAttribute="centerX" id="bCS-vq-3Eh"/>
+                            <constraint firstItem="o7p-fr-Gbi" firstAttribute="top" secondItem="bBY-sZ-P5s" secondAttribute="bottom" constant="5" id="ugM-eS-1bH"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="imageView" destination="o7p-fr-Gbi" id="eXK-q4-5WK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hqt-Y3-gA3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
