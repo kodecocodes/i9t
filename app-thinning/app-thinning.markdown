@@ -213,19 +213,19 @@ Clean, build, then run the application. Try clicking on Santa Cruz then San Dieg
 
 ## Purging Content
 
-Since the OS can purge ODR content at will provided that's its not in active use, it's important to be a good disk storage citizen with the ODR content in your application. You can help guide the system to determine what resources their device will throw out by indicating to the system when you are done using a resource.
+Since the OS can purge ODR content at will provided that it's not in active use, it's important to be a good disk storage citizen with the ODR content in your application. You can help guide the system to determine what resources their device will throw out by indicating to the system when you are done using a resource.
 
 Change your build scheme to build an **iPhone 6 Plus**, then build and run the application and tap on a city, then press the back arrow to jump back to the previous city selection screen. 
 
 For these particular bundles, it's clear that you no longer need them as soon as you exit MapChromeViewController'view. But how do you know what the system is doing with your ODR content behind the scenes?
 
-Fortunately, Apple has anticipated this problem on your behalf and Xcode 7 has a super useful debugging view to aid in understanding the status of your ODR content.
+Fortunately, Apple has anticipated this problem on your behalf and Xcode 7 ships with a super useful debugging view to aid in understanding the status of your ODR content.
 
 While your application is still running, open on the **Debug navigator** tab, then click on the **Disk** cell. Xcode will reveal the Disk report which includes valuable information regarding the current status of each tagged ODR.
 
 ![bordered width=80%](./images/ODR_Guages.png)
 
-As you can see, clicking on an image then clicking back indicates to you that the ODR resource is still **In Use** while other resources are either **Not Downloaded** or **Downloaded**.
+As you can see, clicking on an image then clicking back indicates to you that the ODR resource is still **In Use** while other resources are either **Not Downloaded** or **Downloaded**. Although UIKit and Foundation provide their own logic on when the device can reclaim these bundles, it's really ideal to indicate to the system when you are done using them.
 
 You'll now indicate to the system that the NSBundleResourceRequest is available to be reclaimed by the system as soon as you leave the MapChromeViewController.
 
@@ -236,6 +236,7 @@ var overlayBundleResource: NSBundleResourceRequest?
 ```
 
 Now, in the **downloadAndDisplayMapOverlayData()** function, add the following line underneath the NSBundleResourceRequest instantiation:
+
 ```swift
 self.overlayBundleResource = bundleResource
 ```
@@ -249,7 +250,7 @@ override func viewDidDisappear(animated: Bool) {
 }
 ```
 
-Rebuild and run the system and keep an eye on the **Disk Report** screen while playing around with clicking on the different cities. The report will now indicate that your ODR content is not longer in active use as soon as you leave the map view screen. 
+Rebuild and run the system and keep an eye on the **Disk Report** screen while playing around with tapping on the different cities. The report will now indicate that your ODR content is no longer in active use as soon as you leave the map view screen. Sweet.
 
 ## Where to Go From Here? 
 
