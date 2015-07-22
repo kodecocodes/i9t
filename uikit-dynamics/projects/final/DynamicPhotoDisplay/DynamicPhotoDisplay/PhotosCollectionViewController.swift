@@ -55,8 +55,6 @@ class PhotosCollectionViewController: UICollectionViewController {
     fullPhotoViewController = storyBoard.instantiateViewControllerWithIdentifier("FullPhotoVC") as! FullPhotoViewController
     fullPhotoView = fullPhotoViewController.view
     imageView = fullPhotoView.viewWithTag(100) as! UIImageView
-    let button = fullPhotoView.viewWithTag(200) as! UIButton
-    button.addTarget(self, action: "dismissFullPhoto:", forControlEvents: UIControlEvents.AllEvents)
     
     let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
     fullPhotoView.addGestureRecognizer(panGestureRecognizer)
@@ -113,7 +111,9 @@ class PhotosCollectionViewController: UICollectionViewController {
   
   // MARK: Private methods
   
-  @IBAction func dismissFullPhoto(sender: UIButton) {
+  @IBAction func dismissFullPhoto(sender: UIControl) {
+    navigationItem.rightBarButtonItem = nil
+    
     animator!.removeAllBehaviors()
     animator!.delegate = self
     
@@ -132,6 +132,14 @@ class PhotosCollectionViewController: UICollectionViewController {
   }
   
   func showFullImageView(image: UIImage) {
+    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+      Int64(0.75 * Double(NSEC_PER_SEC)))
+    
+    dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
+      let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissFullPhoto:")
+      self.navigationItem.rightBarButtonItem = doneButton
+    }
+
     fullPhotoView.frame = view.bounds
     fullPhotoView.setNeedsLayout()
     

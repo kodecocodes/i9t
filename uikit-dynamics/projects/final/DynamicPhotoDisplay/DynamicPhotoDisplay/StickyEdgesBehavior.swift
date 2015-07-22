@@ -73,7 +73,7 @@ class StickyEdgesBehavior: UIDynamicBehavior {
     // Setup the item behavior to alter the items physical properties causing it to be "sticky."
     itemBehavior = UIDynamicItemBehavior(items: [item])
     itemBehavior.density = 0.01
-    itemBehavior.resistance = 10
+    itemBehavior.resistance = 20
     itemBehavior.friction = 0.0
     itemBehavior.allowsRotation = false
     
@@ -103,7 +103,7 @@ class StickyEdgesBehavior: UIDynamicBehavior {
       // Private function to update the position & region of a given field.
       func updateRegionForField(field: UIFieldBehavior, _ point: CGPoint) {
         field.position = point
-        field.region = UIRegion(size: CGSize(width: w - 2 * edgeInset, height: (h - 2 * edgeInset) / 2))
+        field.region = UIRegion(size: CGSize(width: w - 2 * edgeInset, height: h - 2 * edgeInset))
       }
       
       // Calculate the field origins.

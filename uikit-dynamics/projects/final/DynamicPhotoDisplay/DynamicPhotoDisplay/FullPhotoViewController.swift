@@ -35,8 +35,8 @@ class FullPhotoViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tagView.layer.borderWidth = 1
-    containerView.layer.borderWidth = 1
+    tagView.layer.borderWidth = 0.5
+    tagView.layer.cornerRadius = 2
     
     let gestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
     tagView.addGestureRecognizer(gestureRecognizer)
