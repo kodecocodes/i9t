@@ -107,8 +107,8 @@ class StickyEdgesBehavior: UIDynamicBehavior {
       }
       
       // Calculate the field origins.
-      let top = CGPoint(x: w / 2, y: edgeInset)
-      let bottom = CGPoint(x: w / 2, y: h - edgeInset)
+      let top = CGPoint(x: w / 2, y: edgeInset + item.bounds.height / 2)
+      let bottom = CGPoint(x: w / 2, y: h - edgeInset - item.bounds.height / 2)
       
       // Update each field.
       updateRegionForField(fieldBehaviors[StickyEdge.Top.rawValue], top)
