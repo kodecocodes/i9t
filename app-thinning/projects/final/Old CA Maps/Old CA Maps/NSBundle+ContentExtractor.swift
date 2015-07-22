@@ -32,9 +32,6 @@ extension NSBundle {
     let auxilliaryURL = loadedBundle.URLForResource(title, withExtension: "plist")!
     let auxilliaryDictionary = NSDictionary(contentsOfURL: auxilliaryURL)!
     
-    let priority = self.preservationPriorityForTag(title)
-    self.setPreservationPriority(priority + 0.01, forTags: [title])
-    
     return (auxilliaryDictionary as! [String : AnyObject], loadedBundle.bundlePath)
   }
   

@@ -52,11 +52,11 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     self.navigationItem.leftItemsSupplementBackButton = true
   }
   
-//  override func viewDidDisappear(animated: Bool) {
-//    super.viewDidDisappear(animated)
-//    self.overlayBundleResource?.endAccessingResources()
-//  }
-//  
+  override func viewDidDisappear(animated: Bool) {
+    super.viewDidDisappear(animated)
+    self.overlayBundleResource?.endAccessingResources()
+  }
+  
 //=============================================================================/
 // Mark: IBAction Methods
 //=============================================================================/
