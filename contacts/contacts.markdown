@@ -12,7 +12,7 @@ Apple deprecated the Address Book framework in iOS 9 — hoorah! In its stead, t
 
 Along the way, you'll learn about best practices for dealing with the user’s contacts and how to get the most our of the Contacts framework.
 
-## Getting Started
+## Getting started
 
 In this chapter, you'll create the **RWConnect** app, which is a social network for iOS developers. The app has a friends list to help you keep in touch with all the great developers you know via email.
 
@@ -32,7 +32,7 @@ The `UITableViewDataSource` methods in the view controller are straightforward; 
 
 Your first task is to display your device's contacts instead of the default list.
 
-## Displaying a Contact
+## Displaying a contact
 
 Open **Main.storyboard** and select the table view cell in **FriendsViewController**.
 
@@ -46,9 +46,9 @@ The table view cell now displays an arrow to indicate there's more information a
 
 Before you can display the friend to the user, you'll need to convert the `Friend` instance into a `CNContact`.
 
-### Convert Friends to CNContacts
+### Convert friends to CNContacts
 
-The Contacts framework represents contacts as instances of `CNContact`, which contain the contacts' properties such as `givenName`, `familyName`, `emailAddresses`, and `imageData`.
+The Contacts framework represents contacts as instances of `CNContact`, which contain the contact's properties such as `givenName`, `familyName`, `emailAddresses`, and `imageData`.
 
 Open **Friend.swift** and extend it with the following computed property:
 
@@ -87,7 +87,7 @@ With this method implemented, you can convert any `Friend` to a `CNContact`. Now
 
 [Editor: should a "Mission Accomplished" meme go here?]
 
-### Showing the Contact's Information
+### Showing the contact's information
 
 Switch to **FriendsViewController.swift** and add the following extension to the bottom of the file:
 
@@ -110,7 +110,7 @@ extension FriendsViewController {
 }
 ```
 
-Here's what's going on in the code above:
+Here's what you're doing in the code above:
 
 1. Use the index path of the selected cell to get the selected friend and convert it to an instance of `CNContact`.
 2. Instantiate `CNContactViewController`; this is from the ContactsUI framework and displays a contact onscreen. You instantiate the view controller using its `forUnknownContact` initializer because the contact isn't part of the user's contact store.
@@ -123,7 +123,7 @@ Build and run your app; tap on one of the table view cells and the ContactsUI fr
 
 What good is a friends list if you can't add more friends? You can use the ContactsUI class `CNContactPickerViewController` to let your user select contacts to use in the app.
 
-## Picking your Friends
+## Picking your friends
 
 Open **Main.storyboard** and go to **FriendsViewController**. In the **Object library**, drag a **Bar Button Item** to the right side of the navigation bar, as shown below:
 
@@ -176,12 +176,12 @@ extension FriendsViewController: CNContactPickerDelegate {
 
 `FriendsViewController` now conforms to `CNContactPickerDelegate`. You have an empty implementation of `contactPicker(_:didSelectContacts:)`, which you'll fill with code that does the following things:
 
-1. Create new `Friend` instances from `CNContact`s
-2. Add the new `Friend` instances to your friends list
+1. Creates new `Friend` instances from `CNContact`s
+2. Adds the new `Friend` instances to your friends list
 
 To create a `Friend` from a `CNContact`, you'll need a new initializer for `Friend` that takes a `CNContact` instance as a parameter.
 
-### Create a Friend from a CNContact
+### Creating a friend from a CNContact
 
 Open **Friend.swift** and add the following initializer in its extension:
 
@@ -198,9 +198,9 @@ init(contact: CNContact){
 }
 ```
 
-When you set `workEmail` you force unwrap the first email address found. Because RWConnect uses email to keep in touch with your friends, all of your contacts must have email address. If force unwrapping like this makes you twitchy, don't worry — you'll fix it later! :]
+When you set `workEmail` you force unwrap the first email address found. Because RWConnect uses email to keep in touch with your friends, all of your contacts must have email addresses. If force unwrapping like this makes you twitchy, don't worry — you'll fix it later! :]
 
-### Adding New Friends to the Friends List
+### Adding new friends to the friends List
 
 Return to **FriendsViewController.swift** and add the following lines to `contactPicker(_:didSelectContacts:)`:
 
@@ -236,7 +236,7 @@ However, if you select contacts that don't have an associated email address, the
 
 ![width=30%](/images/What'sTheProblem.png)
 
-Recall that you force-unwrapped the first email from the contact's email addresses in the `init(contact:)` initializer of `Friend`; no email address means the app will crash. Is there a way to make sure that the user can only select contacts with emails? You betcha!
+Recall that you force-unwrapped the first email from the contact's email addresses in the `init(contact:)` initializer of `Friend`; a missing email address means the app will crash. Is there a way to make sure that the user can only select contacts with emails? You betcha!
 
 Add the following line before `presentViewController(_:animated:completion:)`:
 
@@ -250,7 +250,7 @@ Build and run your app again; press the Add button and you'll see that any conta
 
 Now that you can create friends from your contacts, it's only natural to want to create contacts from your friends! :] When the user slides left on a table view cell, you'll show a "Create Contact" action to add a friend to the user's contact store.
 
-## Saving Friends to the User's Contacts
+## Saving friends to the user's contacts
 
 Add the following code inside the table view delegate extension you added to **FriendsViewController.swift**:
 
@@ -275,7 +275,7 @@ Before you access or modify a user's contacts, it's imperative that you request 
 
 > **Note**: When you used `CNContactPickerViewController`, you didn't have to ask for the user's permission. Why? `CNContactPickerViewController` is **out-of-process**, meaning that your app has no access to the contacts shown in the picker, and the user doesn't have to grant permission for this action. If the user selects contacts and presses **Done**, they've given you implicit permission to use their contacts.
 
-### Asking for Permission
+### Asking for permission
 
 To ask the user for permission, replace the `TODO` comment in the row action you created earlier with the following code:
 
@@ -326,7 +326,7 @@ guard userGrantedAccess else {
 }
 ```
 
-The `guard` statement checks that the user granted permission; if not, you display an alert using `presentPermissionErrorAlert()``.
+The `guard` statement checks that the user granted permission; if not, you display an alert using `presentPermissionErrorAlert()`.
 
 Build and run the app in the simulator; select the **Create Contact** row action for a contact and you'll be prompted for permission to access your contacts:
 
@@ -340,9 +340,9 @@ Press **Settings** on your alert and you'll be taken to the Settings app where y
 
 ![width=32%](/images/16-AppSettingsPage.png)
 
-The `guard` statement neatly handles the case where the user does not grant permission; the next logical step is to handle the case where the user grants permission and save the Friend to the user's contact store.
+The `guard` statement neatly handles the case where the user does not grant permission. The next logical step is to handle the case where the user grants permission and save the friend to the user's contact store.
 
-### Saving Friends to Contacts
+### Saving friends to contacts
 
 Add the following method to `FriendsViewController`:
 
@@ -368,11 +368,11 @@ func saveFriendToContacts(friend: Friend) {
 Taking each numbered comment in turn:
 
 1. First, `addContact` of the Contacts framework expects a mutable contact so you have to convert the Friend parameter into a `CNMutableContact`.
-2. Then create a new `CNSaveRequest`; you use this object to communicate new, updated, or deleted contacts to the `CNContactStore`.
-3. Next, tell `CNSaveRequest` you want to add the friend to the user's contacts.
+2. Next, create a new `CNSaveRequest`; you use this object to communicate new, updated, or deleted contacts to the `CNContactStore`.
+3. Then tell `CNSaveRequest` you want to add the friend to the user's contacts.
 4. Finally, try to execute the save request. If the method succeeds, then execution continues and you can assume the save request succeeded; otherwise, you throw an error.
 
-> **Note**: The `catch` block doesn't create a custom alert for every possible thrown error; instead, you use a generic error message. To handle specific error cases, you catch a CNErrorCode. These aren't documented, but their declarations exist for your perusal in **CNError.h**.
+> **Note**: The `catch` block doesn't create a custom alert for every possible thrown error; instead, you use a generic error message. To handle specific error cases, you catch a `CNErrorCode`. These aren't documented, but their declarations exist for your perusal in **CNError.h**.
 
 Now you need to notify the user of the state of their request.
 
@@ -419,7 +419,7 @@ Now press **Command-Shift-H** in the simulator and open the Contacts app. You'll
 
 Sharp-eyed readers will note you can add the same contact multiple times. You'll add some code to prevent against that.
 
-### Check if Contact Exists
+### Checking for existing contacts
 
 Add the following to the top of `saveFriendToContacts(_:)`:
 
@@ -459,7 +459,7 @@ Build and run your app; try to add a contact that already exists and the app pre
 
 You're done! You've dramatically improved RWConnect — and learned a ton about the new Contacts framework in the process!
 
-## Where to Go From Here?
+## Where to go from here?
 
 At this point you've learned just about everything you need to use the Contacts and ContactsUI frameworks in your own apps. However, there is more to learn about the two frameworks if you want to dig even deeper.
 
