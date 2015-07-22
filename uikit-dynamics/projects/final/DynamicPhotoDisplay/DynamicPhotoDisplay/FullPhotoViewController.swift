@@ -21,15 +21,22 @@
 */
 
 import UIKit
+import QuartzCore
 
 class FullPhotoViewController: UIViewController {
+  @IBOutlet var containerView: UIView!
   @IBOutlet var imageView: UIImageView!
+  @IBOutlet var tagView: UIView!
   private var animator: UIDynamicAnimator!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     animator = UIDynamicAnimator(referenceView: view)
+    
+    tagView.layer.borderWidth = 1
+    
+    containerView.layer.borderWidth = 1
   }
   
 }
