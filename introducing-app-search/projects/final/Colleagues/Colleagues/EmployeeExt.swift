@@ -27,25 +27,18 @@ import MobileCoreServices
 
 extension Employee {
   
-  static let userActivityType = "com.raywenderlich.colleagues.employee"
-  
   var userActivityUserInfo: [NSObject: AnyObject] {
     return ["id": objectId]
   }
   
   var userActivity: NSUserActivity {
-    let activity = NSUserActivity(activityType: self.dynamicType.userActivityType)
+    let activity = NSUserActivity(activityType: self.dynamicType.domainIdentifier)
     activity.title = name
     activity.eligibleForSearch = true
     activity.userInfo = userActivityUserInfo
     activity.keywords = [email, department]
-    
-    let contentAttributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeContact as String)
-    contentAttributeSet.thumbnailData = UIImageJPEGRepresentation(loadPicture(), 0.9)
-    contentAttributeSet.phoneNumbers = [phone]
-    contentAttributeSet.contentDescription = "\(department), \(title)\n\(phone)"
-    
-    activity.contentAttributeSet = contentAttributeSet
+        
+    activity.contentAttributeSet = searchableItemAttributeSet
     return activity
   }
   

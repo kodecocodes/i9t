@@ -21,6 +21,7 @@
 */
 
 import Foundation
+import CoreSpotlight
 
 public struct EmployeeService {
   
@@ -62,6 +63,28 @@ public struct EmployeeService {
       }
     } catch {
       fatalError("Error deserializing JSON data: \(error)")
+    }
+  }
+  
+  public func indexAllEmployees() {
+    let employees = fetchEmployees()
+    let searchableItems = employees.map { $0.searchableItem }
+    CSSearchableIndex.defaultSearchableIndex().indexSearchableItems(searchableItems) { error in
+      if let error = error {
+        print("Error indexing employees: \(error)")
+      } else {
+        print("Employees indexes.")
+      }
+    }
+  }
+  
+  public func destroyEmployeeIndexing() {
+    CSSearchableIndex.defaultSearchableIndex().deleteAllSearchableItemsWithCompletionHandler { error in
+      if let error = error {
+        print("Error deleting searching employee items: \(error)")
+      } else {
+        print("Employees indexing deleted.")
+      }
     }
   }
   
