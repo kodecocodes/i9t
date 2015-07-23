@@ -24,8 +24,14 @@ import UIKit
 
 private let reuseIdentifier = "PhotoCell"
 
+struct PhotoPair {
+  var filename: String
+  var date: NSDate
+  var image: UIImage
+}
+
 class PhotosCollectionViewController: UICollectionViewController {
-  var photos = [UIImage]()
+  var photoData: [PhotoPair] = [PhotoPair]()
   var animator: UIDynamicAnimator?
   var heavyCurtainBehavior: HeavyCurtainDynamicBehavior!
   
@@ -45,9 +51,14 @@ class PhotosCollectionViewController: UICollectionViewController {
 //    animator?.setValue(true, forKey: "debugEnabled")
 
     // Data initialization
-    (0...21).map({
-      photos.append(UIImage(named: "400-\($0).jpeg")!)
-    })
+    for index in 0...21 {
+      let photoName = "400-\(index).jpeg"
+      let image = UIImage(named: photoName)!
+      // Getting data from EXIF is painful; for demo purposes we're using any old date
+      let photoDate = NSDate()
+      let photo = PhotoPair(filename: photoName, date: photoDate, image: image)
+      photoData.append(photo)
+    }
     
     // Add full image view to top view controller
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -80,7 +91,7 @@ class PhotosCollectionViewController: UICollectionViewController {
   }
   
   override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return photos.count
+    return photoData.count
   }
   
   override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -88,21 +99,21 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     // Configure the cell
     if let photoCell = cell as? PhotoCollectionViewCell {
-      photoCell.imageView.image = photos[indexPath.item]
+      photoCell.imageView.image = photoData[indexPath.item].image
     }
     
     return cell
   }
   
   override func collectionView(collectionView: UICollectionView, moveItemAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-    let photo = photos.removeAtIndex(sourceIndexPath.item)
-    photos.insert(photo, atIndex: destinationIndexPath.item)
+    let photo = photoData.removeAtIndex(sourceIndexPath.item)
+    photoData.insert(photo, atIndex: destinationIndexPath.item)
   }
   
   // MARK: UICollectionViewDelegate
   
   override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-    showFullImageView(photos[indexPath.item])
+    showFullImageView(indexPath.item)
   }
   
   // MARK: Private methods
@@ -127,7 +138,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     animator!.addBehavior(pushBehavior)
   }
   
-  func showFullImageView(image: UIImage) {
+  func showFullImageView(index: Int) {
     let delayTime = dispatch_time(DISPATCH_TIME_NOW,
       Int64(0.75 * Double(NSEC_PER_SEC)))
     
@@ -137,7 +148,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     }
 
     
-    fullPhotoViewController.image = image
+    fullPhotoViewController.photoPair = photoData[index]
     fullPhotoView.center = CGPointMake(fullPhotoView.center.x, fullPhotoView.frame.size.height / -2)
     fullPhotoView.hidden = false
     

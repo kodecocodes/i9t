@@ -27,17 +27,32 @@ class FullPhotoViewController: UIViewController {
   @IBOutlet private var containerView: UIView!
   @IBOutlet private var imageView: UIImageView!
   @IBOutlet private var tagView: UIView!
+  @IBOutlet private var photoDateLabel: UILabel!
+  @IBOutlet private var photoFilenameLabel: UILabel!
+  @IBOutlet private var photoDimensionLabel: UILabel!
+  
   private var animator: UIDynamicAnimator!
   var stickyBehavior: StickyEdgesBehavior!
 
   private var offset = CGPoint.zeroPoint
+
   
-  var image: UIImage? {
-    get {
-      return imageView.image
-    }
-    set(newImage) {
-      imageView.image = newImage
+  var photoPair: PhotoPair? {
+    didSet {
+      if let photoPair = photoPair {
+        imageView.image = photoPair.image
+        photoFilenameLabel.text = photoPair.filename
+        
+        let size = photoPair.image.size
+        photoDimensionLabel.text = "Size: \(size.width) x \(size.height) px"
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.locale = NSLocale.currentLocale()
+        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.timeStyle = .MediumStyle
+        let dateText = dateFormatter.stringFromDate(photoPair.date)
+        photoDateLabel.text = dateText
+      }
     }
   }
   
