@@ -29,9 +29,8 @@ class PhotosCollectionViewController: UICollectionViewController {
   var animator: UIDynamicAnimator?
   var heavyCurtainBehavior: HeavyCurtainDynamicBehavior!
   
-  @IBOutlet var fullPhotoViewController: FullPhotoViewController!
-  @IBOutlet var fullPhotoView: UIView!
-  @IBOutlet var imageView: UIImageView!
+  var fullPhotoViewController: FullPhotoViewController!
+  var fullPhotoView: UIView!
 
   // Touch handling
   var offset = CGPoint.zeroPoint
@@ -54,7 +53,6 @@ class PhotosCollectionViewController: UICollectionViewController {
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
     fullPhotoViewController = storyBoard.instantiateViewControllerWithIdentifier("FullPhotoVC") as! FullPhotoViewController
     fullPhotoView = fullPhotoViewController.view
-    imageView = fullPhotoView.viewWithTag(100) as! UIImageView
     
     let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
     fullPhotoView.addGestureRecognizer(panGestureRecognizer)
@@ -62,9 +60,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     addChildViewController(fullPhotoViewController)
     view.addSubview(fullPhotoView)
     fullPhotoViewController.didMoveToParentViewController(self)
-    
-    fullPhotoView.frame = view.bounds
-    fullPhotoView.setNeedsLayout()
+
     fullPhotoView.hidden = true
     
     heavyCurtainBehavior = HeavyCurtainDynamicBehavior(item: fullPhotoView)
@@ -140,10 +136,8 @@ class PhotosCollectionViewController: UICollectionViewController {
       self.navigationItem.rightBarButtonItem = doneButton
     }
 
-    fullPhotoView.frame = view.bounds
-    fullPhotoView.setNeedsLayout()
     
-    imageView.image = image
+    fullPhotoViewController.image = image
     fullPhotoView.center = CGPointMake(fullPhotoView.center.x, fullPhotoView.frame.size.height / -2)
     fullPhotoView.hidden = false
     

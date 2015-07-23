@@ -24,13 +24,22 @@ import UIKit
 import QuartzCore
 
 class FullPhotoViewController: UIViewController {
-  @IBOutlet var containerView: UIView!
-  @IBOutlet var imageView: UIImageView!
-  @IBOutlet var tagView: UIView!
+  @IBOutlet private var containerView: UIView!
+  @IBOutlet private var imageView: UIImageView!
+  @IBOutlet private var tagView: UIView!
   private var animator: UIDynamicAnimator!
   var stickyBehavior: StickyEdgesBehavior!
 
   private var offset = CGPoint.zeroPoint
+  
+  var image: UIImage? {
+    get {
+      return imageView.image
+    }
+    set(newImage) {
+      imageView.image = newImage
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -107,5 +116,4 @@ class FullPhotoViewController: UIViewController {
     default: ()
     }
   }
-  
 }

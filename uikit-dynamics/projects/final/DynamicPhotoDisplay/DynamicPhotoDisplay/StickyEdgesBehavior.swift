@@ -49,8 +49,7 @@ class StickyEdgesBehavior: UIDynamicBehavior {
         }
         collisionBehavior.addItem(item)
         itemBehavior.addItem(item)
-      }
-      else {
+      } else {
         for fieldBehavior in fieldBehaviors {
           fieldBehavior.removeItem(item)
         }
