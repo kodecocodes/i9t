@@ -98,17 +98,18 @@ class StickyEdgesBehavior: UIDynamicBehavior {
       // Get bounds width & height.
       let h = bounds.height
       let w = bounds.width
+      let itemHeight = item.bounds.height
       
       // Private function to update the position & region of a given field.
       func updateRegionForField(field: UIFieldBehavior, _ point: CGPoint) {
-        let size = CGSize(width: w - 2 * edgeInset, height: h - edgeInset)
+        let size = CGSize(width: w - 2 * edgeInset, height: h - edgeInset - itemHeight)
         field.position = point
         field.region = UIRegion(size: size)
       }
       
       // Calculate the field origins.
-      let top = CGPoint(x: w / 2, y: edgeInset)
-      let bottom = CGPoint(x: w / 2, y: h - edgeInset)
+      let top = CGPoint(x: w / 2, y: edgeInset + itemHeight / 2)
+      let bottom = CGPoint(x: w / 2, y: h - edgeInset - itemHeight / 2)
       
       // Update each field.
       updateRegionForField(fieldBehaviors[StickyEdge.Top.rawValue], top)
