@@ -25,7 +25,7 @@ import TravelogKit
 
 class LogCell: UITableViewCell {
   
-  static let widthThreshold: CGFloat = 160.0
+  static let widthThreshold: CGFloat = 1024.0
   
   @IBOutlet private var compactView: UIView!
   @IBOutlet private var compactDayLabel: UILabel!
@@ -100,7 +100,7 @@ class LogCell: UITableViewCell {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    let isTooNarrow = CGRectGetWidth(bounds) <= LogCell.widthThreshold
+    let isTooNarrow = UIScreen.mainScreen().bounds.width < LogCell.widthThreshold
     compactView.hidden = !isTooNarrow
     regularView.hidden = isTooNarrow
   }
