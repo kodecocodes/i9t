@@ -14,6 +14,8 @@
 		07689C131B562E170030E71C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07689C111B562E170030E71C /* LaunchScreen.storyboard */; };
 		07689C1E1B562E170030E71C /* ColleaguesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07689C1D1B562E170030E71C /* ColleaguesTests.swift */; };
 		07689C291B562E170030E71C /* ColleaguesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07689C281B562E170030E71C /* ColleaguesUITests.swift */; };
+		078A11251B620368001C7FED /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 078A11241B620368001C7FED /* Settings.bundle */; };
+		078A11271B620D32001C7FED /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078A11261B620D32001C7FED /* Setting.swift */; };
 		07B0383E1B5B79F600FA765D /* EmployeeExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B0383D1B5B79F600FA765D /* EmployeeExt.swift */; };
 		07B46B8E1B5AF7E400B55262 /* EmployeeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 07B46B8D1B5AF7E400B55262 /* EmployeeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07B46B951B5AF7E400B55262 /* EmployeeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B46B8B1B5AF7E400B55262 /* EmployeeKit.framework */; };
@@ -122,6 +124,8 @@
 		07689C241B562E170030E71C /* ColleaguesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColleaguesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		07689C281B562E170030E71C /* ColleaguesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColleaguesUITests.swift; sourceTree = "<group>"; };
 		07689C2A1B562E170030E71C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		078A11241B620368001C7FED /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		078A11261B620D32001C7FED /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		07B0383D1B5B79F600FA765D /* EmployeeExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeExt.swift; sourceTree = "<group>"; };
 		07B46B8B1B5AF7E400B55262 /* EmployeeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EmployeeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B46B8D1B5AF7E400B55262 /* EmployeeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmployeeKit.h; sourceTree = "<group>"; };
@@ -209,6 +213,7 @@
 		07689BFC1B562E170030E71C = {
 			isa = PBXGroup;
 			children = (
+				078A11241B620368001C7FED /* Settings.bundle */,
 				07689C071B562E170030E71C /* Colleagues */,
 				07689C1C1B562E170030E71C /* ColleaguesTests */,
 				07689C271B562E170030E71C /* ColleaguesUITests */,
@@ -244,6 +249,7 @@
 				07B46BED1B5B2ECD00B55262 /* EmployeeViewController.swift */,
 				07B46BEB1B5B21EC00B55262 /* EmployeeListCell.swift */,
 				07B0383D1B5B79F600FA765D /* EmployeeExt.swift */,
+				078A11261B620D32001C7FED /* Setting.swift */,
 			);
 			path = Colleagues;
 			sourceTree = "<group>";
@@ -495,6 +501,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				078A11251B620368001C7FED /* Settings.bundle in Resources */,
 				07689C131B562E170030E71C /* LaunchScreen.storyboard in Resources */,
 				07689C101B562E170030E71C /* Assets.xcassets in Resources */,
 				07689C0E1B562E170030E71C /* Main.storyboard in Resources */,
@@ -563,6 +570,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				078A11271B620D32001C7FED /* Setting.swift in Sources */,
 				07B46BEC1B5B21EC00B55262 /* EmployeeListCell.swift in Sources */,
 				07B0383E1B5B79F600FA765D /* EmployeeExt.swift in Sources */,
 				07689C091B562E170030E71C /* AppDelegate.swift in Sources */,

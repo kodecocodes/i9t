@@ -23,6 +23,7 @@ public extension Employee {
     attributeSet.emailAddresses = [email]
     attributeSet.relatedUniqueIdentifier = objectId
     attributeSet.keywords = skills
+    attributeSet.supportsPhoneCall = true
 
     return attributeSet
   }

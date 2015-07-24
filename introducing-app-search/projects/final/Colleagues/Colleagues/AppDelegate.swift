@@ -59,9 +59,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-    EmployeeService().indexAllEmployees()
+  
+    switch Setting.searchIndexingPreference {
+    case .Disabled:
+      EmployeeService().destroyEmployeeIndexing()
+    case .AllRecords:
+      EmployeeService().indexAllEmployees()
+    default: break
+    }
     
     return true
   }
+  
 }
 
