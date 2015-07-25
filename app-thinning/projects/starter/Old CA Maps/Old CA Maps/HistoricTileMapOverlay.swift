@@ -43,9 +43,9 @@ class HistoricTileMapOverlay: MKTileOverlay {
   init(titleDirectory: String, auxillaryInfo: [String : AnyObject]) {
     self.auxillaryInfo = auxillaryInfo
     super.init(URLTemplate: titleDirectory)
-    self.setupTileContentWithTileDirectory(titleDirectory)
-    self.geometryFlipped = true
-    self.canReplaceMapContent = false
+    setupTileContentWithTileDirectory(titleDirectory)
+    geometryFlipped = true
+    canReplaceMapContent = false
   }
   
 //=============================================================================/
@@ -55,7 +55,7 @@ class HistoricTileMapOverlay: MKTileOverlay {
   func tilesInMapRect(rect: MKMapRect, scale: MKZoomScale)->[ImageTile] {
     
     var tiles = [ImageTile]()
-    let z = self.zoomScaleToZoomLevel(scale)
+    let z = zoomScaleToZoomLevel(scale)
     let tilesAtZ = Int(pow(2.0, Double(z)))
     
     let minX = Int(floor((MKMapRectGetMinX(rect) * Double(scale)) / kTileSize))
@@ -73,7 +73,7 @@ class HistoricTileMapOverlay: MKTileOverlay {
           let size = MKMapSize(width: kTileSize / Double(scale), height: kTileSize / Double(scale))
           let frame = MKMapRect(origin: point, size: size)
           
-          let fullPath = "\(self.baseDirectoryPath)/Tiles/\(tileKey).png"
+          let fullPath = "\(baseDirectoryPath)/Tiles/\(tileKey).png"
           let tile = ImageTile(imagePath: fullPath, mapRect: frame)
           tiles.append(tile)
         }
@@ -99,11 +99,11 @@ class HistoricTileMapOverlay: MKTileOverlay {
 //=============================================================================/
   
   private func getCoordinate()->CLLocationCoordinate2D {
-    return MKCoordinateForMapPoint(MKMapPoint(x: MKMapRectGetMidX(self.boundingMapRect), y: MKMapRectGetMidY(self.boundingMapRect)))
+    return MKCoordinateForMapPoint(MKMapPoint(x: MKMapRectGetMidX(boundingMapRect), y: MKMapRectGetMidY(boundingMapRect)))
   }
   
   private func setupTileContentWithTileDirectory(tileDirectory : String) {
-    self.baseDirectoryPath = tileDirectory
+    baseDirectoryPath = tileDirectory
     let fileManager = NSFileManager.defaultManager()
     
     let tilesPath = tileDirectory.stringByAppendingPathComponent("Tiles")
@@ -164,8 +164,8 @@ class HistoricTileMapOverlay: MKTileOverlay {
     let y0 = (Double(flippedMaxY) * kTileSize) / zoomScaleAtMinZ
     let y1 = ((Double(flippedMinY) + 1) * kTileSize) / zoomScaleAtMinZ
     
-    self.private_boundingRect = MKMapRect(origin: MKMapPoint(x: x0, y: y0), size: MKMapSize(width: x1-x0, height: y1-y0))
-    self.tileSet = pathSet
+    private_boundingRect = MKMapRect(origin: MKMapPoint(x: x0, y: y0), size: MKMapSize(width: x1-x0, height: y1-y0))
+    tileSet = pathSet
   }
   
   private func zoomScaleToZoomLevel(scale: MKZoomScale)->Int {

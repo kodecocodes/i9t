@@ -50,7 +50,7 @@ extension HistoricMapOverlayData {
   
   static func generateAllBundleTitles()->Set<String> {
     var titles = Set<String>()
-    for mapOverlayData in self.generateDefaultData() {
+    for mapOverlayData in generateDefaultData() {
       titles.insert(mapOverlayData.bundleTitle)
     }
     return titles

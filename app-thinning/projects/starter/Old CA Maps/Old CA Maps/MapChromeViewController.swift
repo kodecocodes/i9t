@@ -36,19 +36,19 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.mapView.showsCompass = true
-    self.mapView.showsScale = true
-    self.mapView.showsTraffic = true
+    mapView.showsCompass = true
+    mapView.showsScale = true
+    mapView.showsTraffic = true
     
-    self.loadingProgressView.progress = 0
-    self.loadingProgressView.hidden = true
+    loadingProgressView.progress = 0
+    loadingProgressView.hidden = true
     
-    self.downloadAndDisplayMapOverlay()
+    downloadAndDisplayMapOverlay()
     
     
-    let barButton = self.splitViewController!.displayModeButtonItem()
-    self.navigationItem.leftBarButtonItem = barButton
-    self.navigationItem.leftItemsSupplementBackButton = true
+    let barButton = splitViewController!.displayModeButtonItem()
+    navigationItem.leftBarButtonItem = barButton
+    navigationItem.leftItemsSupplementBackButton = true
   }
   
 //=============================================================================/
@@ -56,8 +56,8 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   @IBAction func opacitySliderChanged(sender: UISlider) {
-    for overlay in self.mapView.overlays {
-      let renderer = self.mapView.rendererForOverlay(overlay)
+    for overlay in mapView.overlays {
+      let renderer = mapView.rendererForOverlay(overlay)
       renderer?.alpha = CGFloat(sender.value)
     }
   }
@@ -76,18 +76,18 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
 //=============================================================================/
   
   private func downloadAndDisplayMapOverlay() {
-    self.displayOverlayFromBundle(NSBundle.mainBundle())
+    displayOverlayFromBundle(NSBundle.mainBundle())
   }
   
   func displayOverlayFromBundle(bundle: NSBundle) {
-    guard let mapOverlayData = self.mapOverlayData else {
+    guard let mapOverlayData = mapOverlayData else {
       return
     }
     
     let (auxillaryInfo, path) = bundle.extractMapContentBundleWithTitle(mapOverlayData.bundleTitle)
     let overlay = HistoricTileMapOverlay(titleDirectory: path, auxillaryInfo: auxillaryInfo)
-    self.mapView.addOverlay(overlay)
-    self.mapView.setVisibleMapRect(overlay.boundingMapRect, animated: true)
+    mapView.addOverlay(overlay)
+    mapView.setVisibleMapRect(overlay.boundingMapRect, animated: true)
   }
   
 }

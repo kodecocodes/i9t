@@ -177,6 +177,7 @@
 					SF_Map,
 					SNVL_Map,
 				);
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = RayWenderlich;
 				TargetAttributes = {

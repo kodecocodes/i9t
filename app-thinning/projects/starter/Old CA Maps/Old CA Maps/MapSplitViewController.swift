@@ -34,7 +34,7 @@ class MapSplitViewController: UISplitViewController, UISplitViewControllerDelega
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.delegate = self
+    delegate = self
     self.preferredDisplayMode = .AllVisible
   }
   

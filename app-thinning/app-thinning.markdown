@@ -10,15 +10,15 @@ However, packaging a universal app with device-specific content has a huge impac
 
 Fortunately, in iOS 9, Apple has introduced several solutions to address this problem:
 
-- **App Slicing:** When you submit your iOS 9 binary to the App Store, Apple will compile resources and executable architecture into variants specific to each device. Devices will only download the variant specific to their traits, meaning they only get content they will use. Traits include graphics capabilities, architecture, size classes, screen scaling, and more. 
+- **App Slicing:** When you submit your iOS 9 binary to the App Store, Apple will compile resources and executable architecture into variants specific to each device. Devices will only download the variant specific to their traits, meaning they only get content they will use. Traits include graphics capabilities, memory level, architecture, size classes, screen scaling, and more. 
 - **On Demand Resources:** Application resources are downloaded as needed and can be removed if the iOS device needs to make room for other resources.
-- **Bitcode:** An intermediate representation can be sent along with your app when submitting to the App Store. This allows Apple to re-optimize your app as future optimizations are made on their end without you having to resubmit to the App Store. 
+- **Bitcode:** An intermediate representation of your compiled app can be sent when submitting to the App Store. This allows Apple to optimize your executables by compiling with the latest optimizations for a given target - including types that didn't exist when you submitted your app. 
  
 Packaged together, these techniques are known as **App Thinning**.
 
 ## Getting Started
 
-Open the **Old CA Maps** project. This application displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this simple app takes up a huge amount of disk space (over 300 Megabytes!). You'll use the App Thinning techniques to hack-and-slash the end product to a more manageable size. 
+Open the **Old CA Maps** starter project. This application displays historical aerial overlays over different parts of California on a map. This is a close to final project about to be sent to the App Store. Unfortunately, the resources for this simple app takes up a huge amount of disk space (over 300 Megabytes!). You'll use the App Thinning techniques to hack-and-slash the end product to a more manageable size. 
 
 With the Xcode project open, select the **iPad Air 2 Simulator** as the **scheme destination**, then build and run the application.
 
@@ -26,7 +26,7 @@ Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and
 
 ![ipad-landscape](./images/ipad_air_2_starter_landscape.png)
 
->**Note:** These overlays are created from image tiles found in **NSBundle**s and passed into a **MKTileOverlayRenderer** for drawing. All of this is well beyond the scope of this tutorial on how it works. Think of this stuff as a black box--all you care about is how to make you app as small as possible to the end user. :] 
+>**Note:** These overlays are created from image tiles found in **NSBundle**s and passed into a **MKTileOverlayRenderer** for drawing. The details of how it works are well beyond the scope of this tutorial. Think of this stuff as a black box--all you care about is how to make this app as small as possible for the end user. :] 
 
 ### The Anatomy of an App 
 
@@ -36,7 +36,7 @@ Below is a side-by-side comparison of the Old CA Maps **Xcode project**'s direct
 
 ![bordered width=%60](./images/Directory_IPA_Comparison.png)
 
-There's a couple important items to take note of:
+There are a few important items to take note of:
 
 - The assets catalog in Xcode named **Assets.xcassets** will turn into the **Assets.car** file in the IPA. This file's job is to hold resources specific to different scales, size classes, and devices. 
 - Check out the sizes of each of the bundles. Notice the **SC_Map.bundle** is over 130 MB! 
