@@ -1,18 +1,18 @@
 # Chapter _: App Thinning
 
-Kicking yourself that you didn't drop the extra dinero to multiply your iOS device's disk storage size by a factor of 2? Well, don't be! Apple is now taking a more frugal approach to how apps can be stored on your device!
+Kicking yourself that you didn't drop the extra dinero to multiply your iOS device's disk storage size by a factor of 2? Well, don't! Apple is now taking a more frugal approach to how apps can be stored on your device.
 
-Back in the days of iOS 8, Apple began pushing developers to adopt a universal approach for building across devices. UISplitViewControllers, Trait Collections, and (a more respectable) Auto Layout led to a seamless experience for the iOS developer to build universal application for both iPhone & iPad.
+When iOS 8 was introduced along with the iPhone 6 and 6 Plus and their new screen sizes, Apple began pushing developers to adopt a more universal approach to building across devices. Adaptive Layout, Trait Collections, Universal UISplitViewControllers, and (a more respectable) Auto Layout led to a seamless experience for the iOS developer to build universal application for both iPhone & iPad.
 
-However, packaging a universal app with device-specific content is rather wasteful... look at all chart below to see at the wasted 1s and 0s being stored on your device never to be used. 
+However, packaging a universal app with device-specific content has a huge impact to the bundle size of your app. Look at the chart below to see all the 1s and 0s being stored on your device never to be used. 
 
 [NOTE TO EDITOR: Breakdown chart needed here...]
 
-Fortunately, in iOS 9, Apple has introduced several solutions to circumvent this problem:
+Fortunately, in iOS 9, Apple has introduced several solutions to address this problem:
 
-- **App Slicing:** When downloading an app from the App Store in iOS 9, Apple will compile resources and executable architecture into variants specific to each device. The device will only download the variant specific to its architecture, Size classes, screen scaling, etc. resulting in content only the device will actually use. 
-- **On Demand Resources:** Resources for an application that are downloaded as needed and can be removed if the iOS device needs to make room for other storage on disk.
-- **Bitcode:** An intermediate representation that is sent along with your app when submitting to the App Store. This allows Apple to re-optimize your app as future optimizations are made on their end without you having to resubmit your app to the App Store. 
+- **App Slicing:** When you submit your iOS 9 binary to the App Store, Apple will compile resources and executable architecture into variants specific to each device. Devices will only download the variant specific to their traits, meaning they only get content they will use. Traits include graphics capabilities, architecture, size classes, screen scaling, and more. 
+- **On Demand Resources:** Application resources are downloaded as needed and can be removed if the iOS device needs to make room for other resources.
+- **Bitcode:** An intermediate representation can be sent along with your app when submitting to the App Store. This allows Apple to re-optimize your app as future optimizations are made on their end without you having to resubmit to the App Store. 
  
 Packaged together, these techniques are known as **App Thinning**.
 
