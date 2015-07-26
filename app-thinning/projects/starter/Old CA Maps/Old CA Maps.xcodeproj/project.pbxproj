@@ -237,7 +237,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo \"App Size in KB:  `du -sk \\\"${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app\\\"`\"\nopen ${CONFIGURATION_BUILD_DIR}";
+			shellScript = "echo \"App Size in KB:  `du -sk \\\"${CONFIGURATION_BUILD_DIR}/${EXECUTABLE_NAME}.app\\\"`\"\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\nopen ${CONFIGURATION_BUILD_DIR}\nfi";
 		};
 /* End PBXShellScriptBuildPhase section */
 
