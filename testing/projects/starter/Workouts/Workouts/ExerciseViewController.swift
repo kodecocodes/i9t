@@ -23,6 +23,14 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
     super.viewDidLoad()
   }
 
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    if let indexPath = tableView.indexPathForSelectedRow {
+      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+  }
+  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return dataModel.exercises.count + 1
   }
