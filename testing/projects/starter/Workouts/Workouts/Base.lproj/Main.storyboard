@@ -221,7 +221,7 @@
         <!--Exercise Detail View Controller-->
         <scene sceneID="8Vt-mq-Qgc">
             <objects>
-                <tableViewController id="gVG-JG-aUG" customClass="ExerciseDetailViewController" customModule="Workouts" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ExerciseDetailViewController" id="gVG-JG-aUG" customClass="ExerciseDetailViewController" customModule="Workouts" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="OvK-ev-rZI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -229,7 +229,7 @@
                         <sections>
                             <tableViewSection headerTitle="Exercise Info" id="P02-Sp-4JN">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Dey-RV-sUR" detailTextLabel="91e-kV-9ZI" style="IBUITableViewCellStyleValue1" id="bgT-5e-p85">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="Dey-RV-sUR" detailTextLabel="91e-kV-9ZI" style="IBUITableViewCellStyleValue1" id="bgT-5e-p85">
                                         <rect key="frame" x="0.0" y="114" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bgT-5e-p85" id="7Eq-yc-T3v">
@@ -253,7 +253,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="RY8-Ks-Xzf" detailTextLabel="tfY-X0-M5k" style="IBUITableViewCellStyleValue1" id="QPO-ey-yDv">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="RY8-Ks-Xzf" detailTextLabel="tfY-X0-M5k" style="IBUITableViewCellStyleValue1" id="QPO-ey-yDv">
                                         <rect key="frame" x="0.0" y="158" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QPO-ey-yDv" id="4eE-fr-Kdb">
@@ -319,7 +319,7 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="instructions" id="Dve-dT-qvL">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="250" id="hiV-VF-PNy">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="250" id="hiV-VF-PNy">
                                         <rect key="frame" x="0.0" y="289" width="600" height="250"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hiV-VF-PNy" id="st2-S7-Xqi">
@@ -354,11 +354,44 @@
                         <outlet property="exerciseImageView" destination="od3-uG-5nm" id="Lzy-hc-ZeT"/>
                         <outlet property="instructionsLabel" destination="p9w-DZ-yJ6" id="C33-IU-hsR"/>
                         <outlet property="nameLabel" destination="91e-kV-9ZI" id="0EG-cb-mKR"/>
+                        <segue destination="5mS-G7-rRQ" kind="show" identifier="toExerciseImageViewController" id="MkI-Ki-nAN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pvu-e2-K8a" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2735" y="416"/>
+        </scene>
+        <!--Exercise Image View Controller-->
+        <scene sceneID="uKG-xo-zVC">
+            <objects>
+                <viewController id="5mS-G7-rRQ" customClass="ExerciseImageViewController" customModule="Workouts" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="txC-6X-zxa"/>
+                        <viewControllerLayoutGuide type="bottom" id="Z5D-Kk-MTg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZJM-py-qzY">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YiO-LZ-6aq">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YiO-LZ-6aq" firstAttribute="leading" secondItem="ZJM-py-qzY" secondAttribute="leading" id="5KN-j7-GUd"/>
+                            <constraint firstAttribute="bottom" secondItem="YiO-LZ-6aq" secondAttribute="bottom" id="AsK-zv-gFv"/>
+                            <constraint firstItem="YiO-LZ-6aq" firstAttribute="top" secondItem="ZJM-py-qzY" secondAttribute="top" id="lId-FC-1eD"/>
+                            <constraint firstAttribute="trailing" secondItem="YiO-LZ-6aq" secondAttribute="trailing" id="vxw-yO-Bul"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="YiO-LZ-6aq" id="4CS-GO-et9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sus-ln-Jtt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3437" y="411"/>
         </scene>
         <!--Workout Detail View Controller-->
         <scene sceneID="lNF-ON-60L">

@@ -36,7 +36,7 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
     } else {
       let exercise = dataModel.exercises[indexPath.row - 1]
       let exerciseCell = tableView.dequeueReusableCellWithIdentifier(exerciseIdentifier) as! ExerciseCell
-      exerciseCell.exerciseImageView.image = UIImage(named: exercise.photoFileName)
+      exerciseCell.exerciseImageView.image = exercise.thumbnail
       exerciseCell.exerciseName.text = exercise.name
       return exerciseCell
     }
@@ -55,7 +55,7 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
     if indexPath.row == addWorkoutIndex {
       return false
     } else {
-      return dataModel.exercises[indexPath.row - 1].canModify
+      return dataModel.exercises[indexPath.row - 1].canRemove
     }
   }
   

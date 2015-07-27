@@ -8,6 +8,8 @@
 
 import UIKit
 
+let toExerciseImageIdentifier = "toExerciseImageViewController"
+
 class ExerciseDetailViewController: UITableViewController {
 
   var exercise: Exercise!
@@ -23,14 +25,22 @@ class ExerciseDetailViewController: UITableViewController {
     title = exercise.name
     
     nameLabel.text = exercise.name
-    exerciseImageView.image = UIImage(named: exercise.photoFileName)
-    durationLabel.text = "\(exercise.duration) seconds"
+    exerciseImageView.image = exercise.thumbnail
+    durationLabel.text = "\(Int(exercise.duration)) seconds"
     instructionsLabel.text = exercise.instructions
   }
   
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
-    
+    if indexPath.section == 0 && indexPath.row == 2 {
+      performSegueWithIdentifier(toExerciseImageIdentifier, sender: nil)
+    }
   }
   
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == toExerciseImageIdentifier {
+      let photoVC = segue.destinationViewController as! ExerciseImageViewController
+      photoVC.exercise = exercise
+    }
+  }
 }

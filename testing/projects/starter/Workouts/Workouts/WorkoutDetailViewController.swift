@@ -12,6 +12,8 @@ let workoutInfoIdentifier = "WorkoutInfoCell"
 let workoutExerciseIdentifier = "WorkoutExerciseCell"
 let workoutSelectIdentifier = "WorkoutSelectCell"
 
+let exerciseDetailIdentifier = "ExerciseDetailViewController"
+
 class WorkoutDetailViewController: UIViewController {
   
   @IBOutlet weak var tableView: UITableView!
@@ -21,6 +23,14 @@ class WorkoutDetailViewController: UIViewController {
     super.viewDidLoad()
     
     title = workout.name
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    if let indexPath = tableView.indexPathForSelectedRow {
+      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
   }
   
   //MARK - UITableViewDataSource / UITableViewDelegate
@@ -72,7 +82,7 @@ class WorkoutDetailViewController: UIViewController {
       cell = tableView.dequeueReusableCellWithIdentifier(workoutExerciseIdentifier)!
       let exerciseCell = cell as! ExerciseCell
       exerciseCell.exerciseName.text = exercise.name
-      exerciseCell.exerciseImageView.image = UIImage(named: exercise.photoFileName)
+      exerciseCell.exerciseImageView.image = exercise.thumbnail
     case 2:
       cell = tableView.dequeueReusableCellWithIdentifier(workoutSelectIdentifier)!
     default:
@@ -85,7 +95,12 @@ class WorkoutDetailViewController: UIViewController {
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
-    
+    if indexPath.section == 1 {
+      let storyboard = UIStoryboard(name: "Main", bundle: nil)
+      let vc = storyboard.instantiateViewControllerWithIdentifier(exerciseDetailIdentifier) as! ExerciseDetailViewController
+      vc.exercise = workout.exercises[indexPath.row]
+      navigationController?.pushViewController(vc, animated: true)
+    }
   }
   
   // MARK - Helper methods
@@ -93,6 +108,7 @@ class WorkoutDetailViewController: UIViewController {
   func workoutInfoCellForRowAtIndexPath(indexPath: NSIndexPath) -> UITableViewCell
   {
     let cell = tableView.dequeueReusableCellWithIdentifier(workoutInfoIdentifier)!
+    cell.selectionStyle = .None
     
     switch (indexPath.row) {
     case 0:
@@ -103,10 +119,10 @@ class WorkoutDetailViewController: UIViewController {
       cell.detailTextLabel!.text = "\(workout.exercises.count) workouts"
     case 2:
       cell.textLabel!.text = "Duration"
-      cell.detailTextLabel!.text = "\(workout.duration) seconds"
+      cell.detailTextLabel!.text = "\(Int(workout.duration)) seconds"
     case 3:
       cell.textLabel!.text = "Rest Interval"
-      cell.detailTextLabel!.text = "\(workout.restInterval) seconds"
+      cell.detailTextLabel!.text = "\(Int(workout.restInterval)) seconds"
     default:
       print("Default, do sometehing")
     }

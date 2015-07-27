@@ -24,6 +24,15 @@ class WorkoutViewController: UIViewController, UITableViewDataSource, UITableVie
 
   }
   
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    if let indexPath = tableView.indexPathForSelectedRow {
+      tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+  }
+  
+  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return dataModel.workouts.count + 1
   }

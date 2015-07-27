@@ -24,14 +24,14 @@ class Exercise : NSObject, NSCoding {
   var instructions: String!
   var duration: NSTimeInterval! //readonly
   
-  var canModify: Bool {
+  var canEdit: Bool {
     get {
-      return !userCreated
+      return userCreated
     }
   }
   var canRemove: Bool {
     get {
-      return !userCreated
+      return userCreated
     }
   }
   
@@ -64,7 +64,15 @@ class Exercise : NSObject, NSCoding {
   //MARK - Helper methods
   
   private func resizeImageWithSize(size: CGSize) ->  UIImage {
-    return UIImage()
+    
+    let image = UIImage(named: photoFileName)! //research
+    
+    UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
+    image.drawInRect(CGRectMake(0, 0, size.width, size.height))
+    let newImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return newImage
   }
   
 }

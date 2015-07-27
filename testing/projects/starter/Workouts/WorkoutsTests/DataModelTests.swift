@@ -1,15 +1,14 @@
 //
-//  WorkoutsTests.swift
-//  WorkoutsTests
+//  DataModelTests.swift
+//  Workouts
 //
-//  Created by Pietro Rea on 7/22/15.
-//  Copyright (c) 2015 Razeware. All rights reserved.
+//  Created by Pietro Rea on 7/26/15.
+//  Copyright © 2015 Razeware. All rights reserved.
 //
 
-import UIKit
 import XCTest
 
-class WorkoutsTests: XCTestCase {
+class DataModelTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
@@ -23,12 +22,12 @@ class WorkoutsTests: XCTestCase {
     
     func testExample() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measureBlock {
             // Put the code you want to measure the time of here.
         }
     }

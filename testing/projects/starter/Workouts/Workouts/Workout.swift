@@ -17,17 +17,17 @@ class Workout : NSObject, NSCoding {
   
   var userCreated: Bool!
   var name: String!
-  var exercises: Array<Exercise>!
-  var restInterval: NSTimeInterval!
+  var restInterval: NSTimeInterval = 0.0
+  var exercises = Array<Exercise>()
   
-  var canModify: Bool {
+  var canEdit: Bool {
     get {
-      return !userCreated
+      return userCreated
     }
   }
   var canRemove: Bool {
     get {
-      return !userCreated
+      return userCreated
     }
   }
   
@@ -37,12 +37,15 @@ class Workout : NSObject, NSCoding {
       for exercise in exercises {
         totalDuration += exercise.duration
       }
+      
+      totalDuration += Double(exercises.count / 2) * restInterval
+      
       return totalDuration
     }
   }
   
-  func addExercise(exercise: Exercise) -> Bool {
-    return true
+  func addExercise(exercise: Exercise) {
+    exercises.append(exercise)
   }
   
   func removeExercise(exercise: Exercise) -> Bool {
