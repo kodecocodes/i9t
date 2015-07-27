@@ -196,7 +196,7 @@ Now imagine that `.Bottom`, which is currently an enum of type `NSLayoutAttribut
 
 That's all there is to it! You now understand the concept of layout anchors. `UIView` now has a `bottomAnchor` property which is an object of type `NSLayoutAnchor`, as well as other anchors that correspond to other `NSLayoutAttributes`. So for `.Bottom` there is `bottomAnchor`, for `.Width` there is `widthAnchor`, for `.CenterX` there is `centerXAnchor` etc.
 
-In fact just add the suffix Anchor to an `NSLayoutAttribute` and you'll get the corresponding `NSLayoutAnchor` property's name. However, this won't work for the `NSLayoutAttribute` values that corresponding to margins such as `.TopMargin` or `.CenterXWithinMargins`, so there is no `topMarginAnchor` or `centerXWithinMarginsAnchor`. These have instead been moved to a new property on `UIView` called `layoutMarginsGuide`. So the corresponding anchor for `.TopMargin` would be `layoutMarginsGuide.topAnchor` and for `.CenterXWithinMargins` it would be `layoutMarginsGuide.centerXAnchor`.
+In fact, just add the suffix Anchor to a particular `NSLayoutAttribute` and you'll get the corresponding `NSLayoutAnchor` property's name. However, this won't work for the `NSLayoutAttribute` values that correspond to margins such as `.TopMargin` or `.CenterXWithinMargins`, so there is no `topMarginAnchor` or `centerXWithinMarginsAnchor`. These have instead been moved to a new property on `UIView` called `layoutMarginsGuide`. So the corresponding anchor for `.TopMargin` would be `layoutMarginsGuide.topAnchor` and for `.CenterXWithinMargins` it would be `layoutMarginsGuide.centerXAnchor`.
 
 The `layoutMarginsGuide` property is an object of type `UILayoutGuide`, which you'll learn about in the next section, and it contains anchors just like a `UIView`.
 
@@ -218,7 +218,7 @@ let constraint = topLabel.bottomAnchor.constraintEqualToAnchor(
 
 Now that's a much more expressive and concise way to create a constraint!
 
-So the methods above create an `EqualTo` constraint but what if you wanted to create a `LessThanOrEqualTo` or a `GreaterThanOrEqualTo` constraint.
+So the methods above create an `EqualTo` constraint but what if you wanted to create a `LessThanOrEqualTo` or a `GreaterThanOrEqualTo` constraint?
 
 Using the old method you would just pass in `.GreaterThanOrEqual` or `.LessThanOrEqual` for the `relatedBy:` parameter, which takes an enum of type `NSLayoutRelation`:
 
@@ -244,7 +244,7 @@ func constraintLessThanOrEqualToAnchor(_:)
 func constraintGreaterThanOrEqualToAnchor(_:)
 ```
 
-In the old method, there is also a `multiplier:` parameter:
+In the old method, there is also a `multiplier` parameter:
 
 ```swift
 let constraint = NSLayoutConstraint(
@@ -254,11 +254,11 @@ let constraint = NSLayoutConstraint(
 )
 ```
 
-How would you include it if you needed to? The `NSLayoutAnchor` class actually does not have any methods that take in a multiplier.
+How would you include a multiplier if you needed to? If you look at the documentation for `NSLayoutAnchor`, you won't find any methods that contain a `multiplier` parameter.
 
 [TODO: "Confused look" humor]
 
-But `NSLayoutAnchor` does have an `NSLayoutDimension` subclass that has the following methods:
+But `NSLayoutAnchor` does have a subclass called `NSLayoutDimension` that has the following methods:
 
 ```swift
 func constraintEqualToConstant(_:)
@@ -276,9 +276,9 @@ func constraint[Less|Greater]ThanOrEqualToAnchor(_:multiplier:constant:)
 
 So what kind of anchor is `NSLayoutDimension` used for? Think about in what case you would actually use a multiplier other than 1. This would be when you wanted to add a proportional constraint between the width or height of one view to the width or height of another view.
 
-And so the only anchors that are of type `NSLayoutDimension` are .heightAnchor and .widthAnchor. This provides you with additional type safety since you can't accidentally use a multiplier when it doesn't make sense. Since the multiplier based methods don't exist anything other than `.widthAnchor` and `.heightAnchor`, Xcode won't even suggest them to you.
+And so the only anchors that are of type `NSLayoutDimension` are `heightAnchor` and `widthAnchor`. This provides you with additional type safety since you can't accidentally use a multiplier when it doesn't make sense. Since the multiplier based methods don't exist anything other than `widthAnchor` and `heightAnchor`, Xcode won't even suggest them to you.
 
-Say you were trying to add a constraint to a label's `topAnchor`. Here you don't see the methods with the `multiplier:` param nor do you see the `constraintEqualToConstant(:_)` method:
+Say you were trying to add a constraint to a certain label's `topAnchor`. Here in Xcode's autocomplete suggestions, you don't see the methods with the `multiplier:` param nor do you see the `constraintEqualToConstant(:_)` method:
 
 ![bordered width=99%](images/23-topAnchor-methods_750x170.png)
 
@@ -286,21 +286,23 @@ But you do see the additional methods when using `widthAnchor`:
 
 ![bordered width=99%](images/24-widthAnchor-methods_782x203.png)
 
-You'll also get compile errors if you try to use an `NSLayoutDimension` on an object of type `NSLayoutAnchor`:
+And you'll also get compile errors if you try to use an `NSLayoutDimension` method on an object of type `NSLayoutAnchor`, which is great for any copy/paste/edit mistakes:
 
 ![bordered width=99%](images/25-compile-error-with-widthAnchor_585x76.png)
 
-Hmm, the error message says `'NSLayoutXAxisAnchor' does not have a member named 'constraintEqualToAnchor'`. What's an `NSLayoutXAxisAnchor`?
+Hmm, the error in the screenshot above message says `'NSLayoutXAxisAnchor' does not have a member named 'constraintEqualToAnchor'`.
 
-`NSLayoutXAxisAnchor` is actually a subclass of `NSLayoutAnchor` but doesn't contain any additional methods. Its only purpose is to provide type information so that you don't accidentally add constraints between horizontal anchors and vertical anchors. So anchors in the horizontal, direction such as `leadingAnchor` or `centerXAnchor` are actually of type `NSLayoutXAxisAnchor`, and anchors those in the vertical direction such as `topAnchor` or `centerYAnchor` are of type `NSLayoutYAxisAnchor`.
+What's an `NSLayoutXAxisAnchor`?
 
-The `constraint[Equal|LessThanOrEqual|GreaterThanOrEqual]ToAnchor` family of methods are actually generic methods than when called from an object of type `NSLayoutXAxisAnchor` will only take a parameter of type `NSLayoutXAxisAnchor`, and when called from an object of type `NSLayoutYAxisAnchor` will only take in a parameter of type `NSLayoutYAxisAnchor`.
+`NSLayoutXAxisAnchor` is actually a subclass of `NSLayoutAnchor` but doesn't contain any additional methods. Its only purpose is to provide type information so that you don't accidentally add constraints between horizontal anchors and vertical anchors. So anchors in the horizontal direction such as `leadingAnchor` or `centerXAnchor` are actually of type `NSLayoutXAxisAnchor`, and anchors in the vertical direction such as `topAnchor` or `centerYAnchor` are of type `NSLayoutYAxisAnchor`.
+
+The `constraint[Equal|LessThanOrEqual|GreaterThanOrEqual]ToAnchor` family of methods are actually generic methods that when called from an object of type `NSLayoutXAxisAnchor` will only take a parameter of type `NSLayoutXAxisAnchor`, and when called from an object of type `NSLayoutYAxisAnchor` will only take in a parameter of type `NSLayoutYAxisAnchor`.
 
 This type checking hasn't made its way into Swift yet, but it does currently work with Objective-C:
 
 ![bordered width=99%](images/26-xAnchor-and-yAnchor-incompatibility_632x60.png)
 
-Though with Swift, you'll still get a crash at runtime with the message "Invalid pairing of layout attributes" so you'll know pretty soon if you've made a mistake.
+Though, with Swift, you'll still get a crash at runtime with the message "Invalid pairing of layout attributes" so you'll know pretty soon if you've made a mistake.
 
 In Swift, you'll still get an error if you try to constrain an `NSLayoutDimension` anchor with a different type of anchor, for example, a `widthAnchor` with a `topAnchor`:
 
@@ -310,19 +312,17 @@ Whew, that was a lot to cover. Don't worry, the next section on layout guides wi
 
 ## Layout Guides
 
-A layout guide is a new object that you can use to position views in situations in which you'd need to use a dummy view only for the purposes of alignment, such as spacer views between buttons to space them equally, or using a container view to collectively align two labels. Think of a layout guide as defining a rectangular region or a frame in your view hierarchy, the edges of which you can use for alignment.
+A layout guide is a new object that you can use to position views in situations in which you'd need to use a dummy view only for the purposes of alignment. For example, you might use spacer views between buttons to space them equally, or you might use a container view to collectively align two labels. Think of a layout guide as defining a rectangular region or a frame in your view hierarchy, the edges of which you can use for alignment.
 
 Layout guides don't enable any new functionally but allow solving these problems in a much more lightweight manner, as well as without cluttering your view hierarchy with views that don't actually need to draw.
 
-You can add constraints to a `UILayoutGuide` in the same way that you can to a `UIView` since a has all of the same layout anchors that a view has (well except for `firstBaselineAnchor` and `lastBaselineAnchor` which are only on `UIView`).
+You can add constraints to a `UILayoutGuide` in the same way that you can to a `UIView` since a layout guide has all of the same layout anchors that a view has (well except for `firstBaselineAnchor` and `lastBaselineAnchor` which are only on `UIView`).
 
-It's time to fix that alignment bug with a layout guide that you'll constrain with layout anchors.
+Ok enough theory! It's time to dive back into the project and fix that alignment bug with a layout guide that you'll constrain by using layout anchors.
 
 ### Fixing the Alignment Bug
 
-Ok enough theory, it's time to dive back into the project, and this time into some code!
-
-To recap, there are a few labels are not centered vertically in the cell:
+To recap, there were a few labels were not centered vertically in the cell:
 
 ![bordered width=32%](images/28-recap-of-alignment-issue_750x534.png)
 
@@ -334,7 +334,7 @@ This would have worked if the name label was always on a single line, but for so
 
 Your task is to properly center both labels. Prior to iOS 9 you'd have accomplished this by adding both labels into a container view, and then you would have added a constraint to center the container view vertically within the cell. The only purpose of this dummy container view would be for the collective alignment of the two labels. But now you know that you can use a layout guide instead.
 
-It's only possible to add a `UILayoutGuide` in code. So open **VacationSpotCell.swift** and add the following code to `awakeFromNib()`:
+It's currently only possible to add a layout guide in code. So open **VacationSpotCell.swift** and add the following code to `awakeFromNib()`:
 
 ```swift
 // 1
@@ -363,7 +363,7 @@ Here is what is happening in code you just added:
 1. You create the `layoutGuide` and use `addLayoutGuide(_:)` to add it to the cell's `contentView`.
 2. You pin the top of the layout guide to the top of the `nameLabel`.
 3. You pin the bottom of the layout guide to the bottom of the `locationNameLabel`.
-4. You add a constraint to center layout guide vertically within the `contentView`.
+4. You add a constraint to center the layout guide vertically within the `contentView`.
 5. You activate the constraints.
 
 >**Note**: Using the `activateConstraints(_:)` method on UIView is the recommended way of adding constraints in iOS 8 onwards, instead of using `addConstraints(_:)`.
@@ -371,7 +371,7 @@ Here is what is happening in code you just added:
 Build and run, you should see the following:
 ![bordered iphone](images/30-before-making-constraint-placeholder_750x1334.png)
 
-The labels are centered, but now any labels that were previously spanning two lines are now truncated to a single line. This is because of the constraint that is still in the storyboard. So in order to satisfy that constraint and the newly added centering constraint, the label had to compress its content. You can't remove the constraint completely from the storyboard since you would get the a missing constraint error:
+The labels are centered, but now any labels that were previously spanning two lines are now truncated to a single line. This is because of the constraint that is still in the storyboard. So in order to satisfy that constraint and the newly added centering constraint, the label had to compress its content. You can't remove the constraint completely from the storyboard since you would get a missing constraint error:
 
 ![bordered width=96%](images/31-missing-constraint-error_674x174.png)
 
