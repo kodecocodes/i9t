@@ -29,6 +29,8 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
     if let indexPath = tableView.indexPathForSelectedRow {
       tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+    
+    toggleEditMode(false)
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -50,7 +52,6 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
     }
     
     return cell
-
   }
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
@@ -146,12 +147,12 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
   
   @IBAction func editButtonTapped(sender: UIBarButtonItem) {
     
-    if tableView.editing {
-      tableView .setEditing(false, animated: true)
-      editButton.title = "Done"
-    } else {
-      tableView .setEditing(true, animated: true)
-      editButton.title = "Edit"
-    }
+    toggleEditMode(!tableView.editing)
+  }
+  
+  private func toggleEditMode(editing: Bool)
+  {
+    tableView.setEditing(editing, animated: true)
+    editButton.title = editing ? "Done" : "Edit"
   }
 }

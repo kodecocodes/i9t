@@ -104,7 +104,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2054" y="411"/>
+            <point key="canvasLocation" x="1984" y="425"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="EfM-To-UO6">
@@ -211,11 +211,113 @@
                         <outlet property="editButton" destination="mBB-EX-jho" id="RkD-fw-Hp3"/>
                         <outlet property="tableView" destination="oJA-oy-Pmb" id="uvV-8Y-ezf"/>
                         <segue destination="Hhw-x0-Xt0" kind="show" identifier="toWorkoutDetailViewController" id="wAh-4e-5Jp"/>
+                        <segue destination="RiA-qT-0Ze" kind="push" identifier="toAddWorkoutViewController" id="aZ7-k5-PpU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPX-K1-9ff" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1993" y="1240"/>
+        </scene>
+        <!--Add Workout View Controller-->
+        <scene sceneID="1DI-Oh-2t7">
+            <objects>
+                <viewController id="RiA-qT-0Ze" customClass="AddWorkoutViewController" customModule="Workouts" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="gda-A0-Kf4"/>
+                        <viewControllerLayoutGuide type="bottom" id="Pqs-KT-rbd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9Jl-sm-Zh2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsMultipleSelection="YES" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="5Dj-OS-9P1">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddWorkoutInfoCell" id="BIU-ny-Dl9" customClass="AddWorkoutInfoCell" customModule="Workouts" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="114" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BIU-ny-Dl9" id="Bpg-0N-f6A">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Exercise Info" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UKu-G2-LJB">
+                                                    <rect key="frame" x="15" y="11" width="97" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Exercise Info Value" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NuX-BF-4Is">
+                                                    <rect key="frame" x="459" y="13" width="126" height="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="NuX-BF-4Is" firstAttribute="centerY" secondItem="Bpg-0N-f6A" secondAttribute="centerY" id="S5k-p0-v8a"/>
+                                                <constraint firstItem="UKu-G2-LJB" firstAttribute="leading" secondItem="Bpg-0N-f6A" secondAttribute="leadingMargin" constant="15" id="dDB-p2-ewG"/>
+                                                <constraint firstAttribute="trailing" secondItem="NuX-BF-4Is" secondAttribute="trailing" constant="15" id="hpx-3x-NIj"/>
+                                                <constraint firstItem="UKu-G2-LJB" firstAttribute="centerY" secondItem="Bpg-0N-f6A" secondAttribute="centerY" id="yO1-yk-2Bj"/>
+                                                <constraint firstItem="UKu-G2-LJB" firstAttribute="leading" secondItem="Bpg-0N-f6A" secondAttribute="leading" constant="15" id="yTH-jr-ZqU"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="dDB-p2-ewG"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="infoLabel" destination="UKu-G2-LJB" id="071-lN-RpF"/>
+                                            <outlet property="infoTextField" destination="NuX-BF-4Is" id="3Jp-uq-K47"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddWorkoutExerciseCell" textLabel="XXR-au-XRD" style="IBUITableViewCellStyleDefault" id="frJ-me-xnz" customClass="AddWorkoutExerciseCell" customModule="Workouts" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="158" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="frJ-me-xnz" id="LNB-qN-VcL">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Workout Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XXR-au-XRD">
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="RiA-qT-0Ze" id="mN8-BS-aeZ"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Pqs-KT-rbd" firstAttribute="top" secondItem="5Dj-OS-9P1" secondAttribute="bottom" id="3Gq-8F-9ZR"/>
+                            <constraint firstItem="5Dj-OS-9P1" firstAttribute="leading" secondItem="9Jl-sm-Zh2" secondAttribute="leading" id="Yfg-XS-czS"/>
+                            <constraint firstItem="5Dj-OS-9P1" firstAttribute="top" secondItem="9Jl-sm-Zh2" secondAttribute="top" id="a9k-HT-blw"/>
+                            <constraint firstAttribute="trailing" secondItem="5Dj-OS-9P1" secondAttribute="trailing" id="pUB-Pb-Vs0"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ECI-HL-P6m">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="Dw6-Ad-GTh">
+                            <connections>
+                                <action selector="saveButtonTapped:" destination="RiA-qT-0Ze" id="Iaf-J3-Lgd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="5Dj-OS-9P1" id="sXq-IR-NXx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gj0-hO-o0L" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2735" y="1991"/>
         </scene>
         <!--Exercise Detail View Controller-->
         <scene sceneID="8Vt-mq-Qgc">
@@ -325,8 +427,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="249"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Instructions" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9w-DZ-yJ6">
-                                                    <rect key="frame" x="15" y="10" width="91" height="23"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instructions" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9w-DZ-yJ6">
+                                                    <rect key="frame" x="15" y="10" width="91" height="229"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>

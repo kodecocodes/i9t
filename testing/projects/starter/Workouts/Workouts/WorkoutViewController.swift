@@ -12,6 +12,7 @@ private let addWorkoutIndex = 0
 private let addNewIdentifier = "AddNewWorkoutCell"
 private let workoutIdentifier = "WorkoutCell"
 private let toWorkoutDetailIdentifier = "toWorkoutDetailViewController"
+private let toAddWorkoutIdentifier = "toAddWorkoutViewController"
 
 class WorkoutViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
@@ -30,8 +31,10 @@ class WorkoutViewController: UIViewController, UITableViewDataSource, UITableVie
     if let indexPath = tableView.indexPathForSelectedRow {
       tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
+    
+    tableView.reloadData()
+    toggleEditMode(false)
   }
-  
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return dataModel.workouts.count + 1
@@ -55,7 +58,11 @@ class WorkoutViewController: UIViewController, UITableViewDataSource, UITableVie
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
-    performSegueWithIdentifier(toWorkoutDetailIdentifier, sender: indexPath)
+    if indexPath.row == addWorkoutIndex {
+      performSegueWithIdentifier(toAddWorkoutIdentifier, sender: nil)
+    } else {
+      performSegueWithIdentifier(toWorkoutDetailIdentifier, sender: indexPath)
+    }
   }
   
   func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
@@ -63,12 +70,16 @@ class WorkoutViewController: UIViewController, UITableViewDataSource, UITableVie
     if indexPath.row == addWorkoutIndex {
       return false
     } else {
-      return dataModel.workouts[indexPath.row - 1].userCreated
+      return dataModel.workouts[indexPath.row - 1].canEdit
     }
   }
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == toWorkoutDetailIdentifier {
+    
+    if segue.identifier == toAddWorkoutIdentifier {
+      let destinationViewController = segue.destinationViewController as! AddWorkoutViewController
+      destinationViewController.dataModel = dataModel
+    } else if segue.identifier == toWorkoutDetailIdentifier {
       let indexPath = sender as! NSIndexPath
       let destinationViewController = segue.destinationViewController as! WorkoutDetailViewController
       destinationViewController.workout = dataModel.workouts[indexPath.row - 1]
@@ -77,13 +88,13 @@ class WorkoutViewController: UIViewController, UITableViewDataSource, UITableVie
   
   @IBAction func editButtonTapped(sender: UIBarButtonItem) {
     
-    if tableView.editing {
-      tableView .setEditing(false, animated: true)
-      editButton.title = "Done"
-    } else {
-      tableView .setEditing(true, animated: true)
-      editButton.title = "Edit"
-    }
+    toggleEditMode(!tableView.editing)
+  }
+  
+  private func toggleEditMode(editing: Bool)
+  {
+    tableView.setEditing(editing, animated: true)
+    editButton.title = editing ? "Done" : "Edit"
   }
   
 }

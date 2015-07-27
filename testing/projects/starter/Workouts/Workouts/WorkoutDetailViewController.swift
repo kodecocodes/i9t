@@ -154,7 +154,7 @@ class WorkoutDetailViewController: UIViewController {
       handler: { (action: UIAlertAction!) in
     })
     
-    let saveAction = UIAlertAction(title: "Save",
+    let saveAction = UIAlertAction(title: "OK",
       style: .Default,
       handler: { (action: UIAlertAction!) in
         self.workout.performWorkout()
