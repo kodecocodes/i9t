@@ -66,9 +66,7 @@
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <navigationItem key="navigationItem" title="Pets" id="VMG-qO-v7Z">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="etf-jL-98G"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Pets" id="VMG-qO-v7Z"/>
                     <connections>
                         <outlet property="tableView" destination="Tpj-bY-AOv" id="kGv-yV-ONH"/>
                     </connections>
