@@ -8,7 +8,7 @@
 
 import UIKit
 
-let toExerciseImageIdentifier = "toExerciseImageViewController"
+private let toExerciseImageIdentifier = "toExerciseImageViewController"
 
 class ExerciseDetailViewController: UITableViewController {
 

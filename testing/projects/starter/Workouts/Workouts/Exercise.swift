@@ -9,12 +9,11 @@
 import Foundation
 import UIKit
 
-let exerciseUserCreatedKey = "exerciseUserCreated"
-let exerciseNameKey = "exerciseNameKey"
-let photoKey = "photo"
-let instructionKey = "instructions"
-let durationKey = "durationKey"
-
+private let exerciseUserCreatedKey = "exerciseUserCreated"
+private let exerciseNameKey = "exerciseNameKey"
+private let photoKey = "photo"
+private let instructionKey = "instructions"
+private let durationKey = "durationKey"
 
 class Exercise : NSObject, NSCoding {
   
@@ -35,7 +34,7 @@ class Exercise : NSObject, NSCoding {
     }
   }
   
-  var thumbnail: UIImage {
+  var thumbnail: UIImage? {
     get {
       return resizeImageWithSize(CGSizeMake(50, 50))
     }
@@ -63,16 +62,17 @@ class Exercise : NSObject, NSCoding {
   
   //MARK - Helper methods
   
-  private func resizeImageWithSize(size: CGSize) ->  UIImage {
+  private func resizeImageWithSize(size: CGSize) ->  UIImage? {
     
-    let image = UIImage(named: photoFileName)! //research
+    if let image = UIImage(named: photoFileName) {
+      UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
+      image.drawInRect(CGRectMake(0, 0, size.width, size.height))
+      let newImage = UIGraphicsGetImageFromCurrentImageContext()
+      UIGraphicsEndImageContext()
+      return newImage
+    }
     
-    UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
-    image.drawInRect(CGRectMake(0, 0, size.width, size.height))
-    let newImage = UIGraphicsGetImageFromCurrentImageContext()
-    UIGraphicsEndImageContext()
-    
-    return newImage
+    return nil
   }
   
 }

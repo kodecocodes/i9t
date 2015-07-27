@@ -8,9 +8,9 @@
 
 import UIKit
 
-let workoutInfoIdentifier = "WorkoutInfoCell"
-let workoutExerciseIdentifier = "WorkoutExerciseCell"
-let workoutSelectIdentifier = "WorkoutSelectCell"
+private let workoutInfoIdentifier = "WorkoutInfoCell"
+private let workoutExerciseIdentifier = "WorkoutExerciseCell"
+private let workoutSelectIdentifier = "WorkoutSelectCell"
 
 let exerciseDetailIdentifier = "ExerciseDetailViewController"
 

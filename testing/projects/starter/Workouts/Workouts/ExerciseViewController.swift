@@ -8,10 +8,10 @@
 
 import UIKit
 
-let addExerciseIndex = 0
-let exerciseIdentifier = "ExerciseCell"
-let addExerciseNewIdentifier = "AddNewExerciseCell"
-let toDetailSegue = "toExerciseDetailViewController"
+private let addWorkoutIndex = 0
+private let exerciseIdentifier = "ExerciseCell"
+private let addExerciseNewIdentifier = "AddNewExerciseCell"
+private let toDetailSegue = "toExerciseDetailViewController"
 
 class ExerciseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -39,7 +39,7 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
     
     let cell: UITableViewCell
     
-    if indexPath.row == addExerciseIndex {
+    if indexPath.row == addWorkoutIndex {
       cell = tableView.dequeueReusableCellWithIdentifier(addExerciseNewIdentifier)!
     } else {
       let exercise = dataModel.exercises[indexPath.row - 1]
@@ -55,7 +55,67 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
   {
-    performSegueWithIdentifier(toDetailSegue, sender: indexPath)
+    if indexPath.row == addWorkoutIndex {
+      createUserExercise()
+    } else {
+      performSegueWithIdentifier(toDetailSegue, sender: indexPath)
+    }
+  }
+  
+  func createUserExercise()
+  {
+    let alert = UIAlertController(title: "Add New Exercise",
+      message: "Add a new exercise below",
+      preferredStyle: UIAlertControllerStyle.Alert)
+    
+    let cancelAction = UIAlertAction(title: "Cancel",
+      style: .Default,
+      handler: { (action: UIAlertAction!) in
+    })
+    
+    let saveAction = UIAlertAction(title: "Save",
+      style: .Default,
+      handler: { (action: UIAlertAction!) in
+        
+        let nameTextField = alert.textFields![0] as UITextField
+        let durationTextField = alert.textFields![1] as UITextField
+        let instructionsTextField = alert.textFields![2] as UITextField
+        
+        let exercise = Exercise()
+        exercise.userCreated = true
+        exercise.name = nameTextField.text
+        exercise.duration = Double(durationTextField.text!)
+        exercise.instructions = instructionsTextField.text
+        
+        //create default
+        exercise.photoFileName = "squat"
+        
+        self.dataModel.addExercise(exercise)
+        self.tableView.reloadData()
+    })
+    
+    alert.addTextFieldWithConfigurationHandler {
+      (textField: UITextField!) in
+      textField.placeholder = "Name"
+    }
+    
+    alert.addTextFieldWithConfigurationHandler {
+      (textField: UITextField!) in
+      textField.keyboardType = .NumberPad
+      textField.placeholder = "e.g. 30"
+    }
+    
+    alert.addTextFieldWithConfigurationHandler {
+      (textField: UITextField!) in
+      textField.placeholder = "Instructions (Optional)"
+    }
+    
+    alert.addAction(cancelAction)
+    alert.addAction(saveAction)
+    
+    self.presentViewController(alert,
+      animated: true,
+      completion: nil)
   }
   
   func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
@@ -64,6 +124,14 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
       return false
     } else {
       return dataModel.exercises[indexPath.row - 1].canRemove
+    }
+  }
+  
+  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+  {
+    if editingStyle == .Delete {
+      dataModel.exercises.removeAtIndex(indexPath.row - 1)
+      tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
   }
   

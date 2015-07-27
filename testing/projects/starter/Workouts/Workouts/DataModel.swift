@@ -8,14 +8,30 @@
 
 import Foundation
 
+private let filePath = "Workouts.plist"
+private let workoutsKey = "workoutsKey"
+private let exercisesKey = "exercisesKey"
+
 class DataModel {
   
   var workouts = Array<Workout>()
   var exercises = Array<Exercise>()
   
+  private lazy var documentsDirectory: NSURL = {
+    let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+    return urls[urls.count-1]
+    }()
+  
   init() {
    
-    if workouts.count == 0 {
+    if NSFileManager.defaultManager().fileExistsAtPath(dataFilePath()) {
+      
+      let data = NSData(contentsOfFile: dataFilePath())
+      let keyedUnarchiver = NSKeyedUnarchiver(forReadingWithData: data!)
+      workouts = keyedUnarchiver.decodeObjectForKey(workoutsKey) as! Array<Workout>
+      exercises = keyedUnarchiver.decodeObjectForKey(exercisesKey) as! Array<Exercise>
+      
+    } else {
       addTestData()
     }
   }
@@ -26,6 +42,7 @@ class DataModel {
   
   func addWorkout(workout: Workout) -> Bool {
     workouts.append(workout)
+    save()
     return true //when would it be false?
   }
   
@@ -39,6 +56,7 @@ class DataModel {
   
   func addExercise(exercise: Exercise) -> Bool {
     exercises.append(exercise)
+    save()
     return true
   }
   
@@ -48,6 +66,22 @@ class DataModel {
   
   func save() {
     
+    let data = NSMutableData()
+    let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
+    archiver.encodeObject(workouts, forKey: workoutsKey)
+    archiver.encodeObject(exercises, forKey: exercisesKey)
+    archiver.finishEncoding()
+    
+    if !data.writeToFile(dataFilePath(), atomically: true) {
+     // error
+    }
+  }
+  
+  // MARK - Helper methods
+  
+  private func dataFilePath() -> String
+  {
+    return documentsDirectory.URLByAppendingPathComponent(filePath).path!
   }
   
   private func addTestData() {
@@ -220,6 +254,7 @@ class DataModel {
     workout5.exercises = [crunches, plank, sidePlank]
     
     addWorkout(workout5)
-    
   }
+  
+  
 }

@@ -8,10 +8,10 @@
 
 import UIKit
 
-let addWorkoutIndex = 0
-let addNewIdentifier = "AddNewWorkoutCell"
-let workoutIdentifier = "WorkoutCell"
-let toWorkoutDetailIdentifier = "toWorkoutDetailViewController"
+private let addWorkoutIndex = 0
+private let addNewIdentifier = "AddNewWorkoutCell"
+private let workoutIdentifier = "WorkoutCell"
+private let toWorkoutDetailIdentifier = "toWorkoutDetailViewController"
 
 class WorkoutViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   

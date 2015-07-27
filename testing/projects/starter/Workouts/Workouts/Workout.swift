@@ -8,10 +8,10 @@
 
 import Foundation
 
-let workoutUserCreatedKey = "workoutUserCreatedKey"
-let workoutNameKey = "name"
-let exercisesKey = "exercises"
-let restIntervalKey = "restInterval"
+private let workoutUserCreatedKey = "workoutUserCreatedKey"
+private let workoutNameKey = "name"
+private let exercisesKey = "exercises"
+private let restIntervalKey = "restInterval"
 
 class Workout : NSObject, NSCoding {
   
