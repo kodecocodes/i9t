@@ -84,7 +84,7 @@ class WorkoutDetailViewController: UIViewController {
       exerciseCell.exerciseName.text = exercise.name
       exerciseCell.exerciseImageView.image = exercise.thumbnail
     case 2:
-      cell = tableView.dequeueReusableCellWithIdentifier(workoutSelectIdentifier)!
+      cell = workoutSelectButtonCell()
     default:
       cell = tableView.dequeueReusableCellWithIdentifier(workoutSelectIdentifier)!
       print("Add assertion here")
@@ -126,8 +126,46 @@ class WorkoutDetailViewController: UIViewController {
     default:
       print("Default, do sometehing")
     }
-
+    
     return cell
+  }
+  
+  func workoutSelectButtonCell() -> WorkoutButtonCell
+  {
+    let cell = tableView.dequeueReusableCellWithIdentifier(workoutSelectIdentifier) as! WorkoutButtonCell
+    cell.selectButton .addTarget(self, action: "selectButtonTapped:", forControlEvents: .TouchUpInside)
+    return cell
+  }
+  
+  func selectButtonTapped(sender: AnyObject)
+  {
+    let timesPlural = workout.workoutCount == 1 ? "time" : "times"
+    
+    let message = workout.workoutCount == 0 ?
+      "This is your first time doing this workout." :
+    "You've done this workout \(workout.workoutCount) \(timesPlural)."
+    
+    let alert = UIAlertController(title: "Woo Hoo! You worked out!",
+      message: message,
+      preferredStyle: UIAlertControllerStyle.Alert)
+    
+    let cancelAction = UIAlertAction(title: "Cancel",
+      style: .Default,
+      handler: { (action: UIAlertAction!) in
+    })
+    
+    let saveAction = UIAlertAction(title: "Save",
+      style: .Default,
+      handler: { (action: UIAlertAction!) in
+        self.workout.performWorkout()
+    })
+    
+    alert.addAction(cancelAction)
+    alert.addAction(saveAction)
+    
+    self.presentViewController(alert,
+      animated: true,
+      completion: nil)
   }
   
 }
