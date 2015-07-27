@@ -133,6 +133,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     // Present text view controller and pass on the textToEdit if any.
     // Otherwise provide a placeholder.
+    textViewNavigationController.modalPresentationStyle = .FormSheet
     presentViewController(textViewNavigationController, animated: true) { () -> Void in
       if let textToEdit = textToEdit { controller.setText(textToEdit) }
       else { controller.setText("Today, I'm going to write about ...") }
