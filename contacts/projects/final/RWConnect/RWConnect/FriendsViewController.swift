@@ -49,7 +49,7 @@ class FriendsViewController: UITableViewController {
             let dismissAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
             alert.addAction(openSettingsAction)
             alert.addAction(dismissAction)
-            
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     

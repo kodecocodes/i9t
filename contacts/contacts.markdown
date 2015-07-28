@@ -85,7 +85,7 @@ Here's a line-by-line explanation of the code above:
 
 With this method implemented, you can convert any `Friend` to a `CNContact`. Now that you can convert from one type to another, you can move on to displaying the contact.
 
-[Editor: should a "Mission Accomplished" meme go here?]
+[FPE: should a "Mission Accomplished" meme go here?]
 
 ### Showing the contact's information
 
@@ -101,6 +101,8 @@ extension FriendsViewController {
     let contact = friend.contactValue
     // 2
     let contactViewController = CNContactViewController(forUnknownContact: contact)
+    contactViewController.navigationItem.title = "Profile"
+    contactViewController.hidesBottomBarWhenPushed = true
     // 3
     contactViewController.allowsEditing = false
     contactViewController.allowsActions = false
@@ -113,7 +115,7 @@ extension FriendsViewController {
 Here's what you're doing in the code above:
 
 1. Use the index path of the selected cell to get the selected friend and convert it to an instance of `CNContact`.
-2. Instantiate `CNContactViewController`; this is from the ContactsUI framework and displays a contact onscreen. You instantiate the view controller using its `forUnknownContact` initializer because the contact isn't part of the user's contact store.
+2. Instantiate `CNContactViewController`; this is from the ContactsUI framework and displays a contact onscreen. You instantiate the view controller using its `forUnknownContact` initializer because the contact isn't part of the user's contact store. Also, you customize the behaviors of the navigation bar and tab bar to make the app look just right.
 3. You set `allowsEditing` and `allowsActions` to `false` so the user can only view the contact's information.
 4. Finally, push this view controller onto the navigation stack.
 
@@ -129,7 +131,7 @@ Open **Main.storyboard** and go to **FriendsViewController**. In the **Object li
 
 ![bordered width=50%](/images/5-BarButtonDrag.png)
 
-In the **Attributes inspector**, select the dropdown menu next to **System Item** and select **Add**:
+In the **Attributes inspector**, click in the text field next to **Image** and type **AddButton**:
 
 ![bordered width=40%](/images/6-ButtonAdd.png)
 
