@@ -1,0 +1,71 @@
+//
+//  WorkoutTests.swift
+//  Workouts
+//
+//  Created by Pietro Rea on 7/26/15.
+//  Copyright © 2015 Razeware. All rights reserved.
+//
+
+import XCTest
+
+class WorkoutTests: XCTestCase {
+  
+  override func setUp() {
+    super.setUp()
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+  }
+  
+  override func tearDown() {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    super.tearDown()
+  }
+  
+  func testWorkoutCanEdit()
+  {
+    let builtInWorkout = Workout()
+    builtInWorkout.userCreated = false
+    
+    let userCreatedWorkout = Workout()
+    userCreatedWorkout.userCreated = true
+    
+    XCTAssertFalse(builtInWorkout.canEdit, "Bulit-in workouts and not editable")
+    XCTAssertTrue(userCreatedWorkout.canEdit, "User-created workouts and editable")
+  }
+  
+  func testWorkoutCanRemove()
+  {
+    let builtInWorkout = Workout()
+    builtInWorkout.userCreated = false
+    
+    let userCreatedWorkout = Workout()
+    userCreatedWorkout.userCreated = true
+    
+    XCTAssertFalse(builtInWorkout.canRemove, "Bulit-in workouts and not removable")
+    XCTAssertTrue(userCreatedWorkout.canRemove, "User-created workouts and removable")
+  }
+  
+  func testWorkoutDurationSumOfPartsNoInterval()
+  {
+    let workoutWithoutExercises = Workout()
+    XCTAssertEqual(workoutWithoutExercises.duration, 0, "A workout with no exercises should have duration of 0")
+    
+    let exercise1 = Exercise()
+    exercise1.duration = 20
+    
+    let exercise2 = Exercise()
+    exercise2.duration = 60
+    
+    let exercise3 = Exercise()
+    exercise3.duration = 15
+    
+    let workoutWithOneExercise = Workout()
+    workoutWithOneExercise.addExercise(exercise1)
+    XCTAssertEqual(workoutWithOneExercise.duration, exercise1.duration, "A workout with one exercise should have duration of its exercise")
+    
+    let workoutWithMultipleExercises = Workout()
+    workoutWithMultipleExercises.addExercise(exercise1)
+    workoutWithMultipleExercises.addExercise(exercise2)
+    workoutWithMultipleExercises.addExercise(exercise3)
+    XCTAssertEqual(workoutWithMultipleExercises.duration, exercise1.duration + exercise2.duration + exercise3.duration, "A workout with multiple exercises should have duration of the sum of its exercises")
+  }
+}
