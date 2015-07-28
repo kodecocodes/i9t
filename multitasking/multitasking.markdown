@@ -138,7 +138,35 @@ override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator c
 
 Here you add a new helper method, `updateMaximumPrimaryColumnWidthBasedOnSize(_)` that takes in a `size` parameter and updates the `maximumPrimaryColumnWidth` property of split view controller based on the overall size of the split view itself. You do the update once the split view is initially loaded and once when its size is changed.
 
-Build and run. Verify that when you pin the Slide Over in landscape orientation, it nicely changes the width of the master view to give more room to the detail view.
+Build and run the app in landscape orientation. Open the Slide Over, pin it and see how the app behaves.
+
+![bordered width=90% ipad](images/mt081.png)
+
+Well, this is not exactly what you expected, is it? The master view column is not narrower but the cell is not squashed! More investigation is in order. Feel free to take a look around and see if you can find the bug.
+
+![width=30%](images/mt082.png)
+
+It turns out that the bug is in `LogCell`. Open **LogCell.swift** and find the implementation of `layoutSubviews()`. You see that the code checks for `UIScreen.mainScreen().bounds.width` to determine whether it should use the compact view or regular view. In multitasking environment `UIScreen` still represents the entire screen but an app window doesn't necessarily take up the entire screen. You can no longer depend on screen size in your code. This is a bad habit anyway. Let's update this code as follows:
+
+```swift
+override func layoutSubviews() {
+  super.layoutSubviews()
+  let isTooNarrow = CGRectGetWidth(bounds) <= LogCell.widthThreshold
+  // some code ...
+}
+```
+
+Make sure you also update `widthThreshold`; it's declared at the beginning of `LogCell` class declaration:
+
+```swift
+static let widthThreshold: CGFloat = 160.0
+```
+
+Here you check for the width of the cell boundary itself, `CGRectGetWidth(bounds)`, instead of the width of the screen.
+
+> **Note**: This is also a better practice because you don't couple the code in `LogCell` with some conditions of its superviews in the view hierarchy. Adaptivity of `LogCell` should be self-contained.
+
+Build and run again. This time around the app should play nicer in multitasking environment.
 
 ![bordered width=90% ipad](images/mt09.png)
 
