@@ -25,20 +25,38 @@ import UIKit
 
 class AnimalDetailViewController: UIViewController {
   
-  var animal:Animal = animalData[0]
-  
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var ownerName: UILabel!
   @IBOutlet var address: UILabel!
   @IBOutlet var instructions: UITextView!
   
+  var animal:Animal? {
+    didSet {
+      updateViewForAnimal()
+    }
+  }
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    
+    // load initial sample data
+    // for when this scene is initial scene
+    animal = animalData[0]
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.title = animal.name
-    imageView.image = UIImage(named: animal.name)
-    ownerName.text = animal.owner
-    address.text = animal.address
-    instructions.text = animal.instructions
+    updateViewForAnimal()
+  }
+  
+  private func updateViewForAnimal() {
+    if let animal = animal {
+      ownerName?.text = animal.owner
+      address?.text = animal.address
+      instructions?.text = animal.instructions
+      imageView?.image = UIImage(named: animal.name)
+      self.title = animal.name
+    }
   }
   
 }

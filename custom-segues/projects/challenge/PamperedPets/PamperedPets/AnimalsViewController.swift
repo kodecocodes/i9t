@@ -48,27 +48,11 @@ extension AnimalsViewController: UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell", forIndexPath: indexPath)
+    let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell", forIndexPath: indexPath) as! AnimalsTableViewCell
     let animal = animalData[indexPath.row]
-    cell.textLabel?.text = animal.name
-    cell.detailTextLabel?.text = animal.description
-    
-    let cellImageView:RoundedImageView
-    if let imageView = cell.contentView.viewWithTag(100) as? RoundedImageView {
-      cellImageView = imageView
-    } else {
-      let margin:CGFloat = 4
-      let height = cell.contentView.bounds.height - margin*2
-      let frame = CGRect(origin: CGPoint(x: 10, y: margin), size: CGSize(width: height, height: height))
-      cellImageView = RoundedImageView(frame: frame)
-      cellImageView.cornerRadius = height/2
-      cellImageView.borderColor = AppThemeColor
-      cellImageView.borderWidth = 2.0
-    }
-    cellImageView.image = UIImage(named: animal.name)
-    cellImageView.tag = 100
-    cell.contentView.addSubview(cellImageView)
-    
+    cell.nameLabel.text = animal.name
+    cell.descriptionLabel.text = animal.description
+    cell.photoView.image = UIImage(named: animal.name)
     return cell
   }
   

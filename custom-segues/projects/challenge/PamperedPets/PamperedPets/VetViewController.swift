@@ -29,12 +29,22 @@ class VetViewController: UIViewController {
   @IBOutlet var vetAddress: UILabel!
   @IBOutlet var vetPhone: UILabel!
   
-  var vet:Vet = vetData[0]
+  var vet:Vet? {
+    didSet {
+      updateViewForVet()
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    vetName.text = vet.name
-    vetAddress.text = vet.address
-    vetPhone.text = vet.phone
+    updateViewForVet()
+  }
+  
+  private func updateViewForVet() {
+    if let vet = vet {
+      vetName?.text = vet.name
+      vetAddress?.text = vet.address
+      vetPhone?.text = vet.phone
+    }
   }
 }

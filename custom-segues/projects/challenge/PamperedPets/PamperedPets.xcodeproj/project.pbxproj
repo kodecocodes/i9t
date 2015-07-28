@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		821B81BB1B6704560082FF86 /* AnimalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 821B81BA1B6704560082FF86 /* AnimalsTableViewCell.swift */; };
 		82276AE41B64F6B1006C0BC0 /* VetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82276AE31B64F6B1006C0BC0 /* VetViewController.swift */; };
 		8251A9A91B64B3A900FE2BEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A99B1B64B3A900FE2BEF /* AppDelegate.swift */; };
 		8251A9AA1B64B3A900FE2BEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8251A99C1B64B3A900FE2BEF /* Assets.xcassets */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		821B81BA1B6704560082FF86 /* AnimalsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalsTableViewCell.swift; sourceTree = "<group>"; };
 		82276AE31B64F6B1006C0BC0 /* VetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VetViewController.swift; sourceTree = "<group>"; };
 		8251A99B1B64B3A900FE2BEF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8251A99C1B64B3A900FE2BEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PamperedPets/Assets.xcassets; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				8251A9A51B64B3A900FE2BEF /* AnimalsViewController.swift */,
+				821B81BA1B6704560082FF86 /* AnimalsTableViewCell.swift */,
 				8251A9A31B64B3A900FE2BEF /* AnimalDetailViewController.swift */,
 				8251A9A41B64B3A900FE2BEF /* AnimalPhotoViewController.swift */,
 				82276AE31B64F6B1006C0BC0 /* VetViewController.swift */,
@@ -192,6 +195,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				825FD7FB1B65D816000AA792 /* DropSegue.swift in Sources */,
+				821B81BB1B6704560082FF86 /* AnimalsTableViewCell.swift in Sources */,
 				8251A9B11B64B3A900FE2BEF /* AnimalsViewController.swift in Sources */,
 				8251A9A91B64B3A900FE2BEF /* AppDelegate.swift in Sources */,
 				82276AE41B64F6B1006C0BC0 /* VetViewController.swift in Sources */,

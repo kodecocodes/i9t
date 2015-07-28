@@ -26,21 +26,32 @@ import UIKit
 class AnimalPhotoViewController: UIViewController {
   
   @IBOutlet var imageView: UIImageView!
-  
+  @IBOutlet var petName: UILabel!
+
   @IBOutlet var swipeGestureUp: UISwipeGestureRecognizer!
   @IBOutlet var swipeGestureDown: UISwipeGestureRecognizer!
   
   var swipeDirection = UISwipeGestureRecognizerDirection.Up
-  
-  var image:UIImage!
-  
-  @IBOutlet var petName: UILabel!
+
+  var image:UIImage? {
+    didSet {
+      updateViewForImage()
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    imageView.image = image
+
     swipeGestureUp.addTarget(self, action: "handleSwipe:")
     swipeGestureDown.addTarget(self, action: "handleSwipe:")
+
+    updateViewForImage()
+  }
+  
+  private func updateViewForImage() {
+    if let image = image {
+      imageView?.image = image
+    }
   }
   
   @IBAction func handleSwipe(sender: UISwipeGestureRecognizer) {

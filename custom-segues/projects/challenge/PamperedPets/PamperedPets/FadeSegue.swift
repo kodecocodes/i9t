@@ -47,7 +47,6 @@ class FadeSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
   }
 }
 
-
 // MARK: - Animator
 
 class FadeAnimator:NSObject, UIViewControllerAnimatedTransitioning {

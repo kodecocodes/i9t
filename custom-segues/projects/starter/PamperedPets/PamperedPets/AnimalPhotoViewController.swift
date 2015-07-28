@@ -26,13 +26,22 @@ import UIKit
 class AnimalPhotoViewController: UIViewController {
   
   @IBOutlet var imageView: UIImageView!
-  
-  var image:UIImage!
-  
   @IBOutlet var petName: UILabel!
+  
+  var image:UIImage? {
+    didSet {
+      updateViewForImage()
+    }
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    imageView.image = image
+    updateViewForImage()
+  }
+  
+  private func updateViewForImage() {
+    if let image = image {
+      imageView?.image = image
+    }
   }
 }

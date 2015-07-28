@@ -19,6 +19,7 @@
 		8251A9B31B64B3AA00FE2BEF /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9A71B64B3A900FE2BEF /* SampleData.swift */; };
 		8251A9B41B64B3AA00FE2BEF /* ScaleViewSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9A81B64B3A900FE2BEF /* ScaleViewSegue.swift */; };
 		825FD7F91B65D496000AA792 /* DropSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825FD7F81B65D496000AA792 /* DropSegue.swift */; };
+		8281E3511B6629FC005F9345 /* AnimalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8281E3501B6629FC005F9345 /* AnimalsTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		8251A9A81B64B3A900FE2BEF /* ScaleViewSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaleViewSegue.swift; sourceTree = "<group>"; };
 		825B0B2A1B5F630D00F581BC /* PamperedPets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PamperedPets.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		825FD7F81B65D496000AA792 /* DropSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropSegue.swift; sourceTree = "<group>"; };
+		8281E3501B6629FC005F9345 /* AnimalsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalsTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXGroup;
 			children = (
 				8251A9A51B64B3A900FE2BEF /* AnimalsViewController.swift */,
+				8281E3501B6629FC005F9345 /* AnimalsTableViewCell.swift */,
 				8251A9A31B64B3A900FE2BEF /* AnimalDetailViewController.swift */,
 				8251A9A41B64B3A900FE2BEF /* AnimalPhotoViewController.swift */,
 				82276AE31B64F6B1006C0BC0 /* VetViewController.swift */,
@@ -188,6 +191,7 @@
 				825FD7F91B65D496000AA792 /* DropSegue.swift in Sources */,
 				8251A9AF1B64B3A900FE2BEF /* AnimalDetailViewController.swift in Sources */,
 				8251A9B31B64B3AA00FE2BEF /* SampleData.swift in Sources */,
+				8281E3511B6629FC005F9345 /* AnimalsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
