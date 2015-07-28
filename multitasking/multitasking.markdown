@@ -2,7 +2,7 @@
 
 By Soheil Azarpour
 
-Apple introduced a game changing feature for iPad in iOS 9 called __multitasking__. Multitasking completely changes the way a lot of users use their iPads. Users can now consider the iPad as a serious computer replacement.
+Apple introduced a game changing feature for iPad in iOS 9 called **multitasking**. Multitasking completely changes the way a lot of users use their iPads. Users can now consider the iPad as a serious computer replacement.
 
 In this chapter you learn how to update an existing app so that it plays nicely in a split view along with other apps.
 
@@ -16,7 +16,7 @@ You can then pin the Slide Over and activate Split View. In Split View the scree
 
 ![width=90% ipad](images/mt01.png)
 
-If for any reason, you really don't want to participate in a multitasking environment, you can opt out of this feature by checking __Requires full screen__ box in the General tab of your app target settings.
+If for any reason, you really don't want to participate in a multitasking environment, you can opt out of this feature by checking **Requires full screen** box in the General tab of your app target settings.
 
 ![width=90% ipad](images/mt02.png)
 
@@ -26,13 +26,13 @@ The Picture in Picture (PIP) multitasking feature works similarly to the picture
 
 > **Note:** At the time of writing this chapter, Slide Over is supported on iPad Air 2 only. Picture in Picture is supported on iPad Air, iPad Air 2, iPad Mini 2, and iPad Mini 3.
 
-If you are not sure whether your iPad supports multitasking, go to __Settings > General__ on your iPad. If you see __Multitasking__ in the list, your iPad is multitasking capable. As a user you can disable multitasking.
+If you are not sure whether your iPad supports multitasking, go to **Settings > General** on your iPad. If you see **Multitasking** in the list, your iPad is multitasking capable. As a user you can disable multitasking.
 
 ![width=90% ipad](images/mt04.png)
 
 ## The starter project
 
-The starter project you’ll use for the remainder of this chapter is called __Travelog__. Open the project file in Xcode and build and run the application for iPad Air 2 simulator. You’ll see the following screens:
+The starter project you’ll use for the remainder of this chapter is called **Travelog**. Open the project file in Xcode and build and run the application for iPad Air 2 simulator. You’ll see the following screens:
 
 ![width=90% ipad](images/mt05.png)
 
@@ -52,20 +52,20 @@ Since all the required criteria are in place, Travelog becomes multitasking read
 
 > **Note:** There is a short handle bar at top of the Slide Over. Swipe down on the handler to expose the list of multitasking apps again and launch a different app in the Slide Over.
 
-There has been some great tools in UIKit to prepare you for multitasking and adaptivity. Auto Layout, Size Classes are couple of them. If you are not using them already, it's time to update your code. In addition to those, there are  some new tools in UIKit to further assist you with multitasking; `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth` are two of those. You can learn more about __UIStackView and Auto Layout Changes__ in chapter XX of this book.
+There has been some great tools in UIKit to prepare you for multitasking and adaptivity. Auto Layout, Size Classes are couple of them. If you are not using them already, it's time to update your code. In addition to those, there are  some new tools in UIKit to further assist you with multitasking; `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth` are two of those. You can learn more about **UIStackView and Auto Layout Changes** in chapter XX of this book.
 
 ## Prepare for multitasking
 
 With that said, there are some strategies that you can use to improve your code in a multitasking environment:
-1. __Universal:__ Make your app universal. Your users will be happier and feel more like home when they can interactive with your app on their iPad, for example, very much the same way they interact with it on their iPhone. If you look around you'll see that's how most of the apps that you also use on a daily basis behave. For example Mail, Calendar, and Notes just to name a few provide almost an identical user experience whether you use them on a Mac, on an iPad or on your iPhone.
-2. __Be flexible:__ You need to step away from a pixle-perfect design for various platforms and orientations. You need to think about different sizes and how you can have a flixble app that responds to size changes appropriately.
-3. __Use Auto Layout:__ If you still have some legacy code with hardcoded sizes or code that manually changes size of elements, it's time to consider Auto Layout to make your code more flexible and easier to maintain.
-4. __Use Size classes:__ It's great to have universal storyboards, but one single layout doesn't always fit all displays. Use size classes to build a base layout and then customize each specific size class based on the individual needs of that size class. Don’t treat each of the size classes as a completely separate design, though, because as you will see later in multitasking, an app on a single device can go from one size class to another size class. You don't want to make a dramatic change as user drags the divider!
+1. **Universal:** Make your app universal. Your users will be happier and feel more like home when they can interactive with your app on their iPad, for example, very much the same way they interact with it on their iPhone. If you look around you'll see that's how most of the apps that you also use on a daily basis behave. For example Mail, Calendar, and Notes just to name a few provide almost an identical user experience whether you use them on a Mac, on an iPad or on your iPhone.
+2. **Be flexible:** You need to step away from a pixle-perfect design for various platforms and orientations. You need to think about different sizes and how you can have a flixble app that responds to size changes appropriately.
+3. **Use Auto Layout:** If you still have some legacy code with hardcoded sizes or code that manually changes size of elements, it's time to consider Auto Layout to make your code more flexible and easier to maintain.
+4. **Use Size classes:** It's great to have universal storyboards, but one single layout doesn't always fit all displays. Use size classes to build a base layout and then customize each specific size class based on the individual needs of that size class. Don’t treat each of the size classes as a completely separate design, though, because as you will see later in multitasking, an app on a single device can go from one size class to another size class. You don't want to make a dramatic change as user drags the divider!
 
-> **Note:** To refresh your memories, iPhone portrait is compact horizontal size class; iPhone landscape is compact horizontal size class except for iPhone 6 Plus which is regular horizontal size class. iPad has regular horizontal size class in both portrait and landscape orientations. To learn more about size classes, you can check out __Adaptive Layout__ in iOS 8 By Tutorials.
+> **Note:** To refresh your memories, iPhone portrait is compact horizontal size class; iPhone landscape is compact horizontal size class except for iPhone 6 Plus which is regular horizontal size class. iPad has regular horizontal size class in both portrait and landscape orientations. To learn more about size classes, you can check out **Adaptive Layout** in iOS 8 By Tutorials.
 
-5. __UIAdaptivePresentationControllerDelegate:__ This is another great tool that's been around since iOS 8. You can easily change the presentation of a view controller based on the current context and the environment of the app. For example you can present a view controller either in a popover or modally depending on the current size class.
-6. __UISplitViewController:__ This is probably the oldest tool you have in your toolbox for adaptivity and it's still very useful. Out of the box, `UISplitViewController` provides some great adaptivity to make your life easier. Make sure you check out the latest documentation for `UISplitViewController` for the updated API.
+5. **UIAdaptivePresentationControllerDelegate:** This is another great tool that's been around since iOS 8. You can easily change the presentation of a view controller based on the current context and the environment of the app. For example you can present a view controller either in a popover or modally depending on the current size class.
+6. **UISplitViewController:** This is probably the oldest tool you have in your toolbox for adaptivity and it's still very useful. Out of the box, `UISplitViewController` provides some great adaptivity to make your life easier. Make sure you check out the latest documentation for `UISplitViewController` for the updated API.
 
 You will use some of these strategies in this tutorial to improve Travelog.
 
@@ -76,7 +76,7 @@ It's time to explore the app and examine it while in multitasking. Still in mult
 ## Orientation and size changes
 You need to think about orientation changes as bound size changes! In a multitasking environment, `UIScreen.bounds` still returns the visible bounds of the entire display. This is true even though your app may not be full screen.
 
-On the other hand, `UIWindow.bounds` is not necessarily the same as `UIScreen` size anymore. `UIWindow`'s origin is always `(0, 0)`. Let's take a quick view at how orientation and size changes affect your app. You'll refer to the app that you open in the Slide Over as __secondary app__ and the app that's already open on the left hand side as __primary app__.
+On the other hand, `UIWindow.bounds` is not necessarily the same as `UIScreen` size anymore. `UIWindow`'s origin is always `(0, 0)`. Let's take a quick view at how orientation and size changes affect your app. You'll refer to the app that you open in the Slide Over as **secondary app** and the app that's already open on the left hand side as **primary app**.
 
 > **Note:** In iOS 9 you can create a new instance if `UIWindow` by simply calling `let window = UIWindow()`. You don’t have to pass a frame. The system will automatically give it the right frame that matches your application's frame.
 
@@ -90,9 +90,9 @@ You see that not all size changes trigger a size class change. You can't solely 
 
 UIKit provides a number of anchor points that you can hook on to and update your layout:
 
-1. __willTransitionToTraitCollection(_, withTransitionCoordinator:)__
-2. __viewWillTransitionToSize(_, withTransitionCoordinator:)__
-3. __traitCollectionDidChange(_):__
+1. **willTransitionToTraitCollection(_, withTransitionCoordinator:)**
+2. **viewWillTransitionToSize(_, withTransitionCoordinator:)**
+3. **traitCollectionDidChange(_):**
 
 Note that not all of the mentioend methods will be called. Almost always a size class changes accompanies a size change. But a size change may not necessarily change the size class. With `willTransitionToTraitCollection(_, withTransitionCoordinator:)` and `viewWillTransitionToSize(_, withTransitionCoordinator:)` you can provide an animation block that will be executed alongside with system animations.
 
@@ -106,7 +106,7 @@ The following diagram shows how different pieces connect to each other in a size
 
 ### Adapt to size
 
-It's time to put your knowledge into practice now. Open __SplitViewController.swift__. This is a subclass of `UISplitViewController` and overrides `viewDidLayoutSubviews()` to update the maximum width of primary column by calling a helper method, `updateMaximumPrimaryColumnWidth()`. In the implementation of `updateMaximumPrimaryColumnWidth()`, the code checks for status bar orientation to determine the maximum width. Clearly this approach doesn't work anymore, because the app can now have a narrow window even though it's in landscape orientation.
+It's time to put your knowledge into practice now. Open **SplitViewController.swift**. This is a subclass of `UISplitViewController` and overrides `viewDidLayoutSubviews()` to update the maximum width of primary column by calling a helper method, `updateMaximumPrimaryColumnWidth()`. In the implementation of `updateMaximumPrimaryColumnWidth()`, the code checks for status bar orientation to determine the maximum width. Clearly this approach doesn't work anymore, because the app can now have a narrow window even though it's in landscape orientation.
 
 Remove the implementation of both `viewDidLayoutSubviews()` and `updateMaximumPrimaryColumnWidth()`, then update `SplitViewController` with the following methods instead:
 
@@ -148,7 +148,7 @@ In a multitasking environment, you'll continue doing that with a new requirement
 
 Other apps running side by side next to your app may present the keyboard and you need to adjust your layout so that the user can continue using your app -- or they may leave you bad reviews in the App Store! :]
 
-In Travelog, the only time you display a keyboard is when user edits a text log, which is presented modally in full screen view. So the rest of the app didn't use to make any adjustment for keyboard presentation. This is about to change. Open __LogsViewController.swift__ and update implementation of `viewDidLoad()` as follows:
+In Travelog, the only time you display a keyboard is when user edits a text log, which is presented modally in full screen view. So the rest of the app didn't use to make any adjustment for keyboard presentation. This is about to change. Open **LogsViewController.swift** and update implementation of `viewDidLoad()` as follows:
 
 ```swift
 override func viewDidLoad() {
@@ -197,7 +197,7 @@ Build and run. Verify that when you are looking at the table of logs, and a seco
 
 ## Camera
 
-Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are in better shape because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button. To see it in action, run __Travelog__ on an iPad Air 2 device. Make sure you are in multitasking mode by sliding over another app and pin it on top of Travelog. Now add a new multimedia log by tapping the camera button and select __PHOTO__ mode:
+Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are in better shape because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button. To see it in action, run **Travelog** on an iPad Air 2 device. Make sure you are in multitasking mode by sliding over another app and pin it on top of Travelog. Now add a new multimedia log by tapping the camera button and select **PHOTO** mode:
 
 ![width=90% ipad](images/mt12.png)
 
@@ -209,9 +209,9 @@ Now if you bring up another app in the Slide Over that uses the camera, the came
 
 ![width=90% ipad](images/mt15.png)
 
-> **Note:** An app the you can use in the Slide Over to test the above mentioned scenario is Contacts app. Select a contact from your contacts, tap __Edit > Add Photo > Take Photo__.
+> **Note:** An app the you can use in the Slide Over to test the above mentioned scenario is Contacts app. Select a contact from your contacts, tap **Edit > Add Photo > Take Photo**.
 
-Now dismiss the camera in the Slide Over, and switch to __VIDEO__ in __Travelog__. You'll see that the camera view is now blocked:
+Now dismiss the camera in the Slide Over, and switch to **VIDEO** in **Travelog**. You'll see that the camera view is now blocked:
 
 ![width=90% ipad](images/mt14.png)
 
@@ -224,18 +224,18 @@ You are probably familiar with iOS system snapshots. When your app becomes inact
 
 ![width=90% ipad](images/mt16.png)
 
-System snapshots happen automatically, and historically all you had to do was either obscuring your view if you were displaying some sensitive data or  do nothing! New in a multitasking environment, the OS now changes your view sizes and takes multiple snapshots. To see this in action, open __SplitViewController.swift__ and update implementation of `viewWillTransitionToSize(_, withTransitionCoordinator:)` as follows:
+System snapshots happen automatically, and historically all you had to do was either obscuring your view if you were displaying some sensitive data or  do nothing! New in a multitasking environment, the OS now changes your view sizes and takes multiple snapshots. To see this in action, open **SplitViewController.swift** and update implementation of `viewWillTransitionToSize(_, withTransitionCoordinator:)` as follows:
 
 ```swift
 override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
   if UIApplication.sharedApplication().applicationState == UIApplicationState.Background {
-    print(__FUNCTION__ + "\(size)")
+    print(**FUNCTION** + "\(size)")
   }
   // ... some code ...
 }
 ```
 
-Build and run. Make sure the Debugger Console is open. Once the app is launched, activate multitasking mode by sliding over another app and pin it. Then while the app is still in that split view mode, press the __Home__ button (or __CMD+H__ in simulator). You will see the following logs:
+Build and run. Make sure the Debugger Console is open. Once the app is launched, activate multitasking mode by sliding over another app and pin it. Then while the app is still in that split view mode, press the **Home** button (or **CMD+H** in simulator). You will see the following logs:
 
 ```bash
 viewWillTransitionToSize(_:withTransitionCoordinator:)(768.0, 1024.0)
@@ -255,23 +255,23 @@ Then the secondary app comes along and user may also launch a video in Picture i
 
 ![width=90%](images/mt18.png)
 
-You may have heard of __Springboard__. It's the built-in system application that manages display of icons and user's home screen. Springboard is a `UIApplication` object and a multitasking app in its own right. Springboard always runs in the foreground. When system is under memory pressure, primary app and the secondary app are the first apps to be ditched. That's because the system wants to reclaim some memory to make its Springboard stable. Picture in Picture is considered a background task of the Springboard.
+You may have heard of **Springboard**. It's the built-in system application that manages display of icons and user's home screen. Springboard is a `UIApplication` object and a multitasking app in its own right. Springboard always runs in the foreground. When system is under memory pressure, primary app and the secondary app are the first apps to be ditched. That's because the system wants to reclaim some memory to make its Springboard stable. Picture in Picture is considered a background task of the Springboard.
 
 You can use the following strategies to reduce your app's memory footprint and optimize its memory use for multitasking environment:
-* __Fix leaks, retain cycles and algorithms__: Check your app for memory leaks, remove retain cycles and unbounded memory growth, and fix inefficient algorithms. Manage CPU time better and do as little work as possible on the main thread. Keep in mind that main thread’s main responsibility is responding to user interactions. Perform any other tasks in the background with appropriate Quality of Service (QoS) priority.
+* **Fix leaks, retain cycles and algorithms**: Check your app for memory leaks, remove retain cycles and unbounded memory growth, and fix inefficient algorithms. Manage CPU time better and do as little work as possible on the main thread. Keep in mind that main thread’s main responsibility is responding to user interactions. Perform any other tasks in the background with appropriate Quality of Service (QoS) priority.
 
 > **Note:** `NSOperation` and `NSOperationQueue` are your friends. Make sure you check out their documentation for the latest updates. There is a great talk in WWDC 2015, Session 226: Advanced NSOperations that you can check out for practical examples.
 
-* __Working set__: It refers to critical objects and resources that you need right now. Listen to memory warnings and free up anything that is not in your working set.
-* __NSCache__: Take advantage of `NSCache`. It's a collection-like container similar to the `NSDictionary` class that incorporates various auto-removal policies. The system automatically carries out these policies if memory is needed by other applications. You can add, remove, and query items in a `NSCache` object from different threads without having to lock the cache yourself. Unlike an `NSMutableDictionary` object, a cache does not copy the key objects. It's a great tool for objects that can be regenerated on demand.
-* __Test__: Test your app in different multitasking modes and run memory intensive apps alongside it. The Maps app Flyover mode is a great candidate for testing memory pressure in a multitasking environment.
-* __Instruments__: Use Instruments to profile your app and monitor both its memory and VM footprint. Look out for virtual memory misuses because abuse of VM causes in fragmentation and eventually results in termination too!
+* **Working set**: It refers to critical objects and resources that you need right now. Listen to memory warnings and free up anything that is not in your working set.
+* **NSCache**: Take advantage of `NSCache`. It's a collection-like container similar to the `NSDictionary` class that incorporates various auto-removal policies. The system automatically carries out these policies if memory is needed by other applications. You can add, remove, and query items in a `NSCache` object from different threads without having to lock the cache yourself. Unlike an `NSMutableDictionary` object, a cache does not copy the key objects. It's a great tool for objects that can be regenerated on demand.
+* **Test**: Test your app in different multitasking modes and run memory intensive apps alongside it. The Maps app Flyover mode is a great candidate for testing memory pressure in a multitasking environment.
+* **Instruments**: Use Instruments to profile your app and monitor both its memory and VM footprint. Look out for virtual memory misuses because abuse of VM causes in fragmentation and eventually results in termination too!
 
 ## Best Practices
 Before you go, consider these few thoughts on multitasking best practices.
-* __User control's your app size__: You can't prevent or cause size changes. User can change the size of the window your app is displayed in it at any time. The system may change the app’s window size to take a snapshot. Make your app flexible!
-* __Keep the user oriented__: With size changes, it's easy to confuse user. Make sure you keep your users oriented and avoid abrupt changes. You need to be smart in new ways.
-* __Consider size and Size Class instead of orientation__: Think about how to respond to transition from one size to another, instead of device orientation. Make your app universal and use adaptive presentations. Make sure you check out `UIAdaptivePresentationControllerDelegate` protocol, and its two helpful delegate callback methods, `adaptivePresentationStyleForPresentationController(_:)` and `presentationController(_:,
+* **User control's your app size**: You can't prevent or cause size changes. User can change the size of the window your app is displayed in it at any time. The system may change the app’s window size to take a snapshot. Make your app flexible!
+* **Keep the user oriented**: With size changes, it's easy to confuse user. Make sure you keep your users oriented and avoid abrupt changes. You need to be smart in new ways.
+* **Consider size and Size Class instead of orientation**: Think about how to respond to transition from one size to another, instead of device orientation. Make your app universal and use adaptive presentations. Make sure you check out `UIAdaptivePresentationControllerDelegate` protocol, and its two helpful delegate callback methods, `adaptivePresentationStyleForPresentationController(_:)` and `presentationController(_:,
 viewControllerForAdaptivePresentationStyle:)`.
 
 ## Where to go from here
