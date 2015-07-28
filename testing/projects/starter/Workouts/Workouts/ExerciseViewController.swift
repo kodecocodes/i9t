@@ -21,6 +21,7 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
   }
 
   override func viewWillAppear(animated: Bool) {

@@ -73,6 +73,15 @@ class WorkoutViewController: UIViewController, UITableViewDataSource, UITableVie
       return dataModel.workouts[indexPath.row - 1].canEdit
     }
   }
+  
+  
+  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+  {
+    if editingStyle == .Delete {
+      dataModel.workouts.removeAtIndex(indexPath.row - 1)
+      tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    }
+  }
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     

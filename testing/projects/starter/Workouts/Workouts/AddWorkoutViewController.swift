@@ -25,6 +25,8 @@ class AddWorkoutViewController: UIViewController {
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
+
+    
     
   }
   
@@ -39,7 +41,7 @@ class AddWorkoutViewController: UIViewController {
       return nil
     }
   }
-    
+  
   func numberOfSectionsInTableView(tableView: UITableView) -> Int
   {
     return 2
