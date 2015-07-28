@@ -2,7 +2,9 @@
 
 By Soheil Azarpour
 
-Apple introduced a game changing feature for iPad in iOS 9 called **multitasking**. Multitasking completely changes the way a lot of users use their iPads. Users can now consider the iPad as a serious computer replacement.
+Apple introduced a game changing feature for iPad in iOS 9 called **multitasking**. Multitasking allows you to split the screen between two running apps, and interact with them at the same time on one screen. For example you can read a proposal in your emails, while researching the topic in Safari next to it. You can also enjoy watching your favorite sport show at the same time on the same screen. And all of this happens on an iPad that you hold in  hands while you lounge on a couch! This is super powerful!
+
+Multitasking completely changes the way a lot of users use their iPads. Users can now consider the iPad as a serious computer replacement.
 
 In this chapter you learn how to update an existing app so that it plays nicely in a split view along with other apps.
 
