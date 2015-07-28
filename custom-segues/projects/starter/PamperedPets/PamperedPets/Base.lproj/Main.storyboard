@@ -137,13 +137,13 @@
                                 </variation>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gVN-4U-suy">
-                                <rect key="frame" x="74" y="244" width="452" height="170"/>
+                                <rect key="frame" x="74" y="244" width="452" height="167"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillProportionally" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="EtK-Yj-mJt">
-                                        <rect key="frame" x="0.0" y="0.0" width="452" height="21"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="452" height="18"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Address:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZbA-et-JSD">
-                                                <rect key="frame" x="0.0" y="0.0" width="58" height="21"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="53" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -155,7 +155,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2B-qy-3Vc" userLabel="AddressLabel">
-                                                <rect key="frame" x="64" y="0.0" width="388" height="21"/>
+                                                <rect key="frame" x="59" y="0.0" width="393" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.39964053030000002" green="0.39962857959999998" blue="0.39963534470000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -175,10 +175,10 @@
                                         </variation>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" distribution="fillProportionally" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="o2R-hV-vyy">
-                                        <rect key="frame" x="0.0" y="41" width="113" height="21"/>
+                                        <rect key="frame" x="0.0" y="38" width="107" height="21"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Owner:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vat-Nd-uER" userLabel="Owner">
-                                                <rect key="frame" x="0.0" y="0.0" width="56" height="21"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -190,7 +190,7 @@
                                                 </variation>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cFb-qf-Xst" userLabel="OwnerLabel">
-                                                <rect key="frame" x="71" y="0.0" width="42" height="21"/>
+                                                <rect key="frame" x="65" y="0.0" width="42" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="0.39964053030000002" green="0.39962857959999998" blue="0.39963534470000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -210,7 +210,7 @@
                                         </variation>
                                     </stackView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Instructions" translatesAutoresizingMaskIntoConstraints="NO" id="3q2-Gp-N2k">
-                                        <rect key="frame" x="0.0" y="82" width="452" height="88"/>
+                                        <rect key="frame" x="0.0" y="79" width="452" height="88"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
