@@ -13,4 +13,15 @@ class AnimalsTableViewCell: UITableViewCell {
   @IBOutlet var photoView: UIImageView!
   @IBOutlet var nameLabel: UILabel!
   @IBOutlet var descriptionLabel: UILabel!
+  
+  var animal:Animal? {
+    didSet {
+      nameLabel.text = animal?.name
+      descriptionLabel.text = animal?.description
+      if let name = animal?.name {
+        photoView.image = UIImage(named: name)
+      }
+    }
+  }
+
 }

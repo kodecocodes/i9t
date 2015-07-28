@@ -47,11 +47,10 @@ extension AnimalsViewController: UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell", forIndexPath: indexPath) as! AnimalsTableViewCell
-    let animal = animalData[indexPath.row]
-    cell.nameLabel.text = animal.name
-    cell.descriptionLabel.text = animal.description
-    cell.photoView.image = UIImage(named: animal.name)
+    let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell", forIndexPath: indexPath)
+    if let cell = cell as? AnimalsTableViewCell {
+      cell.animal = animalData[indexPath.row]
+    }
     return cell
   }
 }
