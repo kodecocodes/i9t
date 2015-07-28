@@ -27,6 +27,11 @@ import ContactsUI
 class FriendsViewController: UITableViewController {
 	
 	var friendsList = Friend.defaultContacts()
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		navigationItem.titleView = UIImageView(image: UIImage(named: "RWConnectTitle")!)
+	}
 
     @IBAction func addFriends(sender: UIBarButtonItem) {
         let contactPicker = CNContactPickerViewController()
@@ -129,6 +134,8 @@ extension FriendsViewController {
         let contact = friend.contactValue
         //2
         let contactViewController = CNContactViewController(forUnknownContact: contact)
+		contactViewController.navigationItem.title = "Profile"
+		contactViewController.hidesBottomBarWhenPushed = true
         //3
         contactViewController.allowsEditing = false
         contactViewController.allowsActions = false
@@ -149,7 +156,7 @@ extension FriendsViewController {
                 self.saveFriendToContacts(friend)
             })
         }
-        createContact.backgroundColor = rwGreen
+        createContact.backgroundColor = BlueColor
         return [createContact]
     }
 }
@@ -165,3 +172,4 @@ extension FriendsViewController : CNContactPickerDelegate {
         tableView.reloadData()
     }
 }
+

@@ -27,6 +27,11 @@ import ContactsUI
 class FriendsViewController: UITableViewController {
 	
 	var friendsList = Friend.defaultContacts()
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		navigationItem.titleView = UIImageView(image: UIImage(named: "RWConnectTitle")!)
+	}
 
 }
 

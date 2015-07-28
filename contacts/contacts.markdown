@@ -40,7 +40,7 @@ It's time to make this app better using the Contacts and ContactsUI frameworks. 
 
 ## Displaying a Contact
 
-Open **Main.storyboard** and select the table view cell in the **FriendsViewController**. 
+Open **Main.storyboard** and select the table view cell in the **FriendsViewController**.
 
 In the **Attributes Inspector**, open the dropdown menu next to **Accessory** and select **Disclosure Indicator**.
 
@@ -107,6 +107,8 @@ extension FriendsViewController {
     let contact = friend.contactValue
     // 2
     let contactViewController = CNContactViewController(forUnknownContact: contact)
+    contactViewController.navigationItem.title = "Profile"
+    contactViewController.hidesBottomBarWhenPushed = true
     // 3
     contactViewController.allowsEditing = false
     contactViewController.allowsActions = false
@@ -119,7 +121,7 @@ extension FriendsViewController {
 Some of this code should look new to you, so let's break it down to make it easier to understand:
 
 1. Use the index path of the selected cell to get the friend that was selected, and convert it to a `CNContact`.
-2. Create a `CNContactViewController`. This view controller is from the ContactsUI framework and is used for displaying a contact to the user. You instantiate the view controller using its `forUnknownContact` initializer because the contact you are showing is not part of the user's contact store.
+2. Create a `CNContactViewController`. This view controller is from the ContactsUI framework and is used for displaying a contact to the user. You instantiate the view controller using its `forUnknownContact` initializer because the contact you are showing is not part of the user's contact store. You also customize the user interface a bit by specifying behaviors for the navigation and tab bars.
 3. You set `allowsEditing` and `allowsActions` to `false` so that the user can only view the contact information.
 4. You push this view controller onto the navigation stack.
 
@@ -174,7 +176,7 @@ In **FriendsViewController.swift**, create a new extension of `FriendsViewContro
 
 ```swift
 extension FriendsViewController: CNContactPickerDelegate {
-  
+
   func contactPicker(picker: CNContactPickerViewController, didSelectContacts contacts: [CNContact]) {
 
   }
@@ -293,7 +295,7 @@ To ask the user for permission, replace the `TODO` comment in the row action you
 
 ```swift
 let contactStore = CNContactStore()
-contactStore.requestAccessForEntityType(CNEntityType.Contacts) { 
+contactStore.requestAccessForEntityType(CNEntityType.Contacts) {
   userGrantedAccess, _ in
 
 }
@@ -329,7 +331,7 @@ func presentPermissionErrorAlert() {
 
 This method presents an alert to the user saying that the app cannot save the contact. The first UIAlertAction opens the Settings app using the `UIApplicationOpenSettingsURLString` key.
 
-> **Note**: The request access completion block is executed on "an arbitrary queue", so this method is wrapped in a `dispatch_async` block to make sure that the UI code is executed on the main thread. The documentation recommends that you do any work you need to with the contacts store on the handler thread, then dispatch to the main thread for UI changes. 
+> **Note**: The request access completion block is executed on "an arbitrary queue", so this method is wrapped in a `dispatch_async` block to make sure that the UI code is executed on the main thread. The documentation recommends that you do any work you need to with the contacts store on the handler thread, then dispatch to the main thread for UI changes.
 
 Go back into the `requestAccessForEntityType(:completion:)` completion handler and add the following code:
 
@@ -433,7 +435,7 @@ Still in the simulator, press **Command-Shift-H** and open the Contacts app (it 
 
 ### Check if Contact Exists
 
-In your current implementation, you are able to add the same contact multiple times. Your users don't want to accidentally do that. 
+In your current implementation, you are able to add the same contact multiple times. Your users don't want to accidentally do that.
 
 Add the following to the top of `saveFriendToContacts(_:)`:
 
@@ -454,15 +456,15 @@ guard matchingContacts.isEmpty else {
     self.presentViewController(alert, animated: true, completion: nil)
   }
   return
-} 
+}
 ```
 
 Here's the breakdown:
 
 1. `CNContactFormatter` is a class for generating display names from stored contacts, much line `NSDateFormatter` does for dates. It's locale-aware so will present names as they should be seen.
-2. You use the formatter to create a string representing a contact's name. This name is generated using the contact's given and family name as well as any titles and suffixes (e.g. Jr.) 
+2. You use the formatter to create a string representing a contact's name. This name is generated using the contact's given and family name as well as any titles and suffixes (e.g. Jr.)
 3. You create a predicate for searching the contacts store based on the name string you've just generated.
-4. `CNContactStore` allows you to query the user's contacts for those matching a predicate. In this case, you used `CNContact`'s `predicateForContactsMatchingName(_:)` method to create an `NSPredicate` that finds contacts with a name similar to the provided string. 
+4. `CNContactStore` allows you to query the user's contacts for those matching a predicate. In this case, you used `CNContact`'s `predicateForContactsMatchingName(_:)` method to create an `NSPredicate` that finds contacts with a name similar to the provided string.
 4. You only save the contact if there are no contacts matching the name, in order to prevent duplicates, so there is a `guard` statement to stop the process if there is already a match.
 
 > **Note**: `unifiedContactsMatchingPredicate(_:keysToFetch:)` has a `keysToFetch` parameter that you ultimately ignore by passing in an empty array. However, if you were to try to access or modify the contacts that were fetched, it would throw an error because the keys were not fetched. If you wanted to access the fetched contacts' first names, for example, you would have to add `CNContactGivenNameKey` to `keysToFetch`.
