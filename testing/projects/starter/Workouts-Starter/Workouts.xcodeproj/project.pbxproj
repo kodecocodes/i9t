@@ -93,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				FE1B99351B5FAEFB007A44D2 /* Workouts */,
+				FECB1C601B67B08200B58EC2 /* Other Sources */,
 				FE1B994B1B5FAEFB007A44D2 /* WorkoutsTests */,
 				FE1B99341B5FAEFB007A44D2 /* Products */,
 			);
@@ -110,31 +111,21 @@
 		FE1B99351B5FAEFB007A44D2 /* Workouts */ = {
 			isa = PBXGroup;
 			children = (
-				FE1B99381B5FAEFB007A44D2 /* AppDelegate.swift */,
-				FE1B995E1B5FB140007A44D2 /* WorkoutViewController.swift */,
-				FE591E5F1B6651B500CE6EBE /* AddWorkoutViewController.swift */,
-				FE591E4C1B656AC500CE6EBE /* WorkoutDetailViewController.swift */,
-				FE1B995C1B5FB122007A44D2 /* ExerciseViewController.swift */,
-				FE1B99621B5FB2BB007A44D2 /* ExerciseDetailViewController.swift */,
-				FE591E571B65BE9100CE6EBE /* ExerciseImageViewController.swift */,
+				FECB1C5F1B67B06C00B58EC2 /* View Controllers */,
 				FE591E611B6655EB00CE6EBE /* Cells */,
-				FE1B99581B5FB090007A44D2 /* Exercise.swift */,
-				FE1B995A1B5FB107007A44D2 /* Workout.swift */,
-				FE591E4A1B6262EA00CE6EBE /* DataModel.swift */,
-				FE1B993C1B5FAEFB007A44D2 /* Main.storyboard */,
-				FE1B993F1B5FAEFB007A44D2 /* Images.xcassets */,
-				FE1B99411B5FAEFB007A44D2 /* LaunchScreen.xib */,
-				FE1B99361B5FAEFB007A44D2 /* Supporting Files */,
+				FE1B99361B5FAEFB007A44D2 /* Model */,
 			);
 			path = Workouts;
 			sourceTree = "<group>";
 		};
-		FE1B99361B5FAEFB007A44D2 /* Supporting Files */ = {
+		FE1B99361B5FAEFB007A44D2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FE1B99371B5FAEFB007A44D2 /* Info.plist */,
+				FE1B99581B5FB090007A44D2 /* Exercise.swift */,
+				FE1B995A1B5FB107007A44D2 /* Workout.swift */,
+				FE591E4A1B6262EA00CE6EBE /* DataModel.swift */,
 			);
-			name = "Supporting Files";
+			name = Model;
 			sourceTree = "<group>";
 		};
 		FE1B994B1B5FAEFB007A44D2 /* WorkoutsTests */ = {
@@ -166,6 +157,32 @@
 				FE591E641B66562E00CE6EBE /* AddWorkoutExerciseCell.swift */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		FECB1C5F1B67B06C00B58EC2 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				FE1B995E1B5FB140007A44D2 /* WorkoutViewController.swift */,
+				FE591E5F1B6651B500CE6EBE /* AddWorkoutViewController.swift */,
+				FE591E4C1B656AC500CE6EBE /* WorkoutDetailViewController.swift */,
+				FE1B995C1B5FB122007A44D2 /* ExerciseViewController.swift */,
+				FE1B99621B5FB2BB007A44D2 /* ExerciseDetailViewController.swift */,
+				FE591E571B65BE9100CE6EBE /* ExerciseImageViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		FECB1C601B67B08200B58EC2 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				FE1B99381B5FAEFB007A44D2 /* AppDelegate.swift */,
+				FE1B99371B5FAEFB007A44D2 /* Info.plist */,
+				FE1B993C1B5FAEFB007A44D2 /* Main.storyboard */,
+				FE1B993F1B5FAEFB007A44D2 /* Images.xcassets */,
+				FE1B99411B5FAEFB007A44D2 /* LaunchScreen.xib */,
+			);
+			name = "Other Sources";
+			path = Workouts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
