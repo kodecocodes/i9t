@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9pY-O0-aIf">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="qvi-Cl-szI">
+            <objects>
+                <navigationController id="9pY-O0-aIf" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uND-tQ-ssw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="d7L-It-sr5" kind="relationship" relationship="rootViewController" id="VI1-eZ-2wc"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B21-Ab-Nfc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-177" y="277"/>
+        </scene>
+        <!--Café Transit-->
+        <scene sceneID="vzT-vm-eKd">
+            <objects>
+                <viewController id="d7L-It-sr5" customClass="ViewController" customModule="CafeTransit" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="agz-gU-q3X"/>
+                        <viewControllerLayoutGuide type="bottom" id="e7T-Sw-8ys"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="YCL-U3-lqL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="veE-N6-pQa">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <outlet property="delegate" destination="d7L-It-sr5" id="8f7-fb-WUD"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="veE-N6-pQa" firstAttribute="bottom" secondItem="e7T-Sw-8ys" secondAttribute="top" id="cyu-jJ-x8P"/>
+                            <constraint firstItem="veE-N6-pQa" firstAttribute="top" secondItem="agz-gU-q3X" secondAttribute="bottom" constant="-64" id="qbK-0V-Je4"/>
+                            <constraint firstItem="veE-N6-pQa" firstAttribute="leading" secondItem="YCL-U3-lqL" secondAttribute="leading" id="qiy-lj-Fej"/>
+                            <constraint firstAttribute="trailing" secondItem="veE-N6-pQa" secondAttribute="trailing" id="yR7-UV-4ZW"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Café Transit" id="kvd-Ws-QOi"/>
+                    <connections>
+                        <outlet property="mapView" destination="veE-N6-pQa" id="Mqj-NZ-Z0r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1fI-Zd-L1C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="515" y="277"/>
+        </scene>
+    </scenes>
+</document>
