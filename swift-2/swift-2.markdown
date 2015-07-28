@@ -1,54 +1,52 @@
 # Chapter 1: Swift 2.0
 
-It was nearing the end of the 2014 WWDC Keynote and Craig Federighi was seemingly wrapping up the show. Then, out of left field he dropped the biggest bomb on Apple platform developers that they'd likely ever seen, Swift. A new programming language that he teed up, in a later criticized way, as "Objective-C without the baggage of C". This new language was presented with promises of terseness and safety, while being extremely expressive.
+The 2104 WWDC keynote was nearly over, and Craig Federighi appeared to be wrapping things up. But instead he shocked nearly everyone watching by announcing the Swift programming language, which he promised, perhaps optimistically, as "Objective-C without the baggage of C". Swift would have the benefits of terseness and safety, while still being extremely expressive.
 
-After everyone picked up their jaws from the floor of Presidio in Moscone West (or their keyboards at home), many set out to explore the ins and outs of this brand new language. Swift made the period between WWDC 2014 and 2015 an extremely exciting time to be an Apple platform developer. Everyone was given a chance to reimagine and redefine the way that software for iOS and OS X is written.
+Once the implications of a new programming language had sunk in, many developers set out to explore the ins and outs of Swift. The year following WWDC 2014 was an exciting time for developers on the Apple platform; each developer had a chance to reimagine and redefine they way they wrote software for iOS and OS X.
 
-## But Why?
+## Whither Swift?
 
-Why Swift? Why would Apple care to introduce a new language when Objective-C has served them so well? The reason primarily is that Swift gives Apple a clean slate. They've taken the best features from many different languages and worked them into one. By doing this they've created a language that is modern, expressive, safe, and simply fun to write. Perhaps most interesting and paramount to its success and adoption is that Swift interoperates seamlessly with existing Cocoa and Cocoa Touch frameworks, along with all of your existing Objective-C code.
+Why would Apple introduce a new language, since Objective-C has served them so well? It's likely because Swift gave Apple a fresh start; Swift takes the best features from many different languages and combines them into one. Apple has created a language that is modern, expressive, safe, and a lot of fun to develop in. As well, Swift interoperates seamlessly with existing Cocoa and Cocoa Touch frameworks as well as all of your existing Objective-C code. This is likely one of the primary reasons Swift has seen such success and widespread adoption in the developer community.
 
 ## The Real "One more thing"
 
-This year's big announcement is that Apple will be open sourcing Swift by the end of 2015! So, what does this mean?
+WWDC 2015's big announcement is the open-sourcing of Swift by the end of 2015! But what does this really mean?
 
 - Swift source code will be released under an OSI-approved permissive license.
 - Contributions from the community will be accepted — and encouraged.
-- At launch Apple intends to contribute ports for OS X, iOS, and Linux.
-- Source code will include the Swift compiler and standard library.
+- At launch, Apple intends to contribute ports of Swift for OS X, iOS, and Linux.
+- Source code will include the Swift compiler and the standard library.
 
-A natural thought when hearing this news might be along the lines of... "This is amazing news, I can write Android apps using Swift! Write once, debug everywhere!!" Well, back that excitement train up and put it in park for a minute. While this is great news it may not mean exactly what you think. First and foremost is that it is highly unlikely that Apple has any intentions of open sourcing the Cocoa or Cocoa Touch frameworks we love so much. These frameworks are what makes it so "easy" to write Mac and iOS apps; consider writing Objective-C programs without NS*Anything* or UI*Anything*. While Swift offers a lot out of the box, you will not have access to those frameworks on other platforms.
+You might be thinking "This is amazing! I can write Android apps using Swift! Write once, debug everywhere!!" :] Well, back that excitement train up a bit. While open-sourcing Swift _is_ great news, it's highly unlikely Apple has any intention of open-sourcing the Cocoa or Cocoa Touch frameworks you love so much. These frameworks make it "easy" to write Mac and iOS apps; consider how you'd write an Objective-C program without NS*Anything* or UI*Anything*. While Swift does offer a lot out of the box, you unfortunately won't have access to those frameworks on other platforms.
 
-But don't let that get you down! The open source community does amazing things every day. The fact that Swift will be open source will attract an entire new set of extremely smart people to make this language even better by providing Swift-only libraries and frameworks that will be usable across platforms. There are so many theoretical possibilities, consider just these two... Using Swift in embedded environments like with Arduino boards or writing server-side Swift for the web and web services. Pretty exciting.
+But don't let that get you down! The open source community does amazing things every day. Open-source Swift will attract smart, creative people who will make the language even better with Swift-only libraries and frameworks that work across platforms. Someday you could find yourself using Swift in embedded environments such as Arduino, or perhaps someday you'll write server-side web services in Swift. It's an exiting time for Swift developers!
 
 ## What Makes Swift, "2.0"?
 
-Now what you really came to read about. What is it that Apple introduced with Swift 2.0 and what will this chapter cover?
+It's great to dream about the future of Swift, but this chapter highlights what Swift 2.0 offers you in the present day:
 
 - New control flow using `guard`, `repeat`, `do`, and `defer`
 - An entirely new error handling model
-- Protocol Extensions
-- Pattern Matching enhancements
-- API Availability Checking
+- Protocol extensions
+- Pattern matching enhancements
+- API availability checking
 - Additional minor enhancements
 
-So sit tight, this chapter will be packed to the gills with information, feel free to read it end to end or use it as as a reference while you work with Swift 2.0.
+This chapter is packed with information; you can read it end to end or use it as as a reference as you work with Swift 2.0.
 
 ## The Logistics
 
-Unlike most chapters in this book, you will _not_ be writing or extending an app. Instead you will be working in a multipage Xcode Playground so that the Swift language features themselves are the focus. For the first part of the chapter you will be introduced to some new features using contrived examples. You will then move on to solving a specific String validation problem using Swift 2.0 features in a tutorial led playground.
+Unlike most chapters in this book, you _won't_ write or extend an app in this chapter. Instead, you'll work in a multipage Xcode Playground with the Swift language features as the focus. The first part of the chapter will introduce you to some new features using somewhat contrived examples; the second half walks you thorough the solution of a specific String validation problem using Swift 2.0 features in a tutorial-led playground.
 
-Open the provided **Chapter1_Swift2.playground** file in Xcode 7 and continue reading the chapter before diving into the playground.
-
-Enough premise, time for some code!
+Open the provided **Chapter1_Swift2.playground** file in Xcode 7 and continue reading the chapter before diving into the playground. [TODO: CRB: Revisit]
 
 ## Control Flow
 
-Control flow in any programming language is a fundamental concept, if you're not familiar with the term, just know that `if/else` is a control flow. Any construct or keyword that can cause the execution of your program at runtime to take a different path can be considered "control flow". With Swift 2.0 Apple has added to the control flow features and made some minor changes to existing ones. In this section you will read about two new control flow features, the chapter's Playground has all of the code used for this on the **Control Flow** page.
+Control flow is a fundamental concept in any programming language. Not sure what "control flow" means? A basic example is `if/else`; any construct or keyword that causes the execution of your program to follow a different path can be considered "control flow". Swift 2.0 adds new control flow features and makes some minor changes to existing ones. The two new control flow featues covered in this section are found on your playground's **Control Flow** page.
 
 ### `repeat`
 
-The `do/while` control flow feature has been renamed to `repeat/while`. Nothing has changed with how this operates, it is simply a name change to reduce confusion with a new usage of `do` described later. This flow simply means "`repeat` this block of code `while` some condition remains `true`".
+The `do/while` control flow feature has been renamed to `repeat/while`. It operates the same way as before; the name has simply changed to reduce confusion with a new usage of `do` described later on in this chapter. This flow simply means "`repeat` this block of code `while` some condition remains `true`". Consider the following example:
 
 ```
 var jamJarBeer = Beer()
@@ -58,7 +56,7 @@ repeat {
 } while (!jamJarBeer.isEmpty) // always finish your beer!
 ```
 
-The example above repeats the line `jamJarBeer.sip()` until `jamJarBeer.isEmpty` is `true`. This was a common occurrence after hours at RWDevCon 2015 :]
+The above snippet repeats the line `jamJarBeer.sip()` until `jamJarBeer.isEmpty` is `true` — a common occurrence after-hours at RWDevCon 2015! :]
 
 ### `guard`
 
@@ -284,7 +282,7 @@ This method's process is broken down by commented line number below:
 6. Execute `validate(string:)` for each rule, note that you must precede the call with `try` as this method can throw
 7. Catch any errors of the type `StringValidationError`
 8. Capture the error in your `errors` array
-9. If some error other than `StringValidationError` is thrown, crash with a message including which error occurred. Like a switch statement, your error catching has to be exhaustive, or you'll get a compiler error. 
+9. If some error other than `StringValidationError` is thrown, crash with a message including which error occurred. Like a switch statement, your error catching has to be exhaustive, or you'll get a compiler error.
 10. Return the resultant tuple. If there are no errors validation passed, return the array of errors even if empty.
 
 Excellent! Now any and every `StringValidator` that you implement will have this method by default so that you do not need to copy/paste it in everywhere. Time to implement your very first `StringValidationRule`, starting with the first error type `.MustStartWith`. Add the following code to the playground:
@@ -416,7 +414,7 @@ Now it is time to put the StringValidator pattern that you've created to real-wo
 
 Before coming up with the protocol oriented solution that you just built, you might have looked at this list of requirements and groaned a little. But, groan no more! You can take the pattern that you've built and quickly create a `StringValidator` that contains the rules for this password requirement.
 
-Start by switching to the **Password Validation** page in the chapter's playground. For brevity purposes this playground page tucks away all of the previous work you did on the String Validation page as a source file. That source file also contains two new rules that you will be using. You can view the code by clicking **Password Validation** > **Sources** > **StringValiation.swift** in the jump bar. 
+Start by switching to the **Password Validation** page in the chapter's playground. For brevity purposes this playground page tucks away all of the previous work you did on the String Validation page as a source file. That source file also contains two new rules that you will be using. You can view the code by clicking **Password Validation** > **Sources** > **StringValiation.swift** in the jump bar.
 
 The first new rule is `LengthStringValidationRule` with the following features:
 
