@@ -113,7 +113,7 @@ class LogsViewController: UITableViewController, UIImagePickerControllerDelegate
     presentTextViewController(nil)
   }
   
-  // MARK: Public methods
+  // MARK: Helper
   
   /// Present a text view controller. Optionally you may pass in a text object to be edited.
   func presentTextViewController(textToEdit: String?) {
@@ -163,8 +163,6 @@ class LogsViewController: UITableViewController, UIImagePickerControllerDelegate
     controller.view.tintColor = UIColor.ultimateRedColor()
     presentViewController(controller, animated: true, completion: nil)
   }
-  
-  // MARK: Helper
   
   /// Create or reuse a Detail View Controller object.
   func detailViewController() -> DetailViewController {

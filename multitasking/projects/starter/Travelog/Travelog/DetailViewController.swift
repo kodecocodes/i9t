@@ -20,11 +20,15 @@
 * THE SOFTWARE.
 */
 
-import UIKit
-import TravelogKit
-import MobileCoreServices
 import AVFoundation
 import AVKit
+import TravelogKit
+import UIKit
+
+protocol DetailViewControllerPresenter: NSObjectProtocol {
+  func detailViewController(vc: DetailViewController, requestsPresentingTextEditorForLog log: BaseLog)
+  func detailViewController(vc: DetailViewController, requestsPresentingPhotoEditorForLog log: BaseLog, withSourceType type: UIImagePickerControllerSourceType)
+}
 
 enum DetailViewState {
   case DisplayNone
@@ -50,7 +54,9 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     formatter.dateStyle = .LongStyle
     formatter.timeStyle = .MediumStyle
     return formatter
-  }()
+    }()
+  
+  weak var delegate: DetailViewControllerPresenter?
   
   var selectedLog: BaseLog? {
     didSet {
@@ -80,74 +86,23 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
   // MARK: IBActions
   
   @IBAction func photoLibraryButtonTapped(sender: UIBarButtonItem?) {
-    presentCameraControllerForSourceType(UIImagePickerControllerSourceType.PhotoLibrary)
+    guard let selectedLog = selectedLog else { return }
+    delegate?.detailViewController(self, requestsPresentingPhotoEditorForLog: selectedLog, withSourceType: UIImagePickerControllerSourceType.PhotoLibrary)
   }
   
   @IBAction func cameraButtonTapped(sender: UIBarButtonItem?) {
-    presentCameraControllerForSourceType(UIImagePickerControllerSourceType.Camera)
+    guard let selectedLog = selectedLog else { return }
+    delegate?.detailViewController(self, requestsPresentingPhotoEditorForLog: selectedLog, withSourceType: UIImagePickerControllerSourceType.Camera)
   }
   
   @IBAction func editButtonTapped(sender: UIBarButtonItem?) {
-    // Edit button is only visible when selected log is a text log.
-    guard let selectedLog = selectedLog as? TextLog else { return }
-    presentTextViewController(selectedLog.text)
+    guard let selectedLog = selectedLog else { return }
+    delegate?.detailViewController(self, requestsPresentingTextEditorForLog: selectedLog)
   }
   
   @IBAction func playButtonTapped(sender: UIButton?) {
     guard let videoLog = selectedLog as? VideoLog else { return }
     playVideoAtURL(videoLog.URL)
-  }
-  
-  // MARK: Public methods
-  
-  /// Present a text view controller. Optionally you may pass in a text object to be edited.
-  func presentTextViewController(textToEdit: String?) {
-    guard let textViewNavigationController = storyboard?.instantiateViewControllerWithIdentifier("TextViewNavigationController") as? UINavigationController else { return }
-    guard let controller = textViewNavigationController.viewControllers.first as? TextViewController else { return }
-    unowned let weakSelf = self
-    controller.saveActionBlock = { (text: String) -> () in
-      
-      let textLogToSave: TextLog
-      
-      // If it was an edit to the existing log, update the log.
-      if let selectedLog = weakSelf.selectedLog {
-        textLogToSave = TextLog(text: text, date: selectedLog.date)
-        weakSelf.textView.text = text
-      } else {
-        // It is a new note (text log).
-        textLogToSave = TextLog(text: text, date: NSDate())
-      }
-      
-      // Save it.
-      let store = LogStore.sharedStore
-      store.logCollection.addLog(textLogToSave)
-      store.save()
-      
-      weakSelf.dismissViewControllerAnimated(true, completion: nil)
-      weakSelf.selectedLog = textLogToSave
-      weakSelf.updateDetailView()
-    }
-    controller.cancelActionBlock = {
-      weakSelf.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    // Present text view controller and pass on the textToEdit if any.
-    // Otherwise provide a placeholder.
-    textViewNavigationController.modalPresentationStyle = .FormSheet
-    presentViewController(textViewNavigationController, animated: true) { () -> Void in
-      if let textToEdit = textToEdit { controller.setText(textToEdit) }
-      else { controller.setText("Today, I'm going to write about ...") }
-    }
-  }
-  
-  //// A helper method to configure and display image picker controller based on the source type.
-  func presentCameraControllerForSourceType(sourceType: UIImagePickerControllerSourceType) {
-    let controller = UIImagePickerController()
-    controller.delegate = self
-    controller.sourceType = sourceType
-    controller.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
-    controller.view.tintColor = UIColor.ultimateRedColor()
-    presentViewController(controller, animated: true, completion: nil)
   }
   
   // MARK: Private methods
@@ -224,46 +179,6 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
   }
   
-  /// A helper method to extract the image in the info dictionary that returns from UIImagePickerController.
-  private func extractImageFromImagePickerControllerMediaInfo(info: [String : AnyObject]) {
-    if let image = info[UIImagePickerControllerEditedImage] as? UIImage {
-      
-      let imageLogToSave: ImageLog
-      
-      // If it was an edit to the existing log, update the log.
-      if let selectedLog = selectedLog {
-        imageLogToSave = ImageLog(image: image, date: selectedLog.date)
-        imageView.image = image
-      } else {
-        // It is a new image log.
-        imageLogToSave = ImageLog(image: image, date: NSDate())
-      }
-      
-      // Save it.
-      let store = LogStore.sharedStore
-      store.logCollection.addLog(imageLogToSave)
-      store.save()
-      
-      selectedLog = imageLogToSave
-      updateDetailView()
-    }
-  }
-  
-  /// Create an snapshot of a movie at a given URL and return UIImage.
-  private func snapshotFromMovieAtURL(movieURL: NSURL) -> UIImage {
-    let asset = AVAsset(URL: movieURL)
-    let generator: AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
-    generator.appliesPreferredTrackTransform = true
-    let time: CMTime = CMTimeMake(1, 60)
-    do {
-      let imageRef: CGImageRef = try generator.copyCGImageAtTime(time, actualTime: nil)
-      let snapshot = UIImage(CGImage: imageRef)
-      return snapshot
-    }
-    catch {}
-    return UIImage()
-  }
-  
   /// Plays back a movie item using AVPlayerViewController that's presented modally.
   private func playVideoAtURL(URL: NSURL) {
     let controller = AVPlayerViewController()
@@ -272,50 +187,4 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
       controller.player?.play()
     }
   }
-  
-  // MARK: UIImagePickerControllerDelegate
-  
-  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-    
-    var logToSave: BaseLog?
-    
-    // What did user pick? Is it a movie or is it an image?
-    let mediaType = info[UIImagePickerControllerMediaType] as! String
-    if mediaType == String(kUTTypeImage) {
-      let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-      
-      // If it was an edit to the existing log, update the log.
-      if let selectedLog = selectedLog {
-        logToSave = ImageLog(image: image, date: selectedLog.date)
-        imageView.image = image
-      } else {
-        // It is a new image log.
-        logToSave = ImageLog(image: image, date: NSDate())
-      }
-    } else if mediaType == String(kUTTypeMovie) {
-      let assetURL = info[UIImagePickerControllerMediaURL] as! NSURL
-      let previewImage = snapshotFromMovieAtURL(assetURL)
-      
-      // If it was an edit to the existing log, update the log.
-      if let selectedLog = selectedLog {
-        logToSave = VideoLog(URL: assetURL, previewImage: previewImage, date: selectedLog.date)
-        imageView.image = previewImage
-      } else {
-        // It is a new image log.
-        logToSave = VideoLog(URL: assetURL, previewImage: previewImage, date: NSDate())
-      }
-    }
-    
-    // Save it.
-    if let log = logToSave {
-      let store = LogStore.sharedStore
-      store.logCollection.addLog(log)
-      store.save()
-      
-      selectedLog = log
-      updateDetailView()
-    }
-    picker.dismissViewControllerAnimated(false, completion: nil)
-  }
-  
 }

@@ -20,10 +20,13 @@
 * THE SOFTWARE.
 */
 
-import UIKit
+import AVFoundation
+import AVKit
+import MobileCoreServices
 import TravelogKit
+import UIKit
 
-class LogsViewController: UITableViewController, LogStoreObserver {
+class LogsViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, LogStoreObserver, DetailViewControllerPresenter {
   
   @IBOutlet private var photoLibraryButton: UIBarButtonItem!
   @IBOutlet private var cameraButton: UIBarButtonItem!
@@ -78,24 +81,67 @@ class LogsViewController: UITableViewController, LogStoreObserver {
   // MARK: IBActions
   
   @IBAction func photoLibraryButtonTapped(sender: UIBarButtonItem?) {
-    // Present detail view controller and forward the call.
-    let vc = presentDetailViewControllerWithSelectedLog(nil)
-    vc.presentCameraControllerForSourceType(UIImagePickerControllerSourceType.PhotoLibrary)
+    presentCameraControllerForSourceType(UIImagePickerControllerSourceType.PhotoLibrary)
   }
   
   @IBAction func cameraButtonTapped(sender: UIBarButtonItem?) {
-    // Present detail view controller and forward the call.
-    let vc = presentDetailViewControllerWithSelectedLog(nil)
-    vc.presentCameraControllerForSourceType(UIImagePickerControllerSourceType.Camera)
+    presentCameraControllerForSourceType(UIImagePickerControllerSourceType.Camera)
   }
   
   @IBAction func addNoteButtonTapped(sender: UIBarButtonItem?) {
-    // Present detail view controller and forward the call.
-    let vc = presentDetailViewControllerWithSelectedLog(nil)
-    vc.presentTextViewController(nil)
+    presentTextViewController(nil)
   }
   
   // MARK: Helper
+  
+  /// Present a text view controller. Optionally you may pass in a text object to be edited.
+  func presentTextViewController(textToEdit: String?) {
+    guard let textViewNavigationController = storyboard?.instantiateViewControllerWithIdentifier("TextViewNavigationController") as? UINavigationController else { return }
+    guard let controller = textViewNavigationController.viewControllers.first as? TextViewController else { return }
+    unowned let weakSelf = self
+    controller.saveActionBlock = { (text: String) -> () in
+      
+      let textLogToSave: TextLog
+      
+      // If it was an edit to the existing log, update the log.
+      if let selectedLog = weakSelf.selectedLog {
+        textLogToSave = TextLog(text: text, date: selectedLog.date)
+      } else {
+        // It is a new note (text log).
+        textLogToSave = TextLog(text: text, date: NSDate())
+      }
+      
+      // Save it.
+      let store = LogStore.sharedStore
+      store.logCollection.addLog(textLogToSave)
+      store.save()
+      
+      weakSelf.dismissViewControllerAnimated(true, completion: nil)
+      weakSelf.selectedLog = textLogToSave
+      weakSelf.presentDetailViewControllerWithSelectedLog(textLogToSave)
+    }
+    controller.cancelActionBlock = {
+      weakSelf.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // Present text view controller and pass on the textToEdit if any.
+    // Otherwise provide a placeholder.
+    textViewNavigationController.modalPresentationStyle = .FormSheet
+    presentViewController(textViewNavigationController, animated: true) { () -> Void in
+      if let textToEdit = textToEdit { controller.setText(textToEdit) }
+      else { controller.setText("Today, I'm going to write about ...") }
+    }
+  }
+  
+  //// A helper method to configure and display image picker controller based on the source type.
+  func presentCameraControllerForSourceType(sourceType: UIImagePickerControllerSourceType) {
+    let controller = UIImagePickerController()
+    controller.delegate = self
+    controller.sourceType = sourceType
+    controller.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
+    controller.view.tintColor = UIColor.ultimateRedColor()
+    presentViewController(controller, animated: true, completion: nil)
+  }
   
   /// Create or reuse a Detail View Controller object.
   func detailViewController() -> DetailViewController {
@@ -114,6 +160,8 @@ class LogsViewController: UITableViewController, LogStoreObserver {
   func presentDetailViewControllerWithSelectedLog(log: BaseLog?) -> DetailViewController {
     let vc = detailViewController()
     vc.selectedLog = log
+    vc.delegate = self
+    navigationController?.popViewControllerAnimated(false)
     showDetailViewController(vc, sender: nil)
     return vc
   }
@@ -128,6 +176,21 @@ class LogsViewController: UITableViewController, LogStoreObserver {
       let vc = detailViewController()
       vc.selectedLog = nil
     }
+  }
+  
+  /// Create an snapshot of a movie at a given URL and return UIImage.
+  private func snapshotFromMovieAtURL(movieURL: NSURL) -> UIImage {
+    let asset = AVAsset(URL: movieURL)
+    let generator: AVAssetImageGenerator = AVAssetImageGenerator(asset: asset)
+    generator.appliesPreferredTrackTransform = true
+    let time: CMTime = CMTimeMake(1, 60)
+    do {
+      let imageRef: CGImageRef = try generator.copyCGImageAtTime(time, actualTime: nil)
+      let snapshot = UIImage(CGImage: imageRef)
+      return snapshot
+    }
+    catch {}
+    return UIImage()
   }
   
   // MARK: UITableView data source and delegate
@@ -170,6 +233,61 @@ class LogsViewController: UITableViewController, LogStoreObserver {
       let log = logs[indexPath.row]
       deleteLog(log)
     }
+  }
+  
+  // MARK: UIImagePickerControllerDelegate
+  
+  func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    
+    var logToSave: BaseLog?
+    
+    // What did user pick? Is it a movie or is it an image?
+    let mediaType = info[UIImagePickerControllerMediaType] as! String
+    if mediaType == String(kUTTypeImage) {
+      let image = info[UIImagePickerControllerOriginalImage] as! UIImage
+      
+      // If it was an edit to the existing log, update the log.
+      if let selectedLog = selectedLog {
+        logToSave = ImageLog(image: image, date: selectedLog.date)
+      } else {
+        // It is a new image log.
+        logToSave = ImageLog(image: image, date: NSDate())
+      }
+    } else if mediaType == String(kUTTypeMovie) {
+      let assetURL = info[UIImagePickerControllerMediaURL] as! NSURL
+      let previewImage = snapshotFromMovieAtURL(assetURL)
+      
+      // If it was an edit to the existing log, update the log.
+      if let selectedLog = selectedLog {
+        logToSave = VideoLog(URL: assetURL, previewImage: previewImage, date: selectedLog.date)
+      } else {
+        // It is a new image log.
+        logToSave = VideoLog(URL: assetURL, previewImage: previewImage, date: NSDate())
+      }
+    }
+    
+    picker.dismissViewControllerAnimated(false, completion: nil)
+    
+    // Save it.
+    if let log = logToSave {
+      let store = LogStore.sharedStore
+      store.logCollection.addLog(log)
+      store.save()
+      
+      selectedLog = log
+      presentDetailViewControllerWithSelectedLog(log)
+    }
+  }
+  
+  // MARK: DetailViewControllerPresenter
+  
+  func detailViewController(vc: DetailViewController, requestsPresentingPhotoEditorForLog log: BaseLog, withSourceType type: UIImagePickerControllerSourceType) {
+    presentCameraControllerForSourceType(type)
+  }
+  
+  func detailViewController(vc: DetailViewController, requestsPresentingTextEditorForLog log: BaseLog) {
+    guard let textLog = log as? TextLog else { return }
+    presentTextViewController(textLog.text)
   }
   
 }
