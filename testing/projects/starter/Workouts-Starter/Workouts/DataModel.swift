@@ -54,28 +54,36 @@ class DataModel {
     return workouts
   }
   
-  func addWorkout(workout: Workout) -> Bool {
+  func addWorkout(workout: Workout) {
     workouts.append(workout)
     save()
-    return true //when would it be false?
   }
-  
-  func removeWorkout(workout: Workout) -> Bool {
-    return true
+
+  func containsUserCreatedWorkout()-> Bool {
+    for workout in allWorkouts() {
+      if workout.userCreated == true {
+        return true
+      }
+    }
+    return false
   }
   
   func allExercises() -> Array<Exercise> {
     return exercises
   }
   
-  func addExercise(exercise: Exercise) -> Bool {
+  func addExercise(exercise: Exercise) {
     exercises.append(exercise)
     save()
-    return true
   }
   
-  func removeExercise(exercise: Exercise) -> Bool {
-    return true
+  func containsUserCreatedExercise()-> Bool {
+    for exercise in allExercises() {
+      if exercise.userCreated == true {
+        return true
+      }
+    }
+    return false
   }
   
   func save() {
@@ -87,11 +95,10 @@ class DataModel {
     archiver.finishEncoding()
     
     if !data.writeToFile(dataFilePath(), atomically: true) {
-      // error
+      print("Error writing to file")
     }
   }
-  
-  // MARK - Helper methods
+
   
   private func dataFilePath() -> String
   {

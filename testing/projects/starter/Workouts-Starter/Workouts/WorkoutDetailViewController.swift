@@ -67,7 +67,7 @@ class WorkoutDetailViewController: UIViewController {
       cell.textLabel!.text = "Rest Interval"
       cell.detailTextLabel!.text = "\(Int(workout.restInterval)) seconds"
     default:
-      print("Default, do sometehing")
+      assertionFailure("Unhandled index path")
     }
     
     return cell
@@ -160,8 +160,8 @@ extension WorkoutDetailViewController: UITableViewDataSource {
     case 2:
       cell = workoutSelectButtonCell()
     default:
+      assertionFailure("Unhandled cell index path")
       cell = tableView.dequeueReusableCellWithIdentifier(workoutSelectIdentifier)!
-      print("Add assertion here")
     }
     
     return cell

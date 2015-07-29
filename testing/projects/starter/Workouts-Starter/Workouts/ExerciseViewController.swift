@@ -45,6 +45,7 @@ class ExerciseViewController: UIViewController {
       tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
+    updateEditButtonVisibility()
     toggleEditMode(false)
   }
 
@@ -76,6 +77,9 @@ class ExerciseViewController: UIViewController {
         exercise.photoFileName = "squat"
         
         self.dataModel.addExercise(exercise)
+        self.dataModel.save()
+        self.updateEditButtonVisibility()
+        
         self.tableView.reloadData()
     })
     
@@ -117,10 +121,14 @@ class ExerciseViewController: UIViewController {
     toggleEditMode(!tableView.editing)
   }
   
-  private func toggleEditMode(editing: Bool)
-  {
+  private func toggleEditMode(editing: Bool) {
     tableView.setEditing(editing, animated: true)
     editButton.title = editing ? "Done" : "Edit"
+  }
+  
+  
+  private func updateEditButtonVisibility() {
+    editButton.enabled = dataModel.containsUserCreatedExercise()
   }
 }
 
@@ -157,7 +165,10 @@ extension ExerciseViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
       dataModel.exercises.removeAtIndex(indexPath.row - 1)
+      dataModel.save()
+      
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+      updateEditButtonVisibility()
     }
   }
 }

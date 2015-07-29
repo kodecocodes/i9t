@@ -46,8 +46,10 @@ class WorkoutViewController: UIViewController {
       tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    tableView.reloadData()
+    updateEditButtonVisibility()
     toggleEditMode(false)
+    
+    tableView.reloadData()
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -72,6 +74,9 @@ class WorkoutViewController: UIViewController {
     editButton.title = editing ? "Done" : "Edit"
   }
   
+  private func updateEditButtonVisibility() {
+    editButton.enabled = dataModel.containsUserCreatedWorkout()
+  }
 }
 
 extension WorkoutViewController: UITableViewDataSource {
@@ -107,7 +112,10 @@ extension WorkoutViewController: UITableViewDataSource {
   func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
       dataModel.workouts.removeAtIndex(indexPath.row - 1)
+      dataModel.save()
+      
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+      updateEditButtonVisibility()
     }
   }
   

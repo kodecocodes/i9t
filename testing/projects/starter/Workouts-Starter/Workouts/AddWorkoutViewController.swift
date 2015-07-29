@@ -121,8 +121,8 @@ extension AddWorkoutViewController: UITableViewDataSource {
       let exerciseCell = cell as! AddWorkoutExerciseCell
       exerciseCell.textLabel!.text = exercise.name
     default:
+      assertionFailure("Unhandled cell index path")
       cell = tableView.dequeueReusableCellWithIdentifier(exerciseCellIdentifier)!
-      print("Add assertion here")
     }
     
     return cell
