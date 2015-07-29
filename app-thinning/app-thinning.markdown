@@ -30,18 +30,22 @@ Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and
 
 ### The Anatomy of an App 
 
-When compiling your code into an iOS application, it's good to understand what Xcode is doing behind the scenes.
+When compiling your code into an iOS application, it's good to understand what Xcode is doing behind the scenes. 
 
-Below is a side-by-side comparison of the Old CA Maps **Xcode project**'s directory (on the left) and Old CA Map's **archived bundle**'s contents, or **IPA** (on the right).
+This project contains a run script that will launch a Finder with the location of the build directory where you'll see an app file. Build & run, and in the launched Finder right click **Old CA Maps** and select **Show Package Contents** to view the compiled bundle.
+
+![bordered width=%60](./images/show_app_contents.png)
+
+Below is a side-by-side comparison of the Old CA Maps **Xcode project**'s directory (on the left) and Old CA Map's **application bundle**'s contents (on the right). Your output might vary slightly depending on whether you've built for a device or simulator.
 
 ![bordered width=%60](./images/Directory_IPA_Comparison.png)
 
 There are a few important items to take note of:
 
-- The assets catalog in Xcode named **Assets.xcassets** will turn into the **Assets.car** file in the IPA. This file's job is to hold resources specific to different scales, size classes, and devices. 
+- The assets catalog named **Assets.xcassets** in Xcode will become a binary version named **Assets.car** in the IPA. This file's job is to hold resources specific to different scales, size classes, and devices. 
 - Check out the sizes of each of the bundles. Notice the **SC_Map.bundle** is over 130 MB! 
-- The item called **Old CA Maps** with the Terminal icon is the actual executable for your application. This is the actual program that is run on your iOS device. 
-- Notice that since the 3 **Santa Cruz PNGs** found in Xcode were not copied into the **Assets.car** file, but instead copied over in the top-level directory. You will fix this soon...
+- The item called **Old CA Maps** with the Terminal icon is the executable for your application. This is the actual program that is run on your iOS device. 
+- Notice that the 3 **Santa Cruz PNGs** in the project but not in a bundle or asset catalog  were not copied into the **Assets.car** file. Instead, they were copied over in a top-level directory that won't get sliced. You will fix this soon...
 
 ### Measuring Your Work
 
@@ -83,7 +87,7 @@ When finished, the Santa Cruz assets in the catalog should look like:
 
 ![bordered width=90%](./images/Santa_cruz_asset_catalog.png)
 
-Build and run the application. Since you can visually see the image in the app, you can verify the application correctly sees the Santa Cruz assets in the asset catalog.
+Build and run the application. Since you can visually see the image in the app, you can verify the application correctly sees the Santa Cruz assets in the asset catalog. [TODO add a note here about how this will end up getting properly sliced by the store]
 
 >**Note:** Although PNGs are a good way to provide resources, you should also consider using vector-based PDFs. Xcode breaks down the PDF and resizes the image as needed, essentially future-proofing your app for whatever screen scales Apple will come up with next. All the other thumbnail images in Old CA Maps use vector-based PDFs.
 
