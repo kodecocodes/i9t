@@ -95,8 +95,7 @@ class WorkoutDetailViewController: UIViewController {
       let exercise =  workout.exercises[indexPath.row]
       cell = tableView.dequeueReusableCellWithIdentifier(workoutExerciseIdentifier)!
       let exerciseCell = cell as! ExerciseCell
-      exerciseCell.exerciseName.text = exercise.name
-      exerciseCell.exerciseImageView.image = exercise.thumbnail
+      exerciseCell.populate(exercise)
     case 2:
       cell = workoutSelectButtonCell()
     default:

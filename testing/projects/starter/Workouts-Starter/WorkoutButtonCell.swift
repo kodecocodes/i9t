@@ -23,11 +23,5 @@ import UIKit
 
 class WorkoutButtonCell: UITableViewCell {
   
-  
   @IBOutlet weak var selectButton: UIButton!
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-  }
 }

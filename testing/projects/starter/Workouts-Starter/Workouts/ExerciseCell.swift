@@ -25,4 +25,10 @@ class ExerciseCell: UITableViewCell {
   
   @IBOutlet weak var exerciseImageView: UIImageView!
   @IBOutlet weak var exerciseName: UILabel!
+  
+  func populate(exercise: Exercise)
+  {
+    exerciseImageView.image = exercise.thumbnail
+    exerciseName.text = exercise.name
+  }
 }

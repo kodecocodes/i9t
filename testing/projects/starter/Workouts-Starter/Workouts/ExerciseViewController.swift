@@ -61,8 +61,7 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
     } else {
       let exercise = dataModel.exercises[indexPath.row - 1]
       let exerciseCell = tableView.dequeueReusableCellWithIdentifier(exerciseIdentifier) as! ExerciseCell
-      exerciseCell.exerciseImageView.image = exercise.thumbnail
-      exerciseCell.exerciseName.text = exercise.name
+      exerciseCell.populate(exercise)
       return exerciseCell
     }
     
