@@ -211,7 +211,7 @@
                         <outlet property="editButton" destination="mBB-EX-jho" id="RkD-fw-Hp3"/>
                         <outlet property="tableView" destination="oJA-oy-Pmb" id="uvV-8Y-ezf"/>
                         <segue destination="Hhw-x0-Xt0" kind="show" identifier="toWorkoutDetailViewController" id="wAh-4e-5Jp"/>
-                        <segue destination="RiA-qT-0Ze" kind="push" identifier="toAddWorkoutViewController" id="aZ7-k5-PpU"/>
+                        <segue destination="RiA-qT-0Ze" kind="show" identifier="toAddWorkoutViewController" id="aZ7-k5-PpU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bPX-K1-9ff" sceneMemberID="firstResponder"/>
@@ -567,16 +567,8 @@
                                             <outlet property="exerciseName" destination="kPf-Pa-SaO" id="gDo-5k-1Lo"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="0ke-oQ-oWJ">
-                                        <rect key="frame" x="0.0" y="202" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0ke-oQ-oWJ" id="9PW-X3-Nd0">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WorkoutSelectCell" id="3GW-5e-6fX" customClass="WorkoutButtonCell" customModule="Workouts" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="246" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="202" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3GW-5e-6fX" id="Tve-gb-8kj">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>

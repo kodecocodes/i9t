@@ -1,10 +1,24 @@
-//
-//  DataModel.swift
-//  Workouts
-//
-//  Created by Pietro Rea on 7/24/15.
-//  Copyright © 2015 Razeware. All rights reserved.
-//
+/*
+* Copyright (c) 2015 Razeware LLC
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in
+* all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+* THE SOFTWARE.
+*/
 
 import Foundation
 
@@ -23,7 +37,7 @@ class DataModel {
     }()
   
   init() {
-   
+    
     if NSFileManager.defaultManager().fileExistsAtPath(dataFilePath()) {
       
       let data = NSData(contentsOfFile: dataFilePath())
@@ -40,28 +54,36 @@ class DataModel {
     return workouts
   }
   
-  func addWorkout(workout: Workout) -> Bool {
+  func addWorkout(workout: Workout) {
     workouts.append(workout)
     save()
-    return true //when would it be false?
   }
-  
-  func removeWorkout(workout: Workout) -> Bool {
-    return true
+
+  func containsUserCreatedWorkout()-> Bool {
+    for workout in allWorkouts() {
+      if workout.userCreated == true {
+        return true
+      }
+    }
+    return false
   }
   
   func allExercises() -> Array<Exercise> {
     return exercises
   }
   
-  func addExercise(exercise: Exercise) -> Bool {
+  func addExercise(exercise: Exercise) {
     exercises.append(exercise)
     save()
-    return true
   }
   
-  func removeExercise(exercise: Exercise) -> Bool {
-    return true
+  func containsUserCreatedExercise()-> Bool {
+    for exercise in allExercises() {
+      if exercise.userCreated == true {
+        return true
+      }
+    }
+    return false
   }
   
   func save() {
@@ -73,19 +95,18 @@ class DataModel {
     archiver.finishEncoding()
     
     if !data.writeToFile(dataFilePath(), atomically: true) {
-     // error
+      print("Error writing to file")
     }
   }
-  
-  // MARK - Helper methods
+
   
   func dataFilePath() -> String
   {
     return documentsDirectory.URLByAppendingPathComponent(filePath).path!
   }
   
-  func addTestData() {
-  
+  private func addTestData() {
+    
     //Exercises
     
     //jumping jacks
@@ -157,7 +178,7 @@ class DataModel {
     tricepsDips.duration = 30
     
     addExercise(tricepsDips)
-
+    
     //plank
     let plank = Exercise()
     plank.userCreated = false
