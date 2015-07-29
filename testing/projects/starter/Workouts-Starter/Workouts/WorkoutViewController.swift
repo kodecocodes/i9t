@@ -28,7 +28,7 @@ private let workoutIdentifier = "WorkoutCell"
 private let toWorkoutDetailIdentifier = "toWorkoutDetailViewController"
 private let toAddWorkoutIdentifier = "toAddWorkoutViewController"
 
-class WorkoutViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class WorkoutViewController: UIViewController {
   
   @IBOutlet weak var editButton: UIBarButtonItem!
   @IBOutlet weak var tableView: UITableView!
@@ -50,6 +50,32 @@ class WorkoutViewController: UIViewController, UITableViewDataSource, UITableVie
     toggleEditMode(false)
   }
   
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    
+    if segue.identifier == toAddWorkoutIdentifier {
+      let destinationViewController = segue.destinationViewController as! AddWorkoutViewController
+      destinationViewController.dataModel = dataModel
+    } else if segue.identifier == toWorkoutDetailIdentifier {
+      let indexPath = sender as! NSIndexPath
+      let destinationViewController = segue.destinationViewController as! WorkoutDetailViewController
+      destinationViewController.workout = dataModel.workouts[indexPath.row - 1]
+    }
+  }
+  
+  @IBAction func editButtonTapped(sender: UIBarButtonItem) {
+    
+    toggleEditMode(!tableView.editing)
+  }
+  
+  private func toggleEditMode(editing: Bool) {
+    tableView.setEditing(editing, animated: true)
+    editButton.title = editing ? "Done" : "Edit"
+  }
+  
+}
+
+extension WorkoutViewController: UITableViewDataSource {
+  
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return dataModel.workouts.count + 1
   }
@@ -70,17 +96,7 @@ class WorkoutViewController: UIViewController, UITableViewDataSource, UITableVie
     return cell
   }
   
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-  {
-    if indexPath.row == addWorkoutIndex {
-      performSegueWithIdentifier(toAddWorkoutIdentifier, sender: nil)
-    } else {
-      performSegueWithIdentifier(toWorkoutDetailIdentifier, sender: indexPath)
-    }
-  }
-  
-  func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
-  {
+  func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
     if indexPath.row == addWorkoutIndex {
       return false
     } else {
@@ -88,36 +104,22 @@ class WorkoutViewController: UIViewController, UITableViewDataSource, UITableVie
     }
   }
   
-  
-  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
-  {
+  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
       dataModel.workouts.removeAtIndex(indexPath.row - 1)
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    
-    if segue.identifier == toAddWorkoutIdentifier {
-      let destinationViewController = segue.destinationViewController as! AddWorkoutViewController
-      destinationViewController.dataModel = dataModel
-    } else if segue.identifier == toWorkoutDetailIdentifier {
-      let indexPath = sender as! NSIndexPath
-      let destinationViewController = segue.destinationViewController as! WorkoutDetailViewController
-      destinationViewController.workout = dataModel.workouts[indexPath.row - 1]
+}
+
+extension WorkoutViewController: UITableViewDelegate {
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    if indexPath.row == addWorkoutIndex {
+      performSegueWithIdentifier(toAddWorkoutIdentifier, sender: nil)
+    } else {
+      performSegueWithIdentifier(toWorkoutDetailIdentifier, sender: indexPath)
     }
   }
-  
-  @IBAction func editButtonTapped(sender: UIBarButtonItem) {
-    
-    toggleEditMode(!tableView.editing)
-  }
-  
-  private func toggleEditMode(editing: Bool)
-  {
-    tableView.setEditing(editing, animated: true)
-    editButton.title = editing ? "Done" : "Edit"
-  }
-  
 }

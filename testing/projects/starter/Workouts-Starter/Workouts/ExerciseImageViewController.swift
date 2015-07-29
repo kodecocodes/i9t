@@ -33,10 +33,4 @@ class ExerciseImageViewController: UIViewController {
     title = exercise.name
     imageView.image = UIImage(named: exercise.photoFileName)
   }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-  
 }

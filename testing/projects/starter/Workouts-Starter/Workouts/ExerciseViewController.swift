@@ -27,7 +27,7 @@ private let exerciseIdentifier = "ExerciseCell"
 private let addExerciseNewIdentifier = "AddNewExerciseCell"
 private let toDetailSegue = "toExerciseDetailViewController"
 
-class ExerciseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ExerciseViewController: UIViewController {
   
   @IBOutlet weak var editButton: UIBarButtonItem!
   @IBOutlet weak var tableView: UITableView!
@@ -47,38 +47,8 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
     
     toggleEditMode(false)
   }
-  
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return dataModel.exercises.count + 1
-  }
-  
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
-    let cell: UITableViewCell
-    
-    if indexPath.row == addWorkoutIndex {
-      cell = tableView.dequeueReusableCellWithIdentifier(addExerciseNewIdentifier)!
-    } else {
-      let exercise = dataModel.exercises[indexPath.row - 1]
-      let exerciseCell = tableView.dequeueReusableCellWithIdentifier(exerciseIdentifier) as! ExerciseCell
-      exerciseCell.populate(exercise)
-      return exerciseCell
-    }
-    
-    return cell
-  }
-  
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-  {
-    if indexPath.row == addWorkoutIndex {
-      createUserExercise()
-    } else {
-      performSegueWithIdentifier(toDetailSegue, sender: indexPath)
-    }
-  }
-  
-  func createUserExercise()
-  {
+
+  func createUserExercise() {
     let alert = UIAlertController(title: "Add New Exercise",
       message: "Add a new exercise below",
       preferredStyle: UIAlertControllerStyle.Alert)
@@ -133,23 +103,6 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
       completion: nil)
   }
   
-  func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
-  {
-    if indexPath.row == addWorkoutIndex {
-      return false
-    } else {
-      return dataModel.exercises[indexPath.row - 1].canRemove
-    }
-  }
-  
-  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
-  {
-    if editingStyle == .Delete {
-      dataModel.exercises.removeAtIndex(indexPath.row - 1)
-      tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-    }
-  }
-  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     
     if segue.identifier == toDetailSegue {
@@ -168,5 +121,54 @@ class ExerciseViewController: UIViewController, UITableViewDataSource, UITableVi
   {
     tableView.setEditing(editing, animated: true)
     editButton.title = editing ? "Done" : "Edit"
+  }
+}
+
+extension ExerciseViewController: UITableViewDataSource {
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return dataModel.exercises.count + 1
+  }
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+    let cell: UITableViewCell
+    
+    if indexPath.row == addWorkoutIndex {
+      cell = tableView.dequeueReusableCellWithIdentifier(addExerciseNewIdentifier)!
+    } else {
+      let exercise = dataModel.exercises[indexPath.row - 1]
+      let exerciseCell = tableView.dequeueReusableCellWithIdentifier(exerciseIdentifier) as! ExerciseCell
+      exerciseCell.populate(exercise)
+      return exerciseCell
+    }
+    
+    return cell
+  }
+
+  func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    if indexPath.row == addWorkoutIndex {
+      return false
+    } else {
+      return dataModel.exercises[indexPath.row - 1].canRemove
+    }
+  }
+  
+  func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    if editingStyle == .Delete {
+      dataModel.exercises.removeAtIndex(indexPath.row - 1)
+      tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    }
+  }
+}
+
+extension ExerciseViewController: UITableViewDelegate {
+  
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    if indexPath.row == addWorkoutIndex {
+      createUserExercise()
+    } else {
+      performSegueWithIdentifier(toDetailSegue, sender: indexPath)
+    }
   }
 }

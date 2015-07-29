@@ -39,13 +39,52 @@ class AddWorkoutViewController: UIViewController {
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    
-    
-    
   }
   
-  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String?
-  {
+  @IBAction func saveButtonTapped(sender: AnyObject) {
+    
+    let workout = Workout()
+    workout.userCreated = true
+    workout.name = nameTextField.text
+    workout.restInterval = Double(restIntervalTextField.text!)!
+    
+    let seletedIndexPaths = tableView.indexPathsForSelectedRows
+    if let indexPaths = seletedIndexPaths {
+      for indexPath in indexPaths {
+        workout.addExercise(dataModel.exercises[indexPath.row])
+      }
+    }
+    
+    dataModel.addWorkout(workout)
+    dataModel.save()
+    navigationController?.popViewControllerAnimated(true)
+  }
+  
+  // MARK - Helper methods
+  
+  func workoutInfoCellForIndexPath(indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier(infoCellIdentifier) as! AddWorkoutInfoCell
+    cell.selectionStyle = .None
+    
+    if indexPath.row == 0 {
+      cell.infoLabel.text = "Name"
+      cell.infoTextField.placeholder = "Workout name"
+      nameTextField = cell.infoTextField
+    } else {
+      cell.infoLabel.text = "Rest Interval"
+      cell.infoTextField.placeholder = "e.g. 30"
+      cell.infoTextField.keyboardType = .NumberPad
+      restIntervalTextField = cell.infoTextField
+    }
+    
+    return cell
+  }
+  
+}
+
+extension AddWorkoutViewController: UITableViewDataSource {
+  
+  func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     switch (section) {
     case 0:
       return "Workout Info"
@@ -56,8 +95,7 @@ class AddWorkoutViewController: UIViewController {
     }
   }
   
-  func numberOfSectionsInTableView(tableView: UITableView) -> Int
-  {
+  func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 2
   }
   
@@ -85,46 +123,6 @@ class AddWorkoutViewController: UIViewController {
     default:
       cell = tableView.dequeueReusableCellWithIdentifier(exerciseCellIdentifier)!
       print("Add assertion here")
-    }
-    
-    return cell
-  }
-  
-  @IBAction func saveButtonTapped(sender: AnyObject) {
-    
-    let workout = Workout()
-    workout.userCreated = true
-    workout.name = nameTextField.text
-    workout.restInterval = Double(restIntervalTextField.text!)!
-    
-    let seletedIndexPaths = tableView.indexPathsForSelectedRows
-    if let indexPaths = seletedIndexPaths {
-      for indexPath in indexPaths {
-        workout.addExercise(dataModel.exercises[indexPath.row])
-      }
-    }
-    
-    dataModel.addWorkout(workout)
-    dataModel.save()
-    navigationController?.popViewControllerAnimated(true)
-  }
-  
-  // MARK - Helper methods
-  
-  func workoutInfoCellForIndexPath(indexPath: NSIndexPath) -> UITableViewCell
-  {
-    let cell = tableView.dequeueReusableCellWithIdentifier(infoCellIdentifier) as! AddWorkoutInfoCell
-    cell.selectionStyle = .None
-    
-    if indexPath.row == 0 {
-      cell.infoLabel.text = "Name"
-      cell.infoTextField.placeholder = "Workout name"
-      nameTextField = cell.infoTextField
-    } else {
-      cell.infoLabel.text = "Rest Interval"
-      cell.infoTextField.placeholder = "e.g. 30"
-      cell.infoTextField.keyboardType = .NumberPad
-      restIntervalTextField = cell.infoTextField
     }
     
     return cell

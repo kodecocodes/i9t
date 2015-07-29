@@ -58,3 +58,4 @@ class ExerciseDetailViewController: UITableViewController {
     }
   }
 }
+
