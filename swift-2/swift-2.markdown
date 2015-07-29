@@ -60,7 +60,7 @@ The above snippet repeats the line `jamJarBeer.sip()` until `jamJarBeer.isEmpty`
 
 ### `guard`
 
-Often times it's necessary to do pre-condition checks in your routines to ensure proper state or that valid arguments were passed in. The new `guard` control flow is the perfect tool for doing these checks. Consider the `Beer().sip()` method from above. What happens when you sip an empty beer? What does that even mean? (It probably means you've had too many _or_ need a refill.) Perhaps it would make sense to verify that there is beer available for sipping!
+Pre-condition checks are frequently required for proper state management, or to ensure that valid arguments were passed. The new `guard` control flow is the perfect tool for doing these checks. Consider the `Beer().sip()` method above. What happens when you sip an empty beer? What does that even mean? (It probably means you've had too many _or_ need a refill. :]) Perhaps it makes sense to verify that there is beer available for sipping, like so:
 
 ```
 struct Beer {
@@ -80,9 +80,9 @@ struct Beer {
 }
 ```
 
-Notice the line commented with "1" in the code above. Here a `guard` is used to verify that the amount of beer left is greater than 0, if it is not, then the code in the trailing `else` block is executed. Which in this case instructs you to order another brew! The method then returns immediately so that you don't end up in some weird state where you have a negative amount of beer. Beer debt is not a good thing.
+The `\\1` comment indicates the `guard` that verifies the amount of beer left is greater than 0 and if not, executes the code in the trailing `else` block, which instructs you to order another brew! You then return immediately so you don't end up in some weird state with a negative amount of beer. Beer debt is not a good thing.
 
-The `guard` control is defined as `guard (condition) else { // code to execute if condition is false }`. Now you might be thinking, "Why not just use an if statement?". Take a look at how you'd have to write that logic.
+The `guard` control is defined as `guard (condition) else { // code to execute if condition is false }`. You _could_ use an `if` statement instead, but the logic is not quite as straightforward:
 
 ```
 if beer.isEmpty {
@@ -91,11 +91,11 @@ if beer.isEmpty {
 }
 ```
 
-Pretty simple... But, you had to flip the logic to check that the beer is empty rather than checking that the beer isn't empty, which is of more interest because you'll look silly sipping empty beers. Six of one, half a dozen of the other... right?
+The snippet above flips the logic and checks that the beer is empty, instead of checking that the beer _isn't_ empty. But isn't this just personal coding preference?
 
-This really comes down to expressiveness which is a goal of the Swift language. There's nothing wrong with checking the positive vs negative condition, but what `guard` clearly states to anyone reading this code is that you're performing a pre-condition check. Using a plain old `if` statement does not deliberately convey that information.
+Not exactly; it comes down to _expressiveness_, which is a primary goal of Swift. Functionally, they're equivalent, but `guard` clearly states to anyone reading your code that you're performing a pre-condition check. Using a plain old `if` statement does not deliberately convey that information.
 
-Now, before you write-off `guard` as _just_ an enhancement in expressiveness, take a look at its true power, which is working with Optionals.
+Now, before you write-off `guard` as _just_ an enhancement in expressiveness, take a look at its true power: working with Optionals.
 
 Side story: In the world of bartending it is very important to sell more beers. A bartender sees a beer nearing empty and they locate the owner to offer another. A harsh reality though, is that beer owners may abandon a half-drank beer (known as a wounded soldier), hence the reason the `owner` property is Optional on `Beer`.
 
