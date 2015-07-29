@@ -24,6 +24,10 @@ import UIKit
 
 class AddWorkoutExerciseCell: UITableViewCell {
 
+  func populate(exercise: Exercise) {
+    textLabel!.text = exercise.name
+  }
+  
   override func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     

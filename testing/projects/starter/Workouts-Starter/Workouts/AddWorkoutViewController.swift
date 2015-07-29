@@ -119,7 +119,7 @@ extension AddWorkoutViewController: UITableViewDataSource {
       let exercise =  dataModel.exercises[indexPath.row]
       cell = tableView.dequeueReusableCellWithIdentifier(exerciseCellIdentifier)!
       let exerciseCell = cell as! AddWorkoutExerciseCell
-      exerciseCell.textLabel!.text = exercise.name
+      exerciseCell.populate(exercise)
     default:
       assertionFailure("Unhandled cell index path")
       cell = tableView.dequeueReusableCellWithIdentifier(exerciseCellIdentifier)!

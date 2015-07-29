@@ -24,4 +24,9 @@ import UIKit
 
 class WorkoutCell: UITableViewCell {
 
+  func populate(workout: Workout)
+  {
+    textLabel!.text = workout.name
+    detailTextLabel!.text = "\(workout.exercises.count) exercises"
+  }
 }

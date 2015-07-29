@@ -94,8 +94,8 @@ extension WorkoutViewController: UITableViewDataSource {
     } else {
       let workout = dataModel.workouts[indexPath.row - 1]
       cell = tableView.dequeueReusableCellWithIdentifier(workoutIdentifier)!
-      cell.textLabel!.text = workout.name
-      cell.detailTextLabel!.text = "\(workout.exercises.count) exercises"
+      let workoutCell = cell as! WorkoutCell
+      workoutCell.populate(workout)
     }
     
     return cell
