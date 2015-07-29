@@ -40,7 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		
 		UITabBar.appearance().tintColor = BlueColor
 		
-		
 		return true
 	}
 	
