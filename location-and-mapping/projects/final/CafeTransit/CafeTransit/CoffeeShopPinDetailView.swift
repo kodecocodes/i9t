@@ -47,20 +47,18 @@ class CoffeeShopPinDetailView : UIView {
 		descriptionLabel.text = coffeeShop.details
 		priceGuide.text = coffeeShop.priceGuide.description
 		
-		let dateFormatter = CoffeeShopPinDetailView.dateFormatter
-		dateFormatter.dateFormat = "h:mm a"
-		let startTime = dateFormatter.stringFromDate(coffeeShop.startTime!)
-		let endTime = dateFormatter.stringFromDate(coffeeShop.endTime!)
+		CoffeeShopPinDetailView.dateFormatter.dateFormat = "h:mm a"
+		let startTime = CoffeeShopPinDetailView.dateFormatter.stringFromDate(coffeeShop.startTime!)
+		let endTime = CoffeeShopPinDetailView.dateFormatter.stringFromDate(coffeeShop.endTime!)
 		hoursLabel.text = "Time: \(startTime) - \(endTime)"
 	}
 	
 	func updateEstimatedTimeLabels(response: MKETAResponse?) {
 		if let response = response {
-			let dateFormatter = CoffeeShopPinDetailView.dateFormatter
-			dateFormatter.dateFormat = "EEE MMM dd h:mm a"
+			CoffeeShopPinDetailView.dateFormatter.dateFormat = "EEE MMM dd h:mm a"
 			
-			let arrivalTimeString = dateFormatter.stringFromDate(response.expectedArrivalDate)
-			let departureTimeString = dateFormatter.stringFromDate(response.expectedDepartureDate)
+			let arrivalTimeString = CoffeeShopPinDetailView.dateFormatter.stringFromDate(response.expectedArrivalDate)
+			let departureTimeString = CoffeeShopPinDetailView.dateFormatter.stringFromDate(response.expectedDepartureDate)
 			
 			let departureTime = String(format: "Depart at: %@", departureTimeString)
 			let arrivalTime = String(format: "Arrive at: %@", arrivalTimeString)
