@@ -97,9 +97,9 @@ Not exactly; it comes down to _expressiveness_, which is a primary goal of Swift
 
 Now, before you write-off `guard` as _just_ an enhancement in expressiveness, take a look at its true power: working with Optionals.
 
-Side story: In the world of bartending it is very important to sell more beers. A bartender sees a beer nearing empty and they locate the owner to offer another. A harsh reality though, is that beer owners may abandon a half-drank beer (known as a wounded soldier), hence the reason the `owner` property is Optional on `Beer`.
+Consider the world of bartending: success is measured in the number of beers you sell. As a beer nears empty, the bartender tries to locate the owner so they can offer another. A harsh reality though, is that beer owners may abandon a half-drank beer (known as a wounded soldier), hence the reason the `owner` property is Optional on `Beer`.
 
-So how should a bartender behave?
+Here's a good model for a successful bartender:
 
 ```
 struct Bartender {
@@ -114,19 +114,19 @@ struct Bartender {
 }
 ```
 
-Notice the last line of the method where `owner` is accessed as a non-optional value. Since `guard` was used as `guard let owner = beer.owner` the unwrapped optional value becomes available in the same scope that `guard` was called. If the value of `beer.owner` were `nil` then the `else` block would be executed.
+Note that you access `owner` as a non-optional value in the last line above. Since you used `guard` in `guard let owner = beer.owner`, the unwrapped optional value becomes available in the same scope that `guard` was called. If the value of `beer.owner` were `nil` then the `else` block would execute.
 
-This feature allows you to do your optional binding upfront in a very explicit manner. After writing the `guard` conditions you can continue to define your method as if you were working inside of an `if let` block, but without the extra indention! This makes writing code in books _that_ much easier ;]
+This feature lets you perform your optional binding upfront in a very explicit manner. After writing the `guard` conditions, you can continue your implementation as you would in an `if let` block, but without the extra indention.
 
 ## Error handling
 
-When Swift was first introduced you would often find questions on Stack Overflow about error handling. A lot of people were looking for exceptions that are found in many popular languages. Instead Apple opted to stick to the `NSError` approach that Cocoa has had since the beginning. This was a better solution than not shipping Swift until they finalized error handling.
+The early days of Swift led to many questions on Stack Overflow about error handling, and in particular, _exceptions_ as found in other popular languages. Apple instead opted to stick to the `NSError` approach Cocoa has always used and release Swift with the promise of advanced error handling in the next version.
 
-The good news is that Swift 2.0 now has a first-class error handling model. It's now possible to define that a method or function `throws` an error. When you declare this, you are letting the caller/consumer know that an error may occur. And what's even better, the compiler enforces that extra code is written to handle the error or explicitly ignore it.
+Swift 2.0 has a first-class error handling model; you can declare that a method or function `throws` an error. This lets the caller/consumer know an error may occur. The compiler also requires that you either write the code to handle the error, or to explicitly ignore it.
 
 All of the code for this section is included on the **Errors** page of the chapter's Xcode Playground.
 
-Consider the following protocol.
+Consider the following protocol:
 
 ```
 protocol JSONParsable {
@@ -134,11 +134,11 @@ protocol JSONParsable {
 }
 ```
 
-This protocol defines a single static method that takes a JSON dictionary and returns an instance of `Self` (where `Self` is the type that conforms to this protocol). The method also declares that it can throw an error.
+This protocol defines a single static method that takes a JSON dictionary and returns an instance of `Self`, where `Self` is the type that conforms to this protocol. The method also declares that it can throw an error.
 
-Now you might be asking yourself, what is a Swift error? Is it an `NSError`? The answer to that question is, yes and no. A pure Swift error is represented as an `enum` that conforms to the protocol `ErrorType`. As for the "yes" part of the answer... Apple Engineers have graciously made `NSError` conform to the `ErrorType` protocol which makes this pattern interoperate very well between Swift and Objective-C. For more information on interoperability the Swift and Objective-C Interoperability [(http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=401) session should not be missed!
+So, what exactly _is_ a Swift error? Is it an `NSError`? No...and yes. :] A pure Swift error is represented as an `enum` that conforms to the protocol `ErrorType`. However, Apple Engineers conveniently made `NSError` conform to the `ErrorType` protocol, which means this pattern works quite well between Swift and Objective-C. If you're interested to learn more about interoperability, the Swift and Objective-C Interoperability [(http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=401) session are a must-see!
 
-It's time to create your own error type.
+You can create your own error type as below:
 
 ```
 enum ParseError: ErrorType {
@@ -146,9 +146,9 @@ enum ParseError: ErrorType {
 }
 ```
 
-Pretty easy, right? This error has a single case and includes an associative value of the type `String` as a message. Now when you throw this error type you can include some extra information about what is missing. Being that enums are used when creating `ErrorType`s you can include any kind of associative values that you deem necessary for your use case.
+Pretty easy, right? This error has a single case and includes an associative value of the type `String` as a message. When you throw this error type you can include extra information describing the issue. Since enums are used when creating `ErrorType`s you can include any kind of associative values that you deem necessary for your use case.
 
-Take a look at this `struct` that implements `JSONParsable` and throws some errors.
+Take a look at the following `struct` that implements `JSONParsable` and throws some errors:
 
 ```
 struct Person: JSONParsable {
@@ -171,11 +171,13 @@ struct Person: JSONParsable {
 }
 ```
 
-Pay close attention to the commented lines, 1 and 2. This is where the errors are being thrown. If either `guard` statement fails to validate, an error is thrown and the method returns without proceeding further. Also, notice how the use of `guard` makes it very clear as to what is happening due to the expressiveness that it provides.
+The errors are thrown in the commented lines `//1` and `//2`. If either `guard` statement fails to validate, the method throws an error and returns immediately. The expressiveness of the `guard` statement makes it very clear what you're asserting at each stage.
 
-When calling a method that `throws` it is required by the compiler that you precede the call to that method with **`try`**. In order to capture the thrown errors you must wrap your "trying" call in a `do {}` block followed by `catch {}` blocks. You can choose to catch specific types of errors and respond accordingly and/or provide a "catch-all" if you're not certain of the types of errors that can be thrown.
+When calling a method that `throws`, the compiler requires that you preface the call to that method with **`try`**. In order to capture any thrown errors, you must wrap your "trying" call in a `do {}` block followed by `catch {}` blocks. You can choose to catch specific types of errors and respond appropriately to each error type, or simply provide a "catch-all" if you don't know what errors you might receive.
 
-> **Note**: At the time of this writing, Apple has not provided a way to infer the exact types of errors that can be thrown from a method or function. There is also no way for an API writer to declare what type of error can be thrown. It is a good practice to include this information in your method's documentation.
+> **Note**: At the time of this writing, Apple hasn't provided a way to infer the exact types of errors that can be thrown from a method or function. There is also no way for an API writer to declare what types of errors will be thrown. Therefore, it's good practice to include this information in your method's documentation.
+
+Here's the do/try/catch block that checks for the error type you added above:
 
 ```
 do {
@@ -187,40 +189,38 @@ do {
 }
 ```
 
-In a situation where you can guarantee that a throwing call will never fail or when catching a thrown error does not provide any benefit (such as a critical situation where the app cannot continue operating); you can bypass the `do/catch` requirement. To do so, you simply type an `!` after `try`.
+When you can guarantee a throwing call will _never_ fail, or that catching a thrown error doesn't provide any benefit, such as a critical failure point where the app can't continue to operate, it is possible to bypass the `do/catch` requirement: simply type an `!` after `try`.
 
-Find and uncomment the following line in the playground. You should notice a runtime error appear.
+Find and uncomment the following line in the playground:
 
 ```
 let p1 = try! Person.parse(["foo": "bar"])
 ```
 
-Notice that the following works fine without producing an error.
+You'll notice a runtime error appears. Note, however, that the following works just fine without producing an error:
 
 ```
 let p2 = try! Person.parse(["first_name": "Ray",
   "last_name": "Wenderlich"])
 ```
 
-Excellent! You now know the basics of using Swift 2.0 errors.
+Now that you understand the basics of handling Swift 2.0 errors, you can focus on a specific problem to solve, rather than work with contrived examples.
 
 ## The Project
 
-Now it's time to focus on a specific problem to solve rather than contrived examples. For this next section of the chapter you will be solving a String validation problem using some of the features discussed above as well as more Swift 2.0 features. The desired outcome is to be able to write string validators that given an input string, validate the string conforms to any number of rules. You will ultimately be creating a password requirements validator that ensures a user has chosen a complex password.
-
-Switch to the next page in the chapter's playground, **String Validation**.
+In this section, you'll work at solving a String validation problem using some of the features discussed above along with some additional Swift 2.0 features. You're trying to write string validators that validate whether the input string conforms to any number of rules. You'll use this validator to create a password complexity checker.
 
 ### String Validation Error
 
-Now that you're familiar with defining custom `ErrorType`s it is time to make use of aa pretty robust one for possible validation errors.
+Switch to the next page in the chapter's playground, **String Validation**. Now that you're familiar with defining custom `ErrorType`s, it's time to make use of robust error type for your potentia. validation errors.
 
-Take a look at the `ErrorType` defined at the top of the playground's "String Validation" page right below `import UIKit`. This `ErrorType` has a number of cases with varying associative values that are used to help describe the error.
+Take a look at the `ErrorType` defined at the top of the playground's "String Validation" page, right below `import UIKit`. This `ErrorType` has a number of cases with varying associative values that help describe the error.
 
-After the definition of the cases you will see a computed variable `description`, this is here to conform to the `CustomStringConvertible` protocol and to allow displaying the error in a human readable format that can then be actioned on.
+After the spot where you define the cases, you'll see a computed variable `description`. This conforms to the `CustomStringConvertible` protocol and lets you display the error in a human-readable format that you can take action on.
 
-With the error types defined it is time to start throwing them! First, start with a protocol that defines a rule. You are going to be using protocol oriented programming patterns to make this solution robust and extendable.
+Now that the error types defined, it's time to start throwing them around! :] You'll first start with a protocol that defines a rule. You are going to be using protocol oriented programming patterns to make this solution robust and extendable.
 
-Add the following protocol definition to the playground.
+Add the following protocol definition to the playground:
 
 ```
 protocol StringValidationRule {
@@ -229,11 +229,11 @@ protocol StringValidationRule {
 }
 ```
 
-This protocol requires a method that returns a `Bool` regarding the validity of a given string and can throw an error. It also requires that you provide the type of error that can be thrown
+This protocol requires three things: a method that returns a `Bool` denoting the validity of a given string and also throws an error, and that you provide the type of error that can be thrown.
 
-> **Note**: The `errorType` property is not a Swift requirement. It's here so that you can be clear about the types of error that might be returned.
+> **Note:** The `errorType` property is not a Swift requirement. It's here so that you can be clear about the types of error that might be returned.
 
-To use multiple rules together, define a `StringValidator` protocol.
+To use multiple rules together, define a `StringValidator` protocol like so:
 
 ```
 protocol StringValidator {
@@ -243,13 +243,13 @@ protocol StringValidator {
 }
 ```
 
-This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is a `Bool` that designates if the string is valid or not, the second is an array of `StringValidationError`s. In this case you are not using `throws`. Instead, you're returning an array of error types as each rule can throw its own error. In the case of string validation it's a better user experience to let the user know of every rule they've broken so that they can resolve each one in a single pass.
+This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is a `Bool` that designates whether the string is valid; the second is an array of `StringValidationError`s. In this case you're not using `throws`; instead, you're returning an array of error types since each rule can throw its own error. When it comes to string validation and your user experience, it's best to let the user know of every rule they've broken so that they can resolve all of them in a single pass.
 
-Now take a step back and think of how you might implement a `StringValidator`'s `validate(string:)` method. It will probably be that you iterate over each item in `validationRules`, collect any errors, and determine the status based on whether or not any errors have occurred. This logic will likely be the same for any `StringValidator`.
+Think how you might implement a `StringValidator`'s `validate(string:)` method. You'd likely iterate over each item in `validationRules`, collect any errors, and determine the status based on whether any errors occurred. This logic will likely be the same for any `StringValidator` you need.
 
-Surely you don't want to copy/paste that implementation into ALL of your `StringValidator`s, right? Well, good news, Swift 2.0 introduces Protocol Extensions that allow you to define default implementations for all types that specify conformance to a protocol.
+Surely you don't want to copy and paste that implementation into ALL of your `StringValidator`s! The good news is that Swift 2.0 introduces **Protocol Extensions** that let you define default implementations for all types that specify conformance to a protocol.
 
-Extend the `StringValidator` protocol to define a default implementation for `validate(string:)`. Add the following code to the playground:
+Next, you'll extend the `StringValidator` protocol to define a default implementation for `validate(string:)`. Add the following code to the playground:
 
 ```
 extension StringValidator {                          // 1
@@ -271,21 +271,22 @@ extension StringValidator {                          // 1
 }
 ```
 
-This method's process is broken down by commented line number below:
+Here's what you do in each commented section above:
 
-1. Create an extension for `StringValidator`
-2. Define the default implementation for `func validate(string: String) -> (valid: Bool,
-  errors: [StringValidationError])`
-3. Create a mutable array to hold any errors that might be thrown
-4. Iterate over each of the the validator's rules
-5. Specify a `do` block as you will be catching errors if they are thrown
-6. Execute `validate(string:)` for each rule, note that you must precede the call with `try` as this method can throw
-7. Catch any errors of the type `StringValidationError`
-8. Capture the error in your `errors` array
-9. If some error other than `StringValidationError` is thrown, crash with a message including which error occurred. Like a switch statement, your error catching has to be exhaustive, or you'll get a compiler error.
-10. Return the resultant tuple. If there are no errors validation passed, return the array of errors even if empty.
+1. Create an extension for `StringValidator`.
+2. Define the default implementation for `func validate(string: String) -> (valid: Bool, errors: [StringValidationError])`.
+3. Create a mutable array to hold any errors that might be thrown.
+4. Iterate over each of the the validator's rules.
+5. Specify a `do` block since you'll catch any thrown errors.
+6. Execute `validate(string:)` for each rule; note that you must precede the call with `try` as this method is throwable.
+7. Catch any errors of the type `StringValidationError`.
+8. Capture the error in your `errors` array.
+9. If any error other than `StringValidationError` is thrown, crash with a message including which error occurred. Just as in a `switch` statement, your error handling must beexhaustive, or you'll get a compiler error.
+10. Return the resultant tuple. If there are no errors validation passed, return the array of errors even if it's empty.
 
-Excellent! Now any and every `StringValidator` that you implement will have this method by default so that you do not need to copy/paste it in everywhere. Time to implement your very first `StringValidationRule`, starting with the first error type `.MustStartWith`. Add the following code to the playground:
+Now each and every `StringValidator` you implement will have this method by default so you can avoid "copy and paste" coding. :]
+
+Time to implement your very first `StringValidationRule`, starting with the first error type `.MustStartWith`. Add the following code to your playground:
 
 ```
 struct StartsWithCharacterStringValidationRule: StringValidationRule {
@@ -306,12 +307,12 @@ struct StartsWithCharacterStringValidationRule: StringValidationRule {
 }
 ```
 
-Breaking this method down...
+Breaking this method down, here's what you find:
 
-1. The character set to describe what the string can start with
-2. A description of the character set, if you used a set of numbers you might define "number" for this
-3. Type of error that this rule can throw
-4. Throw the error if validation fails
+1. This defines the allowed character set for the start of the string.
+2. This is a description of the character set; if you used a set of numbers you might define this as "number".
+3. This is the type of error  this rule can throw.
+4. Finally, if the validation fails you throw an error.
 
 Time to take this new rule for a spin! Add the following code to the playground:
 
@@ -329,11 +330,13 @@ do {
 }
 ```
 
-You should see the following output in your playground. You can get the result to display inline with your code by pressing the **Show Result** circle button to the right of the output in the playground's timeline.
+You should see the following output in your playground.
 
 ![bordered height=16%](./images/starts_with_rule_result.png)
 
-Great work! You've written your first validation rule, now create one for "Must End With", by adding the following to the playground:
+> **Note:** You can display the result inline with your code by pressing the **Show Result** circle button to the right of the output in the playground's timeline.
+
+Great work! You've written your first validation rule; now you can create one for "Must End With". Add the following to the playground:
 
 ```
 struct EndsWithCharacterStringValidationRule: StringValidationRule {
@@ -354,7 +357,9 @@ struct EndsWithCharacterStringValidationRule: StringValidationRule {
 }
 ```
 
-This logic is very similar. Now that you have two different rules, you can create your own `StringValidator`. Create a validator that verifies a string both starts and ends with characters in specific character sets by adding the following code:
+The above logic is quite similar to the first validator; it simply checks the ending character against your supplied character set.
+
+Now that you have two different rules, you can create your _own_ `StringValidator`. Create a validator that verifies a string both starts and ends with characters belonging to specific character sets by adding the following code:
 
 ```
 struct StartsAndEndsWithStringValidator: StringValidator {
@@ -376,11 +381,11 @@ struct StartsAndEndsWithStringValidator: StringValidator {
 }
 ```
 
-Since you wrote a protocol extension for `StringValidator` that provides a default implementation of `func validate(string: String) -> (valid: Bool, errors: [StringValidationError])` the definition of this implementation is very basic.
+Since you wrote a protocol extension for `StringValidator` that provides a default implementation of `func validate(string: String) -> (valid: Bool, errors: [StringValidationError])` this implementation becomes quite straightforward:
 
-1. A character set for the starts with rule
-2. A character set for the ends with rule
-3. Create an array with both rules for `validationRules` which the `StringValidator` protocol requires
+1. This is the character set for the "starts with" rule.
+2. This is the character set for the "ends with" rule.
+3. Create an array with both rules for `validationRules` required by the `StringValidator` protocol.
 
 Now give your new validator a try! Add the following to the playground:
 
@@ -398,13 +403,13 @@ startsAndEndsWithStringValidator.validate("foo").errors
 startsAndEndsWithStringValidator.validate("foo1").valid
 ```
 
-You should see the following result.
+You should see the following result:
 
 ![bordered height=30%](/images/starts_and_ends_with_validator_result.png)
 
 ### Password Requirement Validation
 
-Now it is time to put the StringValidator pattern that you've created to real-world use. Often times when signing up for an account you are required to meet a number of rules to ensure that your password is complex. As the software engineer tasked with creating the sign-up form for your company's app you have been told that passwords must meet the following requirements.
+It's time to put your StringValidator pattern to work. You're the software engineer tasked with creating the sign-up form for your company's app. The design specifies that passwords must meet the following requirements:
 
 - Must be at least 8 characters long
 - Must contain at least 1 uppercase letter
@@ -412,19 +417,19 @@ Now it is time to put the StringValidator pattern that you've created to real-wo
 - Must contain at least 1 number
 - Must contain at least 1 of the following "\!\@\#\$\%\^\&\*\(\)\_\-\+\<\>\?\/\\\[\]\{\}"
 
-Before coming up with the protocol oriented solution that you just built, you might have looked at this list of requirements and groaned a little. But, groan no more! You can take the pattern that you've built and quickly create a `StringValidator` that contains the rules for this password requirement.
+If you hadn't worked through the protocol-oriented solution above, you might have looked at this list of requirements and groaned a little. But instead you can take the pattern you've built and quickly create a `StringValidator` that contains the rules for this password requirement.
 
-Start by switching to the **Password Validation** page in the chapter's playground. For brevity purposes this playground page tucks away all of the previous work you did on the String Validation page as a source file. That source file also contains two new rules that you will be using. You can view the code by clicking **Password Validation** > **Sources** > **StringValiation.swift** in the jump bar.
-
-The first new rule is `LengthStringValidationRule` with the following features:
+Start by switching to the **Password Validation** page in the chapter's playground. For brevity, this playground page tucks away all of the previous work as a source file, which also contains two new rules you'll use. Click **Password Validation** > **Sources** > **StringValiation.swift** in the jump bar to view the code in that file.
 
 #### `LengthStringValidationRule`
 
-A rule that validates a string is a specified length, this rule has two Types:
+The first new rule is `LengthStringValidationRule` that has the following features:
+
+- Validates that a string is a specified length, with the following two types:
 - `Min(length: Int)`: must be at least `length` long
 - `Max(length: Int)`: cannot exceed `length`
 
-Both types can be combined in a `StringValidator` to ensure the String is between a specific range in length.
+Both types can be combined in a `StringValidator` to ensure the String is between a specific range in length. Here's the rule implementation:
 
 ```
 public struct LengthStringValidationRule : StringValidationRule {
@@ -439,15 +444,17 @@ public struct LengthStringValidationRule : StringValidationRule {
 }
 ```
 
-The second rule is `ContainsCharacterStringValidationRule`.
-
 #### `ContainsCharacterStringValidationRule`
 
-A rule that validates a string contains specific character(s). There are multiple Types available:
-- `MustContain`: the string must contain a character in the provided set
-- `CannotContain`: the string cannot contain a character in the provided set
-- `OnlyContain`: the string can only contain characters in the provided set
-- `ContainAtLeast(count: Int)`: the string must contain at least `count` characters in the provided set
+The second rule is `ContainsCharacterStringValidationRule`, with the following requirements:
+
+- Validates that a string contains specific character(s) with the following types:
+- `MustContain`: the string must contain a character in the provided set.
+- `CannotContain`: the string cannot contain a character in the provided set.
+- `OnlyContain`: the string can only contain characters in the provided set.
+- `ContainAtLeast(count: Int)`: the string must contain at least `count` characters in the provided set.
+
+Here's the implementation:
 
 ```
 public struct ContainsCharacterStringValidationRule : StringValidationRule {
@@ -468,7 +475,7 @@ public struct ContainsCharacterStringValidationRule : StringValidationRule {
 }
 ```
 
-With these two new rules in your back pocket you can quickly implement the password requirement validator. In the **Password Validation** page in the playground, add the following:
+With these two new rules in your back pocket you can quickly implement the password requirement validator. Add the following to the **Password Validation** page in the playground:
 
 ```
 struct PasswordRequirementStringValidator: StringValidator {
@@ -503,6 +510,8 @@ struct PasswordRequirementStringValidator: StringValidator {
 }
 ```
 
+[TODO: FPE: Do we require a basic code explanation here?]
+
 Now, try it out! Add the following to the playground:
 
 ```
@@ -515,21 +524,23 @@ You should see the following result:
 
 ![bordered height=25%](/images/password_validator_result.png)
 
-Great work! You've been able to use protocol oriented programming with Swift 2.0 features to implement a solution to a real-world problem.
+Great work - you've used protocol oriented programming with Swift 2.0 features to implement a solution to a real-world non-trivial problem.
 
 ## Additional Things
 
-The previous sections covered a number of new features in Swift 2.0, but there are even more (is this starting to sound like an infomercial?). For the rest of this chapter you will be experimenting further with some of the previously mentioned features and more new ones. The examples will not be as concrete as the string validation problem, but hopefully still interesting!
+The previous sections covered a number of new features in Swift 2.0, but wait - there's more! (Is it just me, or is this starting to sound like an infomercial? :])
+
+The remainder of this chapter has you experimenting with some of the previously mentioned features and introduces you to some new features. The examples won't be as concrete as the string validation problem, but hopefully still interesting nonetheless!
 
 ### Going further with Extensions
 
-One other amazing thing that you can do with Extensions is provide functionality with generic type parameters. This means that you can provide a method on Arrays that contain a specific type. You can even do this with protocol extensions.
+One other amazing thing about Extensions is that you can provide functionality with generic type parameters; this means that you can provide a method on Arrays that contain a specific type. You can even do this with protocol extensions.
 
-Say that you wanted to make a method that shuffles an array of names to determine the order in which players in a game will take turns. Seems easy enough, right? Take an array of names, mix it up and return it. But what if you later find that you also want to shuffle an array of cards for the game? Now you've got to either reproduce that shuffle logic for an array of cards, or create some kind of generic method that can shuffle both cards and names. There's got to be a better way, right?
+For example, say that you wanted to create a method that shuffles an array of names to determine the order of players in a game. Seems easy enough, right? You simplly take an array of names, mix it up and return it. Done and done. But what if you later discover a need to shuffle an array of cards for the same game? Now you have to either reproduce that shuffle logic for an array of cards, or create some kind of generic method that can shuffle both cards and names. There's got to be a better way, right?
 
-Right! How about creating an extension on the `MutableCollectionType` protocol where conformers of the protocol have an Index (you need to use ordered collections if you want to retain sort order).
+How about creating an extension on the `MutableCollectionType` protocol? Conformers of the protocol must have an Index since you need to use ordered collections to retain the sort order.
 
-Type the following into the **Additional Things** page in the chapter's playground.
+Add the following into the **Additional Things** page in the chapter's playground:
 
 ```
 extension MutableCollectionType where Self.Index == Int {
@@ -543,18 +554,18 @@ extension MutableCollectionType where Self.Index == Int {
 }
 ```
 
-Next create an array of people and invoke your new method. Add the following code:
+Next, you need to create an array of people and invoke your new method. Add the following code:
 
 ```
 var people = ["Chris", "Ray", "Sam", "Jake", "Charlie"]
 people.shuffleInPlace()
 ```
 
-You should see that the `people` array has been shuffled like the following.
+You should see that the `people` array has been shuffled like so:
 
 ![bordered height=20%](/images/shuffle_result.png)
 
-If your results are not shuffled, verify that you typed the algorithm correctly or go buy a lottery ticket because it shuffled them into the same order that was received! You can reshuffle to see different results by pointing to **Editor/Execute Playground**.
+If your results aren't shuffled, verify that you typed the algorithm correctly or go buy a lottery ticket because it shuffled them into the same order that was received! You can reshuffle to see different results by pointing to **Editor/Execute Playground**.
 
 > **Note:** Extending functionality to generic type parameters is only available to classes and protocols. You will need to create an intermediate protocol to achieve the same with structs.
 
