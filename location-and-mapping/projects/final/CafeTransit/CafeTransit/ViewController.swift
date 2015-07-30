@@ -24,9 +24,9 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController {
-
-    //Make sure the user set's up custom location to be in San Francisco.
-    
+	
+	//Make sure the user set's up custom location to be in San Francisco.
+	
 	@IBOutlet var mapView: MKMapView!
 	
 	let locationManager = CLLocationManager()
@@ -34,18 +34,18 @@ class ViewController: UIViewController {
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		
 		customizeMap()
 		setupMapData()
 		
 		locationManager.delegate = self
 		locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
 	}
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        checkLocationAuthorizationStatus()
-    }
+	
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+		checkLocationAuthorizationStatus()
+	}
 	
 	//MARK: Setup
 	func customizeMap() {
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
 		
 		//For Tutorial Purposes, only focusing on San Francisco for now.
 		let sanFrancisco = CLLocationCoordinate2D(latitude: 37.7833, longitude: -122.4167)
-		centreMap(mapView, atPosition: sanFrancisco)
+		centerMap(mapView, atPosition: sanFrancisco)
 	}
 	
 	func setupMapData() {
@@ -67,12 +67,12 @@ class ViewController: UIViewController {
 		}
 		
 		for coffeeshop in coffeeShops {
-            let annotation = CoffeeShopPin(coffeeshop: coffeeshop)
-            mapView.addAnnotation(annotation)
+			let annotation = CoffeeShopPin(coffeeshop: coffeeshop)
+			mapView.addAnnotation(annotation)
 		}
 	}
 	
-	private func centreMap(map: MKMapView?, atPosition position: CLLocationCoordinate2D?) {
+	private func centerMap(map: MKMapView?, atPosition position: CLLocationCoordinate2D?) {
 		guard let map = map,
 			let position = position else {
 				return
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
 	func checkLocationAuthorizationStatus() {
 		if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
 			mapView.showsUserLocation = true
-            locationManager.requestLocation()
+			locationManager.requestLocation()
 			
 		} else {
 			locationManager.requestWhenInUseAuthorization()
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
 
 // MARK: - CLLocationManagerDelegate
 extension ViewController: CLLocationManagerDelegate {
-
+	
 	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 		if let location = locations.first {
 			print("Current location: \(location)")
@@ -123,7 +123,7 @@ extension ViewController: MKMapViewDelegate {
 			view.canShowCallout = true
 			view.pinTintColor = UIColor.redColor()
 			let detail = UIView.loadFromNibNamed("CoffeeShopPinDetailView") as! CoffeeShopPinDetailView
-            detail.updateDetailView(annotation.coffeeshop!)
+			detail.updateDetailView(annotation.coffeeshop!)
 			view.detailCalloutAccessoryView = detail
 			return view
 		}
@@ -133,13 +133,13 @@ extension ViewController: MKMapViewDelegate {
 		view.pinTintColor = UIColor.redColor()
 		return view
 	}
-    
-    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-        if let detail = view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
-            if let coordinate = locationManager.location?.coordinate {
-                detail.setTransitEstimatedTimes(coordinate)
-            }
-        }
-    }
+	
+	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+		if let detail = view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
+			if let coordinate = locationManager.location?.coordinate {
+				detail.setTransitEstimatedTimes(coordinate)
+			}
+		}
+	}
 }
 

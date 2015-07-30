@@ -24,75 +24,74 @@ import UIKit
 import CoreLocation
 
 enum PriceGuide : Int {
-    case Unknown = 0
-    case Low = 1
-    case Medium = 2
-    case High = 3
+	case Unknown = 0
+	case Low = 1
+	case Medium = 2
+	case High = 3
 }
 
 extension PriceGuide : CustomStringConvertible {
-    var description : String {
-        switch self {
-        case .Unknown:
-            return "?"
-        case .Low:
-            return "💰"
-        case .Medium:
-            return "💰💰"
-        case .High:
-            return "💰💰💰"
-        }
-    }
+	var description : String {
+		switch self {
+		case .Unknown:
+			return "?"
+		case .Low:
+			return "💰"
+		case .Medium:
+			return "💰💰"
+		case .High:
+			return "💰💰💰"
+		}
+	}
 }
 
 enum CoffeeRating {
-    case Unknown
-    case Rating(Int)
+	case Unknown
+	case Rating(Int)
 }
 
 extension CoffeeRating {
-    init?(value: Int) {
-        if value > 0 && value <= 5 {
-            self = .Rating(value)
-        } else {
-            self = .Unknown
-        }
-    }
+	init?(value: Int) {
+		if value > 0 && value <= 5 {
+			self = .Rating(value)
+		} else {
+			self = .Unknown
+		}
+	}
 }
 
 extension CoffeeRating : CustomStringConvertible {
-    var description : String {
-        switch self {
-        case .Unknown:
-            return ""
-        case .Rating(let value):
-            var rating = ""
-            for var index = 0; index < value; ++index {
-                rating += "★"
-            }
-            return rating
-        }
-    }
+	var description : String {
+		switch self {
+		case .Unknown:
+			return ""
+		case .Rating(let value):
+			var rating = ""
+			for var index = 0; index < value; ++index {
+				rating += "★"
+			}
+			return rating
+		}
+	}
 }
 
 struct CoffeeShop {
 	let name: String
-	let photo: UIImage?
 	let priceGuide: PriceGuide
 	let location: CLLocationCoordinate2D?
 	let details: String
 	let rating: CoffeeRating
-    let yelpWebsite: String
-    let startTime: NSDate?
-    let endTime: NSDate?
-    let phone: String
+	let yelpWebsite: String
+	let startTime: NSDate?
+	let endTime: NSDate?
+	let phone: String
 }
 
 extension CoffeeShop {
 	init?(dict: [String : AnyObject]) {
 		guard let name = dict["name"] as? String,
-            let phone = dict["phone"] as? String,
-            let yelpWebsite = dict["yelpWebsite"] as? String,
+			let phone = dict["phone"] as? String,
+			let yelpWebsite = dict["yelpWebsite"] as? String,
 			let priceGuideRaw = dict["priceGuide"] as? Int,
 			let priceGuide = PriceGuide(rawValue: priceGuideRaw),
 			let details = dict["details"] as? String,
@@ -102,17 +101,11 @@ extension CoffeeShop {
 		}
 		
 		self.name = name
-        self.phone = phone
-        self.yelpWebsite = yelpWebsite
+		self.phone = phone
+		self.yelpWebsite = yelpWebsite
 		self.priceGuide = priceGuide
 		self.details = details
 		self.rating = rating
-		
-		if let imageName = dict["imageName"] as? String where !imageName.isEmpty {
-			photo = UIImage(named: imageName)
-		} else {
-			photo = nil
-		}
 		
 		if let latitude = dict["latitude"] as? Double,
 			let longitude = dict["longitude"] as? Double {
@@ -120,18 +113,18 @@ extension CoffeeShop {
 		} else {
 			location = nil
 		}
-        
-        if let openTime = dict["openTime"] as? NSDate {
-            startTime = openTime
-        } else {
-            startTime = nil
-        }
-        
-        if let closeTime = dict["closeTime"] as? NSDate {
-            endTime = closeTime
-        } else {
-            endTime = nil
-        }
+		
+		if let openTime = dict["openTime"] as? NSDate {
+			startTime = openTime
+		} else {
+			startTime = nil
+		}
+		
+		if let closeTime = dict["closeTime"] as? NSDate {
+			endTime = closeTime
+		} else {
+			endTime = nil
+		}
 	}
 }
 
@@ -145,10 +138,7 @@ extension CoffeeShop {
 			let array = NSArray(contentsOfFile: path) as? [[String : AnyObject]] else {
 				return nil
 		}
-		
-		return array.map { CoffeeShop(dict: $0) }
-			.filter { $0 != nil }
-			.map { $0! }
+		return array.flatMap { CoffeeShop(dict: $0) }
 	}
 }
 

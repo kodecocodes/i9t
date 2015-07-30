@@ -24,97 +24,103 @@ import UIKit
 import MapKit
 
 class CoffeeShopPinDetailView : UIView {
-    @IBOutlet var ratingsLabel: UILabel!
-    @IBOutlet var hoursLabel: UILabel!
-    @IBOutlet var priceGuide: UILabel!
-    @IBOutlet var descriptionLabel: UILabel!
-    
-    @IBOutlet var departureLabel: UILabel!
-    @IBOutlet var arrivalLabel: UILabel!
-    @IBOutlet var travelTimeLabel: UILabel!
-    
-    var coffeeShop: CoffeeShop?
-    
+	@IBOutlet var ratingsLabel: UILabel!
+	@IBOutlet var hoursLabel: UILabel!
+	@IBOutlet var priceGuide: UILabel!
+	@IBOutlet var descriptionLabel: UILabel!
+	
+	@IBOutlet var departureLabel: UILabel!
+	@IBOutlet var arrivalLabel: UILabel!
+	@IBOutlet var travelTimeLabel: UILabel!
+	
+	var coffeeShop: CoffeeShop?
+	
 	var view: UIView!
 	var nibName: String = "CoffeeShopPinDetailView"
 	
-	override init(frame: CGRect) {
-		super.init(frame: frame)
-	}
-
-	required init?(coder aDecoder: NSCoder) {
-		super.init(coder: aDecoder)
-	}
-    
-    override func awakeFromNib() {
-    }
+	private static var dateFormatter = NSDateFormatter()
 	
-    func updateDetailView(coffeeShop: CoffeeShop) {
-        self.coffeeShop = coffeeShop
-        ratingsLabel.text = coffeeShop.rating.description
-        descriptionLabel.text = coffeeShop.details
-        priceGuide.text = coffeeShop.priceGuide.description
-
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "h:mm a"
-        let startTime = dateFormatter.stringFromDate(coffeeShop.startTime!)
-        let endTime = dateFormatter.stringFromDate(coffeeShop.endTime!)
-        hoursLabel.text = "Time: \(startTime) - \(endTime)"
-    }
-    
-    @IBAction func phoneTapped(sender: AnyObject) {
-        if let phone = self.coffeeShop?.phone {
-            let phoneString = "tel://" + phone
-            if let url = NSURL(string: phoneString) {
-                UIApplication.sharedApplication().openURL(url)
-            }
-        }
-    }
-    
-    @IBAction func transitTapped(sender: AnyObject) {
-        if let location = self.coffeeShop?.location {
-            openInMapTransit(location)
-        }
-    }
-    
-    @IBAction func internetTapped(sender: AnyObject) {
-        if let website = self.coffeeShop?.yelpWebsite {
-            UIApplication.sharedApplication().openURL(NSURL(string: website)!)
-        }
-    }
-    
-    //MARK: Transit Helpers
-    func openInMapTransit(coord:CLLocationCoordinate2D) {
-        let placemark = MKPlacemark(coordinate: coord, addressDictionary: nil)
-        let mapItem = MKMapItem(placemark: placemark)
-        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeTransit]
-        mapItem.openInMapsWithLaunchOptions(launchOptions)
-    }
-    
-    func setTransitEstimatedTimes(currentLocation: CLLocationCoordinate2D) {
-        let request = MKDirectionsRequest()
-        
-        let source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation, addressDictionary: nil))
-        let destination = MKMapItem(placemark: MKPlacemark(coordinate: (self.coffeeShop?.location)!, addressDictionary: nil))
-        request.source = source
-        request.destination = destination
-        //Set Transport Type to be Transit
-        request.transportType = MKDirectionsTransportType.Transit
+	//MARK: Update UI
+	func updateDetailView(coffeeShop: CoffeeShop) {
+		self.coffeeShop = coffeeShop
+		ratingsLabel.text = coffeeShop.rating.description
+		descriptionLabel.text = coffeeShop.details
+		priceGuide.text = coffeeShop.priceGuide.description
+		
+		let dateFormatter = CoffeeShopPinDetailView.dateFormatter
+		dateFormatter.dateFormat = "h:mm a"
+		let startTime = dateFormatter.stringFromDate(coffeeShop.startTime!)
+		let endTime = dateFormatter.stringFromDate(coffeeShop.endTime!)
+		hoursLabel.text = "Time: \(startTime) - \(endTime)"
+	}
+	
+	func updateEstimatedTimeLabels(response: MKETAResponse?) {
+		if let response = response {
+			let dateFormatter = CoffeeShopPinDetailView.dateFormatter
+			dateFormatter.dateFormat = "EEE MMM dd h:mm a"
+			
+			let arrivalTimeString = dateFormatter.stringFromDate(response.expectedArrivalDate)
+			let departureTimeString = dateFormatter.stringFromDate(response.expectedDepartureDate)
+			
+			let departureTime = String(format: "Depart at: %@", departureTimeString)
+			let arrivalTime = String(format: "Arrive at: %@", arrivalTimeString)
+			let travelTime = String(format: "%d min away by public transport.", Int(response.expectedTravelTime / 60))
+			
+			self.departureLabel.text = departureTime
+			self.arrivalLabel.text = arrivalTime
+			self.travelTimeLabel.text = travelTime
+		}
+	}
+	
+	//MARK: Tapping Icons
+	@IBAction func phoneTapped(sender: AnyObject) {
+		if let phone = self.coffeeShop?.phone {
+			let phoneString = "tel://" + phone
+			if let url = NSURL(string: phoneString) {
+				UIApplication.sharedApplication().openURL(url)
+			}
+		}
+	}
+	
+	@IBAction func transitTapped(sender: AnyObject) {
+		if let location = self.coffeeShop?.location {
+			openInMapTransit(location)
+		}
+	}
+	
+	@IBAction func internetTapped(sender: AnyObject) {
+		if let website = self.coffeeShop?.yelpWebsite {
+			UIApplication.sharedApplication().openURL(NSURL(string: website)!)
+		}
+	}
+	
+	//MARK: Transit Helpers
+	func openInMapTransit(coord:CLLocationCoordinate2D) {
+		let placemark = MKPlacemark(coordinate: coord, addressDictionary: nil)
+		let mapItem = MKMapItem(placemark: placemark)
+		let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeTransit]
+		mapItem.openInMapsWithLaunchOptions(launchOptions)
+	}
+	
+	func setTransitEstimatedTimes(currentLocation: CLLocationCoordinate2D) {
+		let request = MKDirectionsRequest()
+		
+		let source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation, addressDictionary: nil))
+		let destination = MKMapItem(placemark: MKPlacemark(coordinate: (self.coffeeShop?.location)!, addressDictionary: nil))
+		request.source = source
+		request.destination = destination
+		//Set Transport Type to be Transit
+		request.transportType = MKDirectionsTransportType.Transit
+		
 		let directions = MKDirections(request: request)
-        directions.calculateETAWithCompletionHandler { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                let travelTime = String(format: "%d min away by public transport.", Int(response!.expectedTravelTime / 60))
-                let arrivalTime = String(format: "Arrive at: %@", response!.expectedArrivalDate)
-                let departureTime = String(format: "Depart at: %@", response!.expectedDepartureDate)
-                self.departureLabel.text = departureTime
-                self.arrivalLabel.text = arrivalTime
-                self.travelTimeLabel.text = travelTime
- 
-            }
-        }
-    }
+		directions.calculateETAWithCompletionHandler { response, error in
+			if let error = error {
+				print(error.localizedDescription)
+			} else {
+				self.updateEstimatedTimeLabels(response)
+			}
+		}
+	}
 }
 
 extension UIView {
