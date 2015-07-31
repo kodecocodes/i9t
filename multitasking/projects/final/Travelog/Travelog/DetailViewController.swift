@@ -22,7 +22,6 @@
 
 import AVFoundation
 import AVKit
-import TravelogKit
 import UIKit
 
 protocol DetailViewControllerPresenter: NSObjectProtocol {

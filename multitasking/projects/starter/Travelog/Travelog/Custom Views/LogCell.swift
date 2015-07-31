@@ -21,7 +21,6 @@
 */
 
 import UIKit
-import TravelogKit
 
 class LogCell: UITableViewCell {
   

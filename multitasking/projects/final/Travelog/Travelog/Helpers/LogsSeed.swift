@@ -20,8 +20,7 @@
 * THE SOFTWARE.
 */
 
-import Foundation
-import TravelogKit
+import UIKit
 
 /// Provides the app with some sample data to start with.
 class LogsSeed {
