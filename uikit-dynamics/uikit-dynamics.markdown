@@ -11,6 +11,8 @@ __UIKit Dynamics__ was designed to give you a simplistic set of ways to provide 
 ## Getting started
 UIKit Dynamics is definitely a framework you have to learn by doing. You'll be using an Xcode Playground to follow along and watch the changes live!
 
+### Create the Playground
+
 Open Xcode, select __File\New\Playground...__. Enter __UIKit Dynamics__ for the name and set __Platform__ to __iOS__. Click __Next__. Choose a location for the Playground and click __Create__. Once the Playground opens, replace the contents with: 
 
 ```swift
@@ -32,11 +34,37 @@ view.addSubview(subView2)
 
 Excellent! Wait. Where's the exciting output? Switch to the Assistant Editor by hitting __Option + Command + Enter__. You should see something like this now:
 
-[[ Screenshot here ]]
+![bordered width=90%](images/playground_step1_assistant_editor.png)
+
+> **Note**: XCPShowView(_:) is responsible for the magic of rendering your view in the Assistant Editor. Some times Xcode 7 doesn't re-run your Playground after making a change. You can force Xcode to re-run by selecting the menu item __Editor\Execute Playground__.
+
+Add the following line after creating the second subview:
+
+```swift
+let animator = UIDynamicAnimator(referenceView: view)
+```
+
+`UIDynamicAnimator` is where all the physics voodoo happens. The `referenceView` we passed in is the canvas where all the animation takes place. All of the views we animate must be a subview of the reference view.
+
+### Your First Behavior
+
+`UIDynamicBehavior` is the base class that describes an effect to one or more dynamic items (your subviews) and how they take part in the 2D animation you are trying to achieve. There are a bunch of behaviors that Apple provides but the easiest one to start with is UIGravityBehavior. Developers are like cats - they like to see things fall.
+
+```swift
+animator.addBehavior(UIGravityBehavior(items: [subView2]))
+```
+
+This adds a basic gravity behavior to the orange block. See it fall off the screen in the Assistant Editor? That took two lines of code - you should be feeling amazed and empowered right now. Lets make the box stop at the bottom of the screen.
+
+```swift
+let boundaryCollision = UICollisionBehavior(items: [subView, subView2])
+boundaryCollision.translatesReferenceBoundsIntoBoundary = true
+animator.addBehavior(boundaryCollision)
+```
 
 
 
-### Playground
+
 ### Introduce basic pieces of dynamics
 #### Dynamic Items - UIDynamicItem protocol, UIDynamicItemGroup
 #### Behaviors - UIDynamicBehavior
