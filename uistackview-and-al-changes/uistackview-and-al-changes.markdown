@@ -18,9 +18,6 @@ Here is what the completed version of the app will look like:
 
 ![height=41%](images/01-full-app_2318x1344.png)
 
-
->**Note:** In these chapters you'll exclusively use the **iPhone 6 Simulator** for simplicity, and to keep the focus on stack views. In order to fully display the view on smaller devices, you'd either use a `UIScrollView` or would have do a bit more creative layout work, which is outside the scope of this chapter.
-
 Open **VacationSpots-Starter**, and run it on the **iPhone 6 Simulator**. The first thing you'll notice is that the name and location label in some cells are not centered properly.
 
 ![bordered width=30%](images/02-alignment-issue-on-table-view_750x534.png)
@@ -39,14 +36,14 @@ At first glance, the view may look ok but it has a few issues.
 
 3. The ordering of the sections can be improved. It would be better if the **What to See** section was positioned right after the **Why Visit** section, instead of having the **Weather** section in between them.
 
-4. The bottom row of buttons is a bit too close to the bottom edge of the view in landscape mode. It would be better if you could decrease the spacing between the different sections, but only in landscape mode (i.e. when the horizontal size class is compact).
+4. The bottom row of buttons is a bit too close to the bottom edge of the view in landscape mode. It would be better if you could decrease the spacing between the different sections, but only in landscape mode (i.e. when the vertical size class is compact).
 
 Now that you have an idea of the improvements you'll be making, it's time to dive into the project.
 
 Open **Main.storyboard** and take a look at the **Spot Info View Controller** scene. The first thing you'll notice is that it looks quite colorful!
 
 [TODO: Opportunity for humor? Is there a "look at all the pretty colors" meme?]
-
+TODO:update screenshot
 ![bordered width=40%](images/05-colorful-scene-in-storyboard_504x636.png)
 
 These labels and buttons have various background colors set on them, which will help you visualize how various properties of a stack view affect the frame of its embedded views. The background colors are set only for the purpose of working with the storyboard and will be cleared at runtime.
@@ -70,8 +67,9 @@ Another thing to you'll notice is that the scenes in the storyboard are not the 
 
 The first thing you'll fix by using a stack view is the spacing between the bottom row of buttons. A stack view can distribute its views along its axis in various ways, and one of the ways is with an equal amount of spacing between each view.
 
-Embedding existing views into a new stack view is pretty easy. First, select all of the buttons at the bottom of the **Spot Info View Controller** scene by either **Command-clicking** on each one or by dragging to select all of them in one go.
+Embedding existing views into a new stack view is pretty easy. First, select all of the buttons at the bottom of the **Spot Info View Controller** scene by **clicking** on one, then **Command-clicking** on the other two:
 
+TODO: screenshot
 ![bordered width=70%](images/07-drag-select-bottom-row-of-buttons_480x117.png)
 
 If the outline view is not already open, go ahead and open it using the **Show Document Outline** button at the bottom left of the storyboard canvas:
@@ -116,6 +114,7 @@ Another way to select it is to hold **Shift** and **Right-click** on any of the 
 
 Go ahead and select the stack view using the **Shift-Right-click** method:
 
+TODO: screenshot
 ![bordered width=40%](images/16-view-hierarchy-menu_384x212.png)
 
 Now, to add constraints to it, click on the **Pin** button on the Auto Layout toolbar:
@@ -124,15 +123,14 @@ Now, to add constraints to it, click on the **Pin** button on the Auto Layout to
 
 You will add the following constraints to the top, left, and right edges of the stack view:
 
-```bash
-top: 20
-left: 0
-right: 0
-```
+- top: 20
+- left: 0
+- right: 0
+- bottom: 0
 
-Make sure the numbers for the top, left, and right are correct and that the I-beams are selected. You will always be constraining to margins so make sure that **Constrain to margins** is checked as well. Then click on **Add 3 Constraints**:
+Make sure the numbers for the top, left, and right and bottom correct and that the I-beams are selected. You will always be constraining to margins so make sure that **Constrain to margins** is checked as well. Then click on **Add 4 Constraints**:
 
-![bordered width=30%](images/18-bottom-stack-view-constraints_270x406.png)
+![bordered width=30%](images/18-bottom-stack-view-constraints.png)
 
 Note that the stack view is now the correct size, but it has stretched the first button to fill in any extra space:
 
@@ -164,19 +162,15 @@ You'd still have optimized your layout by not having to include unnecessary spac
 
 Now what if you needed to conditionally hide and show one of the buttons and reposition all of the remaining ones at runtime? You'd have to manually remove and re-add constraints in code as well as remove and add back the adjacent spacer view. And what if the requirement specified that more than one button could be removed and re-added at any time? At this point, you might as well do everything in code.
 
-In order to hide a view within a stack view all you have to do is set the contained view's `hidden` property to `true` and the stack view handles the rest. This is how you`ll fix the spacing under the **Weather:** label when the user has hidden the text below it.
+In order to hide a view within a stack view all you have to do is set the contained view's `hidden` property to `true` and the stack view handles the rest. This is how you'll fix the spacing under the **Weather:** label when the user has hidden the text below it.
 
 But you'll do this in the next chapter, where you'll continue to learn about stack views in-depth. For now you'll take a quick detour to learn about some of the other new Auto Layout updates in iOS 9.
 
-## Auto Layout Updates in iOS 9
-
-Stack views are by far the biggest feature introduced in Auto Layout this year, but there are also other features that bring improvements to existing ways of doing things. Two of these new features are layout anchors and layout guides, represented by the the new `NSLayoutAnchor` and `UILayoutGuide` classes.
-
-There are also major updates for the support of right-to-left languages such as Arabic and Hebrew. For right-to-left languages, the complete view hierarchy will now be flipped, and even navigation will occur in the opposite direction.
+Stack views are by far the biggest feature introduced in Auto Layout this year, but there are also other features that bring improvements to existing ways of doing things. Two of these new features are layout anchors and layout guides, represented by the the new `NSLayoutAnchor` and `UILayoutGuide` classes. You're going to learn about these next. 
 
 ## Layout Anchors
 
-Layout anchors are a fairly simple concept but they bring lots of improvements. In order to understand what a layout anchor is, recall how you would create a constraint in code. Suppose that you have two labels, `bottomLabel` and `topLabel`. You'd like to position `bottomLabel` right below `topLabel` with 8 points of spacing between them. Prior to iOS 9, you'd have used the following code to create the constraint:
+Layout anchors are a great new way to create constraints. Imagine you have two labels, `bottomLabel` and `topLabel`. You'd like to position `bottomLabel` right below `topLabel` with 8 points of spacing between them. Prior to iOS 9, you'd have used the following code to create the constraint:
 
 ```swift
 let constraint = NSLayoutConstraint(
@@ -190,26 +184,20 @@ let constraint = NSLayoutConstraint(
 )
 ```
 
-This says that you'd like to create a constraint in which the topLabel's `.Bottom` is `.Equal` to the bottomLabel's `.Top`.
+Create a constraint in which the topLabel's `.Bottom` is `.Equal` to the bottomLabel's `.Top`, plus 8. The previous sentence contained far fewer characters than the code above, so wouldn't it be nice to have more concise code?
 
-Now imagine that `.Bottom`, which is currently an enum of type `NSLayoutAttribute`, was instead a property on `UIView` itself, and that these special properties were called anchors.
-
-That's all there is to it! You now understand the concept of layout anchors. `UIView` now has a `bottomAnchor` property which is an object of type `NSLayoutAnchor`, as well as other anchors that correspond to other `NSLayoutAttributes`. So for `.Bottom` there is `bottomAnchor`, for `.Width` there is `widthAnchor`, for `.CenterX` there is `centerXAnchor` etc.
-
-In fact, just add the suffix Anchor to a particular `NSLayoutAttribute` and you'll get the corresponding `NSLayoutAnchor` property's name. However, this won't work for the `NSLayoutAttribute` values that correspond to margins such as `.TopMargin` or `.CenterXWithinMargins`, so there is no `topMarginAnchor` or `centerXWithinMarginsAnchor`. These have instead been moved to a new property on `UIView` called `layoutMarginsGuide`. So the corresponding anchor for `.TopMargin` would be `layoutMarginsGuide.topAnchor` and for `.CenterXWithinMargins` it would be `layoutMarginsGuide.centerXAnchor`.
-
-The `layoutMarginsGuide` property is an object of type `UILayoutGuide`, which you'll learn about in the next section, and it contains anchors just like a `UIView`.
-
-These new `NSLayoutAnchor` objects also have new methods in which one anchor can create a constraint from itself to another anchor.
-
-So you can now create the same constraint between `topLabel` and `bottomLabel` in the following way:
+Layout anchors allow you to do exactly that: 
 
 ```swift
 let constraint = topLabel.bottomAnchor.constraintEqualToAnchor(
   bottomLabel.topAnchor, constant: 8)
 ```
 
-Furthermore, anytime `constant` is 0, you can leave it off altogether:
+This achieves exactly the same result. How does it work? A view now has a layout anchor object representing the `.Bottom` attribute, and that anchor object can create constraints relating to other layout anchors. 
+
+That's all there is to it! `UIView` now has a `bottomAnchor` property, as well as other anchors that correspond to other `NSLayoutAttributes`. So for `.Bottom` there is `bottomAnchor`, for `.Width` there is `widthAnchor`, for `.CenterX` there is `centerXAnchor` etc.
+
+They are all subclasses of `NSLayoutAnchor`, which has a number of methods for creating constraints relating to other anchors. As well as the method above, which takes a constant, there is a version with no constant:
 
 ```swift
 let constraint = topLabel.bottomAnchor.constraintEqualToAnchor(
@@ -218,7 +206,9 @@ let constraint = topLabel.bottomAnchor.constraintEqualToAnchor(
 
 Now that's a much more expressive and concise way to create a constraint!
 
-So the methods above create an `EqualTo` constraint but what if you wanted to create a `LessThanOrEqualTo` or a `GreaterThanOrEqualTo` constraint?
+>**Note:** A view doesn't have an anchor property for every possible layout attribute. Any of the attributes relating to the margins, such as `.TopMargin`, are not available directly. `UIView` has a new property called `layoutMarginsGuide`, which is a `UILayoutGuide` (you'll learn about these in the next section). The layout guide has all the same anchor properties as the view, but now they relate to the view's margins, for example `.TopMargin` would be `layoutMarginsGuide.topAnchor`.
+
+The method above creates an `EqualTo` constraint, but what if you wanted to create a `LessThanOrEqualTo` or a `GreaterThanOrEqualTo` constraint?
 
 Using the old method you would just pass in `.GreaterThanOrEqual` or `.LessThanOrEqual` for the `relatedBy:` parameter, which takes an enum of type `NSLayoutRelation`:
 
@@ -258,7 +248,7 @@ How would you include a multiplier if you needed to? If you look at the document
 
 [TODO: "Confused look" humor]
 
-But `NSLayoutAnchor` does have a subclass called `NSLayoutDimension` that has the following methods:
+But `NSLayoutAnchor` _does_ have a subclass called `NSLayoutDimension` that has the following methods:
 
 ```swift
 func constraintEqualToConstant(_:)
@@ -276,49 +266,39 @@ func constraint[Less|Greater]ThanOrEqualToAnchor(_:multiplier:constant:)
 
 So what kind of anchor is `NSLayoutDimension` used for? Think about in what case you would actually use a multiplier other than 1. This would be when you wanted to add a proportional constraint between the width or height of one view to the width or height of another view.
 
-And so the only anchors that are of type `NSLayoutDimension` are `heightAnchor` and `widthAnchor`. This provides you with additional type safety since you can't accidentally use a multiplier when it doesn't make sense. Since the multiplier based methods don't exist anything other than `widthAnchor` and `heightAnchor`, Xcode won't even suggest them to you.
+And so the only anchors that are of type `NSLayoutDimension` are `heightAnchor` and `widthAnchor`. This provides you with additional type safety since you can't accidentally use a multiplier when it doesn't make sense. Since the multiplier based methods don't exist anything other than `widthAnchor` and `heightAnchor`, Xcode won't even suggest them to you. 
 
-Say you were trying to add a constraint to a certain label's `topAnchor`. Here in Xcode's autocomplete suggestions, you don't see the methods with the `multiplier:` param nor do you see the `constraintEqualToConstant(:_)` method:
+You get additional type safety benefits from layout anchors as well - as well as `NSLayoutDimension`, the other anchors in a view will be either `NSLayoutXAxisAnchor` or `NSLayoutYAxisAnchor` objects, depending on the anchor. This can prevent you attempting to pin the top of one view to the leading edge of another, for example. 
 
-![bordered width=99%](images/23-topAnchor-methods_750x170.png)
-
-But you do see the additional methods when using `widthAnchor`:
-
-![bordered width=99%](images/24-widthAnchor-methods_782x203.png)
-
-And you'll also get compile errors if you try to use an `NSLayoutDimension` method on an object of type `NSLayoutAnchor`, which is great for any copy/paste/edit mistakes:
-
-![bordered width=99%](images/25-compile-error-with-widthAnchor_585x76.png)
-
-Hmm, the error in the screenshot above message says `'NSLayoutXAxisAnchor' does not have a member named 'constraintEqualToAnchor'`.
-
-What's an `NSLayoutXAxisAnchor`?
-
-`NSLayoutXAxisAnchor` is actually a subclass of `NSLayoutAnchor` but doesn't contain any additional methods. Its only purpose is to provide type information so that you don't accidentally add constraints between horizontal anchors and vertical anchors. So anchors in the horizontal direction such as `leadingAnchor` or `centerXAnchor` are actually of type `NSLayoutXAxisAnchor`, and anchors in the vertical direction such as `topAnchor` or `centerYAnchor` are of type `NSLayoutYAxisAnchor`.
-
-The `constraint[Equal|LessThanOrEqual|GreaterThanOrEqual]ToAnchor` family of methods are actually generic methods that when called from an object of type `NSLayoutXAxisAnchor` will only take a parameter of type `NSLayoutXAxisAnchor`, and when called from an object of type `NSLayoutYAxisAnchor` will only take in a parameter of type `NSLayoutYAxisAnchor`.
+The `constraint[Equal|LessThanOrEqual|GreaterThanOrEqual]ToAnchor` family of methods are actually generic methods that, when called from an object of type `NSLayoutXAxisAnchor` will only take a parameter of type `NSLayoutXAxisAnchor`, and when called from an object of type `NSLayoutYAxisAnchor` will only take in a parameter of type `NSLayoutYAxisAnchor`.
 
 This type checking hasn't made its way into Swift yet, but it does currently work with Objective-C:
 
 ![bordered width=99%](images/26-xAnchor-and-yAnchor-incompatibility_632x60.png)
 
-Though, with Swift, you'll still get a crash at runtime with the message "Invalid pairing of layout attributes" so you'll know pretty soon if you've made a mistake.
+With Swift, you'll still get a crash at runtime with the message "Invalid pairing of layout attributes" so you'll know pretty soon if you've made a mistake.
 
 In Swift, you'll still get an error if you try to constrain an `NSLayoutDimension` anchor with a different type of anchor, for example, a `widthAnchor` with a `topAnchor`:
 
 ![bordered width=99%](images/27-widthAnchor-and-topAnchor-compile-error_585x76.png)
 
+To summarise, layout anchors are a quick way of making constraints between different attributes of a view. There are three different subclasses of `NSLayoutAnchor`, and you can't (either because the compiler won't let you, or it just doesn't make sense) create constraints between the different types. You have:
+
+- `NSLayoutXAxisAnchor` for leading, trailing, left, right or center X anchors
+- `NSLayoutYAxisAnchor` for top, bottom and center Y anchors
+- `NSLayoutDimension` for width and height
+
 Whew, that was a lot to cover. Don't worry, the next section on layout guides will be much shorter. :] Then you'll dive back into the code and fix that very first alignment bug.
 
 ## Layout Guides
 
-A layout guide is a new object that you can use to position views in situations in which you'd need to use a dummy view only for the purposes of alignment. For example, you might use spacer views between buttons to space them equally, or you might use a container view to collectively align two labels. Think of a layout guide as defining a rectangular region or a frame in your view hierarchy, the edges of which you can use for alignment.
+A layout guide lets you position views when you'd previously need to use a dummy view. For example, you might use spacer views between buttons to space them equally, or you might use a container view to collectively align two labels. Think of a layout guide as defining a rectangular region or a frame in your view hierarchy, the edges of which you can use for alignment.
 
-Layout guides don't enable any new functionally but allow solving these problems in a much more lightweight manner, as well as without cluttering your view hierarchy with views that don't actually need to draw.
+Layout guides don't enable any new functionality but do allow you to solve these problems in a much more lightweight manner. Creating and adding a view has a cost, even if it's never drawn. 
 
-You can add constraints to a `UILayoutGuide` in the same way that you can to a `UIView` since a layout guide has all of the same layout anchors that a view has (well except for `firstBaselineAnchor` and `lastBaselineAnchor` which are only on `UIView`).
+You can add constraints to a `UILayoutGuide` in the same way that you can to a `UIView` since a layout guide has all of the same layout anchors that a view has (except for `firstBaselineAnchor` and `lastBaselineAnchor`).
 
-Ok enough theory! It's time to dive back into the project and fix that alignment bug with a layout guide that you'll constrain by using layout anchors.
+It's time to dive back into the project and fix that alignment bug with a layout guide that you'll constrain by using layout anchors.
 
 ### Fixing the Alignment Bug
 
