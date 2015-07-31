@@ -20,24 +20,29 @@
 * THE SOFTWARE.
 */
 
+import Foundation
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-  var window: UIWindow?
+extension UIColor {
   
-  
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-    setupColors()
-    return true
+  class func SantaCruzColor()->UIColor {
+    return UIColor(red: 0/255, green: 202/255, blue: 255/255, alpha: 1)
   }
   
-  private func setupColors() {
-    self.window?.backgroundColor = UIColor.redColor()
-    UINavigationBar.appearance().backgroundColor = UIColor(red: 109/255, green: 92/255, blue: 128/255, alpha: 1.0)
-    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-    UITableView.appearance().separatorColor = UIColor(red: 193/255, green: 193/255, blue: 193/255, alpha: 1)
-    
+  class func SunnyvaleColor()->UIColor {
+    return UIColor(red: 220/255, green: 0/255, blue: 255/255, alpha: 1)
   }
+  
+  class func SanFranciscoColor()->UIColor {
+    return UIColor(red: 255/255, green: 124/255, blue: 0/255, alpha: 1)
+  }
+  
+  class func SanDiegoColor()->UIColor {
+    return UIColor(red: 192/255, green: 248/255, blue: 77/255, alpha: 1)
+  }
+  
+  class func LosAngelesColor()->UIColor {
+    return UIColor(red: 240/255, green: 159/255, blue: 77/255, alpha: 1)
+  }
+  
 }
-
