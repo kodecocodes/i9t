@@ -2,7 +2,7 @@
 
 By Soheil Azarpour
 
-Apple introduced a game changing feature for iPad in iOS 9 called **multitasking**. Multitasking allows you to split the screen between two running apps, and interact with them at the same time on one screen. For example you can read a proposal in your emails, while researching the topic in Safari next to it. You can also enjoy watching your favorite sport show at the same time on the same screen. And all of this happens on an iPad that you hold in  your hands while you lounge on a couch! This is super powerful!
+Apple introduced a game changing feature for iPad in iOS 9 called **multitasking**. Multitasking allows you to split the screen between two running apps, and interact with them at the same time on one screen. For example you can read a proposal in your emails, while researching the topic in Safari next to it. You can also enjoy watching your favorite sports show at the same time on the same screen. And all of this happens on an iPad that you hold in  your hands while you lounge on a couch! This is super powerful!
 
 Multitasking completely changes the way a lot of users use their iPads. Users can now consider the iPad as a serious computer replacement.
 
@@ -28,7 +28,7 @@ There are three different aspects to multitasking on the iPad: Slide Over, Split
 
 > **Note**:  If the locale of the iPad is set to a region with right-to-left language, you swipe from the right edge of the screen to activate multitasking.
 
-If you can't get to Slide Over on your device or you wan to make sure whether an iPad supports multitasking, go to **Settings > General** of the device. If you see **Multitasking** in the list, your iPad is multitasking capable. As a user you can disable multitasking.
+If you can't get to Slide Over on your device or you want to make sure whether an iPad supports multitasking, go to **Settings > General** of the device. If you see **Multitasking** in the list, your iPad is multitasking capable. As a user you can always disable multitasking.
 
 ![width=90% ipad](images/mt04.png)
 
@@ -38,7 +38,7 @@ If for any reason, you really don't want to participate in a multitasking enviro
 
 ![width=90% ipad](images/mt02.png)
 
-Not only you can interact with both apps in the Split View at the same time, you can also bring in another view and watch your favorite sports show. The Picture in Picture (PIP) is another multitasking feature that works the same way the picture-in-picture function on televisions work. You can minimize the PIP window or a FaceTime call to one corner of the iPad and continue using other apps while you watch or chat.
+The Picture in Picture (PIP) is feature works the same way the picture-in-picture function on televisions work. You can minimize the PIP window or a FaceTime call to one corner of the iPad and continue using other apps while you watch or chat.
 
 ![width=90% ipad](images/mt03.png)
 
@@ -138,7 +138,7 @@ Build and run again. Again, verify that the app still looks and behaves as befor
 
 ## Adaptive presentation
 
-Continue evaluation the app in multitasking environment. This time with device in landscape orientation and the split view at 30%, tap the **Photo Library** bar button, and you will be presented with a popover.
+Continue evaluating the app in multitasking environment. This time with device in landscape orientation and the split view at 30%, tap the **Photo Library** bar button, and you will be presented with a popover.
 
 ![bordered ipad](images/mt091.png)
 
