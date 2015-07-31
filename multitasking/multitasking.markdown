@@ -157,7 +157,56 @@ Build and run again. Again, verify that the app still looks and behaves as befor
 
 > **Note:** Unlike `UIScreen`, `UIWindow.bounds` always corresponds to the actual size of your app and its origin is always at `(0, 0)`. Also in iOS 9 you can create a new instance if `UIWindow` without passing a frame. That is 'let window = UIWindow()'. The system will automatically give it the right frame that matches your application's frame.
 
-If the device is in landscape orientation, you can still move the divider further to divide the screen in half between the two apps. At this point the primary app changes to compact horizontal size class.
+## Adaptive presentation
+
+Continue evaluation the app in multitasking environment. This time with device in landscape orientation and the split view at 30%, tap the **Photo Library** bar button, and you will be presented with a popover.
+
+![bordered ipad](images/mt091.png)
+
+With popover still visible, drag the divider further to the left so that the screen is divided in half between the two apps.
+
+![bordered ipad](images/mt092.png)
+
+You notice that the popover automatically turns into a modal view. There a great flexibility built right into the UIKit out of the box. When you drag the divider to 50%, the size class of the app changes from regular to compact horizontal size class, in which the default behavior of UIKit is to present a popover asa modal view; but this is not exactly what you want.
+
+You want to present Photo Library modally only if the width of your app is about one third of the screen, similar to an iPhone screen size. You get to size size if your app is opened in the Slide Over. But at 50% you still rather present the Photo Library in a popover.
+
+In iOS 8 Apple introduced `UIPopoverPresentationController` to manage the display of content in a popover. You use `UIPopoverPresentationController` along with `UIModalPresentationPopover` presentation style to present popovers. To modify the default behavior you use `UIPopoverPresentationControllerDelegate` callbacks.
+
+Open **LogsViewController.swift** and find the implementation of `presentCameraControllerForSourceType(_:)`. You see that if the source type is `.PhotoLibrary`, the `UIImagePickerController` instance is presented as a popover. Update its implementation by adding `presenter?.delegate = self` as follows:
+
+```swift
+func presentCameraControllerForSourceType(sourceType: UIImagePickerControllerSourceType) {
+  // some code...
+  if sourceType == UIImagePickerControllerSourceType.PhotoLibrary {
+    // some code...
+    presenter?.delegate = self
+  }
+  // some code...
+}
+```
+
+Now that you indicated you'd like to be delegate of a `UIPopoverPresentationController`, update declaration of `LogsViewController` so that it conforms to `UIPopoverPresentationControllerDelegate` as follows:
+
+```swift
+class LogsViewController: UITableViewController, DetailViewControllerPresenter, UIPopoverPresentationControllerDelegate
+```
+
+`UIPopoverPresentationControllerDelegate` itself is a protocol that inherits from `UIAdaptivePresentationControllerDelegate`. The method that you're interested in is `adaptivePresentationStyleForPresentationController(_:, traitCollection:)` and it returns value from `UIModalPresentationStyle` enum.
+
+Next add an implementation for `adaptivePresentationStyleForPresentationController(_:, traitCollection:)` method at the end of `LogsViewController` class as follows:
+
+```swift
+func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+  return (splitViewController?.view.bounds.size.width > 320 ? .None : .FullScreen)
+}
+```
+
+Here you return `.None` if the width your Split View Controller's view is wider than 320 points, which tells the system not to change the behavior. Otherwise, you return `.FullScreen` so that the popover is actually presented in as fullscreen.
+
+Build and run. Verify that the only time you see the popover turning into a modal fullscreen view is when your app is in the Slide Over or in the portrait orientation with multitasking enabled.
+
+![width=95%](images/mt093.png)
 
 ## Keyboard
 
@@ -214,67 +263,23 @@ Build and run. Verify that when you are looking at the table of logs, and a seco
 
 ![width=90%](images/mt11.png)
 
+## System snapshot
+
+You are probably familiar with iOS system snapshots. When your app becomes inactive and enters background, the OS takes a snapshot of the app's window to display to user when they activate App Switcher by double tapping the Home button. System snapshots happen automatically, and historically all you had to do was either obscuring your view if you were displaying some sensitive data or  do nothing! This is still true except that if user leaves your app while in multitasking mode, the system will resize your app in the background to get snapshots with various sizes. Be sure to keep this in mind when you write your multitasking-ready app and avoid making jarring changes or losing user's selection, while your app is resized in the background for snapshot purposes.
+
 ## Camera
 
-Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are in better shape because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button. To see it in action, run **Travelog** on an iPad Air 2 device. Make sure you are in multitasking mode by sliding over another app and pin it on top of Travelog. Now add a new multimedia log by tapping the camera button and select **PHOTO** mode:
-
-![width=90% ipad](images/mt12.png)
-
-You will be presented with a full screen camera controller:
-
-![width=90% ipad](images/mt13.png)
-
-Now if you bring up another app in the Slide Over that uses the camera, the camera view for PHOTO mode becomes blocked:
-
-![width=90% ipad](images/mt15.png)
-
-> **Note:** An app the you can use in the Slide Over to test the above mentioned scenario is Contacts app. Select a contact from your contacts, tap **Edit > Add Photo > Take Photo**.
-
-Now dismiss the camera in the Slide Over, and switch to **VIDEO** in **Travelog**. You'll see that the camera view is now blocked:
+Another area that you have to think about in a multitasking environment is availability of limited resources. Camera is a limited resource that can't be shared among multiple apps at the same time. If your app uses `UIImagePickerController` you are in better shape because `UIImagePickerController` knows how to behave in a multitasking environment. It pauses providing live preview and disables capture button. To see it in action, run **Travelog** on an iPad Air 2 device. Make sure you are in multitasking mode by sliding over another app and pin it on top of Travelog. Now add a new multimedia log by tapping the camera button and select **VIDEO** mode:
 
 ![width=90% ipad](images/mt14.png)
 
-
 If your app uses `AVCaptureSession`, you may need to do some additional work and beef up your code to better cover cases where the camera feed is suspended while the app is running. There are two important `NSNotification` that you want to listen to: `AVCaptureSessionWasInterruptedNotification` and `AVCaptureSessionInterruptionEndedNotification`. In the `userInfo` of the notification you'll receive a key named `AVCaptureSessionInterruptionReasonKey` with a value that explains why camera feed is interrupted. In the multitasking mode the value is `AVCaptureSessionInterruptionReasonVideoDeviceNotAvailableWithMultipleForegroundApps`.
-
-## System snapshot
-
-You are probably familiar with iOS system snapshots. When your app becomes inactive and enters background, the OS takes a snapshot of the app's window. The OS uses that snapshot later on when user activates App Switcher by double tapping the Home button:
-
-![width=90% ipad](images/mt16.png)
-
-System snapshots happen automatically, and historically all you had to do was either obscuring your view if you were displaying some sensitive data or  do nothing! New in a multitasking environment, the OS now changes your view sizes and takes multiple snapshots. To see this in action, open **SplitViewController.swift** and update implementation of `viewWillTransitionToSize(_, withTransitionCoordinator:)` as follows:
-
-```swift
-override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-  if UIApplication.sharedApplication().applicationState == UIApplicationState.Background {
-    print(**FUNCTION** + "\(size)")
-  }
-  // ... some code ...
-}
-```
-
-Build and run. Make sure the Debugger Console is open. Once the app is launched, activate multitasking mode by sliding over another app and pin it. Then while the app is still in that split view mode, press the **Home** button (or **CMD+H** in simulator). You will see the following logs:
-
-```bash
-viewWillTransitionToSize(_:withTransitionCoordinator:)(768.0, 1024.0)
-viewWillTransitionToSize(_:withTransitionCoordinator:)(1024.0, 768.0)
-viewWillTransitionToSize(_:withTransitionCoordinator:)(694.0, 768.0)
-```
-
-If you exactly follow the above mentioned steps, then the three lines in the console log refer to the time you pressed the Home button. It happened when the system changed your app's window size while in the background to take different snapshots. This becomes tricky when your app has a complicated layout. Be sure to keep this in mind when you write your multitasking-ready app and avoid making jarring changes or losing user's selection.
 
 ## Good memory citizen
 
 Memory is another limited resource. You've always been told to be a good memory citizen. In a multitasking enabled iPad, you can potentially have up to 3 apps running at full speed at the same time: the primary app, the secondary app and Picture in Picture. It's important to understand how these apps interact and how they affect available memory.
 
-When your app is launched, some memory is already allocated by the operating system. Your app claims some of the available memory. There is still some free memory left and everybody's happy!
-
-Then the secondary app comes along and user may also launch a video in Picture in Picture mode. That's when the iPad starts running low on memory.
-
-![width=90%](images/mt18.png)
-
-You may have heard of **Springboard**. It's the built-in system application that manages display of icons and user's home screen. Springboard is a `UIApplication` object and a multitasking app in its own right. Springboard always runs in the foreground. When system is under memory pressure, primary app and the secondary app are the first apps to be ditched. That's because the system wants to reclaim some memory to make its Springboard stable. Picture in Picture is considered a background task of the Springboard.
+You may have heard of **Springboard**. It's the built-in system application that manages display of icons and user's home screen. Springboard is a `UIApplication` object and a multitasking app in its own right. Springboard always runs in the foreground. When system is under memory pressure, primary app and the secondary app are the first apps to be ditched. That's because the system wants to reclaim some memory to make its Springboard stable. Picture in Picture is considered a background task of the Springboard, so it's not in the first line of jettison row! The first apps to be jettisoned is the primary app and along with that the secondary app is also terminated.
 
 You can use the following strategies to reduce your app's memory footprint and optimize its memory use for multitasking environment:
 * **Fix leaks, retain cycles and algorithms**: Check your app for memory leaks, remove retain cycles and unbounded memory growth, and fix inefficient algorithms. Manage CPU time better and do as little work as possible on the main thread. Keep in mind that main thread’s main responsibility is responding to user interactions. Perform any other tasks in the background with appropriate Quality of Service (QoS) priority.
