@@ -113,10 +113,9 @@ class ScaleDismissAnimator:NSObject, UIViewControllerAnimatedTransitioning {
     let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
     let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
     
-    if let fromView = fromView {
-      if let toView = toView {
+    if let fromView = fromView,
+      toView = toView {
         transitionContext.containerView()?.insertSubview(toView, belowSubview: fromView)
-      }
     }
     
     if let toViewController = toViewController as? ViewScaleable {

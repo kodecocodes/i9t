@@ -23,7 +23,7 @@
 
 import UIKit
 
-class ScaleViewSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
+class FadeSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
   
   override func perform() {
     destinationViewController.transitioningDelegate = self
@@ -31,80 +31,61 @@ class ScaleViewSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
   }
   
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return ScalePresentAnimator()
+    let fade = FadeAnimator()
+    fade.isPresenting = true
+    return fade
   }
   
   func animationControllerForDismissedController(dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return ScaleDismissAnimator()
+    let fade = FadeAnimator()
+    fade.isPresenting = false
+    return fade
   }
 }
 
-class ScalePresentAnimator:NSObject, UIViewControllerAnimatedTransitioning {
+
+// MARK: - Animator
+
+class FadeAnimator:NSObject, UIViewControllerAnimatedTransitioning {
+  
+  var isPresenting = false
   
   func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-    return 2
+    return 0.5
   }
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-    
-    let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-
-    // Add code to check if inside navigation controller
-    
-    let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
-    if let toView = toView {
-      transitionContext.containerView()?.addSubview(toView)
-    }
-    
-    // Add code to set up start frame here
-    
-    let finalFrame = transitionContext.finalFrameForViewController(toViewController)
-    let startFrame = CGRect.zeroRect
-    
-    toView?.frame = startFrame
-    toView?.layoutIfNeeded()
-    
-    let duration = transitionDuration(transitionContext)
-    
-    UIView.animateWithDuration(duration, animations: {
-      if let toView = toView {
-        toView.frame = finalFrame
-        toView.layoutIfNeeded()
-      }
-      }, completion: {
-        finished in
-        transitionContext.completeTransition(true)
-    })
-  }
-}
-
-class ScaleDismissAnimator:NSObject, UIViewControllerAnimatedTransitioning {
-  
-  func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-    return 2
-  }
-  
-  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
-
-    // Add code to check if inside navigation controller
     
     let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
     let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
     
-    if let fromView = fromView {
+    if isPresenting {
+      toView?.alpha = 0.0
       if let toView = toView {
-        transitionContext.containerView()?.insertSubview(toView, belowSubview: fromView)
+        transitionContext.containerView()?.addSubview(toView)
+      }
+      
+    } else {
+      if let fromView = fromView {
+        if let toView = toView {
+          transitionContext.containerView()?.insertSubview(toView, belowSubview: fromView)
+        }
+        fromView.alpha = 1.0
       }
     }
     
-    // Add code to set up final frame here
-    
-    let finalFrame = CGRect.zeroRect
     let duration = transitionDuration(transitionContext)
+    
     UIView.animateWithDuration(duration, animations: {
-      if let fromView = fromView {
-        fromView.frame = finalFrame
-        fromView.layoutIfNeeded()
+      if self.isPresenting {
+        if let toView = toView {
+          toView.alpha = 1.0
+        }
+        
+      } else {
+        if let fromView = fromView {
+          fromView.alpha = 0.0
+        }
       }
       }, completion: {
         finished in
@@ -112,6 +93,3 @@ class ScaleDismissAnimator:NSObject, UIViewControllerAnimatedTransitioning {
     })
   }
 }
-
-
-

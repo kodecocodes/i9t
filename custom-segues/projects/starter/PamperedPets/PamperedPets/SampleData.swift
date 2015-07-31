@@ -21,7 +21,8 @@
 */
 
 
-// All photographs are granted by the author Caroline Begbie to raywenderlich.com for commercial use.
+// All photographs except Bubbles are granted by the author Caroline Begbie to raywenderlich.com for commercial use.
+// Bubbles is in Public Domain from http://www.publicdomainpictures.net/view-image.php?image=4277
 
 import Foundation
 
@@ -35,6 +36,12 @@ struct Animal {
 }
 
 let animalData:[Animal] = [
+  Animal(        name:"Bubbles",
+          description:"Goldfish",
+                owner:"Marshall Fry",
+              address:"4 Gurnard Walk\nRockling",
+             vetIndex:1,
+         instructions:"Fish food"),
   Animal(        name: "Willow",
           description:"Gray pony",
                 owner:"Jane Marshall",

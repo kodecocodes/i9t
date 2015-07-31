@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8mc-FN-o1T">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -117,7 +118,7 @@
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bertie" translatesAutoresizingMaskIntoConstraints="NO" id="mQF-Cm-jUr" customClass="RoundedImageView" customModule="PamperedPets" customModuleProvider="target">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bubbles" translatesAutoresizingMaskIntoConstraints="NO" id="mQF-Cm-jUr" customClass="RoundedImageView" customModule="PamperedPets" customModuleProvider="target">
                                 <rect key="frame" x="225" y="40" width="150" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
@@ -165,6 +166,9 @@
                                                 <variation key="heightClass=compact" fixedFrame="YES">
                                                     <rect key="frame" x="0.0" y="0.0" width="50" height="18"/>
                                                 </variation>
+                                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                    <rect key="frame" x="0.0" y="0.0" width="48" height="18"/>
+                                                </variation>
                                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
                                                     <rect key="frame" x="0.0" y="0.0" width="53" height="18"/>
                                                 </variation>
@@ -177,6 +181,9 @@
                                                 <variation key="heightClass=compact" fixedFrame="YES">
                                                     <rect key="frame" x="56" y="0.0" width="245" height="18"/>
                                                 </variation>
+                                                <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                                    <rect key="frame" x="54" y="0.0" width="198" height="18"/>
+                                                </variation>
                                                 <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
                                                     <rect key="frame" x="59" y="0.0" width="408" height="18"/>
                                                 </variation>
@@ -184,6 +191,9 @@
                                         </subviews>
                                         <variation key="heightClass=compact" fixedFrame="YES">
                                             <rect key="frame" x="0.0" y="0.0" width="301" height="18"/>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="252" height="18"/>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
                                             <rect key="frame" x="0.0" y="0.0" width="467" height="18"/>
@@ -232,6 +242,9 @@
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <variation key="heightClass=compact" fixedFrame="YES">
                                             <rect key="frame" x="0.0" y="79" width="282" height="88"/>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="0.0" y="79" width="252" height="88"/>
                                         </variation>
                                         <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
                                             <rect key="frame" x="0.0" y="79" width="452" height="88"/>
@@ -328,19 +341,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B10-c3-qIb">
+                            <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B10-c3-qIb" userLabel="Animal Photo View" customClass="RoundedImageView" customModule="PamperedPets" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="B10-c3-qIb" secondAttribute="height" multiplier="1:1" id="RO0-cS-16u"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.99844795470000003" green="0.98719674349999997" blue="0.97270131110000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="B10-c3-qIb" firstAttribute="width" secondItem="Ao8-me-SQt" secondAttribute="width" id="16L-D8-isI"/>
                             <constraint firstItem="B10-c3-qIb" firstAttribute="height" secondItem="Ao8-me-SQt" secondAttribute="height" id="8go-tu-DLB"/>
-                            <constraint firstItem="B10-c3-qIb" firstAttribute="leading" secondItem="Ao8-me-SQt" secondAttribute="leading" id="Cl2-u6-fwt"/>
-                            <constraint firstItem="B10-c3-qIb" firstAttribute="top" secondItem="Ao8-me-SQt" secondAttribute="top" id="gS2-th-uLx"/>
+                            <constraint firstItem="B10-c3-qIb" firstAttribute="width" secondItem="Ao8-me-SQt" secondAttribute="width" id="HrD-rC-XLN">
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
+                            </constraint>
+                            <constraint firstItem="B10-c3-qIb" firstAttribute="centerX" secondItem="Ao8-me-SQt" secondAttribute="centerX" id="gSO-10-Xdn"/>
+                            <constraint firstItem="B10-c3-qIb" firstAttribute="centerY" secondItem="Ao8-me-SQt" secondAttribute="centerY" id="tkJ-As-IB0"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="HrD-rC-XLN"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="constraints">
+                                <exclude reference="8go-tu-DLB"/>
+                                <include reference="HrD-rC-XLN"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="B10-c3-qIb" id="3Wd-Bk-zHn"/>
@@ -459,7 +496,7 @@ Castlemaine</string>
         </scene>
     </scenes>
     <resources>
-        <image name="Bertie" width="1024" height="1025"/>
+        <image name="Bubbles" width="908" height="908"/>
         <image name="Sesame" width="871" height="871"/>
     </resources>
 </document>
