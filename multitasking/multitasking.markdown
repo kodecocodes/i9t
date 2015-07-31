@@ -10,70 +10,49 @@ In this chapter you learn how to update an existing app so that it plays nicely 
 
 ## Getting started
 
-There are three different aspects to multitasking on the iPad: Slide Over, Split View, and Picture in Picture. You activate Slide Over by swiping from the right edge of the screen. You'll be presented a list of multitasking-ready apps on your iPad in that list, from which you can tap and launch one. If your app is not multitasking-ready, it won't show up in this list!
-
-> **Note**:  If the locale of the iPad is set to a region with right-to-left language, you swipe from the right edge of the screen to activate multitasking.
-
-This is a great opportunity and you want your users to see your app in the list! This allows users to get into your app more often and spend more time in it while using your app alongside with other apps.
-
-You can then pin the Slide Over and activate Split View. In Split View the screen is divided between the two apps. You can use both apps independently and both are fully functional.
-
-![width=90% ipad](images/mt01.png)
-
-If for any reason, you really don't want to participate in a multitasking environment, you can opt out of this feature by checking **Requires full screen** box in the General tab of your app target settings.
-
-![width=90% ipad](images/mt02.png)
-
-The Picture in Picture (PIP) multitasking feature works similarly to the picture-in-picture function on televisions. When watching a video or participating in a FaceTime call, the video window can be minimized to one corner of the iPad so you can continue to use other apps while you watch or chat.
-
-![width=90% ipad](images/mt03.png)
-
-> **Note:** At the time of writing this chapter, Slide Over is supported on iPad Air 2 only. Picture in Picture is supported on iPad Air, iPad Air 2, iPad Mini 2, and iPad Mini 3.
-
-If you are not sure whether your iPad supports multitasking, go to **Settings > General** on your iPad. If you see **Multitasking** in the list, your iPad is multitasking capable. As a user you can disable multitasking.
-
-![width=90% ipad](images/mt04.png)
-
-### The starter project
-
 The starter project you’ll use for the remainder of this chapter is called **Travelog**. Open the project file in Xcode and build and run the application for iPad Air 2 simulator. You’ll see the following screens:
 
 ![width=90% ipad](images/mt05.png)
 
 Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. If you tap on an entry, it's displayed in the right hand view. Rotate the device and you'll see both master and detail views of the Split View Controller are visible in both orientations. However, the master view is narrower in portrait orientation to give more room for the content in detail view.
 
-It's time to see how the app behaves in a multitasking environment. Swipe from the right edge of the screen to expose the list of multitasking-ready apps on your iPad. Tap on one of the apps like Calendar app to launch it. Notice there is a handle in the divider that suggests you can pin the divider. Go ahead and do that.
+It's time to see how the app behaves in a multitasking environment. Swipe from the right edge of the screen to expose the list of multitasking-ready apps on your iPad. Tap on one of the apps like Calendar app to launch it. Notice there is a handle in the divider that suggests you can pin the divider. Go ahead and tap on that!
 
 ![width=90% ipad](images/mt06.png)
 
-The screen just divided in two! But how did that happen? It turns out if you start a new project in Xcode 7, it's automatically multitasking ready. An existing app automatically becomes multitasking-ready if the following conditions are met:
+W00t! The screen just divided in two! Isn't that nice?!
+
+> **Note**: If an app isn't multitasking ready, you won't see the handle and so you won't be able to pin it. There is also a short handle bar at top of the Slide Over. Swipe down on the handler to expose the list of multitasking apps again and launch a different app in the Slide Over.
+
+There are three different aspects to multitasking on the iPad: Slide Over, Split View, and Picture in Picture. You activate Slide Over by swiping from the right edge of the screen. In the Slide Over you are presented with a list of multitasking-ready apps on your iPad, from which you can tap and launch one. If your app is not multitasking-ready, it won't show up in this list!
+
+> **Note**:  If the locale of the iPad is set to a region with right-to-left language, you swipe from the right edge of the screen to activate multitasking.
+
+If you can't get to Slide Over on your device or you wan to make sure whether an iPad supports multitasking, go to **Settings > General** of the device. If you see **Multitasking** in the list, your iPad is multitasking capable. As a user you can disable multitasking.
+
+![width=90% ipad](images/mt04.png)
+
+This is a great opportunity and you want your users to see your app in the list! This allows users to get into your app more often and spend more time in it while using your app alongside with other apps.
+
+If for any reason, you really don't want to participate in a multitasking environment, you can opt out of this feature by checking **Requires full screen** box in the General tab of your app target settings.
+
+![width=90% ipad](images/mt02.png)
+
+Not only you can interact with both apps in the Split View at the same time, you can also bring in another view and watch your favorite sports show. The Picture in Picture (PIP) is another multitasking feature that works the same way the picture-in-picture function on televisions work. You can minimize the PIP window or a FaceTime call to one corner of the iPad and continue using other apps while you watch or chat.
+
+![width=90% ipad](images/mt03.png)
+
+> **Note:** At the time of writing this chapter, Slide Over is supported on iPad Air 2 only. Picture in Picture is supported on iPad Air, iPad Air 2, iPad Mini 2, and iPad Mini 3.
+
+## Prepare for multitasking
+
+ Here is what you have to do to have a multitasking-ready app. If you start a new project in Xcode 7, it's automatically multitasking ready. An existing app automatically becomes multitasking-ready if the following conditions are met:
 * a universal app
 * compiled with SDK 9.x
 * supports all orientations
 * uses launch storyboard
 
-> **Note**: If an app isn't multitasking ready, you won't see the handle and so you won't be able to pin it.
-
 Since all the required criteria are in place, Travelog becomes multitasking ready. That's good news but just because it's multitasking ready, doesn't mean that everything will work as expected.
-
-> **Note:** There is a short handle bar at top of the Slide Over. Swipe down on the handler to expose the list of multitasking apps again and launch a different app in the Slide Over.
-
-There has been some great tools in UIKit to prepare you for multitasking and adaptivity. Auto Layout, Size Classes are couple of them. If you are not using them already, it's time to update your code. In addition to those, there are  some new tools in UIKit to further assist you with multitasking; `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth` are two of those. You can learn more about **UIStackView and Auto Layout Changes** in chapter XX of this book.
-
-## Prepare for multitasking
-
-With that said, there are some strategies that you can use to improve your code in a multitasking environment:
-1. **Universal:** Make your app universal. Your users will be happier and feel more like home when they can interactive with your app on their iPad, for example, very much the same way they interact with it on their iPhone. If you look around you'll see that's how most of the apps that you also use on a daily basis behave. For example Mail, Calendar, and Notes just to name a few provide almost an identical user experience whether you use them on a Mac, on an iPad or on your iPhone.
-2. **Be flexible:** You need to step away from a pixle-perfect design for various platforms and orientations. You need to think about different sizes and how you can have a flexible app that responds to size changes appropriately.
-3. **Use Auto Layout:** If you still have some legacy code with hardcoded sizes or code that manually changes size of elements, it's time to consider Auto Layout to make your code more flexible and easier to maintain.
-4. **Use Size classes:** It's great to have universal storyboards, but one single layout doesn't always fit all displays. Use size classes to build a base layout and then customize each specific size class based on the individual needs of that size class. Don’t treat each of the size classes as a completely separate design, though, because as you will see later in multitasking, an app on a single device can go from one size class to another size class. You don't want to make a dramatic change as user drags the divider!
-
-> **Note:** To refresh your memories, iPhone portrait is compact horizontal size class; iPhone landscape is compact horizontal size class except for iPhone 6 Plus which is regular horizontal size class. iPad has regular horizontal size class in both portrait and landscape orientations. To learn more about size classes, you can check out **Adaptive Layout** in iOS 8 By Tutorials.
-
-5. **UIAdaptivePresentationControllerDelegate:** This is another great tool that's been around since iOS 8. You can easily change the presentation of a view controller based on the current context and the environment of the app. For example you can present a view controller either in a popover or modally depending on the current size class.
-6. **UISplitViewController:** This is probably the oldest tool you have in your toolbox for adaptivity and it's still very useful. Out of the box, `UISplitViewController` provides some great adaptivity to make your life easier. Make sure you check out the latest documentation for `UISplitViewController` for the updated API.
-
-You will use some of these strategies in this tutorial to improve Travelog.
 
 ### Orientation and size changes
 Still running the app, rotate the iPad to landscape orientation, and you'll see the app with a layout shown below:
@@ -207,6 +186,18 @@ Here you return `.None` if the width your Split View Controller's view is wider 
 Build and run. Verify that the only time you see the popover turning into a modal fullscreen view is when your app is in the Slide Over or in the portrait orientation with multitasking enabled.
 
 ![width=95%](images/mt093.png)
+
+There has been some great tools in UIKit to prepare you for multitasking and adaptivity. Auto Layout, Size Classes are couple of them. If you are not using them already, it's time to update your code. In addition to those, there are  some new tools in UIKit to further assist you with multitasking; `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth` are two of those. You can learn more about **UIStackView and Auto Layout Changes** in chapter XX of this book.
+
+### Strategies
+
+There are some other strategies that you can use to improve your code in a multitasking environment:
+
+2. **Be flexible:** Step away from a pixle-perfect design for various platforms and orientations. You need to think about different sizes and how you can have a flexible app that responds to size changes appropriately.
+3. **Use Auto Layout:** Remove hardcoded sizes or code that manually changes size of elements, it's time to consider Auto Layout and make your code more flexible and easier to maintain.
+4. **Use Size classes:** One single layout doesn't always fit all displays. Use size classes to build a base layout and then customize each specific size class based on the individual needs of that size class. Don’t treat each of the size classes as a completely separate design, though, because as you saw earlier, an app on a single device can go from one size class to another size class. You don't want to make a dramatic change as user drags the divider!
+
+> **Note:** To refresh your memories, iPhone portrait is compact horizontal size class; iPhone landscape is compact horizontal size class except for iPhone 6 Plus which is regular horizontal size class. iPad has regular horizontal size class in both portrait and landscape orientations. To learn more about size classes, you can check out **Adaptive Layout** in iOS 8 By Tutorials.
 
 ## Keyboard
 
