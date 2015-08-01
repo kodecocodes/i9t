@@ -30,46 +30,58 @@ Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and
 
 ### The Anatomy of an App 
 
-When compiling your code into an iOS application, it's good to understand what Xcode is doing behind the scenes.
+When compiling your code into an iOS application, it's good to understand what Xcode is doing behind the scenes. 
 
-Below is a side-by-side comparison of the Old CA Maps **Xcode project**'s directory (on the left) and Old CA Map's **archived bundle**'s contents, or **IPA** (on the right).
+This project contains a run script that will launch a Finder with the location of the build directory where you'll see an app file - otherwise known as the applicaiton bundle. Build & run, and in the launched Finder right click **Old CA Maps** and select **Show Package Contents** to view the compiled bundle.
+
+![bordered width=%60](./images/show_app_contents.png)
+
+Below is a side-by-side comparison of the Old CA Maps **Xcode project**'s directory (on the left) and Old CA Map's **application bundle**'s contents (on the right). Your output might vary slightly depending on whether you've built for a device or simulator.
 
 ![bordered width=%60](./images/Directory_IPA_Comparison.png)
 
 There are a few important items to take note of:
 
-- The assets catalog in Xcode named **Assets.xcassets** will turn into the **Assets.car** file in the IPA. This file's job is to hold resources specific to different scales, size classes, and devices. 
+- The assets catalog named **Assets.xcassets** in Xcode will become a binary version named **Assets.car** in the application bundle. This file's job is to hold resources specific to different scales, size classes, and devices. 
 - Check out the sizes of each of the bundles. Notice the **SC_Map.bundle** is over 130 MB! 
-- The item called **Old CA Maps** with the Terminal icon is the actual executable for your application. This is the actual program that is run on your iOS device. 
-- Notice that since the 3 **Santa Cruz PNGs** found in Xcode were not copied into the **Assets.car** file, but instead copied over in the top-level directory. You will fix this soon...
+- The item called **Old CA Maps** with the Terminal icon is the executable for your application. This is the actual program that is run on your iOS device. 
+- Notice that the 3 **Santa Cruz PNGs** in the project but not in a bundle or asset catalog were not copied into the **Assets.car** file. Instead, they were copied over in a top-level directory - which won't get sliced! You will fix this soon...
 
 ### Measuring Your Work
 
-It would be a good idea to quantitatively measure your progress when working with App Thinning. That is, how big is the IPA before and after you touched this project. Fortunately, there is already a **Build Script** included in **Old CA Maps** that lists the size of the IPA in Kilobytes. 
+It will be helpful to quantitatively measure your progress when working with App Thinning. You want to know how big the application bundle is before and after you touch this project. Fortunately, there is already a **Build Script** included in **Old CA Maps** that lists the size of the bundle in kilobytes. 
 
-To view the size of an app you built, first build the project, then:
+To view the size of a build using this script, first build the project, then:
 1. Navigate to the **Report Navigator**
-2. Select the build you wish to inspect. 
+2. Select the **Build** you wish to inspect. 
 3. Make sure the **All** and **All Messages** are selected
-4. Find the **Run Custom Shell Script** output.
+4. Find the **Run custom shell script** output.
 
 ![bordered width=90%](./images/app_size_viewing.png)
 
-You should occasionally come back to this view to see your progress of making your app smaller. Although this will not be the exact size of the IPA when you submit it to the App Store, this will give you a good idea of your progress with App Thinning.
+You will occasionally come back to this output to see your progress as you make the app smaller. Although this will not be the exact size of the IPA when you submit it to the App Store, this will give you a good idea of your progress with App Thinning.
 
 ## Slicing Up App Slicing
 
 App Slicing can be further broken down into two parts: executable slicing and resource slicing. 
 
-Fortunately, there is not much you need to do to enable App Slicing for your executable. The build setting, **ONLY_ACTIVE_ARCH** is enabled by default for **DEBUG** builds, and is off for **RELEASE** builds. Even though you're sending up an executable that has multiple builds attached to it in a Release configuration, Apple will automatically create the variants needed on your behalf. All you have to do is just compile for iOS 9. 
+Executable slicing simply means Apple delivers a single executable of the apporpriate architecture for a given device. Fortunately, there isn't much you need to do to help the App Store make this happen. 
+
+By default, **RELEASE** builds include all architectures configured in your build settings. When you submit such a build to the App Store, it will automatically create the variants needed on your behalf. All you have to do is compile for iOS 9. 
 
 ## Being Smart With Resources
 
-Resource Slicing takes a tiny bit more work than doing absolutely nothing... but not by much. :]
+Resource Slicing takes a tiny bit more work than doing absolutely nothing...but not by much. :]
 
-All you have to do is make sure that your resources are compiled into **Asset Catalogs**. If they aren't, Xcode won't be able to figure out how to properly compile only the resources specific to your device.
+All you have to do is make sure that your resources are compiled into **Asset Catalogs** and organized according to traits. You likely already organize your image assets according to scale factors. With Xcode 7, you can now also tag assets by **Memory** and **Graphics** requirements in the Attributes Inspector.
 
-As you noticed earlier, the **Santa Cruz** assets were not correctly compiled into the **Assets.xcassets** catalog within Xcode, resulting in unneeded images being copied over to the main bundle.
+![bordered height=40%](./images/new_trait_attributes.png)
+
+The **Memory** setting lets you target different assets to devices with different amounts of RAM. The **Graphics** setting allows you to target either first or second generation Metal capable GPUs.
+
+Using these new settings along with scale factors and device types allows the App Store to slice your app into more targetted bundles for a given device.
+
+As you noticed earlier, the **Santa Cruz** assets were not correctly compiled into the **Assets.xcassets** catalog within Xcode, resulting in images being copied over to the main bundle. This means they won't be sliced, landing them on devices where they wont' all be used.
 
 The fix for this is quite simple. Just stick the **Santa Cruz** PNGs into the Asset Catalog.
 
@@ -83,7 +95,15 @@ When finished, the Santa Cruz assets in the catalog should look like:
 
 ![bordered width=90%](./images/Santa_cruz_asset_catalog.png)
 
-Build and run the application. Since you can visually see the image in the app, you can verify the application correctly sees the Santa Cruz assets in the asset catalog.
+Debug builds are a great way to see how App Thinning works - because even before it existed, Xcode was tailoring debug builds to the target device. Build and run the application, again selecting the **iPad Air 2 Simulator**. Take a look at the size of **Asset.car** by looking at the Package Contents in the build directory as you did earlier.
+![bordered width=40%](./images/ipad_air_2_asset_car_size.png)
+
+This is using the @2x image for Santa Cruz, and ends up at 68 KB.
+
+Now build and run with the **iPhone 6 Plus** simulator and take a look at the size of **Asset.car**:
+![bordered width=40%](./images/iphone_6_plus_asset_car_size.png)
+
+As you can see, it's up to 74 KB. The growth makes sense given the higher resolution of the @3x image used by the iPhone 6 Plus. While it may not directly reflect the size of the bundle on the store, this gives you a relative idea of how thinning works to size your bundle according to the needs of the target device.
 
 >**Note:** Although PNGs are a good way to provide resources, you should also consider using vector-based PDFs. Xcode breaks down the PDF and resizes the image as needed, essentially future-proofing your app for whatever screen scales Apple will come up with next. All the other thumbnail images in Old CA Maps use vector-based PDFs.
 
