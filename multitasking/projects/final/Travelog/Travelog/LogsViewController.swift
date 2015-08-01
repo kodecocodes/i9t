@@ -93,11 +93,11 @@ class LogsViewController: UITableViewController, DetailViewControllerPresenter, 
   // MARK: IBActions
   
   @IBAction func photoLibraryButtonTapped(sender: UIBarButtonItem?) {
-    presentCameraControllerForSourceType(UIImagePickerControllerSourceType.PhotoLibrary)
+    presentImagePickerControllerWithSourceType(UIImagePickerControllerSourceType.PhotoLibrary)
   }
   
   @IBAction func cameraButtonTapped(sender: UIBarButtonItem?) {
-    presentCameraControllerForSourceType(UIImagePickerControllerSourceType.Camera)
+    presentImagePickerControllerWithSourceType(UIImagePickerControllerSourceType.Camera)
   }
   
   @IBAction func addNoteButtonTapped(sender: UIBarButtonItem?) {
@@ -105,7 +105,7 @@ class LogsViewController: UITableViewController, DetailViewControllerPresenter, 
   }
   
   //// A helper method to configure and display image picker controller based on the source type.
-  func presentCameraControllerForSourceType(sourceType: UIImagePickerControllerSourceType) {
+  func presentImagePickerControllerWithSourceType(sourceType: UIImagePickerControllerSourceType) {
     let controller = UIImagePickerController()
     controller.delegate = self
     controller.sourceType = sourceType
@@ -124,7 +124,7 @@ class LogsViewController: UITableViewController, DetailViewControllerPresenter, 
   // MARK: DetailViewControllerPresenter
   
   func detailViewController(vc: DetailViewController, requestsPresentingPhotoEditorForLog log: BaseLog, withSourceType type: UIImagePickerControllerSourceType) {
-    presentCameraControllerForSourceType(type)
+    presentImagePickerControllerWithSourceType(type)
   }
   
   func detailViewController(vc: DetailViewController, requestsPresentingTextEditorForLog log: BaseLog) {
