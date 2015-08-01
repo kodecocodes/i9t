@@ -24,6 +24,7 @@
 		A645B2CB1B52F904004103C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A645B2CA1B52F904004103C7 /* Assets.xcassets */; };
 		A645B2CD1B52F918004103C7 /* NSBundle+ContentExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */; };
 		A645B2CF1B52F959004103C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A645B2CE1B52F959004103C7 /* Main.storyboard */; };
+		A6FA5BD91B6D413300F192D9 /* UIColor+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FA5BD81B6D413300F192D9 /* UIColor+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		A645B2CA1B52F904004103C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+ContentExtractor.swift"; sourceTree = "<group>"; };
 		A645B2CE1B52F959004103C7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A6FA5BD81B6D413300F192D9 /* UIColor+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 		A645B2D81B52FAA8004103C7 /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				A6FA5BD81B6D413300F192D9 /* UIColor+Utils.swift */,
 				A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */,
 			);
 			name = misc;
@@ -238,6 +241,7 @@
 				A645B2AE1B52F87D004103C7 /* AppDelegate.swift in Sources */,
 				A645B2BE1B52F8B6004103C7 /* ImageTile.swift in Sources */,
 				A645B2BC1B52F8B6004103C7 /* HistoricTileMapOverlay.swift in Sources */,
+				A6FA5BD91B6D413300F192D9 /* UIColor+Utils.swift in Sources */,
 				A645B2B31B52F894004103C7 /* MapChromeViewController.swift in Sources */,
 				A645B2BB1B52F8B6004103C7 /* HistoricTileMapOverlayRenderer.swift in Sources */,
 				A645B2B41B52F894004103C7 /* MapContentTableViewController.swift in Sources */,

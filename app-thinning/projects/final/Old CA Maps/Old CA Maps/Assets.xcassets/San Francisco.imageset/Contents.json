@@ -2,7 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "San Francisco.pdf"
+      "filename" : "San Francisco.png",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "San Francisco@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "San Francisco@3x.png",
+      "scale" : "3x"
     }
   ],
   "info" : {
