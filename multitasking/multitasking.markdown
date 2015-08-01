@@ -71,15 +71,15 @@ You see that the app already does some layout update on an orientation change. S
 
 UIKit provides a number of anchor points that you can hook on to and update your layout:
 
-1. **willTransitionToTraitCollection(_, withTransitionCoordinator:)**
-2. **viewWillTransitionToSize(_, withTransitionCoordinator:)**
-3. **traitCollectionDidChange(_):**
+1. **willTransitionToTraitCollection(_:, withTransitionCoordinator:)**
+2. **viewWillTransitionToSize(_:, withTransitionCoordinator:)**
+3. **traitCollectionDidChange(_:):**
 
 When you launch an app in the Slide Over, it starts in compact horizontal size class. When you pin the app, it is still in compact horizontal size class. On the other side where the primary app is, in portrait orientation the size class changes from regular to compact horizontal size class. In landscape orientation the primary app stays in regular horizontal size class.
 
 Because not all size changes trigger a size class change, you can't solely rely on size class changes to provide the best user experience.
 
-It looks like `viewWillTransitionToSize(_, withTransitionCoordinator:)` is a good candidate to update this code. Remove the implementation of both `viewDidLayoutSubviews()` and `updateMaximumPrimaryColumnWidth()` from `SplitViewController` and update it with the following methods instead:
+It looks like `viewWillTransitionToSize(_:, withTransitionCoordinator:)` is a good candidate to update this code. Remove the implementation of both `viewDidLayoutSubviews()` and `updateMaximumPrimaryColumnWidth()` from `SplitViewController` and update it with the following methods instead:
 
 ```swift
 // 1
@@ -104,7 +104,7 @@ override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator c
 }
 ```
 
-Here you add a new helper method, `updateMaximumPrimaryColumnWidthBasedOnSize(_)` that takes in a `size` parameter and updates the `maximumPrimaryColumnWidth` property of the split view controller based on the overall size of the split view itself. You do the update once the split view is initially loaded and once when its size is changed.
+Here you add a new helper method, `updateMaximumPrimaryColumnWidthBasedOnSize(_:)` that takes in a `size` parameter and updates the `maximumPrimaryColumnWidth` property of the split view controller based on the overall size of the split view itself. You do the update once the split view is initially loaded and once when its size is changed.
 
 Build and run. First verify that the app still looks and behaves as before without multitasking in all orientations. Then enable multitasking and try different orientations.
 
@@ -286,7 +286,7 @@ Before you go, consider these few thoughts on multitasking best practices:
 * **User control's your app size**: You can't prevent or cause size changes. User can change the size of the window your app is displayed in it at any time. The system may change the app’s window size to take a snapshot. Make your app flexible!
 * **Keep the user oriented**: With size changes, it's easy to confuse user. Make sure you keep your users oriented and avoid abrupt changes. You need to be smart in new ways.
 * **Consider size and Size Class instead of orientation**: Think about how to respond to transition from one size to another, instead of device orientation. Make your app universal and use adaptive presentations.
-* **Use setNeedsLayout()**: Do not call `layoutIfNeeded()` while transitioning in either `willTransitionToTraitCollection(_, withTransitionCoordinator:)` or `viewWillTransitionToSize(_, withTransitionCoordinator:)` because the system will do that for you. Try using `setNeedsLayout()` instead.
+* **Use setNeedsLayout()**: Do not call `layoutIfNeeded()` while transitioning in either `willTransitionToTraitCollection(_:, withTransitionCoordinator:)` or `viewWillTransitionToSize(_:, withTransitionCoordinator:)` because the system will do that for you. Try using `setNeedsLayout()` instead.
 * **Be quick**: Transitioning is time-boxed by the operating system. You need to do as little work as possible to provide a smooth transition. Use the completion block for longer, time consuming tasks.
 
 ## Where to go from here
