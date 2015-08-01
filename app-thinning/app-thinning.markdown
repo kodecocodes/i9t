@@ -75,7 +75,7 @@ Resource Slicing takes a tiny bit more work than doing absolutely nothing...but 
 
 All you have to do is make sure that your resources are compiled into **Asset Catalogs** and organized according to traits. You likely already organize your image assets according to scale factors. With Xcode 7, you can now also tag assets by **Memory** and **Graphics** requirements in the Attributes Inspector.
 
-![bordered width=60%](./images/new_trait_attributes.png)
+![bordered height=40%](./images/new_trait_attributes.png)
 
 The **Memory** setting lets you target different assets to devices with different amounts of RAM. The **Graphics** setting allows you to target either first or second generation Metal capable GPUs.
 
@@ -96,11 +96,13 @@ When finished, the Santa Cruz assets in the catalog should look like:
 ![bordered width=90%](./images/Santa_cruz_asset_catalog.png)
 
 Debug builds are a great way to see how App Thinning works - because even before it existed, Xcode was tailoring debug builds to the target device. Build and run the application, again selecting the **iPad Air 2 Simulator**. Take a look at the size of **Asset.car** by looking at the Package Contents in the build directory as you did earlier.
-![bordered width=90%](./images/ipad_air_2_asset_car_size.png)
+![bordered width=40%](./images/ipad_air_2_asset_car_size.png)
+
 This is using the @2x image for Santa Cruz, and ends up at 68 KB.
 
 Now build and run with the **iPhone 6 Plus** simulator and take a look at the size of **Asset.car**:
-![bordered width=90%](./images/iphone_6_plus_asset_car_size.png)
+![bordered width=40%](./images/iphone_6_plus_asset_car_size.png)
+
 As you can see, it's up to 74 KB. The growth makes sense given the higher resolution of the @3x image used by the iPhone 6 Plus. While it may not directly reflect the size of the bundle on the store, this gives you a relative idea of how thinning works to size your bundle according to the needs of the target device.
 
 >**Note:** Although PNGs are a good way to provide resources, you should also consider using vector-based PDFs. Xcode breaks down the PDF and resizes the image as needed, essentially future-proofing your app for whatever screen scales Apple will come up with next. All the other thumbnail images in Old CA Maps use vector-based PDFs.
