@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9b9-A2-rSi">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+    </dependencies>
+    <scenes>
+        <!--Settings-->
+        <scene sceneID="kor-qc-Xmr">
+            <objects>
+                <viewController id="jRV-YE-6qi" customClass="SettingsViewController" customModule="LocalWeather" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jIK-yv-kjs"/>
+                        <viewControllerLayoutGuide type="bottom" id="xGt-5l-v7X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="euR-m9-svM">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YYb-Z2-YVU">
+                                <rect key="frame" x="0.0" y="114" width="375" height="553"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Local weather respects your privacy. We will never use your location without your consent or even automatically." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="R2V-dd-QPC">
+                                        <rect key="frame" x="4" y="0.0" width="368" height="61"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="PTs-FY-J4X">
+                                        <rect key="frame" x="83" y="101" width="210" height="212"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="12w-sk-3wA">
+                                                <rect key="frame" x="0.0" y="0.0" width="210" height="30"/>
+                                                <animations/>
+                                                <state key="normal" title="Update Location Automatically"/>
+                                                <connections>
+                                                    <action selector="updateLocationAutomaticallyTapped" destination="jRV-YE-6qi" eventType="touchUpInside" id="cJj-ab-Olz"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UJk-7c-RBh">
+                                                <rect key="frame" x="14" y="40" width="181" height="30"/>
+                                                <animations/>
+                                                <state key="normal" title="Enter Zip Code or Address"/>
+                                                <connections>
+                                                    <action selector="enterAddressTapped:" destination="jRV-YE-6qi" eventType="touchUpInside" id="Hif-am-Hpo"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wx3-2c-ohj">
+                                                <rect key="frame" x="5" y="80" width="199" height="30"/>
+                                                <animations/>
+                                                <state key="normal" title="Enter Latitude and Longitude"/>
+                                                <connections>
+                                                    <action selector="enterLatLonTapped:" destination="jRV-YE-6qi" eventType="touchUpInside" id="2kV-ac-boq"/>
+                                                </connections>
+                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zUq-AI-jgq">
+                                                <rect key="frame" x="30" y="120" width="150" height="52"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KOT-G4-8pz">
+                                                        <rect key="frame" x="0.0" y="0.0" width="82" height="52"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latitude:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9re-u0-ILr">
+                                                                <rect key="frame" x="14" y="0.0" width="68" height="21"/>
+                                                                <animations/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Longitude:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahR-he-JeN">
+                                                                <rect key="frame" x="0.0" y="31" width="82" height="21"/>
+                                                                <animations/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <animations/>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="S2H-4I-dbX">
+                                                        <rect key="frame" x="92" y="0.0" width="58" height="52"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Not Set" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Wi-jW-Whp">
+                                                                <rect key="frame" x="0.0" y="0.0" width="58" height="21"/>
+                                                                <animations/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Not Set" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jY3-Hc-R6c">
+                                                                <rect key="frame" x="0.0" y="31" width="58" height="21"/>
+                                                                <animations/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <animations/>
+                                                    </stackView>
+                                                </subviews>
+                                                <animations/>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oPd-KF-fC5">
+                                                <rect key="frame" x="38" y="182" width="134" height="30"/>
+                                                <animations/>
+                                                <state key="normal" title="Clear Your Location">
+                                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="clearLocationTapped" destination="jRV-YE-6qi" eventType="touchUpInside" id="l6b-O5-Lzc"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <animations/>
+                                    </stackView>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="DaK-M5-VtT">
+                                        <rect key="frame" x="0.0" y="353" width="375" height="200"/>
+                                        <animations/>
+                                    </mapView>
+                                </subviews>
+                                <animations/>
+                            </stackView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="MDS-bt-92C">
+                                <rect key="frame" x="204" y="78" width="157" height="29"/>
+                                <animations/>
+                                <segments>
+                                    <segment title="Celsius"/>
+                                    <segment title="Fahrenheit"/>
+                                </segments>
+                                <connections>
+                                    <action selector="unitSegmentedControlValueChanged:" destination="jRV-YE-6qi" eventType="valueChanged" id="QLN-mM-5IQ"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Temperature Unit:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MaK-Ct-1kJ">
+                                <rect key="frame" x="20" y="81" width="139" height="21"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="YYb-Z2-YVU" firstAttribute="leading" secondItem="euR-m9-svM" secondAttribute="leading" id="Akq-u0-pqT"/>
+                            <constraint firstItem="YYb-Z2-YVU" firstAttribute="top" secondItem="jIK-yv-kjs" secondAttribute="bottom" constant="50" id="acH-p8-Pth"/>
+                            <constraint firstItem="xGt-5l-v7X" firstAttribute="top" secondItem="YYb-Z2-YVU" secondAttribute="bottom" id="gKC-wz-dBh"/>
+                            <constraint firstAttribute="trailing" secondItem="YYb-Z2-YVU" secondAttribute="trailing" id="it1-I9-zUj"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Settings" id="F5q-K9-voM">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="yGF-XL-5yJ">
+                            <connections>
+                                <action selector="doneTapped:" destination="jRV-YE-6qi" id="wap-Bd-n99"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="latitudeLabel" destination="4Wi-jW-Whp" id="QgE-An-ZfU"/>
+                        <outlet property="longitudeLabel" destination="jY3-Hc-R6c" id="FTF-ww-2Ga"/>
+                        <outlet property="mapView" destination="DaK-M5-VtT" id="jdG-X5-Bfg"/>
+                        <outlet property="unitSegmentedControl" destination="MDS-bt-92C" id="B2V-z9-Wqn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0By-mt-cpA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1590.5" y="217.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="A7m-1B-yqm">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9b9-A2-rSi" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oxp-gN-V6N">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="jRV-YE-6qi" kind="relationship" relationship="rootViewController" id="ToV-YK-Wpk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uwj-1o-1Yx" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1147.5" y="217.5"/>
+        </scene>
+    </scenes>
+</document>
