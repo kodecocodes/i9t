@@ -35,6 +35,15 @@ class MapContentTableViewController: UITableViewController {
     self.clearsSelectionOnViewWillAppear = false
   }
   
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    navigationController?.navigationBar.barTintColor = UIColor(red: 109/255, green: 92/255, blue: 128/255, alpha: 1.0)
+    navigationController?.navigationBar.translucent = true
+    navigationController?.navigationBar.alpha = 1
+    navigationController?.navigationBar.titleTextAttributes = nil 
+
+  }
+  
 //=============================================================================/
 // Mark: UITableViewDataSource
 //=============================================================================/

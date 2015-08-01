@@ -45,10 +45,42 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     
     downloadAndDisplayMapOverlay()
     
-    
     let barButton = splitViewController!.displayModeButtonItem()
     navigationItem.leftBarButtonItem = barButton
     navigationItem.leftItemsSupplementBackButton = true
+  }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    parentViewController?.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+    parentViewController?.navigationController?.navigationBar.translucent = true
+    parentViewController?.navigationController?.navigationBar.alpha = 0.8
+    
+    guard let mapOverlayData = mapOverlayData else {
+      return
+    }
+    let color: UIColor
+    switch mapOverlayData.title {
+    case "Santa Cruz":
+      color = UIColor.SantaCruzColor()
+    case "Sunnyvale":
+      color = UIColor.SunnyvaleColor()
+    case "San Francisco":
+      color = UIColor.SanFranciscoColor()
+    case "San Diego":
+      color = UIColor.SanDiegoColor()
+    case "Los Angeles":
+      color = UIColor.LosAngelesColor()
+    default:
+      color = UIColor.whiteColor()
+    }
+    
+    if let parentNavigationController = parentViewController?.navigationController {
+      parentNavigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : color]
+    } else {
+      navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : color]
+    }
+    UISlider.appearance().tintColor = color
   }
   
 //=============================================================================/

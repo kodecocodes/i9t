@@ -33,11 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   private func setupColors() {
-    self.window?.backgroundColor = UIColor.redColor()
-    UINavigationBar.appearance().backgroundColor = UIColor(red: 109/255, green: 92/255, blue: 128/255, alpha: 1.0)
     UINavigationBar.appearance().tintColor = UIColor.whiteColor()
     UITableView.appearance().separatorColor = UIColor(red: 193/255, green: 193/255, blue: 193/255, alpha: 1)
-    
   }
 }
 
