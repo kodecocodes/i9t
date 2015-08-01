@@ -109,65 +109,74 @@ As you can see, it's up to 74 KB. The growth makes sense given the higher resolu
 
 ## Lazily (Down)Loading Content
 
-Now that you've migrated all the images into asset catalogs, essentially removing unused images, it's time to take a more aggressive approach at limiting content by using **On-Demand Resources**, or simply, **ODR**. 
+Now that you've migrated all the images into asset catalogs, essentially removing unused images, it's time to take a more aggressive approach at limiting content by using **On-Demand Resources**, or simply, **ODR**. ODR allows you to store resources on Apple's servers, and pull them down as your app needs them.
 
-The primary class responsible for dealing with ODR is called **NSBundleResourceRequest**. Using NSBundleResourceRequest, you can control the content to download with the use of **Tags**. Tags are string names you can attach to one or more resources to properly identify a group of content to download. Through tags, Apple abstracts the resource storage location and retrieval URL for your ODR content.
+The primary class responsible for dealing with ODR is **NSBundleResourceRequest**. Using NSBundleResourceRequest, you can control the content to download with the use of **Tags**. Tags are string names you can attach to one or more resources to properly identify a group of content to download. Through tags, Apple abstracts the remote resource storage location and retrieval URL for your ODR content.
 
-Wait, so what can you include when using On-Demand Resources? It can consist of images, data, OpenGL shaders, SpriteKit Particles, Watchkit Complications etc. The main thing to note is that ODR can't be executable code. 
+So what can you include when using On-Demand Resources? They can consist of images, data, OpenGL shaders, SpriteKit Particles, Watchkit Complications and more. The main thing to note is that ODR can't be executable code. 
 
-Fortunately for this particular application, NSBundles fall into the data file category, allowing you to apply ODR to the bundles without changing any of the file infrastructure within Old CA Maps. 
+Fortunately for this particular application, NSBundles fall into the data file category. This allows you to apply ODR to the bundles without changing any of the file infrastructure within Old CA Maps. 
 
-Time to finally whip out some coding skrillz. Navigate to **MapChromeViewController.swift** and hunt down the **downloadAndDisplayMapOverlay()** function. It's here that you'll replace the synchronous loading of a local bundle into an asynchronous load for a remote bundle obtained through a `NSBundleResourceRequest`.
+Time to finally whip out some coding skrillz. Navigate to **MapChromeViewController.swift** and hunt down the **downloadAndDisplayMapOverlay()** function. It's here that you'll replace the synchronous loading of a local bundle with an asynchronous load for a remote bundle obtained through a `NSBundleResourceRequest`.
 
-Change the **downloadAndDisplayMapOverlay()** function to now look like:
+Replace the contents of **downloadAndDisplayMapOverlay()** with the following:
     
 ```swift 
-  private func downloadAndDisplayMapOverlay() {
-    guard let bundleTitle = self.mapOverlayData?.bundleTitle else { // 1
-      return
+guard let bundleTitle =
+  self.mapOverlayData?.bundleTitle else { // 1
+    return
+}
+
+let bundleResource =
+NSBundleResourceRequest(tags: [bundleTitle]) // 2
+bundleResource.beginAccessingResourcesWithCompletionHandler {
+  [weak self] (error) -> Void in // 3
+  NSOperationQueue.mainQueue().addOperationWithBlock({
+    () -> Void in // 4
+    if error == nil {
+      self?.displayOverlayFromBundle(bundleResource.bundle) // 5
     }
-    
-    let bundleResource = NSBundleResourceRequest(tags: [bundleTitle]) // 2 
-    bundleResource.beginAccessingResourcesWithCompletionHandler {[weak self] (error) -> Void in // 3 
-      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in // 4
-        if error == nil {
-          self?.displayOverlayFromBundle(bundleResource.bundle) // 5
-        }
-      })
-    }
-  }
+  })
+}
 ```
 
 Breaking this down:
-1. Using the new features in Swift 2.0, you're using the **guard** statement. This lets you maintain the "Golden Path" of code in an easier manner.
-2. You're instantiating a `NSBundleResourceRequest` with the tag associated with your bundle. You will add tags to all the content bundles in one sec... 
+1. Here you're grabbing the `bundleTitle` associated with your `mapOverlayData`, which was already set with an appropriate title in the included **HistoricMapOverlayData.swift**. You're using the **guard** statement, a new feature in Swift 2.0 that lets you maintain the "Golden Path" of code, by returning immediately if the unwrap fails.
+2. You're instantiating an `NSBundleResourceRequest` with the `bundleTitle` tag associated with your bundle. You will add tags to all the content bundles shortly. 
 3. The `beginAccessingResourcesWithCompletionHandler` method will call the completion block when your app finishes downloading your on-demand content or upon error.  
-4. The completion handler is not called on the main thread, so you'll need to supply a block to the main queue to handle any updates to the UI. 
+4. The completion handler is not called on the main thread, so you'll need to supply a block running on the main queue to handle any updates to the UI. 
 5. `NSBundleResourceRequest` has a read-only variable called **bundle**. Replacing `NSBundle.mainBundle()` with this variable makes the code more extensible if you were to move the file structure of your resources around.
 
-Try building and running your application right now and click on one of the cities. Xcode will fail to load an overlay and spit out an error at you in the console. This is because you've told the `NSBundleResourceRequest` to look for Tags that don't exist yet... Time to fix that.
+Build and run, and click on one of the cities. Xcode will fail to load an overlay and spit out an error in the console. This is because you've told the `NSBundleResourceRequest` to look for tags that you haven't yet defined for any resources. Time to fix that.
 
-Navigate to the Project Navigator tab and expand the **Map Bundles** folder. Open the Xcode's **File Inspector** tab on the right. In the File Inspector column, find the **On Demand Resource Tags** section. 
+Navigate to the Project Navigator tab and expand the **Map Bundles** folder. Select **LA_Map.bundle**, and open Xcode's **File Inspector** tab on the right. In the File Inspector, find the **On Demand Resource Tags** section. 
 
-Go through each bundle and give the tag the same name as the bundle name. For example, for **LA_Map.bundle** give it the Tag name **LA_Map**. Do this for each of the 5 bundles in the applciation.
+Give **LA_Map.bundle** the tag name **LA_Map**. Now go through the four remaining bundles and give each a tag name identical to the bundle name without the file extension. These will match the names used for the `bundleTitle`'s set in **HistoricMapOverlayData.swift**.
 
 ![bordered width=80%](./images/Xcode_Asset_Tagging.png)
 
->**Note:** Make sure you spell the tag name in the exact same spelling and case. If you misstype it, you could come against some subtle errors.  
+>**Note:** Make sure you spell the tag name in the exact same spelling and case as the bundle file. If you misstype it, you will encounter some subtle issues.  
 
-Build your application, but don't run it yet. Now would be a good time to look at the before and after of your IPA size. Originally, the app was over 300 MB, now Old CA Maps is around 10MB. Xcode has achieved this by removing the bundle resources found in the main bundle of the IPA and downloads them if they are not present on the app.
+Build your application, but don't run it yet. Now would be a good time to look at the before and after of your application bundle size in the Report Navigator. 
 
-Now run your application. Select **Los Angeles** as the overlay and observe what happens. The app now waits until the content is downloaded then displays the overlay and adjusts the map when completed. 
+Originally, the app was over 300 MB. Now, Old CA Maps is around 10MB. Xcode has achieved this by removing the bundle resources from the main application bundle, which can be confirmed by reviewing its contents:
+![bordered width=30%](./images/bundle_size_after_odr.png)
+ 
+Now run your application. Select **Los Angeles** as the overlay and observe what happens. The app now downloads the content on demand, then displays the overlay and adjusts the map when completed.
 
->**Note:** When your app is live in the App Store, it will download these resources from there. However, to achieve the same affect while developing, Xcode makes a local network request from your device (or simulator) to your computer to download the ODR. This means that if you're testing your application and you turn your computer off, ODR will fail to work.
+>**Note:** When your app is live in the App Store, it will download these resources from there. However, to achieve the same affect while developing, Xcode makes a local network request from your device (or simulator) to your computer to download the ODR. This means that if you're testing your application and you turn your computer off, ODR will fail to work. It also means transfer time is drastically minimized compared to what a user would see for assets housed on the store.
 
 ## Uuhh... This is Taking Too Long
 
-You tried clicking on Los Angeles, but as you might have seen, the Los Angeles bundle asset is small in comparison to the Santa Cruz or San Diego bundles. 
+You tested loading Los Angeles, but as you may recall, the Los Angeles bundle asset is small in comparison to the Santa Cruz or San Diego bundles. 
 
-Try clicking on the Santa Cruz overlay and see how long it takes to display the content.
+Try clicking on the **Santa Cruz** overlay and see how long it takes to display the content.
 
-That took a little bit too long to display, right?. Running this on a real device will only be worse. You need to indicate to the user that something is happening while you're downloading content. Fortunately, **MapChromeViewController** has a **IBOutlet property** called **loadingProgressView** which is a `UIProgressView`. You'll hook up the progress to this display to indicate to the user that a download is occurring while also displaying the network activity indicator.
+>**Note:** If you view a city that you've recently viewed, you're likely going to notice it load immediately. This is because ODR caches the assets until certain conditions are met. You'll learn more about this later in this chapter.  
+
+That took a little bit too long to display, right? Running this with assets hosted on the store will only be worse. You need to indicate to the user that something is happening while you're downloading content. 
+
+Fortunately, **MapChromeViewController** already has an **IBOutlet property** called **loadingProgressView** which is a `UIProgressView`. You'll feed this progress data to present the user while also displaying the network activity indicator.
 
 Navigate back to **downloadAndDisplayMapOverlay()** and replace the content with the following:
 
