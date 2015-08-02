@@ -33,12 +33,17 @@ class CoffeeShopPinDetailView : UIView {
 	@IBOutlet var arrivalLabel: UILabel!
 	@IBOutlet var travelTimeLabel: UILabel!
 	
+	@IBOutlet var timeStackView: UIStackView!
 	var coffeeShop: CoffeeShop?
 	
 	var view: UIView!
 	var nibName: String = "CoffeeShopPinDetailView"
 	
 	private static var dateFormatter = NSDateFormatter()
+	
+	override func awakeFromNib() {
+		timeStackView.hidden = true
+	}
 	
 	//MARK: Update UI
 	func updateDetailView(coffeeShop: CoffeeShop) {
@@ -90,6 +95,26 @@ class CoffeeShopPinDetailView : UIView {
 		if let website = self.coffeeShop?.yelpWebsite {
 			UIApplication.sharedApplication().openURL(NSURL(string: website)!)
 		}
+	}
+	
+	private func animateView(view: UIView, toHidden hidden: Bool) {
+		UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: { () -> Void in
+			view.hidden = hidden
+			}, completion: nil)
+	}
+	
+	@IBAction func timeTapped(sender: AnyObject) {
+		if timeStackView.hidden {
+			animateView(timeStackView, toHidden: false)
+		} else {
+			animateView(timeStackView, toHidden: true)
+		}
+	}
+	
+	private func animateView(view: UIView,hidden: Bool) {
+		UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: { () -> Void in
+			view.hidden = hidden
+			}, completion: nil)
 	}
 	
 	//MARK: Transit Helpers

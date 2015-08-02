@@ -135,6 +135,7 @@ extension ViewController: MKMapViewDelegate {
 	}
 	
 	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+		
 		if let detail = view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
 			if let coordinate = locationManager.location?.coordinate {
 				detail.setTransitEstimatedTimes(coordinate)
