@@ -28,8 +28,9 @@ class SwipeSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
     destinationViewController.transitioningDelegate = self
     super.perform()
   }
-
+  
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    
     // Challenge is only swipe to dismiss, so still scale up
     return ScalePresentAnimator()
   }
@@ -52,18 +53,22 @@ class SwipeDismissAnimator:NSObject, UIViewControllerAnimatedTransitioning {
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
     
+    // Get the views from the transition context
     let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
     let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-
+    
     let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
     let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
-
-
+    
+    
+    // Add the to- view to the transition context
     if let fromView = fromView {
       if let toView = toView {
         transitionContext.containerView()?.insertSubview(toView, belowSubview: fromView)
       }
     }
+    
+    // Work out the final frame for the animation
     var finalFrame = transitionContext.initialFrameForViewController(fromViewController)
     // Center final frame so it slides  vertically
     let toFinalFrame = transitionContext.finalFrameForViewController(toViewController)
@@ -78,20 +83,18 @@ class SwipeDismissAnimator:NSObject, UIViewControllerAnimatedTransitioning {
         finalFrame.origin.y = UIWindow().bounds.height
       default:()
       }
-      
-      let duration = transitionDuration(transitionContext)
-      UIView.animateWithDuration(duration, animations: {
-          fromView?.frame = finalFrame
-        }, completion: {
-          finished in
-          transitionContext.completeTransition(true)
-      })
-    } else {
+    }else {
       // Not Swipeable
-      print("Warning: Controller: \(fromViewController) does not conform to ViewSwipeable")
-      transitionContext.completeTransition(true)
+      print("Warning: Controller \(fromViewController) does not conform to ViewSwipeable")
     }
+    // Perform the animation
+    let duration = transitionDuration(transitionContext)
+    UIView.animateWithDuration(duration, animations: {
+      fromView?.frame = finalFrame
+      }, completion: {
+        finished in
+        // Clean up the transition context
+        transitionContext.completeTransition(true)
+    })
   }
-  
 }
-

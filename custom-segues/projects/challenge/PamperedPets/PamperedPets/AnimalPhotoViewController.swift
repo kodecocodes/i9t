@@ -27,12 +27,12 @@ class AnimalPhotoViewController: UIViewController {
   
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var petName: UILabel!
-
+  
   @IBOutlet var swipeGestureUp: UISwipeGestureRecognizer!
   @IBOutlet var swipeGestureDown: UISwipeGestureRecognizer!
   
   var swipeDirection = UISwipeGestureRecognizerDirection.Up
-
+  
   var image:UIImage? {
     didSet {
       updateViewForImage()
@@ -41,7 +41,7 @@ class AnimalPhotoViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-
+    
     swipeGestureUp.addTarget(self, action: "handleSwipe:")
     swipeGestureDown.addTarget(self, action: "handleSwipe:")
 
@@ -62,3 +62,4 @@ class AnimalPhotoViewController: UIViewController {
 extension AnimalPhotoViewController: ViewSwipeable {
   var direction:UISwipeGestureRecognizerDirection { return swipeDirection }
 }
+

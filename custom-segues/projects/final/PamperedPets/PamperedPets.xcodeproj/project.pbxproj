@@ -7,43 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		82276AE41B64F6B1006C0BC0 /* VetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82276AE31B64F6B1006C0BC0 /* VetViewController.swift */; };
 		8251A9A91B64B3A900FE2BEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A99B1B64B3A900FE2BEF /* AppDelegate.swift */; };
 		8251A9AA1B64B3A900FE2BEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8251A99C1B64B3A900FE2BEF /* Assets.xcassets */; };
 		8251A9AB1B64B3A900FE2BEF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8251A99D1B64B3A900FE2BEF /* LaunchScreen.storyboard */; };
 		8251A9AC1B64B3A900FE2BEF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8251A99F1B64B3A900FE2BEF /* Main.storyboard */; };
-		8251A9AD1B64B3A900FE2BEF /* FadeSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9A11B64B3A900FE2BEF /* FadeSegue.swift */; };
 		8251A9AF1B64B3A900FE2BEF /* AnimalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9A31B64B3A900FE2BEF /* AnimalDetailViewController.swift */; };
 		8251A9B01B64B3A900FE2BEF /* AnimalPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9A41B64B3A900FE2BEF /* AnimalPhotoViewController.swift */; };
 		8251A9B11B64B3A900FE2BEF /* AnimalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9A51B64B3A900FE2BEF /* AnimalsViewController.swift */; };
 		8251A9B21B64B3A900FE2BEF /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9A61B64B3A900FE2BEF /* RoundedImageView.swift */; };
 		8251A9B31B64B3AA00FE2BEF /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9A71B64B3A900FE2BEF /* SampleData.swift */; };
-		8251A9B41B64B3AA00FE2BEF /* ScaleViewSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9A81B64B3A900FE2BEF /* ScaleViewSegue.swift */; };
-		8251A9B61B64BBE500FE2BEF /* PopoverSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9B51B64BBE500FE2BEF /* PopoverSegue.swift */; };
-		8251A9B81B64DEED00FE2BEF /* VetSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A9B71B64DEED00FE2BEF /* VetSegue.swift */; };
-		825FD7FB1B65D816000AA792 /* DropSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825FD7FA1B65D816000AA792 /* DropSegue.swift */; };
-		8281E3531B66344D005F9345 /* AnimalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8281E3521B66344D005F9345 /* AnimalsTableViewCell.swift */; };
+		825FD7F91B65D496000AA792 /* DropSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825FD7F81B65D496000AA792 /* DropSegue.swift */; };
+		8281E3511B6629FC005F9345 /* AnimalsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8281E3501B6629FC005F9345 /* AnimalsTableViewCell.swift */; };
+		82DA6AEE1B6DC28A009B0C34 /* ScaleSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82DA6AED1B6DC28A009B0C34 /* ScaleSegue.swift */; };
+		82F177921B6AEC7400710915 /* FadeSegue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F177911B6AEC7400710915 /* FadeSegue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		82276AE31B64F6B1006C0BC0 /* VetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VetViewController.swift; sourceTree = "<group>"; };
 		8251A99B1B64B3A900FE2BEF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8251A99C1B64B3A900FE2BEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PamperedPets/Assets.xcassets; sourceTree = "<group>"; };
 		8251A99E1B64B3A900FE2BEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8251A9A01B64B3A900FE2BEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8251A9A11B64B3A900FE2BEF /* FadeSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeSegue.swift; sourceTree = "<group>"; };
 		8251A9A21B64B3A900FE2BEF /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PamperedPets/Info.plist; sourceTree = "<group>"; };
 		8251A9A31B64B3A900FE2BEF /* AnimalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalDetailViewController.swift; sourceTree = "<group>"; };
 		8251A9A41B64B3A900FE2BEF /* AnimalPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalPhotoViewController.swift; sourceTree = "<group>"; };
 		8251A9A51B64B3A900FE2BEF /* AnimalsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalsViewController.swift; sourceTree = "<group>"; };
 		8251A9A61B64B3A900FE2BEF /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedImageView.swift; path = PamperedPets/RoundedImageView.swift; sourceTree = "<group>"; };
 		8251A9A71B64B3A900FE2BEF /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
-		8251A9A81B64B3A900FE2BEF /* ScaleViewSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaleViewSegue.swift; sourceTree = "<group>"; };
-		8251A9B51B64BBE500FE2BEF /* PopoverSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopoverSegue.swift; sourceTree = "<group>"; };
-		8251A9B71B64DEED00FE2BEF /* VetSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VetSegue.swift; sourceTree = "<group>"; };
 		825B0B2A1B5F630D00F581BC /* PamperedPets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PamperedPets.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		825FD7FA1B65D816000AA792 /* DropSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropSegue.swift; sourceTree = "<group>"; };
-		8281E3521B66344D005F9345 /* AnimalsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalsTableViewCell.swift; sourceTree = "<group>"; };
+		825FD7F81B65D496000AA792 /* DropSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropSegue.swift; sourceTree = "<group>"; };
+		8281E3501B6629FC005F9345 /* AnimalsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimalsTableViewCell.swift; sourceTree = "<group>"; };
+		82DA6AED1B6DC28A009B0C34 /* ScaleSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScaleSegue.swift; sourceTree = "<group>"; };
+		82F177911B6AEC7400710915 /* FadeSegue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FadeSegue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,11 +54,9 @@
 		82276AE11B64EC97006C0BC0 /* Custom Segues */ = {
 			isa = PBXGroup;
 			children = (
-				8251A9A11B64B3A900FE2BEF /* FadeSegue.swift */,
-				8251A9A81B64B3A900FE2BEF /* ScaleViewSegue.swift */,
-				8251A9B51B64BBE500FE2BEF /* PopoverSegue.swift */,
-				8251A9B71B64DEED00FE2BEF /* VetSegue.swift */,
-				825FD7FA1B65D816000AA792 /* DropSegue.swift */,
+				82F177911B6AEC7400710915 /* FadeSegue.swift */,
+				825FD7F81B65D496000AA792 /* DropSegue.swift */,
+				82DA6AED1B6DC28A009B0C34 /* ScaleSegue.swift */,
 			);
 			name = "Custom Segues";
 			sourceTree = "<group>";
@@ -73,10 +65,9 @@
 			isa = PBXGroup;
 			children = (
 				8251A9A51B64B3A900FE2BEF /* AnimalsViewController.swift */,
-				8281E3521B66344D005F9345 /* AnimalsTableViewCell.swift */,
+				8281E3501B6629FC005F9345 /* AnimalsTableViewCell.swift */,
 				8251A9A31B64B3A900FE2BEF /* AnimalDetailViewController.swift */,
 				8251A9A41B64B3A900FE2BEF /* AnimalPhotoViewController.swift */,
-				82276AE31B64F6B1006C0BC0 /* VetViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -191,19 +182,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				825FD7FB1B65D816000AA792 /* DropSegue.swift in Sources */,
+				82DA6AEE1B6DC28A009B0C34 /* ScaleSegue.swift in Sources */,
 				8251A9B11B64B3A900FE2BEF /* AnimalsViewController.swift in Sources */,
 				8251A9A91B64B3A900FE2BEF /* AppDelegate.swift in Sources */,
-				82276AE41B64F6B1006C0BC0 /* VetViewController.swift in Sources */,
-				8281E3531B66344D005F9345 /* AnimalsTableViewCell.swift in Sources */,
 				8251A9B01B64B3A900FE2BEF /* AnimalPhotoViewController.swift in Sources */,
 				8251A9B21B64B3A900FE2BEF /* RoundedImageView.swift in Sources */,
-				8251A9B41B64B3AA00FE2BEF /* ScaleViewSegue.swift in Sources */,
+				825FD7F91B65D496000AA792 /* DropSegue.swift in Sources */,
 				8251A9AF1B64B3A900FE2BEF /* AnimalDetailViewController.swift in Sources */,
 				8251A9B31B64B3AA00FE2BEF /* SampleData.swift in Sources */,
-				8251A9B81B64DEED00FE2BEF /* VetSegue.swift in Sources */,
-				8251A9B61B64BBE500FE2BEF /* PopoverSegue.swift in Sources */,
-				8251A9AD1B64B3A900FE2BEF /* FadeSegue.swift in Sources */,
+				8281E3511B6629FC005F9345 /* AnimalsTableViewCell.swift in Sources */,
+				82F177921B6AEC7400710915 /* FadeSegue.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

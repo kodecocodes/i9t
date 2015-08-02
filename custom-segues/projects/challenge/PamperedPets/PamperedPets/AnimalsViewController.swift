@@ -27,7 +27,6 @@ class AnimalsViewController: UIViewController {
   
   @IBOutlet var tableView: UITableView!
   
-  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let cell = sender as? UITableViewCell {
       let indexPath = tableView.indexPathForCell(cell)!

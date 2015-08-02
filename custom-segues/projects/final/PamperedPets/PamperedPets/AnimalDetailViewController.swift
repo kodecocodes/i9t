@@ -36,6 +36,14 @@ class AnimalDetailViewController: UIViewController {
     }
   }
   
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    
+    // load initial sample data
+    // for when this scene is initial scene
+    animal = animalData[0]
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     updateViewForAnimal()
@@ -56,20 +64,14 @@ class AnimalDetailViewController: UIViewController {
       let controller = segue.destinationViewController as! AnimalPhotoViewController
       controller.image = imageView.image
     }
-    if segue.identifier == "VetInformation" {
-      if let controller = segue.destinationViewController as? VetViewController,
-             animal = animal {
-        controller.vet =  vetData[animal.vetIndex]
-      }
-    }
   }
   
   @IBAction func unwindToAnimalDetailViewController(segue:UIStoryboardSegue) {
-    //Placeholder for unwind segues
+    // placeholder for unwind segue
   }
 }
-
 
 extension AnimalDetailViewController: ViewScaleable {
   var scaleView:UIView { return imageView }
 }
+

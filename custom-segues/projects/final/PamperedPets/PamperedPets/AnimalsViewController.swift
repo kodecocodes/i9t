@@ -53,8 +53,8 @@ extension AnimalsViewController: UITableViewDataSource {
     }
     return cell
   }
-  
 }
 
 extension AnimalsViewController: UITableViewDelegate {
+  
 }

@@ -41,8 +41,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     UITableView.appearance().backgroundColor = AppBackgroundColor
     UITableViewCell.appearance().backgroundColor = AppBackgroundColor
-    
-    
     return true
   }
   

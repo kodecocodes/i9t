@@ -23,9 +23,7 @@
 
 import UIKit
 
-
-// This works on both iPhone and form sheet on iPad
-// due to using fromView/toView in the animator and not view property of the controllers
+// MARK:- Custom Segue
 
 class FadeSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
   
@@ -60,15 +58,16 @@ class FadeAnimator:NSObject, UIViewControllerAnimatedTransitioning {
   
   func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
     
+    // 1. Get the transition context to- view
     let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
     let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
     
+    // 2. Add the to-view to the transition context
+    // 3. Set up the initial state for the animation
     if isPresenting {
       toView?.alpha = 0.0
       if let toView = toView {
         transitionContext.containerView()?.addSubview(toView)
-        //in an iPad form sheet if you add toViewController.view, then it goes wonky
-        //because the view is presented within a presentation view
       }
       
     } else {
@@ -80,6 +79,7 @@ class FadeAnimator:NSObject, UIViewControllerAnimatedTransitioning {
       }
     }
     
+    // 4. Perform the animation
     let duration = transitionDuration(transitionContext)
     
     UIView.animateWithDuration(duration, animations: {
@@ -95,6 +95,7 @@ class FadeAnimator:NSObject, UIViewControllerAnimatedTransitioning {
       }
       }, completion: {
         finished in
+        // 5. Clean up the transition context
         transitionContext.completeTransition(true)
     })
   }
