@@ -85,7 +85,6 @@ class SpotInfoViewController: UIViewController {
     let newButtonTitle = shouldHideWeatherInfo ? "Show" : "Hide"
     weatherHideOrShowButton.setTitle(newButtonTitle, forState: .Normal)
 
-    // TODO: Animate when animated == true
     weatherInfoLabel.hidden = shouldHideWeatherInfo
   }
 
