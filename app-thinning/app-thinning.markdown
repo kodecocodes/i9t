@@ -67,7 +67,7 @@ App Slicing can be further broken down into two parts: executable slicing and re
 
 Executable slicing simply means Apple delivers a single executable of the apporpriate architecture for a given device. Fortunately, there isn't much you need to do to help the App Store make this happen. 
 
-By default, **RELEASE** builds include all architectures configured in your build settings. When you submit such a build to the App Store, it will automatically create the variants needed on your behalf. All you have to do is compile for iOS 9. 
+By default, **Release** builds include all architectures configured in your build settings. When you submit such a build to the App Store, it will automatically create the variants needed on your behalf. All you have to do is compile for iOS 9. 
 
 ## Being Smart With Resources
 
@@ -123,7 +123,7 @@ Replace the contents of **downloadAndDisplayMapOverlay()** with the following:
     
 ```swift 
 guard let bundleTitle =
-  self.mapOverlayData?.bundleTitle else { // 1
+  mapOverlayData?.bundleTitle else { // 1
     return
 }
 
@@ -182,7 +182,7 @@ Navigate back to **downloadAndDisplayMapOverlay()** and replace the content with
 
 ```swift
 guard let bundleTitle =
-  self.mapOverlayData?.bundleTitle else {
+  mapOverlayData?.bundleTitle else {
     return
 }
 
@@ -274,15 +274,15 @@ var overlayBundleResource: NSBundleResourceRequest?
 Now, in the **downloadAndDisplayMapOverlay()** function, add the following line underneath the `NSBundleResourceRequest` instantiation:
 
 ```swift
-self.overlayBundleResource = bundleResource
+overlayBundleResource = bundleResource
 ```
 
-Finally, add a new method within `downloadAndDisplayMapOverlay()` for indicating to the system that you're done with the resource request when the view disappears:
+Finally, add a new method over-ride to the `MapChromeViewController` class for indicating to the system that you're done with the resource request when the view disappears:
 
 ```swift
 override func viewDidDisappear(animated: Bool) {
   super.viewDidDisappear(animated)
-  self.overlayBundleResource?.endAccessingResources()
+  overlayBundleResource?.endAccessingResources()
 }
 ```
 
