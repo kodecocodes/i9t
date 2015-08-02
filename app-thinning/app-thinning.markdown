@@ -6,7 +6,7 @@ When iOS 8 was introduced along with the iPhone 6 and 6 Plus and their new scree
 
 However, packaging a universal app with device-specific content has a huge impact to the bundle size of your app. Look at the chart below to see all the 1s and 0s being stored on your device never to be used. 
 
-![bordered width=%60](./images/Device-Breakdown.png)
+[NOTE TO EDITOR: Breakdown chart needed here...]
 
 Fortunately, in iOS 9, Apple has introduced several solutions to address this problem:
 
@@ -226,23 +226,24 @@ It's getting better...but the ~130MB Santa Cruz download still seems to take too
 
 [NOTE TO EDITOR: This section currently does not work. Am waiting on a reply here: https://forums.developer.apple.com/message/25090#25090. If I can't get this section to work, I'll put this stuff under the "Where to Go From Here"]
 
-Displaying the progress is a marginally better experience, but it still feels like the large bundles take too long to load. Again, you're testing on a controlled device with the Simulator, image a real world user moving around in and out of Wifi/cell towers... 
+Displaying the progress is a marginally better experience, but it still feels like the large bundles take too long to load. Again, you're testing on a controlled device with the Simulator and locally hosted resources. Imagine a real world user moving around in and out Wi-Fi or cellular coverage. 
 
-So... the Santa Cruz asset is big and also is likely the first overlay the user will click since it's the first item displayed. You want the Santa Cruz asset to be included along with the application itself so it feels snappy, yet still be flexible enough to have the ability to remove this overlay if the user gets a low disk space notification. 
+The Santa Cruz asset is big and also is likely the first overlay the user will click since it's the first item in the table. It makes sense to include the Santa Cruz asset along with the application itself so it feels snappy on initial use. At the same time, you want the flexibility to remove this huge overlay asset if the user gets low on disk space. 
 
-This means that this asset should be switched to the **Initial Install Tags** group where it will be counted along with it's IPA towards the total size and downloaded initially along with the app itself. 
+The answer to this is **Initial Install Tags**. They otherwise work the same as the tags you've used so far, but are downloaded during the iniital app download and count towards the size of the IPA. 
 
-Open up the **Old CA Maps Project**, click on the Old CA Maps in the **Target** section and then select **Resource Tags**. There are 3 types of cataloging for assets. 
+Open up the **Old CA Maps Project**, click on the Old CA Maps in the **Target** section and then select the **Resource Tags** tab. There are 3 types catagories of tags that define how ODR handles them. 
 
-- **Initial Install Tags:** These are installed along with your application. Wait why not just include them in the application? Well, you can remove this content when you no longer need it. This is perfect for onboarding content where you would use resources only once. 
-- **Preferred Tag Order:** These tags are downloaded once the application finishes downloading. 
-- **Download Only On Demand:** These resources are the ones you've worked with and are called when you call them through code. 
+- **Initial Install Tags:** These are installed along with your application. So why bother to manage them with ODR? Well, you can remove this content when you no longer need it. This is perfect for onboarding content where you would use resources only on first use. 
+- **Prefetched Tag Order:** These tags are downloaded once the application finishes downloading, in the the order they are arranged on this list. 
+- **Download Only On Demand:** These resources are the ones you've worked with and are downloaded when you explicitly do so in your code. 
 
-Move the Santa Cruz bundle with the SC_Map tag from the **Download Only on Demand** section to the **Initial Install Tag** section. To do this, select the Tag and drag it into the Initial Install Tag section. 
+Move the Santa Cruz bundle with the **SC_Map** tag from the **Download Only on Demand** section to the **Initial Install Tags** section. To do this, select the tag and drag it into the Initial Install Tag section. 
 
-![bordered width=60%](./images/Initial_Install_Tags.png)
+In addition, to having Santa Cruz load with the application, since San Diego is such a large file, it would make sense to kick off that download sooner than later. So, drag **SD_Map** over to the Preferred Tag Order section, which means it will start downloading as soon as the app is installed.
 
-In addition, to having Santa Cruz load with the application, since San Diego is such a large file, it would be wise to move the San Diego overlay to the Preferred Tag Order group. Drag SD_Map over to the Preferred Tag Order section.
+Once you're done, your tag setup should look like this:
+![bordered width=60%](./images/Install_Tag_Groups.png)
 
 Clean, build, then run the application. Try clicking on Santa Cruz then San Diego. You will notice a marked increase in responsiveness. 
 
@@ -296,4 +297,5 @@ Two new cool methods added to **NSBundle** are:
 **setPreservationPriority(_priority: Double, forTags _: Set<String>)**  
 and **preservationPriorityForTag(_ tag: String)**. Try to use these methods to increment the content of the tagged bundles every time you click on a city.
 
+[TODO this seems to be a WIP.  Sent a note to author]
 An additional challenge to to determine if the user is not on a WIFI network and prompt the user to be on a network before downloading any assets. 
