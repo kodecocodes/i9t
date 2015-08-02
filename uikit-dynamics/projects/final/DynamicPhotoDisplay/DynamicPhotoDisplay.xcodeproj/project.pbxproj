@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9301A6971B5EE27400C29DE3 /* FullPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9301A6961B5EE27400C29DE3 /* FullPhotoViewController.swift */; };
+		9331570A1B6EBEE200BD034A /* PhotoDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 933157091B6EBEE200BD034A /* PhotoDataHelper.swift */; };
 		935D715C1B5F1B59001C4286 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 935D715B1B5F1B59001C4286 /* QuartzCore.framework */; };
 		935D715E1B5F1F3A001C4286 /* StickyEdgesBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 935D715D1B5F1F3A001C4286 /* StickyEdgesBehavior.swift */; };
 		93A0C5391B5C000600A5EB09 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93A0C5381B5C000600A5EB09 /* AppDelegate.swift */; };
@@ -21,6 +22,7 @@
 
 /* Begin PBXFileReference section */
 		9301A6961B5EE27400C29DE3 /* FullPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullPhotoViewController.swift; sourceTree = "<group>"; };
+		933157091B6EBEE200BD034A /* PhotoDataHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDataHelper.swift; sourceTree = "<group>"; };
 		935D715B1B5F1B59001C4286 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		935D715D1B5F1F3A001C4286 /* StickyEdgesBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StickyEdgesBehavior.swift; sourceTree = "<group>"; };
 		93A0C5351B5C000600A5EB09 /* DynamicPhotoDisplay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DynamicPhotoDisplay.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +78,7 @@
 				93A0C5411B5C000600A5EB09 /* LaunchScreen.storyboard */,
 				93A0C53C1B5C000600A5EB09 /* Main.storyboard */,
 				93A0C54E1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift */,
+				933157091B6EBEE200BD034A /* PhotoDataHelper.swift */,
 				93A0C54C1B5C563500A5EB09 /* PhotosCollectionViewController.swift */,
 				935D715D1B5F1F3A001C4286 /* StickyEdgesBehavior.swift */,
 			);
@@ -153,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				93A0C54F1B5C5E8A00A5EB09 /* PhotoCollectionViewCell.swift in Sources */,
+				9331570A1B6EBEE200BD034A /* PhotoDataHelper.swift in Sources */,
 				93A0C5391B5C000600A5EB09 /* AppDelegate.swift in Sources */,
 				9301A6971B5EE27400C29DE3 /* FullPhotoViewController.swift in Sources */,
 				93A0C54D1B5C563500A5EB09 /* PhotosCollectionViewController.swift in Sources */,

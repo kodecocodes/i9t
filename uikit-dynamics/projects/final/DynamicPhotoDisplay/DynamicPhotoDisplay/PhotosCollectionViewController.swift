@@ -24,14 +24,9 @@ import UIKit
 
 private let reuseIdentifier = "PhotoCell"
 
-struct PhotoPair {
-  var filename: String
-  var date: NSDate
-  var image: UIImage
-}
 
 class PhotosCollectionViewController: UICollectionViewController {
-  var photoData: [PhotoPair] = [PhotoPair]()
+  var photoData: [PhotoPair] = retrievePhotoData()
   var animator: UIDynamicAnimator?
   var heavyCurtainBehavior: HeavyCurtainDynamicBehavior!
   
@@ -40,7 +35,6 @@ class PhotosCollectionViewController: UICollectionViewController {
 
   // Touch handling
   var offset = CGPoint.zeroPoint
-
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -49,16 +43,6 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     animator = UIDynamicAnimator(referenceView: self.view)
 //    animator?.setValue(true, forKey: "debugEnabled")
-
-    // Data initialization
-    for index in 0...21 {
-      let photoName = "400-\(index).jpeg"
-      let image = UIImage(named: photoName)!
-      // Getting data from EXIF is painful; for demo purposes we're using any old date
-      let photoDate = NSDate()
-      let photo = PhotoPair(filename: photoName, date: photoDate, image: image)
-      photoData.append(photo)
-    }
     
     // Add full image view to top view controller
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -77,11 +61,6 @@ class PhotosCollectionViewController: UICollectionViewController {
     heavyCurtainBehavior = HeavyCurtainDynamicBehavior(item: fullPhotoView)
     heavyCurtainBehavior.isEnabled = false
     animator?.addBehavior(heavyCurtainBehavior)
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
   
   // MARK: UICollectionViewDataSource
