@@ -87,23 +87,22 @@ class SpotInfoViewController: UIViewController {
     weatherHideOrShowButton.setTitle(newButtonTitle, forState: .Normal)
 
     if animated {
-      UIView.animateWithDuration(0.3,
-        delay: 0.0,
-        usingSpringWithDamping: 0.6,
-        initialSpringVelocity: 10,
-        options: [],
-        animations: {
-          self.weatherInfoLabel.hidden = shouldHideWeatherInfo
-        }, completion: { finished in
-          UIView.animateWithDuration(0.3) {
-            self.ratingStackView.axis =
-              shouldHideWeatherInfo ? .Vertical : .Horizontal
-          }
-        }
-      )
+        UIView.animateWithDuration(0.3,
+            delay: 0.0,
+            usingSpringWithDamping: 0.6,
+            initialSpringVelocity: 10,
+            options: [],
+            animations: {
+                self.weatherInfoLabel.hidden = shouldHideWeatherInfo
+            }, completion: { finished in
+                UIView.animateWithDuration(0.3) {
+                    self.ratingStackView.axis = shouldHideWeatherInfo ? .Vertical : .Horizontal
+                }
+            }
+        )
     } else {
-      weatherInfoLabel.hidden = shouldHideWeatherInfo
-      ratingStackView.axis = shouldHideWeatherInfo ? .Vertical : .Horizontal
+        weatherInfoLabel.hidden = shouldHideWeatherInfo
+        ratingStackView.axis = shouldHideWeatherInfo ? .Vertical : .Horizontal
     }
   }
 
