@@ -4,7 +4,7 @@
 
 iOS applications live in the hands of the people using them. We've come to expect our mobile apps to react to us touching them and to provide some semblance of realness. iOS 7 introduced the idea of flatness in our user interfaces rather than the heavily skeuomorphic concepts previously. Instead of heavy interfaces we can provide that bond with our apps with animations and reactions to touch that mirror real-world physics.
 
-__UIKit Dynamics__ was designed to give you a simplistic set of ways to provide the physical experiences in your animations and view interactions. UIKit Dynamics is a full physics engine wrapped with a convenient API. Originaly introduced in iOS 7, UIKit Dynamics was left relatively unchanged in iOS 8. Now in iOS 9 we get a bunch of new exciting things like gravity and magnetic fields, non-rectangular collision bounds, and additional attachment behaviors.
+__UIKit Dynamics__ was designed to give you a simplistic set of ways to provide the physical experiences in your animations and view interactions. UIKit Dynamics is a 2D physics-inspired animation system designed with a convenient API. Originaly introduced in iOS 7, UIKit Dynamics was left relatively unchanged in iOS 8. Now in iOS 9 we get a bunch of new exciting things like gravity and magnetic fields, non-rectangular collision bounds, and additional attachment behaviors.
 
 > **Note**: This chapter will primarily focus on the new things introduced for UIKit Dynamics for iOS 9. Check out *iOS 7 by Tutorials* for a full introduction to the original APIs.
 
@@ -54,7 +54,7 @@ let animator = UIDynamicAnimator(referenceView: view)
 animator.addBehavior(UIGravityBehavior(items: [subView2]))
 ```
 
-This adds a basic gravity behavior to the orange block. See it fall off the screen in the Assistant Editor? That took two lines of code - you should be feeling amazed and empowered right now. Lets make the box stop at the bottom of the screen.
+This adds a basic gravity behavior to the orange block. See it fall off the screen in the Assistant Editor? That took two lines of code. You should be feeling amazed and empowered right now. Lets make the box stop at the bottom of the screen.
 
 ```swift
 let boundaryCollision = UICollisionBehavior(items: [subView, subView2])
@@ -62,25 +62,84 @@ boundaryCollision.translatesReferenceBoundsIntoBoundary = true
 animator.addBehavior(boundaryCollision)
 ```
 
+Adding a collision behavior and setting `translatesReferenceBoundsIntoBoundary` to `true` makes the border of the reference view turn into a boundary. Now when the orange block falls it stops, and bounces, at the bottom of the view.
 
+Now change the way the orange box responds to the collision:
 
+```swift
+let bounce = UIDynamicItemBehavior(items: [subView2])
+bounce.elasticity = 0.6
+bounce.density = 200
+bounce.resistance = 2
+animator.addBehavior(bounce)
+```
 
-### Introduce basic pieces of dynamics
-#### Dynamic Items - UIDynamicItem protocol, UIDynamicItemGroup
-#### Behaviors - UIDynamicBehavior
-##### UIAttachmentBehavior - discuss new attachment types in iOS 9
-##### UICollisionBehavior - discuss non-rectangular collision bounds new in iOS 9
-##### UIDynamicItemBehavior
-##### UIFieldBehavior - spend more time on this as it's new in iOS 9
-##### UIGravityBehavior
-##### UIPushBehavior
-##### UISnapBehavior
-##### Composite
-#### Animators - UIDynamicAnimator
-##### init with Reference View
-##### init with Collection View
-##### init
-### Add each piece as you go along to demonstrate
+A dynamic item’s density, along with its size, determines its "mass" when it participates in behaviors. Elasticity changes how much an item bounces in a collision - default is 0.0. Resistance, when set, will reduce linear velocity until the item stops. Play around with these values and observe how the animation changes.
+
+Somewhere in your Playground code put this line after creating the UIDynamicAnimator:
+
+```swift
+animator.setValue(true, forKey: "debugEnabled")
+```
+
+This is new undocumented feature in iOS 9 to turn on a visual debugging mode. It was mentioned in the 2015 WWDC session *What's New in UIKit Dynamics and Visual Effects*. It was said this had to be done in the console using LLDB but you can also turn it on using the key-value coding method shown. Debug mode shows cool things like attachments, when collisions happen and visualizations of field effects. Keep this debug turned on for the rest of this tutorial.
+
+### Behaviors
+
+There are a number of types of behaviors available to you: 
+
+* `UIAttachmentBehavior` - This specifies a connection between two dynamic items or a single item and an anchor point. New in iOS 9 are variants for a sliding attachment, limit attachment (like a piece of rope), fixed attachment to fuse two items together, and a pin attachment which acts like hanging two limited items over a pin.
+* `UICollisionBehavior` - As you've seen it already this behavior declares an item has a physical interaction with other items. It can also make the reference view turn its border into a collision border with `translatesReferenceBoundsIntoBoundary`.
+* `UIDynamicItemBehavior` - This is a collection of physical properties for a dynamic item that aren't segmented out into a specific behavior. You've seen friction, density and resistance already. In iOS 9 you can anchor an item to a spot and also change the charge for an item when its participating in a magnetic or electric field behavior.
+* `UIFieldBehavior` - Totally new in iOS 9, this adds a number of physical field behaviors like electric, magnetic, dragging, vortex, radial and linear gravity, velocity, noise, turbulence and spring fields.
+* `UIGravityBehavior` - Adds a bit of gravity to your views so they react by falling in a particular direction with a set acceleration.
+* `UIPushBehavior` - Give your dynamic items a push to move them around.
+* `UISnapBehavior` - Moves a dynamic item to a specific point with a springy bounce-like effect.
+* Composite Behaviors - You can combine behaviors together for easy packaging and reuse later.
+
+### MOAR PLAYGROUND
+
+Lets use some of the new stuff in iOS 9. Put this code in your playground:
+
+```swift
+let parentBehavior = UIDynamicBehavior()
+
+let viewBehavior = UIDynamicItemBehavior(items: [subView])
+viewBehavior.density = 0.01
+viewBehavior.resistance = 10
+viewBehavior.friction = 0.0
+viewBehavior.allowsRotation = false
+parentBehavior.addChildBehavior(viewBehavior)
+
+// Add a spring region for the swinging thing to get caught in
+let fieldBehavior = UIFieldBehavior.springField()
+fieldBehavior.addItem(subView)
+fieldBehavior.position = CGPointMake(150, 350)
+fieldBehavior.region = UIRegion(size: CGSizeMake(500, 500))
+parentBehavior.addChildBehavior(fieldBehavior)
+
+animator.addBehavior(parentBehavior)
+```
+
+This is an example of a composite behavior. A generic `UIDynamicBehavior` instance is created and two behaviors were added as children. The hierarchy for how behaviors are related is purely for organizational assistance. When the dynamic animator is determining what work an animator has to do all behaviors are "flattened" out.
+
+Did you see the bouncy snag of the white square? Re-execute the Playground if you didn't. `UIFieldBehavior` is one of the new behaviors in iOS 9 and is arguably the coolest one. Spring fields are great for positioning an element by letting it get drawn into the region's center and letting it bounce into place. Give the white square a little time-delayed push to really understand the effect:
+
+```swift
+let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+    Int64(2 * Double(NSEC_PER_SEC)))
+
+dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
+    let pushBehavior = UIPushBehavior(items: [subView], mode: .Instantaneous)
+    pushBehavior.pushDirection = CGVectorMake(0, -10.5)
+    animator.addBehavior(pushBehavior)
+}
+```
+
+Now you can really see the power of the spring field!
+
+> **CHALLENGE**: Play around with other field behaviors and come up with a couple other effects.s
+
 ## Real World Application - Add dynamics to a non-game app
 ### Determine what could make an app more friendly
 ### Pulsate a button when tapped on / off (favorite star?)
