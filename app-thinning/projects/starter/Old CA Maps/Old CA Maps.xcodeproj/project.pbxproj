@@ -49,7 +49,7 @@
 		A645B2C41B52F8EC004103C7 /* SNVL_Map.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SNVL_Map.bundle; sourceTree = "<group>"; };
 		A645B2CA1B52F904004103C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSBundle+ContentExtractor.swift"; sourceTree = "<group>"; };
-		A645B2CE1B52F959004103C7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		A645B2CE1B52F959004103C7 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = "Old CA Maps/Main.storyboard"; sourceTree = "<group>"; };
 		A6FA5B841B69D1DB00F192D9 /* Santa Cruz.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz.png"; sourceTree = "<group>"; };
 		A6FA5B851B69D1DB00F192D9 /* Santa Cruz@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz@2x.png"; sourceTree = "<group>"; };
 		A6FA5B861B69D1DB00F192D9 /* Santa Cruz@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Santa Cruz@3x.png"; sourceTree = "<group>"; };
@@ -67,6 +67,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12EDA41C1B6EDE010053F15D /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				A645B2CE1B52F959004103C7 /* Main.storyboard */,
+				A645B2A41B52F86A004103C7 /* LaunchScreen.storyboard */,
+			);
+			name = Storyboards;
+			path = ..;
+			sourceTree = "<group>";
+		};
 		A645B28F1B52F86A004103C7 = {
 			isa = PBXGroup;
 			children = (
@@ -88,16 +98,16 @@
 		A645B29A1B52F86A004103C7 /* Old CA Maps */ = {
 			isa = PBXGroup;
 			children = (
+				A645B2AD1B52F87D004103C7 /* AppDelegate.swift */,
 				A6FA5B841B69D1DB00F192D9 /* Santa Cruz.png */,
 				A6FA5B851B69D1DB00F192D9 /* Santa Cruz@2x.png */,
 				A6FA5B861B69D1DB00F192D9 /* Santa Cruz@3x.png */,
 				A645B2AF1B52F883004103C7 /* View Controllers */,
 				A645B2BF1B52F8D7004103C7 /* Map Bundles */,
 				A645B2B61B52F8A0004103C7 /* Map Overlays & Data */,
-				A645B2AD1B52F87D004103C7 /* AppDelegate.swift */,
-				A645B2D81B52FAA8004103C7 /* misc */,
+				12EDA41C1B6EDE010053F15D /* Storyboards */,
+				A645B2D81B52FAA8004103C7 /* Utilities */,
 				A645B2CA1B52F904004103C7 /* Assets.xcassets */,
-				A645B2A41B52F86A004103C7 /* LaunchScreen.storyboard */,
 				A645B2A71B52F86A004103C7 /* Info.plist */,
 			);
 			path = "Old CA Maps";
@@ -109,7 +119,6 @@
 				A645B2B01B52F894004103C7 /* MapChromeViewController.swift */,
 				A645B2B11B52F894004103C7 /* MapContentTableViewController.swift */,
 				A645B2B21B52F894004103C7 /* MapSplitViewController.swift */,
-				A645B2CE1B52F959004103C7 /* Main.storyboard */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -137,13 +146,13 @@
 			name = "Map Bundles";
 			sourceTree = "<group>";
 		};
-		A645B2D81B52FAA8004103C7 /* misc */ = {
+		A645B2D81B52FAA8004103C7 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				A645B2CC1B52F918004103C7 /* NSBundle+ContentExtractor.swift */,
 				A6FA5B8A1B69E7F500F192D9 /* UIColor+Utils.swift */,
 			);
-			name = misc;
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -271,6 +280,7 @@
 				A645B2A51B52F86A004103C7 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = "Old CA Maps";
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

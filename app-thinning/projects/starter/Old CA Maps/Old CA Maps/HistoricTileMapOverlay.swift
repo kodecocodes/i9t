@@ -27,8 +27,8 @@ private let kTileSize = 256.0
 
 class HistoricTileMapOverlay: MKTileOverlay {
   
-  override var boundingMapRect: MKMapRect { get { return self.private_boundingRect }}
-  override var coordinate: CLLocationCoordinate2D { get { return self.getCoordinate() }}
+  override var boundingMapRect: MKMapRect { get { return private_boundingRect }}
+  override var coordinate: CLLocationCoordinate2D { get { return getCoordinate() }}
   
   var auxillaryInfo : [String : AnyObject]
   
