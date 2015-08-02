@@ -44,9 +44,6 @@ class PhotosCollectionViewController: UICollectionViewController {
     fullPhotoViewController = storyBoard.instantiateViewControllerWithIdentifier("FullPhotoVC") as! FullPhotoViewController
     fullPhotoView = fullPhotoViewController.view
     
-    let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
-    fullPhotoView.addGestureRecognizer(panGestureRecognizer)
-    
     addChildViewController(fullPhotoViewController)
     view.addSubview(fullPhotoView)
     fullPhotoViewController.didMoveToParentViewController(self)
@@ -114,39 +111,4 @@ class PhotosCollectionViewController: UICollectionViewController {
         self.navigationItem.rightBarButtonItem = doneButton
       })
   }
-  
-  func pan(pan: UIPanGestureRecognizer) {
-    var location = pan.translationInView(view)
-    
-    switch pan.state {
-    case .Began:
-      // Capture the initial touch offset from the itemView's center.
-      let center = fullPhotoView.center
-      offset.x = 0
-      offset.y = location.y - center.y
-      
-    case .Changed:
-      // Get reference bounds.
-      let referenceBounds = view.bounds
-      let referenceHeight = referenceBounds.height
-      
-      // Get item bounds.
-      let itemBounds = fullPhotoView.bounds
-      let itemHalfWidth = itemBounds.width / 2.0
-      let itemHalfHeight = itemBounds.height / 2.0
-      
-      // Apply the initial offset.
-      location.y -= offset.y
-      
-      // Bound the item position inside the reference view.
-      location.x = itemHalfWidth
-      location.y = min(referenceHeight - itemHalfHeight, location.y)
-      
-      // Apply the resulting item center.
-      fullPhotoView.center = location
-      
-    default: ()
-    }
-  }
-
 }
