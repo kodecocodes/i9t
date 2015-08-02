@@ -172,49 +172,55 @@ You tested loading Los Angeles, but as you may recall, the Los Angeles bundle as
 
 Try clicking on the **Santa Cruz** overlay and see how long it takes to display the content.
 
->**Note:** If you view a city that you've recently viewed, you're likely going to notice it load immediately. This is because ODR caches the assets until certain conditions are met. You'll learn more about this later in this chapter.  
+>**Note:** If you view a city that you've already viewed after building, you're likely going to notice it load immediately. This is because ODR caches the assets until purge conditions are met. You'll learn more about this later in this chapter.  
 
 That took a little bit too long to display, right? Running this with assets hosted on the store will only be worse. You need to indicate to the user that something is happening while you're downloading content. 
 
-Fortunately, **MapChromeViewController** already has an **IBOutlet property** called **loadingProgressView** which is a `UIProgressView`. You'll feed this progress data to present the user while also displaying the network activity indicator.
+Fortunately, **MapChromeViewController** already has an **IBOutlet property** called **loadingProgressView** which is a `UIProgressView`. You'll feed that view progress data to present the user while also displaying the network activity indicator.
 
 Navigate back to **downloadAndDisplayMapOverlay()** and replace the content with the following:
 
 ```swift
-  private func downloadAndDisplayMapOverlay() {
-    guard let bundleTitle = self.mapOverlayData?.bundleTitle else {
-      return
-    }
-    
-    let bundleResource = NSBundleResourceRequest(tags: [bundleTitle])
-    bundleResource.loadingPriority = NSBundleResourceRequestLoadingPriorityUrgent // 1
+guard let bundleTitle =
+  self.mapOverlayData?.bundleTitle else {
+    return
+}
+
+let bundleResource
+  = NSBundleResourceRequest(tags: [bundleTitle])
+bundleResource.loadingPriority
+  = NSBundleResourceRequestLoadingPriorityUrgent // 1
 
 
-    self.loadingProgressView.observedProgress = bundleResource.progress // 2
-    self.loadingProgressView.hidden = false // 3
-    UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+loadingProgressView.observedProgress
+  = bundleResource.progress // 2
+loadingProgressView.hidden = false // 3
+UIApplication.sharedApplication()
+  .networkActivityIndicatorVisible = true
 
-    bundleResource.beginAccessingResourcesWithCompletionHandler {[weak self] (error) -> Void in
-      NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-        self?.loadingProgressView.hidden = true // 4
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-
-        if error == nil {
-          self?.displayOverlayFromBundle(bundleResource.bundle)
-        }
-      })
-    }
-  }
+bundleResource.beginAccessingResourcesWithCompletionHandler {
+  [weak self] (error) -> Void in
+  NSOperationQueue.mainQueue().addOperationWithBlock(
+    { () -> Void in
+      self?.loadingProgressView.hidden = true // 4
+      UIApplication.sharedApplication()
+        .networkActivityIndicatorVisible = false
+      
+      if error == nil {
+        self?.displayOverlayFromBundle(bundleResource.bundle)
+      }
+  })
+}
 ```
 
 1. This tells the system that the user is "patiently" waiting for this download to occur and to divert all resources to complete this download ASAP. 
-2. The **loadingPorgressView** can hook into the `NSProgress` of the `NSBundleResourceRquest`. 
+2. The **loadingPorgressView** can hook into the `NSProgress` of the `NSBundleResourceRquest`. It will begin updating automatically once `beginAccessingResourcesWithCompletionHandler(_:)` is kicked off.
 3. Display the loadingProgressView and also the network activity indicator to inform the user that a network request is occurring.
-4. Once the download completes, hide the loadingProgressView and network activity indicator. It's important to note that with this code, you can run into the chance of a race condition with another download affecting the display of the network indicator, but that is not important to resolve for now. 
+4. Once the download completes, hide the `loadingProgressView` and network activity indicator. It's important to note that this code could result in unexpected results due to a race condition if multiple downloads are occuring concurrently. For this simple implementation, this is sufficient. 
 
-Build and run the application again. Try all the bundles again and observe the difference. 
+Build and run the application. Try all the bundles again and you'll notice the progress indicator just below the navbar while a download is progressing. 
 
-It's getting better... but the ~130MB Santa Cruz download still seems to take too long. Time to try something a bit more drastic. 
+It's getting better...but the ~130MB Santa Cruz download still seems to take too long. Time to try something a bit more drastic. 
 
 ## The Many Flavors of Tagging
 
@@ -244,35 +250,36 @@ Clean, build, then run the application. Try clicking on Santa Cruz then San Dieg
 
 ## Purging Content
 
-Since the OS can purge ODR content at will provided that it's not in active use, it's important to be a good disk storage citizen with the ODR content in your application. You can help guide the system to determine what resources their device will throw out by indicating to the system when you are done using a resource.
+Since the OS can purge ODR content at will, provided that it's not in active use, it's important to be a good disk storage citizen with the ODR content in your application. You can help guide the system to determine what resources to purge by indicating to the system when you are done using a resource.
 
-Change your build scheme to build an **iPhone 6 Plus**, then build and run the application and tap on a city, then press the back arrow to jump back to the previous city selection screen. 
+Change your build scheme to **iPhone 6 Plus**, then build and run the application. Tap on a city, then press the back arrow to jump back to the previous city selection screen. 
 
-For these particular bundles, it's clear that you no longer need them as soon as you exit MapChromeViewController'view. But how do you know what the system is doing with your ODR content behind the scenes?
+For these particular bundles, it's likely that you no longer need them as soon as you exit a `MapChromeViewController`'s view. But how do you know what the system is doing with your ODR content behind the scenes?
 
-Fortunately, Apple has anticipated this problem on your behalf and Xcode 7 ships with a super useful debugging view to aid in understanding the status of your ODR content.
+Fortunately, Apple has anticipated this problem and Xcode 7 ships with a super useful debugging view to aid in understanding the status of your ODR content.
 
-While your application is still running, open on the **Debug navigator** tab, then click on the **Disk** cell. Xcode will reveal the Disk report which includes valuable information regarding the current status of each tagged ODR.
+While your application is still running, open on the **Debug navigator** tab (1), then click on the **Disk** cell (2). Xcode will reveal the Disk report which includes valuable information regarding the current status of each tagged ODR.
 
 ![bordered width=80%](./images/ODR_Guages.png)
 
-As you can see, clicking on an image then clicking back indicates to you that the ODR resource is still **In Use** while other resources are either **Not Downloaded** or **Downloaded**. Although UIKit and Foundation provide their own logic on when the device can reclaim these bundles, it's really ideal to indicate to the system when you are done using them.
+As you can see, after clicking on an image then clicking back this view indicates that the ODR resource is still **In Use** while other resources are either **Not Downloaded** or **Downloaded**. Although UIKit and Foundation provide their own logic on when the device can reclaim these bundles, it's really ideal to indicate to the system when you are done using them.
 
-You'll now indicate to the system that the NSBundleResourceRequest is available to be reclaimed by the system as soon as you leave the MapChromeViewController.
+>**Note:** Your results may vary slightly from the above, in that an asset may indicate either **In Use** or **Downloaded** depending on your exact timing.  
+
+You'll now indicate to the system that the `NSBundleResourceRequest` is available to be reclaimed by the system as soon as you leave the `MapChromeViewController`.
 
 Open up **MapChromeViewController.swift** and add the following property to the beginning of the class: 
 
 ```swift
 var overlayBundleResource: NSBundleResourceRequest?
 ```
-
-Now, in the **downloadAndDisplayMapOverlayData()** function, add the following line underneath the NSBundleResourceRequest instantiation:
+Now, in the **downloadAndDisplayMapOverlay()** function, add the following line underneath the `NSBundleResourceRequest` instantiation:
 
 ```swift
 self.overlayBundleResource = bundleResource
 ```
 
-Finally, add a new method for indicating to the system that you're done with the resource request when the view disappears:
+Finally, add a new method within `downloadAndDisplayMapOverlay()` for indicating to the system that you're done with the resource request when the view disappears:
 
 ```swift
 override func viewDidDisappear(animated: Bool) {
