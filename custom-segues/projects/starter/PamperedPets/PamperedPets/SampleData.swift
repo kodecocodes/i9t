@@ -31,7 +31,6 @@ struct Animal {
   let description:String
   let owner:String
   let address:String
-  let vetIndex:Int
   let instructions:String
 }
 
@@ -40,53 +39,36 @@ let animalData:[Animal] = [
           description:"Goldfish",
                 owner:"Marshall Fry",
               address:"4 Gurnard Walk\nRockling",
-             vetIndex:1,
          instructions:"Fish food"),
   Animal(        name: "Willow",
           description:"Gray pony",
                 owner:"Jane Marshall",
               address:"113 Host Drive\nSurbiton",
-             vetIndex:0,
          instructions:"Slab of hay\n2 carrots"),
   Animal(        name: "Sesame",
           description:"Black chicken",
                 owner:"Felix Roger",
               address:"7880 Devon Road\nEllenwood",
-             vetIndex:0,
          instructions:"One cup layer pellets\nOyster shell"),
   Animal(        name: "Leslie",
           description:"Lesser sulphur crested cockatoo",
                 owner:"Robert Harvey",
               address:"632 Cross Street\nUnion City",
-             vetIndex:1,
          instructions:"Bird feed in kitchen cupboard"),
   Animal(        name: "Kelly",
           description:"Labrador Retriever",
                 owner:"Robert Harvey",
               address:"632 Cross Street\nUnion City",
-             vetIndex:1,
          instructions:"Half can dog food\nDry kibbles"),
   Animal(        name: "Bertie",
           description:"Rooster",
                 owner:"Laurie Greenberg",
               address:"5431 Central Ave\nSurbiton",
-             vetIndex:0,
          instructions:"My leftovers\nPellets"),
   Animal(        name: "Muffin",
           description:"Fierce Maltese",
                 owner:"Daisy Powell",
               address:"61 North St\nSurbiton",
-             vetIndex:0,
          instructions:"Deluxe tray\nChew treat")
 ]
 
-struct Vet {
-  let name:String
-  let address:String
-  let phone:String
-}
-
-let vetData:[Vet] = [
-    Vet(name: "Andrea Schulz", address: "Cutlass Way\nCastleMaine", phone: "202-555-0122"),
-    Vet(name: "Bob Hammond", address: "TreeView Drive\nUnion City", phone: "202-555-0108")
-]

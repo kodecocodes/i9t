@@ -213,15 +213,15 @@ Now for the actual animation.
     // 1. Get the transition context to- controller and view
     let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
     let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
-    
-    // 2. Set up the initial state for the animation
-    toView?.frame = .zeroRect
-    toView?.layoutIfNeeded()
-    
-    // 3. Add the to- view to the transition context
+
+    // 2. Add the to- view to the transition context
     if let toView = toView {
       transitionContext.containerView()?.addSubview(toView)
     }
+    
+    // 3. Set up the initial state for the animation
+    toView?.frame = .zeroRect
+    toView?.layoutIfNeeded()
 
     // 4. Perform the animation
     let duration = transitionDuration(transitionContext)
@@ -241,8 +241,8 @@ Now for the actual animation.
 Let's go through what's happening here.
 
 1. You extract from the given transitioning context the to- controller and to- view that will be presented. Note that the controller is implicitly unwrapped as there will always be a to- controller, but the view is an optional as there may not be a to- view. You'll see why later.
-2. The initial state for the to- view frame is a rectangle of zero size in the top left hand corner of the screen. Whenever you change the frame of a view, you should perform `layoutIfNeeded()` to update the view's constraints.
-3. Add the to- view to the transition context. During the transition, you specify what views will be part of that hierarchy. You will generally add the to- view on presentation and the from- view on dismissal.
+2. Add the to- view to the transition context. During the transition, you specify what views will be part of that hierarchy. You will generally add the to- view on presentation and the from- view on dismissal.
+3. The initial state for the to- view frame is a rectangle of zero size in the top left hand corner of the screen. Whenever you change the frame of a view, you should perform `layoutIfNeeded()` to update the view's constraints.
 4. The animation block is a simple animation to animate from the zero rectangle to the final frame that is calculated by the transition context.
 5. The transition context must always clean up at the end of the animation.
 
@@ -430,6 +430,7 @@ Run the application again, and the scale transition should now work as expected.
 Reusable segues need to be aware that they may be used by container controllers. The presenting controller may embedded in a UITabBarController or a UISplitViewController, so you could add similar code to make the segue usable in that situation too.
 
 That wraps up custom segue transition animation. In the Challenge at the end of the chapter, you will get another chance (o-perch-tuna-ty? :]) to try out what you have learned so far by creating another custom segue.
+
 
 
 ## Where To Go From Here?

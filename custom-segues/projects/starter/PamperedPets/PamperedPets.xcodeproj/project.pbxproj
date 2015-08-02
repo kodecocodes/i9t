@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		82276AE41B64F6B1006C0BC0 /* VetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82276AE31B64F6B1006C0BC0 /* VetViewController.swift */; };
 		8251A9A91B64B3A900FE2BEF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8251A99B1B64B3A900FE2BEF /* AppDelegate.swift */; };
 		8251A9AA1B64B3A900FE2BEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8251A99C1B64B3A900FE2BEF /* Assets.xcassets */; };
 		8251A9AB1B64B3A900FE2BEF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8251A99D1B64B3A900FE2BEF /* LaunchScreen.storyboard */; };
@@ -23,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		82276AE31B64F6B1006C0BC0 /* VetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VetViewController.swift; sourceTree = "<group>"; };
 		8251A99B1B64B3A900FE2BEF /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8251A99C1B64B3A900FE2BEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PamperedPets/Assets.xcassets; sourceTree = "<group>"; };
 		8251A99E1B64B3A900FE2BEF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -67,7 +65,6 @@
 				8281E3501B6629FC005F9345 /* AnimalsTableViewCell.swift */,
 				8251A9A31B64B3A900FE2BEF /* AnimalDetailViewController.swift */,
 				8251A9A41B64B3A900FE2BEF /* AnimalPhotoViewController.swift */,
-				82276AE31B64F6B1006C0BC0 /* VetViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -184,7 +181,6 @@
 			files = (
 				8251A9B11B64B3A900FE2BEF /* AnimalsViewController.swift in Sources */,
 				8251A9A91B64B3A900FE2BEF /* AppDelegate.swift in Sources */,
-				82276AE41B64F6B1006C0BC0 /* VetViewController.swift in Sources */,
 				8251A9B01B64B3A900FE2BEF /* AnimalPhotoViewController.swift in Sources */,
 				8251A9B21B64B3A900FE2BEF /* RoundedImageView.swift in Sources */,
 				825FD7F91B65D496000AA792 /* DropSegue.swift in Sources */,
