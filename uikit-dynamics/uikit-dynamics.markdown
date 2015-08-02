@@ -140,7 +140,22 @@ Now you can really see the power of the spring field!
 
 > **CHALLENGE**: Play around with other field behaviors and come up with a couple other effects.s
 
-## Real World Application - Add dynamics to a non-game app
+## Applying Dynamics to a Real App
+
+Playing around with UIKit Dynamics in a Playground is fun - but you're probably interested in incorporating it in a real application. Dynamics aren't just all for physics simulations and games!
+
+UIKit Dynamics is really designed for solving non-game applications. In reality your application may only need dynamics in a few key places to give it the extra "pop" you are looking for. A little does go a long way!
+
+### Introducing DynamicPhotoDisplay
+
+For this part of the chapter, you'll be working with simple photo viewing application. The user is displayed with a scrolling list of photo thumbails and tapping on them displays a full screen version. You can find the starter project as well as the final solution in the resources folder for this chapter.  Open it in Xcode and build and run it. You should see the following:
+
+![width=80%](images/dynamicphotodisplay_initialwithfull.png)
+
+You'll notice the full screen view of a photo shows a bit of metadata. The user might encounter a photo where that metadata box obscures a part of the photo. Your job is to make that box movable but only allow it to rest in the middle bottom or middle top of the image. The box should snap into place in the closest resting spot and give a cushy feel when it does.
+
+The project structure is failure simple. The photos are displayed with a `UICollectionViewController` using a custom `UICollectionViewCell` 
+
 ### Determine what could make an app more friendly
 ### Pulsate a button when tapped on / off (favorite star?)
 ### UICollectionView dynamics - adding dynamic behavior to give physical feel to items when dragging things to change sort order
