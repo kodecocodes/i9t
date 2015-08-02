@@ -10,7 +10,7 @@ If you decide to change the appearance of the segue transition, you just change 
 
 In this chapter you will discover how to create your own library of custom segues. You'll need basic knowledge of storyboards and segues, but as long as you've understood the previous chapter What's New In Storyboards you'll be fine. 
 
-Now you'll find out how to:
+You'll find out how to:
 
 * Create a custom segue
 * Animate a custom transition within the segue
@@ -57,11 +57,11 @@ In this chapter you will be customizing only Modal and Popover segues.
 
 I'm sure you've already created many segues, but to ensure that you fully appreciate how segues work you will now create the basic modal segue which you will later customize. 
 
-When the user taps the photo in the AnimalDetailViewController scene, the AnimalPhotoViewController scene will be presented as a modal controller, showing a larger photo. 
+You will create a segue that will be invoked when the user taps the photo in the AnimalDetailViewController scene. The segue will then present the AnimalPhotoViewController scene as a modal controller showing a larger photo. 
 
 There are two main parts to this segue:
 
-1. Setting up the segue. `prepareForSegue(_:sender:)` is performed when the segue is activated. This is where you set up the destination view controller with the necessary data.
+1. Setting up the segue. `prepareForSegue(_:sender:)` is performed when the segue is activated. This is where you will set up the destination view controller with the necessary data.
 2. Performing the destination controller's transition animation. Initially you'll use the default transition, but shortly you will customize that.
 
 First in **Main.storyboard**, select the **Animal Detail View Controller** scene. Drag a **Tap Gesture Recognizer** from the Object Library onto the **Image View** photo of Bubbles the fish. This will hook up the tap gesture with that image view.
@@ -77,12 +77,12 @@ Select the segue arrow between the two scenes **Animal Detail View Controller** 
 In **AnimalDetailViewController.swift** override `prepareForSegue(_:sender:)` to set up the destination controller data:
 
 ```swift
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "PhotoDetail" {
-      let controller = segue.destinationViewController as! AnimalPhotoViewController
-      controller.image = imageView.image
-    }
+override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+  if segue.identifier == "PhotoDetail" {
+    let controller = segue.destinationViewController as! AnimalPhotoViewController
+    controller.image = imageView.image
   }
+}
 ```
 
 Here you give the destination controller, in this case AnimalPhotoViewController, the image that it will display.
@@ -96,9 +96,9 @@ A larger photo of the fish will slide up the screen. There is currently no way f
 In **AnimalDetailViewController.swift** add this method:
 
 ```swift
-  @IBAction func unwindToAnimalDetailViewController(segue:UIStoryboardSegue) {
-	// placeholder for unwind segue
-  }
+@IBAction func unwindToAnimalDetailViewController(segue:UIStoryboardSegue) {
+  // placeholder for unwind segue
+}
 ```
 
 This method won't contain any code. Any method with a signature of `@IBAction func methodName(segue:UIStoryboardSegue)` is considered by the system to be a marker for a Storyboard segue to unwind to.
@@ -178,10 +178,10 @@ Change the class definition to include the transition delegate protocol:
 Override the segue's perform() method:
 
 ```swift
-  override func perform() {
-    destinationViewController.transitioningDelegate = self
-    super.perform()
-  }
+override func perform() {
+  destinationViewController.transitioningDelegate = self
+  super.perform()
+}
 ```
 
 Here you set the destination view controller's transitioning delegate so that the segue will take control of transition animations. The transitioning protocol allows the segue to override both the presenting and dismissing animations. After you have created the animator class, you will return to the ScaleSegue class to point to those animations. 
@@ -200,7 +200,7 @@ class ScalePresentAnimator:NSObject, UIViewControllerAnimatedTransitioning {
 }
 ```
 
-ScalePresentAnimator will be used for presenting the modal view controller. You will create a dismissing animator later, but for now your segue will by default use the current Vertical Cover transition.
+ScalePresentAnimator will be used for presenting the modal view controller. You will create a dismissing animator later, but for now your segue will by default use the current Vertical Cover transition for the dismissal.
 
 > **Note**: I find it easier to keep the animators in the same file as the segue because they are usually closely related, but you can separate the segue and the animators by moving the animators into their own file.
 
@@ -211,9 +211,9 @@ ScalePresentAnimator conforms to UIViewControllerAnimatedTransitioning. This pro
 First specify how long the animation will take to run. Add this method to the ScalePresentAnimator class:
 
 ```swift
-  func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-    return 2.0
-  }
+func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
+  return 2.0
+}
 ```
 
 Most transitions have a duration of about 0.3-0.5 seconds, but this duration of 2 seconds is slow so that you can see the effect clearly.
@@ -221,43 +221,46 @@ Most transitions have a duration of about 0.3-0.5 seconds, but this duration of 
 Now for the actual animation. Add this method to ScalePresentAnimator:
 
 ```swift
-  func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
 
-    // 1. Get the transition context to- controller and view
-    let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
-    let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
+  // 1. Get the transition context to- controller and view
+  let toViewController = 
+    transitionContext.viewControllerForKey⏎
+         (UITransitionContextToViewControllerKey)!
+  let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
 
-    // 2. Add the to- view to the transition context
-    if let toView = toView {
-      transitionContext.containerView()?.addSubview(toView)
-    }
-    
-    // 3. Set up the initial state for the animation
-    toView?.frame = .zeroRect
-    toView?.layoutIfNeeded()
-
-    // 4. Perform the animation
-    let duration = transitionDuration(transitionContext)
-    let finalFrame = transitionContext.finalFrameForViewController(toViewController)
-
-    UIView.animateWithDuration(duration, animations: {
-      toView?.frame = finalFrame
-      toView?.layoutIfNeeded()
-      }, completion: {
-        finished in
-        // 5. Clean up the transition context
-        transitionContext.completeTransition(true)
-    })
+  // 2. Add the to- view to the transition context
+  if let toView = toView {
+    transitionContext.containerView()?.addSubview(toView)
   }
+    
+  // 3. Set up the initial state for the animation
+  toView?.frame = .zeroRect
+  toView?.layoutIfNeeded()
+
+  // 4. Perform the animation
+  let duration = transitionDuration(transitionContext)
+  let finalFrame = 
+       transitionContext.finalFrameForViewController(toViewController)
+
+  UIView.animateWithDuration(duration, animations: {
+    toView?.frame = finalFrame
+    toView?.layoutIfNeeded()
+  }, completion: {
+      finished in
+      // 5. Clean up the transition context
+      transitionContext.completeTransition(true)
+  })
+}
 ```
 
 Let's go through what's happening here.
 
 1. You extract from the given transitioning context the to- controller and to- view that will be presented. Note that the controller is implicitly unwrapped as there will always be a to- controller, but the view is an optional as there may not be a to- view. You'll see why later.
-2. Add the to- view to the transition context. The framework doesn't add the to- view to the view hierarchy until the end of the transition, so you will need to add it to the hierarchy in your code so that you can scale it.
+2. Add the to- view to the transition context. The framework doesn't add the to- view to the view hierarchy until the end of the transition, so you will need to add it to the hierarchy in your code so that you can see it scaling.
 3. The initial state for the to- view frame is a rectangle of zero size in the top left hand corner of the screen. Whenever you change the frame of a view, you should perform `layoutIfNeeded()` to update the view's constraints.
 4. The animation block is a simple animation to animate from the zero rectangle to the final frame that is calculated by the transition context.
-5. The transition context must always clean up at the end of the animation. This will correct the view hierarchy and layout all views.
+5. The transition context must always clean up at the end of the animation. This will finalize the view hierarchy and layout all views.
 
 ### 4 - Set the Animator in the Segue
 
@@ -266,9 +269,12 @@ Now you will tell the segue what animator to use during presentation. `UIViewCon
 Inside the **ScaleSegue** class add the delegate method:
 
 ```swift
-  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-    return ScalePresentAnimator()
-  }
+func animationControllerForPresentedController(presented: UIViewController,
+               presentingController presenting: UIViewController, 
+               sourceController source: UIViewController) -> 
+               UIViewControllerAnimatedTransitioning? {
+  return ScalePresentAnimator()
+}
 ```
 
 ### 5 - Use the Segue in the Storyboard
@@ -301,7 +307,7 @@ protocol ViewScaleable {
 }
 ```
 
-Any view controller that wants to present a modal view using this scaling segue should adopt `ViewScaleable` by creating and filling a `scaleView` property. So make  AnimalDetailViewController conform to `ViewScaleable` by adding this extension to the end of **AnimalDetailViewController.swift**:
+Any view controller that wants to present a modal view using this scaling segue should adopt `ViewScaleable` by creating and filling a `scaleView` property. So make  AnimalDetailViewController conform to `ViewScaleable` by adding this extension to the very end of **AnimalDetailViewController.swift**:
 
 ```swift
 extension AnimalDetailViewController: ViewScaleable {
@@ -313,13 +319,19 @@ This sets the protocol property so that the view to use for scaling is the image
 
 Back in **ScaleSegue.swift** at the top of `animateTransition(:_)`, just before declaring:
 
-    let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
+```swift
+let toViewController = transitionContext.viewControllerForKey⏎
+                         (UITransitionContextToViewControllerKey)!
+```
 
 add this code:
 
 ```swift
-let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
+let fromViewController = 
+    transitionContext.viewControllerForKey⏎
+        (UITransitionContextFromViewControllerKey)!
+let fromView = 
+    transitionContext.viewForKey(UITransitionContextFromViewKey)
 ```
 
 Again from- controller is implicitly unwrapped while from- view is optional.
@@ -337,9 +349,9 @@ var startFrame = CGRect.zeroRect
 if let fromViewController = fromViewController as? ViewScaleable {
   startFrame = fromViewController.scaleView.frame
 } else {
-        print("Warning: Controller \(fromViewController) does not conform to ViewScaleable")
+  print("Warning: Controller \(fromViewController) does not conform to ViewScaleable")
 }
-    toView?.frame = startFrame
+toView?.frame = startFrame
 ```
 
 Instead of starting the to- view frame animation at the top left, you are starting the animation at the from- view controller's `scaleView` frame property.
@@ -376,28 +388,28 @@ Make sure you change back the code to use:
 
     let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
 
-Similarly, the transition context's from- view may differ from the source view controller's view. On an iPhone the transition context's from- view will be the same as the source view controller's view, but on an iPad, the from- view will be nil.
+Similarly, the transition context's from- view may differ from the source view controller's view. On an iPhone the transition context's from- view will be the same as the source view controller's view, but on an iPad the from- view will be nil.
 
 To make your transition look better you can make use of this. On the iPhone the transition would look better if the from- view faded out during the scale animation. However on the iPad because the modal scene is a form sheet, the from- view should remain unfaded in the background.
 
 In `animateTransition(_:)` inside the animation block at the end of the method just after:
 
 ```swift
-      toView?.frame = finalFrame
-      toView?.layoutIfNeeded()
+toView?.frame = finalFrame
+toView?.layoutIfNeeded()
 ```
 
 add this code to fade out the from- view:
 
-      fromView?.alpha = 0.0
+    fromView?.alpha = 0.0
 
 And in the completion block just before:
 
-        transitionContext.completeTransition(true)
+    transitionContext.completeTransition(true)
 
 reset the from- view's alpha with this code:
 
-        fromView?.alpha = 1.0
+    fromView?.alpha = 1.0
 
 If you don't reset the alpha, when you dismiss the modal scene, the from- view's alpha will still be 0 and you will just see a black screen.
 
@@ -427,17 +439,21 @@ Fortunately, this is easily fixed. To be reusable in multiple situations, you ca
 
 In **ScaleSegue.swift** at the top of `animateTransition(:_)` in the **ScalePresentAnimator** class where it says:
 
-    let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
+    let fromViewController = 
+       transitionContext.viewControllerForKey⏎
+           (UITransitionContextFromViewControllerKey)!
 
 replace that line with:
 
 ```swift
-    var fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey)!
-    if let fromNC = fromViewController as? UINavigationController {
-      if let controller = fromNC.topViewController {
-        fromViewController = controller
-      }
-    }
+var fromViewController = 
+    transitionContext.viewControllerForKey⏎
+        (UITransitionContextFromViewControllerKey)!
+if let fromNC = fromViewController as? UINavigationController {
+  if let controller = fromNC.topViewController {
+    fromViewController = controller
+  }
+}
 ```
 
 Here you replace the transition context's from- controller, but only if it's a Navigation Controller. 
@@ -481,7 +497,8 @@ The code will look very similar to the presenting animator from this chapter, ex
 ```swift
 if let fromView = fromView,
   toView = toView {
-    transitionContext.containerView()?.insertSubview(toView, belowSubview: fromView)
+    transitionContext.containerView()?
+              .insertSubview(toView, belowSubview: fromView)
 }
 ```
 
