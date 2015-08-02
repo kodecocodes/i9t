@@ -23,56 +23,54 @@
 
 import UIKit
 
-class ItemViewController: UITableViewController {
+class ChecklistDetailViewController: UITableViewController {
   
-  let cellHeight:CGFloat = 64
-  let cellPadding: CGFloat = 10
-  
+  let cellHeight: CGFloat = 64.0
+  let cellPadding: CGFloat = 10.0
   
   @IBOutlet var notesView: UIView!
-  @IBOutlet var notesTextView: UITextView!
+  @IBOutlet weak var notesTextView: UITextView!
   
-  var checkListIndex:Int = 0
-  var itemArray:[CheckListItem] = checkListItemData[0]
-
+  var checklist: Checklist! = checklists.first
+  
   var selectedIndexPath:NSIndexPath?
   
   override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    title = checklist.title
+    
     navigationItem.rightBarButtonItem = editButtonItem()
   }
   
   // MARK: - Unwind segue methods
   
-  @IBAction func cancelToItemViewController(segue: UIStoryboardSegue) {
+  @IBAction func cancelToChecklistDetailViewController(segue: UIStoryboardSegue) {
   }
   
-  @IBAction func saveToItemViewController(segue: UIStoryboardSegue) {
-    if let  controller = segue.sourceViewController as? ItemDetailViewController,
-      text = controller.checkListDescription.text,
-      notes = controller.checkListNotes.text {
-        let checkListItem:CheckListItem = (text, false, notes)
-        itemArray.append(checkListItem)
-        checkListItemData[checkListIndex].append(checkListItem)
-        let indexPath = NSIndexPath(forRow: itemArray.count-1, inSection: 0)
+  @IBAction func saveToChecklistDetailViewController(segue: UIStoryboardSegue) {
+    if let controller = segue.sourceViewController as? AddChecklistItemViewController,
+      item = controller.checklistItem {
+        checklist.items.append(item)
+
         tableView.beginUpdates()
+        let indexPath = NSIndexPath(forRow: checklist.items.count - 1, inSection: 0)
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
         tableView.endUpdates()
     }
   }
 }
 
-extension ItemViewController {
-  // MARK: - Table view delegate
+// MARK: - UITableViewDelegate
+extension ChecklistDetailViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     tableView.beginUpdates()
     if selectedIndexPath == indexPath {
       selectedIndexPath = nil
-      // remove notes view from cell
       notesView.removeFromSuperview()
     } else {
       selectedIndexPath = indexPath
-      // add notes view to cell
-      notesTextView.text = itemArray[indexPath.row].notes
+      notesTextView.text = checklist.items[indexPath.row].notes
       if let cell = tableView.cellForRowAtIndexPath(indexPath) {
         notesView.frame.origin.x = cellPadding
         notesView.frame.origin.y = cellHeight
@@ -91,23 +89,22 @@ extension ItemViewController {
   }
 }
 
-extension ItemViewController {
-  // MARK: - Table view data source
-  
+// MARK: - UITableViewDataSource
+extension ChecklistDetailViewController {
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return itemArray.count
+    return checklist.items.count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("ItemTableViewCell", forIndexPath: indexPath) as! ItemTableViewCell
-    cell.delegate = self
-    let checkListItem = itemArray[indexPath.row]
-    cell.lblListText?.text = checkListItem.description
-    cell.checked = checkListItem.checked
+    let cell = tableView.dequeueReusableCellWithIdentifier("ChecklistItemCell", forIndexPath: indexPath) as! ChecklistItemTableViewCell
+    
+    let checklistItem = checklist.items[indexPath.row]
+    cell.checklistItem = checklistItem
+    
     return cell
   }
   
@@ -118,19 +115,9 @@ extension ItemViewController {
       // 2
       notesView.removeFromSuperview()
       // 3
-      itemArray.removeAtIndex(indexPath.row)
-      checkListItemData[checkListIndex].removeAtIndex(indexPath.row)
+      checklist.items.removeAtIndex(indexPath.row)
       // 4
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    }
-  }
-}
-
-extension ItemViewController: ItemTableViewCellDelegate {
-  func cellCheckMarkTapped(cell: UITableViewCell, checked: Bool) {
-    if let indexPath = tableView.indexPathForCell(cell) {
-      itemArray[indexPath.row].checked = checked
-      checkListItemData[checkListIndex][indexPath.row].checked = checked
     }
   }
 }

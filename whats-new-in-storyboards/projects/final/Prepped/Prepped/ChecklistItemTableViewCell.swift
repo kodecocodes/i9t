@@ -22,22 +22,50 @@
 
 import UIKit
 
-class DiaryDetailViewController: UITableViewController {
+let CheckMark = "✔️"
+
+class ChecklistItemTableViewCell: UITableViewCell {
   
-  @IBOutlet var diaryEntry: UITextView!
+  @IBOutlet var checkMarkLabel: UILabel!
+  @IBOutlet var itemNameLabel: UILabel!
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    diaryEntry.becomeFirstResponder()
-  }
-  
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    if indexPath.section == 0 {
-      diaryEntry.becomeFirstResponder()
+  var checklistItem: ChecklistItem! {
+    didSet {
+      itemNameLabel.text = checklistItem.name
+      checked = checklistItem.checked
     }
   }
   
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    diaryEntry.resignFirstResponder()
+  var checked = false {
+    didSet {
+      checkMarkLabel.text = checked ? CheckMark : " "
+    }
   }
+  
+  override func awakeFromNib() {
+    let recognizer = UITapGestureRecognizer(target: self, action: "checkMarkTapped:")
+    checkMarkLabel.addGestureRecognizer(recognizer)
+  }
+  
+  func checkMarkTapped(gesture: UITapGestureRecognizer) {
+    checked = !checked
+    checklistItem.checked = checked
+  }
+}
+
+@IBDesignable
+class BorderedView: UIView {
+  
+  @IBInspectable var borderColor = UIColor.darkGrayColor()
+  @IBInspectable var lineWidth: CGFloat = 2.0
+  @IBInspectable var cornerRadius: CGFloat = 5.0
+  
+  override func drawRect(rect: CGRect) {
+    borderColor.setStroke()
+    
+    let path = UIBezierPath(roundedRect: CGRectInset(rect, lineWidth/2, lineWidth/2), cornerRadius: cornerRadius)
+    path.lineWidth = lineWidth
+    path.stroke()
+  }
+  
 }

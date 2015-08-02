@@ -20,4 +20,41 @@
 * THE SOFTWARE.
 */
 
-let CheckMark = "✔️"
+import UIKit
+
+class AddDiaryEntryViewController: UITableViewController {
+  
+  @IBOutlet var diaryEntryTextView: UITextView!
+  
+  lazy var dateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .MediumStyle
+    return formatter
+  }()
+  
+  var diaryEntry: DiaryEntry? {
+    if let entryText = diaryEntryTextView.text {
+      let date = dateFormatter.stringFromDate(NSDate())
+      return DiaryEntry(date: date, text: entryText)
+    } else {
+      return nil
+    }
+  }
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    diaryEntryTextView.becomeFirstResponder()
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    diaryEntryTextView.resignFirstResponder()
+  }
+  
+  // MARK: - UITableViewDelegate
+  
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    if indexPath.section == 0 {
+      diaryEntryTextView.becomeFirstResponder()
+    }
+  }
+}

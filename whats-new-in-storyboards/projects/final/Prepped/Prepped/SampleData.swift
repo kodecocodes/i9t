@@ -22,36 +22,48 @@
 
 import Foundation
 
-//MARK: - Check List Sample Data
+//MARK: - Checklist Sample Data
 
-var checkListData = [ "Food",
-                      "Medical",
-                      "Equipment",
-                      "To Do"]
+struct Checklist {
+  let title: String
+  var items = [ChecklistItem]()
+}
 
+struct ChecklistItem {
+  let name: String
+  var checked: Bool
+  let notes: String
+  
+  init(_ name: String, checked: Bool = false, notes: String = " ") {
+    self.name = name
+    self.checked = checked
+    self.notes = notes
+  }
+}
 
-typealias CheckListItem = (description: String, checked:Bool, notes:String)
-
-var checkListItemData:[[CheckListItem]] =
-                        [ [ ("Baked Beans",     true,   "Must be Heinz"),
-                            ("Noodles",         false,  "Check gas and water available for cooking"),
-                            ("Custard",         true,   "Long life"),
-                            ("Dried Apricots",  true,   "For Aunt Beatrice" )  ],
-                          [ ("Aspirin",         false,  " "),
-                            ("Bandages",        false,  " "),
-                            ("Whisky",          false,  " ") ],
-                          [ ("Sharpen thing for getting stones out of horse's hooves", true, " ")],
-                          [ ("Download Max Soderstrom’s Survival Guide App", true, " ")  ] ]
-
+var checklists = [ Checklist(title: "Food", items: [ ChecklistItem("Baked Beans", checked: true, notes: "Must be Heinz"),
+                                                     ChecklistItem("Noodles", checked: false, notes: "Check gas and water available for cooking"),
+                                                     ChecklistItem("Custard", checked: true, notes: "Long life"),
+                                                     ChecklistItem("Dried Apricots", checked: true, notes: "For Aunt Beatrice") ]),
+  
+                   Checklist(title: "Medical", items: [ ChecklistItem("Aspirin"),
+                                                        ChecklistItem("Bandages"),
+                                                        ChecklistItem("Whisky") ]),
+  
+                   Checklist(title: "Equipment", items: [ ChecklistItem("Sharpened thing for getting stones out of horse's hooves") ]),
+  
+                   Checklist(title: "To Do", items: [ ChecklistItem("Download Max Soderstrom’s Survival Guide App") ])
+]
 
 //MARK: - Diary Sample Data
 
-typealias DiaryData = (date:String, diaryEntry:String)
+struct DiaryEntry {
+  let date: String
+  let text: String
+}
 
-var diaryData:[DiaryData] =
-                [ ("July 2, 2016",     "Have heard rumors. Preparing."),
-                  ("July 4, 2016",     "List of safe contacts arrived."),
-                  ("July 5, 2016",     "Food shortages and riots"),
-                  ("July 8, 2016",     "I may be underprepared. They are coming...") ]
-
+var diaryEntries = [ DiaryEntry(date: "July 2, 2016", text: "Have heard rumors. Preparing."),
+                     DiaryEntry(date: "July 4, 2016", text: "List of safe contacts arrived."),
+                     DiaryEntry(date: "July 5, 2016", text: "Food shortages and riots"),
+                     DiaryEntry(date: "July 8, 2016", text: "I may be underprepared. They are coming...") ]
 

@@ -20,21 +20,35 @@
 * THE SOFTWARE.
 */
 
+
 import UIKit
 
-@IBDesignable
-
-class BorderedView: UIView {
+class ChecklistsViewController: UITableViewController {
   
-  @IBInspectable var borderColor:UIColor = UIColor.darkGrayColor()
-  @IBInspectable var lineWidth:CGFloat = 2.0
-  @IBInspectable var cornerRadius:CGFloat = 5.0
+  // MARK: - UITableViewDataSource
   
-  override func drawRect(rect: CGRect) {
-    borderColor.setStroke()
-    let path = UIBezierPath(roundedRect: CGRectInset(rect, lineWidth/2, lineWidth/2), cornerRadius: cornerRadius)
-    path.lineWidth = lineWidth
-    path.stroke()
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return 1
   }
   
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return checklists.count
+  }
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("ChecklistCell", forIndexPath: indexPath)
+    
+    cell.textLabel?.text = checklists[indexPath.row].title
+    
+    return cell
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "ChecklistItem" {
+      if let controller = segue.destinationViewController as? ChecklistDetailViewController,
+        indexPath = tableView.indexPathForSelectedRow {
+          controller.checklist = checklists[indexPath.row]
+      }
+    }
+  }
 }
