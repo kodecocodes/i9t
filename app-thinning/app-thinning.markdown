@@ -262,9 +262,7 @@ While your application is still running, open on the **Debug navigator** tab (1)
 
 ![bordered width=80%](./images/ODR_Guages.png)
 
-As you can see, after clicking on an image then clicking back this view indicates that the ODR resource is still **In Use** while other resources are either **Not Downloaded** or **Downloaded**. Although UIKit and Foundation provide their own logic on when the device can reclaim these bundles, it's really ideal to indicate to the system when you are done using them.
-
->**Note:** Your results may vary slightly from the above, in that an asset may indicate either **In Use** or **Downloaded** depending on your exact timing.  
+As you can see, after clicking on an image then clicking back, this view indicates that the ODR resource is still **In Use** while other resources are either **Not Downloaded** or **Downloaded**. Although UIKit and Foundation provide their own logic on when the device can reclaim these bundles, it's really ideal to indicate to the system when you are done using them.
 
 You'll now indicate to the system that the `NSBundleResourceRequest` is available to be reclaimed by the system as soon as you leave the `MapChromeViewController`.
 
@@ -292,7 +290,7 @@ Rebuild and run the system and keep an eye on the **Disk Report** screen while p
 
 ## Where to Go From Here? 
 
-Congratulations, you've learned the in and outs of App Thinning! Remember that the same cellular limits apply for ODR resources so there are limits on the resource size you can download.
+Congratulations, you've learned the in and outs of App Thinning! Remember that the same cellular limits apply for ODR resources, so there are limits on the resource size you can download.
 
 Two new cool methods added to **NSBundle** are: 
 **setPreservationPriority(_priority: Double, forTags _: Set<String>)**  
