@@ -31,9 +31,6 @@ class PhotosCollectionViewController: UICollectionViewController {
   var fullPhotoViewController: FullPhotoViewController!
   var fullPhotoView: UIView!
 
-  // Touch handling
-  var offset = CGPoint.zeroPoint
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -88,7 +85,7 @@ class PhotosCollectionViewController: UICollectionViewController {
   @IBAction func dismissFullPhoto(sender: UIControl) {
     navigationItem.rightBarButtonItem = nil
 
-    UIView.animateWithDuration(0.75, animations:
+    UIView.animateWithDuration(0.5, animations:
       { () -> Void in
         self.fullPhotoView.center = CGPointMake(self.fullPhotoView.center.x, self.fullPhotoView.frame.size.height / -2)
       }, completion: {
@@ -102,7 +99,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     fullPhotoView.center = CGPointMake(fullPhotoView.center.x, fullPhotoView.frame.size.height / -2)
     fullPhotoView.hidden = false
     
-    UIView.animateWithDuration(0.75, animations:
+    UIView.animateWithDuration(0.5, animations:
       { () -> Void in
         self.fullPhotoView.center = self.view.center
       }, completion: {

@@ -31,8 +31,6 @@ class FullPhotoViewController: UIViewController {
   @IBOutlet private var photoFilenameLabel: UILabel!
   @IBOutlet private var photoDimensionLabel: UILabel!
   
-  private var offset = CGPoint.zeroPoint
-  
   var photoPair: PhotoPair? {
     didSet {
       if let photoPair = photoPair {
@@ -57,46 +55,5 @@ class FullPhotoViewController: UIViewController {
     
     tagView.layer.borderWidth = 0.5
     tagView.layer.cornerRadius = 2
-    
-    let gestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
-    tagView.addGestureRecognizer(gestureRecognizer)
-  }
-
-  func pan(pan:UIPanGestureRecognizer) {
-    var location = pan.locationInView(containerView)
-    
-    switch pan.state {
-    case .Began:
-      // Capture the initial touch offset from the itemView's center.
-      let center = tagView.center
-      offset.x = location.x - center.x
-      offset.y = location.y - center.y
-      
-    case .Changed:
-      // Get reference bounds.
-      let referenceBounds = containerView.bounds
-      let referenceWidth = referenceBounds.width
-      let referenceHeight = referenceBounds.height
-      
-      // Get item bounds.
-      let itemBounds = tagView.bounds
-      let itemHalfWidth = itemBounds.width / 2.0
-      let itemHalfHeight = itemBounds.height / 2.0
-      
-      // Apply the initial offset.
-      location.x -= offset.x
-      location.y -= offset.y
-      
-      // Bound the item position inside the reference view.
-      location.x = max(itemHalfWidth, location.x)
-      location.x = min(referenceWidth - itemHalfWidth, location.x)
-      location.y = max(itemHalfHeight, location.y)
-      location.y = min(referenceHeight - itemHalfHeight, location.y)
-      
-      // Apply the resulting item center.
-      tagView.center = location
-      
-    default: ()
-    }
   }
 }
