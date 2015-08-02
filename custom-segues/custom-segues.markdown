@@ -1,6 +1,6 @@
 # Chapter 6: Custom Segues
 
-Ever since Apple introduced storyboards in iOS 5, you've been using segues to transition between scenes. In iOS 7 you could animate these transitions using custom view controller transitions. Now in iOS 9 you can completely separate out your transition animation from your view controller code. 
+Ever since Apple introduced storyboards in iOS 5, you've been using segues to transition between scenes. In iOS 7 you could animate these transitions using custom view controller transitions. Now in iOS 9 using custom segues you can completely separate out your transition animation from your view controller code. 
 
 In a small but important change, segues are now retained during modal or popover presentation of a scene. In other words, segues are created at the start of presenting a new scene and held in memory until the presented scene view controller is dismissed.
 
@@ -10,10 +10,11 @@ If you decide to change the appearance of the segue transition, you just change 
 
 There's another benefit too. With multitasking on the iPad when your app is used in split screen, you will be wanting your app's presented controllers to adapt to their correct state fluidly. Because segues are now retained in memory they can now act as controller for the adapted state.
 
-In this chapter you will discover how to create your own library of custom segues. You'll find out how to:
+In this chapter you will discover how to create your own library of custom segues. You'll need basic knowledge of storyboards and segues, but as long as you've understood the previous chapter What's New In Storyboards you'll be fine. 
 
-* Create a segue
-* Animate the segue
+Now you'll find out how to:
+
+* Create and animate a custom segue
 * Make your segue reusable within navigation and tab controllers
 * Adapt between different size classes
 
@@ -24,7 +25,7 @@ The app you will be updating today is a pet minding app called **PamperedPets**.
 
 ![iPhone](images/PamperedPets.png)
 
-Explore your starter project and see how it works. When you run the app, you will see a single scene which shows the photo, address and feeding instructions for a single pet, a goldfish. There is also a button for Vet information that currently doesn't work. You'll be creating a popover for that later on.
+Explore your starter project and see how it works. When you run the app, you will see a single scene which shows the photo, address and feeding instructions for a single pet, the star of our show - Bubbles the goldfish. There is also a button for Vet information that currently doesn't work. You'll be creating a popover for that later on.
 
 Have a look at **Main.storyboard**. There are a number of scenes that have been created for you, but initially the Animal Detail scene and the Animal Photo scene are the scenes that you'll be working with. 
 
@@ -45,7 +46,7 @@ As you have learned from What's New in Storyboards in the previous chapter, segu
 * **Present Modally** - presents a scene on top of the current scene.
 * **Popover** - presents as a popover on the iPad or full screen on the iPhone.
 
-> **Note**: Relationships between, for example, a navigation controller and its embedded view controller, are also shown on the storyboard as arrows but these are not segues that can be customized.
+> **Note**: Relationships between child view controllers embedded in a container view are also shown on the storyboard as arrows but these are not segues that can be customized.
 
 Custom segues have been around for a while, but previously, a segue was *either* modal/popover *or* custom. Now you can use the underlying segue type instead of having to define the segue from scratch.
 
@@ -53,9 +54,9 @@ In this chapter you will be customizing only Modal and Popover transitions.
 
 ## A Simple Segue
 
-You will now create the basic modal segue which you will later customize. When the user taps the photo in the AnimalDetailViewController scene, the AnimalPhotoViewController scene will be presented as a modal controller, showing a larger photo. 
+I'm sure you've already created many segues, but to ensure that you fully appreciate how segues work you will now create the basic modal segue which you will later customize. When the user taps the photo in the AnimalDetailViewController scene, the AnimalPhotoViewController scene will be presented as a modal controller, showing a larger photo. 
 
-There are two main parts of a segue.
+There are two main parts to this segue:
 
 1. Setting up the segue. `prepareForSegue(_:sender:)` is performed when the segue is activated. This is where you set up the destination view controller with the necessary data.
 2. Performing the destination controller's transition animation. Initially you will use the default transition, but shortly you will customize that.
@@ -83,7 +84,7 @@ In **AnimalDetailViewController.swift** create `prepareForSegue(_:sender:)` to s
 
 Here you give the destination controller, in this case AnimalPhotoViewController, the image that it will display.
 
-Run the app and tap the photo. The larger image will slide up the screen. There is currently no way for the user to close this screen. So you will now create an unwind segue.
+Run the app and tap the photo. The larger image will slide up the screen. There is currently no way for the user to close this screen. So you will now create a tap gesture to perform an unwind segue.
 
 In **AnimalDetailViewController.swift** add this method:
 
@@ -103,17 +104,17 @@ Run the app again, and tap the photo. The larger photo will transition in by sli
 
 Let's dissect what's happened here. When you tap the photo the tap gesture recognizer initiates a Modal segue from AnimalDetailViewController to AnimalPhotoViewController. AnimalDetailViewController is the **source view controller**. AnimalPhotoViewController is the **destination view controller**. The segue holds a reference to both the source view controller and the destination view controller. 
 
-Behind the scenes the segue sets the transitioning delegate of the destination view controller to the transition of choice. In this case the default transition - Cover Vertical. 
+Behind the scenes the segue sets the transitioning delegate of the destination view controller and sets up its presentation.
 
-The source view controller in `prepareForSegue(_:sender:)` sets up the data for the destination view controller.
+The source view controller method `prepareForSegue(_:sender:)` sets up the data for the destination view controller.
 
-Control is turned over to the destination controller. The destination controller invokes its transition delegate, so the Cover Vertical transition animation happens.
+Control is turned over to the destination controller. The destination controller invokes its transition delegate and the default Cover Vertical transition animation happens.
 
-That's the basics of what happens during a segue. Now that your segue is working correctly you are now going to customize it in a segue subclass.
+Those are the basic principles of what happens during a segue. Now that you have seen a simple working segue you are going to customize one using a segue subclass.
 
 ## Segues from your Custom Segue Library
 
-Because the segue is now retained throughout the entire duration of a modal or popover presentation, it's really easy to change segues from your library without having to touch your UIViewController code. The unwind segue for dismissing can be also set by the segue.
+Because the segue is now retained throughout the entire duration of a modal or popover presentation, it's really easy to change segues from your library without having to touch your UIViewController code. The segue can be responsible for both presentation and dismissal transition animations.
 
 The starter app contains a pre-made custom segue called DropSegue so that you can see how easy it is to change segues. In **Main.storyboard** select the **PhotoDetail** segue. Change **Segue Class** to **DropSegue**. 
 
@@ -139,15 +140,17 @@ These are the protocols that you will be encountering.
 
 If you're floundering, don't worry if you don't understand them just yet - when you have used them a few times they will become clear. 
 
-Before creating your segue, here's an overview of the code that you will be writing in this section. In general terms these are the steps you will do to create every animated segue:
+Before you start to create your segue, here's an overview of the code that you will be writing in this section. In general terms these are the steps you will do to create every animated segue:
 
-1. Subclass `UIStoryboardSegue` and set the segue as the destination controller's transitioning delegate in perform()
-2. Create the presenting and dismissing animator classes conforming to `UIViewControllerAnimatedTransitioning`
+1. Subclass `UIStoryboardSegue` and set the segue as the destination controller's transitioning delegate 
+2. Create the presenting and dismissing animator classes
 3. Define the duration and animation in the animators.
 4. Tell the segue what animator class to use for presenting and dismissal
 5. Use the segue in the storyboard
 
 Each of these steps will be further explained as you do them.
+
+![bordered height=20%](images/ScaleFlow.png)
 
 ### 1 - Subclass `UIStoryboardSegue`
 
@@ -170,13 +173,13 @@ Override the segue's perform() method:
 
 Here you set the destination view controller's transitioning delegate so that the segue will take control of transition animations.
 
-In previous iOS versions, you might have put the transition animation in perform(), but now the animation is decoupled from the segue by using this transitioning delegate. If you are using a Modal or Popover segue as you are in this example, then you must override super's `perform()` so that the framework can take care of the presentation.
+In previous iOS versions, you might have put the transition animation in perform(), but now the animation is decoupled from the segue by using this transitioning delegate. 
+
+If you are using a Modal or Popover segue as you are in this example, then you must override super's `perform()` so that the framework can take care of the presentation.
 
 The transitioning protocol allows the segue to override both the presenting and dismissing animations. After you have created the animator class, you will return to the ScaleSegue class to point to those animations. 
 
 ### 2 - Create the Animator
-
-> **Note**: I find it easier to keep the animators in the same file as the segue because they are usually closely related, but you can separate the segue and the animators by moving the animators into their own file.
 
 Add a new animator class at the end of **ScaleSegue.swift**
 
@@ -186,7 +189,9 @@ class ScalePresentAnimator:NSObject, UIViewControllerAnimatedTransitioning {
 }
 ```
 
-ScalePresentAnimator will be used for presenting the modal view controller. You will create a dismissing animator later, but for now the segue will by default use the current Vertical Cover transition.
+ScalePresentAnimator will be used for presenting the modal view controller. You will create a dismissing animator later, but for now your segue will by default use the current Vertical Cover transition.
+
+> **Note**: I find it easier to keep the animators in the same file as the segue because they are usually closely related, but you can separate the segue and the animators by moving the animators into their own file.
 
 ### 3 - Define the animation
 
@@ -237,7 +242,7 @@ Now for the actual animation.
 
 Let's go through what's happening here.
 
-1. You extract from the given transitioning context the to- controller and to- view that will be presented. Note that the controller is implicitly unwrapped as there will always be a to-controller, but the view is an optional as there may not be a to-view. You'll see why later.
+1. You extract from the given transitioning context the to- controller and to- view that will be presented. Note that the controller is implicitly unwrapped as there will always be a to- controller, but the view is an optional as there may not be a to- view. You'll see why later.
 2. The initial state for the to- view frame is a rectangle of zero size in the top left hand corner of the screen. Whenever you change the frame of a view, you should perform `layoutIfNeeded()` to update the view's constraints.
 3. Add the to- view to the transition context. During the transition, you specify what views will be part of that hierarchy. You will generally add the to- view on presentation and the from- view on dismissal.
 4. The animation block is a simple animation to animate from the zero rectangle to the final frame that is calculated by the transition context.
@@ -273,7 +278,7 @@ Take a moment to look at the code of the included example custom segues DropSegu
 
 Let's continue to improve your scaling segue. It would be good to have the larger photo smoothly scale up from the smaller one instead of from the corner. But how do you tell the animator object what view it is scaling? There's so much decoupling happening that you don't have a direct reference.
 
-From Apple's Swift book - "A protocol defines a blueprint of methods and properties that suit a particular task". This is a perfect example of a simple task. The Animal Detail can adopt a protocol to set what view is to be scaled, and the animator object can then use that protocol's scaling view without having to know anything else about the view controller. 
+From Apple's Swift book - "A protocol defines a blueprint of methods and properties that suit a particular task". The scaling segue requiring a start view frame is a perfect example of a simple task. The Animal Detail can adopt a protocol to set what view is to be scaled, and the animator object can then use that protocol's scaling view without having to know anything else about the view controller. 
 
 In **ScaleSegue.swift** create the protocol:
 
@@ -283,7 +288,7 @@ protocol ViewScaleable {
 }
 ```
 
-Any view controller that wants to present a modal view using this scaling segue must adopt **ViewScaleable** by creating and filling a `scaleView` property.
+Any view controller that wants to present a modal view using this scaling segue should adopt **ViewScaleable** by creating and filling a `scaleView` property.
 
 Declare AnimalDetailViewController to conform to ViewScaleable. Add this extension to the end of **AnimalDetailViewController.swift**:
 
@@ -306,7 +311,9 @@ let fromViewController = transitionContext.viewControllerForKey(UITransitionCont
 let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
 ```
 
-> **Note**: *Beware!* Make sure that you use the correct key variables. I have spent significant time wondering why my view is incorrect, when I have used UITransitionContextToViewControllerKey instead of UITransitionContextToViewKey! And because of automatic code completion it's also easy to mix up From and To. Also note again that from- controller is here implicitly unwrapped while from- view is optional.
+Again from- controller is implicitly unwrapped while from- view is optional.
+
+> **Note**: *Beware!* Make sure that you use the correct key variables. I have spent significant time wondering why my view is incorrect, when I have used UITransitionContextToViewControllerKey instead of UITransitionContextToViewKey! And because of automatic code completion it's also easy to mix up From and To. 
 
 Still in `animateTransition(:_)` replace:
 
@@ -397,7 +404,7 @@ Run the application. The app will now start with a list of all pets to be minded
 
 ![height=20%](images/RageFish.png)
 
-The animation doesn't scale from the right place any more! If you look in the debug console, you will see the print warning that you put in your code if the presenting view controller does not conform to ViewScalable.
+The animation doesn't scale from the right place any more! If you look in the debug console, you'll see the print warning that you put in your code to print if the presenting view controller does not conform to ViewScalable.
 
 This is because the view controller is now embedded within a Navigation Controller, which means that the Navigation Controller is now the presenting view controller, not the AnimalDetailViewController.
 
@@ -418,7 +425,7 @@ change it to:
     }
 ```
 
-Here you replace the transition context's from- controller only if it's a Navigation Controller. 
+Here you replace the transition context's from- controller, but only if it's a Navigation Controller. 
 
 Run the application again, and the scale transition should now work as expected.
 
@@ -428,15 +435,17 @@ That wraps up custom segue transition animation. In the Challenge at the end of 
 
 ## Segues are adaptive too
 
-You want to be taking advantage of multitasking on the iPad, and your users could be changing the size of your app at any time. This means that popovers which are generally used for a regular size class such as the iPad, could be switching to full screen in a compact size class. The problem is that the user can tap outside a popover to dismiss it, but needs to have a button to dismiss a full screen. You have to present a different view controller depending on the size class.
+You want to be taking advantage of multitasking on the iPad, and your users could be changing the size of your app at any time. This means that popovers which are generally used for a regular size class could be switching to full screen in a compact size class. The problem is that the user can tap outside a popover to dismiss it, but needs to have a button to dismiss a full screen. You have to present a different view controller depending on the size class.
 
-Because the segue is retained during a popover presentation, the segue can take responsibility for this adaptivity, and can substitute the correct view controller for the current size class.
+Because the segue is retained during a popover presentation, the segue can take responsibility for this adaptivity and can substitute the correct view controller for the current size class.
 
 You'll now hook up the Vet Information button on the Animal Detail scene to a popover.
 
 In **Main.storyboard** in the **Animal Detail View Controller** scene ctrl-drag from the **Vet Information button** to the small **Vet Information** Scene. Choose **popover presentation** from the popup menu. 
 
-Run the application on the Ipad Air 2 simulator in landscape so that you can test size class changes. 
+Run the application on the iPad Air 2 simulator in landscape so that you can test size class changes. 
+
+![bordered width=90%](images/PopoverCompare.png)
 
 Click on the Vet Information button, and you will see a popover. Go into split screen mode with your app taking up half the screen, and the popover will adapt into full screen. This functionality is automatic.
 
@@ -481,7 +490,7 @@ In **Main.storyboard** select the segue between the **Vet Information** button a
 
 > **Note**: When you click on the Vet Segue in the Storyboard, you will notice that Vet Information does not have a navigation bar. Click on the Navigation Controller to the left of Vet Information and the Navigation Bar and Done button will appear on the Vet Information Scene. The bar is simulated in the storyboard so that you can change the title and other details, but only shows when the view is embedded in the Navigation Controller.
 
-Once you have the Navigation Bar showing, create the unwind segue from the Done button to Animal Detail View Controller.
+Once you have the Navigation Bar showing on the Vet Information Scene, create the unwind segue from the Done button to Animal Detail View Controller.
 
 In the Document Outline, ctrl-drag from the **Done** button to **Exit** just below the Done button. Select `unwindToAnimalDetailViewController:` from the popup. This method is the unwind place marker you created earlier.
 
