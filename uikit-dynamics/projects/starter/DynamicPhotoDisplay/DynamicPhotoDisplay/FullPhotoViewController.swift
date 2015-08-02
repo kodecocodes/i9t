@@ -31,11 +31,7 @@ class FullPhotoViewController: UIViewController {
   @IBOutlet private var photoFilenameLabel: UILabel!
   @IBOutlet private var photoDimensionLabel: UILabel!
   
-  private var animator: UIDynamicAnimator!
-  var stickyBehavior: StickyEdgesBehavior!
-
   private var offset = CGPoint.zeroPoint
-
   
   var photoPair: PhotoPair? {
     didSet {
@@ -64,23 +60,8 @@ class FullPhotoViewController: UIViewController {
     
     let gestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
     tagView.addGestureRecognizer(gestureRecognizer)
-    
-    animator = UIDynamicAnimator(referenceView: containerView)
-//    animator.setValue(true, forKey: "debugEnabled")
-    stickyBehavior = StickyEdgesBehavior(item: tagView, edgeInset: 8)
-    animator.addBehavior(stickyBehavior)
   }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
-
-    stickyBehavior.isEnabled = false
-    
-    let bounds = CGRect(origin: CGPoint.zeroPoint, size: containerView.frame.size)
-    
-    stickyBehavior.updateFieldsInBounds(bounds)
-  }
-  
   func pan(pan:UIPanGestureRecognizer) {
     var location = pan.locationInView(containerView)
     
@@ -90,9 +71,6 @@ class FullPhotoViewController: UIViewController {
       let center = tagView.center
       offset.x = location.x - center.x
       offset.y = location.y - center.y
-      
-      // Disable the behavior while the item is manipulated by the pan recognizer.
-      stickyBehavior.isEnabled = false
       
     case .Changed:
       // Get reference bounds.
@@ -117,16 +95,6 @@ class FullPhotoViewController: UIViewController {
       
       // Apply the resulting item center.
       tagView.center = location
-      
-    case .Cancelled, .Ended:
-      // Get the current velocity of the item from the pan gesture recognizer.
-      let velocity = pan.velocityInView(containerView)
-      
-      // Re-enable the stickyCornersBehavior.
-      stickyBehavior.isEnabled = true
-      
-      // Add the current velocity to the sticky corners behavior.
-      stickyBehavior.addLinearVelocity(velocity)
       
     default: ()
     }
