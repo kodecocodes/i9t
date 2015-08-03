@@ -364,7 +364,7 @@ Notice how the lines shorten and nearly disappear in the two zones where the met
 For your next trick, you're going to update the way the full photo view is displayed to make it feel more dynamic. Right now the app is using a UIView animation to animate the bounds change when re-centering the image. You'll effectively do the same action with UIKit Dynamics - animate the change of the center of the view but by using gravity and a collision. Open **PhotosCollectionViewController.swift** and add the following to the top of the class:
 
 ```swift
-  var animator: UIDynamicAnimator?
+  var animator: UIDynamicAnimator!
 ```
 
 Then inside of `viewDidLoad()` add this line:
@@ -389,24 +389,26 @@ Now that the animator has been created, swap out the contents of `showFullImageV
     fullPhotoView.center = CGPointMake(fullPhotoView.center.x, fullPhotoView.frame.size.height / -2)
     fullPhotoView.hidden = false
     
-    animator!.removeAllBehaviors()
+    animator.removeAllBehaviors()
     
     let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
     dynamicItemBehavior.elasticity = 0.2
     dynamicItemBehavior.density = 400
-    animator!.addBehavior(dynamicItemBehavior)
+    animator.addBehavior(dynamicItemBehavior)
     
     let gravityBehavior = UIGravityBehavior(items: [fullPhotoView])
     gravityBehavior.magnitude = 5.0
-    animator!.addBehavior(gravityBehavior)
+    animator.addBehavior(gravityBehavior)
     
     let collisionBehavior = UICollisionBehavior(items: [fullPhotoView])
     collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPointMake(0, fullPhotoView.frame.size.height + 1.5), toPoint: CGPointMake(fullPhotoView.frame.size.width, fullPhotoView.frame.size.height + 1.5))
-    animator!.addBehavior(collisionBehavior)
+    animator.addBehavior(collisionBehavior)
   }
 ```
 
+Build and run the app. Tap a photo and notice that when the view hits the bottom of the screen it bounces. The collision behavior shown here is a bit different from previous examples. Instead of using the reference view's boundary this creates a single line of collision at the bottom. Its positioned just off the screen so the bounce doesn't leave a visible gap. 
 
+There are a lot of knobs and levers to change when dealing with behaviors. Play around with the `UIDynamicItemBehavior` and `UIGravityBehavior` properties to see if you can find a bounce behavior you like!
 
 ## Conclusion
 ## Challenge
