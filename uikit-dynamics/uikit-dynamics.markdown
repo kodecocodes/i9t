@@ -32,7 +32,7 @@ subView2.backgroundColor = UIColor.orangeColor()
 view.addSubview(subView2)
 ```
 
-Excellent! Wait. Where's the exciting output? Switch to the Assistant Editor by hitting __Option + Command + Enter__. You should see something like this now:
+Excellent! Wait. You created a view and added two subviews giving each a different color - but you don't see anything! Where's the exciting output? Switch to the Assistant Editor by hitting __Option + Command + Enter__. You should see something like this now:
 
 ![bordered width=90%](images/playground_step1_assistant_editor.png)
 
