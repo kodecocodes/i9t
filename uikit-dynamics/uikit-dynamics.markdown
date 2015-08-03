@@ -420,5 +420,23 @@ You've seen examples of most of the behaviors available to you in UIKit Dynamics
 * 2014 - #216 - Building Adaptive Apps with UIKit
 * 2015 - #229 - What's New in UIKit Dynamics and Visual Effects
 
-## Challenge
+## Challenges
 
+Now it's time for you to take a whack at adding some dynamic goodness to the app. The solution is provided for these challenges - but try giving it a chance yourself! 
+
+### Challenge #1
+
+Instead of using UIView animations to dismiss the view when Done is tapped, use UIKit Dynamics. You'll want the view to be pushed off the screen upwards at a slow enough rate for the user to experience it. Replace the contents of `dismissFullPhoto` with the behaviors.
+
+* A `UIPushBehavior` behavior will give the view the kick it needs.
+* You can use the `UIDynamicAnimator` delegate method `dynamicAnimatorDidPause` to hide the view after its animated off screen. There are no callbacks like UIView animations.
+
+### Challenge #2
+
+You're going to add an interaction to the app that allows you to swipe up on the full photo view to dismiss it. This is very similar to the lock screen photo behavior in iOS. You should be able to lift the full photo view up and it'll drop back down if you didn't lift it high enough. A good swipe upwards will fling it off the screen.
+
+Here are some hints to get you started on your journey:
+
+* The swipe and drag up behavior will exist in `PhotosCollectionViewController` along with a `UIPanGestureRecognizer`. The setup will look similar to the pan gesture recognizer used to move the metadata view around.
+* If the view is moved up less than half way, it should bounce back down. Take the velocity into account as well to determine if there is enough movement to dismiss the view. Try playing around with the camera on the lock screen for an example.
+* You'll need gravity, collisions, and push behaviors.
