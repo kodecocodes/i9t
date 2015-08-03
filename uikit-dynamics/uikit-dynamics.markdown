@@ -138,7 +138,7 @@ dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
 
 Now you can really see the power of the spring field!
 
-> **CHALLENGE**: Play around with other field behaviors and come up with a couple other effects.s
+> **CHALLENGE**: Play around with other field behaviors and come up with a couple other effects.
 
 ## Applying Dynamics to a Real App
 
