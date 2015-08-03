@@ -4,7 +4,7 @@
 
 iOS applications live in the hands of the people using them. We've come to expect our mobile apps to react to us touching them and to provide some semblance of realness. iOS 7 introduced the idea of flatness in our user interfaces rather than the heavily skeuomorphic concepts previously. Instead of heavy interfaces we can provide that bond with our apps with animations and reactions to touch that mirror real-world physics.
 
-__UIKit Dynamics__ was designed to give you a simplistic set of ways to provide the physical experiences in your animations and view interactions. UIKit Dynamics is a 2D physics-inspired animation system designed with a convenient API. Originaly introduced in iOS 7, UIKit Dynamics was left relatively unchanged in iOS 8. Now in iOS 9 we get a bunch of new exciting things like gravity and magnetic fields, non-rectangular collision bounds, and additional attachment behaviors.
+__UIKit Dynamics__ was designed to give you a simplistic set of ways to provide the physical experiences in your animations and view interactions. UIKit Dynamics is a 2D physics-inspired animation system designed with a convenient API. Originally introduced in iOS 7, UIKit Dynamics was left relatively unchanged in iOS 8. Now in iOS 9 we get a bunch of new exciting things like gravity and magnetic fields, non-rectangular collision bounds, and additional attachment behaviors.
 
 > **Note**: This chapter will primarily focus on the new things introduced for UIKit Dynamics for iOS 9. Check out *iOS 7 by Tutorials* for a full introduction to the original APIs.
 
@@ -44,7 +44,7 @@ Add the following line after creating the second subview:
 let animator = UIDynamicAnimator(referenceView: view)
 ```
 
-`UIDynamicAnimator` is where all the physics voodoo happens. The `referenceView` we passed in is the canvas where all the animation takes place. All of the views we animate must be a subview of the reference view.
+`UIDynamicAnimator` is where all the physics voodoo happens. A dynamic animator is an intermediary between your dynamic items (UIView subviews in this case), the dynamic behaviors you create and the iOS physics engine. It provides a context for the animations to be calculated before being rendered. Dynamic Behaviors encapsulate the physics for a particular desired effect like gravity, attraction, bounce, etc. Dynamic animators keep track of where all of your items are during the animation process. The `referenceView` we passed in is the canvas where all the animation takes place. All of the views we animate must be a subview of the reference view.
 
 ### Your First Behavior
 
