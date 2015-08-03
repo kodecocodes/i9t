@@ -44,7 +44,7 @@ class ChecklistsViewController: UITableViewController {
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "ChecklistItem" {
+    if segue.identifier == "ChecklistDetail" {
       if let controller = segue.destinationViewController as? ChecklistDetailViewController,
         indexPath = tableView.indexPathForSelectedRow {
           controller.checklist = checklists[indexPath.row]

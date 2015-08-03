@@ -26,7 +26,7 @@ Open up the starter project for this chapter and run it in the simulator. You'll
 
 ![iPhone](images/Prepped.png)
 
-Head back to Xcode to familiarize yourself with the code. **CheckListsViewController.swift** contains the initial list of checklists, and **CheckListDetailViewController.swift** displays the items within each list.
+Head back to Xcode to familiarize yourself with the code. **ChecklistsViewController.swift** contains the initial list of checklists, and **ChecklistDetailViewController.swift** displays the items within each list.
 
 The user interface is currently all contained in **Main.storyboard**. There are also two scenes in there that aren't used in the starter app. You'll hook those up later in the tutorial so that you can add checklist items.
 
@@ -64,23 +64,19 @@ Enough theory - let's put it into practice!
 
 Whilst **Prepped** is currently only a small app in the early stages of development, there are already some logical places that its main storyboard can be divided up. Container view controllers are a good place to consider splitting out functionality into new storyboards. Prepped uses a tab bar controller, and in this case it makes sense to separate each tab's children into their own storyboards.
 
-&nbsp;
-
-&nbsp;
-
 In the starter project, open **Main.storyboard** and zoom out so that you can see all six scenes. You can hold **Command** and press **+** to zoom in or **-** to zoom out, or right-click on a blank area in the storyboard and choose your zoom level.
 
 Highlight all the scenes in the storyboard except for the tab bar controller on the left hand side by clicking and dragging over them:
 
 ![bordered width=90%](images/HighlightStoryboard.png)
 
-Select **Editor\Refactor to Storyboard** and enter **Checklists.storyboard** as the name of the new storyboard. Click **Save**.
+Select **Editor\Refactor to Storyboard** and enter **Checklists.storyboard** as the name of the new storyboard. Set the **Group** to **Checklists**. Click **Save**.
 
 As if by magic, Xcode will now:
 
 1. Split out the selected scenes into a new storyboard.
-2. Change the target of the tab bar controller's "view controllers" segue to a storyboard reference that points to the relevant scene in the new storyboard.
-3. Take you to the new storyboard
+2. Change the target of the tab bar controller's `viewControllers` segue to a storyboard reference that points to the relevant scene in the new storyboard.
+3. Take you to the new storyboard.
 
 You may have to zoom out and reposition the new storyboard to see all the scenes. The arrangement of the scenes complete with segues is exactly as in the original storyboard. Here's what the new storyboard should look like:
 
@@ -90,15 +86,11 @@ Lets check out what happened to the original storyboard. Open **Main.storyboard*
 
 ![bordered width=95%](images/AfterRefactor.png)
 
-The tab bar controller's "view controllers" segue now points to a the storyboard reference for the navigation controller in **CheckLists.storyboard**. The storyboard reference uses the navigation controller's storyboard ID to refer to it.
+The tab bar controller's "view controllers" segue now points to a the storyboard reference for the navigation controller in **Checklists.storyboard**. The storyboard reference uses the navigation controller's storyboard ID to refer to it.
 
 > **Note**: If your view controllers don't have a storyboard ID set in the storyboard, then Interface Builder will automatically generate an ID for them when you use the Refactor to Storyboard command. However, these IDs are pretty ugly; for example **UIViewController-gtY-c7-gYu**! Whilst you can change this later, we'd recommend that you explicitly set storyboard IDs yourself for any view controllers you want to use with references, as it makes things much easier to follow.
 
 As well as referencing a specific view controller, storyboard references can also just refer to the initial scene in a storyboard. Let's change this one to do so.
-
-&nbsp;
-
-&nbsp;
 
 Select the new storyboard reference (it'll be named **ChecklistsNavigationController**). In the **Attributes Inspector** remove the **Referenced ID**.
 
@@ -110,70 +102,60 @@ The reference will now point to whatever the initial view controller is in **Che
 
 > **Note**: The Initial View Controller in a storyboard is the one with the arrow pointing to it from the left.
 
-Head over to **CheckLists.storyboard** and select the **ChecklistsNavigationController** scene. In the **Attributes Inspector** check **Is Initial View Controller** to indicate that this is the scene that should be the entry point for the storyboard.
+Head over to **Checklists.storyboard** and select the **Checklists Navigation Controller** scene. In the **Attributes Inspector** check **Is Initial View Controller** to indicate that this is the scene that should be the entry point for the storyboard.
 
 ![width=90%](images/NavigationStoryboardID.png)
 
-Build and run the app. Even though you have done this refactoring, nothing should have changed when you run the app.
+Build and run. The app should perform just as it did when you started. The only difference is that things are better organized behind the scenes!
 
 // TODO: SCREENSHOT?
 
-### Storyboards within a team
+## Storyboards within a team
 
 In the past it has been difficult to design and share storyboards amongst the members of a development team. In fact, this has been a big reason that some developers have still been avoiding storyboards: fear of the dreaded merge conflict!
 
-Imagine that you are writing Prepped together with a friend, whose task it is to create the Diary Entries tab. She's finished building it using a separate storyboard, and now you need to add it to your own storyboard hierarchy.
+Imagine that you are writing Prepped together with a friend, whose task it is to create the diary entries functionality. She's finished building it using a separate storyboard, and now you need to add it to your own storyboard hierarchy.
 
-Select **File\Add Files to "Prepped"**. Navigate to the Prepped folder, and select the **Diary** folder. Ensure that **Copy items if needed** is checked in the dialog box, and that **Added folders** is set to **Create groups**. Ensure that **Add to targets** is ticked for **Prepped**. Click **Add** to add the folder and its contents to the project.
+In the project navigator, select the top level **Prepped** group, just below the project itself. Click **File\Add Files to "Prepped"**. Navigate to the Prepped folder, and select the **Diary** folder. Ensure that **Copy items if needed** is checked in the dialog box, and that **Added folders** is set to **Create groups**. Ensure that **Add to targets** is ticked for **Prepped**. Click **Add** to add the folder and its contents to the project.
 
 In **Main.storyboard** drag a **storyboard reference** from the **Object Library** into the storyboard (drag it to an empty space, not onto a scene).
 
 ![bordered height=25%](images/StoryboardReference.png)
 
+// TODO: Update screenshot - trim down
 // TODO: Check bolding in this area!
 
 **Ctrl-drag** from the existing tab bar controller scene to the **storyboard reference**.
 
 ![bordered height=23%](images/ConnectStoryboardRef.png)
 
-Choose **view controllers** in the Relationship Segue section.
-
-![height=20%](images/SegueMenuStoryboardRef.png)
+In the pop-up that appears, choose **view controllers** from the **Relationship Segue** section.
 
 Select the **storyboard reference** you just added. In the **Attributes Inspector** set the **Storyboard** to **Diary**.
 
 ![height=13%](images/DiaryStoryboardRef.png)
 
-Run the app, and you should now have two tabs - one for Checklists and one for Diary. You can now add Diary entries using the storyboard scenes and code created by your imaginary friend! Storyboard references make it easier to share the load :].
+Build and run the app and you should now have two tabs: one for Checklists and one for Diary. You can now add Diary entries using the storyboard scenes and code created by your imaginary friend! Storyboard references make it easier to share the load :].
 
 // TODO: SCREENSHOT
 
-If your tabs are in the wrong sequence, you can rearrange them in **Main.storyboard**.
-
-> **Note**: Currently both of the tabs in the tab bar controller have the title **Item**. The correct title is loaded during runtime from the Checklists and Diary storyboards. You can change the titles in Main.storyboard for your reference, but it won't make any difference at runtime.
+> **Note**: Currently both of the tabs in the tab bar controller in the storyboard have the title **Item**. The correct title is loaded during runtime from the Checklists and Diary storyboards. You can change the titles in Main.storyboard for your reference, but it won't make any difference at runtime.
 
 ## Focus on a storyboard
 
 For the next few sections, you'll be working on checklist items. When working on scenes deep down in the app hierarchy, it can be annoying to tap down into them just to test your new code. Now with storyboard references you can isolate the scenes you're currently working on into their own storyboard and instruct the app to launch straight into it. You'll do that now for the checklist item section.
 
-&nbsp;
-
-&nbsp;
-
-In **Checklists.storyboard** highlight the **Item View Controller**, the **Item Detail Navigation Controller** and the **Add Item** scenes.
+In **Checklists.storyboard** highlight the **Checklist Detail View Controller**, the **Add Item Navigation Controller** and the **Add Item View Controller** scenes.
 
 ![bordered width=90%](images/ItemsRefactored.png)
 
-Select **Editor\Refactor to Storyboard** and name the new storyboard **ChecklistItems.storyboard**.
+Select **Editor\Refactor to Storyboard** and name the new storyboard **ChecklistDetail.storyboard**. Ensure that the **Group** is still set to **Checklists**.
 
-// Check names of viewcontrollers
-Just as you did for the Checklists storyboard, in **ChecklistItems.storyboard** select the **Item View Controller** scene and in the **Attributes Inspector** check **Is Initial View Controller**. The Item View Controller should now have an arrow on its left indicating that it is the first scene in the storyboard.
-
-Click on the **Prepped project** at the top of the **Project Navigator**, then click on the **Prepped target** and choose the **General** tab. Change **Main Interface** to **ChecklistItems.storyboard**.
+Click on the **Prepped project** at the top of the **project navigator**, then click on the **Prepped target** and choose the **General** tab. Change **Main Interface** to **ChecklistDetail.storyboard**.
 
 ![bordered height=24%](images/ProjectSettings1.png)
 
-Build and run the app and see that the checklist items scene is loaded first. Note that the navigation bar and tab bar are missing, because the view controller is no longer embedded in a navigation or tab bar controller. This is only a temporary situation while you work on the items storyboard.
+Build and run the app and see that the checklist detail scene is loaded first. Note that the navigation bar and tab bar are missing, because the view controller is no longer embedded in a navigation or tab bar controller. This is only a temporary situation while you work on the items storyboard.
 
 ![iPhone bordered](images/Items.png)
 
@@ -181,23 +163,17 @@ Build and run the app and see that the checklist items scene is loaded first. No
 
 ## Views in the scene dock
 
-A lesser-known feature of storyboard scenes is the **scene dock**. Most people don't even notice it's there. I'm talking about this thing, that you find at the top of the currently selected scene in the storyboard:
+A lesser-known feature of storyboard scenes is the **scene dock**. Most people don't even notice it's there. If you're not familiar with it, it's this view that you find at the top of the currently selected scene in a storyboard:
 
 // TODO: Screenshot of scene dock
 
 Out of the box, the scene dock contains references to the current view controller, the first responder, and any unwind segues that are available. But did you know you can add your own views to the scene dock? You've always been able to do so, but with Xcode 7 you can now design these attached views right within Interface Builder.
 
-Any views you add in the scene dock aren't added to your view controller's initial subviews array. Instead, you can add IBOutlets to them, and then make use of them at runtime.
+Any views you add in the scene dock aren't added to your view controller's initial subviews array. Instead, you can add IBOutlets to them and then make use of them at runtime.
 
 When you select a checklist item in Prepped, its table row is currently highlighted with a boring gray color. You will now perform the amazing feat of changing the color of a selected row with no code at all – thanks to the scene dock!
 
-&nbsp;
-
-&nbsp;
-
-&nbsp;
-
-In **ChecklistItems.storyboard**, select **Item View Controller** and drag a **view** from the Object Library onto the scene dock.
+In **ChecklistDetail.storyboard**, select **Checklist Detail View Controller** and drag a **view** from the Object Library onto the scene dock.
 
 // TODO: Check screenshots
 
@@ -205,132 +181,121 @@ In **ChecklistItems.storyboard**, select **Item View Controller** and drag a **v
 
 ![bordered height=21%](images/ViewInSceneDock.png)
 
-The new view will appear just above the scene dock. You can add subviews and controls to it, just as you would any other view.
+The new view will appear just above the scene dock. You can add subviews and controls to these docked views, just as you would any other view.
 
 Select the view you added and in the **Attributes Inspector** change the background color of the view to **#FFFAE8**.
 
-The size of the view doesn't matter as it will be stretched automatically when it is used in the cell. You can resize it from the top, left and right edges if you want to make it smaller.
+// TODO: This section may need updating slightly once design changes are complete.
 
-In the document outline, **Control-drag** from **ItemTableViewCell** to the new view. Choose **selectedBackgroundView** from the connections pop-up.
+The size of the view in the storyboard doesn't really matter as it will be stretched automatically when it is used in the cell. However, if you want to make it smaller so it's taking up less room you can resize it by dragging from its top, left and right edges.
+
+In the document outline, **Control-drag** from **ChecklistItemCell** to the new view. Choose **selectedBackgroundView** from the connections pop-up.
 
 ![bordered width=65%](images/ConnectSelectedView.png)
 
-Build and run the app. When you tap a row, it will be colored by your new view!
+Build and run the app. When you tap a row, it will be colored by your new view. Pretty cool, huh? And no code required!
 
 ![bordered iPhone](images/SelectedView.png)
 
- Pretty cool, huh? And no code required!
-
-> **Note**: This coloring method will only work when you don't enable multiple selection on your table view. Only one instance of the colored view is created, and it's shared between each cell in the table view. As such, it can only be applied to one cell at a time.
+> **Note**: This coloring method will only work for table views that don't have multiple selection enabled. Only one instance of the colored view is created, and it's shared between each cell in the table view. As such, it can only be applied to one cell at a time.
 
 ## Conditional views
 
-Often in your apps you will have a view that you only need to show under certain conditions. Designing a view like this amongst all the other views in a view controller was always rather difficult in storyboards. One advantage of having a view in the scene dock is that you can create it visually without interfering with the rest of your view controller. You can then add it to the view hierarchy in code when it's needed.
+Often in your apps you will have a view that you only need to show under certain conditions. Designing a view like this amongst all the other views in a view controller was always rather difficult in storyboards. One advantage of having a view in the scene dock is that you can create it visually without interfering with the rest of your view controller's subviews. You can then add it to the view hierarchy in code when it's needed.
 
 The checklist items in Prepped's sample data have notes accompanying them. You will now create a view to display an item's note. As you tap the table view row for an item, the row will expand to display the associated note. If you tap the row again or tap a different row, the selected row will contract and the note view will be removed from that row.
 
-Drag a new **view** onto the Scene Dock next to the selected background view you created in the last section. Select the view, and in the **Size Inspector** set its width to 320 and its height to 128.
+Still in **ChecklistDetail.storyboard**, drag a new **view** onto the scene dock, next to the selected background view you created in the last section. Select the view, and in the **Size Inspector** set its width to **320** and its height to **128**.
 
 Drag a **label** from the Object Library onto the new view and in the **Attributes Inspector** change the label text to "Notes:". You may have to resize the label so that the text fits.
 
 ![bordered height=26%](images/NotesLabel.png)
 
-Next drag a **text view** from the Object Library onto the new view and resize and rearrange the views to look like this:
+Next drag a **text view** from the Object Library onto the new view. Remove its default _Lorem ipsum_ text using the **Attributes Inspector**. Resize and rearrange the label and text views so that they are touching the edges of their container, so that it looks like this:
 
 ![bordered width=80%](images/NotesTextView.png)
 
-Remove the default _Lorem ipsum_ text from the text view.
-
 You'll now connect this notes view to an IBOutlet in the view controller. Even though there are multiple cell instances on the screen at one time, there will be only one notes view instance at a time, so there is no problem connecting this view to an outlet.
 
-With **ChecklistItems.storyboard** open in the main editor, open **ItemViewController.swift** in the  **assistant editor**. You may have to close the **document outline** using the icon beneath the storyboard to get enough space.
+With **ChecklistDetail.storyboard** open in the main editor, open **ChecklistDetailViewController.swift** in the  **assistant editor**. You may have to close the **document outline** using the icon beneath the storyboard to get enough space.
 
 ![bordered height=6%](images/DocumentOutline.png)
 
-**Ctrl-drag** from the new view to **ItemViewController.swift** to create an outlet for the view. Ensure that you are dragging from the view background, _not_ from the text view or label. You can also drag from the view's icon in the scene dock.
+**Ctrl-drag** from the new view to **ChecklistDetailViewController** to create an outlet for the view, just below the existing `checklist` property. Ensure that you are dragging from the view's _background_, not from the text view or label. You can also drag from the view's icon in the scene dock.
+
+Name the outlet **notesView** and click **Connect**. The outlet will appear as a property in `ChecklistDetailViewController`.
 
 ![bordered width=80%](images/CreateOutlet.png)
 
-Name the outlet **notesView** and click **Connect**. The outlet will appear as a property in ItemViewController.
+Now **Ctrl-drag** from the text view to **ChecklistDetailViewController** to create another outlet just below the one you just made. Name the outlet **notesTextView** and click **Connect**.
 
-Now **Ctrl-drag** from the text view to **ItemViewController.swift** to create another outlet. Name the outlet **notesTextView** and click **Connect**.
+Finally, it's time to write some code! :] You'll use another new feature of iOS 9, stack views, to add and remove the notes view from a cell with an animation.
 
-Finally, it's time to write some code! :] You'll write code for the cell to expand when it's tapped. This is what you will need to do:
+> **Note:** To learn more about UIStackView, be sure to read the chapter X in this book. // TODO: FPE!
 
-1. Create a property to hold the selected index path of the cell.
-2. Add `tableView(_:didSelectRowAtIndexPath:)` to update the selected index path property when the user taps the row.
-3. Add `tableView(_:heightForRowAtIndexPath:)` to calculate the height of cells.
+In **ChecklistDetailViewController.swift**, add the following method to the bottom of the main class implementation:
 
-In **ItemViewController**, below its existing properties, add a property to hold the selected index path of the cell:
+```swift
+func addNotesViewToCell(cell: ChecklistItemTableViewCell) {
+  notesView.heightAnchor.constraintEqualToConstant(notesViewHeight).active = true
+  notesView.clipsToBounds = true
 
-    var selectedIndexPath: NSIndexPath?
+  cell.stackView.addArrangedSubview(notesView)
+}
+```
 
-Find the empty table view delegate extension in **ItemViewController** and add `tableView(_:didSelectRowAtIndexPath:)`:
+This method ensures that the notes view has its height defined by Auto Layout and then adds it to the cell's stack view's `arrangedSubviews` collection. It also sets `clipsToBounds` to `true` to prevent the text view spilling outside of the cell when you perform a swipe-to-delete.
+
+The height needs to be set using Auto Layout because the stack view derives its own height from the heights of its `arrangedSubviews`. If you didn't set this here, the cell wouldn't get any bigger when you add the notes view.
+
+Next, add this method below `addNotesViewToCell(_:)`:
+
+```swift
+func removeNotesView() {
+  if let stackView = notesView.superview as? UIStackView {
+    stackView.removeArrangedSubview(notesView)
+    notesView.removeFromSuperview()
+  }
+}
+```
+
+This code removes the notes view from the stack view's `arrangedSubviews` and also from its set of visible subviews.
+
+Next, to put these methods to use. Still in **ChecklistDetailViewController.swift**, find the empty table view delegate extension for **ChecklistDetailViewController** and add `tableView(_:didSelectRowAtIndexPath:)`:
 
 ```swift
 override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-  tableView.beginUpdates()
-  if selectedIndexPath == indexPath {
-    selectedIndexPath = nil
-    // remove notes view from cell
-  } else {
-    selectedIndexPath = indexPath
-    // add notes view to cell
+  // 1
+  guard let cell = tableView.cellForRowAtIndexPath(indexPath) as? ChecklistItemTableViewCell else {
+    return
   }
+
+  // 2
+  tableView.beginUpdates()
+  // 3
+  if cell.stackView.arrangedSubviews.contains(notesView) {
+    removeNotesViewFromCell(cell)
+  } else {
+    addNotesViewToCell(cell)
+
+    // 4
+    notesTextView.text = checklist.items[indexPath.row].notes
+  }
+
+  // 5
   tableView.endUpdates()
 }
 ```
 
-This method sets `selectedIndexPath` to the tapped cell's index path. If the user taps an already selected cell, `selectedIndexPath` is set to `nil`.
+This method does the following:
 
-//TODO: AUTO LAYOUT?
+1. Uses a Swift 2.0 `guard` statement to ensure that there is a valid cell of the right type at the selected index path before continuing.
+2. Calls `tableView.beginUpdates()` so that the changes to the cell's height are animated.
+3. If the cell's stack view already contains the notes view, then it gets removed. Otherwise, it gets added.
+4. Updates the notes text view's `text` to contain the notes for the selected checklist item.
+5. Finally, calls `tableView.endUpdates()` to commit the changes.
 
-In the same delegate extension, add `tableView(_:heightForRowAtIndexPath:)`:
-
-```swift
-override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-  if selectedIndexPath == indexPath {
-    return cellHeight + cellPadding + notesView.bounds.height
-  } else {
-    return cellHeight
-  }
-}
-```
-
-In this implementation, the height of the cell is determined by whether its index path is equal to the currently selected index path. If the cell is selected, the height will expand to include the notes view's height.
-
-Build and run the app and tap a cell to see it expand. Tap it again to see it contract back to its usual size.
-
-![iPhone](images/ExpandedNotes1.png)
-
->**Note:** Even though you have not yet actually added the notes view to the table view cell, you can still use the height of the notes view as defined in your storyboard. This is because the notes view instance is created at the same time as the rest of the storyboard scene, even if you're not displaying it yet.
-
-You're almost there! Now you just need to add the notes view to a cell's view hierarchy when it's selected, and remove it when it's deselected.
-
-In `tableView(_:didSelectRowAtIndexPath:)` change the comment
-
-    // remove notes view from cell 
-
-to:
-
-    notesView.removeFromSuperview()
-
-and replace:
-
-    // add notes view to cell
-
-with:
-
-```swift
-notesTextView.text = itemArray[indexPath.row].notes
-if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-  notesView.frame.origin.x = cellPadding
-  notesView.frame.origin.y = cellHeight
-  cell.contentView.addSubview(notesView)
-}
-```
-
-Finally, change the project's main interface back to the main storyboard; click on the **Prepped project** in the **Project Navigator**, click on the **Prepped target** and then the **General** tab. Change **Main Interface** to **Main.storyboard**.  // FPE: Do I need to explain this again? The user did it earlier
+Finally, change the project's main interface back to the main storyboard; click on the **Prepped project** in the **project navigator**, click on the **Prepped target** and then on the **General** tab. Change **Main Interface** to **Main.storyboard**.  // FPE: Do I need to explain this again? The user did it earlier
 
 ![bordered height=30%](images/ProjectSettings2.png)
 
@@ -338,7 +303,7 @@ Finally, change the project's main interface back to the main storyboard; click 
 
 &nbsp;
 
-Build and run. Tap on a cell again, and you should see the notes view appear. Nice work!
+Build and run. Tap on a cell again, and you should see the notes view appear. Nice work! By using a stack view, you didn't need to set any frames manually or even add extra constraints to the cell (other than defining the height of the notes view). In previous versions of iOS, this would've been rather more tricky to implement.
 
 ![iPhone](images/ExpandedNotes2.png)
 
@@ -352,60 +317,53 @@ You will need two new buttons on the checklist detail view controller's navigati
 
 ![bordered height=6%](images/NavigationBar1.png)
 
-Previously you would have had to create a view that held multiple buttons and then add that view to the navigation bar. Xcode 7 brings a useful new feature to storyboards which means that this is no longer necessary: the ability to add multiple buttons directly to a navigation bar.
+Previously you would have had to create a view that held multiple buttons and then add that view to the navigation bar. Xcode 7 brings another useful new feature to storyboards which means that this is no longer necessary: the ability to add multiple buttons directly to a navigation bar.
 
-In **Items.storyboard** select **Item View Controller** in the document outline. Drag a **bar button item** from the Object Library onto the right hand side of the navigation bar.
+In **ChecklistDetail.storyboard** select **Checklist Detail View Controller** in the document outline. Drag a **bar button item** from the Object Library onto the right hand side of the navigation bar.
 
 The document outline will now show a group for left bar button items and a group for right bar button items.
 
 ![bordered height=20%](images/CheckListItems.png)
 
+// TODO: This will need updating after design changes
+
 Drag a second bar button item onto the right side of the navigation bar. In the **Attributes Inspector** change the **System Item** of the left of the two buttons to **Add** and change the other button's **System Item** to **Edit**.
 
 ![bordered height=20%](images/CheckListItemButtons.png)
 
-**Ctrl-drag** from the **Add** button to the **Item Detail Navigation Controller** scene and choose **present modally** from the pop-up menu. When the user taps the **Add** button the Item Detail scene will now be presented.
+**Ctrl-drag** from the **Add** button to the **Add Item Navigation Controller** scene and choose **present modally** from the pop-up menu. When the user taps the **Add** button the Add Item scene will be presented.
 
-You'll now need to connect a couple of unwind segues to return from the Item Detail scene. The unwind methods have already been created for you in ItemViewController.swift.
+You'll now need to connect a couple of unwind segues to return from the Add Item scene. The unwind methods have already been created for you in ChecklistDetailViewController.swift.
 
-Still in **Items.storyboard**, select the **Add Item Scene** in the Document Outline. **Ctrl-drag** from the **Cancel** button to **Exit** on the scene dock and choose **cancelToItemViewController:** from the pop-up menu. **Ctrl-drag** from the **Save** button to **Exit** on the scene dock and choose **saveToItemViewController:** from the pop-up menu.
+Still in **ChecklistDetail.storyboard**, select the **Add Item View Controller** scene in the Document Outline. **Ctrl-drag** from the **Cancel** button on the left side of the navigation bar to **Exit** on the scene dock. Choose **cancelToChecklistDetailViewController:** from the pop-up menu. **Ctrl-drag** from the **Save** button on the right side of the navigation bar to **Exit** on the scene dock and choose **saveToChecklistDetailViewController:** from the pop-up menu.
 
 Build and run the app, choose a checklist and try out adding items with notes to the list. These will not be saved permanently, because the sample data is currently only held in arrays which only exist for the duration of the app.
 
-Now you just need to implement the code for the Edit button. Firstly, in **ItemViewController.swift** replace the edit button in `viewDidLoad()`:
+// TODO: screenshot required?
+
+Now you just need to implement the code for the Edit button. Firstly, in **ChecklistDetailViewController.swift** add the following line to the bottom of `viewDidLoad()`:
 
 ```swift
-override func viewDidLoad() {
-  navigationItem.rightBarButtonItem = editButtonItem()
-}
+navigationItem.rightBarButtonItem = editButtonItem()
 ```
 
-The `navigationItem`'s `rightBarButtonItem` is the button that is farthest to the right of the bar. Similarly, the `leftBarButtonItem` is the button that is farthest to the left of the bar.
+The `navigationItem`'s `rightBarButtonItem` is the button that is farthest to the right of the bar. Similarly, the `leftBarButtonItem` is the button that is farthest to the left of the bar. This line of code replaces the Edit button with the view controller's built-in edit button item. It takes care of animating to and from an 'editing' state, and changes the button's text from "Edit" to "Done" and back again as required.
 
-Still in **ItemViewController.swift**, find the table view data source extension. Add the following implementation inside the extension, below the existing methods:
+Still in **ChecklistDetailViewController.swift**, find the table view data source extension. Add the following implementation inside the extension, below the existing methods:
 
 ```swift
 override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
   if editingStyle == .Delete {
-    // 1
-    selectedIndexPath = nil
-    // 2
-    notesView.removeFromSuperview()
-    // 3
-    itemArray.removeAtIndex(indexPath.row)
-    checkListItemData[checkListIndex].removeAtIndex(indexPath.row)
-    // 4
+    removeNotesView()
+
+    checklist.items.removeAtIndex(indexPath.row)
+
     tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
   }
 }
 ```
 
-Here's what this code is doing:
-
-1. Set the selected index path to nil. The row height without the notes expansion will now be calculated for all cells.
-2. Remove `notesView` from its superview. If `notesView` currently doesn't have a superview, nothing will happen.
-3. Remove the checklist item from both the local view controller's copy of array and from the app-wide array.
-4. Tell the table view to remove the row.
+This code removes the notes view if it's present, removes the checklist from the view controller's `checklist` array, and then tells the table view to delete the row.
 
 Build and run the app. Choose a check list, tap the **Edit** button and delete an item from the list. Tap the **Done** button to complete editing.
 

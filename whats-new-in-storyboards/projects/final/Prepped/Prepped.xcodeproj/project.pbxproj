@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		176D6DE51B70256600A70EE6 /* ChecklistDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 176D6DE31B70256600A70EE6 /* ChecklistDetail.storyboard */; };
+		176D6DE61B70256600A70EE6 /* Checklists.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 176D6DE41B70256600A70EE6 /* Checklists.storyboard */; };
 		17ACC2951B5D25F000D549BB /* ChecklistItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ACC2941B5D25F000D549BB /* ChecklistItemTableViewCell.swift */; };
 		17ACC29C1B5D9B1300D549BB /* Diary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17ACC2991B5D9B1300D549BB /* Diary.storyboard */; };
 		17ACC29D1B5D9B1300D549BB /* AddDiaryEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ACC29A1B5D9B1300D549BB /* AddDiaryEntryViewController.swift */; };
 		17ACC29E1B5D9B1300D549BB /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ACC29B1B5D9B1300D549BB /* DiaryViewController.swift */; };
-		17E07B481B6F4F860029F863 /* ChecklistDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17E07B441B6F4F860029F863 /* ChecklistDetail.storyboard */; };
-		17E07B491B6F4F860029F863 /* Checklists.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17E07B461B6F4F860029F863 /* Checklists.storyboard */; };
 		822CBE831B3BC1D10007FC19 /* ChecklistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 822CBE821B3BC1D10007FC19 /* ChecklistsViewController.swift */; };
 		8230E19E1B3B94720058CA5E /* AddChecklistItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8230E19D1B3B94710058CA5E /* AddChecklistItemViewController.swift */; };
 		824F75CE1B3B840D00111FE3 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824F75CD1B3B840D00111FE3 /* SampleData.swift */; };
@@ -24,12 +24,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		176D6DE31B70256600A70EE6 /* ChecklistDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChecklistDetail.storyboard; sourceTree = "<group>"; };
+		176D6DE41B70256600A70EE6 /* Checklists.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Checklists.storyboard; sourceTree = "<group>"; };
 		17ACC2941B5D25F000D549BB /* ChecklistItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistItemTableViewCell.swift; sourceTree = "<group>"; };
 		17ACC2991B5D9B1300D549BB /* Diary.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Diary.storyboard; path = Diary/Diary.storyboard; sourceTree = "<group>"; };
 		17ACC29A1B5D9B1300D549BB /* AddDiaryEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddDiaryEntryViewController.swift; path = Diary/AddDiaryEntryViewController.swift; sourceTree = "<group>"; };
 		17ACC29B1B5D9B1300D549BB /* DiaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiaryViewController.swift; path = Diary/DiaryViewController.swift; sourceTree = "<group>"; };
-		17E07B451B6F4F860029F863 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Prepped/Base.lproj/ChecklistDetail.storyboard; sourceTree = SOURCE_ROOT; };
-		17E07B471B6F4F860029F863 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Prepped/Base.lproj/Checklists.storyboard; sourceTree = SOURCE_ROOT; };
 		822CBE821B3BC1D10007FC19 /* ChecklistsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistsViewController.swift; sourceTree = "<group>"; };
 		8230E19D1B3B94710058CA5E /* AddChecklistItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChecklistItemViewController.swift; sourceTree = "<group>"; };
 		824F75CD1B3B840D00111FE3 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
@@ -56,8 +56,8 @@
 		17E07B421B6EA5BB0029F863 /* Checklists */ = {
 			isa = PBXGroup;
 			children = (
-				17E07B441B6F4F860029F863 /* ChecklistDetail.storyboard */,
-				17E07B461B6F4F860029F863 /* Checklists.storyboard */,
+				176D6DE31B70256600A70EE6 /* ChecklistDetail.storyboard */,
+				176D6DE41B70256600A70EE6 /* Checklists.storyboard */,
 				822CBE821B3BC1D10007FC19 /* ChecklistsViewController.swift */,
 				825E94821B38DF2F007F9483 /* ChecklistDetailViewController.swift */,
 				17ACC2941B5D25F000D549BB /* ChecklistItemTableViewCell.swift */,
@@ -97,7 +97,6 @@
 			children = (
 				17E07B421B6EA5BB0029F863 /* Checklists */,
 				17E07B431B6EA5C50029F863 /* Diary */,
-				8283E2881B3F83EC00766C4A /* Storyboards */,
 				825E94701B38DC9C007F9483 /* AppDelegate.swift */,
 				824F75CD1B3B840D00111FE3 /* SampleData.swift */,
 				825E94741B38DC9C007F9483 /* Main.storyboard */,
@@ -107,13 +106,6 @@
 				8283E28F1B3F8B3B00766C4A /* Frameworks */,
 			);
 			path = Prepped;
-			sourceTree = "<group>";
-		};
-		8283E2881B3F83EC00766C4A /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Storyboards;
 			sourceTree = "<group>";
 		};
 		8283E28F1B3F8B3B00766C4A /* Frameworks */ = {
@@ -182,10 +174,10 @@
 			files = (
 				825E947B1B38DC9C007F9483 /* LaunchScreen.storyboard in Resources */,
 				825E94781B38DC9C007F9483 /* Assets.xcassets in Resources */,
-				17E07B481B6F4F860029F863 /* ChecklistDetail.storyboard in Resources */,
+				176D6DE51B70256600A70EE6 /* ChecklistDetail.storyboard in Resources */,
 				825E94761B38DC9C007F9483 /* Main.storyboard in Resources */,
 				17ACC29C1B5D9B1300D549BB /* Diary.storyboard in Resources */,
-				17E07B491B6F4F860029F863 /* Checklists.storyboard in Resources */,
+				176D6DE61B70256600A70EE6 /* Checklists.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,22 +202,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		17E07B441B6F4F860029F863 /* ChecklistDetail.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				17E07B451B6F4F860029F863 /* Base */,
-			);
-			name = ChecklistDetail.storyboard;
-			sourceTree = "<group>";
-		};
-		17E07B461B6F4F860029F863 /* Checklists.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				17E07B471B6F4F860029F863 /* Base */,
-			);
-			name = Checklists.storyboard;
-			sourceTree = "<group>";
-		};
 		825E94741B38DC9C007F9483 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

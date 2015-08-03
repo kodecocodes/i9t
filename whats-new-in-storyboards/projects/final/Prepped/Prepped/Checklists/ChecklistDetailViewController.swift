@@ -30,9 +30,7 @@ class ChecklistDetailViewController: UITableViewController {
   @IBOutlet var notesView: UIView!
   @IBOutlet weak var notesTextView: UITextView!
   
-  var checklist: Checklist! = checklists.first
-  
-  var selectedIndexPath:NSIndexPath?
+  var checklist = checklists.first!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -61,6 +59,20 @@ class ChecklistDetailViewController: UITableViewController {
         tableView.endUpdates()
     }
   }
+  
+  func addNotesViewToCell(cell: ChecklistItemTableViewCell) {
+    notesView.heightAnchor.constraintEqualToConstant(notesViewHeight).active = true
+    notesTextView.clipsToBounds = true
+    
+    cell.stackView.addArrangedSubview(notesView)
+  }
+  
+  func removeNotesView() {
+    if let stackView = notesView.superview as? UIStackView {
+      stackView.removeArrangedSubview(notesView)
+      notesView.removeFromSuperview()
+    }
+  }
 }
 
 // MARK: - UITableViewDelegate
@@ -72,18 +84,12 @@ extension ChecklistDetailViewController {
     
     tableView.beginUpdates()
     
-    if selectedIndexPath == indexPath {
-      selectedIndexPath = nil
-
-      cell.stackView.removeArrangedSubview(notesView)
-      notesView.removeFromSuperview()
+    if cell.stackView.arrangedSubviews.contains(notesView) {
+      removeNotesView()
     } else {
-      selectedIndexPath = indexPath
+      addNotesViewToCell(cell)
       
       notesTextView.text = checklist.items[indexPath.row].notes
-      notesView.heightAnchor.constraintEqualToConstant(notesViewHeight).active = true
-      
-      cell.stackView.addArrangedSubview(notesView)
     }
     
     tableView.endUpdates()
@@ -111,13 +117,10 @@ extension ChecklistDetailViewController {
   
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
-      // 1
-      selectedIndexPath = nil
-      // 2
-      notesView.removeFromSuperview()
-      // 3
+      removeNotesView()
+      
       checklist.items.removeAtIndex(indexPath.row)
-      // 4
+
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     }
   }

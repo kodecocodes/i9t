@@ -24,9 +24,14 @@ import Foundation
 
 //MARK: - Checklist Sample Data
 
-struct Checklist {
+class Checklist {
   let title: String
   var items = [ChecklistItem]()
+  
+  init(title: String, items: [ChecklistItem]) {
+    self.title = title
+    self.items = items
+  }
 }
 
 struct ChecklistItem {
