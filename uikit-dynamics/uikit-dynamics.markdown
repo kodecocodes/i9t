@@ -154,11 +154,223 @@ For this part of the chapter, you'll be working with simple photo viewing applic
 
 You'll notice the full screen view of a photo shows a bit of metadata. The user might encounter a photo where that metadata box obscures a part of the photo. Your job is to make that box movable but only allow it to rest in the middle bottom or middle top of the image. The box should snap into place in the closest resting spot and give a cushy feel when it does.
 
-The project structure is failure simple. The photos are displayed with a `UICollectionViewController` using a custom `UICollectionViewCell` 
+The project structure is failure simple. The photos are displayed with a `UICollectionViewController` using a custom `UICollectionViewCell`. When the cell is tapped the full photo view is displayed using standard UIView animations to have it fall from the top of the view.
 
-### Determine what could make an app more friendly
-### Pulsate a button when tapped on / off (favorite star?)
-### UICollectionView dynamics - adding dynamic behavior to give physical feel to items when dragging things to change sort order
-### Debugging tricks
+### Sticky Behavior
+
+You're going to create a new composite behavior to encapsulate the springy cushy feel for the metadata box. Create a new class by clicking on **File\New\File...**, select **Swift File** and name it **StickyEdgesBehavior.swift**. Replace the contents of that file with the following:
+
+```swift
+import UIKit
+
+class StickyEdgesBehavior: UIDynamicBehavior {
+  private var edgeInset: CGFloat
+  private let itemBehavior: UIDynamicItemBehavior
+  private let collisionBehavior: UICollisionBehavior
+  private let item: UIDynamicItem
+  private var fieldBehaviors = [UIFieldBehavior]()
+  
+  init(item: UIDynamicItem, edgeInset: CGFloat) {
+    self.item = item
+    self.edgeInset = edgeInset
+    
+    collisionBehavior = UICollisionBehavior(items: [item])
+    collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+    
+    itemBehavior = UIDynamicItemBehavior(items: [item])
+    itemBehavior.density = 0.01
+    itemBehavior.resistance = 20
+    itemBehavior.friction = 0.0
+    itemBehavior.allowsRotation = false
+    
+    super.init()
+    
+    addChildBehavior(collisionBehavior)
+    addChildBehavior(itemBehavior)
+
+    for _ in 0...1 {
+      let fieldBehavior = UIFieldBehavior.springField()
+      fieldBehavior.addItem(item)
+      fieldBehaviors.append(fieldBehavior)
+      addChildBehavior(fieldBehavior)
+    }
+  }
+}
+```
+
+Our composite behavior starts as a subclass of `UIDynamicBehavior` which really has no behaviors on its own. The `init` method takes the item we're adding the behavior to and an edge inset to make it customizable in the future. Then a `UIDynamicItemBehavior` is created to make the item lighter and more resistant and a `UICollisionBehavior` so that it can collide with the reference view. Two `UIFieldBehavior` instances are added as well - one for the top middle and one for the bottom middle.
+
+Add this helper enum to the file just above the class declaration:
+
+```swift
+enum StickyEdge: Int {
+  case Top = 0
+  case Bottom
+}
+```
+
+Next add the following to the class:
+
+```swift
+  func updateFieldsInBounds(bounds: CGRect) {
+    if bounds != CGRect.zeroRect {
+      let h = bounds.height
+      let w = bounds.width
+      let itemHeight = item.bounds.height
+
+      func updateRegionForField(field: UIFieldBehavior, _ point: CGPoint) {
+        let size = CGSize(width: w - 2 * edgeInset, height: h - edgeInset - itemHeight)
+        field.position = point
+        field.region = UIRegion(size: size)
+      }
+      
+      let top = CGPoint(x: w / 2, y: edgeInset + itemHeight / 2)
+      let bottom = CGPoint(x: w / 2, y: h - edgeInset - itemHeight / 2)
+
+      updateRegionForField(fieldBehaviors[StickyEdge.Top.rawValue], top)
+      updateRegionForField(fieldBehaviors[StickyEdge.Bottom.rawValue], bottom)
+    }
+  }
+```
+
+This function will be called when the view is initially displayed to set up the regions of the spring fields. The function should also be called if the reference view is ever resized. Then add the following property to the class:
+
+```swift
+  var isEnabled = true {
+    didSet {
+      if isEnabled {
+        for fieldBehavior in fieldBehaviors {
+          fieldBehavior.addItem(item)
+        }
+        collisionBehavior.addItem(item)
+        itemBehavior.addItem(item)
+      } else {
+        for fieldBehavior in fieldBehaviors {
+          fieldBehavior.removeItem(item)
+        }
+        collisionBehavior.removeItem(item)
+        itemBehavior.removeItem(item)
+      }
+    }
+  }
+```
+
+This helper property turns off the behavior in the animator during certain lifecycle events while moving the item. Finally add this method:
+
+```swift
+  func addLinearVelocity(velocity: CGPoint) {
+    itemBehavior.addLinearVelocity(velocity, forItem: item)
+  }
+```
+
+Build your application to make sure everything is compiling up until this point. This method will help snap the item (the metadata box) into place with a velocity. You'll get that velocity from the pan gesture recognizer you'll add next. 
+
+Go back into **FullPhotoViewController.swift** and add the following below the existing `@IBOutlet` properties:
+
+```swift
+  private var animator: UIDynamicAnimator!
+  var stickyBehavior: StickyEdgesBehavior!
+
+  private var offset = CGPoint.zeroPoint
+```
+
+Inside of `viewDidLoad()` add the following:
+
+```swift
+    let gestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
+    tagView.addGestureRecognizer(gestureRecognizer)
+    
+    animator = UIDynamicAnimator(referenceView: containerView)
+    animator.setValue(true, forKey: "debugEnabled")
+    stickyBehavior = StickyEdgesBehavior(item: tagView, edgeInset: 8)
+    animator.addBehavior(stickyBehavior)
+```
+
+This adds the pan gesture recognizer, the dynamic animator to the container view and your new sticky behavior to the animator. Add the following method to the view controller:
+
+```swift
+  override func viewDidLayoutSubviews() {
+    super.viewDidLayoutSubviews()
+
+    stickyBehavior.isEnabled = false
+    
+    let bounds = CGRect(origin: CGPoint.zeroPoint, size: containerView.frame.size)
+    
+    stickyBehavior.updateFieldsInBounds(bounds)
+  }
+```
+
+Whenever the main view's layout is changed the sticky behavior will adjust its bounds. Finally add the following method to the view controller:
+
+```swift
+  func pan(pan:UIPanGestureRecognizer) {
+    var location = pan.locationInView(containerView)
+    
+    switch pan.state {
+    case .Began:
+      // Capture the initial touch offset from the itemView's center.
+      let center = tagView.center
+      offset.x = location.x - center.x
+      offset.y = location.y - center.y
+      
+      // Disable the behavior while the item is manipulated by the pan recognizer.
+      stickyBehavior.isEnabled = false
+      
+    case .Changed:
+      // Get reference bounds.
+      let referenceBounds = containerView.bounds
+      let referenceWidth = referenceBounds.width
+      let referenceHeight = referenceBounds.height
+      
+      // Get item bounds.
+      let itemBounds = tagView.bounds
+      let itemHalfWidth = itemBounds.width / 2.0
+      let itemHalfHeight = itemBounds.height / 2.0
+      
+      // Apply the initial offset.
+      location.x -= offset.x
+      location.y -= offset.y
+      
+      // Bound the item position inside the reference view.
+      location.x = max(itemHalfWidth, location.x)
+      location.x = min(referenceWidth - itemHalfWidth, location.x)
+      location.y = max(itemHalfHeight, location.y)
+      location.y = min(referenceHeight - itemHalfHeight, location.y)
+      
+      // Apply the resulting item center.
+      tagView.center = location
+            
+    default: ()
+    }
+  }
+```
+
+When the pan gesture begins, the sticky behavior is shut off. The offset of where the user tapped is recorded and used during the gesture when the location is changed. The metadata view's location is updated in the `.Changed` case. 
+
+Build and run the application. The metadata box is now draggable thanks to the pan gesture recognizer. Drop the box anywhere on the screen and notice it zips back to one of the two locations. The gesture doesn't quite have the response you're looking for. Go back into the `pan` method and add the following case:
+
+```swift
+      
+    case .Cancelled, .Ended:
+      // Get the current velocity of the item from the pan gesture recognizer.
+      let velocity = pan.velocityInView(containerView)
+      
+      // Re-enable the stickyCornersBehavior.
+      stickyBehavior.isEnabled = true
+      
+      // Add the current velocity to the sticky corners behavior.
+      stickyBehavior.addLinearVelocity(velocity)
+``` 
+
+Build and run. Now when you flick the view the velocity at the time of your finger leaving the screen will be transferred into the stick behavior. For a better understanding of how the behaviors work, turn on debug mode by adding the following to `viewDidLoad()`:
+
+```swift
+    animator.setValue(true, forKey: "debugEnabled")
+```
+
+![bordered width=40%](images/dynamicphotodisplay_debug.png)
+
+Notice how the lines shorten and nearly disappear in the two zones where the metadata box can live. Seeing is believing!
+
 ## Conclusion
 ## Challenge
