@@ -22,14 +22,14 @@
 
 import Foundation
 
-//MARK: - Check List Sample Data
+//MARK: - Checklist Sample Data
 
-struct CheckList {
+struct Checklist {
   let title: String
-  var items = [CheckListItem]()
+  var items = [ChecklistItem]()
 }
 
-struct CheckListItem {
+struct ChecklistItem {
   let name: String
   var checked: Bool
   let notes: String
@@ -41,18 +41,18 @@ struct CheckListItem {
   }
 }
 
-var checkLists = [ CheckList(title: "Food", items: [ CheckListItem("Baked Beans", checked: true, notes: "Must be Heinz"),
-                                                     CheckListItem("Noodles", checked: false, notes: "Check gas and water available for cooking"),
-                                                     CheckListItem("Custard", checked: true, notes: "Long life"),
-                                                     CheckListItem("Dried Apricots", checked: true, notes: "For Aunt Beatrice") ]),
+var checklists = [ Checklist(title: "Food", items: [ ChecklistItem("Baked Beans", checked: true, notes: "Must be Heinz"),
+                                                     ChecklistItem("Noodles", checked: false, notes: "Check gas and water available for cooking"),
+                                                     ChecklistItem("Custard", checked: true, notes: "Long life"),
+                                                     ChecklistItem("Dried Apricots", checked: true, notes: "For Aunt Beatrice") ]),
   
-                   CheckList(title: "Medical", items: [ CheckListItem("Aspirin"),
-                                                        CheckListItem("Bandages"),
-                                                        CheckListItem("Whisky") ]),
+                   Checklist(title: "Medical", items: [ ChecklistItem("Aspirin"),
+                                                        ChecklistItem("Bandages"),
+                                                        ChecklistItem("Whisky") ]),
   
-                   CheckList(title: "Equipment", items: [ CheckListItem("Sharpened thing for getting stones out of horse's hooves") ]),
+                   Checklist(title: "Equipment", items: [ ChecklistItem("Sharpened thing for getting stones out of horse's hooves") ]),
   
-                   CheckList(title: "To Do", items: [ CheckListItem("Download Max Soderstrom’s Survival Guide App") ])
+                   Checklist(title: "To Do", items: [ ChecklistItem("Download Max Soderstrom’s Survival Guide App") ])
 ]
 
 //MARK: - Diary Sample Data

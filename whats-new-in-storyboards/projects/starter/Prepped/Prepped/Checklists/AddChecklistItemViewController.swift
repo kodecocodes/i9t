@@ -22,50 +22,30 @@
 
 import UIKit
 
-let CheckMark = "✔️"
-
-class CheckListItemTableViewCell: UITableViewCell {
+class AddChecklistItemViewController: UITableViewController {
   
-  @IBOutlet var checkMarkLabel: UILabel!
-  @IBOutlet var itemNameLabel: UILabel!
+  @IBOutlet var checklistNameTextField: UITextField!
+  @IBOutlet var checklistNotesTextView: UITextView!
   
-  var checkListItem: CheckListItem! {
-    didSet {
-      itemNameLabel.text = checkListItem.name
-      checked = checkListItem.checked
+  var checklistItem: ChecklistItem? {
+    if let name = checklistNameTextField.text, notes = checklistNotesTextView.text {
+      return ChecklistItem(name, checked: false, notes: notes)
+    } else {
+      return nil
     }
   }
   
-  var checked = false {
-    didSet {
-      checkMarkLabel.text = checked ? CheckMark : " "
+  override func viewDidLoad() {
+    checklistNameTextField.becomeFirstResponder()
+  }
+  
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    if indexPath.section == 0 {
+      checklistNameTextField.becomeFirstResponder()
     }
   }
   
-  override func awakeFromNib() {
-    let recognizer = UITapGestureRecognizer(target: self, action: "checkMarkTapped:")
-    checkMarkLabel.addGestureRecognizer(recognizer)
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    checklistNameTextField.resignFirstResponder()
   }
-  
-  func checkMarkTapped(gesture: UITapGestureRecognizer) {
-    checked = !checked
-    checkListItem.checked = checked
-  }
-}
-
-@IBDesignable
-class BorderedView: UIView {
-  
-  @IBInspectable var borderColor = UIColor.darkGrayColor()
-  @IBInspectable var lineWidth: CGFloat = 2.0
-  @IBInspectable var cornerRadius: CGFloat = 5.0
-  
-  override func drawRect(rect: CGRect) {
-    borderColor.setStroke()
-    
-    let path = UIBezierPath(roundedRect: CGRectInset(rect, lineWidth/2, lineWidth/2), cornerRadius: cornerRadius)
-    path.lineWidth = lineWidth
-    path.stroke()
-  }
-  
 }

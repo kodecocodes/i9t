@@ -23,32 +23,57 @@
 
 import UIKit
 
-class CheckListsViewController: UITableViewController {
+class ChecklistDetailViewController: UITableViewController {
   
-  // MARK: - UITableViewDataSource
+  let cellHeight: CGFloat = 64.0
+  let cellPadding: CGFloat = 10.0
   
+  var checklist = checklists.first!
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    title = checklist.title
+  }
+  
+  // MARK: - Unwind segue methods
+  
+  @IBAction func cancelToChecklistDetailViewController(segue: UIStoryboardSegue) {
+  }
+  
+  @IBAction func saveToChecklistDetailViewController(segue: UIStoryboardSegue) {
+    if let controller = segue.sourceViewController as? AddChecklistItemViewController,
+      item = controller.checklistItem {
+        checklist.items.append(item)
+        
+        tableView.beginUpdates()
+        let indexPath = NSIndexPath(forRow: checklist.items.count - 1, inSection: 0)
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
+        tableView.endUpdates()
+    }
+  }
+}
+
+// MARK: - UITableViewDelegate
+extension ChecklistDetailViewController {
+}
+
+// MARK: - UITableViewDataSource
+extension ChecklistDetailViewController {
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return checkLists.count
+    return checklist.items.count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("CheckListCell", forIndexPath: indexPath)
+    let cell = tableView.dequeueReusableCellWithIdentifier("ChecklistItemCell", forIndexPath: indexPath) as! ChecklistItemTableViewCell
     
-    cell.textLabel?.text = checkLists[indexPath.row].title
+    let checklistItem = checklist.items[indexPath.row]
+    cell.checklistItem = checklistItem
     
     return cell
-  }
-  
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "CheckListItem" {
-      if let controller = segue.destinationViewController as? CheckListDetailViewController,
-        indexPath = tableView.indexPathForSelectedRow {
-          controller.checkList = checkLists[indexPath.row]
-      }
-    }
   }
 }
