@@ -410,5 +410,15 @@ Build and run the app. Tap a photo and notice that when the view hits the bottom
 
 There are a lot of knobs and levers to change when dealing with behaviors. Play around with the `UIDynamicItemBehavior` and `UIGravityBehavior` properties to see if you can find a bounce behavior you like!
 
-## Conclusion
+## Where to Go From Here
+
+You've seen examples of most of the behaviors available to you in UIKit Dynamics but not every property and option was covered. Spend some quality time with the Apple documentation for each of the classes to learn more about the fine controls available to you. Also check out these videos from the past WWDCs:
+
+* 2013 - #206 - Getting Started with UIKit Dynamics
+* 2013 - #217 - Exploring Scroll Views in iOS 7
+* 2013 - #221 - Advanced Techniques with UIKit Dynamics
+* 2014 - #216 - Building Adaptive Apps with UIKit
+* 2015 - #229 - What's New in UIKit Dynamics and Visual Effects
+
 ## Challenge
+
