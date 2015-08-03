@@ -146,10 +146,6 @@ class PhotosCollectionViewController: UICollectionViewController {
     let collisionBehavior = UICollisionBehavior(items: [fullPhotoView])
     collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPointMake(0, fullPhotoView.frame.size.height + 1.5), toPoint: CGPointMake(fullPhotoView.frame.size.width, fullPhotoView.frame.size.height + 1.5))
     animator!.addBehavior(collisionBehavior)
-    
-    let slidingAttachment = UIAttachmentBehavior.slidingAttachmentWithItem(fullPhotoView, attachmentAnchor: view.center, axisOfTranslation: CGVectorMake(0, 1))
-    slidingAttachment.attachmentRange = UIFloatRange(minimum: fullPhotoView.frame.size.height * -1, maximum: fullPhotoView.frame.size.height)
-    animator!.addBehavior(slidingAttachment)
   }
   
   func pan(pan: UIPanGestureRecognizer) {
