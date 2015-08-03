@@ -361,7 +361,52 @@ Notice how the lines shorten and nearly disappear in the two zones where the met
 
 ### Full Photo With a Thud
 
-For your next trick, you're going to update the way the full photo view is displayed to make 
+For your next trick, you're going to update the way the full photo view is displayed to make it feel more dynamic. Right now the app is using a UIView animation to animate the bounds change when re-centering the image. You'll effectively do the same action with UIKit Dynamics - animate the change of the center of the view but by using gravity and a collision. Open **PhotosCollectionViewController.swift** and add the following to the top of the class:
+
+```swift
+  var animator: UIDynamicAnimator?
+```
+
+Then inside of `viewDidLoad()` add this line:
+
+```swift
+    animator = UIDynamicAnimator(referenceView: self.view)
+```
+
+Now that the animator has been created, swap out the contents of `showFullImageView` with the following:
+
+```swift
+  func showFullImageView(index: Int) {
+    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+      Int64(0.75 * Double(NSEC_PER_SEC)))
+    
+    dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
+      let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissFullPhoto:")
+      self.navigationItem.rightBarButtonItem = doneButton
+    }
+    
+    fullPhotoViewController.photoPair = photoData[index]
+    fullPhotoView.center = CGPointMake(fullPhotoView.center.x, fullPhotoView.frame.size.height / -2)
+    fullPhotoView.hidden = false
+    
+    animator!.removeAllBehaviors()
+    
+    let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
+    dynamicItemBehavior.elasticity = 0.2
+    dynamicItemBehavior.density = 400
+    animator!.addBehavior(dynamicItemBehavior)
+    
+    let gravityBehavior = UIGravityBehavior(items: [fullPhotoView])
+    gravityBehavior.magnitude = 5.0
+    animator!.addBehavior(gravityBehavior)
+    
+    let collisionBehavior = UICollisionBehavior(items: [fullPhotoView])
+    collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPointMake(0, fullPhotoView.frame.size.height + 1.5), toPoint: CGPointMake(fullPhotoView.frame.size.width, fullPhotoView.frame.size.height + 1.5))
+    animator!.addBehavior(collisionBehavior)
+  }
+```
+
+
 
 ## Conclusion
 ## Challenge
