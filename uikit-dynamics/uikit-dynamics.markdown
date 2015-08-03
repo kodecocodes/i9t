@@ -308,36 +308,29 @@ Whenever the main view's layout is changed the sticky behavior will adjust its b
     
     switch pan.state {
     case .Began:
-      // Capture the initial touch offset from the itemView's center.
       let center = tagView.center
       offset.x = location.x - center.x
       offset.y = location.y - center.y
       
-      // Disable the behavior while the item is manipulated by the pan recognizer.
       stickyBehavior.isEnabled = false
       
     case .Changed:
-      // Get reference bounds.
       let referenceBounds = containerView.bounds
       let referenceWidth = referenceBounds.width
       let referenceHeight = referenceBounds.height
-      
-      // Get item bounds.
+
       let itemBounds = tagView.bounds
       let itemHalfWidth = itemBounds.width / 2.0
       let itemHalfHeight = itemBounds.height / 2.0
-      
-      // Apply the initial offset.
+
       location.x -= offset.x
       location.y -= offset.y
-      
-      // Bound the item position inside the reference view.
+
       location.x = max(itemHalfWidth, location.x)
       location.x = min(referenceWidth - itemHalfWidth, location.x)
       location.y = max(itemHalfHeight, location.y)
       location.y = min(referenceHeight - itemHalfHeight, location.y)
-      
-      // Apply the resulting item center.
+
       tagView.center = location
             
     default: ()
@@ -350,15 +343,9 @@ When the pan gesture begins, the sticky behavior is shut off. The offset of wher
 Build and run the application. The metadata box is now draggable thanks to the pan gesture recognizer. Drop the box anywhere on the screen and notice it zips back to one of the two locations. The gesture doesn't quite have the response you're looking for. Go back into the `pan` method and add the following case:
 
 ```swift
-      
     case .Cancelled, .Ended:
-      // Get the current velocity of the item from the pan gesture recognizer.
       let velocity = pan.velocityInView(containerView)
-      
-      // Re-enable the stickyCornersBehavior.
       stickyBehavior.isEnabled = true
-      
-      // Add the current velocity to the sticky corners behavior.
       stickyBehavior.addLinearVelocity(velocity)
 ``` 
 
@@ -371,6 +358,10 @@ Build and run. Now when you flick the view the velocity at the time of your fing
 ![bordered width=40%](images/dynamicphotodisplay_debug.png)
 
 Notice how the lines shorten and nearly disappear in the two zones where the metadata box can live. Seeing is believing!
+
+### Full Photo With a Thud
+
+For your next trick, you're going to update the way the full photo view is displayed to make 
 
 ## Conclusion
 ## Challenge
