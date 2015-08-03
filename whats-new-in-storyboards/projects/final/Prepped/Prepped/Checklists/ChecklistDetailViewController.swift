@@ -25,8 +25,7 @@ import UIKit
 
 class ChecklistDetailViewController: UITableViewController {
   
-  let cellHeight: CGFloat = 64.0
-  let cellPadding: CGFloat = 10.0
+  let notesViewHeight: CGFloat = 128.0
   
   @IBOutlet var notesView: UIView!
   @IBOutlet weak var notesTextView: UITextView!
@@ -39,6 +38,9 @@ class ChecklistDetailViewController: UITableViewController {
     super.viewDidLoad()
     
     title = checklist.title
+    
+    tableView.rowHeight = UITableViewAutomaticDimension
+    tableView.estimatedRowHeight = 64.0
     
     navigationItem.rightBarButtonItem = editButtonItem()
   }
@@ -64,28 +66,27 @@ class ChecklistDetailViewController: UITableViewController {
 // MARK: - UITableViewDelegate
 extension ChecklistDetailViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    guard let cell = tableView.cellForRowAtIndexPath(indexPath) as? ChecklistItemTableViewCell else {
+      return
+    }
+    
     tableView.beginUpdates()
+    
     if selectedIndexPath == indexPath {
       selectedIndexPath = nil
+
+      cell.stackView.removeArrangedSubview(notesView)
       notesView.removeFromSuperview()
     } else {
       selectedIndexPath = indexPath
+      
       notesTextView.text = checklist.items[indexPath.row].notes
-      if let cell = tableView.cellForRowAtIndexPath(indexPath) {
-        notesView.frame.origin.x = cellPadding
-        notesView.frame.origin.y = cellHeight
-        cell.contentView.addSubview(notesView)
-      }
+      notesView.heightAnchor.constraintEqualToConstant(notesViewHeight).active = true
+      
+      cell.stackView.addArrangedSubview(notesView)
     }
+    
     tableView.endUpdates()
-  }
-  
-  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    if selectedIndexPath == indexPath {
-      return cellHeight + cellPadding + notesView.bounds.height
-    } else {
-      return cellHeight
-    }
   }
 }
 
@@ -101,7 +102,7 @@ extension ChecklistDetailViewController {
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("ChecklistItemCell", forIndexPath: indexPath) as! ChecklistItemTableViewCell
-    
+
     let checklistItem = checklist.items[indexPath.row]
     cell.checklistItem = checklistItem
     

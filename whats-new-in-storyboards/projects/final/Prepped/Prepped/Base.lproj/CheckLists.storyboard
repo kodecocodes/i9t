@@ -45,7 +45,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="DtE-gY-7gR" kind="show" identifier="CheckListItem" id="YRY-2w-nYq"/>
+                                    <segue destination="DtE-gY-7gR" kind="show" identifier="ChecklistDetail" id="YRY-2w-nYq"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
