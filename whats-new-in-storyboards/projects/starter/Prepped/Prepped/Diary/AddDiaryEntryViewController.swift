@@ -22,22 +22,39 @@
 
 import UIKit
 
-class DiaryDetailViewController: UITableViewController {
+class AddDiaryEntryViewController: UITableViewController {
   
-  @IBOutlet var diaryEntry: UITextView!
+  @IBOutlet var diaryEntryTextView: UITextView!
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    diaryEntry.becomeFirstResponder()
-  }
+  lazy var dateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateStyle = .MediumStyle
+    return formatter
+  }()
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    if indexPath.section == 0 {
-      diaryEntry.becomeFirstResponder()
+  var diaryEntry: DiaryEntry? {
+    if let entryText = diaryEntryTextView.text {
+      let date = dateFormatter.stringFromDate(NSDate())
+      return DiaryEntry(date: date, text: entryText)
+    } else {
+      return nil
     }
   }
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    diaryEntryTextView.becomeFirstResponder()
+  }
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    diaryEntry.resignFirstResponder()
+    diaryEntryTextView.resignFirstResponder()
+  }
+  
+  // MARK: - UITableViewDelegate
+  
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    if indexPath.section == 0 {
+      diaryEntryTextView.becomeFirstResponder()
+    }
   }
 }

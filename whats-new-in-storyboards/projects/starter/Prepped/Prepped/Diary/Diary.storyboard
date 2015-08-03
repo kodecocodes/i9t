@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8152.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="FAU-z4-VW4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="FAU-z4-VW4">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8124.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -14,15 +15,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiaryCell" id="Iud-Qz-gAd">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiaryCell" id="Iud-Qz-gAd" customClass="DiaryEntryTableViewCell" customModule="Prepped" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Iud-Qz-gAd" id="6G0-xd-5cZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="O4g-sm-a4f">
-                                            <rect key="frame" x="9" y="13" width="53" height="34"/>
+                                            <rect key="frame" x="8" y="7" width="53" height="34"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="53" id="QEb-g7-xfy"/>
                                                 <constraint firstAttribute="height" constant="34" id="xbl-F0-ar9"/>
@@ -32,7 +33,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="2MZ-Zz-od4">
-                                            <rect key="frame" x="72" y="4" width="512" height="35"/>
+                                            <rect key="frame" x="71" y="4" width="521" height="35"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -41,12 +42,17 @@
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="2MZ-Zz-od4" secondAttribute="bottom" constant="4" id="Cl7-of-C14"/>
                                         <constraint firstItem="2MZ-Zz-od4" firstAttribute="top" secondItem="6G0-xd-5cZ" secondAttribute="top" constant="4" id="GK0-VB-gYF"/>
-                                        <constraint firstItem="O4g-sm-a4f" firstAttribute="leading" secondItem="6G0-xd-5cZ" secondAttribute="leadingMargin" constant="1" id="ZhV-qd-RMd"/>
-                                        <constraint firstItem="O4g-sm-a4f" firstAttribute="top" secondItem="6G0-xd-5cZ" secondAttribute="topMargin" constant="5" id="aw2-Yh-Zzp"/>
+                                        <constraint firstItem="2MZ-Zz-od4" firstAttribute="height" relation="greaterThanOrEqual" secondItem="O4g-sm-a4f" secondAttribute="height" id="VNx-za-LTN"/>
+                                        <constraint firstItem="O4g-sm-a4f" firstAttribute="leading" secondItem="6G0-xd-5cZ" secondAttribute="leadingMargin" id="ZhV-qd-RMd"/>
                                         <constraint firstItem="2MZ-Zz-od4" firstAttribute="leading" secondItem="O4g-sm-a4f" secondAttribute="trailing" constant="10" id="bnO-pM-hln"/>
-                                        <constraint firstAttribute="trailing" secondItem="2MZ-Zz-od4" secondAttribute="trailing" constant="16" id="tIg-3L-cCi"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="2MZ-Zz-od4" secondAttribute="trailing" id="tIg-3L-cCi"/>
+                                        <constraint firstItem="O4g-sm-a4f" firstAttribute="firstBaseline" secondItem="2MZ-Zz-od4" secondAttribute="firstBaseline" id="xmu-Zb-NNj"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dateLabel" destination="O4g-sm-a4f" id="nmn-Zr-FPX"/>
+                                    <outlet property="entryLabel" destination="2MZ-Zz-od4" id="yW5-Ek-PyH"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -108,10 +114,10 @@
             </objects>
             <point key="canvasLocation" x="2106" y="-227"/>
         </scene>
-        <!--Diary Entry-->
+        <!--Add Diary Entry View Controller-->
         <scene sceneID="V1A-LT-Lq6">
             <objects>
-                <tableViewController id="RHl-A8-MCl" customClass="DiaryDetailViewController" customModule="Prepped" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="RHl-A8-MCl" userLabel="Add Diary Entry View Controller" customClass="AddDiaryEntryViewController" customModule="Prepped" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="mA5-9n-IH5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -120,10 +126,10 @@
                             <tableViewSection headerTitle="Diary Entry" id="LyC-LY-jWr">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="206" id="osE-DO-SMG">
-                                        <rect key="frame" x="0.0" y="114" width="600" height="206"/>
+                                        <rect key="frame" x="0.0" y="113.5" width="600" height="206"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="osE-DO-SMG" id="njZ-Rg-Zmi">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="205"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="205.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="960-CN-Ygm">
@@ -162,7 +168,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="diaryEntry" destination="960-CN-Ygm" id="EaG-S9-Lnd"/>
+                        <outlet property="diaryEntryTextView" destination="960-CN-Ygm" id="Ssl-hK-cfO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eJg-yT-6sS" userLabel="First Responder" sceneMemberID="firstResponder"/>

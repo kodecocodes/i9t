@@ -25,44 +25,30 @@ import UIKit
 class DiaryViewController: UITableViewController {
   
   let CellPadding: CGFloat = 30.0
-  
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-    let indexPath = NSIndexPath(forRow: diaryData.count-1, inSection: 0)
-    tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Top, animated: false)
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    tableView.rowHeight = UITableViewAutomaticDimension
+    tableView.estimatedRowHeight = 44.0
   }
   
-  // MARK: - Table view data source
-  
+  // MARK: - UITableViewDataSource
+
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return diaryData.count
+    return diaryEntries.count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("DiaryCell", forIndexPath: indexPath)
-    let diary = diaryData[indexPath.row]
-    if let dateLabel = cell.contentView.viewWithTag(1) as? UILabel {
-      dateLabel.text = diary.date
-    }
-    if let diaryLabel = cell.contentView.viewWithTag(2) as? UILabel {
-      diaryLabel.text = diary.diaryEntry
-    }
+    let cell = tableView.dequeueReusableCellWithIdentifier("DiaryCell", forIndexPath: indexPath) as! DiaryEntryTableViewCell
+    
+    cell.diaryEntry = diaryEntries[indexPath.row]
+
     return cell
-  }
-  
-  override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-    let diary = diaryData[indexPath.row]
-    let font = UIFont.systemFontOfSize(15)
-    let size = CGSize(width: 276, height: 600)
-    let rect = diary.diaryEntry.boundingRectWithSize(size,
-                              options: .UsesLineFragmentOrigin ,
-                              attributes: [NSFontAttributeName: font],
-                              context: nil)
-    return ceil(rect.height) + CellPadding
   }
   
   override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -71,7 +57,7 @@ class DiaryViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
-      diaryData.removeAtIndex(indexPath.row)
+      diaryEntries.removeAtIndex(indexPath.row)
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     }
   }
@@ -79,21 +65,31 @@ class DiaryViewController: UITableViewController {
   //MARK: - Unwind Segue Methods
   
   @IBAction func cancelToDiaryViewController(segue: UIStoryboardSegue) {
-    
   }
   
   @IBAction func saveToDiaryViewController(segue: UIStoryboardSegue) {
-    if let  controller = segue.sourceViewController as? DiaryDetailViewController,
-            diaryEntry = controller.diaryEntry.text {
-      let formatter = NSDateFormatter()
-      formatter.dateStyle = .MediumStyle
-      let currentDate = formatter.stringFromDate(NSDate())
-      let diary:DiaryData = (currentDate, diaryEntry)
-      diaryData.append(diary)
-      let indexPath = NSIndexPath(forRow: diaryData.count-1, inSection: 0)
+    if let controller = segue.sourceViewController as? AddDiaryEntryViewController,
+      diaryEntry = controller.diaryEntry {
+      
+      diaryEntries.append(diaryEntry)
+        
+      let indexPath = NSIndexPath(forRow: diaryEntries.count - 1, inSection: 0)
+
       tableView.beginUpdates()
       tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
       tableView.endUpdates()
+    }
+  }
+}
+
+class DiaryEntryTableViewCell: UITableViewCell {
+  @IBOutlet var dateLabel: UILabel!
+  @IBOutlet var entryLabel: UILabel!
+  
+  var diaryEntry: DiaryEntry! {
+    didSet {
+      dateLabel.text = diaryEntry.date
+      entryLabel.text = diaryEntry.text
     }
   }
 }
