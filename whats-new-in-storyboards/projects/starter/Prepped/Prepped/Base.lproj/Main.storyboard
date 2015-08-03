@@ -87,18 +87,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChecklistItemCell" rowHeight="64" id="bLy-cc-3qx" customClass="ChecklistItemTableViewCell" customModule="Prepped" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ChecklistItemCell" rowHeight="64" id="f8W-Gy-zxg" customClass="ChecklistItemTableViewCell" customModule="Prepped" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="22" width="600" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bLy-cc-3qx" id="8Yd-cc-NIa">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f8W-Gy-zxg" id="BGk-4x-217">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="63.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dtO-qg-ob0" customClass="BorderedView" customModule="Prepped" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uNn-kx-Oaa" customClass="BorderedView" customModule="Prepped" customModuleProvider="target">
                                             <rect key="frame" x="20" y="15" width="30" height="30"/>
                                             <subviews>
-                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="✔️" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a6r-Dp-CHG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="✔️" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dew-3o-Q85">
+                                                    <rect key="frame" x="4" y="5" width="22" height="20.5"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -108,39 +108,46 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="lRN-26-ori"/>
-                                                <constraint firstAttribute="width" constant="30" id="ubV-Fp-DoD"/>
+                                                <constraint firstItem="dew-3o-Q85" firstAttribute="centerX" secondItem="uNn-kx-Oaa" secondAttribute="centerX" id="GnP-Il-ZuQ"/>
+                                                <constraint firstItem="dew-3o-Q85" firstAttribute="centerY" secondItem="uNn-kx-Oaa" secondAttribute="centerY" id="OH6-4L-uhG"/>
+                                                <constraint firstAttribute="width" constant="30" id="rqR-Sm-dTF"/>
+                                                <constraint firstAttribute="height" constant="30" id="vZb-oe-RuV"/>
                                             </constraints>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                    <color key="value" red="0.043137254899999998" green="0.33725490200000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="acR-NM-VyC">
-                                            <rect key="frame" x="69" y="11" width="506" height="40"/>
-                                            <gestureRecognizers/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="40" id="uLo-hH-tRq"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="S9q-fD-9OL">
+                                            <rect key="frame" x="70" y="0.0" width="502" height="64"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" misplaced="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="wpn-0D-5mI">
+                                                    <rect key="frame" x="0.0" y="0.0" width="502" height="64"/>
+                                                    <gestureRecognizers/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="64" id="e8w-1R-qA7"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C1m-ey-e6N">
+                                                    <rect key="frame" x="0.0" y="64" width="502" height="0.0"/>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <gestureRecognizers/>
                                     <constraints>
-                                        <constraint firstItem="acR-NM-VyC" firstAttribute="leading" secondItem="8Yd-cc-NIa" secondAttribute="leadingMargin" constant="61" id="8zo-Bh-5xf"/>
-                                        <constraint firstAttribute="trailing" secondItem="acR-NM-VyC" secondAttribute="trailing" constant="25" id="ApY-gC-Tka"/>
-                                        <constraint firstItem="acR-NM-VyC" firstAttribute="top" secondItem="8Yd-cc-NIa" secondAttribute="top" constant="11" id="Mzd-Zv-L9d"/>
-                                        <constraint firstItem="dtO-qg-ob0" firstAttribute="leading" secondItem="8Yd-cc-NIa" secondAttribute="leading" constant="20" id="er8-FC-aTu"/>
-                                        <constraint firstItem="dtO-qg-ob0" firstAttribute="top" secondItem="8Yd-cc-NIa" secondAttribute="top" constant="15" id="iy4-R2-gFc"/>
+                                        <constraint firstItem="uNn-kx-Oaa" firstAttribute="leading" secondItem="BGk-4x-217" secondAttribute="leading" constant="20" id="5Ml-yJ-eM3"/>
+                                        <constraint firstItem="S9q-fD-9OL" firstAttribute="leading" secondItem="uNn-kx-Oaa" secondAttribute="trailing" constant="20" id="63S-me-vn8"/>
+                                        <constraint firstItem="S9q-fD-9OL" firstAttribute="top" secondItem="BGk-4x-217" secondAttribute="top" id="GVk-1g-JkF"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="S9q-fD-9OL" secondAttribute="trailing" constant="20" id="NCx-OI-cgj"/>
+                                        <constraint firstItem="uNn-kx-Oaa" firstAttribute="top" secondItem="BGk-4x-217" secondAttribute="top" constant="15" id="Ran-E0-Osu"/>
+                                        <constraint firstAttribute="bottom" secondItem="S9q-fD-9OL" secondAttribute="bottom" id="cTv-wd-TBE"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outlet property="checkMarkLabel" destination="a6r-Dp-CHG" id="h8X-O1-Hob"/>
-                                    <outlet property="itemNameLabel" destination="acR-NM-VyC" id="TCZ-Vo-OYa"/>
+                                    <outlet property="checkMarkLabel" destination="dew-3o-Q85" id="beh-T8-XZX"/>
+                                    <outlet property="itemNameLabel" destination="wpn-0D-5mI" id="weP-Jm-rDp"/>
+                                    <outlet property="stackView" destination="C1m-ey-e6N" id="2eI-zX-Oh9"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

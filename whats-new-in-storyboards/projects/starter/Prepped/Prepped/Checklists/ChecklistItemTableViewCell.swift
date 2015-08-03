@@ -28,7 +28,8 @@ class ChecklistItemTableViewCell: UITableViewCell {
   
   @IBOutlet var checkMarkLabel: UILabel!
   @IBOutlet var itemNameLabel: UILabel!
-  
+  @IBOutlet weak var stackView: UIStackView!
+
   var checklistItem: ChecklistItem! {
     didSet {
       itemNameLabel.text = checklistItem.name

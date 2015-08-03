@@ -25,15 +25,17 @@ import UIKit
 
 class ChecklistDetailViewController: UITableViewController {
   
-  let cellHeight: CGFloat = 64.0
-  let cellPadding: CGFloat = 10.0
-  
+  let notesViewHeight: CGFloat = 128.0
+
   var checklist = checklists.first!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     title = checklist.title
+    
+    tableView.rowHeight = UITableViewAutomaticDimension
+    tableView.estimatedRowHeight = 64.0
   }
   
   // MARK: - Unwind segue methods
