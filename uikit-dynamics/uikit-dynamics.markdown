@@ -418,11 +418,11 @@ There are a lot of knobs and levers to change when dealing with behaviors. Play 
 
 You've seen examples of most of the behaviors available to you in UIKit Dynamics but not every property and option was covered. Spend some quality time with the Apple documentation for each of the classes to learn more about the fine controls available to you. Also check out these videos from the past WWDCs:
 
-* 2013 - #206 - Getting Started with UIKit Dynamics
-* 2013 - #217 - Exploring Scroll Views in iOS 7
-* 2013 - #221 - Advanced Techniques with UIKit Dynamics
-* 2014 - #216 - Building Adaptive Apps with UIKit
-* 2015 - #229 - What's New in UIKit Dynamics and Visual Effects
+* 2013 - #206 - [Getting Started with UIKit Dynamics](https://developer.apple.com/videos/wwdc/2013/#206)
+* 2013 - #217 - [Exploring Scroll Views in iOS 7](https://developer.apple.com/videos/wwdc/2013/#217)
+* 2013 - #221 - [Advanced Techniques with UIKit Dynamics](https://developer.apple.com/videos/wwdc/2013/#221)
+* 2014 - #216 - [Building Adaptive Apps with UIKit](https://developer.apple.com/videos/wwdc/2014/#216)
+* 2015 - #229 - [What's New in UIKit Dynamics and Visual Effects](https://developer.apple.com/videos/wwdc/2015/?id=229)
 
 ## Challenges
 
