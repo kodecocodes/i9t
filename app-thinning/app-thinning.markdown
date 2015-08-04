@@ -32,9 +32,9 @@ Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and
 
 When compiling your code into an iOS application, it's good to understand what Xcode is doing behind the scenes. 
 
-This project contains a run script that will launch a Finder with the location of the build directory where you'll see an app file - otherwise known as the applicaiton bundle. Build & run, and in the launched Finder right click **Old CA Maps** and select **Show Package Contents** to view the compiled bundle.
+This project contains a run script that will launch a Finder with the location of the build directory where you'll see an app file - otherwise known as the applicaiton bundle. Build and run, and in the launched Finder right click **Old CA Maps** and select **Show Package Contents** to view the compiled bundle.
 
-![bordered width=%60](./images/show_app_contents.png)
+![bordered width=%40](./images/show_app_contents.png)
 
 Below is a side-by-side comparison of the Old CA Maps **Xcode project**'s directory (on the left) and Old CA Map's **application bundle**'s contents (on the right). Your output might vary slightly depending on whether you've built for a device or simulator.
 
@@ -43,7 +43,7 @@ Below is a side-by-side comparison of the Old CA Maps **Xcode project**'s direct
 There are a few important items to take note of:
 
 - The assets catalog named **Assets.xcassets** in Xcode will become a binary version named **Assets.car** in the application bundle. This file's job is to hold resources specific to different scales, size classes, and devices. 
-- Check out the sizes of each of the bundles. Notice the **SC_Map.bundle** is over 130 MB! 
+- Check out the sizes of each of the bundles. Notice the **SD_Map.bundle** is nearly 120 MB! 
 - The item called **Old CA Maps** with the Terminal icon is the executable for your application. This is the actual program that is run on your iOS device. 
 - Notice that the 3 **Santa Cruz PNGs** in the project but not in a bundle or asset catalog were not copied into the **Assets.car** file. Instead, they were copied over in a top-level directory - which won't get sliced! You will fix this soon...
 
@@ -81,7 +81,7 @@ The **Memory** setting lets you target different assets to devices with differen
 
 Using these new settings along with scale factors and device types allows the App Store to slice your app into more targetted bundles for a given device.
 
-As you noticed earlier, the **Santa Cruz** assets were not correctly compiled into the **Assets.xcassets** catalog within Xcode, resulting in images being copied over to the main bundle. This means they won't be sliced, landing them on devices where they wont' all be used.
+As you noticed earlier, the **Santa Cruz** assets were not correctly compiled into the **Assets.xcassets** catalog within Xcode, resulting in images being copied over to the main bundle. This means they won't be sliced, landing them on devices where they won't all be used.
 
 The fix for this is quite simple. Just stick the **Santa Cruz** PNGs into the Asset Catalog.
 
@@ -98,12 +98,12 @@ When finished, the Santa Cruz assets in the catalog should look like:
 Debug builds are a great way to see how App Thinning works - because even before it existed, Xcode was tailoring debug builds to the target device. Build and run the application, again selecting the **iPad Air 2 Simulator**. Take a look at the size of **Asset.car** by looking at the Package Contents in the build directory as you did earlier.
 ![bordered width=40%](./images/ipad_air_2_asset_car_size.png)
 
-This is using the @2x image for Santa Cruz, and ends up at 68 KB.
+This is using the @2x image for Santa Cruz, and ends up at 107 KB. You may see a slight difference based on the compiler version you use.
 
 Now build and run with the **iPhone 6 Plus** simulator and take a look at the size of **Asset.car**:
 ![bordered width=40%](./images/iphone_6_plus_asset_car_size.png)
 
-As you can see, it's up to 74 KB. The growth makes sense given the higher resolution of the @3x image used by the iPhone 6 Plus. While it may not directly reflect the size of the bundle on the store, this gives you a relative idea of how thinning works to size your bundle according to the needs of the target device.
+As you can see, it's up to 144 KB. The growth makes sense given the higher resolution of the @3x image used by the iPhone 6 Plus. While it may not directly reflect the size of the bundle on the store, this gives you a relative idea of how thinning works to size your bundle according to the needs of the target device.
 
 >**Note:** Although PNGs are a good way to provide resources, you should also consider using vector-based PDFs. Xcode breaks down the PDF and resizes the image as needed, essentially future-proofing your app for whatever screen scales Apple will come up with next. All the other thumbnail images in Old CA Maps use vector-based PDFs.
 
@@ -149,7 +149,7 @@ Breaking this down:
 
 Build and run, and click on one of the cities. Xcode will fail to load an overlay and spit out an error in the console. This is because you've told the `NSBundleResourceRequest` to look for tags that you haven't yet defined for any resources. Time to fix that.
 
-Navigate to the Project Navigator tab and expand the **Map Bundles** folder. Select **LA_Map.bundle**, and open Xcode's **File Inspector** tab on the right. In the File Inspector, find the **On Demand Resource Tags** section. 
+Navigate to the Project Navigator tab and expand the **Map Bundles** group. Select **LA_Map.bundle**, and open Xcode's **File Inspector** tab on the right. In the File Inspector, find the **On Demand Resource Tags** section. 
 
 Give **LA_Map.bundle** the tag name **LA_Map**. Now go through the four remaining bundles and give each a tag name identical to the bundle name without the file extension. These will match the names used for the `bundleTitle`'s set in **HistoricMapOverlayData.swift**.
 
@@ -157,7 +157,7 @@ Give **LA_Map.bundle** the tag name **LA_Map**. Now go through the four remainin
 
 >**Note:** Make sure you spell the tag name in the exact same spelling and case as the bundle file. If you misstype it, you will encounter some subtle issues.  
 
-Build your application, but don't run it yet. Now would be a good time to look at the before and after of your application bundle size in the Report Navigator. 
+Build your application for the **iPad Air 2**, but don't run it yet. Now would be a good time to look at the before and after of your application bundle size in the Report Navigator. 
 
 Originally, the app was over 300 MB. Now, Old CA Maps is around 10MB. Xcode has achieved this by removing the bundle resources from the main application bundle, which can be confirmed by reviewing its contents:
 ![bordered width=30%](./images/bundle_size_after_odr.png)
@@ -168,9 +168,9 @@ Now run your application. Select **Los Angeles** as the overlay and observe what
 
 ## Uuhh... This is Taking Too Long
 
-You tested loading Los Angeles, but as you may recall, the Los Angeles bundle asset is small in comparison to the Santa Cruz or San Diego bundles. 
+You tested loading Los Angeles, but as you may recall, the Los Angeles bundle asset is small in comparison to the San Diego bundle. 
 
-Try clicking on the **Santa Cruz** overlay and see how long it takes to display the content.
+Try clicking on the **San Diego** overlay and see how long it takes to display the content.
 
 >**Note:** If you view a city that you've already viewed after building, you're likely going to notice it load immediately. This is because ODR caches the assets until purge conditions are met. You'll learn more about this later in this chapter.  
 
@@ -220,7 +220,7 @@ bundleResource.beginAccessingResourcesWithCompletionHandler {
 
 Build and run the application. Try all the bundles again and you'll notice the progress indicator just below the navbar while a download is progressing. 
 
-It's getting better...but the ~130MB Santa Cruz download still seems to take too long. Time to try something a bit more drastic. 
+It's getting better...but the ~120MB San Diego download still seems to take too long. Time to try something a bit more drastic. 
 
 ## The Many Flavors of Tagging
 
@@ -228,7 +228,7 @@ It's getting better...but the ~130MB Santa Cruz download still seems to take too
 
 Displaying the progress is a marginally better experience, but it still feels like the large bundles take too long to load. Again, you're testing on a controlled device with the Simulator and locally hosted resources. Imagine a real world user moving around in and out Wi-Fi or cellular coverage. 
 
-The Santa Cruz asset is big and also is likely the first overlay the user will click since it's the first item in the table. It makes sense to include the Santa Cruz asset along with the application itself so it feels snappy on initial use. At the same time, you want the flexibility to remove this huge overlay asset if the user gets low on disk space. 
+The San Diego asset is big and also is likely the first overlay the user will click since it's the first item in the table. It makes sense to include the San Diego asset along with the application itself so it feels snappy on initial use. At the same time, you want the flexibility to remove this huge overlay asset if the user gets low on disk space. 
 
 The answer to this is **Initial Install Tags**. They otherwise work the same as the tags you've used so far, but are downloaded during the iniital app download and count towards the size of the IPA. 
 
@@ -238,14 +238,14 @@ Open up the **Old CA Maps Project**, click on the Old CA Maps in the **Target** 
 - **Prefetched Tag Order:** These tags are downloaded once the application finishes downloading, in the the order they are arranged on this list. 
 - **Download Only On Demand:** These resources are the ones you've worked with and are downloaded when you explicitly do so in your code. 
 
-Move the Santa Cruz bundle with the **SC_Map** tag from the **Download Only on Demand** section to the **Initial Install Tags** section. To do this, select the tag and drag it into the Initial Install Tag section. 
+Move the San Diego bundle with the **SD_Map** tag from the **Download Only on Demand** section to the **Initial Install Tags** section. To do this, select the tag and drag it into the Initial Install Tag section. 
 
-In addition, to having Santa Cruz load with the application, since San Diego is such a large file, it would make sense to kick off that download sooner than later. So, drag **SD_Map** over to the Preferred Tag Order section, which means it will start downloading as soon as the app is installed.
+In addition to having San Diego load with the application, since San Francisco is such a large file (~40 MB), it would make sense to kick off that download sooner than later. So, drag **SF_Map** over to the Prefetched Tag Order section, which means it will start downloading as soon as the app is installed.
 
 Once you're done, your tag setup should look like this:
 ![bordered width=60%](./images/Install_Tag_Groups.png)
 
-Clean, build, then run the application. Try clicking on Santa Cruz then San Diego. You will notice a marked increase in responsiveness. 
+Clean, build, then run the application. Try clicking on San Diego then San Francisco. You will notice a marked increase in responsiveness. 
 
 [NOTE TO EDITOR: END]
 

@@ -40,10 +40,10 @@ struct HistoricMapOverlayData {
 extension HistoricMapOverlayData {
   static func generateDefaultData()->[HistoricMapOverlayData] {
     return [
+      HistoricMapOverlayData(title: "San Diego", thumbnailImageTitle: "San Diego", bundleTitle: "SD_Map", year:1994),
       HistoricMapOverlayData(title: "Santa Cruz", thumbnailImageTitle: "Santa Cruz", bundleTitle: "SC_Map", year:1992),
       HistoricMapOverlayData(title: "Sunnyvale", thumbnailImageTitle: "Sunnyvale", bundleTitle: "SNVL_Map", year:1948),
       HistoricMapOverlayData(title: "San Francisco", thumbnailImageTitle: "San Francisco", bundleTitle: "SF_Map", year:1992),
-      HistoricMapOverlayData(title: "San Diego", thumbnailImageTitle: "San Diego", bundleTitle: "SD_Map", year:1994),
       HistoricMapOverlayData(title: "Los Angeles", thumbnailImageTitle: "Los Angeles", bundleTitle: "LA_Map", year:1994),
     ]
   }

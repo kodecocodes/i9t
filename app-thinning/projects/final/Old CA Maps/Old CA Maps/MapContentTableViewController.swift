@@ -32,7 +32,7 @@ class MapContentTableViewController: UITableViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.clearsSelectionOnViewWillAppear = false
+    clearsSelectionOnViewWillAppear = false
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -40,8 +40,8 @@ class MapContentTableViewController: UITableViewController {
     navigationController?.navigationBar.barTintColor = UIColor(red: 109/255, green: 92/255, blue: 128/255, alpha: 1.0)
     navigationController?.navigationBar.translucent = true
     navigationController?.navigationBar.alpha = 1
-    navigationController?.navigationBar.titleTextAttributes = nil
-    
+    navigationController?.navigationBar.titleTextAttributes = nil 
+
   }
   
 //=============================================================================/
@@ -53,13 +53,13 @@ class MapContentTableViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return self.dataSource.count
+    return dataSource.count
   }
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("MapOverlayCell", forIndexPath: indexPath)
     
-    let mapData = self.dataSource[indexPath.row]
+    let mapData = dataSource[indexPath.row]
     let title = mapData.title
     cell.textLabel?.text = title
     cell.imageView?.image = UIImage(named: mapData.thumbnailImageTitle)
@@ -74,8 +74,8 @@ class MapContentTableViewController: UITableViewController {
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let nav = segue.destinationViewController as? UINavigationController,
-      let indexPath = self.tableView.indexPathForSelectedRow {
-        let mapData = self.dataSource[indexPath.row]
+      let indexPath = tableView.indexPathForSelectedRow {
+        let mapData = dataSource[indexPath.row]
         let mapViewController = nav.topViewController as! MapChromeViewController
         mapViewController.mapOverlayData = mapData
         mapViewController.title = mapData.title

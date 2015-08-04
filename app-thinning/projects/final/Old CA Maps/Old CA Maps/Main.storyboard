@@ -95,7 +95,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Santa Cruz" id="Q8x-68-rC2">
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Santa Cruz.png" id="Q8x-68-rC2">
                                             <rect key="frame" x="15" y="4" width="81" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <animations/>
@@ -193,7 +193,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Santa Cruz" width="81" height="80"/>
+        <image name="Santa Cruz.png" width="81" height="80"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="OvT-Q1-osj"/>
