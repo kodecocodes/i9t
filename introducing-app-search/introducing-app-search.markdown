@@ -1,4 +1,27 @@
-## introducing-app-search
+# Chapter 2: Introducing App Search
 
-Hi, welcome to your markdown document!
+One frustration for many iOS developers is that Apple gets to have all of the fun. They're the ones who get deep integrations with iOS that every developer yearns for. The good news is that after Apple has vetted out a feature for themselves they often bring it to the masses; like with App Extensions in iOS 8.
 
+Currently, when a user wants to get to content in your app they have to go through a series of steps. They flip through pages on their home screen to find your app, open it, and search what they're looking for. A savvy user may launch your app by using Siri or searching for it in Spotlight, but still they are left searching for their content once the app is launched. Meanwhile, Apple gets to make things like contacts, notes, messages, email, apps and other things directly searchable within Spotlight. The user simply taps on the search result and are taken straight to the content—no fair!
+
+New with iOS 9 Apple brings the ability for third party developers to make *their* content searchable through Spotlight! This also means that users can search within your app using Siri! Not only do you get to make your content searchable with Siri, you also get to make Siri more aware of your content. By saying "Remind me about *this* when I get home." a user can create a reminder that links to the record they are viewing in *your* app! When the reminder pops up, they can go directly back to what they were doing. Now you don't need to leave 20 tabs open in Safari in hopes that you get back to them later. Create a reminder, close the tab, and get on with your life! [TODO: Fact check this with GM on a device]
+
+## Trifecta of App Search
+
+Before diving into a sample project and code you first need to be aware that there are three aspects of App Search. Each are broken into separate APIs that achieve distinct results, but also work in concert with each other.
+
+### NSUserActivity
+
+The first aspect is `NSUserActivity`. Apple has taken a clever yet brilliant approach to App Search by tying it into `NSUserActivity` that used to enable Handoff in iOS 8.
+
+If you are not aware, Handoff allows a user to continue an activity on another device. As an example, consider that you're reading an email on your phone when you sit down at your Mac. A special Mail icon on your Mac's Dock appears that allows you to launch Mail and resume reading the message. This is powered by `NSUserActivity` who provides the OS with information necessary to resume the task on another device. The communication between devices occurs over a combination of iCloud, Bluetooth and WiFi.
+
+The `NSUserActivity` class was given a few new properties to enable App Search that you will learn about in this chapter. Apple has determined through usage metrics that users want to get back to content they've previously viewed. If a task can be represented as an `NSUserActivity` to be handed off, it might make sense for that task to be searchable and continued on the *same* device. This chapter will not cover Handoff specifically, but you will learn how to make content searchable once it has been viewed.
+
+## CoreSpotlight
+
+The second aspect is Core Spotlight, while it is nice to allow users to search for content they've previously accessed, it may make sense for your app to make *all* content searchable. CoreSpotlight is what the stock iOS apps like Mail and Notes use to index their content. Through this API you are given fine grained control of what, when and how content is indexed. You can also update and remove items from the search index. CoreSpotlight is the best way to provide full search capabilities of your app's content, including content that is private to the user. In this chapter you will be learning how to use the new CoreSpotlight APIs to index all of the content of an app.
+
+## Web Markup
+
+The third aspect is Web Markup which is tailored towards apps that mirror their public content from a web site. A good example of this would be Amazon where you can search of any of the products that they sell, or even RayWenderlich.com. This chapter will not touch on Web Markup, but will find that information in Chapter 3, "Your App On The Web".
