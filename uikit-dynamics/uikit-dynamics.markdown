@@ -21,13 +21,13 @@ let view = UIView(frame: CGRectMake(0, 0, 600, 600))
 view.backgroundColor = UIColor.lightTextColor()
 XCPShowView("Main View", view: view)
 
-let subView = UIView(frame: CGRectMake(100, 100, 100, 100))
-subView.backgroundColor = UIColor.whiteColor()
-view.addSubview(subView)
+let whiteSquare = UIView(frame: CGRectMake(100, 100, 100, 100))
+whiteSquare.backgroundColor = UIColor.whiteColor()
+view.addSubview(whiteSquare)
 
-let subView2 = UIView(frame: CGRectMake(400, 100, 100, 100))
-subView2.backgroundColor = UIColor.orangeColor()
-view.addSubview(subView2)
+let orangeSquare = UIView(frame: CGRectMake(400, 100, 100, 100))
+orangeSquare.backgroundColor = UIColor.orangeColor()
+view.addSubview(orangeSquare)
 ```
 
 You just created a view and added two subviews giving each a different color - but you don't see anything! Where's the exciting output? Find it by switching to the Assistant Editor with hitting __Option + Command + Enter__. You should see something like this now:
@@ -49,23 +49,23 @@ let animator = UIDynamicAnimator(referenceView: view)
 `UIDynamicBehavior` is the base class that describes an effect for one or more dynamic items (your subviews) and how they take part in the 2D animation you are trying to achieve. There are a bunch of behaviors that Apple provides but the easiest one to start with is `UIGravityBehavior`. Developers are like cats - they like to see things fall.
 
 ```swift
-animator.addBehavior(UIGravityBehavior(items: [subView2]))
+animator.addBehavior(UIGravityBehavior(items: [orangeSquare]))
 ```
 
-This adds a basic gravity behavior to the orange block. See it fall off the screen in the Assistant Editor? That took two lines of code. You should be feeling amazed and empowered right now. Now you'll make the box stop at the bottom of the screen.
+This adds a basic gravity behavior to the orange square. See it fall off the screen in the Assistant Editor? That took two lines of code. You should be feeling amazed and empowered right now. Now you'll make the box stop at the bottom of the screen.
 
 ```swift
-let boundaryCollision = UICollisionBehavior(items: [subView, subView2])
+let boundaryCollision = UICollisionBehavior(items: [whiteSquare, orangeSquare])
 boundaryCollision.translatesReferenceBoundsIntoBoundary = true
 animator.addBehavior(boundaryCollision)
 ```
 
-Adding a collision behavior and setting `translatesReferenceBoundsIntoBoundary` to `true` makes the border of the reference view turn into a boundary. Now when the orange block falls it stops and bounces at the bottom of the view. By default all dynamic items get a set of behaviors that describe how "heavy" they are, how much they slow down due to movement, how they respond to collisions and several other physical traits. `UIDynamicItemBehavior` describes these traits.
+Adding a collision behavior and setting `translatesReferenceBoundsIntoBoundary` to `true` makes the border of the reference view turn into a boundary. Now when the orange square falls it stops and bounces at the bottom of the view. By default all dynamic items get a set of behaviors that describe how "heavy" they are, how much they slow down due to movement, how they respond to collisions and several other physical traits. `UIDynamicItemBehavior` describes these traits.
 
-Now change the way the orange box responds to the collision:
+Now change the way the orange square responds to the collision:
 
 ```swift
-let bounce = UIDynamicItemBehavior(items: [subView2])
+let bounce = UIDynamicItemBehavior(items: [orangeSquare])
 bounce.elasticity = 0.6
 bounce.density = 200
 bounce.resistance = 2
@@ -106,7 +106,7 @@ Lets use some of the new stuff in iOS 9. Put this code in your playground:
 ```swift
 let parentBehavior = UIDynamicBehavior()
 
-let viewBehavior = UIDynamicItemBehavior(items: [subView])
+let viewBehavior = UIDynamicItemBehavior(items: [whiteSquare])
 viewBehavior.density = 0.01
 viewBehavior.resistance = 10
 viewBehavior.friction = 0.0
@@ -115,7 +115,7 @@ parentBehavior.addChildBehavior(viewBehavior)
 
 // Add a spring region for the swinging thing to get caught in
 let fieldBehavior = UIFieldBehavior.springField()
-fieldBehavior.addItem(subView)
+fieldBehavior.addItem(whiteSquare)
 fieldBehavior.position = CGPointMake(150, 350)
 fieldBehavior.region = UIRegion(size: CGSizeMake(500, 500))
 parentBehavior.addChildBehavior(fieldBehavior)
@@ -132,7 +132,7 @@ let delayTime = dispatch_time(DISPATCH_TIME_NOW,
     Int64(2 * Double(NSEC_PER_SEC)))
 
 dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
-    let pushBehavior = UIPushBehavior(items: [subView], mode: .Instantaneous)
+    let pushBehavior = UIPushBehavior(items: [whiteSquare], mode: .Instantaneous)
     pushBehavior.pushDirection = CGVectorMake(0, -1)
     pushBehavior.magnitude = 0.3
     animator.addBehavior(pushBehavior)
