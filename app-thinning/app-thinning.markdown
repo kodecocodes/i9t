@@ -4,9 +4,10 @@ Kicking yourself that you didn't drop the extra dinero to multiply your iOS devi
 
 When iOS 8 was introduced along with the iPhone 6 and 6 Plus and their new screen sizes, Apple began pushing developers to adopt a more universal approach to building across devices. Adaptive Layout, Trait Collections, Universal UISplitViewControllers, and (a more respectable) Auto Layout led to a seamless experience for the iOS developer to build universal application for both iPhone & iPad.
 
-However, packaging a universal app with device-specific content has a huge impact to the bundle size of your app. Look at the chart below to see all the 1s and 0s being stored on your device never to be used. 
+However, packaging a universal app with device-specific content has a huge impact to the bundle size of your app. For example, running an app on an iPhone 6+, look at the chart below to see all the 1s and 0s stored on the device never to be used. 
 
 [NOTE TO EDITOR: Breakdown chart needed here...]
+![bordered width=%70](./images/Device-Breakdown.png)
 
 Fortunately, in iOS 9, Apple has introduced several solutions to address this problem:
 
