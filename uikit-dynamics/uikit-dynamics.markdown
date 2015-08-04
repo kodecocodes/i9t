@@ -138,7 +138,7 @@ dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
 
 Now you can really see the power of the spring field!
 
-> **CHALLENGE**: Play around with other field behaviors and come up with a couple other effects.
+> **CHALLENGE**: Try attaching the second box to a point with a `UIAttachmentBehavior` behavior. Use the `init(_:attachedToAnchor:)` method to anchor it to the point. You might like to play around with the Playground and see what other effects you can come up with.
 
 ## Applying Dynamics to a Real App
 
