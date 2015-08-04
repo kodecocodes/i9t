@@ -1,7 +1,5 @@
 # Chapter X: UIKit Dynamics
 
-## Opening
-
 iOS applications live in the hands of the people using them. We've come to expect our mobile apps to react to us touching them and to provide some semblance of realness. iOS 7 introduced the idea of flatness in our user interfaces rather than the heavily skeuomorphic concepts previously. Instead of heavy interfaces we can provide that bond with our apps with animations and reactions to touch that mirror real-world physics.
 
 __UIKit Dynamics__ was designed to give you a simplistic set of ways to provide the physical experiences in your animations and view interactions. UIKit Dynamics is a 2D physics-inspired animation system designed with a convenient API. Originally introduced in iOS 7, UIKit Dynamics was left relatively unchanged in iOS 8. Now in iOS 9 we get a bunch of new exciting things like gravity and magnetic fields, non-rectangular collision bounds, and additional attachment behaviors.
@@ -13,7 +11,7 @@ UIKit Dynamics is definitely a framework you have to learn by doing. You'll be u
 
 ### Create the Playground
 
-Open Xcode, select __File\New\Playground...__. Enter __UIKit Dynamics__ for the name and set __Platform__ to __iOS__. Click __Next__. Choose a location for the Playground and click __Create__. Once the Playground opens, replace the contents with: 
+Open Xcode, select __File\New\Playground...__ . Enter __UIKit Dynamics__ for the name and set __Platform__ to __iOS__. Click __Next__. Choose a location for the Playground and click __Create__. Once the Playground opens, replace the contents with: 
 
 ```swift
 import UIKit
@@ -32,11 +30,11 @@ subView2.backgroundColor = UIColor.orangeColor()
 view.addSubview(subView2)
 ```
 
-Excellent! Wait. You created a view and added two subviews giving each a different color - but you don't see anything! Where's the exciting output? Switch to the Assistant Editor by hitting __Option + Command + Enter__. You should see something like this now:
+You just created a view and added two subviews giving each a different color - but you don't see anything! Where's the exciting output? Find it by switching to the Assistant Editor with hitting __Option + Command + Enter__. You should see something like this now:
 
 ![bordered width=90%](images/playground_step1_assistant_editor.png)
 
-> **Note**: XCPShowView(_:) is responsible for the magic of rendering your view in the Assistant Editor. Some times Xcode 7 doesn't re-run your Playground after making a change. You can force Xcode to re-run by selecting the menu item __Editor\Execute Playground__.
+> **Note**: XCPShowView(_:) is responsible for the magic of rendering your view in the Assistant Editor. Sometimes Xcode 7 doesn't re-run your Playground after making a change. You can force Xcode to re-run by selecting the menu item __Editor\Execute Playground__.
 
 Add the following line after creating the second subview:
 
@@ -44,17 +42,17 @@ Add the following line after creating the second subview:
 let animator = UIDynamicAnimator(referenceView: view)
 ```
 
-`UIDynamicAnimator` is where all the physics voodoo happens. A dynamic animator is an intermediary between your dynamic items (UIView subviews in this case), the dynamic behaviors you create and the iOS physics engine. It provides a context for the animations to be calculated before being rendered. Dynamic Behaviors encapsulate the physics for a particular desired effect like gravity, attraction, bounce, etc. Dynamic animators keep track of where all of your items are during the animation process. The `referenceView` we passed in is the canvas where all the animation takes place. All of the views we animate must be a subview of the reference view.
+`UIDynamicAnimator` is where all the physics voodoo happens. A dynamic animator is an intermediary between your dynamic items (UIView subviews in this case), the dynamic behaviors you create and the iOS physics engine. It provides a context for the animations to be calculated before being rendered. Dynamic Behaviors encapsulate the physics for a particular desired effect like gravity, attraction, bounce, etc. Dynamic animators keep track of where all of your items are during the animation process. The `referenceView` you passed in is the canvas where all the animation takes place. All of the views you animate must be a subview of the reference view.
 
 ### Your First Behavior
 
-`UIDynamicBehavior` is the base class that describes an effect to one or more dynamic items (your subviews) and how they take part in the 2D animation you are trying to achieve. There are a bunch of behaviors that Apple provides but the easiest one to start with is UIGravityBehavior. Developers are like cats - they like to see things fall.
+`UIDynamicBehavior` is the base class that describes an effect for one or more dynamic items (your subviews) and how they take part in the 2D animation you are trying to achieve. There are a bunch of behaviors that Apple provides but the easiest one to start with is `UIGravityBehavior`. Developers are like cats - they like to see things fall.
 
 ```swift
 animator.addBehavior(UIGravityBehavior(items: [subView2]))
 ```
 
-This adds a basic gravity behavior to the orange block. See it fall off the screen in the Assistant Editor? That took two lines of code. You should be feeling amazed and empowered right now. Lets make the box stop at the bottom of the screen.
+This adds a basic gravity behavior to the orange block. See it fall off the screen in the Assistant Editor? That took two lines of code. You should be feeling amazed and empowered right now. Now you'll make the box stop at the bottom of the screen.
 
 ```swift
 let boundaryCollision = UICollisionBehavior(items: [subView, subView2])
@@ -62,7 +60,7 @@ boundaryCollision.translatesReferenceBoundsIntoBoundary = true
 animator.addBehavior(boundaryCollision)
 ```
 
-Adding a collision behavior and setting `translatesReferenceBoundsIntoBoundary` to `true` makes the border of the reference view turn into a boundary. Now when the orange block falls it stops, and bounces, at the bottom of the view.
+Adding a collision behavior and setting `translatesReferenceBoundsIntoBoundary` to `true` makes the border of the reference view turn into a boundary. Now when the orange block falls it stops and bounces at the bottom of the view. By default all dynamic items get a set of behaviors that describe how "heavy" they are, how much they slow down due to movement, how they respond to collisions and several other physical traits. `UIDynamicItemBehavior` describes these traits.
 
 Now change the way the orange box responds to the collision:
 
@@ -74,7 +72,7 @@ bounce.resistance = 2
 animator.addBehavior(bounce)
 ```
 
-A dynamic item’s density, along with its size, determines its "mass" when it participates in behaviors. Elasticity changes how much an item bounces in a collision - default is 0.0. Resistance, when set, will reduce linear velocity until the item stops. Play around with these values and observe how the animation changes.
+A dynamic item’s density, along with its size, determines its "mass" when it participates in behaviors. Elasticity changes how much an item bounces in a collision - the default is 0.0. Resistance, when set, will reduce linear velocity until the item stops. Play around with these values and observe how the animation changes.
 
 Somewhere in your Playground code put this line after creating the UIDynamicAnimator:
 
@@ -82,7 +80,11 @@ Somewhere in your Playground code put this line after creating the UIDynamicAnim
 animator.setValue(true, forKey: "debugEnabled")
 ```
 
-This is new undocumented feature in iOS 9 to turn on a visual debugging mode. It was mentioned in the 2015 WWDC session *What's New in UIKit Dynamics and Visual Effects*. It was said this had to be done in the console using LLDB but you can also turn it on using the key-value coding method shown. Debug mode shows cool things like attachments, when collisions happen and visualizations of field effects. Keep this debug turned on for the rest of this tutorial.
+This is new undocumented feature in iOS 9 to turn on a visual debugging mode. It was mentioned in the 2015 WWDC session *What's New in UIKit Dynamics and Visual Effects*. It was said this had to be done in the console using LLDB but you can also turn it on using the key-value coding method shown. Debug mode shows cool things like attachments, when collisions happen and visualizations of field effects. 
+
+You'll notice each of the boxes, when animating, show a blue border around them. This border is visually describing the collision borders for those items. Remove `subView` from the list of items passed to the `UICollisionBehavior` init method to prove this. Make sure to put the subView back into the array before continuing.
+
+Keep this debug turned on for the rest of this tutorial.
 
 ### Behaviors
 
@@ -131,12 +133,13 @@ let delayTime = dispatch_time(DISPATCH_TIME_NOW,
 
 dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
     let pushBehavior = UIPushBehavior(items: [subView], mode: .Instantaneous)
-    pushBehavior.pushDirection = CGVectorMake(0, -10.5)
+    pushBehavior.pushDirection = CGVectorMake(0, -1)
+    pushBehavior.magnitude = 0.3
     animator.addBehavior(pushBehavior)
 }
 ```
 
-Now you can really see the power of the spring field!
+Now you can really see the power of the spring field! The `UIPushBehavior` gave the white square a nudge upwards and it sprung right back to the center of the field. Push direction is a vector and setting y to -1 means up. The magnitude of the push behavior was set to a small number because the density was set to a small value - the normal push magnitude would kick that box out of the field. Try removing the magnitude and you'll notice it does exit the field, however, the collision boundary makes it bounce right back into the field.
 
 > **CHALLENGE**: Try attaching the second box to a point with a `UIAttachmentBehavior` behavior. Use the `init(_:attachedToAnchor:)` method to anchor it to the point. You might like to play around with the Playground and see what other effects you can come up with.
 
@@ -148,7 +151,7 @@ UIKit Dynamics is really designed for solving non-game applications. In reality 
 
 ### Introducing DynamicPhotoDisplay
 
-For this part of the chapter, you'll be working with simple photo viewing application. The user is displayed with a scrolling list of photo thumbails and tapping on them displays a full screen version. You can find the starter project as well as the final solution in the resources folder for this chapter.  Open it in Xcode and build and run it. You should see the following:
+For this part of the chapter, you'll be working with simple photo viewing application. The user is displayed with a scrolling list of photo thumbnails and tapping on them displays a full screen version. You can find the starter project as well as the final solution in the resources folder for this chapter.  Open it in Xcode and build and run it. You should see the following:
 
 ![width=80%](images/dynamicphotodisplay_initialwithfull.png)
 
@@ -198,7 +201,7 @@ class StickyEdgesBehavior: UIDynamicBehavior {
 }
 ```
 
-Our composite behavior starts as a subclass of `UIDynamicBehavior` which really has no behaviors on its own. The `init` method takes the item we're adding the behavior to and an edge inset to make it customizable in the future. Then a `UIDynamicItemBehavior` is created to make the item lighter and more resistant and a `UICollisionBehavior` so that it can collide with the reference view. Two `UIFieldBehavior` instances are added as well - one for the top middle and one for the bottom middle.
+The composite behavior starts as a subclass of `UIDynamicBehavior` which really has no behaviors on its own. The `init` method takes the item you're adding the behavior to and an edge inset to make it customizable in the future. Then a `UIDynamicItemBehavior` is created to make the item lighter and more resistant and a `UICollisionBehavior` so that it can collide with the reference view. Two `UIFieldBehavior` instances are added as well - one for the top middle and one for the bottom middle.
 
 Add this helper enum to the file just above the class declaration:
 
@@ -416,7 +419,9 @@ There are a lot of knobs and levers to change when dealing with behaviors. Play 
 
 ## Where to Go From Here
 
-You've seen examples of most of the behaviors available to you in UIKit Dynamics but not every property and option was covered. Spend some quality time with the Apple documentation for each of the classes to learn more about the fine controls available to you. Also check out these videos from the past WWDCs:
+You've seen examples of most of the behaviors available to you in UIKit Dynamics but not every property and option was covered. Apple has not yet created a guide for UIKit Dynamics so you'll want to spend some quality time with the documentation on each of the classes to learn more about the finer controls available to you.
+
+Also check out these videos from the past WWDCs:
 
 * 2013 - #206 - [Getting Started with UIKit Dynamics](https://developer.apple.com/videos/wwdc/2013/#206)
 * 2013 - #217 - [Exploring Scroll Views in iOS 7](https://developer.apple.com/videos/wwdc/2013/#217)
