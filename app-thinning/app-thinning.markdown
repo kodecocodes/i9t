@@ -6,7 +6,6 @@ When iOS 8 was introduced along with the iPhone 6 and 6 Plus and their new scree
 
 However, packaging a universal app with device-specific content has a huge impact to the bundle size of your app. For example, running an app on an iPhone 6+, look at the chart below to see all the 1s and 0s stored on the device never to be used. 
 
-[NOTE TO EDITOR: Breakdown chart needed here...]
 ![bordered width=%70](./images/Device-Breakdown.png)
 
 Fortunately, in iOS 9, Apple has introduced several solutions to address this problem:
