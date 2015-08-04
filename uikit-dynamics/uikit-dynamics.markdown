@@ -209,7 +209,7 @@ enum StickyEdge: Int {
 }
 ```
 
-Next add the following to the class:
+This is used to help identify the edge in the array of spring fields. Next add the following to the class:
 
 ```swift
   func updateFieldsInBounds(bounds: CGRect) {
@@ -233,7 +233,7 @@ Next add the following to the class:
   }
 ```
 
-This function will be called when the view is initially displayed to set up the regions of the spring fields. The function should also be called if the reference view is ever resized. Then add the following property to the class:
+This function will be called when the view is initially displayed to set up the regions of the spring fields. The calculations will end up splitting the view in half which is the area the spring field will cover. The center of the field is just page the edge so the center of the metadata view sticks out from the edge a bit. The function will be called if the reference view is ever resized. Next, add the following property to the class:
 
 ```swift
   var isEnabled = true {
@@ -338,7 +338,7 @@ Whenever the main view's layout is changed the sticky behavior will adjust its b
   }
 ```
 
-When the pan gesture begins, the sticky behavior is shut off. The offset of where the user tapped is recorded and used during the gesture when the location is changed. The metadata view's location is updated in the `.Changed` case. 
+When the pan gesture begins, the sticky behavior is shut off so the animations don't interfere with the movement. The offset of where the user tapped is recorded and used during the gesture when the location is changed. The metadata view's location is updated in the `.Changed` case. The calculations done on the location x & y limit the movement of the metadata view to inside the container view.
 
 Build and run the application. The metadata box is now draggable thanks to the pan gesture recognizer. Drop the box anywhere on the screen and notice it zips back to one of the two locations. The gesture doesn't quite have the response you're looking for. Go back into the `pan` method and add the following case:
 
@@ -377,18 +377,20 @@ Now that the animator has been created, swap out the contents of `showFullImageV
 
 ```swift
   func showFullImageView(index: Int) {
+    // 1
     let delayTime = dispatch_time(DISPATCH_TIME_NOW,
       Int64(0.75 * Double(NSEC_PER_SEC)))
-    
     dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
       let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissFullPhoto:")
       self.navigationItem.rightBarButtonItem = doneButton
     }
     
+    // 2
     fullPhotoViewController.photoPair = photoData[index]
     fullPhotoView.center = CGPointMake(fullPhotoView.center.x, fullPhotoView.frame.size.height / -2)
     fullPhotoView.hidden = false
     
+    // 3
     animator.removeAllBehaviors()
     
     let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
@@ -405,6 +407,8 @@ Now that the animator has been created, swap out the contents of `showFullImageV
     animator.addBehavior(collisionBehavior)
   }
 ```
+
+In section 1 the Done button is added to the nav bar but after a short delay. This lets the dynamic animator do most of its animations first before updating the nav bar. In section 2 the image is set and the full photo view repositioned above the thumbnails view, just off screen. Section 3 removes any existing behaviors from the animator and then adds the gravity, item and collision behaviors.
 
 Build and run the app. Tap a photo and notice that when the view hits the bottom of the screen it bounces. The collision behavior shown here is a bit different from previous examples. Instead of using the reference view's boundary this creates a single line of collision at the bottom. Its positioned just off the screen so the bounce doesn't leave a visible gap. 
 
