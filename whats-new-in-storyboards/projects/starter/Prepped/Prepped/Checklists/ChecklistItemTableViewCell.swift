@@ -22,13 +22,12 @@
 
 import UIKit
 
-let CheckMark = "✔️"
-
 class ChecklistItemTableViewCell: UITableViewCell {
   
   @IBOutlet var checkMarkLabel: UILabel!
   @IBOutlet var itemNameLabel: UILabel!
   @IBOutlet weak var stackView: UIStackView!
+  @IBOutlet var checkBox: CheckBox!
 
   var checklistItem: ChecklistItem! {
     didSet {
@@ -39,13 +38,14 @@ class ChecklistItemTableViewCell: UITableViewCell {
   
   var checked = false {
     didSet {
-      checkMarkLabel.text = checked ? CheckMark : " "
+      checkBox.checked = checked
+      checkBox.setNeedsDisplay()
     }
   }
   
   override func awakeFromNib() {
     let recognizer = UITapGestureRecognizer(target: self, action: "checkMarkTapped:")
-    checkMarkLabel.addGestureRecognizer(recognizer)
+    checkBox.addGestureRecognizer(recognizer)
   }
   
   func checkMarkTapped(gesture: UITapGestureRecognizer) {
@@ -54,19 +54,57 @@ class ChecklistItemTableViewCell: UITableViewCell {
   }
 }
 
-@IBDesignable
-class BorderedView: UIView {
+class CheckBox: UIView {
+  let lineWidth: CGFloat = 2.0
+  let cornerRadius: CGFloat = 6.0
+
+  var checked: Bool = false
+  var isNotes: Bool = false
   
-  @IBInspectable var borderColor = UIColor.darkGrayColor()
-  @IBInspectable var lineWidth: CGFloat = 2.0
-  @IBInspectable var cornerRadius: CGFloat = 5.0
+  // Border Colors
+  let borderUnchecked = UIColor(white: 222/255, alpha: 1.0)
+  let borderChecked = UIColor(red: 142/255, green: 226/255, blue: 165/255, alpha: 1.0)
+  let borderNotes = UIColor(red: 241/255, green: 226/255, blue: 164/255, alpha: 1.0)
   
-  override func drawRect(rect: CGRect) {
-    borderColor.setStroke()
-    
-    let path = UIBezierPath(roundedRect: CGRectInset(rect, lineWidth/2, lineWidth/2), cornerRadius: cornerRadius)
-    path.lineWidth = lineWidth
-    path.stroke()
+  // Background Colors
+  let backgroundUnchecked = UIColor(white: 247/255, alpha: 1.0)
+  let backgroundChecked = UIColor(red: 223/255, green: 247/255, blue: 230/255, alpha: 1.0)
+  let backgroundNotes = UIColor(red: 255/255, green: 246/255, blue: 213/255, alpha: 1.0)
+  
+  // Image
+  let checkmarkImage = UIImage(named: "Checkmark")!
+  let checkmarkImageNotes = UIImage(named: "CheckmarkNotes")
+  
+  var checkmarkImageView = UIImageView()
+  
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    self.addSubview(checkmarkImageView)
+    checkmarkImageView.frame = self.bounds
+    checkmarkImageView.contentMode = UIViewContentMode.Center
   }
   
+  override func drawRect(rect: CGRect) {
+    let path = UIBezierPath(roundedRect: CGRectInset(rect, lineWidth/2, lineWidth/2), cornerRadius: cornerRadius)
+    path.lineWidth = lineWidth
+    if isNotes {
+      borderNotes.setStroke()
+      backgroundNotes.setFill()
+      checkmarkImageView.image = checked ? checkmarkImageNotes : nil
+    } else if checked {
+      borderChecked.setStroke()
+      backgroundChecked.setFill()
+      checkmarkImageView.image = checkmarkImage
+    } else {
+      borderUnchecked.setStroke()
+      backgroundUnchecked.setFill()
+      checkmarkImageView.image = nil
+    }
+    path.fill()
+    path.stroke()
+  
+  }
+
+  
+
 }

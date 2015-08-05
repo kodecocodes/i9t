@@ -2,7 +2,7 @@
 
 Storyboards were first introduced back with iOS 5. For the first time, they allowed the view controller hierarchy of an app to be mapped out visually, making the flow of larger apps easier to understand and navigate.
 
-Apple have continued to improve storyboards over the years with unwind segues for reverse navigation, universal storyboards for both iPhone and iPad, and live rendering with which let us preview and configure views designed in code.
+Apple have continued to improve storyboards over the years with unwind segues for reverse navigation, universal storyboards for both iPhone and iPad, and live rendering which lets us preview and configure views designed in code.
 
 Xcode 7 brings its own set of great new additions to storyboards. This chapter will give you some experience using each one:
 

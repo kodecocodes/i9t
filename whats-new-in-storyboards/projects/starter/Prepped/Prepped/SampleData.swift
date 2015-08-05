@@ -65,10 +65,32 @@ var checklists = [ Checklist(title: "Food", items: [ ChecklistItem("Baked Beans"
 struct DiaryEntry {
   let date: String
   let text: String
+
+  var year: String {
+    let startIndex = date.startIndex
+    let endIndex = advance(startIndex, 4)
+    let range = Range(start: startIndex, end:endIndex)
+    return date.substringWithRange(range)
+  }
+  var month: String {
+    let startIndex = advance(date.startIndex, 5)
+    let endIndex = advance(startIndex, 2)
+    let range = Range(start: startIndex, end:endIndex)
+    let index = Int(date.substringWithRange(range))! - 1
+    let formatter = NSDateFormatter()
+    return formatter.shortMonthSymbols[index].uppercaseString
+  }
+  var day: Int {
+    let startIndex = advance(date.startIndex, 8)
+    let endIndex = advance(startIndex, 2)
+    let range = Range(start: startIndex, end:endIndex)
+    return Int(date.substringWithRange(range))!
+  }
 }
 
-var diaryEntries = [ DiaryEntry(date: "July 2, 2016", text: "Have heard rumors. Preparing."),
-                     DiaryEntry(date: "July 4, 2016", text: "List of safe contacts arrived."),
-                     DiaryEntry(date: "July 5, 2016", text: "Food shortages and riots"),
-                     DiaryEntry(date: "July 8, 2016", text: "I may be underprepared. They are coming...") ]
+var diaryEntries = [
+  DiaryEntry(date:"2015-09-02", text: "Have heard rumors. Preparing."),
+  DiaryEntry(date:"2016-07-04", text: "List of safe contacts arrived."),
+  DiaryEntry(date:"2015-07-05", text: "Food shortages and riots"),
+  DiaryEntry(date:"2016-07-08", text: "I may be underprepared. They are coming...") ]
 

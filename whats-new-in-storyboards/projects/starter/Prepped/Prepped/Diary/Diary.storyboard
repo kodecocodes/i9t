@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="FAU-z4-VW4">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -10,48 +9,84 @@
         <scene sceneID="Sfc-xJ-tJJ">
             <objects>
                 <tableViewController id="Dzv-Lc-Wbr" customClass="DiaryViewController" customModule="Prepped" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gw3-fY-Jj6">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="gw3-fY-Jj6">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="56" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiaryCell" id="Iud-Qz-gAd" customClass="DiaryEntryTableViewCell" customModule="Prepped" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiaryCell" rowHeight="60" id="Iud-Qz-gAd" customClass="DiaryEntryTableViewCell" customModule="Prepped" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="86" width="600" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Iud-Qz-gAd" id="6G0-xd-5cZ">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="59"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="O4g-sm-a4f">
-                                            <rect key="frame" x="8" y="7" width="53" height="34"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="53" id="QEb-g7-xfy"/>
-                                                <constraint firstAttribute="height" constant="34" id="xbl-F0-ar9"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="2" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="2MZ-Zz-od4">
-                                            <rect key="frame" x="71" y="4" width="521" height="35"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="eN3-jm-JIQ">
+                                            <rect key="frame" x="24" y="0.0" width="548" height="51"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Xoy-AQ-CJs">
+                                                    <rect key="frame" x="0.0" y="0.0" width="25" height="51"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="15" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0us-UE-a8k">
+                                                            <rect key="frame" x="0.0" y="0.0" width="25" height="39"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="39" id="NtO-Px-hsr"/>
+                                                            </constraints>
+                                                            <edgeInsets key="layoutMargins" top="10" left="8" bottom="0.0" right="8"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.72156862745098038" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" verticalHuggingPriority="251" fixedFrame="YES" text="JULY" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="O4g-sm-a4f">
+                                                            <rect key="frame" x="0.0" y="39" width="25" height="12"/>
+                                                            <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="8" right="8"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                                            <color key="textColor" red="0.0" green="0.72156862745098038" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Diary Entry" translatesAutoresizingMaskIntoConstraints="NO" id="fn1-30-4jB">
+                                                    <rect key="frame" x="39" y="0.0" width="509" height="51"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="2MZ-Zz-od4" secondAttribute="bottom" constant="4" id="Cl7-of-C14"/>
-                                        <constraint firstItem="2MZ-Zz-od4" firstAttribute="top" secondItem="6G0-xd-5cZ" secondAttribute="top" constant="4" id="GK0-VB-gYF"/>
-                                        <constraint firstItem="2MZ-Zz-od4" firstAttribute="height" relation="greaterThanOrEqual" secondItem="O4g-sm-a4f" secondAttribute="height" id="VNx-za-LTN"/>
-                                        <constraint firstItem="O4g-sm-a4f" firstAttribute="leading" secondItem="6G0-xd-5cZ" secondAttribute="leadingMargin" id="ZhV-qd-RMd"/>
-                                        <constraint firstItem="2MZ-Zz-od4" firstAttribute="leading" secondItem="O4g-sm-a4f" secondAttribute="trailing" constant="10" id="bnO-pM-hln"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="2MZ-Zz-od4" secondAttribute="trailing" id="tIg-3L-cCi"/>
-                                        <constraint firstItem="O4g-sm-a4f" firstAttribute="firstBaseline" secondItem="2MZ-Zz-od4" secondAttribute="firstBaseline" id="xmu-Zb-NNj"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="eN3-jm-JIQ" secondAttribute="trailing" constant="20" id="Uls-Y4-MAh"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="eN3-jm-JIQ" secondAttribute="bottom" id="mOB-ev-Zm4"/>
+                                        <constraint firstItem="eN3-jm-JIQ" firstAttribute="top" secondItem="6G0-xd-5cZ" secondAttribute="top" id="wR0-eO-x1O"/>
+                                        <constraint firstItem="eN3-jm-JIQ" firstAttribute="leading" secondItem="6G0-xd-5cZ" secondAttribute="leadingMargin" constant="16" id="xW6-cS-nK5"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="dateLabel" destination="O4g-sm-a4f" id="nmn-Zr-FPX"/>
-                                    <outlet property="entryLabel" destination="2MZ-Zz-od4" id="yW5-Ek-PyH"/>
+                                    <outlet property="dayLabel" destination="0us-UE-a8k" id="KIv-Of-2VE"/>
+                                    <outlet property="entryLabel" destination="fn1-30-4jB" id="ftu-ts-tQR"/>
+                                    <outlet property="monthLabel" destination="O4g-sm-a4f" id="tdu-5J-a04"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SectionHeader" rowHeight="26" id="42e-RE-SZZ" customClass="DiaryHeaderTableViewCell" customModule="Prepped" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="146" width="600" height="26"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="42e-RE-SZZ" id="Dda-kc-b14">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="25"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Year" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA7-jB-VQO">
+                                            <rect key="frame" x="16" y="2" width="92" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="yearLabel" destination="oA7-jB-VQO" id="9QH-Uk-PBO"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -126,10 +161,10 @@
                             <tableViewSection headerTitle="Diary Entry" id="LyC-LY-jWr">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="206" id="osE-DO-SMG">
-                                        <rect key="frame" x="0.0" y="113.5" width="600" height="206"/>
+                                        <rect key="frame" x="0.0" y="114" width="600" height="206"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="osE-DO-SMG" id="njZ-Rg-Zmi">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="205.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="205"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="960-CN-Ygm">

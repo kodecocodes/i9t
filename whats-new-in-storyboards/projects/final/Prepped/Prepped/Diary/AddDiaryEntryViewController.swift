@@ -29,6 +29,7 @@ class AddDiaryEntryViewController: UITableViewController {
   lazy var dateFormatter: NSDateFormatter = {
     let formatter = NSDateFormatter()
     formatter.dateStyle = .MediumStyle
+    formatter.dateFormat = "yyyy-MM-dd"
     return formatter
   }()
   
@@ -40,6 +41,8 @@ class AddDiaryEntryViewController: UITableViewController {
       return nil
     }
   }
+  
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -57,4 +60,8 @@ class AddDiaryEntryViewController: UITableViewController {
       diaryEntryTextView.becomeFirstResponder()
     }
   }
+  
+
 }
+
+
