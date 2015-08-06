@@ -89,8 +89,8 @@ struct DiaryEntry {
 }
 
 var diaryEntries = [
-  DiaryEntry(date:"2015-09-02", text: "Have heard rumors. Preparing."),
+  DiaryEntry(date:"2016-07-02", text: "Have heard rumors. Preparing."),
   DiaryEntry(date:"2016-07-04", text: "List of safe contacts arrived."),
-  DiaryEntry(date:"2015-07-05", text: "Food shortages and riots"),
+  DiaryEntry(date:"2016-07-05", text: "Food shortages and riots"),
   DiaryEntry(date:"2016-07-08", text: "I may be underprepared. They are coming...") ]
 
