@@ -22,31 +22,8 @@
 
 import Foundation
 import EmployeeKit
-import CoreSpotlight
-import MobileCoreServices
 
 extension Employee {
-  
-  var userActivityUserInfo: [NSObject: AnyObject] {
-    return ["id": objectId]
-  }
-  
-  var userActivity: NSUserActivity {
-    let activity = NSUserActivity(activityType: self.dynamicType.domainIdentifier)
-    activity.title = name
-    switch Setting.searchIndexingPreference {
-    case .Disabled:
-      activity.eligibleForSearch = false
-    default:
-      activity.eligibleForSearch = true
-    }
-    
-    activity.userInfo = userActivityUserInfo
-    activity.keywords = [email, department]
-        
-    activity.contentAttributeSet = searchableItemAttributeSet
-    return activity
-  }
   
   /// Dial the employee's phone number use the system dialer.
   func call() {

@@ -65,11 +65,6 @@ class EmployeeViewController: UIViewController {
     skillsLabel.text = ", ".join(employee.skills)
     otherEmployeesLabel.text = "Other employees in \(employee.department)"
     
-    userActivity = employee.userActivity
-  }
-  
-  override func updateUserActivityState(activity: NSUserActivity) {
-    activity.addUserInfoEntriesFromDictionary(employee.userActivityUserInfo)
   }
   
   @IBAction func call(sender: UITapGestureRecognizer) {

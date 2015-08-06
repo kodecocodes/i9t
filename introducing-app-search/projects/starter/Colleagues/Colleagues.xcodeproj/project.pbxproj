@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		07347F931B60C2A100A9B387 /* EmployeExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07347F921B60C2A100A9B387 /* EmployeExt.swift */; };
 		07689C091B562E170030E71C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07689C081B562E170030E71C /* AppDelegate.swift */; };
 		07689C0E1B562E170030E71C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07689C0C1B562E170030E71C /* Main.storyboard */; };
 		07689C101B562E170030E71C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 07689C0F1B562E170030E71C /* Assets.xcassets */; };
@@ -111,7 +110,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		07347F921B60C2A100A9B387 /* EmployeExt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeExt.swift; sourceTree = "<group>"; };
 		07689C051B562E170030E71C /* Colleagues.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Colleagues.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		07689C081B562E170030E71C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		07689C0D1B562E170030E71C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -282,7 +280,6 @@
 				07B46BAB1B5AF91D00B55262 /* Protocols.swift */,
 				07B46BAD1B5AFAAD00B55262 /* EmployeeService.swift */,
 				07B46BE71B5B0BB900B55262 /* FileHelper.swift */,
-				07347F921B60C2A100A9B387 /* EmployeExt.swift */,
 			);
 			path = EmployeeKit;
 			sourceTree = "<group>";
@@ -602,7 +599,6 @@
 				07B46BAA1B5AF80500B55262 /* Employee.swift in Sources */,
 				07B46BAE1B5AFAAD00B55262 /* EmployeeService.swift in Sources */,
 				07B46BAC1B5AF91D00B55262 /* Protocols.swift in Sources */,
-				07347F931B60C2A100A9B387 /* EmployeExt.swift in Sources */,
 				07B46BE81B5B0BB900B55262 /* FileHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

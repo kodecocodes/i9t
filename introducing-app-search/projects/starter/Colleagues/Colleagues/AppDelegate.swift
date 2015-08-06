@@ -22,49 +22,20 @@
 
 import UIKit
 import EmployeeKit
-import CoreSpotlight
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
   
-  func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
-    
-    let objectId: String?
-    
-    if userActivity.activityType == Employee.domainIdentifier, let activityObjectId = userActivity.userInfo?["id"] as? String {
-      objectId = activityObjectId
-    } else if userActivity.activityType == CSSearchableItemActionType,
-      let activityObjectId = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String  {
-      objectId = activityObjectId
-    } else {
-      objectId = nil
-    }
-    
-    if let objectId = objectId,
-      navController = window?.rootViewController as? UINavigationController,
-      employeeListViewController = navController.viewControllers.first as? EmployeeListViewController,
-      employee = EmployeeService().employeeWithObjectId(objectId)
-    {
-      navController.popToRootViewControllerAnimated(false)
-      
-      let employeeViewController = employeeListViewController.storyboard?.instantiateViewControllerWithIdentifier("EmployeeView") as! EmployeeViewController
-      employeeViewController.employee = employee
-      navController.pushViewController(employeeViewController, animated: false)
-    }
-    
-    return true
-  }
-  
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
   
     switch Setting.searchIndexingPreference {
     case .Disabled:
-      EmployeeService().destroyEmployeeIndexing()
+       EmployeeService().destroyEmployeeIndexing()
     case .AllRecords:
-      EmployeeService().indexAllEmployees()
+       EmployeeService().indexAllEmployees()
     default: break
     }
     
