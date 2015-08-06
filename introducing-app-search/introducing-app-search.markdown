@@ -54,4 +54,87 @@ Open **AppDelegate.swift**, notice that there is only one method in here `applic
 
 That wraps up what you should be aware of for now, the rest of the code is view controller logic which you will be modifying, but it's unnecessary to fully comprehend what is going on there in order to achieve the goal of enabling App Search.
 
-###
+## Search Previously Viewed Records
+
+As mentioned, `NSUserActivity` is the first step one should make towards implementing App Search. There are a number of reasons for this.
+
+1. It's dead simple; creating an `NSUserActivity` instance can be done by setting a few properties.
+1. As a user navigates content that mark `NSUserActivity` instances as the current activity, iOS will rank that content. Content that is accessed frequently is considered to be more important to the user and search results will reflect that.
+1. You get the benefit of providing context to Siri.
+1. You're one step closer to providing Handoff support.
+
+Dead simple to implement, you say? Prove it.
+
+Add a new Swift file named **EmployeeExt.swift** under the EmployeeKit group and verify that the target is set to **EmployeeKit**.
+
+Define an extension on `Employee` with a static String named `domainIdentifier`.
+
+```swift
+extension Employee {
+  public static let domainIdentifier = "com.raywenderlich.colleagues.employee"
+}
+```
+
+This string will be used to identify the type of `NSUserActivity` created for Employees. Next, add a computed property named `userActivityUserInfo`.
+
+```swift
+public var userActivityUserInfo: [NSObject: AnyObject] {
+  return ["id": objectId]
+}
+```
+
+This is a dictionary that will be used as an attribute for your `NSUserActivity` that you will add now.
+
+```swift
+public var userActivity: NSUserActivity {
+  let activity = NSUserActivity(activityType: Employee.domainIdentifier)
+  activity.title = name
+  activity.userInfo = userActivityUserInfo
+  activity.keywords = [email, department]
+  return activity
+}
+```
+
+This property will later be used to conveniently obtain an `NSUserActivity` instance for an Employee. There are a few `NSUserActivity` properties being used:
+- `title`: The name of the activity, it will also appear as the primary name in a search result
+- `userInfo`: A dictionary of values for you to use when the activity is passed back to you, this will be used later to open the app to a specific employee record.
+- `keywords`: A set of localized keywords that help the user find the record when searching.
+
+Now your `NSUserActivity` property you can be used when an employee record is being viewed to make the record searchable. Open **EmployeeViewController.swift** and add the following at the bottom of the `viewDidLoad()` method.
+
+```swift
+let activity = employee.userActivity
+if case .Disabled = Setting.searchIndexingPreference {
+  activity.eligibleForSearch = false
+} else {
+  activity.eligibleForSearch = true
+}
+
+userActivity = activity
+```
+
+In this code you are retrieving the `userActivity` property that you just created on `Employee` via an `extension`. You then check the app setting, if searching is disabled, mark the activity as not eligible for search, otherwise mark it true. Finally, set the view controller's `userActivity` property to your value.
+
+> **NOTE**: The `userActivity` property on the view controller is inherited from `UIResponder`, in iOS 8 Apple added this property for Handoff suport.
+
+The last step to get searching working at a basic level is to override `updateUserActivityState()`
+
+```swift
+override func updateUserActivityState(activity: NSUserActivity) {
+  activity.addUserInfoEntriesFromDictionary(employee.userActivityUserInfo)
+}
+```
+
+The system will call this method at various times in the lifecycle of your `UIResponder` and you are responsible for keeping the activity up to date, in this case you simply provide the same information when it is called as there is no varying state for the employee record.
+
+Great! Now when an employee is viewed, that history will be tracked and become searchable (provided that setting is turned on). So go ahead and turn on the setting so that **Viewed Records** are indexed. You will find the setting in the Settings app under **Colleagues**.
+
+![iphone](/images/app-screen-3.png)
+
+Now, build and run the app, and then select **Brent Reid**. At this point you won't see anything happen, but behind the scenes the activity was indexed. Now, go to the Home screen (if you're using the Simulator you can type **CMD+H**). Bring up Spotlight by either swiping down from the middle of the screen or swiping all the way to the left of your home screen pages. Type "brent" into the search field.
+
+![iphone](/images/app-screen-4.png)
+
+And there's Brent Reid as a result!
+
+![height=30%](/images/whoa-meme.jpg)
