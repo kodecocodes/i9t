@@ -32,7 +32,7 @@ For this chapter you will be working with a sample app that simulates what a com
 
 ### New Employee Orientation
 
-Start by opening the Starter Project and before diving into any code, build and run.
+Start by opening the Starter Project, but before diving into any code, build and run.
 
 ![iphone](/images/app-screen-1.png)
 
@@ -44,6 +44,14 @@ This view shows all of the employee's details and also a related list of employe
 
 #### Code Walk
 
-Something
+Take a moment to familiarize yourself with the codebase of the project. There are two targets, Colleagues which is the app itself, and EmployeeKit which is a framework to help you in interacting with the employee database. Open **Employee.swift**, this is the model for an employee, it has all of the properties you might expect having just viewed Brent Reid's record. Employee instances are initialized using a JSON model.
+
+Moving on, open **EmployeeService.swift**. At the top of the file you will notice an extension declaration. You will be filling out the implementation of those two methods marked with "TODO" comments later. More importantly for now, this service provides two public APIs, `employeeWithObjectId(` and `fetchEmployees()`. Both methods are commented, the first provides an Employee given its `objectId` and the second results all employee records from the database.
+
+The rest of the code in the EmployeeKit target is unimportant to the chapter's topic so there's no need to be familiar with them to continue. Jump to the Colleagues folder which contains the code for the app itself.
+
+Open **AppDelegate.swift**, notice that there is only one method in here `application(_:didFinishLaunchingWithOptions:launchOptions)`. The implementation switches on `Setting.searchIndexingPreference` which is in place to allow the user to change the behavior of search indexing. Notice that depending on the setting's value, a different service method is called. If you recall, these are the service methods that had "TODO" comments for you to implement later. No need to worry about that just yet, but you should be aware of this setting. The setting can be changed in the Settings iOS App under "Colleagues".
+
+That wraps up what you should be aware of for now, the rest of the code is view controller logic which you will be modifying, but it's unnecessary to fully comprehend what is going on there in order to achieve the goal of enabling App Search.
 
 ###
