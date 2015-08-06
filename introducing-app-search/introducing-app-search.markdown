@@ -18,10 +18,32 @@ If you are not aware, Handoff allows a user to continue an activity on another d
 
 The `NSUserActivity` class was given a few new properties to enable App Search that you will learn about in this chapter. Apple has determined through usage metrics that users want to get back to content they've previously viewed. If a task can be represented as an `NSUserActivity` to be handed off, it might make sense for that task to be searchable and continued on the *same* device. This chapter will not cover Handoff specifically, but you will learn how to make content searchable once it has been viewed.
 
-## CoreSpotlight
+### CoreSpotlight
 
 The second aspect is Core Spotlight, while it is nice to allow users to search for content they've previously accessed, it may make sense for your app to make *all* content searchable. CoreSpotlight is what the stock iOS apps like Mail and Notes use to index their content. Through this API you are given fine grained control of what, when and how content is indexed. You can also update and remove items from the search index. CoreSpotlight is the best way to provide full search capabilities of your app's content, including content that is private to the user. In this chapter you will be learning how to use the new CoreSpotlight APIs to index all of the content of an app.
 
-## Web Markup
+### Web Markup
 
 The third aspect is Web Markup which is tailored towards apps that mirror their public content from a web site. A good example of this would be Amazon where you can search of any of the products that they sell, or even RayWenderlich.com. This chapter will not touch on Web Markup, but will find that information in Chapter 3, "Your App On The Web".
+
+## Sample Project
+
+For this chapter you will be working with a sample app that simulates what a company address book might look like. Rather than every employee being added to your phones address book, the app provides a directory of your colleagues. To keep things simple, the app runs off of set of data that resides in the app bundle as a folder of avatar images and a JSON file containing all of the employee information. In the real-world you would prefer to have a networking component that downloads a bundle of data like this or one that accesses a true web-service.
+
+### New Employee Orientation
+
+Start by opening the Starter Project and before diving into any code, build and run.
+
+![iphone](/images/app-screen-1.png)
+
+You will immediately see a list of all employees in the company, it's a small company of around 25 individuals. Select **Brent Reid** from the list.
+
+![iphone](/images/app-screen-2.png)
+
+This view shows all of the employee's details and also a related list of employees who are in the same department. That is the extent of the app, very simple. What might make this app infinitely better is searching, as it stands you can't even search while you're in the app. You won't be adding search in the app, but you will be adding the ability to search from Spotlight!
+
+#### Code Walk
+
+Something
+
+###
