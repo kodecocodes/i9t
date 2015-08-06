@@ -99,7 +99,7 @@ class LogCell: UITableViewCell {
   
   override func layoutSubviews() {
     super.layoutSubviews()
-    let isTooNarrow = CGRectGetWidth(bounds) <= LogCell.widthThreshold
+    let isTooNarrow = bounds.width <= LogCell.widthThreshold
     compactView.hidden = !isTooNarrow
     regularView.hidden = isTooNarrow
   }

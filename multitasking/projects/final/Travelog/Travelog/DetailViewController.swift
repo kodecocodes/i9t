@@ -53,7 +53,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     formatter.dateStyle = .LongStyle
     formatter.timeStyle = .MediumStyle
     return formatter
-  }()
+    }()
   
   weak var delegate: DetailViewControllerPresenter?
   
@@ -82,7 +82,7 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     updateDetailView()
   }
   
-  // MARK: IBActions 
+  // MARK: IBActions
   
   @IBAction func photoLibraryButtonTapped(sender: UIBarButtonItem?) {
     guard let selectedLog = selectedLog else { return }

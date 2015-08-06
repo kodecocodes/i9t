@@ -16,10 +16,10 @@
 		4B27FA991B40DCB100F356DB /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA981B40DCB100F356DB /* TextViewController.swift */; };
 		4B27FAAB1B410C8100F356DB /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FAAA1B410C8100F356DB /* UIColorExtension.swift */; };
 		4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B98E1B42495E00BF989E /* LogCell.swift */; };
+		4BB4F5F2198ABC8400533A19 /* LogCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152914F1B41BE0500EB3A7F /* LogCollection.swift */; };
+		4BB4F5F3198ABC8400533A19 /* LogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291501B41BE0500EB3A7F /* LogModels.swift */; };
+		4BB4F5F4198ABC8400533A19 /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291511B41BE0500EB3A7F /* LogStore.swift */; };
 		4BCD3BE81B52973000BC44D8 /* LogDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD3BE71B52973000BC44D8 /* LogDateFormatter.swift */; };
-		4BD026591B6C12B0009CCEBC /* LogCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152914F1B41BE0500EB3A7F /* LogCollection.swift */; };
-		4BD0265A1B6C12B0009CCEBC /* LogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291501B41BE0500EB3A7F /* LogModels.swift */; };
-		4BD0265B1B6C12B0009CCEBC /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291511B41BE0500EB3A7F /* LogStore.swift */; };
 		4BD957551B48174600E2D162 /* LogsSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD957541B48174600E2D162 /* LogsSeed.swift */; };
 		4BFA875B1B44BAD1005291F4 /* LogsViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */; };
 		4BFA875D1B44CEF6005291F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BFA875C1B44CEF6005291F4 /* Assets.xcassets */; };
@@ -208,18 +208,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4BD0265B1B6C12B0009CCEBC /* LogStore.swift in Sources */,
+				4BB4F5F4198ABC8400533A19 /* LogStore.swift in Sources */,
 				4BFA875B1B44BAD1005291F4 /* LogsViewControllerExtension.swift in Sources */,
 				4B27FA991B40DCB100F356DB /* TextViewController.swift in Sources */,
 				4BD957551B48174600E2D162 /* LogsSeed.swift in Sources */,
 				4B27FAAB1B410C8100F356DB /* UIColorExtension.swift in Sources */,
-				4BD0265A1B6C12B0009CCEBC /* LogModels.swift in Sources */,
+				4BB4F5F3198ABC8400533A19 /* LogModels.swift in Sources */,
 				4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */,
 				4B10884C1B52908600FB0CFB /* SplitViewController.swift in Sources */,
 				4B27FA951B40DC1B00F356DB /* DetailViewController.swift in Sources */,
 				4B27FA811B40A7A800F356DB /* AppDelegate.swift in Sources */,
 				4B27FA971B40DC4400F356DB /* LogsViewController.swift in Sources */,
-				4BD026591B6C12B0009CCEBC /* LogCollection.swift in Sources */,
+				4BB4F5F2198ABC8400533A19 /* LogCollection.swift in Sources */,
 				4BCD3BE81B52973000BC44D8 /* LogDateFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,6 +339,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.travelog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -352,6 +353,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.travelog;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
