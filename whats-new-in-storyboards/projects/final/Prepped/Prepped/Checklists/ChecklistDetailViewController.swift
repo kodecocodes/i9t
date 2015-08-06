@@ -26,11 +26,11 @@ import UIKit
 class ChecklistDetailViewController: UITableViewController {
   
   let notesViewHeight: CGFloat = 128.0
+
+  var checklist = checklists.first!
   
   @IBOutlet var notesView: UIView!
-  @IBOutlet weak var notesTextView: UITextView!
-  
-  var checklist = checklists.first!
+  @IBOutlet var notesTextView: UITextView!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -39,8 +39,8 @@ class ChecklistDetailViewController: UITableViewController {
     
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 64.0
-    
-    navigationItem.rightBarButtonItem = editButtonItem()
+
+    navigationItem.rightBarButtonItems![1] = editButtonItem()
   }
   
   // MARK: - Unwind segue methods
@@ -52,7 +52,7 @@ class ChecklistDetailViewController: UITableViewController {
     if let controller = segue.sourceViewController as? AddChecklistItemViewController,
       item = controller.checklistItem {
         checklist.items.append(item)
-
+        
         tableView.beginUpdates()
         let indexPath = NSIndexPath(forRow: checklist.items.count - 1, inSection: 0)
         tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Bottom)
@@ -62,8 +62,7 @@ class ChecklistDetailViewController: UITableViewController {
   
   func addNotesViewToCell(cell: ChecklistItemTableViewCell) {
     notesView.heightAnchor.constraintEqualToConstant(notesViewHeight).active = true
-    notesTextView.clipsToBounds = true
-    
+    notesView.clipsToBounds = true
     cell.stackView.addArrangedSubview(notesView)
   }
   
@@ -78,20 +77,24 @@ class ChecklistDetailViewController: UITableViewController {
 // MARK: - UITableViewDelegate
 extension ChecklistDetailViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    // 1
     guard let cell = tableView.cellForRowAtIndexPath(indexPath) as? ChecklistItemTableViewCell else {
       return
     }
     
+    // 2
     tableView.beginUpdates()
     
+    // 3
     if cell.stackView.arrangedSubviews.contains(notesView) {
       removeNotesView()
     } else {
       addNotesViewToCell(cell)
       
+      // 4
       notesTextView.text = checklist.items[indexPath.row].notes
     }
-    
+    // 5
     tableView.endUpdates()
   }
 }
@@ -108,7 +111,7 @@ extension ChecklistDetailViewController {
   
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("ChecklistItemCell", forIndexPath: indexPath) as! ChecklistItemTableViewCell
-
+    
     let checklistItem = checklist.items[indexPath.row]
     cell.checklistItem = checklistItem
     
@@ -118,9 +121,7 @@ extension ChecklistDetailViewController {
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
       removeNotesView()
-      
       checklist.items.removeAtIndex(indexPath.row)
-
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     }
   }

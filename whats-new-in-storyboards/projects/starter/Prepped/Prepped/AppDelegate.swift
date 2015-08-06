@@ -34,20 +34,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func configureAppearance() {
-//    let barColor = UIColor(red: 23/255, green: 174/255, blue: 37/255, alpha: 1.0)
     let barColor = UIColor(red: 0/255, green: 184/255, blue: 48/255, alpha: 1.0)
-    let unselectedBarItemColor = UIColor(red: 9/255, green: 34/255, blue: 2/255, alpha: 1.0)
     let shadowColor = UIColor(red: 0/255, green: 114/255, blue: 30/255, alpha: 1.0)
     
-//    let navBarFont = UIFont.systemFontOfSize(17.0, weight: UIFontWeightThin)
     let navBarFont = UIFont.systemFontOfSize(17.0)
     
+    // Navigation Bar
     UINavigationBar.appearance().translucent = true
     UINavigationBar.appearance().titleTextAttributes =
                 [NSForegroundColorAttributeName : UIColor.whiteColor(),
                  NSFontAttributeName: navBarFont]
     
-    //set bar colors
     let imageSize = CGSize(width: 1, height: 1)
     let backgroundImage = UIImage.imageWithColor(barColor, size: imageSize)
     UINavigationBar.appearance().setBackgroundImage(backgroundImage, forBarMetrics: .Default)
@@ -55,25 +52,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UINavigationBar.appearance().shadowImage = shadowImage
     UINavigationBar.appearance().tintColor = UIColor.whiteColor()
     
-    
-    
+    // Tab Bar
     UITabBar.appearance().tintColor = barColor
-    
-    UITabBarItem.appearance().setTitleTextAttributes([ NSForegroundColorAttributeName: unselectedBarItemColor ], forState: UIControlState.Normal)
+    UITabBarItem.appearance().setTitleTextAttributes([ NSForegroundColorAttributeName: barColor ], forState: UIControlState.Normal)
     UITabBarItem.appearance().setTitleTextAttributes([ NSForegroundColorAttributeName: barColor ], forState: UIControlState.Selected)
-//    var tabFont = UIFont.boldSystemFontOfSize(11.0)
-//    tabFont = UIFont(name: "HelveticaNeue-Bold", size: 18)!
 
-//    UITabBarItem.appearance().setTitleTextAttributes([NSFontAttributeName: tabFont, NSForegroundColorAttributeName:barColor], forState: .Normal)
-   
+    // Table View separator
     let separatorColor = UIColor(red: 227/255, green: 227/255, blue: 227/255, alpha: 1.0)
     UITableView.appearance().separatorColor = separatorColor
-    
-
   }
 }
 
 extension UIImage {
+  
+  // create image of solid color
   class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
     let rect = CGRect(origin: .zeroPoint, size: size)

@@ -7,7 +7,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="lDY-Kn-kGl">
             <objects>
-                <tabBarController id="rdc-ZK-1Ux" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarController" id="rdc-ZK-1Ux" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="LvM-IB-QJR">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
@@ -15,8 +15,8 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="T2q-pS-Ira" kind="relationship" relationship="viewControllers" id="mQL-1M-0id"/>
-                        <segue destination="h70-nI-8FC" kind="relationship" relationship="viewControllers" id="YXC-B4-Oeb"/>
+                        <segue destination="wfe-VX-u5U" kind="relationship" relationship="viewControllers" id="7no-rZ-QN4"/>
+                        <segue destination="kWw-XP-5RB" kind="relationship" relationship="viewControllers" id="Jsr-l6-ytS"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHa-B7-IFl" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -24,24 +24,24 @@
             <point key="canvasLocation" x="322" y="-900"/>
         </scene>
         <!--Checklists-->
-        <scene sceneID="kT7-Gj-hpi">
+        <scene sceneID="ooV-0s-oq7">
             <objects>
-                <viewControllerPlaceholder storyboardName="Checklists" id="T2q-pS-Ira" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="GTI-as-KEd"/>
+                <viewControllerPlaceholder storyboardIdentifier="ChecklistsNavigationController" storyboardName="Checklists" id="wfe-VX-u5U" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="9m3-fP-SyJ"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yGZ-Tr-kOb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ENp-aY-NFe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="957" y="-900"/>
+            <point key="canvasLocation" x="1077" y="-900"/>
         </scene>
         <!--Diary-->
-        <scene sceneID="EaT-jk-Ouz">
+        <scene sceneID="Ci1-hV-Rf0">
             <objects>
-                <viewControllerPlaceholder storyboardName="Diary" id="h70-nI-8FC" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="2NX-xw-mw7"/>
+                <viewControllerPlaceholder storyboardName="Diary" id="kWw-XP-5RB" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="hHC-oQ-6bG"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="pcB-wh-YiC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ruz-4X-FlW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="942" y="-796"/>
+            <point key="canvasLocation" x="1061.5" y="-758"/>
         </scene>
     </scenes>
 </document>

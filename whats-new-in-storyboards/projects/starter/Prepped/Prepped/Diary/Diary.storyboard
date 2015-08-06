@@ -79,7 +79,7 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Year" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA7-jB-VQO">
                                             <rect key="frame" x="16" y="2" width="92" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -96,7 +96,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Diary" id="5ry-Ra-Kpb">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="9aB-k0-nXI">
+                        <barButtonItem key="rightBarButtonItem" image="AddButtonIcon" id="9aB-k0-nXI">
                             <connections>
                                 <segue destination="Zft-er-ySn" kind="presentation" id="tNR-ZF-dks"/>
                             </connections>
@@ -153,10 +153,10 @@
         <scene sceneID="V1A-LT-Lq6">
             <objects>
                 <tableViewController id="RHl-A8-MCl" userLabel="Add Diary Entry View Controller" customClass="AddDiaryEntryViewController" customModule="Prepped" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="mA5-9n-IH5">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="mA5-9n-IH5">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection headerTitle="Diary Entry" id="LyC-LY-jWr">
                                 <cells>
@@ -196,7 +196,7 @@
                                 <segue destination="K1k-j0-laR" kind="unwind" unwindAction="cancelToDiaryViewController:" id="ahb-Te-J7A"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="PWD-Gq-gZW">
+                        <barButtonItem key="rightBarButtonItem" title="Publish" id="PWD-Gq-gZW">
                             <connections>
                                 <segue destination="K1k-j0-laR" kind="unwind" unwindAction="saveToDiaryViewController:" id="1ZG-3u-oPp"/>
                             </connections>
@@ -213,6 +213,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AddButtonIcon" width="22" height="22"/>
         <image name="Diary Icon" width="25" height="25"/>
         <image name="Diary Unselected Icon" width="25" height="25"/>
     </resources>

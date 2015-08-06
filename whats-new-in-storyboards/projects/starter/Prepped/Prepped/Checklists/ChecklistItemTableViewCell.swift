@@ -48,6 +48,12 @@ class ChecklistItemTableViewCell: UITableViewCell {
     checkBox.addGestureRecognizer(recognizer)
   }
   
+  override func setSelected(selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+    checkBox.selected = selected
+    checkBox.setNeedsDisplay()
+  }
+  
   func checkMarkTapped(gesture: UITapGestureRecognizer) {
     checked = !checked
     checklistItem.checked = checked
@@ -59,7 +65,7 @@ class CheckBox: UIView {
   let cornerRadius: CGFloat = 6.0
 
   var checked: Bool = false
-  var isNotes: Bool = false
+  var selected: Bool = false
   
   // Border Colors
   let borderUnchecked = UIColor(white: 222/255, alpha: 1.0)
@@ -69,11 +75,11 @@ class CheckBox: UIView {
   // Background Colors
   let backgroundUnchecked = UIColor(white: 247/255, alpha: 1.0)
   let backgroundChecked = UIColor(red: 223/255, green: 247/255, blue: 230/255, alpha: 1.0)
-  let backgroundNotes = UIColor(red: 255/255, green: 246/255, blue: 213/255, alpha: 1.0)
+  let backgroundSelected = UIColor(red: 255/255, green: 246/255, blue: 213/255, alpha: 1.0)
   
   // Image
   let checkmarkImage = UIImage(named: "Checkmark")!
-  let checkmarkImageNotes = UIImage(named: "CheckmarkNotes")
+  let checkmarkImageSelected = UIImage(named: "CheckmarkNotes")
   
   var checkmarkImageView = UIImageView()
   
@@ -87,10 +93,10 @@ class CheckBox: UIView {
   override func drawRect(rect: CGRect) {
     let path = UIBezierPath(roundedRect: CGRectInset(rect, lineWidth/2, lineWidth/2), cornerRadius: cornerRadius)
     path.lineWidth = lineWidth
-    if isNotes {
+    if selected {
       borderNotes.setStroke()
-      backgroundNotes.setFill()
-      checkmarkImageView.image = checked ? checkmarkImageNotes : nil
+      backgroundSelected.setFill()
+      checkmarkImageView.image = checked ? checkmarkImageSelected : nil
     } else if checked {
       borderChecked.setStroke()
       backgroundChecked.setFill()
@@ -102,9 +108,5 @@ class CheckBox: UIView {
     }
     path.fill()
     path.stroke()
-  
   }
-
-  
-
 }
