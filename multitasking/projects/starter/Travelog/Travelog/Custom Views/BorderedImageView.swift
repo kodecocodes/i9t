@@ -22,15 +22,37 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+@IBDesignable
+class BorderedImageView: UIImageView {
   
-  var window: UIWindow?
+  var maskLayer: CAShapeLayer?
+  var maskLayerRect = CGRect()
   
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-    window?.tintColor = UIColor.themeTineColor()
-    return true
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    if !CGRectEqualToRect(maskLayerRect, bounds) {
+      maskLayer?.removeFromSuperlayer()
+      maskLayer = nil
+    }
+    
+    if maskLayer == nil {
+      let outterPath = UIBezierPath(roundedRect: bounds, cornerRadius: 0)
+      let innerRect = CGRectInset(bounds, 4, 4)
+      let innerPath = UIBezierPath(roundedRect: innerRect, cornerRadius: 10)
+      outterPath.appendPath(innerPath)
+      outterPath.usesEvenOddFillRule = true
+      
+      maskLayer = CAShapeLayer()
+      maskLayer!.path = outterPath.CGPath
+      maskLayer!.fillRule = kCAFillRuleEvenOdd;
+      maskLayer!.fillColor = UIColor.whiteColor().CGColor
+      maskLayer!.opacity = 1.0
+      
+      layer.masksToBounds = true
+      layer.addSublayer(maskLayer!)
+      
+      maskLayerRect = bounds
+    }
   }
-  
 }
-

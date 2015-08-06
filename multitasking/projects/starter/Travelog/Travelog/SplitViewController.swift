@@ -29,6 +29,10 @@ class SplitViewController: UISplitViewController {
     updateMaximumPrimaryColumnWidth()
   }
   
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
+  }
+  
   // MARK: Helper
   
   func updateMaximumPrimaryColumnWidth() {

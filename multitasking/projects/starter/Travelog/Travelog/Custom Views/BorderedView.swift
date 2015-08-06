@@ -22,15 +22,13 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-  
-  var window: UIWindow?
-  
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-    window?.tintColor = UIColor.themeTineColor()
-    return true
+@IBDesignable
+class BorderedView: UIView {
+  override func drawRect(rect: CGRect) {
+    super.drawRect(rect)
+    layer.borderColor = UIColor.themeTineColor().CGColor
+    layer.borderWidth = 2
+    layer.masksToBounds = true
+    layer.cornerRadius = 10
   }
-  
 }
-
