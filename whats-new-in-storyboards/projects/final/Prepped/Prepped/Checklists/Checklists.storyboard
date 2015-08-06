@@ -41,7 +41,7 @@
                                 <rect key="frame" x="0.0" y="22" width="600" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hRJ-Le-2Uf" id="eCO-PR-BL6">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="49"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="49.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
@@ -60,10 +60,10 @@
             </objects>
             <point key="canvasLocation" x="1837" y="-900"/>
         </scene>
-        <!--UITableViewController-Ojl-L4-CsV-->
+        <!--ChecklistDetail-->
         <scene sceneID="hjF-fg-GpS">
             <objects>
-                <viewControllerPlaceholder storyboardName="ChecklistDetail" referencedIdentifier="UITableViewController-Ojl-L4-CsV" id="Aoa-I0-RSY" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="ChecklistDetail" id="Aoa-I0-RSY" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f3W-ep-4g4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2583" y="-900"/>

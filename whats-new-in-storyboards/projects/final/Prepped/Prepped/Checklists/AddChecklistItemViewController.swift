@@ -45,13 +45,6 @@ class AddChecklistItemViewController: UITableViewController {
     }
   }
   
-  override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-    if let headerView = view as? UITableViewHeaderFooterView {
-      headerView.textLabel?.font = UIFont.systemFontOfSize(13.0)
-      headerView.textLabel?.textColor = UIColor(red: 186/255, green: 186/255, blue: 186/255, alpha: 1.0)
-    }
-  }
-  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     checklistNameTextField.resignFirstResponder()
   }

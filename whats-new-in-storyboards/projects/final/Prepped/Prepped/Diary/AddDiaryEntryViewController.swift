@@ -45,8 +45,6 @@ class AddDiaryEntryViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     diaryEntryTextView.becomeFirstResponder()
-    
-    tableView.backgroundColor = UIColor(white: 246/255, alpha: 1.0)
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -58,13 +56,6 @@ class AddDiaryEntryViewController: UITableViewController {
   override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if indexPath.section == 0 {
       diaryEntryTextView.becomeFirstResponder()
-    }
-  }
-  
-  override func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-    if let headerView = view as? UITableViewHeaderFooterView {
-      headerView.textLabel?.font = UIFont.systemFontOfSize(16.0)
-      headerView.textLabel?.textColor = UIColor(red: 186/255, green: 186/255, blue: 186/255, alpha: 1.0)
     }
   }
 }

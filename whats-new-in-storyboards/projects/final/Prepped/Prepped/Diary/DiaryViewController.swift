@@ -24,8 +24,6 @@ import UIKit
 
 class DiaryViewController: UITableViewController {
   
-  let CellPadding: CGFloat = 30.0
-
   private var yearsArray = [String]()
   private var sectionedDiaryEntries = [String: [DiaryEntry]]()
   private var sortedYears: [String]?
@@ -69,6 +67,7 @@ class DiaryViewController: UITableViewController {
     
     let entries = sectionedDiaryEntries[sortedYears![indexPath.section]]
     cell.diaryEntry = entries![indexPath.row]
+
     return cell
   }
   
@@ -105,26 +104,18 @@ class DiaryViewController: UITableViewController {
 extension DiaryViewController {
   private func sortDiaryEntriesByDate() {
     // sort entries by date descending
-    let sortedDiaryEntries = diaryEntries.sort {
-      return $0.date > $1.date
-    }
+    let sortedDiaryEntries = diaryEntries.sort { $0.date.compare($1.date) == NSComparisonResult.OrderedAscending }
     
     // extract years for sections
-    var yearsSet = Set<String>()
-    yearsSet = Set(diaryEntries.map {
-      $0.year
-      })
+    let yearsSet = Set(diaryEntries.map { $0.year })
     
     // sort years into descending sequence
-    sortedYears = yearsSet.sort {
-      $0 > $1
-    }
+    sortedYears = yearsSet.sort(>)
     
     // create a dictionary for accessing years by section index
     for year in yearsSet {
-      let array = sortedDiaryEntries.filter( {
-        $0.year == year
-      })
+      let array = sortedDiaryEntries.filter { $0.year == year }
+      
       sectionedDiaryEntries[year] = array
     }
   }
@@ -133,7 +124,7 @@ extension DiaryViewController {
 class DiaryEntryTableViewCell: UITableViewCell {
   @IBOutlet var dayLabel:UILabel!
   @IBOutlet var monthLabel:UILabel!
-  @IBOutlet var entryLabel: UITextView!
+  @IBOutlet var entryLabel: UILabel!
 
   var diaryEntry: DiaryEntry! {
     didSet {
@@ -152,4 +143,16 @@ class DiaryHeaderTableViewCell: UITableViewCell {
       yearLabel?.text = year
     }
   }
+}
+
+class SelfSizingLabel: UILabel {
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        if preferredMaxLayoutWidth != bounds.width {
+            preferredMaxLayoutWidth = bounds.width - 1
+            setNeedsUpdateConstraints()
+        }
+    }
 }

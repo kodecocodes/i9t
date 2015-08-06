@@ -63,28 +63,33 @@ var checklists = [ Checklist(title: "Food", items: [ ChecklistItem("Baked Beans"
 //MARK: - Diary Sample Data
 
 struct DiaryEntry {
-  let date: String
+  let date: NSDate
   let text: String
 
-  var year: String {
-    let startIndex = date.startIndex
-    let endIndex = advance(startIndex, 4)
-    let range = Range(start: startIndex, end:endIndex)
-    return date.substringWithRange(range)
-  }
-  var month: String {
-    let startIndex = advance(date.startIndex, 5)
-    let endIndex = advance(startIndex, 2)
-    let range = Range(start: startIndex, end:endIndex)
-    let index = Int(date.substringWithRange(range))! - 1
+  static var dateFormatter: NSDateFormatter {
     let formatter = NSDateFormatter()
-    return formatter.shortMonthSymbols[index].uppercaseString
+    formatter.dateFormat = "yyyy-MM-dd"
+    return formatter
   }
+  
+  init(date: String, text: String) {
+    self.date = DiaryEntry.dateFormatter.dateFromString(date)!
+    self.text = text
+  }
+  
+  var year: String {
+    let components = NSCalendar.currentCalendar().components(.Year, fromDate: date)
+    return "\(components.year)"
+  }
+  
+  var month: String {
+    let components = NSCalendar.currentCalendar().components(.Month, fromDate: date)
+    return DiaryEntry.dateFormatter.shortMonthSymbols[components.month].uppercaseString
+  }
+  
   var day: Int {
-    let startIndex = advance(date.startIndex, 8)
-    let endIndex = advance(startIndex, 2)
-    let range = Range(start: startIndex, end:endIndex)
-    return Int(date.substringWithRange(range))!
+    let components = NSCalendar.currentCalendar().components(.Day, fromDate: date)
+    return components.day
   }
 }
 

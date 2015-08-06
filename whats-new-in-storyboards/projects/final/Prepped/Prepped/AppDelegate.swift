@@ -39,18 +39,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     let navBarFont = UIFont.systemFontOfSize(17.0)
     
+    window?.tintColor = barColor
+    
     // Navigation Bar
-    UINavigationBar.appearance().translucent = true
-    UINavigationBar.appearance().titleTextAttributes =
-                [NSForegroundColorAttributeName : UIColor.whiteColor(),
-                 NSFontAttributeName: navBarFont]
+    let navBarAppearance = UINavigationBar.appearance()
+    navBarAppearance.translucent = true
+    navBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor(),
+                                                       NSFontAttributeName : navBarFont]
     
     let imageSize = CGSize(width: 1, height: 1)
     let backgroundImage = UIImage.imageWithColor(barColor, size: imageSize)
-    UINavigationBar.appearance().setBackgroundImage(backgroundImage, forBarMetrics: .Default)
+    navBarAppearance.setBackgroundImage(backgroundImage, forBarMetrics: .Default)
     let shadowImage = UIImage.imageWithColor(shadowColor, size: imageSize)
-    UINavigationBar.appearance().shadowImage = shadowImage
-    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+    navBarAppearance.shadowImage = shadowImage
+    navBarAppearance.tintColor = UIColor.whiteColor()
+    navBarAppearance.translucent = false
     
     // Tab Bar
     UITabBar.appearance().tintColor = barColor
@@ -60,6 +63,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Table View separator
     let separatorColor = UIColor(red: 227/255, green: 227/255, blue: 227/255, alpha: 1.0)
     UITableView.appearance().separatorColor = separatorColor
+    
+    let tableHeaderLabelAppearance = UILabel.appearanceWhenContainedInInstancesOfClasses([UITableViewHeaderFooterView.self])
+    tableHeaderLabelAppearance.font = UIFont.systemFontOfSize(13.0)
+    tableHeaderLabelAppearance.textColor = UIColor(red: 186/255, green: 186/255, blue: 186/255, alpha: 1.0)
   }
 }
 
@@ -68,10 +75,9 @@ extension UIImage {
   // create image of solid color
   class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
-    let rect = CGRect(origin: .zeroPoint, size: size)
-    let path = UIBezierPath(rect: rect)
+    let ctx = UIGraphicsGetCurrentContext()
     color.setFill()
-    path.fill()
+    CGContextFillRect(ctx, CGRect(origin: .zeroPoint, size: size))
     let image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return image
