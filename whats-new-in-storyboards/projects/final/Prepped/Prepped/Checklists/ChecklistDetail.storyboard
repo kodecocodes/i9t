@@ -22,21 +22,24 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="63.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uNn-kx-Oaa" customClass="CheckBox" customModule="Prepped" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" translatesAutoresizingMaskIntoConstraints="NO" id="uNn-kx-Oaa" customClass="CheckBox" customModule="Prepped" customModuleProvider="target">
                                             <rect key="frame" x="20" y="15" width="30" height="30"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="S9q-fD-9OL">
-                                            <rect key="frame" x="70" y="0.0" width="502" height="63"/>
+                                            <rect key="frame" x="70" y="0.0" width="502" height="64.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" fixedFrame="YES" placeholderIntrinsicWidth="502" placeholderIntrinsicHeight="64" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="wpn-0D-5mI">
-                                                    <rect key="frame" x="0.0" y="0.0" width="502" height="63"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" placeholderIntrinsicWidth="502" placeholderIntrinsicHeight="64" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="310" translatesAutoresizingMaskIntoConstraints="NO" id="wpn-0D-5mI" customClass="SelfSizingLabel" customModule="Prepped" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="502" height="64.5"/>
                                                     <gestureRecognizers/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="64" id="JA7-Ob-unY"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="highlightedColor" red="0.0" green="0.72156862745098038" blue="0.18823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C1m-ey-e6N">
-                                                    <rect key="frame" x="0.0" y="63" width="502" height="0.0"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" placeholderIntrinsicWidth="502" placeholderIntrinsicHeight="0.0" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="C1m-ey-e6N">
+                                                    <rect key="frame" x="0.0" y="64.5" width="502" height="0.0"/>
                                                 </stackView>
                                             </subviews>
                                         </stackView>
@@ -45,11 +48,17 @@
                                     <constraints>
                                         <constraint firstItem="uNn-kx-Oaa" firstAttribute="leading" secondItem="BGk-4x-217" secondAttribute="leading" constant="20" id="5Ml-yJ-eM3"/>
                                         <constraint firstItem="S9q-fD-9OL" firstAttribute="leading" secondItem="uNn-kx-Oaa" secondAttribute="trailing" constant="20" id="63S-me-vn8"/>
+                                        <constraint firstAttribute="bottom" secondItem="S9q-fD-9OL" secondAttribute="bottom" id="81r-Ad-DFm"/>
                                         <constraint firstItem="S9q-fD-9OL" firstAttribute="top" secondItem="BGk-4x-217" secondAttribute="top" id="GVk-1g-JkF"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="S9q-fD-9OL" secondAttribute="trailing" constant="20" id="NCx-OI-cgj"/>
                                         <constraint firstItem="uNn-kx-Oaa" firstAttribute="top" secondItem="BGk-4x-217" secondAttribute="top" constant="15" id="Ran-E0-Osu"/>
                                         <constraint firstAttribute="bottom" secondItem="S9q-fD-9OL" secondAttribute="bottom" id="cTv-wd-TBE"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="cTv-wd-TBE"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <gestureRecognizers/>
                                 <connections>
@@ -93,14 +102,15 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="psz-Nm-IHD">
-                            <rect key="frame" x="4" y="38" width="304" height="82"/>
+                            <rect key="frame" x="0.0" y="38" width="320" height="90"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Notes:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="993-fb-4si">
-                            <rect key="frame" x="8" y="9" width="63" height="21"/>
+                            <rect key="frame" x="0.0" y="0.0" width="62" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.73333333333333328" green="0.59999999999999998" blue="0.11764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>

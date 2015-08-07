@@ -97,6 +97,12 @@ extension ChecklistDetailViewController {
     // 5
     tableView.endUpdates()
   }
+  
+  override func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
+    if let selected = tableView.indexPathForSelectedRow where selected == indexPath {
+      self.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+    }
+  }
 }
 
 // MARK: - UITableViewDataSource

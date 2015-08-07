@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
   
   func configureAppearance() {
-    let barColor = UIColor(red: 0/255, green: 184/255, blue: 48/255, alpha: 1.0)
+    let barColor = UIColor.primaryGreenColor()
     let shadowColor = UIColor(red: 0/255, green: 114/255, blue: 30/255, alpha: 1.0)
     
     let navBarFont = UIFont.systemFontOfSize(17.0)
@@ -71,7 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension UIImage {
-  
   // create image of solid color
   class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
     UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
@@ -82,5 +81,14 @@ extension UIImage {
     UIGraphicsEndImageContext()
     return image
   }
+}
 
+extension UIColor {
+  class func primaryGreenColor() -> UIColor {
+    return UIColor(red: 0/255, green: 184/255, blue: 48/255, alpha: 1.0)
+  }
+
+  class func primaryAmberColor() -> UIColor {
+    return UIColor(red: 187/255, green: 153/255, blue: 30/255, alpha: 1.0)
+  }
 }

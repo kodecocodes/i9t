@@ -46,18 +46,23 @@ struct ChecklistItem {
   }
 }
 
-var checklists = [ Checklist(title: "Food", items: [ ChecklistItem("Baked Beans", checked: true, notes: "Must be Heinz"),
-                                                     ChecklistItem("Noodles", checked: false, notes: "Check gas and water available for cooking"),
-                                                     ChecklistItem("Custard", checked: true, notes: "Long life"),
-                                                     ChecklistItem("Dried Apricots", checked: true, notes: "For Aunt Beatrice") ]),
+var checklists = [
+  Checklist(title: "Food", items: [
+    ChecklistItem("Baked Beans", checked: true, notes: "Must be Heinz"),
+    ChecklistItem("Noodles", checked: false, notes: "Check gas and water available for cooking"),
+    ChecklistItem("Custard", checked: true, notes: "Long life"),
+    ChecklistItem("Dried Apricots", checked: true, notes: "For Aunt Beatrice")
+  ]),
   
-                   Checklist(title: "Medical", items: [ ChecklistItem("Aspirin"),
-                                                        ChecklistItem("Bandages"),
-                                                        ChecklistItem("Whisky") ]),
+  Checklist(title: "Medical", items: [
+    ChecklistItem("Aspirin"),
+    ChecklistItem("Bandages"),
+    ChecklistItem("Whisky")
+  ]),
   
-                   Checklist(title: "Equipment", items: [ ChecklistItem("Sharpened thing for getting stones out of horse's hooves") ]),
+  Checklist(title: "Equipment", items: [ ChecklistItem("Sharpened thing for getting stones out of horse's hooves") ]),
   
-                   Checklist(title: "To Do", items: [ ChecklistItem("Download Max Soderstrom’s Survival Guide App") ])
+  Checklist(title: "To Do", items: [ ChecklistItem("Download Max Soderstrom’s Survival Guide App") ])
 ]
 
 //MARK: - Diary Sample Data
@@ -77,6 +82,11 @@ struct DiaryEntry {
     self.text = text
   }
   
+  init(date: NSDate, text: String) {
+    self.date = date
+    self.text = text
+  }
+  
   var year: String {
     let components = NSCalendar.currentCalendar().components(.Year, fromDate: date)
     return "\(components.year)"
@@ -87,9 +97,9 @@ struct DiaryEntry {
     return DiaryEntry.dateFormatter.shortMonthSymbols[components.month].uppercaseString
   }
   
-  var day: Int {
+  var day: String {
     let components = NSCalendar.currentCalendar().components(.Day, fromDate: date)
-    return components.day
+    return "\(components.day)"
   }
 }
 
@@ -97,5 +107,6 @@ var diaryEntries = [
   DiaryEntry(date:"2016-07-02", text: "Have heard rumors. Preparing."),
   DiaryEntry(date:"2016-07-04", text: "List of safe contacts arrived."),
   DiaryEntry(date:"2016-07-05", text: "Food shortages and riots"),
-  DiaryEntry(date:"2016-07-08", text: "I may be underprepared. They are coming...") ]
+  DiaryEntry(date:"2016-07-08", text: "I may be underprepared. They are coming...")
+]
 

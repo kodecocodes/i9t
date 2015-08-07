@@ -41,8 +41,13 @@ class ChecklistItemTableViewCell: UITableViewCell {
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
+    super.setSelected(selected, animated: animated)    
     checkBox.selected = selected
+  }
+  
+  override func setHighlighted(highlighted: Bool, animated: Bool) {
+    super.setHighlighted(highlighted, animated: animated)
+    checkBox.selected = highlighted
   }
   
   func checkMarkTapped(gesture: UITapGestureRecognizer) {
@@ -101,11 +106,11 @@ class CheckBox: UIView {
   func updateAppearance() {
     if selected {
       layer.borderColor = UIColor(red: 241/255, green: 226/255, blue: 164/255, alpha: 1.0).CGColor
-      checkmarkImageView.tintColor = UIColor(red: 187/255, green: 153/255, blue: 30/255, alpha: 1.0)
+      checkmarkImageView.tintColor = UIColor.primaryAmberColor()
       backgroundColor = UIColor(red: 255/255, green: 246/255, blue: 213/255, alpha: 1.0)
     } else if checked {
       layer.borderColor = UIColor(red: 142/255, green: 226/255, blue: 165/255, alpha: 1.0).CGColor
-      checkmarkImageView.tintColor = UIColor(red: 0/255, green: 184/255, blue: 48/255, alpha: 1.0)
+      checkmarkImageView.tintColor = UIColor.primaryGreenColor()
       backgroundColor = UIColor(red: 223/255, green: 247/255, blue: 230/255, alpha: 1.0)
     } else {
       layer.borderColor = UIColor(white: 222/255, alpha: 1.0).CGColor

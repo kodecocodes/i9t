@@ -26,17 +26,9 @@ class AddDiaryEntryViewController: UITableViewController {
   
   @IBOutlet var diaryEntryTextView: UITextView!
   
-  lazy var dateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.dateStyle = .MediumStyle
-    formatter.dateFormat = "yyyy-MM-dd"
-    return formatter
-  }()
-  
   var diaryEntry: DiaryEntry? {
     if let entryText = diaryEntryTextView.text {
-      let date = dateFormatter.stringFromDate(NSDate())
-      return DiaryEntry(date: date, text: entryText)
+      return DiaryEntry(date: NSDate(), text: entryText)
     } else {
       return nil
     }
