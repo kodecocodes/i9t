@@ -2,11 +2,11 @@
 
 We've all been there. That awkward moment when you need to add or remove views at runtime and for those other views to reposition themselves automatically.
 
-Perhaps you took the route of adding outlets to constraints in your storyboard so you could activate or deactivate certain ones. Or, you trudged through the process of bringing in a third-party library. 
+Perhaps you took the route of adding outlets to constraints in your storyboard so you could activate or deactivate certain ones. Or, you trudged through the process of bringing in a third-party library.
 
 Or, maybe you gave up on getting help and just decided that it's easier to DIY it with code.
 
-Perhaps you're one of the lucky ones, and your view hierarchy didn't have to change at runtime.  But there were new requirements, and now you had to squeeze this one obnoxious view into your storyboard. 
+Perhaps you're one of the lucky ones, and your view hierarchy didn't have to change at runtime.  But there were new requirements, and now you had to squeeze this one obnoxious view into your storyboard.
 
 I bet you've found yourself clearing all constraints and re-adding them from scratch because it was easier than breaking out your virtual scalpel and performing painstaking _constraints-surgery_.
 
@@ -22,9 +22,9 @@ In this chapter, you'll learn about stack views and about some of the other feat
 
 ## Getting started
 
-In this chapter, you'll start working on an app called **Vacation Spots**, which will also be your guinea pig for chapter 7. It's a simple app that shows you a list of places to get away from it all. Hey, I bet you're ready for a vacation after working with constraints, right? 
+In this chapter, you'll start working on an app called **Vacation Spots**, which will also be your guinea pig for chapter 7. It's a simple app that shows you a list of places to get away from it all. Hey, I bet you're ready for a vacation after working with constraints, right?
 
-Don't pack the bags just yet, because there's a few issues you'll need to fix by using stack views, but in a much simpler way than if you were using Auto Layout alone. 
+Don't pack the bags just yet, because there's a few issues you'll need to fix by using stack views, but in a much simpler way than if you were using Auto Layout alone.
 
 Towards the end of this chapter, you'll also fix another issue with the use of layout guides and layout anchors.
 
@@ -59,7 +59,7 @@ Open **Main.storyboard** and take a look at the **Spot Info View Controller** sc
 TODO:update screenshot
 ![bordered width=40%](images/05-colorful-scene-in-storyboard_504x636.png)
 
-These labels and buttons have various background colors set on them; they're simply visual aids to help show how various properties of a stack view affect the frame of its embedded views. 
+These labels and buttons have various background colors set on them; they're simply visual aids to help show how various properties of a stack view affect the frame of its embedded views.
 
 Don't get too attached to the pretty colors. They're set only for the purpose of working with the storyboard and will vanish at runtime.
 
@@ -72,9 +72,9 @@ for view in backgroundColoredViews {
 }
 ```
 
-Also, any outlet-connected labels have placeholder text that's set to the name of the outlet variable to which they are connected. This makes it a bit easier to tell which labels will have their text updated at runtime. For example, the label with text **&lt;whyVisitLabel>** is connected to `@IBOutlet weak var whyVisitLabel: UILabel!`. 
+Also, any outlet-connected labels have placeholder text that's set to the name of the outlet variable to which they are connected. This makes it a bit easier to tell which labels will have their text updated at runtime. For example, the label with text **&lt;whyVisitLabel>** is connected to `@IBOutlet weak var whyVisitLabel: UILabel!`.
 
-Another thing to note is that the scenes in the storyboard are not the default 600 x 600 squares that you get when using size classes. 
+Another thing to note is that the scenes in the storyboard are not the default 600 x 600 squares that you get when using size classes.
 
 Size classes are still enabled, but the size of the initial Navigation Controller has been set to **iPhone 4-inch** under the **Simulated Metrics** section in the **Attributes inspector**. This just makes it a bit easier to work with the storyboard -- and it helps make the screencaps fit in this book.
 
@@ -107,7 +107,7 @@ The buttons will become embedded in a new stack view:
 
 ![bordered width=96%](images/11-bottom-row-is-now-in-stack-view_640x100.png)
 
-The buttons are now flush with each other -- you'll that fix shortly. 
+The buttons are now flush with each other -- you'll that fix shortly.
 
 While the stack view takes care of positioning the buttons, you still need to add Auto Layout constraints to position the stack view itself.
 
@@ -166,14 +166,14 @@ Make sure the stack view is still selected, and go to the **Attributes inspector
 Now build and run, tap on any cell, and rotate the simulator (⌘→). You'll see that the bottom buttons now space themselves equally!
 
 ![bordered iphone-landscape](images/21-now-buttons-are-equally-spaced_1334x750.png)
- 
+
 ### Consider the alternatives
 
 Now that you've had your first taste of the ease of working with stack views, think about how you'd solve this problem without using them:
-- You would have added dummy spacer views, one between each button pair of buttons. 
-- You'd select all of the spacer views and give them equal width constraints. 
-- Then you'd pin each spacer view to the buttons on either side of it. 
-- You'd also need to add constraints for the heights and vertical positions of the spacer views in the superview. 
+- You would have added dummy spacer views, one between each button pair of buttons.
+- You'd select all of the spacer views and give them equal width constraints.
+- Then you'd pin each spacer view to the buttons on either side of it.
+- You'd also need to add constraints for the heights and vertical positions of the spacer views in the superview.
 - Alternatively, you could pin the top and bottom edges to the adjacent buttons.
 
 It would have looked something like the following. For visibility, the spacer views have a light gray background:
@@ -182,15 +182,15 @@ It would have looked something like the following. For visibility, the spacer vi
 
 ### But I'm an Auto Layout master
 
-Perhaps you're a seasoned Auto Layout veteran, and adding constraints like these is a piece of cake. And you might not feel like you've gained much by using a stack view. 
+Perhaps you're a seasoned Auto Layout veteran, and adding constraints like these is a piece of cake. And you might not feel like you've gained much by using a stack view.
 
-You'd still have optimized your layout by not having to include unnecessary spacer views, but even if you ignore this benefit, think about the long term. 
+You'd still have optimized your layout by not having to include unnecessary spacer views, but even if you ignore this benefit, think about the long term.
 
 What happens when you need to add a new button? Oh, right, you could just add a new button because it's not too difficult for a master like you to re-do all the constraints. But doesn't dragging and dropping the additional button into place, and having the stack view take care of the positioning sound better?
 
 ![bordered width=50%](images/stack_views_do_laundry.png)
 
-There's more. What if you needed to conditionally hide and show one of the buttons and reposition all of the remaining ones at runtime? If you stuck to the old ways, you'd have to manually remove and re-add constraints in code as well as remove and add back the adjacent spacer view. 
+There's more. What if you needed to conditionally hide and show one of the buttons and reposition all of the remaining ones at runtime? If you stuck to the old ways, you'd have to manually remove and re-add constraints in code as well as remove and add back the adjacent spacer view.
 
 ![bordered width=50%](images/me_and_auto_layout.png)
 
@@ -206,11 +206,11 @@ In order to hide a view within a stack view, all you have to do is set the conta
 
 But that's something for the next chapter, where you'll dive deeper into stack views. For now, you'll take a quick detour to learn about some of the other new Auto Layout updates in iOS 9.
 
-Stack views are by far the biggest feature introduced to Auto Layout with iOS 9, but there are also other features that improve how you do things. Two of the most interesting are **layout anchors** and **layout guides**, represented by the new `NSLayoutAnchor` and `UILayoutGuide` classes. 
+Stack views are by far the biggest feature introduced to Auto Layout with iOS 9, but there are also other features that improve how you do things. Two of the most interesting are **layout anchors** and **layout guides**, represented by the new `NSLayoutAnchor` and `UILayoutGuide` classes.
 
 ## Layout anchors
 
-Layout anchors are a lovely new way to create constraints. 
+Layout anchors are a lovely new way to create constraints.
 
 Imagine you have two labels, `bottomLabel` and `topLabel`. You'd like to position `bottomLabel` right below `topLabel` with 8 points of spacing between them. Prior to iOS 9, you'd use the following code to create the constraint:
 
@@ -226,18 +226,18 @@ let constraint = NSLayoutConstraint(
 )
 ```
 
-Create a constraint in which the topLabel's `.Bottom` is `.Equal` to the bottomLabel's `.Top`, plus 8. 
+Create a constraint in which the topLabel's `.Bottom` is `.Equal` to the bottomLabel's `.Top`, plus 8.
 
 Sheesh! Even the explanation contained far fewer characters than the code itself, so surely there's a more concise way?
 
-Layout anchors do exactly that: 
+Layout anchors do exactly that:
 
 ```swift
 let constraint = topLabel.bottomAnchor.constraintEqualToAnchor(
   bottomLabel.topAnchor, constant: 8)
 ```
 
-This achieves exactly the same result. But how? A view now has a layout anchor object representing the `.Bottom` attribute, and that anchor object can create constraints relating to other layout anchors. 
+This achieves exactly the same result. But how? A view now has a layout anchor object representing the `.Bottom` attribute, and that anchor object can create constraints relating to other layout anchors.
 
 That's all there is to it! `UIView` now has a `bottomAnchor` property, as well as other anchors that correspond to other `NSLayoutAttributes`. So for `.Bottom` there is `bottomAnchor`, for `.Width` there is `widthAnchor`, for `.CenterX` there is `centerXAnchor` etc.
 
@@ -312,19 +312,19 @@ func constraint[Less|Greater]ThanOrEqualToAnchor(_:multiplier:constant:)
 
 ### Layout dimensions and type protections
 
-Okay, so now move your mind back to the `NSLayoutDimension` and think about the types of dimensions you'd use it for. 
+Okay, so now move your mind back to the `NSLayoutDimension` and think about the types of dimensions you'd use it for.
 
 When would you would actually use a multiplier other than 1? Here's an idea: When you want to add a proportional constraint between the width or height of one view to the width or height of another view.
 
 [Author TODO: This is a bit hard to follow since it's been theory for a while. This seems an important point worth emphasizing. Can you think of a real-world scenario where you'd add a proportional constraint? I suggest adding it like this: "...height of a another view, like _insert scenario here_".]
 
-Effectively, the only anchors that are of type `NSLayoutDimension` are `heightAnchor` and `widthAnchor`. 
+Effectively, the only anchors that are of type `NSLayoutDimension` are `heightAnchor` and `widthAnchor`.
 
-Remember, you can't accidentally use a multiplier where it doesn't make sense -- since the multiplier-based methods don't exist with anything other than `widthAnchor` and `heightAnchor`, Xcode won't even suggest them to you. 
+Remember, you can't accidentally use a multiplier where it doesn't make sense -- since the multiplier-based methods don't exist with anything other than `widthAnchor` and `heightAnchor`, Xcode won't even suggest them to you.
 
-It gets better. Because of the additional type safety benefits offered by layout anchors, as well as `NSLayoutDimension`, the other anchors in a view will be either `NSLayoutXAxisAnchor` or `NSLayoutYAxisAnchor` objects, depending on the anchor. 
+It gets better. Because of the additional type safety benefits offered by layout anchors, as well as `NSLayoutDimension`, the other anchors in a view will be either `NSLayoutXAxisAnchor` or `NSLayoutYAxisAnchor` objects, depending on the anchor.
 
-This intelligent design prevents you from mistakes such as pinning the top of one view to the leading edge of another. 
+This intelligent design prevents you from mistakes such as pinning the top of one view to the leading edge of another.
 
 The `constraint[Equal|LessThanOrEqual|GreaterThanOrEqual]ToAnchor` family of methods are actually generic methods that, when called from an object of type, `NSLayoutXAxisAnchor`, will only take a parameter of type `NSLayoutXAxisAnchor`. When called from an object of type, `NSLayoutYAxisAnchor` will only take in a parameter of type `NSLayoutYAxisAnchor`.
 
@@ -340,9 +340,9 @@ You'll also still get an error in Swift if you try to constrain an `NSLayoutDime
 
 To summarize:
 
-- Layout anchors are a quick way of making constraints between different attributes of a view. 
+- Layout anchors are a quick way of making constraints between different attributes of a view.
 - There are three different subclasses of `NSLayoutAnchor`
-- You can't create constraints between the different types, either because the compiler won't let you, or it just doesn't make sense. 
+- You can't create constraints between the different types, either because the compiler won't let you, or it just doesn't make sense.
 
 You have these options to work with: [FPE TODO: feel free to replace "options" with a more precise term, e.g. functions/properties/etc.]
 
@@ -350,17 +350,17 @@ You have these options to work with: [FPE TODO: feel free to replace "options" w
 - `NSLayoutYAxisAnchor` for top, bottom and center Y anchors
 - `NSLayoutDimension` for width and height
 
-Whew, that was a lot to cover. You're probably wondering if you'll ever fix that alignment bug. Of course you will!  But first, read through the next section on layout guides -- I promise it's much shorter. :] 
+Whew, that was a lot to cover. You're probably wondering if you'll ever fix that alignment bug. Of course you will!  But first, read through the next section on layout guides -- I promise it's much shorter. :]
 
 After that, you'll be fully prepared to dive back into the code and fix that bothersome alignment bug.
 
 ## Layout guides
 
-A layout guide is the new way of positioning views. The old way was to use a dummy view. For example, you might have used spacer views between buttons to space them equally, or a container view to collectively align two labels. But creating and adding a view has a cost, even if it's never drawn. 
+A layout guide is the new way of positioning views. The old way was to use a dummy view. For example, you might have used spacer views between buttons to space them equally, or a container view to collectively align two labels. But creating and adding a view has a cost, even if it's never drawn.
 
 Think of a layout guide as defining a rectangular region or a frame in your view hierarchy, the edges of which you can use for alignment.
 
-Layout guides don't enable any new functionality, but they do allow you to address these problems with a lightweight solution. 
+Layout guides don't enable any new functionality, but they do allow you to address these problems with a lightweight solution.
 
 You add constraints to a `UILayoutGuide` in the same way that you add them to a `UIView`, because a layout guide has _all of the same_ layout anchors that a view has -- except for `firstBaselineAnchor` and `lastBaselineAnchor`.
 
@@ -378,7 +378,7 @@ They're out of line because the current constraint specifies that the top of the
 
  If the name label was always on a single line, the current config would have been fine. But this app has labels that span two lines.
 
-Prior to iOS 9, you'd have centered everything by putting both labels into a container view, and then you would have added a constraint to center the container view vertically within the cell. The only purpose of creating this dummy container view was for the collective alignment of the two labels. 
+Prior to iOS 9, you'd have centered everything by putting both labels into a container view, and then you would have added a constraint to center the container view vertically within the cell. The only purpose of creating this dummy container view was for the collective alignment of the two labels.
 
 But now you know that you can save yourself some hassle by using a layout guide instead.
 
@@ -421,7 +421,7 @@ Build and run, you should see the following:
 
 ### Handling the truncation
 
-The labels are centered, but now those labels that previously spanned two lines are truncated to a single line, and that's because of the constraint that's still in the storyboard. 
+The labels are centered, but now those labels that previously spanned two lines are truncated to a single line, and that's because of the constraint that's still in the storyboard.
 
 So, in order to satisfy that constraint as well as the newly added centering constraint, the label had to compress its content. Don't even try removing the constraint from the storyboard because you'll just get a missing constraint error:
 
@@ -442,6 +442,6 @@ Build and run, and you'll see the labels centered correctly!
 
 In this chapter, you started learning about stack views and also learned about some of the new features in Auto Layout, such as layout anchors and layout guides.
 
-At this point, you've just scratched the surface. Keep up the momentum and proceed to the next chapter, where you'll continue to learn about stack views in depth. 
+At this point, you've just scratched the surface. Keep up the momentum and proceed to the next chapter, where you'll continue to learn about stack views in depth.
 
 At the end of the next chapter, there will be some additional resources you can use to further your learning, but for now, all you have to do is turn to the next page!
