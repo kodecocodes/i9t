@@ -60,10 +60,10 @@
             </objects>
             <point key="canvasLocation" x="1837" y="-900"/>
         </scene>
-        <!--ChecklistDetailViewController-->
+        <!--ChecklistDetail-->
         <scene sceneID="PdX-1P-qoh">
             <objects>
-                <viewControllerPlaceholder storyboardName="ChecklistDetail" referencedIdentifier="ChecklistDetailViewController" id="ZsN-p7-hKz" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardName="ChecklistDetail" id="ZsN-p7-hKz" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xQW-03-fYS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2474.5" y="-900"/>

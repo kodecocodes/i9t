@@ -91,10 +91,10 @@ class CheckBox: UIView {
     checkmarkImageView = UIImageView(image: UIImage(named: "Checkmark"))
     checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(checkmarkImageView)
-
+    
     checkmarkImageView.centerXAnchor.constraintEqualToAnchor(centerXAnchor).active = true
     checkmarkImageView.centerYAnchor.constraintEqualToAnchor(centerYAnchor).active = true
-
+    
     layer.borderWidth = 2.0
     layer.cornerRadius = 6.0
   }

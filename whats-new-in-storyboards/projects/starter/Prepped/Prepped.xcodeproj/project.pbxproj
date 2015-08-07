@@ -10,11 +10,6 @@
 		175EDCDF1B6F96650095E929 /* AddChecklistItemViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175EDCDE1B6F96650095E929 /* AddChecklistItemViewController.swift */; };
 		175EDCE11B6F96810095E929 /* ChecklistItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175EDCE01B6F96810095E929 /* ChecklistItemTableViewCell.swift */; };
 		175EDCE31B6F96E00095E929 /* ChecklistsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175EDCE21B6F96E00095E929 /* ChecklistsViewController.swift */; };
-		17ACEBA41B75117600D92002 /* Checklists.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17ACEBA31B75117600D92002 /* Checklists.storyboard */; };
-		17ACEBA91B75128600D92002 /* AddDiaryEntryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ACEBA61B75128600D92002 /* AddDiaryEntryViewController.swift */; };
-		17ACEBAA1B75128600D92002 /* Diary.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17ACEBA71B75128600D92002 /* Diary.storyboard */; };
-		17ACEBAB1B75128600D92002 /* DiaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ACEBA81B75128600D92002 /* DiaryViewController.swift */; };
-		17ACEBAD1B75135100D92002 /* ChecklistDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17ACEBAC1B75135100D92002 /* ChecklistDetail.storyboard */; };
 		17E07B4B1B6F50B90029F863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17E07B4A1B6F50B90029F863 /* Assets.xcassets */; };
 		17E07B4E1B6F51980029F863 /* ChecklistDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17E07B4D1B6F51980029F863 /* ChecklistDetailViewController.swift */; };
 		824F75CE1B3B840D00111FE3 /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 824F75CD1B3B840D00111FE3 /* SampleData.swift */; };
@@ -27,11 +22,6 @@
 		175EDCDE1B6F96650095E929 /* AddChecklistItemViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChecklistItemViewController.swift; sourceTree = "<group>"; };
 		175EDCE01B6F96810095E929 /* ChecklistItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistItemTableViewCell.swift; sourceTree = "<group>"; };
 		175EDCE21B6F96E00095E929 /* ChecklistsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistsViewController.swift; sourceTree = "<group>"; };
-		17ACEBA31B75117600D92002 /* Checklists.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Checklists.storyboard; sourceTree = "<group>"; };
-		17ACEBA61B75128600D92002 /* AddDiaryEntryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDiaryEntryViewController.swift; sourceTree = "<group>"; };
-		17ACEBA71B75128600D92002 /* Diary.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Diary.storyboard; sourceTree = "<group>"; };
-		17ACEBA81B75128600D92002 /* DiaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiaryViewController.swift; sourceTree = "<group>"; };
-		17ACEBAC1B75135100D92002 /* ChecklistDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChecklistDetail.storyboard; sourceTree = "<group>"; };
 		17E07B4A1B6F50B90029F863 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17E07B4D1B6F51980029F863 /* ChecklistDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistDetailViewController.swift; sourceTree = "<group>"; };
 		824F75CD1B3B840D00111FE3 /* SampleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
@@ -53,21 +43,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		17ACEBA51B75128600D92002 /* Diary */ = {
-			isa = PBXGroup;
-			children = (
-				17ACEBA71B75128600D92002 /* Diary.storyboard */,
-				17ACEBA61B75128600D92002 /* AddDiaryEntryViewController.swift */,
-				17ACEBA81B75128600D92002 /* DiaryViewController.swift */,
-			);
-			path = Diary;
-			sourceTree = "<group>";
-		};
 		17E07B4C1B6F517D0029F863 /* Checklists */ = {
 			isa = PBXGroup;
 			children = (
-				17ACEBA31B75117600D92002 /* Checklists.storyboard */,
-				17ACEBAC1B75135100D92002 /* ChecklistDetail.storyboard */,
 				175EDCE21B6F96E00095E929 /* ChecklistsViewController.swift */,
 				17E07B4D1B6F51980029F863 /* ChecklistDetailViewController.swift */,
 				175EDCE01B6F96810095E929 /* ChecklistItemTableViewCell.swift */,
@@ -95,7 +73,6 @@
 		825E946F1B38DC9C007F9483 /* Prepped */ = {
 			isa = PBXGroup;
 			children = (
-				17ACEBA51B75128600D92002 /* Diary */,
 				17E07B4C1B6F517D0029F863 /* Checklists */,
 				825E94701B38DC9C007F9483 /* AppDelegate.swift */,
 				824F75CD1B3B840D00111FE3 /* SampleData.swift */,
@@ -172,12 +149,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17ACEBAD1B75135100D92002 /* ChecklistDetail.storyboard in Resources */,
 				825E947B1B38DC9C007F9483 /* LaunchScreen.storyboard in Resources */,
-				17ACEBA41B75117600D92002 /* Checklists.storyboard in Resources */,
 				17E07B4B1B6F50B90029F863 /* Assets.xcassets in Resources */,
 				825E94761B38DC9C007F9483 /* Main.storyboard in Resources */,
-				17ACEBAA1B75128600D92002 /* Diary.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -189,10 +163,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				175EDCE11B6F96810095E929 /* ChecklistItemTableViewCell.swift in Sources */,
-				17ACEBA91B75128600D92002 /* AddDiaryEntryViewController.swift in Sources */,
 				17E07B4E1B6F51980029F863 /* ChecklistDetailViewController.swift in Sources */,
 				175EDCE31B6F96E00095E929 /* ChecklistsViewController.swift in Sources */,
-				17ACEBAB1B75128600D92002 /* DiaryViewController.swift in Sources */,
 				824F75CE1B3B840D00111FE3 /* SampleData.swift in Sources */,
 				175EDCDF1B6F96650095E929 /* AddChecklistItemViewController.swift in Sources */,
 				825E94711B38DC9C007F9483 /* AppDelegate.swift in Sources */,

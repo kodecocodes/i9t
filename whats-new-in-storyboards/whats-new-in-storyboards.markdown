@@ -68,7 +68,7 @@ Lets check out what happened to the original storyboard. Open **Main.storyboard*
 
 The tab bar controller's "view controllers" segue now points to the storyboard reference for the navigation controller in **Checklists.storyboard**. The storyboard reference uses the navigation controller's storyboard ID to refer to it.
 
-There are two 'dangling' storyboard references to view controllers that had storyboard IDs set: `AddChecklistItemNavigationController` and `AddChecklistItemViewController`. Select these and delete them, as they're not needed.
+There are three 'dangling' storyboard references to view controllers that had storyboard IDs set: `ChecklistDetailViewController`, `AddChecklistItemNavigationController` and `AddChecklistItemViewController`. Select these and delete them, as they're not needed.
 
 > **Note**: If your view controllers don't have a storyboard ID set in the storyboard, then Interface Builder will automatically generate an ID for them when you use the Refactor to Storyboard command. However, these IDs are pretty ugly; for example _UIViewController-gtY-c7-gYu_. Whilst you can change this later, we'd recommend that you explicitly set storyboard IDs yourself for any view controllers you want to use with references, as it makes things much easier to follow.
 

@@ -44,8 +44,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Navigation Bar
     let navBarAppearance = UINavigationBar.appearance()
     navBarAppearance.translucent = true
-    navBarAppearance.titleTextAttributes = [ NSForegroundColorAttributeName : UIColor.whiteColor(),
-                                                        NSFontAttributeName : navBarFont ]
+    navBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor(),
+                                                       NSFontAttributeName : navBarFont]
     
     let imageSize = CGSize(width: 1, height: 1)
     let backgroundImage = UIImage.imageWithColor(barColor, size: imageSize)

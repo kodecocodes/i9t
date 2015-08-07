@@ -26,11 +26,9 @@ import UIKit
 class ChecklistDetailViewController: UITableViewController {
   
   let notesViewHeight: CGFloat = 128.0
-  
+
   var checklist = checklists.first!
   
-  @IBOutlet var notesView: UIView!
-  @IBOutlet weak var notesTextView: UITextView!
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -38,8 +36,6 @@ class ChecklistDetailViewController: UITableViewController {
     
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 64.0
-    
-    navigationItem.rightBarButtonItems![1] = editButtonItem()
   }
   
   // MARK: - Unwind segue methods
@@ -58,55 +54,15 @@ class ChecklistDetailViewController: UITableViewController {
         tableView.endUpdates()
     }
   }
-  
-  func addNotesViewToCell(cell: ChecklistItemTableViewCell) {
-    notesView.heightAnchor
-      .constraintEqualToConstant(notesViewHeight)
-      .active = true
-    notesView.clipsToBounds = true
-    
-    cell.stackView.addArrangedSubview(notesView)
-  }
-  
-  func removeNotesView() {
-    if let stackView = notesView.superview as? UIStackView {
-      stackView.removeArrangedSubview(notesView)
-      notesView.removeFromSuperview()
-    }
-  }
 }
 
 // MARK: - UITableViewDelegate
 extension ChecklistDetailViewController {
-  override func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
-    if let selected = tableView.indexPathForSelectedRow where selected == indexPath {
-      self.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+    override func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
+        if let selected = tableView.indexPathForSelectedRow where selected == indexPath {
+            self.tableView(tableView, didSelectRowAtIndexPath: indexPath)
+        }
     }
-  }
-  
-  override func tableView(tableView: UITableView,
-    didSelectRowAtIndexPath indexPath: NSIndexPath) {
-      // 1
-      guard let cell = tableView.cellForRowAtIndexPath(indexPath) as?
-        ChecklistItemTableViewCell else {
-          return
-      }
-      
-      // 2
-      tableView.beginUpdates()
-      // 3
-      if cell.stackView.arrangedSubviews.contains(notesView) {
-        removeNotesView()
-      } else {
-        addNotesViewToCell(cell)
-        
-        // 4
-        notesTextView.text = checklist.items[indexPath.row].notes
-      }
-      
-      // 5
-      tableView.endUpdates()
-  }
 }
 
 // MARK: - UITableViewDataSource
@@ -126,17 +82,5 @@ extension ChecklistDetailViewController {
     cell.checklistItem = checklistItem
     
     return cell
-  }
-  
-  override func tableView(tableView: UITableView,
-    commitEditingStyle editingStyle: UITableViewCellEditingStyle,
-    forRowAtIndexPath indexPath: NSIndexPath) {
-      if editingStyle == .Delete {
-        removeNotesView()
-        
-        checklist.items.removeAtIndex(indexPath.row)
-        
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-      }
   }
 }
