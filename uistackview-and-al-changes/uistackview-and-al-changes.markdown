@@ -52,7 +52,7 @@ At first glance, the view may seem okay, but look deeper.
 
 4. The bottom row of buttons is a bit too close to the bottom edge of the view in landscape mode. It would be better if you could decrease the spacing between the different sections -- but only in landscape mode i.e when the vertical size class is compact.
 
-Now you know the what's and whys, so it's time to start planning your next vacation even as you enter the wonderful world of UIStackView.
+Now you know the what's and whys, so it's time to start planning your next vacation even as you enter the wonderful world of `UIStackView`.
 
 Open **Main.storyboard** and take a look at the **Spot Info View Controller** scene. And boom! Have some color with your stack view.
 
@@ -63,7 +63,7 @@ These labels and buttons have various background colors set on them; they're sim
 
 Don't get too attached to the pretty colors. They're set only for the purpose of working with the storyboard and will vanish at runtime.
 
-You don't need to do this now, but if at any point you'd actually like to see the background colors while running the app, go ahead and temporarily comment out the following lines in the `viewDidLoad()` inside `SpotInfoViewController`.
+You don't need to do this now, but if at any point you'd actually like to see the background colors while running the app, go ahead and temporarily comment out the following lines in `viewDidLoad()` inside `SpotInfoViewController`.
 
 ```swift
 // Clear background colors from labels and buttons
@@ -151,7 +151,7 @@ Double-check the numbers for the top, left, right and bottom and that the **I-be
 
 ![bordered width=30%](images/18-bottom-stack-view-constraints.png)
 
-And now the stack view is now the correct size, but it has stretched the first button to fill in extra space:
+And now the stack view is the correct size, but it has stretched the first button to fill in the extra space:
 
 ![bordered width=50%](images/19-bottom-stack-view-with-distribution-fill2_384x103.png)
 
@@ -176,7 +176,7 @@ Now that you've had your first taste of the ease of working with stack views, th
 - You'd also need to add constraints for the heights and vertical positions of the spacer views in the superview.
 - Alternatively, you could pin the top and bottom edges to the adjacent buttons.
 
-It would have looked something like the following. For visibility, the spacer views have a light gray background:
+It would have looked something like the following. For visibility in the screenshot, the spacer views have been given a light gray background:
 
 ![bordered width=50%](images/22-alternate-solution-1_346x76.png)
 
@@ -266,7 +266,7 @@ let constraint = NSLayoutConstraint(
 )
 ```
 
-`NSLayoutAnchor` contains methods to express those relations:
+`NSLayoutAnchor` also contains methods to express those relations:
 
 ```swift
 func constraintLessThanOrEqualToAnchor(_:constant:)
@@ -289,7 +289,7 @@ let constraint = NSLayoutConstraint(
     ...
 )
 ```
-### Including multipliers
+### Including a multiplier
 So, how do you include a multiplier if you need to? If you look at the documentation for `NSLayoutAnchor`, you won't find any methods that contain a `multiplier` parameter.
 
 ![bordered width=50%](images/some_riddle.png)
@@ -314,9 +314,7 @@ func constraint[Less|Greater]ThanOrEqualToAnchor(_:multiplier:constant:)
 
 Okay, so now move your mind back to the `NSLayoutDimension` and think about the types of dimensions you'd use it for.
 
-When would you would actually use a multiplier other than 1? Here's an idea: When you want to add a proportional constraint between the width or height of one view to the width or height of another view.
-
-[Author TODO: This is a bit hard to follow since it's been theory for a while. This seems an important point worth emphasizing. Can you think of a real-world scenario where you'd add a proportional constraint? I suggest adding it like this: "...height of a another view, like _insert scenario here_".]
+When would you would actually use a multiplier other than 1? Here's an idea: When you want to add a proportional constraint between the width or height of one view to the width or height of another view, like if you wanted a user's profile photo to be always be one-fourth of the view's width.
 
 Effectively, the only anchors that are of type `NSLayoutDimension` are `heightAnchor` and `widthAnchor`.
 
@@ -414,7 +412,7 @@ Here's the breakdown of the code you just added:
 4. You add a constraint to center the layout guide vertically within the `contentView`.
 5. You activate the constraints.
 
->**Note**: Using the `activateConstraints(_:)` method on UIView is the recommended way of adding constraints in iOS 8 onwards, as opposed to the old `addConstraints(_:)`.
+>**Note**: Using the `activateConstraints(_:)` method on UIView is the recommended way of adding constraints in iOS 8 onwards, as opposed to the old way of using `addConstraints(_:)`.
 
 Build and run, you should see the following:
 ![bordered iphone](images/30-before-making-constraint-placeholder_750x1334.png)
