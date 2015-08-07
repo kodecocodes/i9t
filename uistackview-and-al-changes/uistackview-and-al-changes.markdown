@@ -32,7 +32,7 @@ For a teaser, here's the finished version of the app:
 
 ![height=41%](images/01-full-app_2318x1344.png)
 
-Open **VacationSpots-Starter**, and run it on the **iPhone 6 Simulator**. The first thing you'll notice is the name and location label are off center.
+Open **VacationSpots-Starter**, and run it on the **iPhone 6 Simulator**. The first thing you'll notice is the name and location label in a few cells are off center.
 
 ![bordered width=30%](images/02-alignment-issue-on-table-view_750x534.png)
 
@@ -76,7 +76,7 @@ Also, any outlet-connected labels have placeholder text that's set to the name o
 
 Another thing to note is that the scenes in the storyboard are not the default 600 x 600 squares that you get when using size classes.
 
-Size classes are still enabled, but the size of the initial Navigation Controller has been set to **iPhone 4-inch** under the **Simulated Metrics** section in the **Attributes inspector**. This just makes it a bit easier to work with the storyboard -- and it helps make the screencaps fit in this book.
+Size classes are still enabled, but the size of the initial Navigation Controller has been set to **iPhone 4-inch** under the **Simulated Metrics** section in the **Attributes inspector**. This just makes it a bit easier to work with the storyboard -- and it helps make the screenshots fit in this book.
 
 ![bordered width=99%](images/06-simulated-metrics-iphone-4-inch_640x140.png)
 
@@ -330,7 +330,7 @@ Though this type checking hasn't yet made its way into Swift, it currently works
 
 ![bordered width=99%](images/26-xAnchor-and-yAnchor-incompatibility_632x60.png)
 
-At the time of writing, Swift crashes at runtime with the message "Invalid pairing of layout attributes", so you'll know pretty quickly if you've made a mistake.
+At the time of writing, Swift will still crash at runtime with the message "Invalid pairing of layout attributes", so you'll know pretty quickly if you've made a mistake.
 
 You'll also still get an error in Swift if you try to constrain an `NSLayoutDimension` anchor with a different type of anchor, for example, a `widthAnchor` with a `topAnchor`:
 
@@ -342,7 +342,7 @@ To summarize:
 - There are three different subclasses of `NSLayoutAnchor`
 - You can't create constraints between the different types, either because the compiler won't let you, or it just doesn't make sense.
 
-You have these options to work with: [FPE TODO: feel free to replace "options" with a more precise term, e.g. functions/properties/etc.]
+The specific subclasses of `NSLayoutAnchor` are:
 
 - `NSLayoutXAxisAnchor` for leading, trailing, left, right or center X anchors
 - `NSLayoutYAxisAnchor` for top, bottom and center Y anchors
@@ -354,7 +354,7 @@ After that, you'll be fully prepared to dive back into the code and fix that bot
 
 ## Layout guides
 
-A layout guide is the new way of positioning views. The old way was to use a dummy view. For example, you might have used spacer views between buttons to space them equally, or a container view to collectively align two labels. But creating and adding a view has a cost, even if it's never drawn.
+A layout guide gives you a new way to position views when you'd previously need to use a dummy view. For example, you might have used spacer views between buttons to space them equally, or a container view to collectively align two labels. But creating and adding a view has a cost, even if it's never drawn.
 
 Think of a layout guide as defining a rectangular region or a frame in your view hierarchy, the edges of which you can use for alignment.
 
