@@ -28,7 +28,7 @@ Don't pack the bags just yet, because there's a few issues you'll need to fix by
 
 Towards the end of this chapter, you'll also fix another issue with the use of layout guides and layout anchors.
 
-For a teaser, here's the finished version of the app :
+For a teaser, here's the finished version of the app:
 
 ![height=41%](images/01-full-app_2318x1344.png)
 
@@ -350,7 +350,7 @@ You have these options to work with: [FPE TODO: feel free to replace "options" w
 - `NSLayoutYAxisAnchor` for top, bottom and center Y anchors
 - `NSLayoutDimension` for width and height
 
-Whew, that was a lot to cover. You're probably wondering if you'll ever fix that alignment bug. Of course you will!  But first, read through the next section on layout guides -- I promise it's much shorter. :]
+Whew, that was a lot to cover. You're probably wondering if you'll ever fix that alignment bug. Of course you will! But first, read through the next section on layout guides -- I promise it's much shorter. :]
 
 After that, you'll be fully prepared to dive back into the code and fix that bothersome alignment bug.
 
@@ -376,7 +376,7 @@ They're out of line because the current constraint specifies that the top of the
 
 ![bordered width=80%](images/29-the-incorrect-constraint_662x250.png)
 
- If the name label was always on a single line, the current config would have been fine. But this app has labels that span two lines.
+If the name label was always on a single line, the current config would have been fine. But this app has labels that span two lines.
 
 Prior to iOS 9, you'd have centered everything by putting both labels into a container view, and then you would have added a constraint to center the container view vertically within the cell. The only purpose of creating this dummy container view was for the collective alignment of the two labels.
 
