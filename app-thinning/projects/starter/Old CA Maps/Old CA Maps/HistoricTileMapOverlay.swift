@@ -106,7 +106,7 @@ class HistoricTileMapOverlay: MKTileOverlay {
     baseDirectoryPath = tileDirectory
     let fileManager = NSFileManager.defaultManager()
     
-    let tilesPath = tileDirectory.stringByAppendingPathComponent("Tiles")
+    let tilesPath = (tileDirectory as NSString).stringByAppendingPathComponent("Tiles")
     
     let fileEnumerator = fileManager.enumeratorAtPath(tilesPath)
     
@@ -115,7 +115,7 @@ class HistoricTileMapOverlay: MKTileOverlay {
     
     while let path = fileEnumerator?.nextObject() {
       if path.pathExtension.caseInsensitiveCompare("png") == .OrderedSame {
-        var components = path.stringByDeletingPathExtension.pathComponents as [String]
+        var components = (path.stringByDeletingPathExtension as NSString).pathComponents as [String]
         if components.count == 3 {
           let z = Int(components[0])!
           let x = Int(components[1])!
@@ -139,7 +139,7 @@ class HistoricTileMapOverlay: MKTileOverlay {
     var maxY = 0
     
     for tileKey in pathSet {
-      let components = tileKey.pathComponents
+      let components = (tileKey as NSString).pathComponents
       let z = Int(components[0])
       let x = Int(components[1])
       let y = Int(components[2])
