@@ -24,71 +24,71 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+  
+  var window: UIWindow?
+  
+  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    configureAppearance()
     
-    var window: UIWindow?
+    return true
+  }
+  
+  func configureAppearance() {
+    let barColor = UIColor.primaryGreenColor()
+    let shadowColor = UIColor(red: 0/255, green: 114/255, blue: 30/255, alpha: 1.0)
     
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        configureAppearance()
-        
-        return true
-    }
+    let navBarFont = UIFont.systemFontOfSize(17.0)
     
-    func configureAppearance() {
-        let barColor = UIColor.primaryGreenColor()
-        let shadowColor = UIColor(red: 0/255, green: 114/255, blue: 30/255, alpha: 1.0)
-        
-        let navBarFont = UIFont.systemFontOfSize(17.0)
-        
-        window?.tintColor = barColor
-        
-        // Navigation Bar
-        let navBarAppearance = UINavigationBar.appearance()
-        navBarAppearance.translucent = true
-        navBarAppearance.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor(),
-            NSFontAttributeName : navBarFont]
-        
-        let imageSize = CGSize(width: 1, height: 1)
-        let backgroundImage = UIImage.imageWithColor(barColor, size: imageSize)
-        navBarAppearance.setBackgroundImage(backgroundImage, forBarMetrics: .Default)
-        let shadowImage = UIImage.imageWithColor(shadowColor, size: imageSize)
-        navBarAppearance.shadowImage = shadowImage
-        navBarAppearance.tintColor = UIColor.whiteColor()
-        navBarAppearance.translucent = false
-        
-        // Tab Bar
-        UITabBar.appearance().tintColor = barColor
-        UITabBarItem.appearance().setTitleTextAttributes([ NSForegroundColorAttributeName: barColor ], forState: UIControlState.Normal)
-        UITabBarItem.appearance().setTitleTextAttributes([ NSForegroundColorAttributeName: barColor ], forState: UIControlState.Selected)
-        
-        // Table View separator
-        let separatorColor = UIColor(red: 227/255, green: 227/255, blue: 227/255, alpha: 1.0)
-        UITableView.appearance().separatorColor = separatorColor
-        
-        let tableHeaderLabelAppearance = UILabel.appearanceWhenContainedInInstancesOfClasses([UITableViewHeaderFooterView.self])
-        tableHeaderLabelAppearance.font = UIFont.systemFontOfSize(13.0)
-        tableHeaderLabelAppearance.textColor = UIColor(red: 186/255, green: 186/255, blue: 186/255, alpha: 1.0)
-    }
+    window?.tintColor = barColor
+    
+    // Navigation Bar
+    let navBarAppearance = UINavigationBar.appearance()
+    navBarAppearance.translucent = true
+    navBarAppearance.titleTextAttributes = [ NSForegroundColorAttributeName : UIColor.whiteColor(),
+                                                        NSFontAttributeName : navBarFont ]
+    
+    let imageSize = CGSize(width: 1, height: 1)
+    let backgroundImage = UIImage.imageWithColor(barColor, size: imageSize)
+    navBarAppearance.setBackgroundImage(backgroundImage, forBarMetrics: .Default)
+    let shadowImage = UIImage.imageWithColor(shadowColor, size: imageSize)
+    navBarAppearance.shadowImage = shadowImage
+    navBarAppearance.tintColor = UIColor.whiteColor()
+    navBarAppearance.translucent = false
+    
+    // Tab Bar
+    UITabBar.appearance().tintColor = barColor
+    UITabBarItem.appearance().setTitleTextAttributes([ NSForegroundColorAttributeName: barColor ], forState: UIControlState.Normal)
+    UITabBarItem.appearance().setTitleTextAttributes([ NSForegroundColorAttributeName: barColor ], forState: UIControlState.Selected)
+    
+    // Table View separator
+    let separatorColor = UIColor(red: 227/255, green: 227/255, blue: 227/255, alpha: 1.0)
+    UITableView.appearance().separatorColor = separatorColor
+    
+    let tableHeaderLabelAppearance = UILabel.appearanceWhenContainedInInstancesOfClasses([UITableViewHeaderFooterView.self])
+    tableHeaderLabelAppearance.font = UIFont.systemFontOfSize(13.0)
+    tableHeaderLabelAppearance.textColor = UIColor(red: 186/255, green: 186/255, blue: 186/255, alpha: 1.0)
+  }
 }
 
 extension UIImage {
-    // create image of solid color
-    class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
-        let ctx = UIGraphicsGetCurrentContext()
-        color.setFill()
-        CGContextFillRect(ctx, CGRect(origin: .zeroPoint, size: size))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
+  // create image of solid color
+  class func imageWithColor(color: UIColor, size: CGSize) -> UIImage {
+    UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
+    let ctx = UIGraphicsGetCurrentContext()
+    color.setFill()
+    CGContextFillRect(ctx, CGRect(origin: .zeroPoint, size: size))
+    let image = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    return image
+  }
 }
 
 extension UIColor {
-    class func primaryGreenColor() -> UIColor {
-        return UIColor(red: 0/255, green: 184/255, blue: 48/255, alpha: 1.0)
-    }
-    
-    class func primaryAmberColor() -> UIColor {
-        return UIColor(red: 187/255, green: 153/255, blue: 30/255, alpha: 1.0)
-    }
+  class func primaryGreenColor() -> UIColor {
+    return UIColor(red: 0/255, green: 184/255, blue: 48/255, alpha: 1.0)
+  }
+  
+  class func primaryAmberColor() -> UIColor {
+    return UIColor(red: 187/255, green: 153/255, blue: 30/255, alpha: 1.0)
+  }
 }
