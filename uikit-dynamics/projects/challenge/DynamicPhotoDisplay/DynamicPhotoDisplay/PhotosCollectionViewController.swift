@@ -27,30 +27,24 @@ private let reuseIdentifier = "PhotoCell"
 
 class PhotosCollectionViewController: UICollectionViewController {
   var photoData: [PhotoPair] = retrievePhotoData()
-  var animator: UIDynamicAnimator!
-  var heavyCurtainBehavior: HeavyCurtainDynamicBehavior!
   
   var fullPhotoViewController: FullPhotoViewController!
   var fullPhotoView: UIView!
-
-  // Touch handling
+  var animator: UIDynamicAnimator!
+  var heavyCurtainBehavior: HeavyCurtainDynamicBehavior!
   var offset = CGPoint.zeroPoint
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.installsStandardGestureForInteractiveMovement = true
-    
     animator = UIDynamicAnimator(referenceView: self.view)
-//    animator?.setValue(true, forKey: "debugEnabled")
+    
+    self.installsStandardGestureForInteractiveMovement = true
     
     // Add full image view to top view controller
     let storyBoard = UIStoryboard(name: "Main", bundle: nil)
     fullPhotoViewController = storyBoard.instantiateViewControllerWithIdentifier("FullPhotoVC") as! FullPhotoViewController
     fullPhotoView = fullPhotoViewController.view
-    
-    let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
-    fullPhotoView.addGestureRecognizer(panGestureRecognizer)
     
     addChildViewController(fullPhotoViewController)
     view.addSubview(fullPhotoView)
@@ -60,7 +54,10 @@ class PhotosCollectionViewController: UICollectionViewController {
     
     heavyCurtainBehavior = HeavyCurtainDynamicBehavior(item: fullPhotoView)
     heavyCurtainBehavior.isEnabled = false
-    animator?.addBehavior(heavyCurtainBehavior)
+    animator.addBehavior(heavyCurtainBehavior)
+    
+    let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
+    fullPhotoView.addGestureRecognizer(panGestureRecognizer)
   }
   
   // MARK: UICollectionViewDataSource
@@ -99,7 +96,11 @@ class PhotosCollectionViewController: UICollectionViewController {
   
   @IBAction func dismissFullPhoto(sender: UIControl) {
     navigationItem.rightBarButtonItem = nil
-    
+    self.pushOutFullPhoto()
+
+  }
+  
+  func pushOutFullPhoto() {
     animator.removeAllBehaviors()
     animator.delegate = self
     
@@ -117,22 +118,22 @@ class PhotosCollectionViewController: UICollectionViewController {
     animator.addBehavior(pushBehavior)
   }
   
+  
   func showFullImageView(index: Int) {
-    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-      Int64(0.75 * Double(NSEC_PER_SEC)))
-    
-    dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
-      let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissFullPhoto:")
+    //1
+    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.75 * Double(NSEC_PER_SEC)))
+    dispatch_after(delayTime, dispatch_get_main_queue()) {
+      let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismissFullPhoto:")
       self.navigationItem.rightBarButtonItem = doneButton
     }
-
     
+    //2
     fullPhotoViewController.photoPair = photoData[index]
-    fullPhotoView.center = CGPointMake(fullPhotoView.center.x, fullPhotoView.frame.size.height / -2)
+    fullPhotoView.center = CGPoint(x: fullPhotoView.center.x, y: fullPhotoView.frame.height / -2)
     fullPhotoView.hidden = false
     
+    //3
     animator.removeAllBehaviors()
-    animator.delegate = nil
     
     let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
     dynamicItemBehavior.elasticity = 0.2
@@ -144,7 +145,9 @@ class PhotosCollectionViewController: UICollectionViewController {
     animator.addBehavior(gravityBehavior)
     
     let collisionBehavior = UICollisionBehavior(items: [fullPhotoView])
-    collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPointMake(0, fullPhotoView.frame.size.height + 1.5), toPoint: CGPointMake(fullPhotoView.frame.size.width, fullPhotoView.frame.size.height + 1.5))
+    let left = CGPoint(x: 0, y: fullPhotoView.frame.height + 1.5)
+    let right = CGPoint(x: fullPhotoView.frame.width, y: fullPhotoView.frame.height + 1.5)
+    collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: left, toPoint: right)
     animator.addBehavior(collisionBehavior)
   }
   
@@ -190,22 +193,10 @@ class PhotosCollectionViewController: UICollectionViewController {
       // Re-enable the heavyCurtainBehavior.
       heavyCurtainBehavior.isEnabled = true
       animator.addBehavior(heavyCurtainBehavior)
-
+      
       if velocity.y < 0.0 && (fullPhotoView.center.y < 0 || velocity.y < -1200) {
         // If we're more than half way up with the full photo, dismiss it with a push
-        animator.removeAllBehaviors()
-        // Sets the delegate which will hide the view after animations complete
-        animator.delegate = self
-
-        let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
-        dynamicItemBehavior.elasticity = 0.2
-        dynamicItemBehavior.density = 0.005
-        animator.addBehavior(dynamicItemBehavior)
-        
-        let pushBehavior = UIPushBehavior(items: [fullPhotoView], mode: .Instantaneous)
-        pushBehavior.pushDirection = CGVectorMake(0, -1)
-        pushBehavior.magnitude = 5
-        animator.addBehavior(pushBehavior)
+        self.pushOutFullPhoto()
       } else {
         heavyCurtainBehavior.addLinearVelocity(velocity)
       }
@@ -213,13 +204,14 @@ class PhotosCollectionViewController: UICollectionViewController {
     default: ()
     }
   }
-
 }
 
-extension PhotosCollectionViewController: UIDynamicAnimatorDelegate {
+extension PhotosCollectionViewController : UIDynamicAnimatorDelegate {
   func dynamicAnimatorDidPause(animator: UIDynamicAnimator) {
     fullPhotoView.hidden = true
     animator.delegate = nil
     animator.removeAllBehaviors()
+    navigationItem.rightBarButtonItem = nil
   }
 }
+

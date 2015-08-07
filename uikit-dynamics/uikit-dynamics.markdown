@@ -17,15 +17,15 @@ Open Xcode, select __File\New\Playground...__ . Enter __UIKit Dynamics__ for the
 import UIKit
 import XCPlayground
 
-let view = UIView(frame: CGRectMake(0, 0, 600, 600))
+let view = UIView(frame: CGRect(x: 0, y: 0, width: 600, height: 600))
 view.backgroundColor = UIColor.lightTextColor()
 XCPShowView("Main View", view: view)
 
-let whiteSquare = UIView(frame: CGRectMake(100, 100, 100, 100))
+let whiteSquare = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
 whiteSquare.backgroundColor = UIColor.whiteColor()
 view.addSubview(whiteSquare)
 
-let orangeSquare = UIView(frame: CGRectMake(400, 100, 100, 100))
+let orangeSquare = UIView(frame: CGRect(x: 400, y: 100, width: 100, height: 100))
 orangeSquare.backgroundColor = UIColor.orangeColor()
 view.addSubview(orangeSquare)
 ```
@@ -46,7 +46,7 @@ let animator = UIDynamicAnimator(referenceView: view)
 
 ### Your First Behavior
 
-`UIDynamicBehavior` is the base class that describes an effect for one or more dynamic items (your subviews) and how they take part in the 2D animation you are trying to achieve. There are a bunch of behaviors that Apple provides but the easiest one to start with is `UIGravityBehavior`. Developers are like cats - they like to see things fall.
+`UIDynamicBehavior` is the base class that describes an effect for one or more dynamic items (your subviews) and how they take part in the 2D animation you are trying to achieve. There are a bunch of behaviors that Apple provides but the easiest one to start with is `UIGravityBehavior`. Developers are like cats - they like to see things fall. Add the following line:
 
 ```swift
 animator.addBehavior(UIGravityBehavior(items: [orangeSquare]))
@@ -74,15 +74,15 @@ animator.addBehavior(bounce)
 
 A dynamic item’s density, along with its size, determines its "mass" when it participates in behaviors. Elasticity changes how much an item bounces in a collision - the default is 0.0. Resistance, when set, will reduce linear velocity until the item stops. Play around with these values and observe how the animation changes.
 
-Somewhere in your Playground code put this line after creating the UIDynamicAnimator:
+Add this line to the end of the playground:
 
 ```swift
 animator.setValue(true, forKey: "debugEnabled")
 ```
 
-This is new undocumented feature in iOS 9 to turn on a visual debugging mode. It was mentioned in the 2015 WWDC session *What's New in UIKit Dynamics and Visual Effects*. It was said this had to be done in the console using LLDB but you can also turn it on using the key-value coding method shown. Debug mode shows cool things like attachments, when collisions happen and visualizations of field effects. 
+This is a new undocumented feature in iOS 9 to turn on a visual debugging mode. It was mentioned in the 2015 WWDC session *What's New in UIKit Dynamics and Visual Effects*. It was said this had to be done in the console using LLDB but you can also turn it on using the key-value coding method shown. Debug mode shows cool things like attachments, when collisions happen and visualizations of field effects. 
 
-You'll notice each of the boxes, when animating, show a blue border around them. This border is visually describing the collision borders for those items. Remove `subView` from the list of items passed to the `UICollisionBehavior` init method to prove this. Make sure to put the subView back into the array before continuing.
+You'll notice the orange box, when animating, shows a blue border. This border is visually describing the collision borders for the item. 
 
 Keep this debug turned on for the rest of this tutorial.
 
@@ -112,28 +112,39 @@ viewBehavior.resistance = 10
 viewBehavior.friction = 0.0
 viewBehavior.allowsRotation = false
 parentBehavior.addChildBehavior(viewBehavior)
+```
 
-// Add a spring region for the swinging thing to get caught in
+Here, you've defined a parent behavior, which doesn't do anything, then added some physical properties to the white square. Carry on by adding this code:
+
+```swift
 let fieldBehavior = UIFieldBehavior.springField()
 fieldBehavior.addItem(whiteSquare)
-fieldBehavior.position = CGPointMake(150, 350)
+fieldBehavior.position = CGPoint(x: 150, y: 350)
 fieldBehavior.region = UIRegion(size: CGSizeMake(500, 500))
 parentBehavior.addChildBehavior(fieldBehavior)
+```
 
+This is one of the new field behaviors. A spring field will drag items caught inside its region to the center. The further out they are, the harder it will pull them in, so they'll bounce around the center for a while before settling. You've added this spring behavior to the parent behavior.
+
+Now add the composite behavior to the dynamic animator:
+
+```swift
 animator.addBehavior(parentBehavior)
 ```
 
-This is an example of a composite behavior. A generic `UIDynamicBehavior` instance is created and two behaviors were added as children. The hierarchy for how behaviors are related is purely for organizational assistance. When the dynamic animator is determining what work an animator has to do all behaviors are "flattened" out.
+Did you see the bouncy snag of the white square? Re-execute the Playground if you didn't. Also, check out the little red lines - this is the debug mode showing you the direction and strength of the spring field:
 
-Did you see the bouncy snag of the white square? Re-execute the Playground if you didn't. `UIFieldBehavior` is one of the new behaviors in iOS 9 and is arguably the coolest one. Spring fields are great for positioning an element by letting it get drawn into the region's center and letting it bounce into place. Give the white square a little time-delayed push to really understand the effect:
+![width=50%](images/field_visualisation.png)
+
+`UIFieldBehavior` is one of the new behaviors in iOS 9 and is arguably the coolest one. Spring fields are great for positioning an element by letting it get drawn into the region's center and letting it bounce into place. Give the white square a little time-delayed push to really understand the effect:
 
 ```swift
 let delayTime = dispatch_time(DISPATCH_TIME_NOW,
     Int64(2 * Double(NSEC_PER_SEC)))
 
-dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
+dispatch_after(delayTime, dispatch_get_main_queue()) {
     let pushBehavior = UIPushBehavior(items: [whiteSquare], mode: .Instantaneous)
-    pushBehavior.pushDirection = CGVectorMake(0, -1)
+    pushBehavior.pushDirection = CGVector(dx: 0, dy: -1)
     pushBehavior.magnitude = 0.3
     animator.addBehavior(pushBehavior)
 }
@@ -141,13 +152,13 @@ dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
 
 Now you can really see the power of the spring field! The `UIPushBehavior` gave the white square a nudge upwards and it sprung right back to the center of the field. Push direction is a vector and setting y to -1 means up. The magnitude of the push behavior was set to a small number because the density was set to a small value - the normal push magnitude would kick that box out of the field. Try removing the magnitude and you'll notice it does exit the field, however, the collision boundary makes it bounce right back into the field.
 
-> **CHALLENGE**: Try attaching the second box to a point with a `UIAttachmentBehavior` behavior. Use the `init(_:attachedToAnchor:)` method to anchor it to the point. You might like to play around with the Playground and see what other effects you can come up with.
+> **CHALLENGE**: Try attaching the orange box to a point with a `UIAttachmentBehavior` behavior. Use the `init(_:attachedToAnchor:)` method to anchor it to the point. You might like to play around with the Playground (it's kind of the point!) and see what other effects you can come up with.
 
 ## Applying Dynamics to a Real App
 
 Playing around with UIKit Dynamics in a Playground is fun - but you're probably interested in incorporating it in a real application. Dynamics aren't just all for physics simulations and games!
 
-UIKit Dynamics is really designed for solving non-game applications. In reality your application may only need dynamics in a few key places to give it the extra "pop" you are looking for. A little does go a long way!
+UIKit Dynamics is really designed for non-game applications. In reality your application may only need dynamics in a few key places to give it the extra "pop" you are looking for. A little does go a long way!
 
 ### Introducing DynamicPhotoDisplay
 
@@ -157,11 +168,11 @@ For this part of the chapter, you'll be working with simple photo viewing applic
 
 You'll notice the full screen view of a photo shows a bit of metadata. The user might encounter a photo where that metadata box obscures a part of the photo. Your job is to make that box movable but only allow it to rest in the middle bottom or middle top of the image. The box should snap into place in the closest resting spot and give a cushy feel when it does.
 
-The project structure is failure simple. The photos are displayed with a `UICollectionViewController` using a custom `UICollectionViewCell`. When the cell is tapped the full photo view is displayed using standard UIView animations to have it fall from the top of the view.
+The project structure is simple. The photos are displayed with a `UICollectionViewController` using a custom `UICollectionViewCell`. When the cell is tapped the full photo view is displayed using standard UIView animations to have it fall from the top of the view.
 
 ### Sticky Behavior
 
-You're going to create a new composite behavior to encapsulate the springy cushy feel for the metadata box. Create a new class by clicking on **File\New\File...**, select **Swift File** and name it **StickyEdgesBehavior.swift**. Replace the contents of that file with the following:
+You're going to create a new composite behavior to encapsulate the springy cushiony feel for the metadata box. Create a new class by clicking on **File\New\File...**, select **Swift File** and name it **StickyEdgesBehavior.swift**. Replace the contents of that file with the following:
 
 ```swift
 import UIKit
@@ -171,7 +182,10 @@ class StickyEdgesBehavior: UIDynamicBehavior {
   private let itemBehavior: UIDynamicItemBehavior
   private let collisionBehavior: UICollisionBehavior
   private let item: UIDynamicItem
-  private var fieldBehaviors = [UIFieldBehavior]()
+  private let fieldBehaviors = [
+    UIFieldBehavior.springField(),
+    UIFieldBehavior.springField()
+  ]
   
   init(item: UIDynamicItem, edgeInset: CGFloat) {
     self.item = item
@@ -191,17 +205,15 @@ class StickyEdgesBehavior: UIDynamicBehavior {
     addChildBehavior(collisionBehavior)
     addChildBehavior(itemBehavior)
 
-    for _ in 0...1 {
-      let fieldBehavior = UIFieldBehavior.springField()
+    for fieldBehavior in fieldBehaviors {
       fieldBehavior.addItem(item)
-      fieldBehaviors.append(fieldBehavior)
       addChildBehavior(fieldBehavior)
     }
   }
 }
 ```
 
-The composite behavior starts as a subclass of `UIDynamicBehavior` which really has no behaviors on its own. The `init` method takes the item you're adding the behavior to and an edge inset to make it customizable in the future. Then a `UIDynamicItemBehavior` is created to make the item lighter and more resistant and a `UICollisionBehavior` so that it can collide with the reference view. Two `UIFieldBehavior` instances are added as well - one for the top middle and one for the bottom middle.
+The composite behavior starts as a subclass of `UIDynamicBehavior` **(make sure you've entered this and not `UIDynamicItemBehavior`)** which really has no behaviors on its own. The `init` method takes the item you're adding the behavior to and an edge inset to make it customizable in the future. Then a `UIDynamicItemBehavior` is created to make the item lighter and more resistant and a `UICollisionBehavior` so that it can collide with the reference view. Two `UIFieldBehavior` instances are added as well - one for the top middle and one for the bottom middle.
 
 Add this helper enum to the file just above the class declaration:
 
@@ -215,150 +227,157 @@ enum StickyEdge: Int {
 This is used to help identify the edge in the array of spring fields. Next add the following to the class:
 
 ```swift
-  func updateFieldsInBounds(bounds: CGRect) {
-    if bounds != CGRect.zeroRect {
-      let h = bounds.height
-      let w = bounds.width
-      let itemHeight = item.bounds.height
+func updateFieldsInBounds(bounds: CGRect) {
+  //1
+  guard bounds != CGRect.zeroRect else { return }
+  let h = bounds.height
+  let w = bounds.width
+  let itemHeight = item.bounds.height
 
-      func updateRegionForField(field: UIFieldBehavior, _ point: CGPoint) {
-        let size = CGSize(width: w - 2 * edgeInset, height: h - edgeInset - itemHeight)
-        field.position = point
-        field.region = UIRegion(size: size)
-      }
-      
-      let top = CGPoint(x: w / 2, y: edgeInset + itemHeight / 2)
-      let bottom = CGPoint(x: w / 2, y: h - edgeInset - itemHeight / 2)
-
-      updateRegionForField(fieldBehaviors[StickyEdge.Top.rawValue], top)
-      updateRegionForField(fieldBehaviors[StickyEdge.Bottom.rawValue], bottom)
-    }
+  //2
+  func updateRegionForField(field: UIFieldBehavior, _ point: CGPoint) {
+    let size = CGSize(width: w - 2 * edgeInset, height: h - 2 * edgeInset - itemHeight)
+    field.position = point
+    field.region = UIRegion(size: size)
   }
+  
+  //3
+  let top = CGPoint(x: w / 2, y: edgeInset + itemHeight / 2)
+  let bottom = CGPoint(x: w / 2, y: h - edgeInset - itemHeight / 2)
+
+  //4
+  updateRegionForField(fieldBehaviors[StickyEdge.Top.rawValue], top)
+  updateRegionForField(fieldBehaviors[StickyEdge.Bottom.rawValue], bottom)
+  }
+}
 ```
 
-This function will be called when the view is initially displayed to set up the regions of the spring fields. The calculations will end up splitting the view in half which is the area the spring field will cover. The center of the field is just page the edge so the center of the metadata view sticks out from the edge a bit. The function will be called if the reference view is ever resized. Next, add the following property to the class:
+This function will be called when the view is initially displayed or if the view is ever resized. Its job is to set up the size and position of each of the sticky spring fields. Here's a breakdown:
+
+1. Make sure the bounds is non-zero (e.g. that layout has occurred) and extract some important values into constants
+2. Define an inner function to update a particular field, given a location. It centers the field on the location, and sizes it so that it is inset from the left and right edges and will take up enough vertical space to reach the middle of the screen.
+3. Define the points that will be the center of each field
+4. Update the top and bottom fields given the new values
+
+Next, add the following property to the class:
 
 ```swift
-  var isEnabled = true {
-    didSet {
-      if isEnabled {
-        for fieldBehavior in fieldBehaviors {
-          fieldBehavior.addItem(item)
-        }
-        collisionBehavior.addItem(item)
-        itemBehavior.addItem(item)
-      } else {
-        for fieldBehavior in fieldBehaviors {
-          fieldBehavior.removeItem(item)
-        }
-        collisionBehavior.removeItem(item)
-        itemBehavior.removeItem(item)
+var isEnabled = true {
+  didSet {
+    if isEnabled {
+      for fieldBehavior in fieldBehaviors {
+        fieldBehavior.addItem(item)
       }
+      collisionBehavior.addItem(item)
+      itemBehavior.addItem(item)
+    } else {
+      for fieldBehavior in fieldBehaviors {
+        fieldBehavior.removeItem(item)
+      }
+      collisionBehavior.removeItem(item)
+      itemBehavior.removeItem(item)
     }
   }
+}
 ```
 
 This helper property turns off the behavior in the animator during certain lifecycle events while moving the item. Finally add this method:
 
 ```swift
-  func addLinearVelocity(velocity: CGPoint) {
-    itemBehavior.addLinearVelocity(velocity, forItem: item)
-  }
+func addLinearVelocity(velocity: CGPoint) {
+  itemBehavior.addLinearVelocity(velocity, forItem: item)
+}
 ```
 
-Build your application to make sure everything is compiling up until this point. This method will help snap the item (the metadata box) into place with a velocity. You'll get that velocity from the pan gesture recognizer you'll add next. 
+Build your application to make sure everything is compiling up until this point. The app won't be any different yet! The method you just added will help snap the item (the metadata box) into place with a velocity. You'll get that velocity from the pan gesture recognizer you'll add next. 
 
-Go back into **FullPhotoViewController.swift** and add the following below the existing `@IBOutlet` properties:
+Open **FullPhotoViewController.swift** and add the following below the existing `@IBOutlet` properties:
 
 ```swift
-  private var animator: UIDynamicAnimator!
-  var stickyBehavior: StickyEdgesBehavior!
+private var animator: UIDynamicAnimator!
+var stickyBehavior: StickyEdgesBehavior!
 
-  private var offset = CGPoint.zeroPoint
+private var offset = CGPoint.zeroPoint
 ```
 
 Inside of `viewDidLoad()` add the following:
 
 ```swift
-    let gestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
-    tagView.addGestureRecognizer(gestureRecognizer)
-    
-    animator = UIDynamicAnimator(referenceView: containerView)
-    animator.setValue(true, forKey: "debugEnabled")
-    stickyBehavior = StickyEdgesBehavior(item: tagView, edgeInset: 8)
-    animator.addBehavior(stickyBehavior)
+let gestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
+tagView.addGestureRecognizer(gestureRecognizer)
+
+animator = UIDynamicAnimator(referenceView: containerView)
+stickyBehavior = StickyEdgesBehavior(item: tagView, edgeInset: 8)
+animator.addBehavior(stickyBehavior)
 ```
 
-This adds the pan gesture recognizer, the dynamic animator to the container view and your new sticky behavior to the animator. Add the following method to the view controller:
+This adds the pan gesture recognizer, the dynamic animator to the container view and your new sticky behavior to the animator. It also sets the debug flag so you can see what's happening. Now add the following method to the view controller:
 
 ```swift
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
+override func viewDidLayoutSubviews() {
+  super.viewDidLayoutSubviews()
 
-    stickyBehavior.isEnabled = false
-    
-    let bounds = CGRect(origin: CGPoint.zeroPoint, size: containerView.frame.size)
-    
-    stickyBehavior.updateFieldsInBounds(bounds)
-  }
+  stickyBehavior.isEnabled = false
+  stickyBehavior.updateFieldsInBounds(containerView.bounds)
+}
 ```
 
 Whenever the main view's layout is changed the sticky behavior will adjust its bounds. Finally add the following method to the view controller:
 
 ```swift
-  func pan(pan:UIPanGestureRecognizer) {
-    var location = pan.locationInView(containerView)
+func pan(pan:UIPanGestureRecognizer) {
+  var location = pan.locationInView(containerView)
+  
+  switch pan.state {
+  case .Began:
+    let center = tagView.center
+    offset.x = location.x - center.x
+    offset.y = location.y - center.y
     
-    switch pan.state {
-    case .Began:
-      let center = tagView.center
-      offset.x = location.x - center.x
-      offset.y = location.y - center.y
-      
-      stickyBehavior.isEnabled = false
-      
-    case .Changed:
-      let referenceBounds = containerView.bounds
-      let referenceWidth = referenceBounds.width
-      let referenceHeight = referenceBounds.height
+    stickyBehavior.isEnabled = false
+    
+  case .Changed:
+    let referenceBounds = containerView.bounds
+    let referenceWidth = referenceBounds.width
+    let referenceHeight = referenceBounds.height
 
-      let itemBounds = tagView.bounds
-      let itemHalfWidth = itemBounds.width / 2.0
-      let itemHalfHeight = itemBounds.height / 2.0
+    let itemBounds = tagView.bounds
+    let itemHalfWidth = itemBounds.width / 2.0
+    let itemHalfHeight = itemBounds.height / 2.0
 
-      location.x -= offset.x
-      location.y -= offset.y
+    location.x -= offset.x
+    location.y -= offset.y
 
-      location.x = max(itemHalfWidth, location.x)
-      location.x = min(referenceWidth - itemHalfWidth, location.x)
-      location.y = max(itemHalfHeight, location.y)
-      location.y = min(referenceHeight - itemHalfHeight, location.y)
+    location.x = max(itemHalfWidth, location.x)
+    location.x = min(referenceWidth - itemHalfWidth, location.x)
+    location.y = max(itemHalfHeight, location.y)
+    location.y = min(referenceHeight - itemHalfHeight, location.y)
 
-      tagView.center = location
-            
-    default: ()
-    }
+    tagView.center = location
+          
+  default: ()
   }
+}
 ```
 
 When the pan gesture begins, the sticky behavior is shut off so the animations don't interfere with the movement. The offset of where the user tapped is recorded and used during the gesture when the location is changed. The metadata view's location is updated in the `.Changed` case. The calculations done on the location x & y limit the movement of the metadata view to inside the container view.
 
-Build and run the application. The metadata box is now draggable thanks to the pan gesture recognizer. Drop the box anywhere on the screen and notice it zips back to one of the two locations. The gesture doesn't quite have the response you're looking for. Go back into the `pan` method and add the following case:
+Build and run the application. The metadata box is now draggable thanks to the pan gesture recognizer, but it just stays where you put it, because the sticky behavior is not enabled. Go back into the `pan` method and add the following case, before the `default:` case:
 
 ```swift
-    case .Cancelled, .Ended:
-      let velocity = pan.velocityInView(containerView)
-      stickyBehavior.isEnabled = true
-      stickyBehavior.addLinearVelocity(velocity)
+case .Cancelled, .Ended:
+  let velocity = pan.velocityInView(containerView)
+  stickyBehavior.isEnabled = true
+  stickyBehavior.addLinearVelocity(velocity)
 ``` 
 
-Build and run. Now when you flick the view the velocity at the time of your finger leaving the screen will be transferred into the stick behavior. For a better understanding of how the behaviors work, turn on debug mode by adding the following to `viewDidLoad()`:
+Build and run. Now when you lift your finger the velocity at the time of your finger leaving the screen will be transferred into the sticky behavior, so the view will continue for a moment before being dragged back to the closest field. For a better understanding of how the behaviors work, turn on debug mode by adding the following to `viewDidLoad()`:
 
 ```swift
     animator.setValue(true, forKey: "debugEnabled")
 ```
 
-![bordered width=40%](images/dynamicphotodisplay_debug.png)
+![bordered iPhone](images/dynamicphotodisplay_debug.png)
 
 Notice how the lines shorten and nearly disappear in the two zones where the metadata box can live. Seeing is believing!
 
@@ -379,41 +398,46 @@ Then inside of `viewDidLoad()` add this line:
 Now that the animator has been created, swap out the contents of `showFullImageView` with the following:
 
 ```swift
-  func showFullImageView(index: Int) {
-    // 1
-    let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-      Int64(0.75 * Double(NSEC_PER_SEC)))
-    dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
-      let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissFullPhoto:")
-      self.navigationItem.rightBarButtonItem = doneButton
-    }
-    
-    // 2
-    fullPhotoViewController.photoPair = photoData[index]
-    fullPhotoView.center = CGPointMake(fullPhotoView.center.x, fullPhotoView.frame.size.height / -2)
-    fullPhotoView.hidden = false
-    
-    // 3
-    animator.removeAllBehaviors()
-    
-    let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
-    dynamicItemBehavior.elasticity = 0.2
-    dynamicItemBehavior.density = 400
-    animator.addBehavior(dynamicItemBehavior)
-    
-    let gravityBehavior = UIGravityBehavior(items: [fullPhotoView])
-    gravityBehavior.magnitude = 5.0
-    animator.addBehavior(gravityBehavior)
-    
-    let collisionBehavior = UICollisionBehavior(items: [fullPhotoView])
-    collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: CGPointMake(0, fullPhotoView.frame.size.height + 1.5), toPoint: CGPointMake(fullPhotoView.frame.size.width, fullPhotoView.frame.size.height + 1.5))
-    animator.addBehavior(collisionBehavior)
+func showFullImageView(index: Int) {
+  //1
+  let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.75 * Double(NSEC_PER_SEC)))
+  dispatch_after(delayTime, dispatch_get_main_queue()) {
+    let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismissFullPhoto:")
+    self.navigationItem.rightBarButtonItem = doneButton
   }
+  
+  //2
+  fullPhotoViewController.photoPair = photoData[index]
+  fullPhotoView.center = CGPoint(x: fullPhotoView.center.x, y: fullPhotoView.frame.height / -2)
+  fullPhotoView.hidden = false
+  
+  //3
+  animator.removeAllBehaviors()
+  
+  let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
+  dynamicItemBehavior.elasticity = 0.2
+  dynamicItemBehavior.density = 400
+  animator.addBehavior(dynamicItemBehavior)
+  
+  let gravityBehavior = UIGravityBehavior(items: [fullPhotoView])
+  gravityBehavior.magnitude = 5.0
+  animator.addBehavior(gravityBehavior)
+  
+  let collisionBehavior = UICollisionBehavior(items: [fullPhotoView])
+  let left = CGPoint(x: 0, y: fullPhotoView.frame.height + 1.5)
+  let right = CGPoint(x: fullPhotoView.frame.width, y: fullPhotoView.frame.height + 1.5)
+  collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: left, toPoint: right)
+  animator.addBehavior(collisionBehavior)
+}
 ```
 
-In section 1 the Done button is added to the nav bar but after a short delay. This lets the dynamic animator do most of its animations first before updating the nav bar. In section 2 the image is set and the full photo view repositioned above the thumbnails view, just off screen. Section 3 removes any existing behaviors from the animator and then adds the gravity, item and collision behaviors.
+Here's a breakdown of the code:
 
-Build and run the app. Tap a photo and notice that when the view hits the bottom of the screen it bounces. The collision behavior shown here is a bit different from previous examples. Instead of using the reference view's boundary this creates a single line of collision at the bottom. Its positioned just off the screen so the bounce doesn't leave a visible gap. 
+1. The Done button is added to the nav bar but after a short delay. This lets the dynamic animator do most of its animations first before updating the nav bar. 
+2. The image is set and the full photo view repositioned above the thumbnails view, just off screen.
+3. Remove any existing behaviors from the animator and then add the gravity, item and collision behaviors.
+
+Build and run the app. Tap a photo and notice that when the view hits the bottom of the screen it bounces. The collision behavior shown here is a bit different from previous examples. Instead of using the reference view's boundary this creates a single line of collision at the bottom. It's positioned just off the screen so the bounce doesn't leave a visible gap. 
 
 There are a lot of knobs and levers to change when dealing with behaviors. Play around with the `UIDynamicItemBehavior` and `UIGravityBehavior` properties to see if you can find a bounce behavior you like!
 
@@ -423,11 +447,11 @@ You've seen examples of most of the behaviors available to you in UIKit Dynamics
 
 Also check out these videos from the past WWDCs:
 
-* 2013 - #206 - [Getting Started with UIKit Dynamics](https://developer.apple.com/videos/wwdc/2013/#206)
-* 2013 - #217 - [Exploring Scroll Views in iOS 7](https://developer.apple.com/videos/wwdc/2013/#217)
-* 2013 - #221 - [Advanced Techniques with UIKit Dynamics](https://developer.apple.com/videos/wwdc/2013/#221)
-* 2014 - #216 - [Building Adaptive Apps with UIKit](https://developer.apple.com/videos/wwdc/2014/#216)
-* 2015 - #229 - [What's New in UIKit Dynamics and Visual Effects](https://developer.apple.com/videos/wwdc/2015/?id=229)
+* 2013 - #206 - [Getting Started with UIKit Dynamics - http://apple.co/1J1IoNB](https://developer.apple.com/videos/wwdc/2013/#206)
+* 2013 - #217 - [Exploring Scroll Views in iOS 7 - http://apple.co/1gQGtPM](https://developer.apple.com/videos/wwdc/2013/#217)
+* 2013 - #221 - [Advanced Techniques with UIKit Dynamics - http://apple.co/1T1N2Qf](https://developer.apple.com/videos/wwdc/2013/#221)
+* 2014 - #216 - [Building Adaptive Apps with UIKit - http://apple.co/1hoAQbr](https://developer.apple.com/videos/wwdc/2014/#216)
+* 2015 - #229 - [What's New in UIKit Dynamics and Visual Effects - http://apple.co/1IO1nF3](https://developer.apple.com/videos/wwdc/2015/?id=229)
 
 ## Challenges
 
@@ -438,7 +462,9 @@ Now it's time for you to take a whack at adding some dynamic goodness to the app
 Instead of using UIView animations to dismiss the view when Done is tapped, use UIKit Dynamics. You'll want the view to be pushed off the screen upwards at a slow enough rate for the user to experience it. Replace the contents of `dismissFullPhoto` with the behaviors.
 
 * A `UIPushBehavior` behavior will give the view the kick it needs.
-* You can use the `UIDynamicAnimator` delegate method `dynamicAnimatorDidPause` to hide the view after its animated off screen. There are no callbacks like UIView animations.
+* A `UIDynamicItemBehavior` can adjust the photo view's properties so it moves the way you want.
+* A `UIAttachmentBehavior` sliding behavior can stop the view once it gets off screen.
+* You can use the `UIDynamicAnimator` delegate method `dynamicAnimatorDidPause` to hide the view after it has animated off screen.
 
 ### Challenge #2
 
@@ -446,6 +472,7 @@ You're going to add an interaction to the app that allows you to swipe up on the
 
 Here are some hints to get you started on your journey:
 
+* You'll need to create a new composite behavior like you did with the `StickyEdgesBehavior` earlier. This should have a dynamic item behavior to give density and elasticity, a collision behavior to stop it falling off the bottom of the screen and a gravity behavior to make it drop. You should also allow it to take a linear velocity like the sticky edges behavior did.
 * The swipe and drag up behavior will exist in `PhotosCollectionViewController` along with a `UIPanGestureRecognizer`. The setup will look similar to the pan gesture recognizer used to move the metadata view around.
 * If the view is moved up less than half way, it should bounce back down. Take the velocity into account as well to determine if there is enough movement to dismiss the view. Try playing around with the camera on the lock screen for an example.
-* You'll need gravity, collisions, and push behaviors.
+* If you do dismiss the view, you may as well reuse the code you wrote earlier for pushing the view off the screen. Refactor that into a separate method so you can use it in both cases.

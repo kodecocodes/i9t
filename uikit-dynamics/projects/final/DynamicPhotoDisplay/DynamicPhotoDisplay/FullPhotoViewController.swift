@@ -33,9 +33,8 @@ class FullPhotoViewController: UIViewController {
   
   private var animator: UIDynamicAnimator!
   var stickyBehavior: StickyEdgesBehavior!
-
+  
   private var offset = CGPoint.zeroPoint
-
   
   var photoPair: PhotoPair? {
     didSet {
@@ -66,68 +65,51 @@ class FullPhotoViewController: UIViewController {
     tagView.addGestureRecognizer(gestureRecognizer)
     
     animator = UIDynamicAnimator(referenceView: containerView)
-//    animator.setValue(true, forKey: "debugEnabled")
+    animator.setValue(true, forKey: "debugEnabled")
     stickyBehavior = StickyEdgesBehavior(item: tagView, edgeInset: 8)
     animator.addBehavior(stickyBehavior)
   }
-
+  
   override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
-
+    
     stickyBehavior.isEnabled = false
-    
-    let bounds = CGRect(origin: CGPoint.zeroPoint, size: containerView.frame.size)
-    
-    stickyBehavior.updateFieldsInBounds(bounds)
+    stickyBehavior.updateFieldsInBounds(containerView.bounds)
   }
   
-  func pan(pan:UIPanGestureRecognizer) {
+  func pan(pan: UIPanGestureRecognizer) {
     var location = pan.locationInView(containerView)
     
     switch pan.state {
     case .Began:
-      // Capture the initial touch offset from the itemView's center.
       let center = tagView.center
       offset.x = location.x - center.x
       offset.y = location.y - center.y
       
-      // Disable the behavior while the item is manipulated by the pan recognizer.
       stickyBehavior.isEnabled = false
       
     case .Changed:
-      // Get reference bounds.
       let referenceBounds = containerView.bounds
       let referenceWidth = referenceBounds.width
       let referenceHeight = referenceBounds.height
       
-      // Get item bounds.
       let itemBounds = tagView.bounds
       let itemHalfWidth = itemBounds.width / 2.0
       let itemHalfHeight = itemBounds.height / 2.0
       
-      // Apply the initial offset.
       location.x -= offset.x
       location.y -= offset.y
       
-      // Bound the item position inside the reference view.
       location.x = max(itemHalfWidth, location.x)
       location.x = min(referenceWidth - itemHalfWidth, location.x)
       location.y = max(itemHalfHeight, location.y)
       location.y = min(referenceHeight - itemHalfHeight, location.y)
       
-      // Apply the resulting item center.
       tagView.center = location
-      
     case .Cancelled, .Ended:
-      // Get the current velocity of the item from the pan gesture recognizer.
       let velocity = pan.velocityInView(containerView)
-      
-      // Re-enable the stickyCornersBehavior.
       stickyBehavior.isEnabled = true
-      
-      // Add the current velocity to the sticky corners behavior.
       stickyBehavior.addLinearVelocity(velocity)
-      
     default: ()
     }
   }

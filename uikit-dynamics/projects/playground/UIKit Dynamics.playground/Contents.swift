@@ -1,23 +1,22 @@
 //: Playground - noun: a place where people can play
 
 import UIKit
+
 import XCPlayground
 
-let view = UIView(frame: CGRectMake(0, 0, 600, 600))
+let view = UIView(frame: CGRect(x: 0, y: 0, width: 600, height: 600))
 view.backgroundColor = UIColor.lightTextColor()
 XCPShowView("Main View", view: view)
 
-let whiteSquare = UIView(frame: CGRectMake(100, 100, 100, 100))
+let whiteSquare = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
 whiteSquare.backgroundColor = UIColor.whiteColor()
 view.addSubview(whiteSquare)
 
-let orangeSquare = UIView(frame: CGRectMake(400, 100, 100, 100))
+let orangeSquare = UIView(frame: CGRect(x: 400, y: 100, width: 100, height: 100))
 orangeSquare.backgroundColor = UIColor.orangeColor()
 view.addSubview(orangeSquare)
 
 let animator = UIDynamicAnimator(referenceView: view)
-animator.setValue(true, forKey: "debugEnabled")
-
 animator.addBehavior(UIGravityBehavior(items: [orangeSquare]))
 
 let boundaryCollision = UICollisionBehavior(items: [whiteSquare, orangeSquare])
@@ -30,8 +29,9 @@ bounce.density = 200
 bounce.resistance = 2
 animator.addBehavior(bounce)
 
-let parentBehavior = UIDynamicBehavior()
+animator.setValue(true, forKey: "debugEnabled")
 
+let parentBehavior = UIDynamicBehavior()
 let viewBehavior = UIDynamicItemBehavior(items: [whiteSquare])
 viewBehavior.density = 0.01
 viewBehavior.resistance = 10
@@ -39,31 +39,22 @@ viewBehavior.friction = 0.0
 viewBehavior.allowsRotation = false
 parentBehavior.addChildBehavior(viewBehavior)
 
-// Add a spring region for the swinging thing to get caught in
 let fieldBehavior = UIFieldBehavior.springField()
 fieldBehavior.addItem(whiteSquare)
-fieldBehavior.position = CGPointMake(150, 350)
-fieldBehavior.region = UIRegion(size: CGSizeMake(500, 500))
+fieldBehavior.position = CGPoint(x: 150, y: 350)
+fieldBehavior.region = UIRegion(size: CGSize(width: 500, height: 500))
 parentBehavior.addChildBehavior(fieldBehavior)
 
 animator.addBehavior(parentBehavior)
 
-//: After two seconds, push the white block almost out of the spring field
-let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-    Int64(2 * Double(NSEC_PER_SEC)))
-
-dispatch_after(delayTime, dispatch_get_main_queue()) { () -> Void in
+let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(2 * Double(NSEC_PER_SEC)))
+dispatch_after(delayTime, dispatch_get_main_queue()) {
     let pushBehavior = UIPushBehavior(items: [whiteSquare], mode: .Instantaneous)
-    pushBehavior.pushDirection = CGVectorMake(0, -1)
+    pushBehavior.pushDirection = CGVector(dx: 0, dy: -1)
     pushBehavior.magnitude = 0.3
     animator.addBehavior(pushBehavior)
 }
 
-//: Comment out the section above from `parentBehavior`'s creation to here. This demonstrates UIAttachmentBehavior attached to an anchor.
-//let anchorThing = UIView(frame: CGRectMake(295, 100, 10, 10))
-//anchorThing.backgroundColor = UIColor.blackColor()
-//view.addSubview(anchorThing)
-
-//let stringAttachment = UIAttachmentBehavior(item: whiteSquare, attachedToAnchor: anchorThing.center)
-//stringAttachment.length = 250
-//animator.addBehavior(stringAttachment)
+let attachment = UIAttachmentBehavior(item: orangeSquare, attachedToAnchor: CGPoint(x: 300, y: 100))
+attachment.length = 300
+animator.addBehavior(attachment)
