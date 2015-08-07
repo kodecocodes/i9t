@@ -24,22 +24,14 @@ import UIKit
 
 class ChecklistItemTableViewCell: UITableViewCell {
   
-  @IBOutlet var checkMarkLabel: UILabel!
   @IBOutlet var itemNameLabel: UILabel!
-  @IBOutlet weak var stackView: UIStackView!
+  @IBOutlet var stackView: UIStackView!
   @IBOutlet var checkBox: CheckBox!
-
+  
   var checklistItem: ChecklistItem! {
     didSet {
       itemNameLabel.text = checklistItem.name
-      checked = checklistItem.checked
-    }
-  }
-  
-  var checked = false {
-    didSet {
-      checkBox.checked = checked
-      checkBox.setNeedsDisplay()
+      checkBox.checked = checklistItem.checked
     }
   }
   
@@ -51,62 +43,97 @@ class ChecklistItemTableViewCell: UITableViewCell {
   override func setSelected(selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
     checkBox.selected = selected
-    checkBox.setNeedsDisplay()
+  }
+  
+  override func setHighlighted(highlighted: Bool, animated: Bool) {
+    super.setHighlighted(highlighted, animated: animated)
+    checkBox.selected = highlighted
   }
   
   func checkMarkTapped(gesture: UITapGestureRecognizer) {
-    checked = !checked
+    let checked = !checkBox.checked
+    
+    checkBox.checked = checked
     checklistItem.checked = checked
   }
 }
 
+@IBDesignable
 class CheckBox: UIView {
-  let lineWidth: CGFloat = 2.0
-  let cornerRadius: CGFloat = 6.0
-
-  var checked: Bool = false
-  var selected: Bool = false
   
-  // Border Colors
-  let borderUnchecked = UIColor(white: 222/255, alpha: 1.0)
-  let borderChecked = UIColor(red: 142/255, green: 226/255, blue: 165/255, alpha: 1.0)
-  let borderNotes = UIColor(red: 241/255, green: 226/255, blue: 164/255, alpha: 1.0)
+  var checked = false {
+    didSet {
+      updateAppearance()
+    }
+  }
   
-  // Background Colors
-  let backgroundUnchecked = UIColor(white: 247/255, alpha: 1.0)
-  let backgroundChecked = UIColor(red: 223/255, green: 247/255, blue: 230/255, alpha: 1.0)
-  let backgroundSelected = UIColor(red: 255/255, green: 246/255, blue: 213/255, alpha: 1.0)
+  var selected = false {
+    didSet {
+      updateAppearance()
+    }
+  }
   
-  // Image
-  let checkmarkImage = UIImage(named: "Checkmark")!
-  let checkmarkImageSelected = UIImage(named: "CheckmarkNotes")
-  
-  var checkmarkImageView = UIImageView()
+  var checkmarkImageView: UIImageView!
   
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
-    self.addSubview(checkmarkImageView)
-    checkmarkImageView.frame = self.bounds
-    checkmarkImageView.contentMode = UIViewContentMode.Center
+    
+    commonInit()
   }
   
-  override func drawRect(rect: CGRect) {
-    let path = UIBezierPath(roundedRect: CGRectInset(rect, lineWidth/2, lineWidth/2), cornerRadius: cornerRadius)
-    path.lineWidth = lineWidth
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    
+    commonInit()
+  }
+  
+  func commonInit() {
+    checkmarkImageView = UIImageView(image: UIImage(named: "Checkmark"))
+    checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
+    self.addSubview(checkmarkImageView)
+    
+    checkmarkImageView.centerXAnchor.constraintEqualToAnchor(centerXAnchor).active = true
+    checkmarkImageView.centerYAnchor.constraintEqualToAnchor(centerYAnchor).active = true
+    
+    layer.borderWidth = 2.0
+    layer.cornerRadius = 6.0
+  }
+  
+  override func prepareForInterfaceBuilder() {
+    checked = false
+  }
+  
+  func updateAppearance() {
     if selected {
-      borderNotes.setStroke()
-      backgroundSelected.setFill()
-      checkmarkImageView.image = checked ? checkmarkImageSelected : nil
+      layer.borderColor = UIColor(red: 241/255, green: 226/255, blue: 164/255, alpha: 1.0).CGColor
+      checkmarkImageView.tintColor = UIColor.primaryAmberColor()
+      backgroundColor = UIColor(red: 255/255, green: 246/255, blue: 213/255, alpha: 1.0)
     } else if checked {
-      borderChecked.setStroke()
-      backgroundChecked.setFill()
-      checkmarkImageView.image = checkmarkImage
+      layer.borderColor = UIColor(red: 142/255, green: 226/255, blue: 165/255, alpha: 1.0).CGColor
+      checkmarkImageView.tintColor = UIColor.primaryGreenColor()
+      backgroundColor = UIColor(red: 223/255, green: 247/255, blue: 230/255, alpha: 1.0)
     } else {
-      borderUnchecked.setStroke()
-      backgroundUnchecked.setFill()
-      checkmarkImageView.image = nil
+      layer.borderColor = UIColor(white: 222/255, alpha: 1.0).CGColor
+      backgroundColor = UIColor(white: 247/255, alpha: 1.0)
     }
-    path.fill()
-    path.stroke()
+    
+    checkmarkImageView.hidden = !checked
+  }
+  
+  override func intrinsicContentSize() -> CGSize {
+    return CGSize(width: 30.0, height: 30.0)
+  }
+}
+
+// Allows multi-line labels in cells to wrap correctly,
+// by setting their preferredMaxLayoutWidth whenever their bounds change.
+class SelfSizingLabel: UILabel {
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    if preferredMaxLayoutWidth != bounds.width {
+      preferredMaxLayoutWidth = bounds.width - 1
+      setNeedsUpdateConstraints()
+    }
   }
 }

@@ -170,16 +170,3 @@ class DiaryYearTableViewHeader: UITableViewHeaderFooterView {
     yearLabel.font = UIFont.systemFontOfSize(17.0, weight: UIFontWeightLight)
   }
 }
-
-// Allows multi-line labels in diary entry cells to wrap correctly, 
-// by setting their preferredMaxLayoutWidth whenever their bounds change.
-class SelfSizingLabel: UILabel {
-    override func layoutSubviews() {
-        super.layoutSubviews()
-
-        if preferredMaxLayoutWidth != bounds.width {
-            preferredMaxLayoutWidth = bounds.width - 1
-            setNeedsUpdateConstraints()
-        }
-    }
-}

@@ -24,18 +24,17 @@ import UIKit
 
 class DiaryViewController: UITableViewController {
   
-  let CellPadding: CGFloat = 30.0
-
   private var yearsArray = [String]()
   private var sectionedDiaryEntries = [String: [DiaryEntry]]()
-  private var sortedYears: [String]?
+  private var sortedYears = [String]()
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     tableView.rowHeight = UITableViewAutomaticDimension
     tableView.estimatedRowHeight = 60.0
-
+    tableView.registerClass(DiaryYearTableViewHeader.self, forHeaderFooterViewReuseIdentifier: "DiaryYearTableViewHeader")
+    
     sortDiaryEntriesByDate()
   }
   
@@ -46,14 +45,14 @@ class DiaryViewController: UITableViewController {
   }
   
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    let entries = sectionedDiaryEntries[sortedYears![section]]
+    let year = sortedYears[section]
+    let entries = sectionedDiaryEntries[year]
     return entries!.count
   }
   
   override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let headerCell = tableView.dequeueReusableCellWithIdentifier("SectionHeader") as! DiaryHeaderTableViewCell
-
-    headerCell.year = sortedYears![section]
+    let headerCell = tableView.dequeueReusableHeaderFooterViewWithIdentifier("DiaryYearTableViewHeader") as! DiaryYearTableViewHeader
+    headerCell.year = sortedYears[section]
     return headerCell
   }
   
@@ -64,11 +63,12 @@ class DiaryViewController: UITableViewController {
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("DiaryCell", forIndexPath: indexPath) as! DiaryEntryTableViewCell
     
+    let year = sortedYears[indexPath.section]
     
-    cell.diaryEntry = diaryEntries[indexPath.row]
-    
-    let entries = sectionedDiaryEntries[sortedYears![indexPath.section]]
-    cell.diaryEntry = entries![indexPath.row]
+    if let entries = sectionedDiaryEntries[year] {
+      cell.diaryEntry = entries[indexPath.row]
+    }
+
     return cell
   }
   
@@ -78,7 +78,9 @@ class DiaryViewController: UITableViewController {
   
   override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
-      diaryEntries.removeAtIndex(indexPath.row)
+      let year = sortedYears[indexPath.section]
+      sectionedDiaryEntries[year]?.removeAtIndex(indexPath.row)
+      
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
     }
   }
@@ -105,51 +107,66 @@ class DiaryViewController: UITableViewController {
 extension DiaryViewController {
   private func sortDiaryEntriesByDate() {
     // sort entries by date descending
-    let sortedDiaryEntries = diaryEntries.sort {
-      return $0.date > $1.date
-    }
+    let sortedDiaryEntries = diaryEntries.sort { $0.date.compare($1.date) == NSComparisonResult.OrderedDescending }
     
     // extract years for sections
-    var yearsSet = Set<String>()
-    yearsSet = Set(diaryEntries.map {
-      $0.year
-      })
+    let yearsSet = Set(diaryEntries.map { $0.year })
     
     // sort years into descending sequence
-    sortedYears = yearsSet.sort {
-      $0 > $1
-    }
+    sortedYears = yearsSet.sort(>)
     
     // create a dictionary for accessing years by section index
     for year in yearsSet {
-      let array = sortedDiaryEntries.filter( {
-        $0.year == year
-      })
-      sectionedDiaryEntries[year] = array
+      sectionedDiaryEntries[year] = sortedDiaryEntries.filter { $0.year == year }
     }
   }
 }
 
+// MARK:- Cells and headers
+
 class DiaryEntryTableViewCell: UITableViewCell {
-  @IBOutlet var dayLabel:UILabel!
-  @IBOutlet var monthLabel:UILabel!
-  @IBOutlet var entryLabel: UITextView!
+  @IBOutlet var dayLabel: UILabel!
+  @IBOutlet var monthLabel: UILabel!
+  @IBOutlet var entryLabel: UILabel!
 
   var diaryEntry: DiaryEntry! {
     didSet {
-      dayLabel?.text = "\(diaryEntry.day)"
+      dayLabel?.text = diaryEntry.day
       monthLabel?.text = diaryEntry.month
       entryLabel?.text = diaryEntry.text
     }
   }
 }
 
-class DiaryHeaderTableViewCell: UITableViewCell {
-  @IBOutlet var yearLabel: UILabel!
+class DiaryYearTableViewHeader: UITableViewHeaderFooterView {
+  
+  var yearLabel: UILabel!
   
   var year: String! {
     didSet {
-      yearLabel?.text = year
+      yearLabel.text = year
     }
+  }
+  
+  override init(reuseIdentifier: String?) {
+    super.init(reuseIdentifier: reuseIdentifier)
+    commonInit()
+  }
+
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    commonInit()
+  }
+  
+  func commonInit() {
+    yearLabel = UILabel()
+    yearLabel.translatesAutoresizingMaskIntoConstraints = false
+    
+    contentView.addSubview(yearLabel)
+    
+    yearLabel.centerYAnchor.constraintEqualToAnchor(contentView.centerYAnchor).active = true
+    yearLabel.leadingAnchor.constraintEqualToAnchor(contentView.leadingAnchor, constant: 12.0).active = true
+    
+    yearLabel.font = UIFont.systemFontOfSize(17.0, weight: UIFontWeightLight)
   }
 }

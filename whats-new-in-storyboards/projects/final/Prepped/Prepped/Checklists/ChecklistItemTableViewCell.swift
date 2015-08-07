@@ -124,3 +124,16 @@ class CheckBox: UIView {
     return CGSize(width: 30.0, height: 30.0)
   }
 }
+
+// Allows multi-line labels in cells to wrap correctly,
+// by setting their preferredMaxLayoutWidth whenever their bounds change.
+class SelfSizingLabel: UILabel {
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    if preferredMaxLayoutWidth != bounds.width {
+      preferredMaxLayoutWidth = bounds.width - 1
+      setNeedsUpdateConstraints()
+    }
+  }
+}
