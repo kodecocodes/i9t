@@ -106,9 +106,9 @@ Doing this takes you to the class you clicked on in Xcode's main editor. Notice 
 
 The level of granularity you get from Xcode's code coverage reports goes beyond the method level. As you can see, it will tell you which lines within a method are covered and which are not. This is helpful to help you identify edge cases you haven't tests. For instance, if you only test the if block in an if-else statement, Xcode will pick this up and let you know.
 
-> **Note**: A single code coverage report is a snapshot of a particular point in time. If you want to know if you're code coverage is improving or getting worse over time you'll need to see how these numbers change over time. You can achieve this with Xcode server and Xcode bots, but won't be covered in this chapter.
+> **Note**: A single code coverage report is a snapshot in time. If you want to know if you're code coverage is improving or getting worse, you'll need to see how these numbers change over time. You can achieve this level of monitoring with Xcode server and Xcode bots. This won't be covered in this chapter but you can learn more about this in XX.
 
-### Improving unit testing access control with @testable
+### `@testable` imports and access control
 
 As far as test coverage goes, 38% is not something to brag out. Let's improve that by adding some more tests. As far as model classes go, both Exercise.swift and Workout.swift have test files but DataModel.swift does not. Let's start there.
 
@@ -193,7 +193,7 @@ override func viewDidLoad() {
 
 One of the ways the UI testing framework references individual UI components in your app is by their accessibility information. Setting this `UITableView`'s accessibility identifier to "Workouts Table" will let you reference this table by this same string later on.
 
-> **Note**: Apple's preferred method adding or improving accessibility information is via Interface Builder. `UITableView` doesn't have an accessibility panel in Interface Builder so that's why you did it in code. 
+> **Note**: If you want to add or improve your existing accessibility information you can do it via Interface Builder or the Accessibility API. Apple's recommended way is doing it via Interface Builder. `UITableView` doesn't have an accessibility panel in Interface Builder so that's why you did it in code. 
 
 Head back to **WorkoutsUITests.swift**. Remove the `tearDown()` and `testExample()` methods and add the following method:
 
@@ -222,14 +222,13 @@ func testRaysFullBodyWorkout() {
   backButton.tap()
 }
  ```
-This method is small but it contains several new classes and concepts you'll read about shortly. In the meantime, here's what the code does in broad terms:
+This test method is small but it contains classes and concepts you haven't encountered before. You'll read about them shortly. In the meantime, here's what the code does in broad terms:
 
 - First you get references to all the tables in the app
-- Then you find the workouts table using the "Workouts Table" accessibility identifier you added earlier. Then you get a hold of the cell you want to tap on using it's text, "Ray's Full Body Workout". Finally you call `tap()` on the cell to simulate a tap
-- Assuming you're now in the workout detail screen, you now get a reference to the navigation bar. You do this by also using the text that was on the cell, which is now on the navigation bar.
-- Finally, you identify the back button (which currently says "Workouts") and tap on it to go back.
+- Then you find the workouts table using the "Workouts Table" accessibility identifier you added earlier. After that you simulate a tap on the cell that contains the static text "Ray's Full Body Workout".
+- Assume you're now in the workout detail screen. You then simulate a tap on the back button to go back to the list of workouts. The back button is in the navigation bar and currently says "Workouts".
 
-> **Note**: Since this is your first UI test you wrote it in a very verbose way, detailing every step of the way. As it turns out, your test can be written more concisely. You'll get the chance to refactor it once you get a few more concepts under your belt.
+> **Note**: Since this is your first UI test you wrote it in a very verbose way, detailing every step of the way. As it turns out, this test can be written more concisely. You'll get the chance to refactor it once you get more concepts under your belt.
 
 Before going into the API more carefully, go ahead and run this test. To run `testRaysFullBodyWorkout()` in isolation, tap the diamond-shaped icon next to the method declaration:
 
@@ -237,21 +236,22 @@ Before going into the API more carefully, go ahead and run this test. To run `te
 
 Tapping the diamond icon builds and launches the application. And then...the simulator does something you've probably never see it do before. It becomes possessed! Specifically, it simulates tapping into Ray's Full Body Workout and then tapping back. 
 
-> **Note**: You may be thinking that this is not a real test since it has no assertions. Regular XCTest unit tests always rely on one or more assertion macros such as XCTAssertTrue, XCTAssertFalse, XCTAssertEquals and so on.
+You may be thinking that this is not a real test since it has no assertions. If you've written regular `XCTest` tests before, you know that they rely on one or more assertion such as `XCTAssertTrue()`, `XCTAssertFalse()`, `XCTAssertEquals()` and so on.
 
-Although you can, you don't have to assert anything explicitly in an UI test. If the test cannot find a particular element on the screen that it was expecting, it's considered a failure. Therefore simply tapping around and going through your usual actions implicitly tests your UI.
+Although you _can_ add assertions, you don't have to explicitly assert anything in a UI test. If the test expects to find a specific UI element on the screen (e.g. a button that says "Workouts") but doesn't, the test will fail. In other words, tapping around your app and going through your usual actions implicitly tests your UI.
 
-There are three main classes involved in UI testing: `XCUIApplication`, `XCUIElement` and `XCUIElementQuery`. They're difficult to distinguish in `testRaysFullBodyWorkout()` because of Swift's type inference, but they're there! 
+There are three main classes involved in UI testing: `XCUIApplication`, `XCUIElement` and `XCUIElementQuery`. They're difficult to distinguish in `testRaysFullBodyWorkout()` because of Swift's type inference, but they're there! Here's a short description on what they do:
 
-- `XCUIApplication` is a proxy for your application. You use it to launch your application to start a test using its launch() method. The setup() method in your test file contains a call to `launch()`, which launches the app every time a new UI test is about to run. `XCUIApplication` is also the root of the element hierarchy that you can test.
-- `XCUIElement` is a proxy for UI elements in the application. XCUIElement can have a type (e.g. Cell, Table, WebView, etc.) as well as an identifier. The identifier usually comes from the element's accessibility information such as its accessibility identifier, label or value. What can you do with a XCUIElement? Anything you can think of. You can try tapping, double tapping, swiping in every direction. 
-- `XCUIElementQuery` resolves to collections of accessible elements. The three most popular ways to query elements is with `descendantsMatchingType(_:)`, `childrenMatchingType(:_)` and `containingType(_:_:)`.
+- `XCUIApplication` is a proxy for your application. You use it to launch and terminate the application as you start and end UI tests. Notice that the `setup()` method in **WorkoutsUITests.swift** launches the app. This means you're launching your `XCUIApplication` before every UI test in the file. `XCUIApplication` is also the root element in the element hierarchy visible to your test.
+- `XCUIElement` is a proxy for UI elements in the application. Every `UIKit` class you can think of can be represented by a `XCUIElement`. How? `XCUIElement` can have a type (e.g. `.Cell`, `.Table`, `.WebView`, etc.) as well as an identifier. The identifier usually comes from the element's accessibility information such as its accessibility identifier, label or value. 
+>What can you do with an `XCUIElement`? Anything you can think of. You can try tapping, double tapping, swiping in every direction. Just like a UI element, there's no guarantee the `XCUIElement` will respond to these actions, but you can sure try them!
+- `XCUIElementQuery` queries a `XCUIElement` for sub-elements matching some criteria. The three most popular ways to query elements is with `descendantsMatchingType(_:)`, `childrenMatchingType(:_)` and `containingType(_:_:)`. 
 
-> **Note**: Remember that `XCUIApplication` and `XCUIElement` are only proxies, not the actual objects by a different names. For example The type `XCUIElementType.Button` can either mean a UIButton or a UIBarButtonItem (which does not descend from UIButton) or it can be any other button-like entity!
+> **Note**: Remember that `XCUIApplication` and `XCUIElement` are only proxies, not the actual objects. For example The type `XCUIElementType.Button` can either mean a `UIButton` or a `UIBarButtonItem` (which does not descend from `UIButton`) or it can be any other button-like entity!
 
-Let's add one more step to the your current test. When you step into the workout detail page, you're also going to scroll down and tap on the "Select & Workout" button. This will bring up an alert view, which your test will dismiss by tapping "OK". Finally, you'll return to the workout list screen like before.
+Let's add one more step to the your current test. When you step into the workout detail page, you're also going to scroll down and tap the **Select & Workout** button. This will bring up an alert view, which your test will dismiss by tapping **OK**. Finally, you'll return to the workout list screen like before. While you're at it, you'll also refactor what the method you implemented previously. 
 
-While you're at it, you'll also refactor what the method you implemented previously. Go to testRaysFullBodyWorkout() and replace the implementation with the following:
+Go to `testRaysFullBodyWorkout()` and replace the implementation with the following:
 
 ```swift
 func testRaysFullBodyWorkout() {
@@ -275,37 +275,43 @@ func testRaysFullBodyWorkout() {
 }
 ```
 Here's what changed in the code:
-- You didn't need the workout list table accessibility identifier. You could have gone straight to the app's tables and then to their cells. Notice that you essentially replaced descendantsMatchingType(.Table) with tables and childrenMatchingType(.Cell) with cells. 
+1. You didn't need to use the accessibility identifier "Workout Table" after all. Instead, you get _all_ tables in the app and then get all of their cells. Notice that you replaced `descendantsMatchingType(.Table)` with convenience method `tables` and `childrenMatchingType(.Cell)` with convenience method `cells`. 
 
-The most commonly used query is descendantsMatchingType(_:) so Apple provided convenience methods for all the common types. childrenMatchingType(_:) doesn't have convenience methods but using descendantsMatchingType(_:) has the same effect in this case
-- This is the extra step you added to the test. Once in the workout detail screen, tap the "Select & Workout" button. Again notice you don't need to specify which table you're talking about. You an go directly from the app to its tables to its buttons, then disambiguate using the button's title. You do the same with the alert's "OK" button except this time you go through the app's alerts instead of through the app's tables.
-- Before, to get to the back button you were going trough the navigation bar. Now you simply query all the app's buttons and tap on the one identified by the string "Workouts."
+>**Note**: The element query `descendantsMatchingType(_:)` is so common that Apple provided convenience methods for all the common types. `childrenMatchingType(_:)` doesn't have convenience methods but using `descendantsMatchingType(_:)` has the same effect in this case
+1. This is the extra step you added to the test. Once in the workout detail screen, you tap on **Select & Workout**. Again, notice you don't need to specify which table you're talking about. You an drill down from the app to its tables to the table's buttons, then disambiguate using the button's title. You do the same with the alert's **OK** button except this time you go through the app's alerts instead of through the app's tables.
+1. In the previous implementation of this test, you were first referencing the navigation bar to get to the its back button. Now you query the app's buttons and tap on the one identified by the string "Workouts."
 
-Run the test testRaysFullBodyWorkout() one more time. The same sequence of events plays out, except this time you tap on "Select & Workout" and dismiss the alert view. When you try to come back to the list of workouts...splat. The test fails!
+Run `testRaysFullBodyWorkout()` one more time. The same sequence of events plays out, except this time you tap on **Select & Workout** and dismiss the alert view. When you try to come back to the list of workouts...splat. The test fails!
 
 ![bordered bezel](/images/testFailure.png)
 
-//Note: It seems that screenshots are not implemented in beta 4. Once they are I want to look at those as I explain why it failed.
+//Note: It seems that screenshots are not implemented in beta 4. I want to look at those as I explain why it failed. I'll check again in the GM.
 
-Let's figure out why the test failed. The error message is "UI Testing Failure - Multiple matches found:". You have three options when you want to go from a set of query results to an individual XCUIElement:
+Let's figure out why the test failed. Xcode gives you the error message "UI Testing Failure - Multiple matches found". You can get this error when you're expecting one `XCUIElement` but instead get multiple.
 
-- You can use subscripting if you have a  unique identifier. For example, buttons["OK"].
-- You can use indexing if want an element at a particular index. For example in a table view you can use, tables.cells.elementAtIndex(?) to get the first cell.
-- If you're sure the query returns only one element, you can use XCUIElementQuery's  element property.
+Let's take a step back. You have three options when you want to go from a set of query results to single `XCUIElement`:
 
-If you use any of the three technique's above and end up with more than one XCUIElement, the test fails. Your test failed because the line below resulted in two buttons:
+1. You can use **subscripting** if the element you want has a unique identifier. For example, `buttonsQuery["OK"]`.
+1. You can use **indexing** if want an element at a particular index. For example, you can use `tables.cells.elementAtIndex(0)` to get the first cell in a table view.
+1. If you're _sure_ a query resolves down to one element, you can use `XCUIElementQuery`'s **`element`** property.
+
+If you use any of the three technique's shown above and end up with more than one `XCUIElement`, the test fails. Why's that? If you then want to tap or swipe on the element, the UI testing framework doesn't know which element you mean. In particular, `testRaysFullBodyWorkout()` failed because the line below resulted in two buttons:
 
     app.buttons["Workouts"].tap()
 
-One is in the top left, next to the back button (this is the one you meant to tap). The second one is inside the "Workouts" tab down below:
+Can you find the duplicates? One is in the top left, next to the back button (this is the one you meant to tap). The second one is inside the "Workouts" tab on the bottom left of the screen:
 
 ![bordered bezel](/images/testFailure.png)
 
-Fix the test by replacing the faulty line with the following:
+Whoops! Fix the test by replacing the faulty line with the following:
 
    app.navigationBars.buttons["Workouts"].tap()
 
-Adding navigationBars between app and buttons makes it clear to the UI testing framework that you want the "Workouts" button located in a navigation bar. Re-run your UI test to verify that it passes now.
+HERE
+
+It seems like you did need to go through the navigation bar after all! `descendantsMatchingType(.NavigationBar) navigationBars` is the convenience method for `matching
+
+Adding `navigationBars` between `app` and `buttons` makes it clear to the UI testing framework that you want the "Workouts" button located in a navigation bar. Re-run your UI test to verify that it passes now.
 
 ### UI recording
 s
