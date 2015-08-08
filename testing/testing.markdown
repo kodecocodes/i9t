@@ -13,7 +13,7 @@ This chapter builds on previous additions to XCTest that focus on code coverage 
 
 Swift 2.0 also has an important feature related to testing that you'll read about in this chapter — the addition of @testable imports, which solves issues with testing and access control developers previously had. Are you ready to write some tests?
 
-## Introducng the RW workout app
+## Introducing the RW workout app
 
 This chapter's sample project is a simple fitness app for iOS. This workouts app has two tabs: Exercises and Workouts. In the exercises tab, you can browse the set of built-in exercises, all time favorites like push-ups and crunches, or create your own. In the workout tab, you can also choose one of the built-in workouts or create your own. If the distinction is not clear, a workout is a sequential list of exercises :]
 
@@ -126,7 +126,7 @@ Your app is in a different module than your tests so you have to import your app
 
 Wait a minute...what's going on? After pasting your unit tests, Xcode complains in every place you reference the class DataModel. The problem has to do with Swift access controls, covered next.
 
-#### A quick refresher on Swift access controls
+### A quick refresher on Swift access controls
 
 Swift access controls restrict access to parts of your code from other files and Swift modules. If you can write Objective-C, you'll remember that everything that you put in your .m implementation file was "private" and if you wanted to make it "public" to other classes you had to public the method declaration in the header file.
 
@@ -164,74 +164,74 @@ Magic! All your problems go away simply by adding @testable in front of your imp
 
 ## UI Testing
 
-So far you've explored code coverage reports and @testable imports. There's one more expansion to Xcode's testing capabilities to explore, and it's a big one: UI testing.
+So far you've explored code coverage reports and `@testable` imports. These are great new features – they give you more information and make it easier to test but they don't really let you do anything you couldn't before. On the other hand, the third and last expansion to Xcode's testing capabilities lets you test your app in ways you didn't think possible. This expansion is of course...UI testing.
 
-Before you can start writing UI tests in Xcode you first have to add a UI testing target. Click on File/New/Target to add the new target. With the iOS/Test group selected on the left-hand column, click on iOS UI Testing Bundle:
+Before you can write your first UI test you have to make sure that your project has a UI testing target. This sample project doesn't, so you'll add one right now. In Xcode's menu, click on **File/New/Target**. You'll see this screen:
 
 ![bordered bezel](/images/addUITestTarget1.png)
 
-All the default values on the next screen are correct. If you have multiple modules in your project, make sure that the Target to be Tested is set to your app:
+Then, select the **iOS/Test** group on the left-hand column and click on **iOS UI Testing Bundle**.
 
 ![bordered bezel](/images/addUITestTarget2.png)
 
-Voila! Doing this creates a new WorkoutsUITests group in Xcode with a sample UI testing file called WorkoutsUITests.
+All the default values on this next screen should be correct for this simple sample project. However, if you're working on a project that consists of multiple modules, make sure that the **Target to be Tested** is set to your app's module. Finally, click on **Finish** to create the target. 
 
-> **Note**: If you create a new project with Xcode 7, you'll already have a UI testing target. On the other hand, if you're upgrading an existing project from Xcode 6 or earlier you will have to add a UI testing target as you just did.
+Voila! Doing this creates a new **WorkoutsUITests** group in Xcode along with a sample UI testing file called **WorkoutsUITests.swift**.
 
-Let's jump right into your first test. Your first test is going to validate the number of exercises in a particular workout. For example, in the Workouts list screen it says that Ray's Full Body Workout consists of 10 separate exercises. You can verify in the Workout details screen if there are 10 exercises listed under "EXERCISES".
+> **Note**: You'll only have to add a UI testing target if you upgrade an existing project from Xcode 6 or earlier. New projects created with Xcode 7 already come with this type of target. 
 
-The first step is to get a reference to the list of workouts. The UI testing framework gets its information from Accessibility. If the workout list cannot be unique identified by Accessibility it means you won't be able to reference it in your test. Let's fix this first.
+Let's jump right into your first test! This test is going to validate one important flow in the application: drilling down from the list of workouts into a particular workout's detail page. For this test, you'll use "Ray's Full Body Workout" as an example.
 
-Open WorkoutViewController.swift and add replace viewDidLoad() with the following:
+Open **WorkoutViewController.swift** and replace `viewDidLoad()` with the following:
 
 ```swift
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    tableView.accessibilityIdentifier = "Workouts Table"
-  }
+override func viewDidLoad() {
+  super.viewDidLoad()
+  tableView.accessibilityIdentifier = "Workouts Table"
+}
 ```
 
-Doing this tags the UITableView in the workout list view controller with a string identifier of "Workouts Table".
+One of the ways the UI testing framework references individual UI components in your app is by their accessibility information. Setting this `UITableView`'s accessibility identifier to "Workouts Table" will let you reference this table by this same string later on.
 
-> **Note**: Apple's preferred method of improving accessibility information is by using Interface Builder. UITableView doesn't have an accessibility panel in Interface Builder so that's why you did it in code. 
+> **Note**: Apple's preferred method adding or improving accessibility information is via Interface Builder. `UITableView` doesn't have an accessibility panel in Interface Builder so that's why you did it in code. 
 
-Head back to WorkoutsUITests.swift. Remove the tearDown() and testExample() methods and add the following one:
+Head back to **WorkoutsUITests.swift**. Remove the `tearDown()` and `testExample()` methods and add the following method:
 
 ```swift
-  func testRaysFullBodyWorkout() {
+func testRaysFullBodyWorkout() {
     
-    //1
-    let app = XCUIApplication()
-    let tableQuery = app.descendantsMatchingType(.Table)
-    
-    //2
-    let workoutTable = tableQuery["Workouts Table"]
-    let cellQuery = workoutTable.childrenMatchingType(.Cell)
-    
-    let identifier = "Ray's Full Body Workout"
-    let workoutQuery = cellQuery.containingType(.StaticText, identifier: identifier)
-    let workoutCell = workoutQuery.element
-    workoutCell.tap()
-    
-    //3
-    let navBarQuery = app.descendantsMatchingType(.NavigationBar)
-    let navBar = navBarQuery[identifier]
-   
-    let buttonQuery = navBar.descendantsMatchingType(.Button)
-    let backButton = buttonQuery["Workouts"]
-    backButton.tap()
-  }
+  //1
+  let app = XCUIApplication()
+  let tableQuery = app.descendantsMatchingType(.Table)
+  
+  //2
+  let workoutTable = tableQuery["Workouts Table"]
+  let cellQuery = workoutTable.childrenMatchingType(.Cell)
+  
+  let identifier = "Ray's Full Body Workout"
+  let workoutQuery = cellQuery.containingType(.StaticText, identifier: identifier)
+  let workoutCell = workoutQuery.element
+  workoutCell.tap()
+  
+  //3
+  let navBarQuery = app.descendantsMatchingType(.NavigationBar)
+  let navBar = navBarQuery[identifier]
+ 
+  let buttonQuery = navBar.descendantsMatchingType(.Button)
+  let backButton = buttonQuery["Workouts"]
+  backButton.tap()
+}
  ```
-There method you just added is small but it contains several new concepts that you'll learn about shortly. In the meantime, here's what the code does in broad terms:
+This method is small but it contains several new classes and concepts you'll read about shortly. In the meantime, here's what the code does in broad terms:
 
-- First you get all the application's tables
-- Then you find the workouts table using the "Workouts Table" accessibility identifier you added earlier. Then you get a hold of the cell you want to tap on using it's text, "Ray's Full Body Workout". Finally you call tap() on the cell to simulate a tap
-- Assuming the transition completed successfully, you now get a reference to the navigation bar that corresponds to the workout you just tapped on. You do this by also using the text that was on the cell, which is now on the navigation bar.
+- First you get references to all the tables in the app
+- Then you find the workouts table using the "Workouts Table" accessibility identifier you added earlier. Then you get a hold of the cell you want to tap on using it's text, "Ray's Full Body Workout". Finally you call `tap()` on the cell to simulate a tap
+- Assuming you're now in the workout detail screen, you now get a reference to the navigation bar. You do this by also using the text that was on the cell, which is now on the navigation bar.
 - Finally, you identify the back button (which currently says "Workouts") and tap on it to go back.
 
 > **Note**: Since this is your first UI test you wrote it in a very verbose way, detailing every step of the way. As it turns out, your test can be written more concisely. You'll get the chance to refactor it once you get a few more concepts under your belt.
 
-Before going into the API more carefully, go ahead and run this test. To run testRaysFullBodyWorkout() in isolation, tap the diamond-shaped icon next to the method declaration:
+Before going into the API more carefully, go ahead and run this test. To run `testRaysFullBodyWorkout()` in isolation, tap the diamond-shaped icon next to the method declaration:
 
 ![bordered bezel](/images/singleTest.png)
 
@@ -241,38 +241,38 @@ Tapping the diamond icon builds and launches the application. And then...the sim
 
 Although you can, you don't have to assert anything explicitly in an UI test. If the test cannot find a particular element on the screen that it was expecting, it's considered a failure. Therefore simply tapping around and going through your usual actions implicitly tests your UI.
 
-There are three main classes involved in UI testing: XCUIApplication, XCUIElement and XCUIElementQuery. They're difficult to distinguish in testRaysFullBodyWorkout() because of Swift's type inference, but they're there! 
+There are three main classes involved in UI testing: `XCUIApplication`, `XCUIElement` and `XCUIElementQuery`. They're difficult to distinguish in `testRaysFullBodyWorkout()` because of Swift's type inference, but they're there! 
 
-- XCUIApplication is a proxy for your application. You use it to launch your application to start a test using its launch() method. The setup() method in your test file contains a call to launch(), which launches the app every time a new UI test is about to run. XCUIApplication is also the root of the element hierarchy that you can test.
-- XCUIElement is a proxy for UI elements in the application. XCUIElement can have a type (e.g. Cell, Table, WebView, etc.) as well as an identifier. The identifier usually comes from the element's accessibility information such as its accessibility identifier, label or value. What can you do with a XCUIElement? Anything you can think of. You can try tapping, double tapping, swiping in every direction. 
-- XCUIElementQuery resolves to collections of accessible elements. The three most popular ways to query elements is with descendantsMatchingType(_:), childrenMatchingType(:_) and containingType(_:_:).
+- `XCUIApplication` is a proxy for your application. You use it to launch your application to start a test using its launch() method. The setup() method in your test file contains a call to `launch()`, which launches the app every time a new UI test is about to run. `XCUIApplication` is also the root of the element hierarchy that you can test.
+- `XCUIElement` is a proxy for UI elements in the application. XCUIElement can have a type (e.g. Cell, Table, WebView, etc.) as well as an identifier. The identifier usually comes from the element's accessibility information such as its accessibility identifier, label or value. What can you do with a XCUIElement? Anything you can think of. You can try tapping, double tapping, swiping in every direction. 
+- `XCUIElementQuery` resolves to collections of accessible elements. The three most popular ways to query elements is with `descendantsMatchingType(_:)`, `childrenMatchingType(:_)` and `containingType(_:_:)`.
 
-> **Note**: Remember that XCUIApplication and XCUIElement are only proxies, not the actual objects by a different names. For example The type XCUIElementType.Button can either mean a UIButton or a UIBarButtonItem (which does not descend from UIButton) or it can be any other button-like entity!
+> **Note**: Remember that `XCUIApplication` and `XCUIElement` are only proxies, not the actual objects by a different names. For example The type `XCUIElementType.Button` can either mean a UIButton or a UIBarButtonItem (which does not descend from UIButton) or it can be any other button-like entity!
 
 Let's add one more step to the your current test. When you step into the workout detail page, you're also going to scroll down and tap on the "Select & Workout" button. This will bring up an alert view, which your test will dismiss by tapping "OK". Finally, you'll return to the workout list screen like before.
 
 While you're at it, you'll also refactor what the method you implemented previously. Go to testRaysFullBodyWorkout() and replace the implementation with the following:
 
 ```swift
-  func testRaysFullBodyWorkout() {
+func testRaysFullBodyWorkout() {
     
-    let app = XCUIApplication()
+  let app = XCUIApplication()
     
-    //1
-    let identifier = "Ray's Full Body Workout"
+  //1
+  let identifier = "Ray's Full Body Workout"
     
-    let workoutQuery =
-     app.tables.cells.containingType(.StaticText, identifier: identifier)
+  let workoutQuery =
+  app.tables.cells.containingType(.StaticText, identifier: identifier)
     
-    workoutQuery.element.tap()
+  workoutQuery.element.tap()
     
-    //2
-    app.tables.buttons["Select & Workout"].tap()
-    app.alerts.buttons["OK"].tap()
+  //2
+  app.tables.buttons["Select & Workout"].tap()
+  app.alerts.buttons["OK"].tap()
     
-    //3
-    app.buttons["Workouts"].tap()
-  }
+  //3
+  app.buttons["Workouts"].tap()
+}
 ```
 Here's what changed in the code:
 - You didn't need the workout list table accessibility identifier. You could have gone straight to the app's tables and then to their cells. Notice that you essentially replaced descendantsMatchingType(.Table) with tables and childrenMatchingType(.Cell) with cells. 
@@ -307,8 +307,8 @@ Fix the test by replacing the faulty line with the following:
 
 Adding navigationBars between app and buttons makes it clear to the UI testing framework that you want the "Workouts" button located in a navigation bar. Re-run your UI test to verify that it passes now.
 
-### UI recording, a Skynet product
-
+### UI recording
+s
 You spent a lot of time and effort writing and refactoring testRaysFullBodyWorkout(). The good news is that there is a simpler way to get the job done using UI recording. With UI recording, all you have to do is turn it on and interact with the simulator. Xcode will auto-magically translate your actions into UI testing code.
 
 Let's see this in code. Delete the current implementation inside testRaysFullBodyWorkout() and click the UI recording button:
@@ -319,8 +319,7 @@ Clicking the UI recording button will build your app one more time and launch th
 
 Your test method should look like so:
 
-```swift
-  
+```swift  
   func testRaysFullBodyWorkout() {
     
     let app = XCUIApplication()
@@ -350,11 +349,13 @@ When you're writing UI tests, there's one thing to keep in mind. Although UI tes
 
 ## Where to Go From Here?
 
-You've seen how powerful and useful testing can be in Xcode 7. To summarize what you learned in this chapter, you started by exploring the new code coverage reports. Then, you dove into the new @testable feature in Swift 2.0. Finally, you finished the chapter off by exploring UI testing in XCTest.
+You've seen how powerful and useful testing can be in Xcode 7. To summarize what you learned in this chapter, you started by exploring the new code coverage reports. Then, you dove into the new `@testable` feature in Swift 2.0. Finally, you finished the chapter off by exploring UI testing in `XCTest`.
 
-Going through the testing features, as you have done in the chapter, is the easy part. What's difficult is figuring out what to test! I'm sure you, like every other developer, would prefer to spend your time shipping features rather than writing tests. Unfortunately, there is no easy answer but there are some guidelines you can follow. You can write UI tests for mission critical flows in your application such as logging in, creating a new account, etc. If you're working on a document-based application you can also write tests for doing basic tasks such as opening a document, closing a document and saving a document.
+Going through the testing features is the easy part. What's difficult is figuring out what to test! Unfortunately, there are no easy answers but there are some guidelines you can follow. 
 
-If you ever find yourself fixing the same bug over and over, think back to this chapter! Check the code coverage levels for the class that keeps causing you heartburn. If it's low or incomplete, consider writing some regular unit tests or even some UI tests that validate the feature.
+You can write UI tests for mission critical flows in your application such as logging in, creating a new account, etc. If you're working on a document-based application you can also write tests for basic tasks such as opening, closing and saving a document.
+
+If you ever find yourself fixing the same bug over and over, think back to this chapter! Check the code coverage for the files that contain the bug. If the code coverage is low or incomplete, consider writing more unit tests or even some UI tests that validate the feature.
 
 
 
