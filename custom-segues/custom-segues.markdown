@@ -26,11 +26,13 @@ The app you'll be updating today is a pet minding app called **PamperedPets**. I
 
 ![iPhone](images/PamperedPets.png)
 
-Explore your starter project and see how it works. When you run the app, you'll see a single scene which shows the photo, address and feeding instructions for a single pet, the star of our show - Bubbles the goldfish. No transitions are yet implemented.
+Explore your starter project and see how it works. When you run the app, you'll see a single scene which shows the photo, address and feeding instructions the star of our show - Bubbles the goldfish. No transitions are yet implemented.
+
+> **Note**: The project will throw some warnings related to the Storyboard. Don't panic.  You'll hook the disconnected storyboards up later in the chapter.
 
 Have a look at **Main.storyboard**. There are a number of scenes that have been created for you, but initially the Animal Detail scene and the Animal Photo scene are the scenes that you'll be working with. 
 
-![bordered width=90%](images/Storyboard.png)
+![bordered width=80%](images/Storyboard.png)
 
 When you've finished this chapter, your app will show a list of pets to be minded. You'll be able to select a pet and that pet's details will be displayed.
 
@@ -79,15 +81,17 @@ Select the segue arrow between the two scenes **Animal Detail View Controller** 
 In **AnimalDetailViewController.swift** override `prepareForSegue(_:sender:)` to set up the destination controller data:
 
 ```swift
-override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-  if segue.identifier == "PhotoDetail" {
-    let controller = segue.destinationViewController as! AnimalPhotoViewController
-    controller.image = imageView.image
-  }
+override func prepareForSegue(segue: UIStoryboardSegue,
+  sender: AnyObject?) {
+    if segue.identifier == "PhotoDetail" {
+      let controller = segue.destinationViewController
+        as! AnimalPhotoViewController
+      controller.image = imageView.image
+    }
 }
 ```
 
-Here you give the destination controller, in this case AnimalPhotoViewController, the image that it will display.
+Here you give the destination controller, in this case `AnimalPhotoViewController`, the image that it will display.
 
 Run the app and tap the photo. 
 
@@ -95,7 +99,7 @@ Run the app and tap the photo.
 
 A larger photo of the fish will slide up the screen. There is currently no way for the user to close this screen so you will now create a tap gesture to perform an unwind segue.
 
-In **AnimalDetailViewController.swift** add this method:
+In **AnimalDetailViewController.swift** add the following method to `AnimalDetailViewController`:
 
 ```swift
 @IBAction func unwindToAnimalDetailViewController(segue:UIStoryboardSegue) {
@@ -103,17 +107,19 @@ In **AnimalDetailViewController.swift** add this method:
 }
 ```
 
-This method won't contain any code. Any method with a signature of `@IBAction func methodName(segue:UIStoryboardSegue)` is considered by the system to be a marker for a Storyboard segue to unwind to.
+This method doesn't require any code for a simple unwind segue. Any method with a signature of `@IBAction func methodName(segue:UIStoryboardSegue)` is considered by the system to be a marker for a Storyboard segue to unwind to.
 
-In **Main.storyboard** select the **Animal Photo View Controller** scene. Drag a **Tap Gesture Recognizer** from the Object Library onto **Animal Photo View**. 
+In **Main.storyboard** select the **Animal Photo View Controller** scene. Drag a **Tap Gesture Recognizer** from the Object Library onto **Pet Photo View**. 
 
-In the Document Outline ctrl-drag from this new **Tap Gesture Recognizer** to **Exit** (just above the Tap Gesture Recognizer). Select **unwindToAnimalDetailViewController** from the popup menu.
+In the Document Outline ctrl-drag from this new **Tap Gesture Recognizer** to **Exit**. Select **unwindToAnimalDetailViewController** from the popup menu.
 
-Run the app again, and tap the photo. The larger photo will transition in by sliding up the screen, and then you can tap the larger photo to unwind back to the first screen.
+![bordered width=40%](images/ExitSegue.png)
+
+Run the app again, and tap the photo. The larger photo will transition in by sliding up the screen, and tapping the larger photo will unwind back to the first screen.
 
 ![bordered iPhone](images/DismissFish.png)
 
-Let's dissect what's happened here. When you tap the photo the tap gesture recognizer initiates a Modal segue from AnimalDetailViewController to AnimalPhotoViewController. AnimalDetailViewController is the **source view controller**. AnimalPhotoViewController is the **destination view controller**. The segue holds a reference to both the source view controller and the destination view controller. 
+Let's dissect what's happened here. When you tap the thumbnail on the detail view, the tap gesture recognizer initiates a Modal segue from `AnimalDetailViewController` to `AnimalPhotoViewController`. `AnimalDetailViewController` is the **source view controller**. AnimalPhotoViewController is the **destination view controller**. The segue holds a reference to both the source view controller and the destination view controller. 
 
 ![bordered height=20%](images/AppFlow.png)
 
@@ -129,7 +135,7 @@ Those are the basic principles of what happens during a segue. Now that you have
 
 Because the segue is now retained throughout the entire duration of a modal or popover presentation, it's really easy to change segues from your library without having to touch your UIViewController code. The segue can be responsible for both presentation and dismissal transition animations.
 
-The starter app contains a pre-made custom segue called DropSegue so that you can see how easy it is to change segues. In **Main.storyboard** select the **PhotoDetail** segue. Change **Segue Class** to **DropSegue**. 
+The starter app contains a pre-made custom segue called `DropSegue` so that you can see how easy it is to change segues. In **Main.storyboard** select the **PhotoDetail** segue between the Animal Detail View Controller and the Animal Photo View Controller. Change **Segue Class** to **DropSegue**. 
 
 ![bordered height=20%](images/DropSegue.png)
 
