@@ -201,3 +201,61 @@ Update the definition so that `contentAttributeSet` is set before the `return`. 
 ![width=35%](/images/app-screen-5.png)
 
 Voila! Are you amazed with how few lines of code it took to pull this off?
+
+Great work! Your users can now search for colleagues using Spotlight that they've previously viewed. Unfortunately there is one glaring omission... They can't open the app directly to the record! Time to fix that.
+
+### Opening Search Results
+
+Now that you've got search results appearing, an ideal user experience is to take the user directly to that content without any fanfare when they select it. In the previous section you laid the ground work for this by providing an `activityType` as well as `userInfo` on your `NSUserActivity` instances.
+
+Open **AppDelegate.swift** and add an empty implementation of the `application(application:continueUserActivity:restorationHandler:)` method.
+
+```swift
+func application(application: UIApplication,
+  continueUserActivity userActivity: NSUserActivity,
+  restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+
+  return true
+}
+```
+
+This method is called when a user selects a search result from Spotlight, it also happens to be the same method that is called when Handoff is used to continue an activity from another device. The first order of business is to verify the activity type and if it is what you're expecting, extract the information you planted in `userInfo`. Add the following logic above `return true` in the `application(application:continueUserActivity:restorationHandler:)` method.
+
+```swift
+let objectId: String
+if userActivity.activityType == Employee.domainIdentifier,
+  let activityObjectId = userActivity.userInfo?["id"] as? String {
+  objectId = activityObjectId
+} else {
+  return false
+}
+```
+
+This logic verifies the `activityType` is what you defined as an the activity for Employees, then it attempts to extract the `id` from `userInfo`. If both succeed, `objectId` is set to be used next. Otherwise the method returns `false` letting the system know that the activity was not handled. When the `objectId` *is* obtained your objective is to display the `EmployeeViewController` for the Employee with that `objectId`.
+
+The code below may appear a bit confusing, but recall how the app is designed. There are two view controllers, one that is the list of all employees and another that shows employee details. You will need to pop the application's navigation stack back to the list and then push to the details view for the employee. Replace `return true` with the following.
+
+```swift
+if let nav = window?.rootViewController as? UINavigationController,
+  listVC = nav.viewControllers.first as? EmployeeListViewController,
+  employee = EmployeeService().employeeWithObjectId(objectId)
+{
+  nav.popToRootViewControllerAnimated(false)
+
+  let employeeViewController = listVC
+    .storyboard?
+    .instantiateViewControllerWithIdentifier("EmployeeView") as! EmployeeViewController
+
+  employeeViewController.employee = employee
+  nav.pushViewController(employeeViewController, animated: false)
+  return true
+} else {
+  return false
+}
+```
+
+As described, this logic works its way through the app's view hierarchy to push to an `EmployeeViewController` for the selected search result. If for some reason the view cannot be presented, return `false`.
+
+Okay, time to build and run! Once the app opens, select **Cary Iowa** then go to the home screen. Activate Spotlight and search for **Brent Reid**, when the result appears select it. The app will open and you will quickly see it transition from Cary's record to Brent's. Excellent work! You can play around with this some more, with other records. The next step will be indexing *all* employee to make them searchable without having previously viewed them.
+
+## Index All The Things!
