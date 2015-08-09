@@ -47,17 +47,17 @@ Now open the project navigator and take a look at the full list of files in the 
 
 The starter project groups source code files into groups. Before jumping into the code, let's briefly go over the classes in each group:
 
-- Model: The project relies on two main model objects, Exercise.swift and Workout.swift. An exercise model object holds its name, the name of its image file, instructions to perform the exercise and its duration. The duration of an exercise is determined at exercise creation and it's readonly after that. An exercise also keep track of whether it is a build-in exercise or if it was created by the user. This will be important later on.
+- **Model:** The project relies on two main model objects, **Exercise.swift** and **Workout.swift**. An exercise model object holds its name, the name of its image file, instructions to perform the exercise and its duration. The duration of an exercise is determined at exercise creation and it's readonly after that. An exercise also keep track of whether it is a build-in exercise or if it was created by the user. This will be important later on.
 
 Similarly, a workout model object also holds its name and whether it is a built-in workout or if it was created by the user. It also holds an array of its exercises as well as the total duration of the workout - a sum of the duration of each exercise plus an optional rest interval between exercises. 
 
 If a user creates an exercise or a workout, it's saved to disk do the user doesn't lose data between app launches. Both Exercise and Workout conform to NSCoding to persist user data on disk. DataModel helps store and retrieve information from disk. It also helps answer queries such as "give me all exercises" or "give me all workouts"
 
-- WorkoutTests: The sample app already includes some tests in its testing target. Exercises.swift and WorkoutsTests.swift contain unit tests for their respective model objects. DataModelTests.swift is supposed to test DataModel...but if you take a closer look you'll see that the file doesn't include any unit tests.
+- **WorkoutTests:** The sample app already includes some tests in its testing target. **Exercises.swift** and **WorkoutsTests.swift** contain unit tests for their respective model objects. **DataModelTests.swift** is supposed to test `DataModel`...but if you take a closer look you'll see that the file doesn't include any unit tests.
 
-- View Controllers: WorkoutViewController.swift, WorkoutDetailViewController.swift and AddWorkoutViewController.swift all do what their name suggests. WorkoutViewController shows you a list of all workouts, both built-in and user-created. When you tap on a specific workout, WorkoutDetailViewController displays the workouts information as well as lets you perform the exercise. AddWorkoutViewController lets you add a new workout to the list of workouts.
+- View Controllers: **WorkoutViewController.swift**, **WorkoutDetailViewController.swift** and **AddWorkoutViewController.swift** all do what their name suggests. `WorkoutViewController` shows you a list of all workouts, both built-in and user-created. When you tap on a specific workout, WorkoutDetailViewController displays the workouts information as well as lets you perform the exercise. AddWorkoutViewController lets you add a new workout to the list of workouts.
 
-Similarly, ExerciseViewController displays a list of all exercises in the app. From here you can add a new exercise or tap into an existing exercise, taking you to ExerciseDetailViewController. 
+Similarly, `ExerciseViewController` displays a list of all exercises in the app. From here you can add a new exercise or tap into an existing exercise, taking you to `ExerciseDetailViewController`. 
 
 > **Note**: Even though the view controller source files are much longer than the model object source files, notice how they don't have any tests. This is a problem! That's a lot of UI code that has no test coverage. You'll learn how to measure and test this code in this chapter.
 
@@ -92,13 +92,13 @@ You're currently viewing the Test view of the test report. This shows you a list
 
 ![bordered bezel](/images/reportNavigator2.png)
 
-This report shows you the code coverage for your entire app as well as the code coverage per file. For example, the code coverage for the entire app is 38% (yikes!) whereas code coverage for DataModel.swift is 93%.
+This report shows you the code coverage for your entire app as well as the code coverage per file. For example, the code coverage for the entire app is 38% (yikes!) whereas code coverage for **DataModel.swift** is 93%.
 
 You'll notice that the report won't show you the specific coverage percentage. If you want to this number, simply hover your mouse over the progress indicator until it shows up. You can also get code coverage numbers for individual classes. Simply click on the disclosure indicator to the left of the class name to drill down to individual methods.
 
 If you've ever shipped a bug to the App Store you'll instantly realize that this information is extremely valuable. However, stop for a minute and ask yourself what exactly it means to have 93% coverage.
 
-Xcode can tell you this as well. Hover on top of Workout.swift and click on the right arrow that appears next to it:
+Xcode can tell you this as well. Hover on top of **Workout.swift** and click on the right arrow that appears next to it:
 
 ![bordered bezel](/images/reportNavigator2.png)
 
@@ -108,57 +108,59 @@ The level of granularity you get from Xcode's code coverage reports goes beyond 
 
 > **Note**: A single code coverage report is a snapshot in time. If you want to know if you're code coverage is improving or getting worse, you'll need to see how these numbers change over time. You can achieve this level of monitoring with Xcode server and Xcode bots. This won't be covered in this chapter but you can learn more about this in XX.
 
-### `@testable` imports and access control
+## `@testable` imports and access control
 
-As far as test coverage goes, 38% is not something to brag out. Let's improve that by adding some more tests. As far as model classes go, both Exercise.swift and Workout.swift have test files but DataModel.swift does not. Let's start there.
+As far as test coverage goes, 38% is not something to brag out. Let's improve that number by adding more tests. Both **Exercise.swift** and **Workout.swift** have corresponding test files but **DataModel.swift** does not. Let's start there.
 
-Select the WorkoutTests group and click on File/New/File... to create a new file. 
+Go to **File\New\File...** and select the **iOS\Source\Unit Test Case** template:  
 
 ![bordered bezel](/images/newUnitTestFile.png)
 
-With the iOS/Source group selected on the left hand side, select Unit Test Case Class. Name your new file DataModelTests, click Next and then Create. As first order of business, add the following import at the top of DataModelTests.swift:
+Create a class called **DataModelTests** as a subclass of **XCTest** and make sure **Swift** is selected. Then click **Next** and then **Create**.
+
+As first order of business, add the following import at the top of **DataModelTests.swift**:
 
     import Workouts
 
-Your app is in a different module than your tests so you have to import your app's module before writing any tests against DataModel. Next, replace the contents of the file with the following:
+Your app and your test bundle are in separate bundles so you have to import your app's module before writing any tests against `DataModel`. Next, replace the contents of the file with the following:
 
 //Add DataModelTests here
 
-Wait a minute...what's going on? After pasting your unit tests, Xcode complains in every place you reference the class DataModel. The problem has to do with Swift access controls, covered next.
+Wait a minute...what's going on? After adding more unit tests, Xcode complains every time you reference `DataModel`. The problem lies with Swift access controls, covered next.
 
 ### A quick refresher on Swift access controls
 
-Swift access controls restrict access to parts of your code from other files and Swift modules. If you can write Objective-C, you'll remember that everything that you put in your .m implementation file was "private" and if you wanted to make it "public" to other classes you had to public the method declaration in the header file.
+Once you have a Swift entity (this can be a class, struct, enumeration, property, etc), its Swift access controls restrict other parts of your code from accessing it based on rules you set up in advance. 
 
-> **Note**: Actually, everything in Objective-C was always public. Even if you didn't publish a property or a method in the header file, you were still able to send a message to the class and the class would run it if it was implemented. 
+The concept of access controls exists in virtually every programming language, although it may be called something different. In Swift, the access control model is based on the concept of **modules** and **source files**. 
 
-Swift works in a similar way, except that the Swift access control model is based on the concept of modules and source files. A module is a single unit of code distribution, an application or a framework. For example, all the source code in the Workout app is a module and all the code in your testing target is another module.
+A module is a single unit of code distribution. This can be an application or a framework. In this example, all the source code in the Workout app is one module and all the code in your testing bundle is a separate module.
 
-Swift provides three different access level for entities within your code:
+Swift provides three different levels of access:
 
-- Public access enables entities from any source file from your own module as well as any source file from another module that @imports your module.
-- Internal access enables entities to be used within any source file from your own module, but not in any source file outside your module (even if they @import your module).
-- Private access restricts the use of an entity to its own defining source file. This is the most restrictive of all access controls.
+1. **Public access** enables access for entities in any source file from your own module as well as any source file any other module that `@imports` your module.
+1. **Internal access** enables access for entities in any source file from your own module. Outside module never get access, even if they `@import` your module.
+1. **Private access** restricts access to entities in your the defining source file. This is the most restrictive of all access controls levels.
 
-> **Note**: You just read a very broad overview of Swift's access control model. As always, there are many caveats to keep in mind. You can read about Swift's access control model in Apple's documentation: https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html  
+> **Note**: This was a broad overview of Swift's access control model. If you're interested in learning more, you can read Apple's documentation on the subject: https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html  
 
-The default access control is internal. You see why your unit tests were riddled with errors? All the entities in DataModel.swift are internal to the Workout module. When you try to reference them in the unit testing module, it's as if they didn't exist.
+The default access control is **internal**. Now, you see why your unit tests were riddled with errors? All the entities in **DataModel.swift** are internal to the Workout module. You cannot reference them from the unit testing module, even if you `@import` the Workouts module!
 
-In the past, you had two options to get around this problem:
-- Add every file you want to test to your testing target.
-- Make every entity you want to test public.
+Before Xcode 7, you could get around this problem one of two ways:
+1. Add every source file you want to test to your testing target.
+1. Make every entity you want to test public.
 
-Both options have serious downsides. You can add every file you want to test to your testing target, but this is a manual step that you can forget to do. It also doesn't make much sense conceptually. The testing module should only contain tests!
+Both options have serious downsides. You _can_ add every file you want to test to your testing target. If you were wondering, this is how `WorkoutTests` and `ExercisesTests` compile without errors. The downside is that doing this is a manual step that you can forget to do. It also doesn't make much sense conceptually. The testing module should only contain tests!
 
-The second option, marking everything public, is even worse. If you have a large project that consists of several modules, there are probably parts of your code that shouldn't be used externally. Marking everything public for the sake of testability is asking for trouble.
+The second option, marking everything public, is even worse. If you have a large project that consists of several modules, there are probably parts of your code that shouldn't be exposed externally. Marking everything public for the sake of testability is asking for trouble.
 
-Lucky for you, Swift 2.0 introduces a third option. Still in DataModelTests.swift, replace the import statement you previously added with the folllwing:
+Lucky for you, Swift 2.0 introduces a third option. Still in **DataModelTests.swift**, replace the `@import` statement you previously added with the following:
 
     @testable import Workouts
 
-Magic! All your problems go away simply by adding @testable in front of your import statement. The @testable modifier changes the way the internal access control works. Normally you don't have visibility of internal entities from outside modules. With @testable you do.
+Magic! All your compiler errors disappear. The `@testable` modifier changes the way the default internal access control works. Normally you don't have visibility of internal entities from outside modules. With `@testable` you do.
 
-> **Note**: @testable has no effect on the private access control. What is private remains private to the defining source file. 
+> **Note**: `@testable` has no effect on the private access control. As they say in Vegas, what you declare `private` stays `private` :] 
 
 // Run code coverage one more time here
 
@@ -224,9 +226,9 @@ func testRaysFullBodyWorkout() {
  ```
 This test method is small but it contains classes and concepts you haven't encountered before. You'll read about them shortly. In the meantime, here's what the code does in broad terms:
 
-- First you get references to all the tables in the app
-- Then you find the workouts table using the "Workouts Table" accessibility identifier you added earlier. After that you simulate a tap on the cell that contains the static text "Ray's Full Body Workout".
-- Assume you're now in the workout detail screen. You then simulate a tap on the back button to go back to the list of workouts. The back button is in the navigation bar and currently says "Workouts".
+1. First you get references to all the tables in the app
+2. Then you find the workouts table using the "Workouts Table" accessibility identifier you added earlier. After that you simulate a tap on the cell that contains the static text "Ray's Full Body Workout".
+3. Assume you're now in the workout detail screen. You then simulate a tap on the back button to go back to the list of workouts. The back button is in the navigation bar and currently says "Workouts".
 
 > **Note**: Since this is your first UI test you wrote it in a very verbose way, detailing every step of the way. As it turns out, this test can be written more concisely. You'll get the chance to refactor it once you get more concepts under your belt.
 
@@ -307,59 +309,55 @@ Whoops! Fix the test by replacing the faulty line with the following:
 
    app.navigationBars.buttons["Workouts"].tap()
 
-HERE
-
-It seems like you did need to go through the navigation bar after all! `descendantsMatchingType(.NavigationBar) navigationBars` is the convenience method for `matching
+You did need to go through the navigation bar after all! `navigationBars` is the convenience method for `descendantsMatchingType(.NavigationBar)`. 
 
 Adding `navigationBars` between `app` and `buttons` makes it clear to the UI testing framework that you want the "Workouts" button located in a navigation bar. Re-run your UI test to verify that it passes now.
 
 ### UI recording
-s
-You spent a lot of time and effort writing and refactoring testRaysFullBodyWorkout(). The good news is that there is a simpler way to get the job done using UI recording. With UI recording, all you have to do is turn it on and interact with the simulator. Xcode will auto-magically translate your actions into UI testing code.
 
-Let's see this in code. Delete the current implementation inside testRaysFullBodyWorkout() and click the UI recording button:
+You spent a lot of time and effort writing and refactoring `testRaysFullBodyWorkout()`. Luckily, there is a simpler way to get the job done using UI recording. With UI recording, you can go ahead and "act out" what you want the test to be on the simulator and Xcode auto-magically translates your actions into UI testing code.
+
+Let's see this in action. Delete the current implementation of `testRaysFullBodyWorkout()` and click the UI recording button:
 
 ![bordered bezel](/images/uiRecording.png)
 
-Clicking the UI recording button will build your app one more time and launch the simulator. Now follow the steps of your tests. Tap on Ray's Full Body Workout, scroll down and tap on Select & Workout. Finally, dismiss the alert view by tapping OK and hit the back button.
+The UI recording button builds and launches your app. Once that's done, "act out" the the steps of your tests. Tap on *Ray's Full Body Workout*, scroll down and tap *Select & Workout*. Finally, dismiss the alert view by tapping OK and tap the back button.
 
 Your test method should look like so:
 
 ```swift  
-  func testRaysFullBodyWorkout() {
+func testRaysFullBodyWorkout() {
     
-    let app = XCUIApplication()
-    app.tables["Workouts Table"].staticTexts["Ray's Full Body Workout"].tap()
+  let app = XCUIApplication()
+  app.tables["Workouts Table"].staticTexts["Ray's Full Body Workout"].tap()
     
-    let tablesQuery = app.tables
-    tablesQuery.staticTexts["Jumping Jacks"].tap()
-    tablesQuery.buttons["Select & Workout"].tap()
-    app.alerts["Woo Hoo! You worked out!"].collectionViews.buttons["OK"].tap()
-    app.navigationBars["Ray's Full Body Workout"].buttons["Workouts"].tap()
-  }
+  let tablesQuery = app.tables
+  tablesQuery.staticTexts["Jumping Jacks"].tap()
+  tablesQuery.buttons["Select & Workout"].tap()
+  app.alerts["Woo Hoo! You worked out!"].collectionViews.buttons["OK"].tap()
+  app.navigationBars["Ray's Full Body Workout"].buttons["Workouts"].tap()
+}
 ```
 
-Magic! Depending on where you swiped and what version of Xcode you're running, the generated code may be different from what you see in the chapter. You can run the test again to verify that it simultes your steps one by one.
+Magic! Depending on where you swiped and what version of Xcode you're running, the generated code may be different from what you see in the chapter. You can run the generated test to verify that it simulates your steps one by one.
 
-Some of the generated lines of code have tokens that contain several options:
+You'll notice that some of the generated lines of code have tokens that contain several options:
 
 ![bordered bezel](/images/uiRecordingTokens.png)
 
-As you can tell, there are many ways of querying the same objects. With these tokens, Xcode is giving you options to help you disambiguate elements in case there are duplicates. Once you're happy with one path, double click on the token to make it final.
+As you can tell, there are many ways of querying the same UI elements. With these tokens, Xcode gives you options to help you disambiguate elements in case there are duplicates. Once you're happy with a particular path, double click on the token to make it final.
 
-> **Note**: Even if you write your tests manually, one of the most useful things about UI recording is that it lets you see what the system is "seeing" as you tap around the simulator. This is a good alternative to using the system provided Accessibility inspectors. 
+> **Note**: Even if you write your tests manually, you can still use UI recording to find out what the testing framework "sees" as you tap around the simulator. This is a good alternative to using the system provided Accessibility inspectors. 
 
 //I have two more tests to add. They're depending on the new designs so I'll hold off until I have the new designs to add them here. I can also make them challenge 1 & 2 if I run out of space
-
-When you're writing UI tests, there's one thing to keep in mind. Although UI tests are easier to write if you're using UI recording, once they fail they are harder to debug than regular unit tests. Knowing what to test is as important as having tests :]
 
 ## Where to Go From Here?
 
 You've seen how powerful and useful testing can be in Xcode 7. To summarize what you learned in this chapter, you started by exploring the new code coverage reports. Then, you dove into the new `@testable` feature in Swift 2.0. Finally, you finished the chapter off by exploring UI testing in `XCTest`.
 
-Going through the testing features is the easy part. What's difficult is figuring out what to test! Unfortunately, there are no easy answers but there are some guidelines you can follow. 
+There's one thing to keep in mind as you start writing UI tests. Although UI tests can be easier to write (especially if you're using UI recording), when they fail they are harder to debug than regular unit tests. Knowing _what_ to test is as important as having tests at all! Unfortunately, this is not a situation where one size fits all, but there are some guidelines you can follow. 
 
-You can write UI tests for mission critical flows in your application such as logging in, creating a new account, etc. If you're working on a document-based application you can also write tests for basic tasks such as opening, closing and saving a document.
+For example, you can write UI tests for mission critical flows in your application such as logging in, creating a new account, etc. If you're working on a document-based application you can also write tests for basic tasks such as opening, closing and saving a document.
 
 If you ever find yourself fixing the same bug over and over, think back to this chapter! Check the code coverage for the files that contain the bug. If the code coverage is low or incomplete, consider writing more unit tests or even some UI tests that validate the feature.
 
