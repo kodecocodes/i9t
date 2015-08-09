@@ -55,7 +55,7 @@ class AnimalDetailViewController: UIViewController {
       address?.text = animal.address
       instructions?.text = animal.instructions
       imageView?.image = UIImage(named: animal.name)
-      self.title = animal.name
+      title = animal.name
     }
   }
   

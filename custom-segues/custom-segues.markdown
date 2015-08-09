@@ -1,6 +1,6 @@
 # Chapter 6: Custom Segues
 
-Ever since Apple introduced storyboards in iOS 5, you've been using segues to transition between scenes. In iOS 7 you could animate these transitions using custom view controller transitions. Now in iOS 9 using custom segues you can completely separate out your transition animation from your view controller code. 
+Ever since Apple introduced storyboards in iOS 5, you've been using segues to transition between scenes. In iOS 7, custom view controller transitions were introduced to enable custom and even interactive transition animations between views. Now in iOS 9, Apple has directly leveraged view controller transitions for custom segue implementations, allowing you to completely separate out your transition animation from your view controller code. 
 
 In a small but important change, segues are now retained during modal or popover presentation of a scene. In other words, segues are created at the start of presenting a new scene and held in memory until the presented scene view controller is dismissed.
 
@@ -8,7 +8,7 @@ In effect, this means that you can move all transition animation and adaptivity 
 
 If you decide to change the appearance of the segue transition, you just change the segue class in the storyboard to another one in your segue repertoire. This will immediately change the presenting and unwinding transition animations.
 
-In this chapter you will discover how to create your own library of custom segues. You'll need basic knowledge of storyboards and segues, but as long as you've understood the previous chapter What's New In Storyboards you'll be fine. 
+In this chapter you will discover how to create your own library of custom segues. You'll need basic knowledge of storyboards and segues, but as long as you've understood the previous chapter **What's New In Storyboards** you'll be fine. 
 
 You'll find out how to:
 
@@ -22,11 +22,11 @@ You'll find out how to:
 
 ## Getting Started
 
-The app you'll be updating today is a pet minding app called **PamperedPets**. It's a very simple app, with just a list of pets to be minded and details about each one. 
+The app you'll be updating today is a pet minding app called **PamperedPets**. It's a very simple app, that when complete, will display a list of pets to be minded and details about each one. 
 
 ![iPhone](images/PamperedPets.png)
 
-Explore your starter project and see how it works. When you run the app, you'll see a single scene which shows the photo, address and feeding instructions for a single pet, the star of our show - Bubbles the goldfish.
+Explore your starter project and see how it works. When you run the app, you'll see a single scene which shows the photo, address and feeding instructions for a single pet, the star of our show - Bubbles the goldfish. No transitions are yet implemented.
 
 Have a look at **Main.storyboard**. There are a number of scenes that have been created for you, but initially the Animal Detail scene and the Animal Photo scene are the scenes that you'll be working with. 
 
@@ -49,7 +49,9 @@ As you have learned from What's New in Storyboards in the previous chapter, segu
 
 > **Note**: Relationships between child view controllers embedded in a container view are also shown on the storyboard as arrows but these are not segues that can be customized.
 
-Custom segues have been around for a while, but previously, a segue was *either* modal/popover *or* custom. Now you can use the underlying segue type instead of having to define the segue from scratch.
+Custom segues have been around for a while, but previously, a segue was *either* modal/popover *or* custom. Now you can use the underlying segue type with your custom segue instead of having to define the segue from scratch.
+
+![bordered width=25%](images/NewSegueInspector.png)
 
 In this chapter you will be customizing only Modal and Popover segues. 
 
