@@ -38,20 +38,14 @@ class Exercise : NSObject, NSCoding {
   var duration: NSTimeInterval! //readonly
   
   var canEdit: Bool {
-    get {
-      return userCreated
-    }
+    return userCreated
   }
   var canRemove: Bool {
-    get {
-      return userCreated
-    }
+    return userCreated
   }
   
   var thumbnail: UIImage? {
-    get {
-      return resizeImageWithSize(CGSizeMake(50, 50))
-    }
+    return resizeImageWithSize(CGSizeMake(50, 50))
   }
   
   //MARK: NSCoding

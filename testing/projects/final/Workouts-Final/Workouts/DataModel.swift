@@ -28,8 +28,8 @@ private let exercisesKey = "exercisesKey"
 
 class DataModel {
   
-  var workouts = Array<Workout>()
-  var exercises = Array<Exercise>()
+  var workouts = [Workout]()
+  var exercises = [Exercise]()
   
   private lazy var documentsDirectory: NSURL = {
     let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
@@ -42,15 +42,15 @@ class DataModel {
       
       let data = NSData(contentsOfFile: dataFilePath())
       let keyedUnarchiver = NSKeyedUnarchiver(forReadingWithData: data!)
-      workouts = keyedUnarchiver.decodeObjectForKey(workoutsKey) as! Array<Workout>
-      exercises = keyedUnarchiver.decodeObjectForKey(exercisesKey) as! Array<Exercise>
+      workouts = keyedUnarchiver.decodeObjectForKey(workoutsKey) as! [Workout]
+      exercises = keyedUnarchiver.decodeObjectForKey(exercisesKey) as! [Exercise]
       
     } else {
       addTestData()
     }
   }
   
-  func allWorkouts() -> Array<Workout> {
+  func allWorkouts() -> [Workout] {
     return workouts
   }
   
@@ -68,7 +68,7 @@ class DataModel {
     return false
   }
   
-  func allExercises() -> Array<Exercise> {
+  func allExercises() -> [Exercise] {
     return exercises
   }
   

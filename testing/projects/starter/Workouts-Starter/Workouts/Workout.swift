@@ -32,37 +32,30 @@ class Workout : NSObject, NSCoding {
   var userCreated: Bool!
   var name: String!
   var restInterval: NSTimeInterval = 0.0
-  var exercises = Array<Exercise>()
+  var exercises = [Exercise]()
   private var workoutCounter: Int = 0
   
   var workoutCount: Int {
-    get {
-      return workoutCounter
-    }
+    return workoutCounter
   }
   
   var canEdit: Bool {
-    get {
-      return userCreated
-    }
+    return userCreated
   }
   var canRemove: Bool {
-    get {
-      return userCreated
-    }
+    return userCreated
   }
   
   var duration: NSTimeInterval {
-    get {
-      var totalDuration: NSTimeInterval = 0
-      for exercise in exercises {
-        totalDuration += exercise.duration
-      }
-      
-      totalDuration += Double(exercises.count / 2) * restInterval
-      
-      return totalDuration
+    var totalDuration: NSTimeInterval = 0
+    for exercise in exercises {
+      totalDuration += exercise.duration
     }
+    
+    let numIntervals = max(0, exercises.count - 1)
+    totalDuration += Double(numIntervals) * restInterval
+    
+    return totalDuration
   }
   
   func addExercise(exercise: Exercise) {
@@ -84,7 +77,7 @@ class Workout : NSObject, NSCoding {
     
     userCreated = decoder.decodeBoolForKey(userCreatedKey)
     name = decoder.decodeObjectForKey(nameKey) as! String
-    exercises = decoder.decodeObjectForKey(exercisesKey) as! Array<Exercise>
+    exercises = decoder.decodeObjectForKey(exercisesKey) as! [Exercise]
     restInterval = decoder.decodeDoubleForKey(restIntervalKey)
     workoutCounter = decoder.decodeIntegerForKey(counterKey)
   }

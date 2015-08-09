@@ -32,25 +32,59 @@ class DataModelTests: XCTestCase {
     dataModel = DataModel()
   }
   
-  override func tearDown() {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    super.tearDown()
-  }
-  
   func testSampleDataAdded()
   {
-    XCTAssert(NSFileManager.defaultManager().fileExistsAtPath(dataModel.dataFilePath()))
+    XCTAssert(NSFileManager.defaultManager()
+      .fileExistsAtPath(dataModel.dataFilePath()))
   }
   
   func testAllWorkoutsEqualsWorkoutsArray()
   {
-    XCTAssertEqual(dataModel.workouts, dataModel.allWorkouts());
-    XCTAssertEqual(dataModel.workouts.count, dataModel.allWorkouts().count);
+    XCTAssertEqual(dataModel.workouts,
+      dataModel.allWorkouts());
+    
+    XCTAssertEqual(dataModel.workouts.count,
+      dataModel.allWorkouts().count);
   }
   
   func testAllExercisesEqualsExercisesArray()
   {
-    XCTAssertEqual(dataModel.exercises, dataModel.allExercises());
-    XCTAssertEqual(dataModel.exercises.count, dataModel.allExercises().count);
+    XCTAssertEqual(dataModel.exercises,
+      dataModel.allExercises());
+    
+    XCTAssertEqual(dataModel.exercises.count,
+      dataModel.allExercises().count);
+  }
+  
+  func testContainsUserCreatedWorkout() {
+    
+    XCTAssertFalse(dataModel.containsUserCreatedWorkout())
+    
+    let workout1 = Workout()
+    dataModel.addWorkout(workout1)
+    
+    XCTAssertFalse(dataModel.containsUserCreatedWorkout())
+    
+    let workout2 = Workout()
+    workout2.userCreated = true
+    dataModel.addWorkout(workout2)
+    
+    XCTAssert(dataModel.containsUserCreatedWorkout())
+  }
+
+  func testContainsUserCreatedExercise() {
+    
+    XCTAssertFalse(dataModel.containsUserCreatedExercise())
+    
+    let exercise1 = Exercise()
+    dataModel.addExercise(exercise1)
+    
+    XCTAssertFalse(dataModel.containsUserCreatedExercise())
+    
+    let exercise2 = Exercise()
+    exercise2.userCreated = true
+    dataModel.addExercise(exercise2)
+    
+    XCTAssert(dataModel.containsUserCreatedExercise())
   }
 }
