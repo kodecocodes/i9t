@@ -1,17 +1,21 @@
 # Chapter X: What's New In Testing?
 
-One of the most useful things you can do as a software developer is test your code. Testing is a proven software engineering practice that makes software robust and maintainable. Testing your code has many benefits: when you want to change the behavior of your app, either to modify an existing feature or to add a new one, the tests that you previously put in place can tell you if something breaks unintentionally.
+"How did this feature break _again_?" If you've been writing code for any length of time, you have probably asked yourself that question at least once. As any experienced programmer will tell you, writing code "right" the first time difficult. And even if you get it right the first time, as you add more code to your project you can unknowingly introduce bugs in parts of your application that previously worked flawlessly.
 
-Over the past few years, Apple has made it easier to test your iOS apps. Heres's a recap of what's happened in the world of iOS testing since iOS 7:
-- In Xcode 5/iOS 7, Apple introduced the first version of the XCTest framework. This framework allows developers to write unit tests without third party libraries.
-- In Xcode 6/iOS 8, Apple beefed up XCTest by adding asynchronous testing as well as performance tests.
+Wouldn't it be great if you could add little "scaffolds" as you write code? These would prevent code from failing after you've moved on to something else. At the very least they would tell you if something doesn't work anymore. The good news is you can. You can write tests!
+
+Testing is a proven software engineering practice that makes software robust and maintainable and it should be a part of every developer's toolkit. Today it's easy to add unit tests to an iOs project, but it wasn't always that way.
+
+Over the past few years, Apple has made it easier to test your iOS apps. Heres's a short recap of what's happened in the world of iOS testing since iOS 7:
+- In Xcode 5/iOS 7, Apple introduced the first version of the `XCTest` framework. With this framework you can write unit tests without having to rely on third party libraries.
+- In Xcode 6/iOS 8, Apple beefed up `XCTest` by adding asynchronous testing as well as performance testing.
 - This year, with Xcode 7 and iOS 9, Apple introduced code coverage reports and UI testing.
 
-Before this release of Xcode and iOS, developers couldn't test their UI using XCTest. There were some popular third party libraries that you may have heard of to fill in this need: these open source third party libraries included KIF, Subliminal and Calabash.
+Before Xcode 7 you couldn't use `XCTest` to test your user interface or write functional tests. You could have used third party libraries such as KIF and Cucumber that filled this gap. The problem is that these libraries weren't integrated into Xcode and you'd sometimes find yourself fighting an uphill battle.
 
-This chapter builds on previous additions to XCTest that focus on code coverage and UI testing. If you don't know much about XCTest but are interested in UI testing, we recommend you read Chapter 11 in iOS 7 by Tutorials, "Unit Testing in Xcode 5" as well as Chapter 29 in iOS 8 by Tutorials, "What's New with Testing?".
+This chapter focuses on the new additions to `XCTest`. If you're interested in UI testing but don't know much about `XCTest` you should first read **Chapter 11** in **iOS 7 by Tutorials**, "Unit Testing in Xcode 5" as well as **Chapter 29** in **iOS 8 by Tutorials**, "What's New with Testing?".s
 
-Swift 2.0 also has an important feature related to testing that you'll read about in this chapter — the addition of @testable imports, which solves issues with testing and access control developers previously had. Are you ready to write some tests?
+Swift 2.0 also has an important feature related to testing that you'll read about in this chapter, the addition of `@testable imports`, which solves issues related to access control developers previously had. Are you ready to write some tests?
 
 ## Introducing the RW workout app
 
@@ -63,50 +67,48 @@ Similarly, `ExerciseViewController` displays a list of all exercises in the app.
 
 ## Code Coverage
 
-So your sample project comes with tests, but how do you know if you're have enough tests and that you're testing the right stuff? That's where code coverage comes in. New in Xcode 7, you can now get coverage reports to see what is tested and what isn't. Let's try it out.
+The starter project already comes with tests. However, how do you know if you have _enough_ tests and whether you're testing the right parts of your project? That's where code coverage comes in. New in Xcode 7, you can now get coverage reports to see what is tested and what isn't. Let's try it out.
 
-Code coverage doesn't come turned on by default. Click on the Workouts scheme and select Edit Scheme...
+Code coverage doesn't come turned on by default. Click on the **Workouts** scheme and then on **Edit Scheme...**
 
 ![bordered bezel](/images/codeCoverage1.png)
 
-Then select the Test action and click on the Code Coverage/Gather coverage data checkbox.
+Then select the **Test** action and click on the **Code Coverage -Gather coverage data** checkbox.
 
 ![bordered bezel](/images/codeCoverage2.png)
 
-That's all you need to do to turn on code coverage reports. Let's see what the code coverage currently is by running the unit tests. If you're been writing XCTest unit tests for a while this may be second nature to you. On the other hand, if this is your first time running unit tests, you'll be glad to know that there are no less than three ways to run the tests in your testing target:
+That's all you need to do to turn on code coverage reports. To check your current levels of code coverage you have to run your existing suite of unit tests. You'll be running your unit tests constantly in this chapter so let's do a quick refresher on how to do this. There are three ways to run tests in your testing target:
 
-- Long click the Run button and click on Test from the drop down menu.
-- In Xcode's menu, select Product/Test
-- Use the shortcut Command+U
+1. Long click Xcode's **Run** button and click on **Test** from the drop down menu.
+1. Select **Product/Test** from Xcode's menu.
+1. Use the shortcut **Command+U**
 
-Pick your favorite method and run your unit tests. Xcode will build your app, launch it in the simulator or a device depending on where you're building to, and your tests will run. In the Test Navigator you should see that there are 8 total tests, with one failing (whoops!):
+Pick your favorite method and run your unit tests. Xcode will build and launch your app and your tests will run. In the Test Navigator you should see that there are 8 total tests:
 
 ![bordered bezel](/images/testNavigator.png)
 
-Don't worry about the failing test. You'll fix it in a few moments. For now let's focus on your coverage report. Switch to the Report Navigator and click on the latest Test action.
-
+Let's focus on your code coverage report. Switch to the Report Navigator and click on the latest **Test** action.
 
 ![bordered bezel](/images/reportNavigator1.png)
 
-You're currently viewing the Test view of the test report. This shows you a list of your unit tests along with a report of the passes and failures. From here, click on the Coverage view (circled above) to switch to the code coverage report:
+You're currently seeing the **Test** view of the test report. This shows you a list of your unit tests along with a report of the passes and failures. From here, click on the **Coverage** view (circled above) to switch to the code coverage report:
 
 ![bordered bezel](/images/reportNavigator2.png)
 
-This report shows you the code coverage for your entire app as well as the code coverage per file. For example, the code coverage for the entire app is 38% (yikes!) whereas code coverage for **DataModel.swift** is 93%.
+This report shows you the code coverage for your entire app as well as the code coverage on a file per file basis. For example, the code coverage for the entire app is 38% (yikes!) whereas code coverage for **DataModel.swift** is 93%.
 
-You'll notice that the report won't show you the specific coverage percentage. If you want to this number, simply hover your mouse over the progress indicator until it shows up. You can also get code coverage numbers for individual classes. Simply click on the disclosure indicator to the left of the class name to drill down to individual methods.
+You'll notice that the report won't show you the specific coverage percentage right away. If you want to know this number, hover your mouse over the progress indicator until it shows up. You can also get code coverage numbers for individual files. To do this, click on the disclosure indicator to the left of the file name to drill down to individual classes and methods.
 
-If you've ever shipped a bug to the App Store you'll instantly realize that this information is extremely valuable. However, stop for a minute and ask yourself what exactly it means to have 93% coverage.
+If you've ever shipped a bug to the App Store you'll instantly realize that this information is extremely valuable. Stop for a minute and ask yourself what exactly it means to have 93% coverage.
 
 Xcode can tell you this as well. Hover on top of **Workout.swift** and click on the right arrow that appears next to it:
 
 ![bordered bezel](/images/reportNavigator2.png)
 
-Doing this takes you to the class you clicked on in Xcode's main editor. Notice that there's a " gutter" on the right edge of the editor with little numbers on it, such as 0, 2, 6. The number represents the number of times those lines of code are covered by tests. For example, the getter for workoutCount isn't covered at all so there's a 0 next to it.   
+Doing this takes you to the file you clicked on in Xcode's main editor. Notice that there's a "gutter" on the right edge of the editor with small numbers on it, such as 0, 2, 6. The number represents the number of times those lines of code are covered by tests. For example, the getter for `workoutCount` isn't covered at all so there's a 0 next to it.   
+The level of granularity you get from Xcode's code coverage reports goes beyond the method level. As you can see, it will tell you which lines _inside_ a method are covered and which are not. This helps you identify edge cases you haven't tested. For instance, if you only test the `if` block in an `if-else` statement, Xcode will pick this up and let you know.
 
-The level of granularity you get from Xcode's code coverage reports goes beyond the method level. As you can see, it will tell you which lines within a method are covered and which are not. This is helpful to help you identify edge cases you haven't tests. For instance, if you only test the if block in an if-else statement, Xcode will pick this up and let you know.
-
-> **Note**: A single code coverage report is a snapshot in time. If you want to know if you're code coverage is improving or getting worse, you'll need to see how these numbers change over time. You can achieve this level of monitoring with Xcode server and Xcode bots. This won't be covered in this chapter but you can learn more about this in XX.
+> **Note**: A single code coverage report is a snapshot in time. If you want to know whether your code coverage is improving or getting worse, you'll need to see how these numbers change over time. You can achieve this level of monitoring with Xcode server and Xcode bots. This won't be covered in this chapter but you can learn more about this in XX.
 
 ## `@testable` imports and access control
 
@@ -124,7 +126,78 @@ As first order of business, add the following import at the top of **DataModelTe
 
 Your app and your test bundle are in separate bundles so you have to import your app's module before writing any tests against `DataModel`. Next, replace the contents of the file with the following:
 
-//Add DataModelTests here
+```swift
+import XCTest
+import Workouts
+
+class DataModelTests: XCTestCase {
+  
+  var dataModel: DataModel!
+  
+  override func setUp() {
+    super.setUp()
+    dataModel = DataModel()
+  }
+  
+  func testSampleDataAdded()
+  {
+    XCTAssert(NSFileManager.defaultManager()
+      .fileExistsAtPath(dataModel.dataFilePath()))
+  }
+  
+  func testAllWorkoutsEqualsWorkoutsArray()
+  {
+    XCTAssertEqual(dataModel.workouts,
+      dataModel.allWorkouts());
+    
+    XCTAssertEqual(dataModel.workouts.count,
+      dataModel.allWorkouts().count);
+  }
+  
+  func testAllExercisesEqualsExercisesArray()
+  {
+    XCTAssertEqual(dataModel.exercises,
+      dataModel.allExercises());
+    
+    XCTAssertEqual(dataModel.exercises.count,
+      dataModel.allExercises().count);
+  }
+  
+  func testContainsUserCreatedWorkout() {
+    
+    XCTAssertFalse(dataModel.containsUserCreatedWorkout())
+    
+    let workout1 = Workout()
+    dataModel.addWorkout(workout1)
+    
+    XCTAssertFalse(dataModel.containsUserCreatedWorkout())
+    
+    let workout2 = Workout()
+    workout2.userCreated = true
+    dataModel.addWorkout(workout2)
+    
+    XCTAssert(dataModel.containsUserCreatedWorkout())
+  }
+
+  func testContainsUserCreatedExercise() {
+    
+    XCTAssertFalse(dataModel.containsUserCreatedExercise())
+    
+    let exercise1 = Exercise()
+    dataModel.addExercise(exercise1)
+    
+    XCTAssertFalse(dataModel.containsUserCreatedExercise())
+    
+    let exercise2 = Exercise()
+    exercise2.userCreated = true
+    dataModel.addExercise(exercise2)
+    
+    XCTAssert(dataModel.containsUserCreatedExercise())
+  }
+}
+```
+
+//There's a crash in the third and fourth unit tests that I think is related to NSCoding. 
 
 Wait a minute...what's going on? After adding more unit tests, Xcode complains every time you reference `DataModel`. The problem lies with Swift access controls, covered next.
 
@@ -325,7 +398,7 @@ The UI recording button builds and launches your app. Once that's done, "act out
 
 Your test method should look like so:
 
-```swift  
+```swift
 func testRaysFullBodyWorkout() {
     
   let app = XCUIApplication()
