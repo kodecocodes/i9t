@@ -1,69 +1,57 @@
 # Chapter X: What's New In Testing?
 
-"How did this feature break _again_?" If you've been writing code for any length of time, you have probably asked yourself that question at least once. As any experienced programmer will tell you, writing code "right" the first time difficult. And even if you get it right the first time, as you add more code to your project you can unknowingly introduce bugs in parts of your application that previously worked flawlessly.
+"How did this feature break _again_?" If you've been writing code for any length of time, you have probably asked yourself that question at least once. As any experienced programmer will tell you, writing code "right" the first time difficult. And even if you get it right the first time, as you add more code to your project, you can accidentally introduce bugs in parts of your application that previously worked flawlessly.
 
-Wouldn't it be great if you could add little "scaffolds" as you write code? These would prevent code from failing after you've moved on to something else. At the very least they would tell you if something doesn't work anymore. The good news is you can. You can write tests!
+Wouldn't it be great if you could add little "scaffolds" as you write code? These would prevent your code from failing after you've moved on to something else. At the very least they would tell you if something doesn't work anymore. The good news is you can. You can write tests!
 
-Testing is a proven software engineering practice that makes software robust and maintainable and it should be a part of every developer's toolkit. Today it's easy to add unit tests to an iOs project, but it wasn't always that way.
+Testing is a proven software engineering practice that makes software robust and maintainable and it should be a part of every developer's toolkit. Today it's easy to add unit tests to an iOS project, but it wasn't always that way.
 
-Over the past few years, Apple has made it easier to test your iOS apps. Heres's a short recap of what's happened in the world of iOS testing since iOS 7:
-- In Xcode 5/iOS 7, Apple introduced the first version of the `XCTest` framework. With this framework you can write unit tests without having to rely on third party libraries.
-- In Xcode 6/iOS 8, Apple beefed up `XCTest` by adding asynchronous testing as well as performance testing.
+Over the past few years, Apple has made it easier to test iOS apps. Heres's a short recap of what's happened in the world of iOS testing since iOS 7:
+- When Xcode 5 came out, Apple introduced the first version of the `XCTest` framework. With this framework you can write unit tests without having to rely on third party libraries.
+- When Xcode 6 came out, Apple beefed up `XCTest` by adding asynchronous testing as well as performance testing.
 - This year, with Xcode 7 and iOS 9, Apple introduced code coverage reports and UI testing.
 
 Before Xcode 7 you couldn't use `XCTest` to test your user interface or write functional tests. You could have used third party libraries such as KIF and Cucumber that filled this gap. The problem is that these libraries weren't integrated into Xcode and you'd sometimes find yourself fighting an uphill battle.
 
 This chapter focuses on the new additions to `XCTest`. If you're interested in UI testing but don't know much about `XCTest` you should first read **Chapter 11** in **iOS 7 by Tutorials**, "Unit Testing in Xcode 5" as well as **Chapter 29** in **iOS 8 by Tutorials**, "What's New with Testing?".s
 
-Swift 2.0 also has an important feature related to testing that you'll read about in this chapter, the addition of `@testable imports`, which solves issues related to access control developers previously had. Are you ready to write some tests?
+Swift 2.0 also has an important feature related to testing that you'll read about in this chapter, the addition of `@testable` imports, which solves issues related to access control developers previously had. Enough preamble...are you ready to write some tests?
 
 ## Introducing the RW workout app
 
-This chapter's sample project is a simple fitness app for iOS. This workouts app has two tabs: Exercises and Workouts. In the exercises tab, you can browse the set of built-in exercises, all time favorites like push-ups and crunches, or create your own. In the workout tab, you can also choose one of the built-in workouts or create your own. If the distinction is not clear, a workout is a sequential list of exercises :]
+This chapter's sample project is a fitness app for iOS aptly named **Workouts**. Go to this chapter's files and find the **Workouts-Starter** project. Open **Workouts.xcodeproj** and then build and run the starter project:
 
-> **Note**: As you start exploring the sample project in this chapter you'll realize that it's closer to a final product than other sample projects in this app. This is intentional! You won't be adding new features. Since this is a testing chapter, you'll be adding tests to an app that's close to shipping.
+![bordered bezel](/images/walkthrough0.png)
 
-Go to this chapter's files and find the Workouts-Starter project. Open Workouts.xcodeproj. Build and run the starter project:
+This workouts app has two tabs: Exercises and Workouts. In the exercises tab, you can browse the list of built-in exercises, all time favorites like push-ups and crunches, or create your own. In the workout tab, you can also browse the built-in workouts or create your own workout. If the distinction is not clear, a workout is a sequential list of exercises :]
 
-![bordered bezel](/images/add-image.png)
+Let's walk through the main functionality of the sample app. Let's say you want to do a workout. From the workout screen, tap **Ray's Full Body Workout**. In the workout detail screen scroll to the bottom and tap **Select and Perform**. You'll see this congratulatory alert controller:
 
-Let's walk through the main functionality of the workouts app. Let's say you want to do a workout. From the workout screen, tap "Ray's Full Body Workout". In the workout detail screen scroll to the bottom and tap "Select and Perform". You'll see this congratulatory alert view:
+![bordered bezel](/images/walkthrough1.png)
 
-![bordered bezel](/images/add-image.png)
+Now go back to the list of workouts and tap on **Add New Workout (+)**. From this screen you can create your own workout by specifying a workout name and picking the exercises you want to include in your custom workout:
 
-Go back to the list of workouts and tap on Add New Workout (+). Add the workouts name and its list of exercises. When you're done tap Save on the top right corner:
+![bordered bezel](/images/walkthrough2.png)
 
-![bordered bezel](/images/add-image.png)
+Now switch to the exercise tab. Tap on **Add New Exercise +**: 
 
-Tapping save will save the workout and pop you back to the list of workouts. Your newly created workout is at the bottom of the screen. Let's say this workout doesn't give you the burn you wanted. Tap on Edit at the top right screen and delete your workout.
+![bordered bezel](/images/walkthrough3.png)
 
-![bordered bezel](/images/add-image.png)
+An exercise takes a name and a duration in seconds. Enter **Finger Push-Ups** for name and **10** for duration. You can add anything you want for **Instructions**. When you're done tap **Save** and your new workout will appear at the bottom of the list. 
 
-Noticed how the app didn't let you delete built-in workouts? This will be important later in the chapter. Now switch to the exercise tab. Tap on "Add New Exercise +": 
+Now open the project navigator and take a look at the list of files that come with the stater project. The starter project organizes source code files into groups. Before jumping into writing code, let's briefly go over the some of the classes in each group:
 
-![bordered bezel](/images/add-image.png)
+- **Model:** The project relies on two model objects, **Exercise.swift** and **Workout.swift**. Each holds the data it needs to display on the screen or to perform calculations such as the name, its image file and its duration.
 
-An exercise only takes a name and a duration. Tap save when you're done and your new workout will appear at the bottom of the list. You can try deleting this one again with the edit button on the top right. As before, you can't delete built-in exercises.
+>All exercises and workouts are saved to disk so the user doesn't lose data between app launches. Both `Exercise` and `Workout` conform to `NSCoding` to persist user data on disk. `DataModel` helps store and retrieve information from disk. It also helps answer queries such as "give me all exercises" or "give me all workouts".
 
-Now open the project navigator and take a look at the full list of files in the stater project:
+- **WorkoutTests:** The sample app already includes some unit tests in its testing target. **Exercises.swift** and **WorkoutsTests.swift** contain unit tests for their corresponding model objects.
 
-![bordered bezel](/images/add-image.png)
+- **View Controllers**: **WorkoutViewController.swift**, **WorkoutDetailViewController.swift** and **AddWorkoutViewController.swift** all do what their name suggests. `WorkoutViewController` shows you a list of all workouts, both built-in and user-created. When you tap on a specific workout, `WorkoutDetailViewController` displays the workout's information as well as lets you do the workout. `AddWorkoutViewController` lets you add a new workout to the list of workouts.
 
-The starter project groups source code files into groups. Before jumping into the code, let's briefly go over the classes in each group:
+>Similarly, `ExerciseViewController` displays a list of all exercises in the app. From here you can add a new exercise or tap into an existing exercise, taking you to `ExerciseDetailViewController`. 
 
-- **Model:** The project relies on two main model objects, **Exercise.swift** and **Workout.swift**. An exercise model object holds its name, the name of its image file, instructions to perform the exercise and its duration. The duration of an exercise is determined at exercise creation and it's readonly after that. An exercise also keep track of whether it is a build-in exercise or if it was created by the user. This will be important later on.
-
-Similarly, a workout model object also holds its name and whether it is a built-in workout or if it was created by the user. It also holds an array of its exercises as well as the total duration of the workout - a sum of the duration of each exercise plus an optional rest interval between exercises. 
-
-If a user creates an exercise or a workout, it's saved to disk do the user doesn't lose data between app launches. Both Exercise and Workout conform to NSCoding to persist user data on disk. DataModel helps store and retrieve information from disk. It also helps answer queries such as "give me all exercises" or "give me all workouts"
-
-- **WorkoutTests:** The sample app already includes some tests in its testing target. **Exercises.swift** and **WorkoutsTests.swift** contain unit tests for their respective model objects. **DataModelTests.swift** is supposed to test `DataModel`...but if you take a closer look you'll see that the file doesn't include any unit tests.
-
-- View Controllers: **WorkoutViewController.swift**, **WorkoutDetailViewController.swift** and **AddWorkoutViewController.swift** all do what their name suggests. `WorkoutViewController` shows you a list of all workouts, both built-in and user-created. When you tap on a specific workout, WorkoutDetailViewController displays the workouts information as well as lets you perform the exercise. AddWorkoutViewController lets you add a new workout to the list of workouts.
-
-Similarly, `ExerciseViewController` displays a list of all exercises in the app. From here you can add a new exercise or tap into an existing exercise, taking you to `ExerciseDetailViewController`. 
-
-> **Note**: Even though the view controller source files are much longer than the model object source files, notice how they don't have any tests. This is a problem! That's a lot of UI code that has no test coverage. You'll learn how to measure and test this code in this chapter.
+> **Note**: Even though the view controller source files are much longer than the model object source files, notice how they don't have any tests. This is a problem! That's a lot of UI code that has no test coverage. You'll learn how to measure and test this code later in the chapter.
 
 ## Code Coverage
 
@@ -73,21 +61,21 @@ Code coverage doesn't come turned on by default. Click on the **Workouts** schem
 
 ![bordered bezel](/images/codeCoverage1.png)
 
-Then select the **Test** action and click on the **Code Coverage -Gather coverage data** checkbox.
+Then select the **Test** action and click on the **Code Coverage - Gather coverage data** checkbox.
 
 ![bordered bezel](/images/codeCoverage2.png)
 
-That's all you need to do to turn on code coverage reports. To check your current levels of code coverage you have to run your existing suite of unit tests. You'll be running your unit tests constantly in this chapter so let's do a quick refresher on how to do this. There are three ways to run tests in your testing target:
+That's all you need to do to turn on code coverage reports. To check your current levels of code coverage you have to run your test target. You'll be running your unit tests constantly in this chapter so let's do a quick refresher on how to do this. There are three ways to run the tests in your testing target:
 
 1. Long click Xcode's **Run** button and click on **Test** from the drop down menu.
-1. Select **Product/Test** from Xcode's menu.
+1. Select **Product\Test** from Xcode's menu.
 1. Use the shortcut **Command+U**
 
-Pick your favorite method and run your unit tests. Xcode will build and launch your app and your tests will run. In the Test Navigator you should see that there are 8 total tests:
+Pick your favorite of the three and run your unit tests. Xcode will build and launch your app and your tests will run. In the **Test Navigator** you should see that there are 6 total tests:
 
 ![bordered bezel](/images/testNavigator.png)
 
-Let's focus on your code coverage report. Switch to the Report Navigator and click on the latest **Test** action.
+Let's focus on your code coverage report. Switch to the **Report Navigator** and click on the latest **Test** action.
 
 ![bordered bezel](/images/reportNavigator1.png)
 
@@ -95,7 +83,7 @@ You're currently seeing the **Test** view of the test report. This shows you a l
 
 ![bordered bezel](/images/reportNavigator2.png)
 
-This report shows you the code coverage for your entire app as well as the code coverage on a file per file basis. For example, the code coverage for the entire app is 38% (yikes!) whereas code coverage for **DataModel.swift** is 93%.
+This report shows you the code coverage for your entire app as well as the code coverage on a per file basis. For example, the code coverage for the entire app is 38% (yikes!) whereas code coverage for **Workout.swift** is 93%. (TODO: update numbers)
 
 You'll notice that the report won't show you the specific coverage percentage right away. If you want to know this number, hover your mouse over the progress indicator until it shows up. You can also get code coverage numbers for individual files. To do this, click on the disclosure indicator to the left of the file name to drill down to individual classes and methods.
 
@@ -105,10 +93,11 @@ Xcode can tell you this as well. Hover on top of **Workout.swift** and click on 
 
 ![bordered bezel](/images/reportNavigator2.png)
 
-Doing this takes you to the file you clicked on in Xcode's main editor. Notice that there's a "gutter" on the right edge of the editor with small numbers on it, such as 0, 2, 6. The number represents the number of times those lines of code are covered by tests. For example, the getter for `workoutCount` isn't covered at all so there's a 0 next to it.   
+Doing this takes you to the file you clicked on in Xcode's main editor. Notice that there's a "gutter" on the right edge of the editor with small numbers on it, such as 0, 2, and 6. The number represents the number of times those lines of code are covered by tests. For example, the getter for `workoutCount` isn't covered at all so there's a 0 next to it.
+
 The level of granularity you get from Xcode's code coverage reports goes beyond the method level. As you can see, it will tell you which lines _inside_ a method are covered and which are not. This helps you identify edge cases you haven't tested. For instance, if you only test the `if` block in an `if-else` statement, Xcode will pick this up and let you know.
 
-> **Note**: A single code coverage report is a snapshot in time. If you want to know whether your code coverage is improving or getting worse, you'll need to see how these numbers change over time. You can achieve this level of monitoring with Xcode server and Xcode bots. This won't be covered in this chapter but you can learn more about this in XX.
+> **Note**: A single code coverage report is a snapshot in time. If you want to know whether your code coverage is improving or getting worse, you'll need to see how these numbers change over time. You can You can do this using Xcode server and Xcode bots. This won't be covered in this chapter but you can learn more about this in the WWDC video from 2015 named _Continuous Integration and Code Coverage in Xcode_.
 
 ## `@testable` imports and access control
 
@@ -197,9 +186,9 @@ class DataModelTests: XCTestCase {
 }
 ```
 
-//There's a crash in the third and fourth unit tests that I think is related to NSCoding. 
+//TODO: there's a crash in the third and fourth unit tests that I think is related to NSCoding. 
 
-Wait a minute...what's going on? After adding more unit tests, Xcode complains every time you reference `DataModel`. The problem lies with Swift access controls, covered next.
+Wait a minute...what's going on? After adding more unit tests, Xcode complains every time you reference `DataModel`. The problem is related to the way you're using Swift access controls, which you'll learn about next.
 
 ### A quick refresher on Swift access controls
 
@@ -211,9 +200,9 @@ A module is a single unit of code distribution. This can be an application or a 
 
 Swift provides three different levels of access:
 
-1. **Public access** enables access for entities in any source file from your own module as well as any source file any other module that `@imports` your module.
+1. **Public access** enables access to entities in any source file from your own module as well as any source file any other module that `@imports` your module.
 1. **Internal access** enables access for entities in any source file from your own module. Outside module never get access, even if they `@import` your module.
-1. **Private access** restricts access to entities in your the defining source file. This is the most restrictive of all access controls levels.
+1. **Private access** restricts access to entities in the defining source file. This is the most restrictive of all access controls levels.
 
 > **Note**: This was a broad overview of Swift's access control model. If you're interested in learning more, you can read Apple's documentation on the subject: https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/AccessControl.html  
 
@@ -235,21 +224,23 @@ Magic! All your compiler errors disappear. The `@testable` modifier changes the 
 
 > **Note**: `@testable` has no effect on the private access control. As they say in Vegas, what you declare `private` stays `private` :] 
 
-// Run code coverage one more time here
+//TODO: Post crash-fix, run code coverage one more time here.
 
 ## UI Testing
 
-So far you've explored code coverage reports and `@testable` imports. These are great new features – they give you more information and make it easier to test but they don't really let you do anything you couldn't before. On the other hand, the third and last expansion to Xcode's testing capabilities lets you test your app in ways you didn't think possible. This expansion is of course...UI testing.
+So far you've explored code coverage reports and `@testable` imports. These are great new features – they give you more information and make it easier to test but they don't really let you do anything you couldn't before. 
 
-Before you can write your first UI test you have to make sure that your project has a UI testing target. This sample project doesn't, so you'll add one right now. In Xcode's menu, click on **File/New/Target**. You'll see this screen:
+However, the third and last expansion to Xcode's testing capabilities lets you test your app in ways you didn't think possible. This expansion is UI testing.
+
+Before you can write your first UI test you have to make sure that your project has a UI testing target. This sample project doesn't, so you'll add one right now. In Xcode's menu, click on **File\New\Target**. You'll see this screen:
 
 ![bordered bezel](/images/addUITestTarget1.png)
 
-Then, select the **iOS/Test** group on the left-hand column and click on **iOS UI Testing Bundle**.
+Then, select the **iOS\Test\iOS UI Testing Bundle** template.
 
 ![bordered bezel](/images/addUITestTarget2.png)
 
-All the default values on this next screen should be correct for this simple sample project. However, if you're working on a project that consists of multiple modules, make sure that the **Target to be Tested** is set to your app's module. Finally, click on **Finish** to create the target. 
+All the default values on this screen should be correct for this simple sample project. However, if you're working on a project that consists of multiple modules, make sure that the **Target to be Tested** is set to your app's module. Finally, click on **Finish** to create the target. 
 
 Voila! Doing this creates a new **WorkoutsUITests** group in Xcode along with a sample UI testing file called **WorkoutsUITests.swift**.
 
@@ -257,7 +248,7 @@ Voila! Doing this creates a new **WorkoutsUITests** group in Xcode along with a 
 
 Let's jump right into your first test! This test is going to validate one important flow in the application: drilling down from the list of workouts into a particular workout's detail page. For this test, you'll use "Ray's Full Body Workout" as an example.
 
-Open **WorkoutViewController.swift** and replace `viewDidLoad()` with the following:
+As a first step, open **WorkoutViewController.swift** and replace `viewDidLoad()` with the following:
 
 ```swift
 override func viewDidLoad() {
@@ -266,9 +257,9 @@ override func viewDidLoad() {
 }
 ```
 
-One of the ways the UI testing framework references individual UI components in your app is by their accessibility information. Setting this `UITableView`'s accessibility identifier to "Workouts Table" will let you reference this table by this same string later on.
+One of the ways the UI testing framework references individual UI components in your app is by their accessibility information. Setting this `UITableView`'s accessibility identifier to "Workouts Table" will let you reference this table by this string later on.
 
-> **Note**: If you want to add or improve your existing accessibility information you can do it via Interface Builder or the Accessibility API. Apple's recommended way is doing it via Interface Builder. `UITableView` doesn't have an accessibility panel in Interface Builder so that's why you did it in code. 
+> **Note**: If you want to add or improve your existing accessibility information you can either do it via Interface Builder or the Accessibility API. Apple's recommended way is doing it via Interface Builder. `UITableView` doesn't have an accessibility panel in Interface Builder so that's why you did it in code. 
 
 Head back to **WorkoutsUITests.swift**. Remove the `tearDown()` and `testExample()` methods and add the following method:
 
@@ -309,22 +300,22 @@ Before going into the API more carefully, go ahead and run this test. To run `te
 
 ![bordered bezel](/images/singleTest.png)
 
-Tapping the diamond icon builds and launches the application. And then...the simulator does something you've probably never see it do before. It becomes possessed! Specifically, it simulates tapping into Ray's Full Body Workout and then tapping back. 
+Tapping the diamond icon builds and launches the application. And then...the simulator does something you've probably never see it do before. It becomes possessed! Specifically, it simulates tapping into Ray's Full Body Workout and then tapping the back button. 
 
-You may be thinking that this is not a real test since it has no assertions. If you've written regular `XCTest` tests before, you know that they rely on one or more assertion such as `XCTAssertTrue()`, `XCTAssertFalse()`, `XCTAssertEquals()` and so on.
+You may be thinking that this is not a real test since it has no assertions. If you've written regular `XCTest` tests before, you know that they rely on one or more assertion such as `XCTAssertTrue()`, `XCTAssertFalse()` or `XCTAssertEquals()`.
 
-Although you _can_ add assertions, you don't have to explicitly assert anything in a UI test. If the test expects to find a specific UI element on the screen (e.g. a button that says "Workouts") but doesn't, the test will fail. In other words, tapping around your app and going through your usual actions implicitly tests your UI.
+Although you _can_ add assertions, you don't have to explicitly assert anything in a UI test. If the test expects to find a specific UI element on the screen (e.g. a button that says "Workouts") but doesn't, the test will fail. In other words, tapping around your app and going through your usual actions _implicitly_ tests your UI.
 
 There are three main classes involved in UI testing: `XCUIApplication`, `XCUIElement` and `XCUIElementQuery`. They're difficult to distinguish in `testRaysFullBodyWorkout()` because of Swift's type inference, but they're there! Here's a short description on what they do:
 
 - `XCUIApplication` is a proxy for your application. You use it to launch and terminate the application as you start and end UI tests. Notice that the `setup()` method in **WorkoutsUITests.swift** launches the app. This means you're launching your `XCUIApplication` before every UI test in the file. `XCUIApplication` is also the root element in the element hierarchy visible to your test.
-- `XCUIElement` is a proxy for UI elements in the application. Every `UIKit` class you can think of can be represented by a `XCUIElement`. How? `XCUIElement` can have a type (e.g. `.Cell`, `.Table`, `.WebView`, etc.) as well as an identifier. The identifier usually comes from the element's accessibility information such as its accessibility identifier, label or value. 
+- `XCUIElement` is a proxy for UI elements in the application. Every `UIKit` class you can think of can be represented by a `XCUIElement` in the context of a UI test. How? `XCUIElement` can have a type (e.g. `.Cell`, `.Table`, `.WebView`, etc.) as well as an identifier. The identifier usually comes from the element's accessibility information such as its accessibility identifier, label or value. 
 >What can you do with an `XCUIElement`? Anything you can think of. You can try tapping, double tapping, swiping in every direction. Just like a UI element, there's no guarantee the `XCUIElement` will respond to these actions, but you can sure try them!
 - `XCUIElementQuery` queries a `XCUIElement` for sub-elements matching some criteria. The three most popular ways to query elements is with `descendantsMatchingType(_:)`, `childrenMatchingType(:_)` and `containingType(_:_:)`. 
 
 > **Note**: Remember that `XCUIApplication` and `XCUIElement` are only proxies, not the actual objects. For example The type `XCUIElementType.Button` can either mean a `UIButton` or a `UIBarButtonItem` (which does not descend from `UIButton`) or it can be any other button-like entity!
 
-Let's add one more step to the your current test. When you step into the workout detail page, you're also going to scroll down and tap the **Select & Workout** button. This will bring up an alert view, which your test will dismiss by tapping **OK**. Finally, you'll return to the workout list screen like before. While you're at it, you'll also refactor what the method you implemented previously. 
+Let's add one more step to the your current test. When you step into the workout detail page, you're also going to scroll down and tap the **Select & Workout** button. This brings up an alert controller, which your test will dismiss by tapping **OK**. Finally, you'll return to the workout list screen like before. While you're at it, you'll also refactor what the test to make it more concise. 
 
 Go to `testRaysFullBodyWorkout()` and replace the implementation with the following:
 
@@ -349,40 +340,40 @@ func testRaysFullBodyWorkout() {
   app.buttons["Workouts"].tap()
 }
 ```
-Here's what changed in the code:
+That's a lot shorter than what it was before! Here's what changed in the code:
 1. You didn't need to use the accessibility identifier "Workout Table" after all. Instead, you get _all_ tables in the app and then get all of their cells. Notice that you replaced `descendantsMatchingType(.Table)` with convenience method `tables` and `childrenMatchingType(.Cell)` with convenience method `cells`. 
 
 >**Note**: The element query `descendantsMatchingType(_:)` is so common that Apple provided convenience methods for all the common types. `childrenMatchingType(_:)` doesn't have convenience methods but using `descendantsMatchingType(_:)` has the same effect in this case
 1. This is the extra step you added to the test. Once in the workout detail screen, you tap on **Select & Workout**. Again, notice you don't need to specify which table you're talking about. You an drill down from the app to its tables to the table's buttons, then disambiguate using the button's title. You do the same with the alert's **OK** button except this time you go through the app's alerts instead of through the app's tables.
-1. In the previous implementation of this test, you were first referencing the navigation bar to get to the its back button. Now you query the app's buttons and tap on the one identified by the string "Workouts."
+1. In the previous implementation of this test, you were first referencing the navigation bar to get to the its back button. Now you directly query the app's buttons and tap on the one identified by the string "Workouts."
 
-Run `testRaysFullBodyWorkout()` one more time. The same sequence of events plays out, except this time you tap on **Select & Workout** and dismiss the alert view. When you try to come back to the list of workouts...splat. The test fails!
+Run `testRaysFullBodyWorkout()` one more time. The same sequence of events plays out, except this time you tap on **Select & Workout** and dismiss the alert controller. When you try to come back to the list of workouts...splat. The test fails!
 
 ![bordered bezel](/images/testFailure.png)
 
-//Note: It seems that screenshots are not implemented in beta 4. I want to look at those as I explain why it failed. I'll check again in the GM.
+//Note: It seems that debug screenshots are not implemented in beta 4. I want to look at those as I explain why it failed. I'll check again in the GM.
 
 Let's figure out why the test failed. Xcode gives you the error message "UI Testing Failure - Multiple matches found". You can get this error when you're expecting one `XCUIElement` but instead get multiple.
 
-Let's take a step back. You have three options when you want to go from a set of query results to single `XCUIElement`:
+Let's take a step back. You have three options when you want to drill down from a set of query results to single `XCUIElement`:
 
 1. You can use **subscripting** if the element you want has a unique identifier. For example, `buttonsQuery["OK"]`.
-1. You can use **indexing** if want an element at a particular index. For example, you can use `tables.cells.elementAtIndex(0)` to get the first cell in a table view.
-1. If you're _sure_ a query resolves down to one element, you can use `XCUIElementQuery`'s **`element`** property.
+1. You can use **indexing** if the element you want is located at a particular index. For example, you can use `tables.cells.elementAtIndex(0)` to get the first cell in a table view.
+1. If you're _sure_ a query resolves down to one element, you can use `XCUIElementQuery`'s `**element**` property.
 
-If you use any of the three technique's shown above and end up with more than one `XCUIElement`, the test fails. Why's that? If you then want to tap or swipe on the element, the UI testing framework doesn't know which element you mean. In particular, `testRaysFullBodyWorkout()` failed because the line below resulted in two buttons:
+If you use any of the three technique's shown above and end up with more than one `XCUIElement`, the test fails. Why's that? If you then want to tap or swipe on the element, the UI testing framework doesn't know which element you want to interact with. In particular, `testRaysFullBodyWorkout()` failed because the line below resulted in two buttons:
 
     app.buttons["Workouts"].tap()
 
 Can you find the duplicates? One is in the top left, next to the back button (this is the one you meant to tap). The second one is inside the "Workouts" tab on the bottom left of the screen:
 
-![bordered bezel](/images/testFailure.png)
+![bordered bezel](/images/duplicates.png)
 
 Whoops! Fix the test by replacing the faulty line with the following:
 
-   app.navigationBars.buttons["Workouts"].tap()
+    app.navigationBars.buttons["Workouts"].tap()
 
-You did need to go through the navigation bar after all! `navigationBars` is the convenience method for `descendantsMatchingType(.NavigationBar)`. 
+`navigationBars` is the convenience method for `descendantsMatchingType(.NavigationBar). It seems that you did need to go through the navigation bar after all! `. 
 
 Adding `navigationBars` between `app` and `buttons` makes it clear to the UI testing framework that you want the "Workouts" button located in a navigation bar. Re-run your UI test to verify that it passes now.
 
@@ -394,9 +385,9 @@ Let's see this in action. Delete the current implementation of `testRaysFullBody
 
 ![bordered bezel](/images/uiRecording.png)
 
-The UI recording button builds and launches your app. Once that's done, "act out" the the steps of your tests. Tap on *Ray's Full Body Workout*, scroll down and tap *Select & Workout*. Finally, dismiss the alert view by tapping OK and tap the back button.
+The UI recording button builds and launches your app. Once that's done, "act out" the the steps of your tests. Tap on **Ray's Full Body Workout**, scroll down and tap **Select & Workout**. Finally, dismiss the alert controller by tapping **OK** and finally tap the back button.
 
-Your test method should look like so:
+Your generated test method should look like so:
 
 ```swift
 func testRaysFullBodyWorkout() {
@@ -412,17 +403,17 @@ func testRaysFullBodyWorkout() {
 }
 ```
 
-Magic! Depending on where you swiped and what version of Xcode you're running, the generated code may be different from what you see in the chapter. You can run the generated test to verify that it simulates your steps one by one.
+Magic! Depending on where you swiped and what version of Xcode you're running, the generated code may be different from what you see in the chapter. Run the generated test to verify that it simulates your steps one by one.
 
 You'll notice that some of the generated lines of code have tokens that contain several options:
 
 ![bordered bezel](/images/uiRecordingTokens.png)
 
-As you can tell, there are many ways of querying the same UI elements. With these tokens, Xcode gives you options to help you disambiguate elements in case there are duplicates. Once you're happy with a particular path, double click on the token to make it final.
+There are many ways of querying the same UI elements. With these tokens, Xcode gives you options to help you disambiguate elements in case there are duplicates. Once you're happy with a particular path, double click on the token to make it final.
 
 > **Note**: Even if you write your tests manually, you can still use UI recording to find out what the testing framework "sees" as you tap around the simulator. This is a good alternative to using the system provided Accessibility inspectors. 
 
-//I have two more tests to add. They're depending on the new designs so I'll hold off until I have the new designs to add them here. I can also make them challenge 1 & 2 if I run out of space
+//TODO: I have two more tests to add. They depend on the new designs being finalized so I'll hold off until that's done.. I can also make them challenge 1 & 2 if I run out of space. These tests are in the final project.
 
 ## Where to Go From Here?
 
