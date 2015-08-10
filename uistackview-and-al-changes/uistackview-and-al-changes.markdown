@@ -36,7 +36,7 @@ Open **VacationSpots-Starter**, and run it on the **iPhone 6 Simulator**. The fi
 
 ![bordered width=30%](images/02-alignment-issue-on-table-view_750x534.png)
 
-Both the name and location label for a vacation spot should be centered vertically (as a group) so there is an equal amount of space above the name label, and below the location label -- this is a fix with a layout guide that you'll learn towards the end of the chapter by using a layout guide. For now, go to the info view for London by tapping on the **London** cell.
+Both the name and location label for a vacation spot should be centered vertically (as a group) so there is an equal amount of space above the name label, and below the location label – this is a fix with a layout guide that you'll learn towards the end of the chapter by using a layout guide. For now, go to the info view for London by tapping on the **London** cell.
 
 At first glance, the view may seem okay, but look deeper.
 
@@ -50,7 +50,7 @@ At first glance, the view may seem okay, but look deeper.
 
 3. The ordering of the sections can be improved. It would me more logical if **What to See** was positioned right after **Why Visit**, instead of having the **Weather** section in between them.
 
-4. The bottom row of buttons is a bit too close to the bottom edge of the view in landscape mode. It would be better if you could decrease the spacing between the different sections -- but only in landscape mode i.e when the vertical size class is compact.
+4. The bottom row of buttons is a bit too close to the bottom edge of the view in landscape mode. It would be better if you could decrease the spacing between the different sections – but only in landscape mode, i.e. when the vertical size class is compact.
 
 Now you know the what's and whys, so it's time to start planning your next vacation even as you enter the wonderful world of `UIStackView`.
 
@@ -76,7 +76,7 @@ Also, any outlet-connected labels have placeholder text that's set to the name o
 
 Another thing to note is that the scenes in the storyboard are not the default 600 x 600 squares that you get when using size classes.
 
-Size classes are still enabled, but the size of the initial Navigation Controller has been set to **iPhone 4-inch** under the **Simulated Metrics** section in the **Attributes inspector**. This just makes it a bit easier to work with the storyboard -- and it helps make the screenshots fit in this book.
+Size classes are still enabled, but the size of the initial Navigation Controller has been set to **iPhone 4-inch** under the **Simulated Metrics** section in the **Attributes inspector**. This just makes it a bit easier to work with the storyboard – and it helps make the screenshots fit in this book.
 
 ![bordered width=99%](images/06-simulated-metrics-iphone-4-inch_640x140.png)
 
@@ -107,7 +107,7 @@ The buttons will become embedded in a new stack view:
 
 ![bordered width=96%](images/11-bottom-row-is-now-in-stack-view_640x100.png)
 
-The buttons are now flush with each other -- you'll that fix shortly.
+The buttons are now flush with each other – you'll that fix shortly.
 
 While the stack view takes care of positioning the buttons, you still need to add Auto Layout constraints to position the stack view itself.
 
@@ -157,7 +157,7 @@ And now the stack view is the correct size, but it has stretched the first butto
 
 The property that determines how a stack view lays out its views along its axis is its `distribution`. Currently, it's set to `Fill`, which means the contained views will completely fill the stack view along its axis. To accomplish this, the stack view will only expand one of its views to fill that extra space; specifically, it expands the view with the lowest horizontal content hugging priority, or if all of the priorities are equal, it expands the first view.
 
-However, you're not looking for the buttons to fill the stack view completely -- you're after equal spacing.
+However, you're not looking for the buttons to fill the stack view completely – you're after equal spacing.
 
 Make sure the stack view is still selected, and go to the **Attributes inspector**. Change the **Distribution** from **Fill** to **Equal Spacing**:
 
@@ -318,7 +318,7 @@ When would you would actually use a multiplier other than 1? Here's an idea: Whe
 
 Effectively, the only anchors that are of type `NSLayoutDimension` are `heightAnchor` and `widthAnchor`.
 
-Remember, you can't accidentally use a multiplier where it doesn't make sense -- since the multiplier-based methods don't exist with anything other than `widthAnchor` and `heightAnchor`, Xcode won't even suggest them to you.
+Remember, you can't accidentally use a multiplier where it doesn't make sense – since the multiplier-based methods don't exist with anything other than `widthAnchor` and `heightAnchor`, Xcode won't even suggest them to you.
 
 It gets better. Because of the additional type safety benefits offered by layout anchors, as well as `NSLayoutDimension`, the other anchors in a view will be either `NSLayoutXAxisAnchor` or `NSLayoutYAxisAnchor` objects, depending on the anchor.
 
@@ -348,7 +348,7 @@ The specific subclasses of `NSLayoutAnchor` are:
 - `NSLayoutYAxisAnchor` for top, bottom and center Y anchors
 - `NSLayoutDimension` for width and height
 
-Whew, that was a lot to cover. You're probably wondering if you'll ever fix that alignment bug. Of course you will! But first, read through the next section on layout guides -- I promise it's much shorter. :]
+Whew, that was a lot to cover. You're probably wondering if you'll ever fix that alignment bug. Of course you will! But first, read through the next section on layout guides – I promise it's much shorter. :]
 
 After that, you'll be fully prepared to dive back into the code and fix that bothersome alignment bug.
 
@@ -360,7 +360,7 @@ Think of a layout guide as defining a rectangular region or a frame in your view
 
 Layout guides don't enable any new functionality, but they do allow you to address these problems with a lightweight solution.
 
-You add constraints to a `UILayoutGuide` in the same way that you add them to a `UIView`, because a layout guide has _all of the same_ layout anchors that a view has -- except for `firstBaselineAnchor` and `lastBaselineAnchor`.
+You add constraints to a `UILayoutGuide` in the same way that you add them to a `UIView`, because a layout guide has _all of the same_ layout anchors that a view has – except for `firstBaselineAnchor` and `lastBaselineAnchor`.
 
 Okay, now it's time to dive back into the project and fix that alignment bug.
 
@@ -441,5 +441,6 @@ Build and run, and you'll see the labels centered correctly!
 In this chapter, you started learning about stack views and also learned about some of the new features in Auto Layout, such as layout anchors and layout guides.
 
 At this point, you've just scratched the surface. Keep up the momentum and proceed to the next chapter, where you'll continue to learn about stack views in depth.
-
+**Note**:
 At the end of the next chapter, there will be some additional resources you can use to further your learning, but for now, all you have to do is turn to the next page!
+
