@@ -256,6 +256,145 @@ if let nav = window?.rootViewController as? UINavigationController,
 
 As described, this logic works its way through the app's view hierarchy to push to an `EmployeeViewController` for the selected search result. If for some reason the view cannot be presented, return `false`.
 
-Okay, time to build and run! Once the app opens, select **Cary Iowa** then go to the home screen. Activate Spotlight and search for **Brent Reid**, when the result appears select it. The app will open and you will quickly see it transition from Cary's record to Brent's. Excellent work! You can play around with this some more, with other records. The next step will be indexing *all* employee to make them searchable without having previously viewed them.
+Okay, time to build and run! Once the app opens, select **Cary Iowa** then go to the home screen. Activate Spotlight and search for **Brent Reid**, when the result appears select it. The app will open and you will quickly see it transition from Cary's record to Brent's. Excellent work! The next step will be indexing *all* employee to make them searchable without having previously viewed them.
 
 ## Index All The Things!
+
+Now that previously viewed records are being indexed, you're not far off from indexing the entire employee database. You might be thinking, why didn't I do this first? Well, recall that `NSUserActivity` is the first step you should take when making content searchable. By using activities you gain content ranking.
+
+Hypothetically speaking, say that an employee the same name as a popular actress. When searching in Spotlight for that name, the user will likely be given the the actress's IMDB page as the first result. However, if they frequently visit that employee's record in your app, it is possible that iOS will rank that result higher than IMDB. Remember that a common usage pattern is users returning to records they've previously viewed.
+
+Start by opening **EmployeeExt.swift** and add the following line to the computed property `attributeSet`, right above the return statement.
+
+```swift
+attributeSet.relatedUniqueIdentifier = objectId
+```
+
+This assignment is to build a relationship between this `NSUserActivity` and what will soon be an `CSSearchableItem` that you will be inserting into the CoreSpotlight index. If you do not relate the two records, your users will begin seeing duplicate search results.
+
+Next you need to create the `CSSearchableItem` that is required to index directly with CoreSpotlight. Add the following computed property definition to **EmployeeExt.swift**.
+
+```swift
+var searchableItem: CSSearchableItem {
+  let item = CSSearchableItem(uniqueIdentifier: objectId,
+    domainIdentifier: Employee.domainIdentifier,
+    attributeSet: attributeSet)
+  return item
+}
+```
+
+This is brief because you're already creating the `CSSearchableItemAttributeSet`. Notice that `uniqueIdentifier` is set to `objectId` to build the inverse relationship with your `NSUserActivity`.
+
+Open **EmployeeService.swift** and import CoreSpotlight at the top of the file.
+
+```swift
+import CoreSpotlight
+```
+
+Now, locate the `indexAllEmployees()` method. Remove the TODO comment and add the following.
+
+```swift
+let employees = fetchEmployees()                          // 1
+let searchableItems = employees.map { $0.searchableItem } // 2
+CSSearchableIndex
+  .defaultSearchableIndex()
+  .indexSearchableItems(searchableItems) { error in       // 3
+  if let error = error {                                  // 4
+    print("Error indexing employees: \(error)")
+  } else {
+    print("Employees indexed.")
+  }
+}
+```
+
+Stepping through the logic...
+
+1. All employees are fetched from the database as `[Employee]`
+2. The Employee array is mapped to `[CSSearchableItem]`
+3. Using CoreSpotlight's default index, the array of `CSSearchableItem`s is indexed
+4. Log an message on success or failure
+
+And.... That's it! Now when you launch the app with the option "All Records" set for the app's "Indexing" setting all employee records will be indexed and searchable. So, give it a shot!
+
+Set the **Indexing** setting to **All Records** and then build and run. Try searching for people you see in the list that you haven't looked at yet. Or try searching for an entire department like "engineering"! (You will likely need to scroll to see the results from your app.)
+
+But what happens when you tap on a result? You'll find that it doesn't take you to the respective record. The reason for this is that you need to handle results indexed directly with CoreSpotlight a bit differently. Open **AppDelegate.swift** and import CoreSpotlight at the top of the file.
+
+```swift
+import CoreSpotlight
+```
+
+Then replace the logic that extracts `objectId` in `application(application:continueUserActivity:restorationHandler:)` with the following.
+
+```swift
+let objectId: String
+if userActivity.activityType == Employee.domainIdentifier,
+  let activityObjectId = userActivity.userInfo?["id"] as? String {
+  // Handle result from NSUserActivity indexing
+  objectId = activityObjectId
+} else if userActivity.activityType == CSSearchableItemActionType,
+  let activityObjectId = userActivity
+    .userInfo?[CSSearchableItemActivityIdentifier] as? String  {
+  // Handle result from CoreSpotlight indexing
+  objectId = activityObjectId
+} else {
+  return false
+}
+```
+
+Notice the new `else if` branch. When a result is selected that was indexed using CoreSpotlight directly it will come in with an `activityType` defined as `CSSearchableItemActionType`. Further more, the unique identifier is stored in the `userInfo` dictionary under the key `CSSearchableItemActivityIdentifier`. Now this logic will handle both cases regardless of how the employees are indexed.
+
+Build and run, then try to select a record again.
+
+
+![width=35%](/images/app-screen-6.png)
+
+> **NOTE**: You may see duplicate results due to the fact that you were previously indexing `NSUserActivity` items without the `relatedUniqueIdentifier` set. You can delete the app to clear the index or continue to the next section to learn about removing indexed items.
+
+## Delete All The Indicies!
+
+Sometimes things happen and employees leave the company, when scenarios like this happen it is necessary to delete items from the index. For this sample app you will simply be deleting then entire index when the app's "Indexing" setting is set to "Disabled". The same approach can be used to delete individual records as needed.
+
+Open **EmployeeService.swift** and find the `destroyEmployeeIndexing()` method, remove the TODO comment and add the following logic.
+
+```swift
+CSSearchableIndex
+  .defaultSearchableIndex()
+  .deleteAllSearchableItemsWithCompletionHandler { error in
+  if let error = error {
+    print("Error deleting searching employee items: \(error)")
+  } else {
+    print("Employees indexing deleted.")
+  }
+}
+```
+
+Just one parameterless call and you can destroy the entire indexed database for your app. Now this is great for a setting like the app has, but again, what if you want to single out specific items to index? Good news, there are two other APIs that give you finer tuned control over what is deleted; `deleteSearchableItemsWithDomainIdentifiers(_:completionHandler:)` and `deleteSearchableItemsWithIdentifiers(_:completionHandler:)`.
+
+The first will let you delete an entire "group" of indexes based on their domain identifier while the second lets you narrow down on the exact identifier that you provided for an individual record. This means that it is a good idea to use globally unique identifiers if you're indexing multiple types of records. This could be as simple as prefixing the record's Id with its type if you cannot guarantee the uniqueness across types, such as when you're replicating a database that uses auto-incrementing Ids. (e.g. "contact.123" vs "order.123")
+
+Now with this logic in place it is time to test it out. Perform the following test script to see that index deletion is working as intended.
+
+1. Build and Run to install the app
+1. Stop the process in Xcode
+1. Go to Settings > Colleagues > Set **Indexing** to **All Records**
+1. Open the App (invokes indexing)
+1. Go to the Home screen and activate Spotlight
+1. Search for a known employee, verify that results appear
+1. Go to Settings > Colleagues > Set **Indexing** to **Disabled**
+1. Quit the App
+1. Open the App (invokes deletion of indicies)
+1. Go to the Home screen and activate Spotlight
+1. Search for a known employee, verify that *no* results appear
+
+Great work! Once you've got all of the above working you can set the sample project aside. The next sections will discuss some best practices and advanced features of App Search.
+
+## Private vs Public Indexing
+
+## Batch Indexing
+
+## Spotlight Index App Extensions
+
+## Best Practices
+
+## Where to go from here?
