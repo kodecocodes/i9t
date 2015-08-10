@@ -2,80 +2,84 @@
 
 By Soheil Azarpour
 
-Apple introduced a game changing feature for iPad in iOS 9 - **multitasking**. For the first time users can run two apps on screen at the same time! For example, you can read a proposal in your emails while researching the topic in Safari next to it. You can also enjoy watching your favorite sports show at the same time on the same screen. And all of this happens on an iPad that you hold in  your hands while you lounge on a couch! This is super powerful!
+iOS 9 introduces a phenomenal feature for the iPad — **multitasking**. For the first time ever on the iPad, users can run two apps on screen at the same time. You can read a proposal in your email client while you research the topic in Safari, open on the same screen. Or you can keep an eye on Twitter while you enjoy your favorite sports show at the same time on the same screen. This is an insane productivity boost for a small device you can hold in your hands and is likely to change the way users interact with their iPads.
 
-Multitasking will change the way a lot of users use their iPads. In this chapter you will learn how to update an existing app so that it plays nicely in multitasking environment.
+In this chapter, you'll learn how to update an existing app so that it plays nicely in a multi-tasked iPad environment.
 
 ## Getting started
 
-The starter project you’ll use for the remainder of this chapter is called **Travelog**. Open the project file in Xcode and build and run the application on the **iPad Air 2** simulator. You’ll see the following:
+The starter project you’ll use for the remainder of this chapter is named **Travelog**. Open the project file in Xcode and build and run the application on the **iPad Air 2** simulator. You’ll see the following:
 
 ![width=90% ipad](images/mt05.png)
 
-Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. If you tap on an entry, it's displayed in the right hand view. Rotate the device and you'll see both master and detail views of the Split View Controller are visible in both orientations. However, the master view is narrower in portrait orientation to give more room for the content in detail view.
+Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. Tap and entry to display it in the right-hand view; rotate the device and you'll find both master and detail views of the Split View Controller are visible in both orientations. However, the master view is narrower in portrait orientation to give the content more room in the detail view.
 
-It's time to see how the app behaves in a multitasking environment. Swipe from the right edge of the screen (this can be tricky in the simulator, start with your mouse pointer just inside the simulator window) to expose the list of multitasking-ready apps on your iPad. 
+It's time to see how the app behaves in a multitasking environment. Swipe from the right edge of the screen to expose the list of multitasking-ready apps on your iPad. This can be tricky in the simulator; try starting with your mouse pointer just inside the simulator window to simulate a swipe in from the edge.
 
-> **Note**:  If the locale of the iPad is set to a region with right-to-left language, you swipe from the right edge of the screen to activate multitasking.
+> **Note**:  If the locale of the iPad is set to a region with right-to-left language, swipe from the right edge of the screen to activate multitasking.
 
-Tap on one of the apps to launch it. A small version of the app opens up where the list was. At this point you are in **Slide Over** multitasking mode. Note that Travelog is dimmed out but otherwise unaffected. The app running in slide over is on top of Travelog. There is a short handle bar at top of the Slide Over. Swipe down on the handler to expose the list of multitasking apps again and launch a different app in the Slide Over.
+Tap on any app to launch it. A small version of the app opens in the previous position of the list. At this point you're in **Slide Over** multitasking mode. Note that Travelog is dimmed out but otherwise unaffected. The app running in slide over mode sits on top of Travelog, and a short handle bar sits at top of the slide over. Swipe down on the handle to expose the list of multitasking apps and launch a different app in the Slide Over.
 
-You'll notice a handle at the edge of the slide over view. Tap it:
+You'll notice a handle at the edge of the slide over view. Tap it, and you'll see the following:
 
 ![width=90% ipad](images/mt06.png)
 
-W00t! The screen just divided in two! Isn't that nice?! Now you're in **Split View** multitasking mode. Travelog is now available to use, and has resized to fit the new, narrower portion of the window. 
+W00t! The screen just divided in two! Isn't that neat?! This is **Split View** multitasking mode. Travelog is now available for use and resized itself to fit the new, narrower portion of the window.
 
-> **Note**: If an app isn't multitasking ready, it won't appear in the list. Make sure your app is ready!
+> **Note**: If an app isn't multitasking ready, it won't appear in the list. Even more reason to get your app ready for multitasking as soon as possible! :]
 
-The original running app is called the **primary app**, the new one the **secondary app**. You can drag the divider further out and have the screen split 50:50 between the apps. Drag it all the way to the other side and you're now in single app mode again, and the primary app is backgrounded.
+The **primary app** is the original running app, while the **secondary app** is the newly opened app. If you drag the divider further out, the screen will split 50:50 between the apps. Drag it all the way to the other side and you're back to single app mode. The primary app is backgrounded at this point.
 
-The final type of multitasking is called **Picture in Picture** (PIP). This feature works the same way the picture-in-picture function on televisions work. You can shrink the PIP window or a FaceTime call to one corner of the iPad and continue using other apps while you watch or chat. PIP is only really applicable to video playing apps and isn't covered in this chapter.
+The final type of multitasking, **Picture in Picture**, or **PIP**, works much like the picture-in-picture function on televisions. You can shrink the PIP window of a FaceTime call to one corner of the iPad and continue using other apps while you chat. PIP is only really applicable to video playing apps; therefore it won't be covered in this chapter.
 
 > **Note:** At the time of writing, Split View is **only** available on the iPad Air 2. Picture in Picture and Slide Over is available on iPad Air, iPad Air 2, iPad Mini 2, and iPad Mini 3.
 
 ## Preparing your app for multitasking
 
-Here's the good news: If you paid attention and WWDC 2014 and have built a universal app with size classes, adaptive layout and a launch storyboard or xib, you're done. Rebuild it with the iOS 9 SDK and get yourself a beverage. See you in the next chapter! 
+Here's the good news: if you paid attention at WWDC 2014 and built a universal app with size classes, adaptive layout and a launch storyboard or XIB, you're done! Rebuild your app with the iOS 9 SDK, go grab yourself a beverage and I'll see you in the next chapter!
 
-What's that? You live in the real world? OK then. Here is what you have to do to have a multitasking-ready app. If you start a new project in Xcode 7, it's automatically multitasking ready. An existing app automatically becomes multitasking-ready if the following conditions are met:
+What's that? You live in the real world and don't _quite_ have all the above implemented in your app? Okay then; I can walk you through what it takes to make your app multitasking-ready.
 
-* a universal app
-* compiled with SDK 9.x
+Any new project created in Xcode 7 is automatically multitasking-ready. An existing app you convert to Xcode 7 automatically becomes multitasking-ready if your app:
+
+* is a universal app
+* is compiled with SDK 9.x
 * supports all orientations
 * uses launch storyboard
 
-Since all the required criteria are in place, Travelog becomes multitasking ready. That's good news, but just because it's multitasking ready, it doesn't mean that everything will work as expected. For the rest of this chapter you'll work through a couple of common pitfalls found when converting an app to multitasking.
+Since all the required criteria are in place, Travelog automatically becomes multitasking ready. That's great news, but just because it's multitasking ready doesn't mean that everything will work as expected. The remainder of this chapter will help you work through common pitfalls encountered when converting existing apps to multitasking apps.
 
 ## Orientation and size changes
 
-Running Travelog in Split View mode, rotate the iPad to portrait orientation, and you'll see the app with a layout shown below:
+Run Travelog in Split View mode and rotate the iPad to portrait orientation; you'll see the app layout as shown below:
 
 ![bordered ipad](images/mt061.png)
 
-You agree that while this layout is OK, it's not really what you want. There's a large white space wasted on the left hand side and all the labels are squashed to the right hand side.
+While this layout is functional, it can certainly stand to be improved. There's whitespace wasted on the left hand side and all the labels are squashed over to the right hand side.
 
-Now rotate the device to landscape orientation:
+Rotate the device to landscape orientation; you'll see the following:
 
 ![bordered ipad](images/mt062.png)
 
-Again, it looks OK, but the master view column is too narrow and the text inside the table view cells don't really provide any value.
+Again, it's functional, but the master view column is too narrow and the text inside the table view cells doesn't really provide any value.
 
-The app already does some layout update on an orientation change, So let's start with that. Open **SplitViewController.swift**. This is a subclass of `UISplitViewController` and overrides `viewDidLayoutSubviews()` to update the maximum width of primary column by calling a helper method, `updateMaximumPrimaryColumnWidth()`. In the implementation of `updateMaximumPrimaryColumnWidth()`, the code checks for status bar orientation to determine the maximum width. This approach is no longer appropriate, because in now the app can have a narrow window even although it's in landscape orientation.
+The app already performs some layout updates on orientation change; that seems like the best place to start.
 
-UIKit provides a number of anchor points that you can hook on to and update your layout:
+Open **SplitViewController.swift**; this is a subclass of `UISplitViewController` and overrides `viewDidLayoutSubviews()` so it can update the maximum width of primary column via helper method `updateMaximumPrimaryColumnWidth()`. The implementation of `updateMaximumPrimaryColumnWidth()` checks the status bar orientation to determine what the maximum width should be. This approach won't work any longer, since the app can still have a narrow window in split view mode when it's in landscape orientation.
+
+UIKit provides a number of anchor points where you can hook in and update your layout:
 
 1. **willTransitionToTraitCollection(_:, withTransitionCoordinator:)**
 2. **viewWillTransitionToSize(_:, withTransitionCoordinator:)**
 3. **traitCollectionDidChange(_:):**
 
-This diagram shows how the horizontal size classes of your app change during multitasking events. R means **Regular** and C means **Compact**:
+The diagram below shows how the horizontal size classes of your app change during multitasking events (**R** means **Regular** and **C** means **Compact**):
 
 ![width=100%](images/sizeclasses.png)
 
-Not all multitasking or orientation changes trigger a size class change, so you can't just rely on size class changes to provide the best user experience.
+Not all multitasking or orientation changes trigger a size class change, so you can't simply rely on size class changes to provide the best user experience.
 
-It looks like `viewWillTransitionToSize(_:, withTransitionCoordinator:)` is a good candidate to update this code. Remove `viewDidLayoutSubviews()` and `updateMaximumPrimaryColumnWidth()` from **SplitViewController.swift** and add the following:
+It looks like `viewWillTransitionToSize(_:, withTransitionCoordinator:)` is a good candidate for an update.Remove `viewDidLayoutSubviews()` and `updateMaximumPrimaryColumnWidth()` from **SplitViewController.swift** and add the following:
 
 ```swift
 func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
@@ -87,9 +91,9 @@ func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
 }
 ```
 
-This helper method updates the split view's maximum primary column width. It gives the smaller version when the split view is narrower than the screen (e.g. you are in a multitasking situation) or the split view itself has a portrait orientation.
+This helper method updates the split view's maximum primary column width; it returns the smaller version when the split view is narrower than the screen, such as in a multitasking situation, or when the split view itself has a portrait orientation.
 
-This helper method needs to be called when the view is first loaded, so add the following:
+You'll need to call this helper method when the view is first loaded, so add the following:
 
 ```swift
 override func viewDidLoad() {
@@ -98,7 +102,9 @@ override func viewDidLoad() {
 }
 ```
 
-This ensures that the split view starts in the right configuration. Add one final method:
+This ensures that the split view starts in the right configuration.
+
+Add one final method:
 
 ```swift
 override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
@@ -109,15 +115,15 @@ override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator c
 
 This method updates the primary column when the size changes.
 
-Build and run. First verify that the app still looks and behaves as before without multitasking in all orientations. Then bring in another app in Split View and try different orientations.
+Build and run your app; first verify for all orientations that the app still looks and behaves as it did before multitasking. Then bring in another app in Split View and try some different orientations:
 
 ![width=95%](images/mt063.png)
 
-It's certainly not fixed. It even looks more broken now because with multitasking enabled in landscape orientation the master column view is jacked up!
+Hmm — it's certainly not fixed. It even looks more broken now: with multitasking enabled in landscape orientation, the master column view has been jacked up! It looks like the table view cell doesn't adapt to size changes appropriately.
 
-It looks like the table view cell doesn't adapt to size changes appropriately. Open **LogCell.swift** and find the implementation of `layoutSubviews()`. You see that the code checks for `UIScreen.mainScreen().bounds.width` to determine whether it should use the compact view or regular view.
+ Open **LogCell.swift** and find the implementation of `layoutSubviews()`; you'll see the code checks for `UIScreen.mainScreen().bounds.width` to determine whether it should use the compact view or regular view.
 
-`UIScreen` always represents the entire screen regardless of multitasking environment. You can no longer depend on screen sizes in your code because your app may not be taking the entire screen. So update the implementation of `layoutSubviews()` as follows:
+`UIScreen` always represents the _entire_ screen, regardless of the multitasking state. However, you can't rely on screen sizes alone anymore. Update the implementation of `layoutSubviews()` as follows:
 
 ```swift
 override func layoutSubviews() {
@@ -127,23 +133,23 @@ override func layoutSubviews() {
 }
 ```
 
-Also update `widthThreshold`; it's declared at the beginning of `LogCell`:
+Also update `widthThreshold`, declared at the beginning of `LogCell`, as follows:
 
 ```swift
 static let widthThreshold: CGFloat = 160.0
 ```
 
-The updated code is checking for the width of the cell itself instead of the width of the screen. This is better because you're not coupling the view's behaviour its superviews. Adaptivity is now self-contained!
+The updated code checks the width of the cell itself instead of the width of the screen. This decouples the view's behavior from its superviews. Adaptivity is now self-contained! :]
 
-Build and run. Again, verify that the app still looks and behaves as before without multitasking enabled. This time around, in Split View the app should play nicer in all orientations:
+Build and run; again, verify the app still looks and behaves as it did before multitasking. This time around, Split View mode should play nicely in all orientations:
 
 ![width=95%](images/mt09.png)
 
-> **Note:** Unlike `UIScreen`, `UIWindow.bounds` always corresponds to the actual size of your app and its origin is always at `(0, 0)`. Also in iOS 9 you can create a new instance of `UIWindow` without passing a frame. That is 'let window = UIWindow()'. The system will automatically give it a frame that matches your application's frame.
+> **Note:** Unlike `UIScreen`, `UIWindow.bounds` always corresponds to the actual size of your app and its origin is always `(0, 0)`. In iOS 9 you can create a new instance of `UIWindow` _without_ passing a frame via `let window = UIWindow()`. The system will automatically give it a frame that matches your application's frame.
 
 ## Adaptive presentation
 
-Continue evaluating the app in multitasking environment. This time with device in landscape orientation and the Split View at 33%, tap the **Photo Library** bar button, and you will be presented with a popover.
+Continue your evaluation of the app: this time with the device in landscape orientation and the Split View at 33%, tap the **Photo Library** bar button. You'll see the following popover:
 
 ![bordered ipad](images/mt091.png)
 
@@ -161,13 +167,13 @@ Open **LogsViewController.swift** and add a class extension at the end of the fi
 
 ```swift
 extension LogsViewController : UIPopoverPresentationControllerDelegate {
-    
+
   func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
     //1
     guard traitCollection.userInterfaceIdiom == .Pad else {
       return .FullScreen
     }
-        
+
     if splitViewController?.view.bounds.width > 320 {
       return .None
     } else {
@@ -209,7 +215,7 @@ There are other things to look out for when multitasking. Many of these are thin
 
 Dealing with keyboard presentation has always been an "interesting" topic in iOS. You probably have the experience of adjusting your view layout when the keyboard is presented to give user some room or move some UI elements to keep them visible.
 
-In a multitasking environment you have new requirement: the keyboard could appear at any time, over any view controller! 
+In a multitasking environment you have new requirement: the keyboard could appear at any time, over any view controller!
 
 Other apps running next to your app may present the keyboard and you need to adjust your layout so that the user can continue to use your app - or they may leave you bad reviews in the App Store! :]
 
