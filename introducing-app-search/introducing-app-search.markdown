@@ -4,9 +4,7 @@ One frustration for many iOS developers is that Apple gets to have all of the fu
 
 Currently, when a user wants to get to content in your app they have to go through a series of steps. They flip through pages on their home screen to find your app, open it, and search what they're looking for. A savvy user may launch your app by using Siri or searching for it in Spotlight, but still they are left searching for their content once the app is launched. Meanwhile, Apple gets to make things like contacts, notes, messages, email, apps and other things directly searchable within Spotlight. The user simply taps on the search result and are taken straight to the content—no fair!
 
-New with iOS 9 Apple brings the ability for third party developers to make *their* content searchable through Spotlight! This also means that users can search within your app using Siri! Not only do you get to make your content searchable with Siri, you also get to make Siri more aware of your content. By saying "Remind me about *this* when I get home." a user can create a reminder that links to the record they are viewing in *your* app! When the reminder pops up, they can go directly back to what they were doing. Now you don't need to leave 20 tabs open in Safari in hopes that you get back to them later. Create a reminder, close the tab, and get on with your life!
-
-> **TODO**: Fact check this with GM on a device.
+New with iOS 9 Apple brings the ability for third party developers to make *their* content searchable through Spotlight! This also means that users can search within your app using Siri! Not only do you get to make your content searchable with Siri, you also get to make Siri more aware of your content. By saying "Remind me about *this* when I get home." a user can create a reminder that links to the record they are viewing in *your* app. When the reminder pops up, they can go directly back to what they were doing. Now you don't need to leave 20 tabs open in Safari in hopes that you get back to them later. Create a reminder, close the tab, and get on with your life! **TODO**: Fact check this with GM on a device, as of beta 5 it only creates a reminder with the activity's title, no link.
 
 ## Trifecta of App Search
 
@@ -26,11 +24,11 @@ The second aspect is Core Spotlight, while it is nice to allow users to search f
 
 ### Web Markup
 
-The third aspect is Web Markup which is tailored towards apps that mirror their public content from a web site. A good example of this would be Amazon where you can search of any of the products that they sell, or even RayWenderlich.com. This chapter will not touch on Web Markup, but will find that information in Chapter 3, "Your App On The Web".
+The third aspect is Web Markup which is tailored towards apps that mirror their public content from a web site. A good example of this would be Amazon where you can search of any of the products that they sell, or even RayWenderlich.com. This chapter will not touch on Web Markup, but you can find that information in Chapter 3, "Your App On The Web".
 
 ## Sample Project
 
-For this chapter you will be working with a sample app named Colleagues that simulates what a company address book might look like. Rather than every employee being added to your phone's address book, the app provides a directory of your colleagues. To keep things simple, the app uses a local set of data that resides in the app bundle as a folder of avatar images and a JSON file containing all of the employee information. In the real-world you would prefer to have a networking component that downloads a bundle of data like this or one that accesses a true web-service.
+In this chapter you will be working with a sample app named Colleagues that simulates what a company address book might look like. Rather than every employee being added to your phone's address book, the app provides a directory of your colleagues. To keep things simple, the app uses a local set of data as a folder of avatar images and a JSON file containing all of the employee information. In the real-world you would prefer to have a networking component that downloads a bundle of data like this or one that accesses a true web-service.
 
 ### New Employee Orientation
 
@@ -487,4 +485,4 @@ There are many unique ways that you might find to bubble up content to your user
 
 You should watch the excellent WWDC 15 talk [Introducing App Search](http://apple.co/1gvlfGi) (http://apple.co/1gvlfGi), there are many little details shown and mentioned. You should also read through the [App Search Programming Guide](http://apple.co/1J0WBs1) (http://apple.co/1J0WBs1).
 
-And of course, read the next chapter of this book if your app has a web counter-part that has content to be publicly indexed.
+And of course, read the next chapter of this book, "Your App On The Web", if your app has a web counter-part that with content to be publicly indexed.
