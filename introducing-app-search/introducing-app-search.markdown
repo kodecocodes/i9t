@@ -371,7 +371,9 @@ CSSearchableIndex
 
 Just one parameterless call and you can destroy the entire indexed database for your app. Now this is great for a setting like the app has, but again, what if you want to single out specific items to index? Good news, there are two other APIs that give you finer tuned control over what is deleted; `deleteSearchableItemsWithDomainIdentifiers(_:completionHandler:)` and `deleteSearchableItemsWithIdentifiers(_:completionHandler:)`.
 
-The first will let you delete an entire "group" of indexes based on their domain identifier while the second lets you narrow down on the exact identifier that you provided for an individual record. This means that it is a good idea to use globally unique identifiers if you're indexing multiple types of records. This could be as simple as prefixing the record's Id with its type if you cannot guarantee the uniqueness across types, such as when you're replicating a database that uses auto-incrementing Ids. (e.g. "contact.123" vs "order.123")
+The first will let you delete entire "groups" of indexes based on their domain identifiers while the second lets you narrow down on the exact identifier that you provided for an individual record. This means that it is required that you use globally unique identifiers if you're indexing multiple types of records. This could be as simple as prefixing the record's Id with its type if you cannot guarantee the uniqueness across types, such as when you're replicating a database that uses auto-incrementing Ids. (e.g. "contact.123" vs "order.123")
+
+It is also very important to keep your indexes up to date with changes, for the Colleagues app you may have an employee that gets a promotion, changes departments, gets a new phone number, or even changes their name. To update an indexed item you use the same method that you indexed them with in the first place, `indexSearchableItems()`.
 
 Now with this logic in place it is time to test it out. Perform the following test script to see that index deletion is working as intended.
 
