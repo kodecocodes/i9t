@@ -391,7 +391,15 @@ Great work! Once you've got all of the above working you can set the sample proj
 
 ## Private vs Public Indexing
 
+Depending on your app it might make sense to make a public index your content. This benefits both you and your users. For you, your content can be surfaced in results to iOS users who don't even have your app installed. This is a great way to gain new users of your app. The benefit for the user is that they discover new apps that might be of interest to them. For your existing users, your indexing gets better over time as Apple will rank your content as it is viewed and selected from search results.
+
+By default all indexed content is considered private, this is also true for any content that you index using CoreSpotlight directly like you did in the Colleagues sample app. To make content indexed publicly you use the `eligibleForSearch` property on `NSUserActivity` by setting it to `true`. But it's not as cut and dry as it may sound. Apple has taken a few safe guards to protect both your user's data and the quality of their public indexes. In order for content to become public in Apple's indexing service, it must first be reported by an undefined number of unique users. Apple has not provided the exact numbers and putting any money on them doing so would probably be a poor bet.
+
+The other approach for making content publicly indexed is using Web Markup which is covered in the next chapter.
+
 ## Batch Indexing
+
+
 
 ## Spotlight Index App Extensions
 
