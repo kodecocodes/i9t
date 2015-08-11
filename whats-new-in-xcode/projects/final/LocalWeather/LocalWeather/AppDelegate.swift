@@ -62,5 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let formattedElapsedTime = FormatHelper.formatNumber(elapsedTime, withFractionDigitCount: 2)
     print("Background work completed in: \(formattedElapsedTime) sec")
 
+    UIApplication.sharedApplication().endBackgroundTask(
+      backgroundTaskIdentifier)
   }
 }
