@@ -434,7 +434,50 @@ class IndexRequestHandler: CSIndexExtensionRequestHandler {
 
 ### Batch Indexing
 
+You may also find that you need to perform a batch of index operations. Consider a set of sync results coming down from an API, some records are created, some updated, and others deleted. Given that your app can be terminated by the user, it might be ideal to perform small batch updates if you plan to index a large number of records. When using the batch APIs you are provided with the ability to define the client state after each batch, and retrieve that same client state before performing the next batch.
 
+To use batching, you must not use the the `defaultSearchableIndex`, rather you need to create your own `CSSearchableIndex` instance. You must also ensure that operations on the index you create happen on a single thread, concurrent access of an index is not supported.
+
+If the Colleagues app were using a large database, it might be ideal to batch the indexing process. After downloading the entire record set you could effectively "page" through and batch small groups. Your client state might be as simple as the last employee's `objectId` indexed from the batch (assuming the downloaded record set is sorted by `objectId`). Then, before performing the next batch, you can grab another group of records, starting after the `objectId` from the client state property.
+
+Below is a possible implementation for batching employees from the Colleagues app.
+
+```swift
+let index = CSSearchableIndex()                                   // 1
+index.beginIndexBatch()                                           // 2
+index.fetchLastClientStateWithCompletionHandler { state, error in
+
+  let lastIndexedObjectId: String?
+  if let state = state,
+    objectId = NSString(data: state,
+      encoding: NSUTF8StringEncoding) as? String                  // 3
+  {
+    lastIndexedObjectId = objectId
+  } else {
+    lastIndexedObjectId = nil
+  }
+
+  let batch = self.employeeBatchAfter(lastIndexedObjectId)        // 4
+  let items = batch.map{ $0.searchableItem }                      // 5
+  index.indexSearchableItems(items, completionHandler: nil)       // 6
+  let state = batch
+    .last!
+    .objectId.dataUsingEncoding(NSUTF8StringEncoding)!
+  index.endIndexBatchWithClientState(state) { error in            // 7
+    // handle error
+  }
+}
+```
+
+1. Create an index
+2. Designate that you will begin indexing
+3. Attempt to unwrap the clientState, this will be nil if it is the first batch
+4. Load the next batch of employee records given an `objectId` or `nil`, passing `nil` provides the first batch
+5. Map to an array of `CSSearchableItem`s
+6. Index the items
+7. Designate that you're finished with the batch and provide a new `clientState` which is the last `objectId` for the processed batch
+
+Some additional logic would be required to continue this process until all employees have been indexed. 
 
 ## Best Practices
 
