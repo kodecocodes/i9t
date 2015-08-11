@@ -29,32 +29,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
   
-  func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
-    
-    let objectId: String?
-    
-    if userActivity.activityType == Employee.domainIdentifier, let activityObjectId = userActivity.userInfo?["id"] as? String {
-      objectId = activityObjectId
-    } else if userActivity.activityType == CSSearchableItemActionType,
-      let activityObjectId = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String  {
-      objectId = activityObjectId
-    } else {
-      objectId = nil
-    }
-    
-    if let objectId = objectId,
-      navController = window?.rootViewController as? UINavigationController,
-      employeeListViewController = navController.viewControllers.first as? EmployeeListViewController,
-      employee = EmployeeService().employeeWithObjectId(objectId)
-    {
-      navController.popToRootViewControllerAnimated(false)
+  func application(application: UIApplication,
+    continueUserActivity userActivity: NSUserActivity,
+    restorationHandler: ([AnyObject]?) -> Void) -> Bool {
       
-      let employeeViewController = employeeListViewController.storyboard?.instantiateViewControllerWithIdentifier("EmployeeView") as! EmployeeViewController
-      employeeViewController.employee = employee
-      navController.pushViewController(employeeViewController, animated: false)
-    }
-    
-    return true
+      let objectId: String
+      if userActivity.activityType == Employee.domainIdentifier,
+        let activityObjectId = userActivity.userInfo?["id"] as? String {
+          // Handle result from NSUserActivity indexing
+          objectId = activityObjectId
+      } else if userActivity.activityType == CSSearchableItemActionType,
+        let activityObjectId = userActivity
+          .userInfo?[CSSearchableItemActivityIdentifier] as? String  {
+            // Handle result from CoreSpotlight indexing
+            objectId = activityObjectId
+      } else {
+        return false
+      }
+      
+      if let nav = window?.rootViewController as? UINavigationController,
+        listVC = nav.viewControllers.first as? EmployeeListViewController,
+        employee = EmployeeService().employeeWithObjectId(objectId)
+      {
+        nav.popToRootViewControllerAnimated(false)
+        
+        let employeeViewController = listVC
+          .storyboard?
+          .instantiateViewControllerWithIdentifier("EmployeeView") as! EmployeeViewController
+        
+        employeeViewController.employee = employee
+        nav.pushViewController(employeeViewController, animated: false)
+        return true
+      } else {
+        return false
+      }
   }
   
   
@@ -62,9 +70,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
     switch Setting.searchIndexingPreference {
     case .Disabled:
-      EmployeeService().destroyEmployeeIndexing()
+       EmployeeService().destroyEmployeeIndexing()
     case .AllRecords:
-      EmployeeService().indexAllEmployees()
+       EmployeeService().indexAllEmployees()
     default: break
     }
     

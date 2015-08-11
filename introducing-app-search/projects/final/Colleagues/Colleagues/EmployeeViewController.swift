@@ -65,11 +65,20 @@ class EmployeeViewController: UIViewController {
     skillsLabel.text = ", ".join(employee.skills)
     otherEmployeesLabel.text = "Other employees in \(employee.department)"
     
-    userActivity = employee.userActivity
+    
+    let activity = employee.userActivity
+    if case .Disabled = Setting.searchIndexingPreference {
+      activity.eligibleForSearch = false
+    } else {
+      activity.eligibleForSearch = true
+    }
+    
+    userActivity = activity
   }
   
   override func updateUserActivityState(activity: NSUserActivity) {
-    activity.addUserInfoEntriesFromDictionary(employee.userActivityUserInfo)
+    activity.addUserInfoEntriesFromDictionary(
+      employee.userActivityUserInfo)
   }
   
   @IBAction func call(sender: UITapGestureRecognizer) {

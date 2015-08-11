@@ -21,44 +21,51 @@
 */
 
 import Foundation
-import EmployeeKit
 import CoreSpotlight
 import MobileCoreServices
 
+
 extension Employee {
+  public static let domainIdentifier = "com.raywenderlich.colleagues.employee"
   
-  var userActivityUserInfo: [NSObject: AnyObject] {
+  public var userActivityUserInfo: [NSObject: AnyObject] {
     return ["id": objectId]
   }
-  
-  var userActivity: NSUserActivity {
-    let activity = NSUserActivity(activityType: self.dynamicType.domainIdentifier)
+
+  public var userActivity: NSUserActivity {
+    let activity = NSUserActivity(activityType: Employee.domainIdentifier)
     activity.title = name
-    switch Setting.searchIndexingPreference {
-    case .Disabled:
-      activity.eligibleForSearch = false
-    default:
-      activity.eligibleForSearch = true
-    }
-    
     activity.userInfo = userActivityUserInfo
     activity.keywords = [email, department]
-        
-    activity.contentAttributeSet = searchableItemAttributeSet
+    activity.contentAttributeSet = attributeSet
+    
     return activity
   }
   
-  /// Dial the employee's phone number use the system dialer.
-  func call() {
-    let sanitizedPhoneNumber = phone.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
-    let callUrl = NSURL(string: "tel:" + sanitizedPhoneNumber)!
-    UIApplication.sharedApplication().openURL(callUrl)
+  public var attributeSet: CSSearchableItemAttributeSet {
+    let attributeSet = CSSearchableItemAttributeSet(
+      itemContentType: kUTTypeContact as String)
+    attributeSet.title = name
+    attributeSet.contentDescription = "\(department), \(title)\n\(phone)"
+    attributeSet.thumbnailData = UIImageJPEGRepresentation(
+      loadPicture(), 0.9)
+    attributeSet.supportsPhoneCall = true
+    
+    attributeSet.phoneNumbers = [phone]
+    attributeSet.emailAddresses = [email]
+    attributeSet.keywords = skills
+    attributeSet.relatedUniqueIdentifier = objectId
+    
+    return attributeSet
   }
   
-  /// Open the system email client with the employee's email address populated in the TO field.
-  func sendEmail() {
-    let mailUrl = NSURL(string: "mailto:" + email)!
-    UIApplication.sharedApplication().openURL(mailUrl)
+  var searchableItem: CSSearchableItem {
+    let item = CSSearchableItem(uniqueIdentifier: objectId,
+      domainIdentifier: Employee.domainIdentifier,
+      attributeSet: attributeSet)
+    return item
   }
-  
+
 }
+
+

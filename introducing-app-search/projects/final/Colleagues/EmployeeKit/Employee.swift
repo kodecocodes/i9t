@@ -64,7 +64,7 @@ public struct Employee: JSONDecodable {
   }
   
   public func loadPicture() -> UIImage {
-    let splits = split(self.email.characters, maxSplit: 1, allowEmptySlices: false) { $0 == "@" }.map(String.init)
+    let splits = self.email.characters.split { $0 == "@" }.map(String.init)
     if let filename = splits.first {
       return UIImage(named: filename + ".jpg", inBundle: FileHelper.bundle, compatibleWithTraitCollection: nil) ?? UIImage()
     } else {
