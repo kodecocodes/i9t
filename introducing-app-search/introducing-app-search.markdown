@@ -399,11 +399,42 @@ By default all indexed content is considered private, this is also true for any 
 
 The other approach for making content publicly indexed is using Web Markup which is covered in the next chapter.
 
-## Batch Indexing
+## Advanced Features
+
+The Core Spotlight framework provides a couple more advanced features that were not covered in the sample project.
+
+### Spotlight Index App Extensions
+
+In the event that your app receives data from an outside source, like an API, it might make sense to index content while users are not using your app. A movie theatre for example may have an app with their movie listing and times; but listings are made available only a few days in advanced. It would be a shame if a user searched in Spotlight for movie times and didn't get results from the app because it hadn't been opened it in weeks.
+
+If your app has data like this, you will want to implement a Spotlight Index App Extension. The extension `CSIndexExtensionRequestHandler` declares comformance to the `CSSearchableIndexDelegate` protocol which has only two required methods.
+
+An extension for the Colleagues app might look like the following.
+
+```swift
+class IndexRequestHandler: CSIndexExtensionRequestHandler {
+
+  override func searchableIndex(searchableIndex: CSSearchableIndex,
+    reindexAllSearchableItemsWithAcknowledgementHandler acknowledgementHandler: () -> Void)
+  {
+    // Reindex all employees with the provided index
+    acknowledgementHandler()
+  }
+
+  override func searchableIndex(searchableIndex: CSSearchableIndex,
+    reindexSearchableItemsWithIdentifiers identifiers: [String],
+    acknowledgementHandler: () -> Void)
+  {
+    // Reindex any employees with the given identifiers and the provided index
+    acknowledgementHandler()
+  }
+
+}
+```
+
+### Batch Indexing
 
 
-
-## Spotlight Index App Extensions
 
 ## Best Practices
 
