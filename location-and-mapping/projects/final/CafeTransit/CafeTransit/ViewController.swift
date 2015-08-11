@@ -30,8 +30,9 @@ class ViewController: UIViewController {
 	@IBOutlet var mapView: MKMapView!
 	
 	let locationManager = CLLocationManager()
-	var coffeeShops = [CoffeeShop]()
+	var currentLocation: CLLocationCoordinate2D?
 	
+	var coffeeShops = [CoffeeShop]()
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -44,7 +45,7 @@ class ViewController: UIViewController {
 	
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
-		checkLocationAuthorizationStatus()
+		askUserForPermissionToUseLocation()
 	}
 	
 	//MARK: Setup
@@ -83,7 +84,7 @@ class ViewController: UIViewController {
 	}
 	
 	//MARK: Locations and Time functions
-	func checkLocationAuthorizationStatus() {
+	func askUserForPermissionToUseLocation() {
 		if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
 			mapView.showsUserLocation = true
 			locationManager.requestLocation()
@@ -98,10 +99,11 @@ class ViewController: UIViewController {
 extension ViewController: CLLocationManagerDelegate {
 	
 	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		if let location = locations.first {
-			print("Current location: \(location)")
-		} else {
+		guard let location = locations.first else {
+			print("No Location Found.")
+			return
 		}
+		currentLocation = location.coordinate
 	}
 	
 	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
@@ -114,6 +116,7 @@ extension ViewController: MKMapViewDelegate {
 	func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
 		let identifier = "coffeeShopPin"
 		var view: MKPinAnnotationView
+		let orangeColor = UIColor(red: 255.0/255.0, green: 153.0/255.0, blue: 0, alpha: 1.0)
 		guard let annotation = annotation as? CoffeeShopPin else {
 			return nil
 		}
@@ -121,7 +124,7 @@ extension ViewController: MKMapViewDelegate {
 		guard let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) as? MKPinAnnotationView else {
 			view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
 			view.canShowCallout = true
-			view.pinTintColor = UIColor.redColor()
+			view.pinTintColor = orangeColor
 			let detail = UIView.loadFromNibNamed("CoffeeShopPinDetailView") as! CoffeeShopPinDetailView
 			detail.updateDetailView(annotation.coffeeshop!)
 			view.detailCalloutAccessoryView = detail
@@ -130,16 +133,14 @@ extension ViewController: MKMapViewDelegate {
 		//reuse
 		dequeuedView.annotation = annotation
 		view = dequeuedView
-		view.pinTintColor = UIColor.redColor()
+		view.pinTintColor = orangeColor
 		return view
 	}
 	
+	
 	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-		
 		if let detail = view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
-			if let coordinate = locationManager.location?.coordinate {
-				detail.setTransitEstimatedTimes(coordinate)
-			}
+				detail.currentLocation = currentLocation
 		}
 	}
 }

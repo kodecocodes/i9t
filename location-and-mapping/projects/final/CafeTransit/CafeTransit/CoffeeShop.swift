@@ -58,6 +58,15 @@ extension CoffeeRating {
 			self = .Unknown
 		}
 	}
+	
+	var value : Int {
+		switch self {
+		case .Unknown:
+		  return 0
+		case .Rating(let value):
+			return value
+		}
+	}
 }
 
 extension CoffeeRating : CustomStringConvertible {

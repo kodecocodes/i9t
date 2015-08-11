@@ -24,20 +24,21 @@ import UIKit
 import MapKit
 
 class CoffeeShopPinDetailView : UIView {
-	@IBOutlet var ratingsLabel: UILabel!
 	@IBOutlet var hoursLabel: UILabel!
-	@IBOutlet var priceGuide: UILabel!
 	@IBOutlet var descriptionLabel: UILabel!
-	
 	@IBOutlet var departureLabel: UILabel!
 	@IBOutlet var arrivalLabel: UILabel!
-	@IBOutlet var travelTimeLabel: UILabel!
 	
 	@IBOutlet var timeStackView: UIStackView!
 	var coffeeShop: CoffeeShop?
 	
+	@IBOutlet var openCloseStatusImage: UIImageView!
+	@IBOutlet var priceGuideImages: [UIImageView]!
+	
+	@IBOutlet var ratingImages: [UIImageView]!
 	var view: UIView!
 	var nibName: String = "CoffeeShopPinDetailView"
+	var currentLocation:CLLocationCoordinate2D?
 	
 	private static var dateFormatter = NSDateFormatter()
 	
@@ -48,30 +49,82 @@ class CoffeeShopPinDetailView : UIView {
 	//MARK: Update UI
 	func updateDetailView(coffeeShop: CoffeeShop) {
 		self.coffeeShop = coffeeShop
-		ratingsLabel.text = coffeeShop.rating.description
+		
 		descriptionLabel.text = coffeeShop.details
-		priceGuide.text = coffeeShop.priceGuide.description
+		updateRating(coffeeShop.rating)
+		updatePriceGuide(coffeeShop.priceGuide)
+		updateShopAvailability(coffeeShop)
 		
 		CoffeeShopPinDetailView.dateFormatter.dateFormat = "h:mm a"
 		let startTime = CoffeeShopPinDetailView.dateFormatter.stringFromDate(coffeeShop.startTime!)
 		let endTime = CoffeeShopPinDetailView.dateFormatter.stringFromDate(coffeeShop.endTime!)
-		hoursLabel.text = "Time: \(startTime) - \(endTime)"
+		hoursLabel.text = "\(startTime) - \(endTime)"
+	}
+	
+	func updateRating(rating: CoffeeRating) {
+		var count = rating.value
+		for imageView in ratingImages {
+			if (count != 0) {
+				imageView.hidden = false
+				count--
+			} else {
+				imageView.hidden = true
+			}
+		}
+	}
+	
+	func updatePriceGuide(priceGuide: PriceGuide) {
+		var count = priceGuide.rawValue
+		for imageView in priceGuideImages {
+			if (count != 0) {
+				imageView.hidden = false
+				count--
+			} else {
+				imageView.hidden = true
+			}
+		}
+	}
+	
+	func updateShopAvailability(coffeeShop: CoffeeShop) {
+		let calendar = NSCalendar.currentCalendar()
+		let nowComponents = calendar.components([.Hour, .Minute, .Second], fromDate: NSDate())
+		
+		guard let startTime = coffeeShop.startTime else {
+			print("No Start Time!")
+			return
+		}
+		
+		guard let endTime = coffeeShop.endTime else {
+			print("No End Time!")
+			return
+		}
+		
+		let startTimeComponents = calendar.components([.Hour, .Minute, .Second], fromDate: startTime)
+		let endTimeComponents = calendar.components([.Hour, .Minute, .Second], fromDate: endTime)
+		
+		let isEarlier = nowComponents.hour < startTimeComponents.hour //Checks to see if current time is before opening
+		//Check to see if current time is after closing
+		let isLate = nowComponents.hour > endTimeComponents.hour || nowComponents.hour == endTimeComponents.hour && (startTimeComponents.minute > 0 || startTimeComponents.second > 0)
+		
+		if (isEarlier || isLate) {
+				openCloseStatusImage.image = UIImage(named: "cafétransit_icon_closed")
+		} else {
+				openCloseStatusImage.image = UIImage(named: "cafétransit_icon_open")
+		}
 	}
 	
 	func updateEstimatedTimeLabels(response: MKETAResponse?) {
 		if let response = response {
-			CoffeeShopPinDetailView.dateFormatter.dateFormat = "EEE MMM dd h:mm a"
+			CoffeeShopPinDetailView.dateFormatter.dateFormat = "yyyy-MM-dd h:mm a"
 			
 			let arrivalTimeString = CoffeeShopPinDetailView.dateFormatter.stringFromDate(response.expectedArrivalDate)
 			let departureTimeString = CoffeeShopPinDetailView.dateFormatter.stringFromDate(response.expectedDepartureDate)
 			
-			let departureTime = String(format: "Depart at: %@", departureTimeString)
-			let arrivalTime = String(format: "Arrive at: %@", arrivalTimeString)
-			let travelTime = String(format: "%d min away by public transport.", Int(response.expectedTravelTime / 60))
+			let departureTime = String(format: "%@", departureTimeString)
+			let arrivalTime = String(format: "%@", arrivalTimeString)
 			
 			self.departureLabel.text = departureTime
 			self.arrivalLabel.text = arrivalTime
-			self.travelTimeLabel.text = travelTime
 		}
 	}
 	
@@ -98,7 +151,7 @@ class CoffeeShopPinDetailView : UIView {
 	}
 	
 	private func animateView(view: UIView, toHidden hidden: Bool) {
-		UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: { () -> Void in
+		UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: { () -> Void in
 			view.hidden = hidden
 			}, completion: nil)
 	}
@@ -106,6 +159,7 @@ class CoffeeShopPinDetailView : UIView {
 	@IBAction func timeTapped(sender: AnyObject) {
 		if timeStackView.hidden {
 			animateView(timeStackView, toHidden: false)
+			setTransitEstimatedTimes()
 		} else {
 			animateView(timeStackView, toHidden: true)
 		}
@@ -125,22 +179,23 @@ class CoffeeShopPinDetailView : UIView {
 		mapItem.openInMapsWithLaunchOptions(launchOptions)
 	}
 	
-	func setTransitEstimatedTimes(currentLocation: CLLocationCoordinate2D) {
-		let request = MKDirectionsRequest()
-		
-		let source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation, addressDictionary: nil))
-		let destination = MKMapItem(placemark: MKPlacemark(coordinate: (self.coffeeShop?.location)!, addressDictionary: nil))
-		request.source = source
-		request.destination = destination
-		//Set Transport Type to be Transit
-		request.transportType = MKDirectionsTransportType.Transit
-		
-		let directions = MKDirections(request: request)
-		directions.calculateETAWithCompletionHandler { response, error in
-			if let error = error {
-				print(error.localizedDescription)
-			} else {
-				self.updateEstimatedTimeLabels(response)
+	func setTransitEstimatedTimes() {
+		if let currentLocation = currentLocation {
+			let request = MKDirectionsRequest()
+			let source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation, addressDictionary: nil))
+			let destination = MKMapItem(placemark: MKPlacemark(coordinate: (self.coffeeShop?.location)!, addressDictionary: nil))
+			request.source = source
+			request.destination = destination
+			//Set Transport Type to be Transit
+			request.transportType = MKDirectionsTransportType.Transit
+			
+			let directions = MKDirections(request: request)
+			directions.calculateETAWithCompletionHandler { response, error in
+				if let error = error {
+					print(error.localizedDescription)
+				} else {
+					self.updateEstimatedTimeLabels(response)
+				}
 			}
 		}
 	}
