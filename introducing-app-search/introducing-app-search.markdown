@@ -477,8 +477,14 @@ index.fetchLastClientStateWithCompletionHandler { state, error in
 6. Index the items
 7. Designate that you're finished with the batch and provide a new `clientState` which is the last `objectId` for the processed batch
 
-Some additional logic would be required to continue this process until all employees have been indexed. 
-
-## Best Practices
+Some additional logic would be required to continue this process until all employees have been indexed.
 
 ## Where to go from here?
+
+This chapter has covered a basic yet powerful implementation for making the content of your app searchable in Spotlight. Another way you can utilize App Search is by making key navigation points searchable. Consider a CRM app that has multiple sections, Contacts, Orders, and Tasks. By indexing an activity when the user lands on one of these screens, you've made it possible for them to search "Orders" to go directly to that section within your app. How powerful might this be if your app has many level of navigations? Consider also that Siri can be used to perform the search.
+
+There are many unique ways that you might find to bubble up content to your users, so think outside the box and educate your users on this new feature.
+
+You should watch the excellent WWDC 15 talk [Introducing App Search](http://apple.co/1gvlfGi) (http://apple.co/1gvlfGi), there are many little details shown and mentioned. You should also read through the [App Search Programming Guide](http://apple.co/1J0WBs1) (http://apple.co/1J0WBs1).
+
+And of course, read the next chapter of this book if your app has a web counter-part that has content to be publicly indexed.
