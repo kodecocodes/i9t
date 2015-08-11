@@ -281,9 +281,7 @@ You are now able to obtain the distance, the expected duration of travel, arriva
 Before you had to rely on Google Maps API, or query some third party server for this information, but not anymore! You can now query Apple's very own server.
 
 ### How to calculate the response
-If you tap a coffee shop and tap on the clock button, it animates upwards to show you the depart and arrival times. There is currently no mechanism to retrieve that information.
-
-Apple has introduce a really cool addition to MapKit's framework, where now you can get estimated times of departure and arrival.
+If you tap a coffee shop and tap on the clock button, it animates upwards to show you the depart and arrival times. There is currently no mechanism to retrieve that information. So let's find out how to calculate estimated times of travel!
 
 Open **CoffeeShopPinDetailView.swift** and add the following function just after **openInMapTransit**:
 
@@ -299,11 +297,12 @@ func setTransitEstimatedTimes() {
 		request.transportType = MKDirectionsTransportType.Transit //6
 
 		let directions = MKDirections(request: request) //7
+    //8
 		directions.calculateETAWithCompletionHandler { response, error in
 			if let error = error {
 				print(error.localizedDescription)
 			} else {
-				self.updateEstimatedTimeLabels(response) //8
+				self.updateEstimatedTimeLabels(response) //9
 			}
 		}
 	}
@@ -318,8 +317,8 @@ Let's go over how you request for the times:
 5. Set the source and destination.
 6. Set the form of transportation to be transit.
 7. Create **MKDirections** object  that will provide route based directions from Apple's servers.
-8. Once you create the `directions` object you will now be able query Apple's server to get information related to time of travel by calling `calculateETAWithCompletionHandler`.
-9. Update our departure and arrival labels based on the response.
+8. Request directions from Apple's server by calling `calculateETAWithCompletionHandler`.
+9. If the response is valid, update our departure and arrival labels based on the response.
 
 Lastly in **CoffeeShopPinDetailView.swift** replace `timeTapped` with the following:
 
