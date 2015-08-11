@@ -67,7 +67,7 @@ To view the size of a build using this script, first build the project, then:
 
 You'll occasionally come back to this output to see your progress as you whittle the app down to size. 
 
-Although it's won't show the exact size of the IPA you'll submit to the App Store, it'll give you a good idea of your success.
+Although it won't show the exact size of the IPA you'll submit to the App Store, it'll give you a good idea of your success.
 
 ## Slicing up app slicing
 
