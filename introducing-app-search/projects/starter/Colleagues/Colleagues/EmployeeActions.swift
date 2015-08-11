@@ -27,7 +27,7 @@ extension Employee {
   
   /// Dial the employee's phone number use the system dialer.
   func call() {
-    let sanitizedPhoneNumber = phone.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!
+    let sanitizedPhoneNumber = phone.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet())!
     let callUrl = NSURL(string: "tel:" + sanitizedPhoneNumber)!
     UIApplication.sharedApplication().openURL(callUrl)
   }
