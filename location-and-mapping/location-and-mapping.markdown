@@ -1,4 +1,5 @@
-## Chapter 12: Location and Mapping
+# Chapter 12: Location and Mapping
+
 Apple continues to enhance its Map and Location's framework every year. Developers that incorporate MapKit into their apps should look forward to improved tools that yield greater user experiences.
 
 Prior to the upgrade/Before, only directions to our desired destinations were available via walking and driving. Now, Maps also provides Transit, informing users of the various metro stops available en route to their destination.  
