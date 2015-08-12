@@ -25,4 +25,5 @@ class AddWorkoutInfoCell: UITableViewCell {
   
   @IBOutlet weak var infoLabel: UILabel!
   @IBOutlet weak var infoTextField: UITextField!
+  
 }

@@ -23,15 +23,9 @@
 import Foundation
 import UIKit
 
-private let exerciseUserCreatedKey = "exerciseUserCreated"
-private let exerciseNameKey = "exerciseNameKey"
-private let photoKey = "photo"
-private let instructionKey = "instructions"
-private let durationKey = "durationKey"
-
-class Exercise : NSObject, NSCoding {
+class Exercise : NSObject {
   
-  var userCreated: Bool!
+  var userCreated = false
   var name: String!
   var photoFileName: String!
   var instructions: String!
@@ -40,32 +34,13 @@ class Exercise : NSObject, NSCoding {
   var canEdit: Bool {
     return userCreated
   }
+    
   var canRemove: Bool {
     return userCreated
   }
   
   var thumbnail: UIImage? {
     return resizeImageWithSize(CGSizeMake(50, 50))
-  }
-  
-  //MARK: NSCoding
-  
-  required convenience init(coder decoder: NSCoder) {
-    self.init()
-    
-    userCreated = decoder.decodeBoolForKey(exerciseUserCreatedKey)
-    name = decoder.decodeObjectForKey(exerciseNameKey) as! String
-    photoFileName = decoder.decodeObjectForKey(photoKey) as! String
-    instructions = decoder.decodeObjectForKey(instructionKey) as! String
-    duration = decoder.decodeDoubleForKey(durationKey)
-  }
-  
-  func encodeWithCoder(coder: NSCoder) {
-    coder.encodeBool(userCreated, forKey: exerciseUserCreatedKey)
-    coder.encodeObject(name, forKey: exerciseNameKey)
-    coder.encodeObject(photoFileName, forKey: photoKey)
-    coder.encodeObject(instructions, forKey: instructionKey)
-    coder.encodeDouble(duration, forKey: durationKey)
   }
   
   //MARK - Helper methods

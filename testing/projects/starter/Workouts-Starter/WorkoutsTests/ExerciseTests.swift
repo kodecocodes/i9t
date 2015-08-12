@@ -34,28 +34,26 @@ class ExerciseTests: XCTestCase {
     super.tearDown()
   }
   
-  func testExerciseCanEdit()
-  {
+  func testExerciseCanEdit() {
     let builtInExercise = Exercise()
     builtInExercise.userCreated = false
     
     let userCreatedExercise = Exercise()
     userCreatedExercise.userCreated = true
     
-    XCTAssertFalse(builtInExercise.canEdit, "Bulit-in exercises and not editable")
-    XCTAssertTrue(userCreatedExercise.canEdit, "User-created exercises and editable")
+    XCTAssertFalse(builtInExercise.canEdit, "Bulit-in exercises are not editable")
+    XCTAssertTrue(userCreatedExercise.canEdit, "User-created exercises are editable")
   }
   
-  func testExerciseCanRemove()
-  {
+  func testExerciseCanRemove() {
     let builtInExercise = Exercise()
     builtInExercise.userCreated = false
     
     let userCreatedExercise = Exercise()
     userCreatedExercise.userCreated = true
     
-    XCTAssertFalse(builtInExercise.canRemove, "Bulit-in exercises and not removable")
-    XCTAssertTrue(userCreatedExercise.canRemove, "User-created exercises and removable")
+    XCTAssertFalse(builtInExercise.canRemove, "Built-in exercises are not removable")
+    XCTAssertTrue(userCreatedExercise.canRemove, "User-created exercises are removable")
   }
   
 }

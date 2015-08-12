@@ -31,12 +31,8 @@ class ExerciseViewController: UIViewController {
   
   @IBOutlet weak var editButton: UIBarButtonItem!
   @IBOutlet weak var tableView: UITableView!
-  let dataModel = DataModel()
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-  }
+  let dataModel = DataModel()
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
@@ -56,16 +52,13 @@ class ExerciseViewController: UIViewController {
     
     let cancelAction = UIAlertAction(title: "Cancel",
       style: .Default,
-      handler: { (action: UIAlertAction!) in
-    })
+      handler: nil)
     
     let saveAction = UIAlertAction(title: "Save",
-      style: .Default,
-      handler: { (action: UIAlertAction!) in
-        
-        let nameTextField = alert.textFields![0] as UITextField
-        let durationTextField = alert.textFields![1] as UITextField
-        let instructionsTextField = alert.textFields![2] as UITextField
+      style: .Default) { action in
+        let nameTextField = alert.textFields![0]
+        let durationTextField = alert.textFields![1]
+        let instructionsTextField = alert.textFields![2]
         
         let exercise = Exercise()
         exercise.userCreated = true
@@ -77,25 +70,25 @@ class ExerciseViewController: UIViewController {
         exercise.photoFileName = "squat"
         
         self.dataModel.addExercise(exercise)
-        self.dataModel.save()
+
         self.updateEditButtonVisibility()
         
         self.tableView.reloadData()
-    })
+    }
     
     alert.addTextFieldWithConfigurationHandler {
-      (textField: UITextField!) in
+      textField in
       textField.placeholder = "Name"
     }
     
     alert.addTextFieldWithConfigurationHandler {
-      (textField: UITextField!) in
+      textField in
       textField.keyboardType = .NumberPad
       textField.placeholder = "e.g. 30"
     }
     
     alert.addTextFieldWithConfigurationHandler {
-      (textField: UITextField!) in
+      textField in
       textField.placeholder = "Instructions (Optional)"
     }
     
@@ -108,24 +101,22 @@ class ExerciseViewController: UIViewController {
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    
     if segue.identifier == toDetailSegue {
       let indexPath = sender as! NSIndexPath
       let detailViewController = segue.destinationViewController as! ExerciseDetailViewController
-      detailViewController.exercise = dataModel.exercises[indexPath.row - 1]
+      detailViewController.exercise = dataModel.allExercises[indexPath.row - 1]
     }
   }
   
   @IBAction func editButtonTapped(sender: UIBarButtonItem) {
-    
     toggleEditMode(!tableView.editing)
   }
   
   private func toggleEditMode(editing: Bool) {
     tableView.setEditing(editing, animated: true)
+    
     editButton.title = editing ? "Done" : "Edit"
   }
-  
   
   private func updateEditButtonVisibility() {
     editButton.enabled = dataModel.containsUserCreatedExercise()
@@ -135,20 +126,19 @@ class ExerciseViewController: UIViewController {
 extension ExerciseViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return dataModel.exercises.count + 1
+    return dataModel.allExercises.count + 1
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
     let cell: UITableViewCell
     
     if indexPath.row == addWorkoutIndex {
       cell = tableView.dequeueReusableCellWithIdentifier(addExerciseNewIdentifier)!
     } else {
-      let exercise = dataModel.exercises[indexPath.row - 1]
-      let exerciseCell = tableView.dequeueReusableCellWithIdentifier(exerciseIdentifier) as! ExerciseCell
-      exerciseCell.populate(exercise)
-      return exerciseCell
+      cell = tableView.dequeueReusableCellWithIdentifier(exerciseIdentifier)!
+
+      let exercise = dataModel.allExercises[indexPath.row - 1]
+      (cell as! ExerciseCell).populate(exercise)
     }
     
     return cell
@@ -158,14 +148,13 @@ extension ExerciseViewController: UITableViewDataSource {
     if indexPath.row == addWorkoutIndex {
       return false
     } else {
-      return dataModel.exercises[indexPath.row - 1].canRemove
+      return dataModel.allExercises[indexPath.row - 1].canRemove
     }
   }
   
   func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
-      dataModel.exercises.removeAtIndex(indexPath.row - 1)
-      dataModel.save()
+      dataModel.removeExerciseAtIndex(indexPath.row - 1)
       
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
       updateEditButtonVisibility()
