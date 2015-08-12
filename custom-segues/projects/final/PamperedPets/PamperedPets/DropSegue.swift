@@ -24,12 +24,15 @@ import UIKit
 
 // MARK:- Custom Segue
 
-class DropSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
+class DropSegue: UIStoryboardSegue {
 
   override func perform() {
     destinationViewController.transitioningDelegate = self
     super.perform()
   }
+}
+
+extension DropSegue: UIViewControllerTransitioningDelegate {
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return DropPresentAnimator()
   }

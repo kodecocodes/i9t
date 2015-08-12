@@ -8,13 +8,15 @@
 
 import UIKit
 
-class ScaleSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
+class ScaleSegue: UIStoryboardSegue {
 
   override func perform() {
     destinationViewController.transitioningDelegate = self
     super.perform()
   }
+}
 
+extension ScaleSegue: UIViewControllerTransitioningDelegate {
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return ScalePresentAnimator()
   }

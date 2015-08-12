@@ -149,41 +149,45 @@ Once you have built up your own library of custom segues, all you will have to d
 
 You'll now create your own custom segue to replace that Drop segue. Appropriately for a fish, you'll create a Scale transition animation, where the fish photo will scale in on presentation.
 
-The hard part about all this is the terminology. You will be using protocols with very long names, which can be quite daunting. 
+The hard part about all this is the terminology. You will be using protocols with very long names, which can be quite daunting, but familiar if you've used Custom Transition Animations. 
 
 These are the protocols that you will be encountering. 
 
-**UIViewControllerTransitioningDelegate** - the custom segue will adopt this protocol to specify the animator objects to be performed on presentation and on dismissal.
+**UIViewControllerTransitioningDelegate** - the custom segue will adopt this protocol to vend the animator objects to perform animations upon presentation and dismissal.
 
 **UIViewControllerAnimatedTransitioning** - the animator objects will adopt this to describe the animations.
 
 **UIViewControllerContextTransitioning** - the animator objects will be passed a context object for the transition. This context holds details about the presenting and presented controllers and views.
 
-If you're floundering, don't worry if you don't understand them just yet - when you have used them a few times they will become clear. 
+If you're floundering, don't worry if you don't have these down just yet - when you have used them a few times they will become clear. 
 
-Before you start to create your segue, here's an overview of the code that you will be writing in this section. In general terms these are the steps you will do to create every animated segue:
+Before you start, here's an overview the steps required to create every animated segue:
 
 1. Subclass `UIStoryboardSegue` and set the segue as the destination controller's transitioning delegate 
 2. Create the presenting and dismissing animator classes
 3. Define the duration and animation in the animators.
-4. Tell the segue what animator class to use for presenting and dismissal
+4. Tell the segue what animator classes to use for presentation and dismissal
 5. Use the segue in the storyboard
 
-Each of these steps will be further explained as you do them. This picture shows the transition you will end up with:
+You're just about to dig in and implement each of these steps. The picture below shows the transition you will end up with:
 
 ![bordered height=22%](images/ScaleFlow.png)
 
 ### 1 - Subclass `UIStoryboardSegue`
 
-You'll create a new segue subclass which will be the destination controller's transition delegate so that you can use a scale animation instead of the default Vertical Cover animation.
+You'll create a new `UIStoryboardSegue` subclass that acts as a transitioning delegate for the destination controller. This will allow it to implement a custom transition animation.
 
-Create a new file called **ScaleSegue.swift** that subclasses **UIStoryboardSegue**.
+Create a new Cocoa Touch Class called **ScaleSegue.swift** that subclasses **UIStoryboardSegue**. Add the following `extension` just below the `ScaleSegue` class:
 
-Change the class definition to include the transition delegate protocol:
+```swift
+extension ScaleSegue: UIViewControllerTransitioningDelegate {
 
-    class ScaleSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
+}
+```
 
-Override the segue's perform() method:
+The `UIViewControllerTransitioningDelegate` protocol allows the segue to vend presentation and dismissal animators for use in its transitions. After you have created an animator, you will return here to implement the method that returns it.
+
+Back in `ScaleSegue`, override the `perform()` method:
 
 ```swift
 override func perform() {
@@ -192,11 +196,9 @@ override func perform() {
 }
 ```
 
-Here you set the destination view controller's transitioning delegate so that the segue will take control of transition animations. The transitioning protocol allows the segue to override both the presenting and dismissing animations. After you have created the animator class, you will return to the ScaleSegue class to point to those animations. 
+Here you set the destination view controller's transitioning delegate so that `ScaleSegue` will be in charge of vending animator objects. When creating a Modal or Popover segue as you are here, you must override super's `perform()` so that `UIKit` can take care of the presentation.
 
-In previous iOS versions, you might have put the transition animation in perform(), but now the animation is decoupled from the segue by using this transitioning delegate. 
-
-If you are using a Modal or Popover segue as you are in this example, then you must override super's `perform()` so that the framework can take care of the presentation.
+In previous iOS versions, you might have put the transition animation in `perform()`, but now the animation is decoupled from the segue by using this transitioning delegate. 
 
 ### 2 - Create the Animator
 
@@ -208,15 +210,15 @@ class ScalePresentAnimator:NSObject, UIViewControllerAnimatedTransitioning {
 }
 ```
 
-ScalePresentAnimator will be used for presenting the modal view controller. You will create a dismissing animator later, but for now your segue will by default use the current Vertical Cover transition for the dismissal.
+`ScalePresentAnimator` will be used for presenting the modal view controller. You will create a dismissing animator later, but for now your segue will by default use the current Vertical Cover transition for the dismissal. Note that Xcode will complain that this doesn't yet conform to the protocol - you're just about to rectify that. 
 
 > **Note**: I find it easier to keep the animators in the same file as the segue because they are usually closely related, but you can separate the segue and the animators by moving the animators into their own file.
 
 ### 3 - Define the animation
 
-ScalePresentAnimator conforms to UIViewControllerAnimatedTransitioning. This protocol requires that you specify both the transition duration and the transition animation.
+`ScalePresentAnimator` conforms to `UIViewControllerAnimatedTransitioning`. This protocol requires that you specify both the transition duration and the transition animation.
 
-First specify how long the animation will take to run. Add this method to the ScalePresentAnimator class:
+First specify how long the animation will take to run. Add this method to the `ScalePresentAnimator` class:
 
 ```swift
 func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
@@ -226,14 +228,14 @@ func transitionDuration(transitionContext: UIViewControllerContextTransitioning?
 
 Most transitions have a duration of about 0.3-0.5 seconds, but this duration of 2 seconds is slow so that you can see the effect clearly.
   
-Now for the actual animation. Add this method to ScalePresentAnimator:
+Now for the actual animation. Add this method to `ScalePresentAnimator`:
 
 ```swift
 func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
 
   // 1. Get the transition context to- controller and view
   let toViewController = 
-    transitionContext.viewControllerForKey⏎
+    transitionContext.viewControllerForKey
          (UITransitionContextToViewControllerKey)!
   let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
 
@@ -265,16 +267,14 @@ func animateTransition(transitionContext: UIViewControllerContextTransitioning) 
 Let's go through what's happening here.
 
 1. You extract from the given transitioning context the to- controller and to- view that will be presented. Note that the controller is implicitly unwrapped as there will always be a to- controller, but the view is an optional as there may not be a to- view. You'll see why later.
-2. Add the to- view to the transition context. The framework doesn't add the to- view to the view hierarchy until the end of the transition, so you will need to add it to the hierarchy in your code so that you can see it scaling.
+2. Add the to- view to the transition context `containerView` where the animation takes place. The framework doesn't add the to- view to the view hierarchy until the end of the transition, so you will need to add it to the hierarchy in your code so that you can see it scaling.
 3. The initial state for the to- view frame is a rectangle of zero size in the top left hand corner of the screen. Whenever you change the frame of a view, you should perform `layoutIfNeeded()` to update the view's constraints.
 4. The animation block is a simple animation to animate from the zero rectangle to the final frame that is calculated by the transition context.
-5. The transition context must always clean up at the end of the animation. This will finalize the view hierarchy and layout all views.
+5. The transition context must always clean up at the end of the animation. Calling `completeTransition` will finalize the view hierarchy and layout all views.
 
 ### 4 - Set the Animator in the Segue
 
-Now you will tell the segue what animator to use during presentation. `UIViewControllerTransitioningDelegate` methods take care of this.
-
-Inside the **ScaleSegue** class add the delegate method:
+Inside the `UIViewControllerTransitioningDelegate` extension, add the delegate method:
 
 ```swift
 func animationControllerForPresentedController(presented: UIViewController,
@@ -284,6 +284,8 @@ func animationControllerForPresentedController(presented: UIViewController,
   return ScalePresentAnimator()
 }
 ```
+
+This simply tells the segue to use your `ScalePresentAnimator` during presentation.
 
 ### 5 - Use the Segue in the Storyboard
 

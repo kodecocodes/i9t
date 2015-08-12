@@ -22,13 +22,15 @@
 
 import UIKit
 
-class SwipeSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
+class SwipeSegue: UIStoryboardSegue {
   
   override func perform() {
     destinationViewController.transitioningDelegate = self
     super.perform()
   }
-  
+}
+
+extension SwipeSegue: UIViewControllerTransitioningDelegate {
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     
     // Challenge is only swipe to dismiss, so still scale up

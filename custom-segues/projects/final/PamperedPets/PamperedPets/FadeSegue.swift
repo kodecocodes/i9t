@@ -25,13 +25,15 @@ import UIKit
 
 // MARK:- Custom Segue
 
-class FadeSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
+class FadeSegue: UIStoryboardSegue {
   
   override func perform() {
     destinationViewController.transitioningDelegate = self
     super.perform()
   }
-  
+}
+
+extension FadeSegue: UIViewControllerTransitioningDelegate {
   func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     let fade = FadeAnimator()
     fade.isPresenting = true
@@ -44,7 +46,6 @@ class FadeSegue: UIStoryboardSegue, UIViewControllerTransitioningDelegate {
     return fade
   }
 }
-
 
 // MARK: - Animator
 
