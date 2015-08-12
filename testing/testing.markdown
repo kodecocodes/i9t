@@ -401,10 +401,13 @@ Finally, knowing _what_ to test is as important as having tests at all! Unfortun
 
 ## Where to go from here?
 
-You've seen how powerful and useful testing can be in Xcode 7. You've explored code coverage reports, taken a look at Swift 2.0's new `@testable` modifier, and you've written and recorded UI tests. As always, you can check out the final project for this chapter to see how everything comes together.
+You've seen how powerful and useful testing can be in Xcode 7. You've explored code coverage reports, taken a look at Swift 2.0's new `@testable` modifier, and you've written and recorded UI tests. As always, you can check out the final project for this chapter to see how everything came together.
 
 If you ever find yourself fixing the same bug over and over, think back to this chapter! Check the code coverage for the files that contain the bug. If the code coverage is low or incomplete, consider writing more unit tests or even some UI tests that validate the feature.
 
-Check out ...
-406: UI Testing in XCode http://apple.co/1N1Eg0I
-410: Continuous Integration and Code Coverage in Xcode: http://apple.co/1J1n1Kd
+There are a couple of WWDC sessions from 2015 that are worth looking at to find out more about the topics covered in this chapter:
+
+- Session 406 - UI Testing in XCode: <http://apple.co/1N1Eg0I>
+- Session 410 - Continuous Integration and Code Coverage in Xcode: <http://apple.co/1J1n1Kd>
+
+You can also read _Chapter 29, What’s New with Testing_ in our _iOS 8 by Tutorials_ book, and the _Unit Testing in Xcode 5_ chapter in _iOS 7 by Tutorials_.
