@@ -25,6 +25,7 @@ import UIKit
 class ExerciseImageViewController: UIViewController {
   
   @IBOutlet weak var imageView: UIImageView!
+  
   var exercise: Exercise!
   
   override func viewDidLoad() {

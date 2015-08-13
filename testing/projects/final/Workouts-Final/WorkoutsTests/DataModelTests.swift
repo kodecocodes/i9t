@@ -24,67 +24,62 @@ import XCTest
 @testable import Workouts
 
 class DataModelTests: XCTestCase {
-  
   var dataModel: DataModel!
   
   override func setUp() {
     super.setUp()
+    
     dataModel = DataModel()
   }
   
-  func testSampleDataAdded()
-  {
-    XCTAssert(NSFileManager.defaultManager()
-      .fileExistsAtPath(dataModel.dataFilePath()))
+  func testSampleDataAdded() {
+    XCTAssert(dataModel.allWorkouts.count > 0)
+    XCTAssert(dataModel.allExercises.count > 0)
   }
   
-  func testAllWorkoutsEqualsWorkoutsArray()
-  {
+  func testAllWorkoutsEqualsWorkoutsArray() {
     XCTAssertEqual(dataModel.workouts,
-      dataModel.allWorkouts());
-    
-    XCTAssertEqual(dataModel.workouts.count,
-      dataModel.allWorkouts().count);
+      dataModel.allWorkouts)
   }
   
-  func testAllExercisesEqualsExercisesArray()
-  {
+  func testAllExercisesEqualsExercisesArray() {
     XCTAssertEqual(dataModel.exercises,
-      dataModel.allExercises());
-    
-    XCTAssertEqual(dataModel.exercises.count,
-      dataModel.allExercises().count);
+      dataModel.allExercises)
   }
   
   func testContainsUserCreatedWorkout() {
-    
-    XCTAssertFalse(dataModel.containsUserCreatedWorkout())
+    XCTAssertFalse(dataModel.containsUserCreatedWorkout)
     
     let workout1 = Workout()
     dataModel.addWorkout(workout1)
     
-    XCTAssertFalse(dataModel.containsUserCreatedWorkout())
+    XCTAssertFalse(dataModel.containsUserCreatedWorkout)
     
     let workout2 = Workout()
     workout2.userCreated = true
     dataModel.addWorkout(workout2)
     
-    XCTAssert(dataModel.containsUserCreatedWorkout())
-  }
-
-  func testContainsUserCreatedExercise() {
+    XCTAssert(dataModel.containsUserCreatedWorkout)
     
-    XCTAssertFalse(dataModel.containsUserCreatedExercise())
+    dataModel.removeWorkoutAtIndex(dataModel.allWorkouts.count - 1)
+    XCTAssertFalse(dataModel.containsUserCreatedWorkout)
+  }
+  
+  func testContainsUserCreatedExercise() {
+    XCTAssertFalse(dataModel.containsUserCreatedExercise)
     
     let exercise1 = Exercise()
     dataModel.addExercise(exercise1)
     
-    XCTAssertFalse(dataModel.containsUserCreatedExercise())
+    XCTAssertFalse(dataModel.containsUserCreatedExercise)
     
     let exercise2 = Exercise()
     exercise2.userCreated = true
     dataModel.addExercise(exercise2)
     
-    XCTAssert(dataModel.containsUserCreatedExercise())
+    XCTAssert(dataModel.containsUserCreatedExercise)
+    
+    dataModel.removeExerciseAtIndex(dataModel.allExercises.count - 1)
+    XCTAssertFalse(dataModel.containsUserCreatedExercise)
   }
 }

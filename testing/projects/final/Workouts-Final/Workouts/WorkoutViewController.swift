@@ -32,11 +32,13 @@ class WorkoutViewController: UIViewController {
   
   @IBOutlet weak var editButton: UIBarButtonItem!
   @IBOutlet weak var tableView: UITableView!
+    
   let dataModel = DataModel()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    tableView.accessibilityIdentifier = "Workout Table"
+    
+    tableView.accessibilityIdentifier = "Workouts Table"
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -60,12 +62,11 @@ class WorkoutViewController: UIViewController {
     } else if segue.identifier == toWorkoutDetailIdentifier {
       let indexPath = sender as! NSIndexPath
       let destinationViewController = segue.destinationViewController as! WorkoutDetailViewController
-      destinationViewController.workout = dataModel.workouts[indexPath.row - 1]
+      destinationViewController.workout = dataModel.allWorkouts[indexPath.row - 1]
     }
   }
   
   @IBAction func editButtonTapped(sender: UIBarButtonItem) {
-    
     toggleEditMode(!tableView.editing)
   }
   
@@ -75,27 +76,25 @@ class WorkoutViewController: UIViewController {
   }
   
   private func updateEditButtonVisibility() {
-    editButton.enabled = dataModel.containsUserCreatedWorkout()
+    editButton.enabled = dataModel.containsUserCreatedWorkout
   }
 }
 
 extension WorkoutViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return dataModel.workouts.count + 1
+    return dataModel.allWorkouts.count + 1
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
     let cell: UITableViewCell
     
     if indexPath.row == addWorkoutIndex {
       cell = tableView.dequeueReusableCellWithIdentifier(addNewIdentifier)!
     } else {
-      let workout = dataModel.workouts[indexPath.row - 1]
+      let workout = dataModel.allWorkouts[indexPath.row - 1]
       cell = tableView.dequeueReusableCellWithIdentifier(workoutIdentifier)!
-      let workoutCell = cell as! WorkoutCell
-      workoutCell.populate(workout)
+      (cell as! WorkoutCell).populate(workout)
     }
     
     return cell
@@ -105,14 +104,13 @@ extension WorkoutViewController: UITableViewDataSource {
     if indexPath.row == addWorkoutIndex {
       return false
     } else {
-      return dataModel.workouts[indexPath.row - 1].canEdit
+      return dataModel.allWorkouts[indexPath.row - 1].canEdit
     }
   }
   
   func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
     if editingStyle == .Delete {
-      dataModel.workouts.removeAtIndex(indexPath.row - 1)
-      dataModel.save()
+      dataModel.removeWorkoutAtIndex(indexPath.row - 1)
       
       tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
       updateEditButtonVisibility()

@@ -32,31 +32,24 @@ class AddWorkoutViewController: UIViewController {
   var dataModel: DataModel!
   
   @IBOutlet weak var tableView: UITableView!
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
-  }
-  
-  override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(animated)
-  }
-  
+
   @IBAction func saveButtonTapped(sender: AnyObject) {
-    
     let workout = Workout()
     workout.userCreated = true
     workout.name = nameTextField.text
-    workout.restInterval = Double(restIntervalTextField.text!)!
+    if let restIntervalText = restIntervalTextField.text,
+      restInterval = Double(restIntervalText) {
+        workout.restInterval = restInterval
+    }
     
-    let seletedIndexPaths = tableView.indexPathsForSelectedRows
-    if let indexPaths = seletedIndexPaths {
-      for indexPath in indexPaths {
-        workout.addExercise(dataModel.exercises[indexPath.row])
+    if let selectedIndexPaths = tableView.indexPathsForSelectedRows {
+      for indexPath in selectedIndexPaths {
+        workout.addExercise(dataModel.allExercises[indexPath.row])
       }
     }
     
     dataModel.addWorkout(workout)
-    dataModel.save()
+
     navigationController?.popViewControllerAnimated(true)
   }
   
@@ -70,13 +63,11 @@ class AddWorkoutViewController: UIViewController {
       cell.infoLabel.text = "Name"
       cell.infoTextField.placeholder = "Workout name"
       nameTextField = cell.infoTextField
-      nameTextField.accessibilityIdentifier = "Workout Name Text Field"
     } else {
       cell.infoLabel.text = "Rest Interval"
       cell.infoTextField.placeholder = "e.g. 30"
       cell.infoTextField.keyboardType = .NumberPad
       restIntervalTextField = cell.infoTextField
-      restIntervalTextField.accessibilityIdentifier = "Rest Interval Text Field"
     }
     
     return cell
@@ -87,14 +78,7 @@ class AddWorkoutViewController: UIViewController {
 extension AddWorkoutViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-    switch (section) {
-    case 0:
-      return "Workout Info"
-    case 1:
-      return "Add Exercises"
-    default:
-      return nil
-    }
+    return (section == 0) ? "Workout Info" : "Add Exercises"
   }
   
   func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -102,29 +86,19 @@ extension AddWorkoutViewController: UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
-    if section == 0 {
-      return 2
-    } else {
-      return dataModel.exercises.count
-    }
+    return (section == 0) ? 2 : dataModel.allExercises.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
     let cell: UITableViewCell
     
-    switch (indexPath.section) {
-    case 0:
+    if indexPath.section == 0 {
       cell = workoutInfoCellForIndexPath(indexPath)
-    case 1:
-      let exercise =  dataModel.exercises[indexPath.row]
+    } else {
+      let exercise =  dataModel.allExercises[indexPath.row]
       cell = tableView.dequeueReusableCellWithIdentifier(exerciseCellIdentifier)!
-      let exerciseCell = cell as! AddWorkoutExerciseCell
-      exerciseCell.populate(exercise)
-    default:
-      assertionFailure("Unhandled cell index path")
-      cell = tableView.dequeueReusableCellWithIdentifier(exerciseCellIdentifier)!
+
+      (cell as! AddWorkoutExerciseCell).populate(exercise)
     }
     
     return cell

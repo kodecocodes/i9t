@@ -31,6 +31,7 @@ let exerciseDetailIdentifier = "ExerciseDetailViewController"
 class WorkoutDetailViewController: UIViewController {
   
   @IBOutlet weak var tableView: UITableView!
+  
   var workout: Workout!
   
   override func viewDidLoad() {
@@ -75,31 +76,28 @@ class WorkoutDetailViewController: UIViewController {
   
   func workoutSelectButtonCell() -> WorkoutButtonCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(workoutSelectIdentifier) as! WorkoutButtonCell
-    cell.selectButton .addTarget(self, action: "selectButtonTapped:", forControlEvents: .TouchUpInside)
+    cell.selectButton.addTarget(self, action: "selectButtonTapped:", forControlEvents: .TouchUpInside)
     return cell
   }
   
   func selectButtonTapped(sender: AnyObject) {
-    let timesPlural = workout.workoutCount == 1 ? "time" : "times"
+    let timesPlural = (workout.workoutCount == 1) ? "time" : "times"
     
-    let message = workout.workoutCount == 0 ?
+    let message = (workout.workoutCount == 0) ?
       "This is your first time doing this workout." :
-    "You've done this workout \(workout.workoutCount) \(timesPlural)."
+      "You've done this workout \(workout.workoutCount) \(timesPlural)."
     
-    let alert = UIAlertController(title: "Woo Hoo! You worked out!",
+    let alert = UIAlertController(title: "Woo hoo! You worked out!",
       message: message,
       preferredStyle: UIAlertControllerStyle.Alert)
     
     let cancelAction = UIAlertAction(title: "Cancel",
-      style: .Default,
-      handler: { (action: UIAlertAction!) in
-    })
+      style: .Default, handler: nil)
     
     let saveAction = UIAlertAction(title: "OK",
-      style: .Default,
-      handler: { (action: UIAlertAction!) in
+      style: .Default) { action in
         self.workout.performWorkout()
-    })
+    }
     
     alert.addAction(cancelAction)
     alert.addAction(saveAction)
@@ -128,25 +126,19 @@ extension WorkoutDetailViewController: UITableViewDataSource {
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    
-    var numRows: Int
-    
     switch (section) {
     case 0:
-      numRows = 4
+      return 4
     case 1:
-      numRows = workout.exercises.count
+      return workout.exercises.count
     case 2:
-      numRows = 1
+      return 1
     default:
-      numRows = 0
+      return 0
     }
-    
-    return numRows
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
     let cell: UITableViewCell
     
     switch (indexPath.section) {
@@ -155,8 +147,8 @@ extension WorkoutDetailViewController: UITableViewDataSource {
     case 1:
       let exercise =  workout.exercises[indexPath.row]
       cell = tableView.dequeueReusableCellWithIdentifier(workoutExerciseIdentifier)!
-      let exerciseCell = cell as! ExerciseCell
-      exerciseCell.populate(exercise)
+
+      (cell as! ExerciseCell).populate(exercise)
     case 2:
       cell = workoutSelectButtonCell()
     default:
@@ -169,7 +161,6 @@ extension WorkoutDetailViewController: UITableViewDataSource {
 }
 
 extension WorkoutDetailViewController: UITableViewDelegate {
-  
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if indexPath.section == 1 {
       let storyboard = UIStoryboard(name: "Main", bundle: nil)

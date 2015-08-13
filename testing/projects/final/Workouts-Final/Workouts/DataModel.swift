@@ -22,63 +22,21 @@
 
 import Foundation
 
-private let filePath = "Workouts.plist"
-private let workoutsKey = "workoutsKey"
-private let exercisesKey = "exercisesKey"
-
 class DataModel {
   
   var workouts = [Workout]()
   var exercises = [Exercise]()
-  
-  private lazy var documentsDirectory: NSURL = {
-    let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-    return urls[urls.count-1]
-    }()
-  
-  init() {
-    
-    if NSFileManager.defaultManager().fileExistsAtPath(dataFilePath()) {
-      
-      let data = NSData(contentsOfFile: dataFilePath())
-      let keyedUnarchiver = NSKeyedUnarchiver(forReadingWithData: data!)
-      workouts = keyedUnarchiver.decodeObjectForKey(workoutsKey) as! [Workout]
-      exercises = keyedUnarchiver.decodeObjectForKey(exercisesKey) as! [Exercise]
-      
-    } else {
-      addTestData()
-    }
-  }
-  
-  func allWorkouts() -> [Workout] {
+
+  var allWorkouts: [Workout] {
     return workouts
   }
   
-  func addWorkout(workout: Workout) {
-    workouts.append(workout)
-    save()
-  }
-
-  func containsUserCreatedWorkout()-> Bool {
-    for workout in allWorkouts() {
-      if workout.userCreated == true {
-        return true
-      }
-    }
-    return false
-  }
-  
-  func allExercises() -> [Exercise] {
+  var allExercises: [Exercise] {
     return exercises
   }
   
-  func addExercise(exercise: Exercise) {
-    exercises.append(exercise)
-    save()
-  }
-  
-  func containsUserCreatedExercise()-> Bool {
-    for exercise in allExercises() {
+  var containsUserCreatedExercise: Bool {
+    for exercise in allExercises {
       if exercise.userCreated == true {
         return true
       }
@@ -86,27 +44,36 @@ class DataModel {
     return false
   }
   
-  func save() {
-    
-    let data = NSMutableData()
-    let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
-    archiver.encodeObject(workouts, forKey: workoutsKey)
-    archiver.encodeObject(exercises, forKey: exercisesKey)
-    archiver.finishEncoding()
-    
-    if !data.writeToFile(dataFilePath(), atomically: true) {
-      print("Error writing to file")
+  var containsUserCreatedWorkout: Bool {
+    for workout in allWorkouts {
+      if workout.userCreated == true {
+        return true
+      }
     }
+    return false
   }
 
+  init() {
+    addTestData()
+  }
+
+  func addWorkout(workout: Workout) {
+    workouts.append(workout)
+  }
   
-  func dataFilePath() -> String
-  {
-    return documentsDirectory.URLByAppendingPathComponent(filePath).path!
+  func removeWorkoutAtIndex(index: Int) {
+    workouts.removeAtIndex(index)
+  }
+  
+  func addExercise(exercise: Exercise) {
+    exercises.append(exercise)
+  }
+  
+  func removeExerciseAtIndex(index: Int) {
+    exercises.removeAtIndex(index)
   }
   
   private func addTestData() {
-    
     //Exercises
     
     //jumping jacks
@@ -276,6 +243,5 @@ class DataModel {
     
     addWorkout(workout5)
   }
-  
   
 }

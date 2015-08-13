@@ -21,6 +21,7 @@
 */
 
 import XCTest
+@testable import Workouts
 
 class WorkoutTests: XCTestCase {
   
@@ -34,32 +35,29 @@ class WorkoutTests: XCTestCase {
     super.tearDown()
   }
   
-  func testWorkoutCanEdit()
-  {
+  func testWorkoutCanEdit() {
     let builtInWorkout = Workout()
     builtInWorkout.userCreated = false
     
     let userCreatedWorkout = Workout()
     userCreatedWorkout.userCreated = true
     
-    XCTAssertFalse(builtInWorkout.canEdit, "Bulit-in workouts and not editable")
-    XCTAssertTrue(userCreatedWorkout.canEdit, "User-created workouts and editable")
+    XCTAssertFalse(builtInWorkout.canEdit, "Buit-in workouts are not editable")
+    XCTAssertTrue(userCreatedWorkout.canEdit, "User-created workouts are editable")
   }
   
-  func testWorkoutCanRemove()
-  {
+  func testWorkoutCanRemove() {
     let builtInWorkout = Workout()
     builtInWorkout.userCreated = false
     
     let userCreatedWorkout = Workout()
     userCreatedWorkout.userCreated = true
     
-    XCTAssertFalse(builtInWorkout.canRemove, "Bulit-in workouts and not removable")
-    XCTAssertTrue(userCreatedWorkout.canRemove, "User-created workouts and removable")
+    XCTAssertFalse(builtInWorkout.canRemove, "Bulit-in workouts are not removable")
+    XCTAssertTrue(userCreatedWorkout.canRemove, "User-created workouts are removable")
   }
   
-  func testWorkoutDurationSumOfPartsNoInterval()
-  {
+  func testWorkoutDurationSumOfPartsNoInterval() {
     let workoutWithoutExercises = Workout()
     XCTAssertEqual(workoutWithoutExercises.duration, 0, "A workout with no exercises should have duration of 0")
     
@@ -83,8 +81,7 @@ class WorkoutTests: XCTestCase {
     XCTAssertEqual(workoutWithMultipleExercises.duration, exercise1.duration + exercise2.duration + exercise3.duration, "A workout with multiple exercises should have duration of the sum of its exercises")
   }
   
-  func testWorkoutDurationSumOfPartsWithInterval()
-  {
+  func testWorkoutDurationSumOfPartsWithInterval() {
     let workoutWithoutExercises = Workout()
     workoutWithoutExercises.restInterval = 10
     XCTAssertEqual(workoutWithoutExercises.duration, 0, "A workout with no exercises and a non-zero rest interval should have duration of 0")

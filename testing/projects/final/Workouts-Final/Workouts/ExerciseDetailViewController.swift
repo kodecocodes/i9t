@@ -44,8 +44,7 @@ class ExerciseDetailViewController: UITableViewController {
     instructionsLabel.text = exercise.instructions
   }
   
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-  {
+  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     if indexPath.section == 0 && indexPath.row == 2 {
       performSegueWithIdentifier(toExerciseImageIdentifier, sender: nil)
     }

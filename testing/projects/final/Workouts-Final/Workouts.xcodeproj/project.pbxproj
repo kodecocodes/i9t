@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		179BE53E1B7BFF8300447187 /* WorkoutButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179BE53D1B7BFF8300447187 /* WorkoutButtonCell.swift */; };
+		179BE57A1B7C055300447187 /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179BE5791B7C055300447187 /* DataModelTests.swift */; };
+		179BE5821B7C098600447187 /* WorkoutsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179BE5811B7C098600447187 /* WorkoutsUITests.swift */; };
 		FE1B99391B5FAEFB007A44D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1B99381B5FAEFB007A44D2 /* AppDelegate.swift */; };
 		FE1B993E1B5FAEFB007A44D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE1B993C1B5FAEFB007A44D2 /* Main.storyboard */; };
 		FE1B99401B5FAEFB007A44D2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE1B993F1B5FAEFB007A44D2 /* Images.xcassets */; };
@@ -20,29 +23,23 @@
 		FE1B99691B5FB2F9007A44D2 /* ExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1B99681B5FB2F9007A44D2 /* ExerciseCell.swift */; };
 		FE591E4B1B6262EA00CE6EBE /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E4A1B6262EA00CE6EBE /* DataModel.swift */; };
 		FE591E4D1B656AC500CE6EBE /* WorkoutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E4C1B656AC500CE6EBE /* WorkoutDetailViewController.swift */; };
-		FE591E4F1B657A6700CE6EBE /* DataModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E4E1B657A6700CE6EBE /* DataModelTests.swift */; };
 		FE591E511B657A8600CE6EBE /* WorkoutTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E501B657A8600CE6EBE /* WorkoutTests.swift */; };
 		FE591E531B657A9700CE6EBE /* ExerciseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E521B657A9600CE6EBE /* ExerciseTests.swift */; };
-		FE591E541B657BC800CE6EBE /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1B995A1B5FB107007A44D2 /* Workout.swift */; };
-		FE591E551B657BCC00CE6EBE /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E4A1B6262EA00CE6EBE /* DataModel.swift */; };
-		FE591E561B657BD000CE6EBE /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1B99581B5FB090007A44D2 /* Exercise.swift */; };
 		FE591E581B65BE9100CE6EBE /* ExerciseImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E571B65BE9100CE6EBE /* ExerciseImageViewController.swift */; };
-		FE591E5E1B6647D100CE6EBE /* WorkoutButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E5D1B6647D100CE6EBE /* WorkoutButtonCell.swift */; };
 		FE591E601B6651B500CE6EBE /* AddWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E5F1B6651B500CE6EBE /* AddWorkoutViewController.swift */; };
 		FE591E631B66561800CE6EBE /* AddWorkoutInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E621B66561800CE6EBE /* AddWorkoutInfoCell.swift */; };
 		FE591E651B66562E00CE6EBE /* AddWorkoutExerciseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE591E641B66562E00CE6EBE /* AddWorkoutExerciseCell.swift */; };
-		FECB1C681B68779800B58EC2 /* WorkoutsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FECB1C671B68779800B58EC2 /* WorkoutsUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		FE1B99491B5FAEFB007A44D2 /* PBXContainerItemProxy */ = {
+		179BE5841B7C098600447187 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FE1B992B1B5FAEFB007A44D2 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = FE1B99321B5FAEFB007A44D2;
 			remoteInfo = Workouts;
 		};
-		FECB1C6A1B68779800B58EC2 /* PBXContainerItemProxy */ = {
+		FE1B99491B5FAEFB007A44D2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = FE1B992B1B5FAEFB007A44D2 /* Project object */;
 			proxyType = 1;
@@ -52,6 +49,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		179BE53D1B7BFF8300447187 /* WorkoutButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutButtonCell.swift; sourceTree = "<group>"; };
+		179BE5791B7C055300447187 /* DataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
+		179BE57F1B7C098600447187 /* WorkoutsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WorkoutsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		179BE5811B7C098600447187 /* WorkoutsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsUITests.swift; sourceTree = "<group>"; };
+		179BE5831B7C098600447187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE1B99331B5FAEFB007A44D2 /* Workouts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workouts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1B99371B5FAEFB007A44D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE1B99381B5FAEFB007A44D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,20 +71,22 @@
 		FE1B99681B5FB2F9007A44D2 /* ExerciseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseCell.swift; sourceTree = "<group>"; };
 		FE591E4A1B6262EA00CE6EBE /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		FE591E4C1B656AC500CE6EBE /* WorkoutDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutDetailViewController.swift; sourceTree = "<group>"; };
-		FE591E4E1B657A6700CE6EBE /* DataModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModelTests.swift; sourceTree = "<group>"; };
 		FE591E501B657A8600CE6EBE /* WorkoutTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutTests.swift; sourceTree = "<group>"; };
 		FE591E521B657A9600CE6EBE /* ExerciseTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseTests.swift; sourceTree = "<group>"; };
 		FE591E571B65BE9100CE6EBE /* ExerciseImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExerciseImageViewController.swift; sourceTree = "<group>"; };
-		FE591E5D1B6647D100CE6EBE /* WorkoutButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WorkoutButtonCell.swift; path = ../WorkoutButtonCell.swift; sourceTree = "<group>"; };
 		FE591E5F1B6651B500CE6EBE /* AddWorkoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWorkoutViewController.swift; sourceTree = "<group>"; };
 		FE591E621B66561800CE6EBE /* AddWorkoutInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWorkoutInfoCell.swift; sourceTree = "<group>"; };
 		FE591E641B66562E00CE6EBE /* AddWorkoutExerciseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWorkoutExerciseCell.swift; sourceTree = "<group>"; };
-		FECB1C651B68779800B58EC2 /* WorkoutsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WorkoutsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		FECB1C671B68779800B58EC2 /* WorkoutsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutsUITests.swift; sourceTree = "<group>"; };
-		FECB1C691B68779800B58EC2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		179BE57C1B7C098600447187 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE1B99301B5FAEFB007A44D2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -97,23 +101,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FECB1C621B68779800B58EC2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		179BE5801B7C098600447187 /* WorkoutsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				179BE5811B7C098600447187 /* WorkoutsUITests.swift */,
+				179BE5831B7C098600447187 /* Info.plist */,
+			);
+			path = WorkoutsUITests;
+			sourceTree = "<group>";
+		};
 		FE1B992A1B5FAEFB007A44D2 = {
 			isa = PBXGroup;
 			children = (
 				FE1B99351B5FAEFB007A44D2 /* Workouts */,
 				FECB1C601B67B08200B58EC2 /* Other Sources */,
 				FE1B994B1B5FAEFB007A44D2 /* WorkoutsTests */,
-				FECB1C661B68779800B58EC2 /* WorkoutsUITests */,
+				179BE5801B7C098600447187 /* WorkoutsUITests */,
 				FE1B99341B5FAEFB007A44D2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -123,7 +129,7 @@
 			children = (
 				FE1B99331B5FAEFB007A44D2 /* Workouts.app */,
 				FE1B99481B5FAEFB007A44D2 /* WorkoutsTests.xctest */,
-				FECB1C651B68779800B58EC2 /* WorkoutsUITests.xctest */,
+				179BE57F1B7C098600447187 /* WorkoutsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,10 +157,10 @@
 		FE1B994B1B5FAEFB007A44D2 /* WorkoutsTests */ = {
 			isa = PBXGroup;
 			children = (
-				FE591E4E1B657A6700CE6EBE /* DataModelTests.swift */,
 				FE591E501B657A8600CE6EBE /* WorkoutTests.swift */,
 				FE591E521B657A9600CE6EBE /* ExerciseTests.swift */,
 				FE1B994C1B5FAEFB007A44D2 /* Supporting Files */,
+				179BE5791B7C055300447187 /* DataModelTests.swift */,
 			);
 			path = WorkoutsTests;
 			sourceTree = "<group>";
@@ -170,7 +176,7 @@
 		FE591E611B6655EB00CE6EBE /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				FE591E5D1B6647D100CE6EBE /* WorkoutButtonCell.swift */,
+				179BE53D1B7BFF8300447187 /* WorkoutButtonCell.swift */,
 				FE1B99661B5FB2E5007A44D2 /* WorkoutCell.swift */,
 				FE1B99681B5FB2F9007A44D2 /* ExerciseCell.swift */,
 				FE591E621B66561800CE6EBE /* AddWorkoutInfoCell.swift */,
@@ -205,18 +211,27 @@
 			path = Workouts;
 			sourceTree = "<group>";
 		};
-		FECB1C661B68779800B58EC2 /* WorkoutsUITests */ = {
-			isa = PBXGroup;
-			children = (
-				FECB1C671B68779800B58EC2 /* WorkoutsUITests.swift */,
-				FECB1C691B68779800B58EC2 /* Info.plist */,
-			);
-			path = WorkoutsUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		179BE57E1B7C098600447187 /* WorkoutsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 179BE5861B7C098600447187 /* Build configuration list for PBXNativeTarget "WorkoutsUITests" */;
+			buildPhases = (
+				179BE57B1B7C098600447187 /* Sources */,
+				179BE57C1B7C098600447187 /* Frameworks */,
+				179BE57D1B7C098600447187 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				179BE5851B7C098600447187 /* PBXTargetDependency */,
+			);
+			name = WorkoutsUITests;
+			productName = WorkoutsUITests;
+			productReference = 179BE57F1B7C098600447187 /* WorkoutsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		FE1B99321B5FAEFB007A44D2 /* Workouts */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE1B99521B5FAEFB007A44D2 /* Build configuration list for PBXNativeTarget "Workouts" */;
@@ -252,24 +267,6 @@
 			productReference = FE1B99481B5FAEFB007A44D2 /* WorkoutsTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		FECB1C641B68779800B58EC2 /* WorkoutsUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FECB1C6E1B68779800B58EC2 /* Build configuration list for PBXNativeTarget "WorkoutsUITests" */;
-			buildPhases = (
-				FECB1C611B68779800B58EC2 /* Sources */,
-				FECB1C621B68779800B58EC2 /* Frameworks */,
-				FECB1C631B68779800B58EC2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				FECB1C6B1B68779800B58EC2 /* PBXTargetDependency */,
-			);
-			name = WorkoutsUITests;
-			productName = WorkoutsUITests;
-			productReference = FECB1C651B68779800B58EC2 /* WorkoutsUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -280,15 +277,15 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Razeware;
 				TargetAttributes = {
+					179BE57E1B7C098600447187 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = FE1B99321B5FAEFB007A44D2;
+					};
 					FE1B99321B5FAEFB007A44D2 = {
 						CreatedOnToolsVersion = 6.4;
 					};
 					FE1B99471B5FAEFB007A44D2 = {
 						CreatedOnToolsVersion = 6.4;
-						TestTargetID = FE1B99321B5FAEFB007A44D2;
-					};
-					FECB1C641B68779800B58EC2 = {
-						CreatedOnToolsVersion = 7.0;
 						TestTargetID = FE1B99321B5FAEFB007A44D2;
 					};
 				};
@@ -308,12 +305,19 @@
 			targets = (
 				FE1B99321B5FAEFB007A44D2 /* Workouts */,
 				FE1B99471B5FAEFB007A44D2 /* WorkoutsTests */,
-				FECB1C641B68779800B58EC2 /* WorkoutsUITests */,
+				179BE57E1B7C098600447187 /* WorkoutsUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		179BE57D1B7C098600447187 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE1B99311B5FAEFB007A44D2 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -331,26 +335,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FECB1C631B68779800B58EC2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		179BE57B1B7C098600447187 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				179BE5821B7C098600447187 /* WorkoutsUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE1B992F1B5FAEFB007A44D2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				FE1B99671B5FB2E5007A44D2 /* WorkoutCell.swift in Sources */,
 				FE1B995F1B5FB140007A44D2 /* WorkoutViewController.swift in Sources */,
+				179BE53E1B7BFF8300447187 /* WorkoutButtonCell.swift in Sources */,
 				FE591E4B1B6262EA00CE6EBE /* DataModel.swift in Sources */,
 				FE1B99691B5FB2F9007A44D2 /* ExerciseCell.swift in Sources */,
 				FE1B995D1B5FB122007A44D2 /* ExerciseViewController.swift in Sources */,
-				FE591E5E1B6647D100CE6EBE /* WorkoutButtonCell.swift in Sources */,
 				FE591E4D1B656AC500CE6EBE /* WorkoutDetailViewController.swift in Sources */,
 				FE591E631B66561800CE6EBE /* AddWorkoutInfoCell.swift in Sources */,
 				FE1B99391B5FAEFB007A44D2 /* AppDelegate.swift in Sources */,
@@ -367,35 +372,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE591E551B657BCC00CE6EBE /* DataModel.swift in Sources */,
 				FE591E531B657A9700CE6EBE /* ExerciseTests.swift in Sources */,
-				FE591E4F1B657A6700CE6EBE /* DataModelTests.swift in Sources */,
 				FE591E511B657A8600CE6EBE /* WorkoutTests.swift in Sources */,
-				FE591E541B657BC800CE6EBE /* Workout.swift in Sources */,
-				FE591E561B657BD000CE6EBE /* Exercise.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FECB1C611B68779800B58EC2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FECB1C681B68779800B58EC2 /* WorkoutsUITests.swift in Sources */,
+				179BE57A1B7C055300447187 /* DataModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		179BE5851B7C098600447187 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FE1B99321B5FAEFB007A44D2 /* Workouts */;
+			targetProxy = 179BE5841B7C098600447187 /* PBXContainerItemProxy */;
+		};
 		FE1B994A1B5FAEFB007A44D2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = FE1B99321B5FAEFB007A44D2 /* Workouts */;
 			targetProxy = FE1B99491B5FAEFB007A44D2 /* PBXContainerItemProxy */;
-		};
-		FECB1C6B1B68779800B58EC2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = FE1B99321B5FAEFB007A44D2 /* Workouts */;
-			targetProxy = FECB1C6A1B68779800B58EC2 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -419,6 +413,31 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		179BE5871B7C098600447187 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = WorkoutsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamesfrost.WorkoutsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Workouts;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		179BE5881B7C098600447187 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = WorkoutsUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamesfrost.WorkoutsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Workouts;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
 		FE1B99501B5FAEFB007A44D2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -527,10 +546,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -547,10 +562,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = WorkoutsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.razeware.$(PRODUCT_NAME:rfc1034identifier)";
@@ -559,34 +570,17 @@
 			};
 			name = Release;
 		};
-		FECB1C6C1B68779800B58EC2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				INFOPLIST_FILE = WorkoutsUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.WorkoutsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Workouts;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		FECB1C6D1B68779800B58EC2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = WorkoutsUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.WorkoutsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = Workouts;
-				USES_XCTRUNNER = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		179BE5861B7C098600447187 /* Build configuration list for PBXNativeTarget "WorkoutsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				179BE5871B7C098600447187 /* Debug */,
+				179BE5881B7C098600447187 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		FE1B992E1B5FAEFB007A44D2 /* Build configuration list for PBXProject "Workouts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -613,14 +607,6 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-		};
-		FECB1C6E1B68779800B58EC2 /* Build configuration list for PBXNativeTarget "WorkoutsUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FECB1C6C1B68779800B58EC2 /* Debug */,
-				FECB1C6D1B68779800B58EC2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

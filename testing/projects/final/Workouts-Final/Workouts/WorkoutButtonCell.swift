@@ -24,4 +24,5 @@ import UIKit
 class WorkoutButtonCell: UITableViewCell {
   
   @IBOutlet weak var selectButton: UIButton!
+  
 }
