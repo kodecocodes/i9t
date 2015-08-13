@@ -14,7 +14,7 @@ Over the past few years, Apple has made it easier to test iOS apps. Heres's a sh
 
 Before Xcode 7 you couldn't use XCTest to test your user interface or write functional tests, although you could have used third party libraries such as KIF, Frank, or Calabash to fill this gap. The problem is that these libraries weren't integrated into Xcode and you'd sometimes find yourself fighting an uphill battle.
 
-This chapter focuses on the latest additions to XCTest. If you're interested in UI testing but don't know much about XCTest you should first read chapter 11 in _iOS 7 by Tutorials_, _"Unit Testing in Xcode 5"_ and chapter 29 in _iOS 8 by Tutorials_, _"What's New with Testing?"_. [NOTE FROM TE: Deckle bug raised about this formatting]
+This chapter focuses on the latest additions to XCTest. If you're interested in UI testing but don't know much about XCTest you should first read chapter 11, "Unit Testing in Xcode 5" in *iOS 7 by Tutorials* and chapter 29, "What's New with Testing?" in *iOS 8 by Tutorials*.
 
 Swift 2.0 also has an important feature related to testing that you'll read about in this chapter: the addition of `@testable` imports. This solves issues related to tests and access control that many developers faced with earlier versions of Swift. But enough preamble... are you ready to write some tests?
 
@@ -143,7 +143,8 @@ class DataModelTests: XCTestCase {
 
     XCTAssert(dataModel.containsUserCreatedWorkout)
 
-    dataModel.removeWorkoutAtIndex(dataModel.allWorkouts.count - 1)
+    dataModel
+      .removeWorkoutAtIndex(dataModel.allWorkouts.count - 1)
     XCTAssertFalse(dataModel.containsUserCreatedWorkout)
   }
 
@@ -161,7 +162,8 @@ class DataModelTests: XCTestCase {
 
     XCTAssert(dataModel.containsUserCreatedExercise)
 
-    dataModel.removeExerciseAtIndex(dataModel.allExercises.count - 1)
+    dataModel
+      .removeExerciseAtIndex(dataModel.allExercises.count - 1)
     XCTAssertFalse(dataModel.containsUserCreatedExercise)
   }
 }
@@ -264,7 +266,8 @@ func testRaysFullBodyWorkout() {
   let cellQuery = workoutTable.childrenMatchingType(.Cell)
 
   let identifier = "Ray's Full Body Workout"
-  let workoutQuery = cellQuery.containingType(.StaticText, identifier: identifier)
+  let workoutQuery = cellQuery
+    .containingType(.StaticText, identifier: identifier)
   let workoutCell = workoutQuery.element
   workoutCell.tap()
 
@@ -322,8 +325,8 @@ func testRaysFullBodyWorkout() {
   //1
   let identifier = "Ray's Full Body Workout"
 
-  let workoutQuery =
-  app.tables.cells.containingType(.StaticText, identifier: identifier)
+  let workoutQuery = app.tables.cells
+    .containingType(.StaticText, identifier: identifier)
   workoutQuery.element.tap()
 
   //2
@@ -386,13 +389,17 @@ Your generated test method should look something like this:
 ```swift
 func testRaysFullBodyWorkout() {
   let app = XCUIApplication()
-  app.tables["Workouts Table"].staticTexts["Ray's Full Body Workout"].tap()
+  app.tables["Workouts Table"].
+    staticTexts["Ray's Full Body Workout"].tap()
 
   let tablesQuery = app.tables
   tablesQuery.staticTexts["Jumping Jacks"].tap()
   tablesQuery.buttons["Select & Workout"].tap()
-  app.alerts["Woo Hoo! You worked out!"].collectionViews.buttons["OK"].tap()
-  app.navigationBars["Ray's Full Body Workout"].buttons["Workouts"].tap()
+  app
+    .alerts["Woo Hoo! You worked out!"]
+    .collectionViews.buttons["OK"].tap()
+  app.navigationBars["Ray's Full Body Workout"]
+    .buttons["Workouts"].tap()
 }
 ```
 
@@ -423,4 +430,4 @@ There are a couple of WWDC sessions from 2015 that are worth looking at to find 
 - _Session 406 - UI Testing in XCode_: <http://apple.co/1N1Eg0I>
 - _Session 410 - Continuous Integration and Code Coverage in Xcode_: <http://apple.co/1J1n1Kd>
 
-You can also read _Chapter 29, What’s New with Testing_ in our _iOS 8 by Tutorials_ book, and the _Unit Testing in Xcode 5_ chapter in _iOS 7 by Tutorials_.
+You can also read chapter 29, "What’s New with Testing", in our _iOS 8 by Tutorials_ book and the "Unit Testing in Xcode 5" chapter in _iOS 7 by Tutorials_.
