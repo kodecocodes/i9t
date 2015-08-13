@@ -21,6 +21,7 @@
 */
 
 import XCTest
+import Workouts
 
 class WorkoutTests: XCTestCase {
   

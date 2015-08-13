@@ -73,7 +73,7 @@ You're currently seeing the **Tests** view of the test report. This shows you a 
 
 ![bordered width=65%](/images/reportNavigator1.png)
 
-This report shows you the code coverage for your entire app as well as the code coverage on a per file basis. For example, the code coverage for the entire app is 37% (yikes!) whereas code coverage for **DataModel.swift** is 93%. [TODO: update numbers]
+This report shows you the code coverage for your entire app as well as the code coverage on a per file basis. For example, the code coverage for the entire app is 35% (yikes!) whereas code coverage for **DataModel.swift** is 90%. 
 
 You'll notice that the report won't show you the specific coverage percentage right away. If you want to know this number, hover your mouse over the progress indicator until it shows up. You can also get code coverage numbers for individual classes and methods. To do this, click on the disclosure indicator to the left of the file name to see its contents.
 
@@ -95,68 +95,76 @@ The level of granularity you get from Xcode's code coverage reports goes beyond 
 
 As far as test coverage goes, 38% is not something to brag out. Let's improve that number by adding more tests. Both **Exercise.swift** and **Workout.swift** have corresponding test files but **DataModel.swift** does not. Let's start there.
 
-In the project navigator, click the **WorkoutsTests** group. Choose **File\New\File...** and select the **iOS\Source\Unit Test Case** template.
+In the project navigator, click the **WorkoutsTests** group. Choose **File\New\File...** and select the **iOS\Source\Unit Test Case Class** template.
 
 Name the class **DataModelTests** and ensure it's a subclass of **XCTest** and that sure **Swift** is selected. Click **Next** and then **Create**.
 
-As first order of business, add the following import at the top of **DataModelTests.swift**:
+As first order of business, add the following `import` at the top of **DataModelTests.swift**:
 
     import Workouts
 
-Your app and your test bundle are in separate bundles so you have to import your app's module before writing any tests against `DataModel`. Next, delete the contents of the `DataModelTests` class and replace them with the following:
+Your app and your test bundle are in separate bundles so you have to import your app's module before writing any tests against `DataModel`. Next, delete the entire implementation for the `DataModelTests` class and replace it with the following:
 
 ```swift
-var dataModel: DataModel!
+class DataModelTests: XCTestCase {
+  var dataModel: DataModel!
 
-override func setUp() {
-  super.setUp()
+  override func setUp() {
+    super.setUp()
 
-  dataModel = DataModel()
-}
+    dataModel = DataModel()
+  }
 
-func testSampleDataAdded() {
-  XCTAssert(dataModel.allWorkouts.count > 0)
-  XCTAssert(dataModel.allExercises.count > 0)
-}
+  func testSampleDataAdded() {
+    XCTAssert(dataModel.allWorkouts.count > 0)
+    XCTAssert(dataModel.allExercises.count > 0)
+  }
 
-func testAllWorkoutsEqualsWorkoutsArray() {
-  XCTAssertEqual(dataModel.workouts,
-    dataModel.allWorkouts)
-}
+  func testAllWorkoutsEqualsWorkoutsArray() {
+    XCTAssertEqual(dataModel.workouts,
+      dataModel.allWorkouts)
+  }
 
-func testAllExercisesEqualsExercisesArray() {
-  XCTAssertEqual(dataModel.exercises,
-    dataModel.allExercises)
-}
+  func testAllExercisesEqualsExercisesArray() {
+    XCTAssertEqual(dataModel.exercises,
+      dataModel.allExercises)
+  }
 
-func testContainsUserCreatedWorkout() {
-  XCTAssertFalse(dataModel.containsUserCreatedWorkout)
+  func testContainsUserCreatedWorkout() {
+    XCTAssertFalse(dataModel.containsUserCreatedWorkout)
 
-  let workout1 = Workout()
-  dataModel.addWorkout(workout1)
+    let workout1 = Workout()
+    dataModel.addWorkout(workout1)
 
-  XCTAssertFalse(dataModel.containsUserCreatedWorkout)
+    XCTAssertFalse(dataModel.containsUserCreatedWorkout)
 
-  let workout2 = Workout()
-  workout2.userCreated = true
-  dataModel.addWorkout(workout2)
+    let workout2 = Workout()
+    workout2.userCreated = true
+    dataModel.addWorkout(workout2)
 
-  XCTAssert(dataModel.containsUserCreatedWorkout)
-}
+    XCTAssert(dataModel.containsUserCreatedWorkout)
 
-func testContainsUserCreatedExercise() {
-  XCTAssertFalse(dataModel.containsUserCreatedExercise)
+    dataModel.removeWorkoutAtIndex(dataModel.allWorkouts.count - 1)
+    XCTAssertFalse(dataModel.containsUserCreatedWorkout)
+  }
 
-  let exercise1 = Exercise()
-  dataModel.addExercise(exercise1)
+  func testContainsUserCreatedExercise() {
+    XCTAssertFalse(dataModel.containsUserCreatedExercise)
 
-  XCTAssertFalse(dataModel.containsUserCreatedExercise)
+    let exercise1 = Exercise()
+    dataModel.addExercise(exercise1)
 
-  let exercise2 = Exercise()
-  exercise2.userCreated = true
-  dataModel.addExercise(exercise2)
+    XCTAssertFalse(dataModel.containsUserCreatedExercise)
 
-  XCTAssert(dataModel.containsUserCreatedExercise)
+    let exercise2 = Exercise()
+    exercise2.userCreated = true
+    dataModel.addExercise(exercise2)
+
+    XCTAssert(dataModel.containsUserCreatedExercise)
+
+    dataModel.removeExerciseAtIndex(dataModel.allExercises.count - 1)
+    XCTAssertFalse(dataModel.containsUserCreatedExercise)
+  }
 }
 ```
 
@@ -205,11 +213,11 @@ Now to use `@testable`. Open **DataModelTests.swift**, replace the `import Worko
 
 Do the same with the `import` statement at the top of **WorkoutTests.swift** and **ExerciseTests.swift**.
 
-Magic! All your compiler errors disappear.
+Magic! All your compiler errors disappear. Run your tests again to check that they all pass.
 
 > **Note**: `@testable` has no effect on the private access control. As they say in Vegas, what you declare `private` stays `private` :]
 
-[TODO: Post crash-fix, run code coverage one more time here.]
+Once the tests have finished, head back to the code coverage report: in the **Report navigator**, select the most recent **Test** run, and then click **Coverage** in the main panel. Check out the coverage % for **DataModel.swift**: 100%! Nice work.
 
 ## UI testing
 
@@ -330,8 +338,8 @@ That's a lot shorter than what it was before! Here's what changed in the code:
 3. In the previous implementation of this test, you were first referencing the navigation bar to get to its back button. Now you directly query the app's buttons and tap on the one identified by the string "Workouts."
 
 Run `testRaysFullBodyWorkout()` one more time. The same sequence of events plays out, except this time the test taps on **Select & Workout** and dismisses the alert controller. However, when it tries to return to the list of workouts... splat! The test fails.
-![bordered width=60%](/images/testFailure.png)
-[TODO: update screenshot]
+![bordered width=70%](/images/testFailure.png)
+
 [NOTE FOR AUTHOR: Debug screenshots are now implemented as of beta 5. However, I'm not sure if you're going to have much room to explain this!]
 
 Let's figure out why the test failed. Xcode gives you the error message **"UI Testing Failure - Multiple matches found"**. You get this error when you're expecting one `XCUIElement` but instead get multiple.
@@ -351,7 +359,7 @@ Can you find the duplicates? One is in the top left, next to the back button (th
 ![bordered iphone](/images/duplicates.png)
 [TODO: Update after design process. If necessary, crop together an image showing just the navigation bar and the tab bar to save space]
 
-Whoops! Fix the test by replacing the faulty line with the following:
+Whoops! Fix the test by replacing the final line of `testRaysFullBodyWorkout()` with the following:
 
     app.navigationBars.buttons["Workouts"].tap()
 
@@ -361,11 +369,11 @@ Whoops! Fix the test by replacing the faulty line with the following:
 
 You spent a lot of time and effort writing and refactoring `testRaysFullBodyWorkout()`. It's great to know how to write UI tests from scratch, but there is an easier way to get the job done: _UI recording_. With UI recording, you can simply "act out" the steps of your test in the simulator and Xcode will auto-magically translate your actions into UI testing code.
 
-Let's see this in action. Delete the current implementation of `testRaysFullBodyWorkout()`. Place your cursor inside the empty method, then click the **Record UI Test** button at the bottom of the editor:
+Let's see this in action. Delete the current contents of `testRaysFullBodyWorkout()`. Place your cursor inside the empty method, then click the **Record UI Test** button at the bottom of the editor:
 
 ![bordered width=55%](/images/uiRecording.png)
 
-The UI recording button builds and launches your app. Once that's done, "act out" the the steps of your tests. Tap on **Ray's Full Body Workout**, then scroll down and tap **Select & Workout**. Dismiss the alert controller by tapping **OK** and finally tap the **back** button.
+The UI recording button builds and launches your app. Once that's done, "act out" the the steps of your tests. Tap on **Ray's Full Body Workout**, then scroll down and tap **Select & Workout**. Dismiss the alert controller by tapping **OK** and finally tap the **back** button. Tap the **record** button again, or the **stop** button to stop recording.
 
 Your generated test method should look something like this:
 

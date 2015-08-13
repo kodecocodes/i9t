@@ -75,7 +75,7 @@ class WorkoutViewController: UIViewController {
   }
   
   private func updateEditButtonVisibility() {
-    editButton.enabled = dataModel.containsUserCreatedWorkout()
+    editButton.enabled = dataModel.containsUserCreatedWorkout
   }
 }
 

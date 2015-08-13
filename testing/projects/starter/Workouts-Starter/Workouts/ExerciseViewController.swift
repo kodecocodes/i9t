@@ -119,7 +119,7 @@ class ExerciseViewController: UIViewController {
   }
   
   private func updateEditButtonVisibility() {
-    editButton.enabled = dataModel.containsUserCreatedExercise()
+    editButton.enabled = dataModel.containsUserCreatedExercise
   }
 }
 

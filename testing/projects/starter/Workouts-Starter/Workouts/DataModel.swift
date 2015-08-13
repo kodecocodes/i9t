@@ -24,9 +24,9 @@ import Foundation
 
 class DataModel {
   
-  private var workouts = [Workout]()
-  private var exercises = [Exercise]()
-
+  var workouts = [Workout]()
+  var exercises = [Exercise]()
+  
   var allWorkouts: [Workout] {
     return workouts
   }
@@ -35,19 +35,16 @@ class DataModel {
     return exercises
   }
   
-  init() {
-    addTestData()
-  }
-
-  func addWorkout(workout: Workout) {
-    workouts.append(workout)
+  var containsUserCreatedExercise: Bool {
+    for exercise in allExercises {
+      if exercise.userCreated == true {
+        return true
+      }
+    }
+    return false
   }
   
-  func removeWorkoutAtIndex(index: Int) {
-    workouts.removeAtIndex(index)
-  }
-
-  func containsUserCreatedWorkout()-> Bool {
+  var containsUserCreatedWorkout: Bool {
     for workout in allWorkouts {
       if workout.userCreated == true {
         return true
@@ -56,21 +53,24 @@ class DataModel {
     return false
   }
   
+  init() {
+    addTestData()
+  }
+  
+  func addWorkout(workout: Workout) {
+    workouts.append(workout)
+  }
+  
+  func removeWorkoutAtIndex(index: Int) {
+    workouts.removeAtIndex(index)
+  }
+  
   func addExercise(exercise: Exercise) {
     exercises.append(exercise)
   }
   
   func removeExerciseAtIndex(index: Int) {
     exercises.removeAtIndex(index)
-  }
-  
-  func containsUserCreatedExercise()-> Bool {
-    for exercise in allExercises {
-      if exercise.userCreated == true {
-        return true
-      }
-    }
-    return false
   }
   
   private func addTestData() {
