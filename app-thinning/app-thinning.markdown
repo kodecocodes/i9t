@@ -117,8 +117,6 @@ This is using the @2x image for Santa Cruz, and it ends up at 107 KB. You may se
 >**Note**: Reviewing a debug build is a great way to see how App Thinning works, and even before App Thinning existed, Xcode was tailoring debug builds
 to the targeted device. So, App Thinning essentially builds on what Xcode already did, but now, the end user enjoys the benefits.
 
-[Author TODO: Please check the last sentence for accuracy and that it's in appropriate context. Both Jrames and I worked with the original sentence, and I decided to put it in a note since it's more of an aside. Let me know if you hate it!] 
-
 Now build and run with the **iPhone 6 Plus** simulator and take a look at the size of **Asset.car**:
 ![bordered width=40%](./images/iphone_6_plus_asset_car_size.png)
 
@@ -157,7 +155,6 @@ guard let bundleTitle =
 }
 
 // 2
-
 let bundleResource =
 NSBundleResourceRequest(tags: [bundleTitle]) 
 
@@ -176,7 +173,6 @@ bundleResource.beginAccessingResourcesWithCompletionHandler {
   })
 }
 ```
-[Author/FPE TODO: Check the placement of the comments against the explanation. The comments were at the end of the lines instead of above each section. Your friendly editor moved them to make the style consistent with other authors and the tutorials on the site. ]
 
 What's going on in there?
 
