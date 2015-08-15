@@ -357,10 +357,10 @@ Rebuild and run the system and keep an eye on the **Disk Report** screen while e
 
 Congratulations, you've learned the in and outs of App Thinning! Remember that the same cellular limits apply for ODR resources, so there are limits on the resource size you can download.
 
-Be sure to check out the WWDC videos:
+Be sure to check out these WWDC videos:
 - [Introducing On Demand Resources (http://apple.co/1HMTaju)](https://developer.apple.com/videos/wwdc/2015/?id=214)
 - [App Thinning in Xcode (http://apple.co/1Kn8HIA)](https://developer.apple.com/videos/wwdc/2015/?id=404)
 
-Now that you've tapped into App Thinning, you should be able to make those big, beautiful apps while being contentious of the user's storage space. 
+Now that you've tapped into App Thinning, you should be able to make those big, beautiful apps while being mindful of the user's storage space. 
 
 While you might see amazing benefits, like a gajillion more downloads or parades to celebrate your brilliance, you're more likely to see reasonable benefits like fewer uninstalls, more usage and more positive reviews. That should be enough incentive to get you excited about App Thinning.
