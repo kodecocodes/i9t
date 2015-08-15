@@ -20,7 +20,7 @@ Packaged together, these techniques are known as **App Thinning**.
 
 Open the **Old CA Maps** starter project. This application displays historical aerial overlays of different parts of California on a map. 
 
-What you have here is a close-to-final project that's about to be fired off to the App Store. But don't do it just yet, because the resources for this seemingly simple app make it a storage hog. It takes up over 300 megabytes! 
+What you have here is a close-to-final project that's about to be fired off to the App Store. But don't do it just yet, because the resources for this seemingly simple app make it a storage hog. It takes up over 200 megabytes! 
 
 Before sending it off, you'll use App Thinning techniques to hack-and-slash the end product to a more manageable size. But before you do that, take a tour around the app. It's pretty sweet.
 
@@ -198,7 +198,7 @@ Give **LA_Map.bundle** the tag name **LA_Map**. Now go through the four remainin
 
 Build your application for **iPad Air 2**, but don't run it yet. Take note of the application bundle size in the report navigator. 
 
-Originally, the app was over 300 MB. Now, Old CA Maps is around 10MB. Xcode has achieved this by removing the bundle resources from the main application bundle, which can be confirmed by reviewing its contents:
+Originally, the app was over 200 MB. Now, Old CA Maps is around 10MB. Xcode has achieved this by removing the bundle resources from the main application bundle, which can be confirmed by reviewing its contents:
 
 ![bordered width=30%](./images/bundle_size_after_odr.png)
  
@@ -308,10 +308,7 @@ Once you're done, your tag setup should look like this:
 
 ![bordered width=60%](./images/Install_Tag_Groups.png)
 
-Clean, build and run the application. Click on San Diego, then San Francisco. You'll notice a marked increase in responsiveness. 
-
-[NOTE TO EDITOR: END]
-[Note for Derek from Wendy: I've just edited these sections for you, so do what you will with them. If you end up making significant changes, please ping me for a quick edit!]
+Unfortunately, testing these changes is a bit trickier. You will have to submit your app to **TestFlight Beta Testing** in order to see these changes propegated in your app.
 
 ## Purging content
 
