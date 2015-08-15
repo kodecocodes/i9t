@@ -357,13 +357,9 @@ Rebuild and run the system and keep an eye on the **Disk Report** screen while e
 
 Congratulations, you've learned the in and outs of App Thinning! Remember that the same cellular limits apply for ODR resources, so there are limits on the resource size you can download.
 
-Two new cool methods added to **NSBundle** are: 
-**setPreservationPriority(_priority: Double, forTags _: Set<String>)**  
-and **preservationPriorityForTag(_ tag: String)**. Play around with using these methods to increment the content of the tagged bundles every time you click on a city.
-
-[TODO this seems to be a WIP.  Sent a note to author]
-
-An additional way to challenge yourself is to determine if the user is on Wi-FI or mobile data, and prompt the user so they can choose a Wi-Fi connection before downloading assets. 
+Be sure to check out the WWDC videos:
+- [Introducing On Demand Resources (http://apple.co/1HMTaju)](https://developer.apple.com/videos/wwdc/2015/?id=214)
+- [App Thinning in Xcode (http://apple.co/1Kn8HIA)](https://developer.apple.com/videos/wwdc/2015/?id=404)
 
 Now that you've tapped into App Thinning, you should be able to make those big, beautiful apps while being contentious of the user's storage space. 
 
