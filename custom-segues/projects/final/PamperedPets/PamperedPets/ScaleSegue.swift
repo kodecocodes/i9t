@@ -17,7 +17,9 @@ class ScaleSegue: UIStoryboardSegue {
 }
 
 extension ScaleSegue: UIViewControllerTransitioningDelegate {
-  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  func animationControllerForPresentedController(presented: UIViewController,
+     presentingController presenting: UIViewController,
+     sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return ScalePresentAnimator()
   }
 }

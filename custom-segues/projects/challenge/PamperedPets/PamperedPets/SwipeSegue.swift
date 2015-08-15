@@ -31,7 +31,9 @@ class SwipeSegue: UIStoryboardSegue {
 }
 
 extension SwipeSegue: UIViewControllerTransitioningDelegate {
-  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  func animationControllerForPresentedController(presented: UIViewController,
+     presentingController presenting: UIViewController,
+     sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     
     // Challenge is only swipe to dismiss, so still scale up
     return ScalePresentAnimator()

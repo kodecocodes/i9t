@@ -34,7 +34,9 @@ class FadeSegue: UIStoryboardSegue {
 }
 
 extension FadeSegue: UIViewControllerTransitioningDelegate {
-  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  func animationControllerForPresentedController(presented: UIViewController,
+     presentingController presenting: UIViewController,
+     sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     let fade = FadeAnimator()
     fade.isPresenting = true
     return fade

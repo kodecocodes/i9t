@@ -33,7 +33,9 @@ class DropSegue: UIStoryboardSegue {
 }
 
 extension DropSegue: UIViewControllerTransitioningDelegate {
-  func animationControllerForPresentedController(presented: UIViewController, presentingController presenting: UIViewController, sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+  func animationControllerForPresentedController(presented: UIViewController,
+     presentingController presenting: UIViewController,
+     sourceController source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
     return DropPresentAnimator()
   }
   
@@ -72,7 +74,9 @@ class DropPresentAnimator:NSObject, UIViewControllerAnimatedTransitioning {
     // 4. Perform the animation
     let duration = transitionDuration(transitionContext)
     
-    UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 6, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+    UIView.animateWithDuration(duration, delay: 0.0,
+      usingSpringWithDamping: 0.5, initialSpringVelocity: 6,
+      options: UIViewAnimationOptions.CurveEaseInOut, animations: {
       if let toView = toView {
         toView.frame = finalFrame
       }

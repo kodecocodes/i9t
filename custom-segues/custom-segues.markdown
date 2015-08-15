@@ -187,7 +187,7 @@ extension ScaleSegue: UIViewControllerTransitioningDelegate {
 
 The `UIViewControllerTransitioningDelegate` protocol allows the segue to vend presentation and dismissal animators for use in its transitions. After you have created an animator, you will return here to implement the method that returns it.
 
-Back in `ScaleSegue`, override the `perform()` method:
+In the `ScaleSegue` class, override the `perform()` method:
 
 ```swift
 override func perform() {
@@ -231,12 +231,14 @@ Most transitions have a duration of about 0.3-0.5 seconds, but this duration of 
 Now for the actual animation. Add this method to `ScalePresentAnimator`:
 
 ```swift
-func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
+func animateTransition(transitionContext: 
+  UIViewControllerContextTransitioning) {
 
   // 1. Get the transition context to- controller and view
   let toViewController = transitionContext
     .viewControllerForKey(UITransitionContextToViewControllerKey)!
-  let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
+  let toView = transitionContext
+    .viewForKey(UITransitionContextToViewKey)
 
   // 2. Add the to- view to the transition context
   if let toView = toView {
@@ -276,7 +278,8 @@ Let's go through what's happening here.
 Inside the `UIViewControllerTransitioningDelegate` extension, add the following delegate method:
 
 ```swift
-func animationControllerForPresentedController(presented: UIViewController,
+func animationControllerForPresentedController(presented: 
+               UIViewController,
                presentingController presenting: UIViewController, 
                sourceController source: UIViewController) -> 
                UIViewControllerAnimatedTransitioning? {
