@@ -119,7 +119,7 @@ Run the app again, and tap the photo. The larger photo will transition in by sli
 
 ![bordered iPhone](images/DismissFish.png)
 
-Let's dissect what's happened here. When you tap the thumbnail on the detail view, the tap gesture recognizer initiates a Modal segue from `AnimalDetailViewController` to `AnimalPhotoViewController`. `AnimalDetailViewController` is the **source view controller**. AnimalPhotoViewController is the **destination view controller**. The segue holds a reference to both the source view controller and the destination view controller. 
+Let's dissect what's happened here. When you tap the thumbnail on the detail view, the tap gesture recognizer initiates a Modal segue from `AnimalDetailViewController` to `AnimalPhotoViewController`. AnimalDetailViewController is the **source view controller**. AnimalPhotoViewController is the **destination view controller**. The segue holds a reference to both the source view controller and the destination view controller. 
 
 ![bordered height=20%](images/AppFlow.png)
 
@@ -147,7 +147,7 @@ Once you have built up your own library of custom segues, all you will have to d
 
 ## Create a Custom Segue
 
-You'll now create your own custom segue to replace that Drop segue. Appropriately for a fish, you'll create a Scale transition animation, where the fish photo will scale in on presentation.
+You'll now create your own custom segue to replace DropSegue. Appropriately for a fish, you'll create a Scale transition animation, where the fish photo will scale in on presentation.
 
 The hard part about all this is the terminology. You will be using protocols with very long names, which can be quite daunting, but familiar if you've used Custom Transition Animations. 
 
@@ -234,9 +234,8 @@ Now for the actual animation. Add this method to `ScalePresentAnimator`:
 func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
 
   // 1. Get the transition context to- controller and view
-  let toViewController = 
-    transitionContext.viewControllerForKey
-         (UITransitionContextToViewControllerKey)!
+  let toViewController = transitionContext
+    .viewControllerForKey(UITransitionContextToViewControllerKey)!
   let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
 
   // 2. Add the to- view to the transition context
@@ -250,8 +249,8 @@ func animateTransition(transitionContext: UIViewControllerContextTransitioning) 
 
   // 4. Perform the animation
   let duration = transitionDuration(transitionContext)
-  let finalFrame = 
-       transitionContext.finalFrameForViewController(toViewController)
+  let finalFrame = transitionContext
+    .finalFrameForViewController(toViewController)
 
   UIView.animateWithDuration(duration, animations: {
     toView?.frame = finalFrame
@@ -274,7 +273,7 @@ Let's go through what's happening here.
 
 ### 4 - Set the Animator in the Segue
 
-Inside the `UIViewControllerTransitioningDelegate` extension, add the delegate method:
+Inside the `UIViewControllerTransitioningDelegate` extension, add the following delegate method:
 
 ```swift
 func animationControllerForPresentedController(presented: UIViewController,
@@ -301,13 +300,13 @@ Congratulations! That's your first custom segue!
 
 You do have some way to go to making the scaling animation look right, but **ScaleSegue.swift** in its current state is a blueprint for all animated segue transitions that you will want to do. Obviously you will add a dismissal animator, different animation code, and sometimes `animateTransition(:_)` will become quite complicated, but the initial steps are just the same.
 
-Take a moment to look at the code of the included example custom segues DropSegue and FadeSegue. Notice how even though the animation differs, the basic structure of both those segues is exactly the same as your ScaleSegue. 
+Take a moment to look at the code of the included example custom segues in **DropSegue.swift** and **FadeSegue.swift**. Notice how even though the animations differ, the basic structure of both those segues is exactly the same as your ScaleSegue. 
 
 ## Passing data to animators
 
-Let's continue to improve your scaling segue. It would be good to have the larger photo smoothly scale up from the smaller one instead of from the corner. But how do you tell the animator object what view it is scaling? There's so much decoupling happening that you don't have a direct reference.
+Let's continue to improve your scaling segue. It would be good to have the larger photo smoothly scale up from the smaller one instead of from the corner. But how do you tell the animator object what view it is scaling? 
 
-From Apple's Swift book - "A protocol defines a blueprint of methods and properties that suit a particular task". The scaling segue requiring a start view frame is a perfect example of a simple task. The Animal Detail can adopt a protocol to set what view is to be scaled, and the animator object can then use that protocol's scaling view without having to know anything else about the view controller. 
+There's so much decoupling happening that you don't have a direct reference to the source image view. This sounds like a great job for a protocol. The Animal Detail can adopt a protocol to set what view is to be scaled, and the animator object can then use that protocol's scaling view without having to know anything else about the source view controller. 
 
 In **ScaleSegue.swift** create the protocol:
 
@@ -317,7 +316,7 @@ protocol ViewScaleable {
 }
 ```
 
-Any view controller that wants to present a modal view using this scaling segue should adopt `ViewScaleable` by creating and filling a `scaleView` property. So make  AnimalDetailViewController conform to `ViewScaleable` by adding this extension to the very end of **AnimalDetailViewController.swift**:
+Any view controller that wants to present a modal view using this scaling segue should adopt `ViewScaleable` by creating and filling a `scaleView` property with the view to be scaled. So make `AnimalDetailViewController` conform to `ViewScaleable` by adding this extension to the very end of **AnimalDetailViewController.swift**:
 
 ```swift
 extension AnimalDetailViewController: ViewScaleable {
@@ -325,23 +324,22 @@ extension AnimalDetailViewController: ViewScaleable {
 }
 ```
 
-This sets the protocol property so that the view to use for scaling is the imageView with the fish.
+This sets the protocol property so that the view to use for scaling is the `imageView` with the fish.
 
 Back in **ScaleSegue.swift** at the top of `animateTransition(:_)`, just before declaring:
 
 ```swift
-let toViewController = transitionContext.viewControllerForKey⏎
-                         (UITransitionContextToViewControllerKey)!
+let toViewController = transitionContext
+  .viewControllerForKey(UITransitionContextToViewControllerKey)!
 ```
 
-add this code:
+add this code to get references to the from- controller and view:
 
 ```swift
-let fromViewController = 
-    transitionContext.viewControllerForKey⏎
-        (UITransitionContextFromViewControllerKey)!
-let fromView = 
-    transitionContext.viewForKey(UITransitionContextFromViewKey)
+let fromViewController = transitionContext
+  .viewControllerForKey(UITransitionContextFromViewControllerKey)!
+let fromView = transitionContext
+  .viewForKey(UITransitionContextFromViewKey)
 ```
 
 Again from- controller is implicitly unwrapped while from- view is optional.
@@ -366,11 +364,11 @@ toView?.frame = startFrame
 
 Instead of starting the to- view frame animation at the top left, you are starting the animation at the from- view controller's `scaleView` frame property.
 
-The cool thing about using the ViewScaleable protocol to pass values, is that the animator object does not need to know anything about the view controller except that it conforms to ViewScaleable.
+The cool thing about using the `ViewScaleable` protocol to pass values, is that the animator object does not need to know anything about the view controller except that it conforms to `ViewScaleable`.
 
-You'll have a compile warning about fromView not being used. Don't worry - you'll be using it soon.
+You'll have a compile warning about `fromView` not being used. Don't worry - you'll be using it soon.
 
-Run the app. This is starting to look better. 
+Run the app, and the segue now causes the image to expand from its original position. This is starting to look better!
 
 ![bordered height=22%](images/BetterScale.png)
 
@@ -378,13 +376,13 @@ There are just a few more tweaks for you to make while we look at how all these 
 
 ## View Hierarchy
 
-In `animateTransition(:_)` you've been getting the to- view from  `transitionContext.viewForKey(:_)`. You may wonder why you didn't use the destination controller's view. 
+In `animateTransition(:_)` you've been getting the to- view from  `transitionContext.viewForKey(:_)`. You may wonder why you didn't use the destination controller's `view` property. 
 
-The transition context copes with different presentations for the different sizes. The iPad modal form sheet is wrapped in a presentation layer which provides the dimming view and rounds the corners of the form sheet, whereas on the iPhone the modal controller is displayed full screen.
+The transition context copes with different presentations for different size classes. A horizontally regular sized display's modal form sheet is wrapped in a presentation layer which provides the dimming view and rounds the corners of the form sheet. A compact screen's modal controller is displayed full screen.
 
-On the iPhone `viewForKey(:_)` returns the same view as the destination controller's view because there is no presentation layer. However on an iPad where the destination controller is wrapped in the presentation layer, if you referred to the destination controller's view, you would be scaling in the destination view and not the presentation layer.
+This means that on all iPhones other than the 6 Plus in landscape, `viewForKey(UITransitionContextToViewKey)` returns the same view as the destination controller's view because there is no presentation layer. However on an iPad or landscape iPhone 6 Plus where the destination controller is wrapped in the presentation layer, if you referred to the destination controller's view, you would be scaling in the destination view and not the presentation layer.
 
-You can see this for yourself; in `animateTranstion(:_)` change:
+You can see this for yourself; in **ScaleSegue.swift**, find `animateTranstion(:_)` and change:
 
     let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
 
@@ -392,15 +390,15 @@ to
 
     let toView = toViewController.view
 
-and run the app. There will be no change on the iPhone, but on the iPad, the form sheet will scale in from the top left and look very weird.
+and run the app on an iPhone 6, followed by any iPad. There will be no change on the iPhone, but on the iPad, the form sheet will scale in from the top left and look very weird.
 
 Make sure you change back the code to use:
 
     let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
 
-Similarly, the transition context's from- view may differ from the source view controller's view. On an iPhone the transition context's from- view will be the same as the source view controller's view, but on an iPad the from- view will be nil.
+Similarly, the transition context's from- view may differ from the source view controller's view. With a compact sized view, the transition context's from- view will be the same as the source view controller's view, but on a normal sized view the from- view will be nil.
 
-To make your transition look better you can make use of this. On the iPhone the transition would look better if the from- view faded out during the scale animation. However on the iPad because the modal scene is a form sheet, the from- view should remain unfaded in the background.
+To make your transition look better you can make use of this. On a compact sized screen where the modal is full screen, the transition would look better if the from- view faded out during the scale animation. However on a normal sized screen, because the modal scene is a form sheet, the from- view should remain unfaded in the background.
 
 In `animateTransition(_:)` inside the animation block at the end of the method just after:
 
@@ -421,9 +419,9 @@ reset the from- view's alpha with this code:
 
     fromView?.alpha = 1.0
 
-If you don't reset the alpha, when you dismiss the modal scene, the from- view's alpha will still be 0 and you will just see a black screen.
+If you don't reset the alpha in the completion block, when you dismiss the modal scene, the from- view's alpha will still be 0 and you will just see a black screen.
 
-Run the app on both iPhone and iPad. The iPhone from- view will fade out, but the iPad from- view won't be affected because now `fromView` is nil.
+Run the app on both the iPhone 6 and any iPad. The iPhone from- view will fade out, but the iPad from- view won't be affected because `fromView` is nil.
 
 ![iPad](images/FinalScale.png)
 
@@ -441,24 +439,24 @@ Run the application. The app will now start with a list of all pets to be minded
 
 ![height=20%](images/RageFish.png)
 
-Oh no! The animation doesn't scale from the right place any more! If you look in the debug console, you'll see the print warning that you put in your code to print if the presenting view controller does not conform to ViewScalable.
+Oh no! The animation doesn't scale from the right place any more! If you look in the debug console, you'll see the print warning that you put in your code to print if the presenting view controller does not conform to `ViewScalable`.
 
-This is because the view controller is now embedded within a Navigation Controller, which means that the Navigation Controller is now the presenting view controller, not the AnimalDetailViewController.
+This is because the view controller is now embedded within a Navigation Controller, which means that the Navigation Controller is now the presenting view controller, not the `AnimalDetailViewController`.
 
 Fortunately, this is easily fixed. To be reusable in multiple situations, you can find out whether the presenting view controller is a Navigation Controller, and if so, take the Navigation Controller's top view controller as the presenting view controller.
 
-In **ScaleSegue.swift** at the top of `animateTransition(:_)` in the **ScalePresentAnimator** class where it says:
+In **ScaleSegue.swift** at the top of `animateTransition(:_)` in the `ScalePresentAnimator` class where it says:
 
-    let fromViewController = 
-       transitionContext.viewControllerForKey⏎
-           (UITransitionContextFromViewControllerKey)!
+```swift
+let fromViewController = transitionContext
+  .viewControllerForKey(UITransitionContextFromViewControllerKey)!
+```
 
 replace that line with:
 
 ```swift
-var fromViewController = 
-    transitionContext.viewControllerForKey⏎
-        (UITransitionContextFromViewControllerKey)!
+var fromViewController = transitionContext
+  .viewControllerForKey(UITransitionContextFromViewControllerKey)!
 if let fromNC = fromViewController as? UINavigationController {
   if let controller = fromNC.topViewController {
     fromViewController = controller
@@ -502,30 +500,30 @@ To help cement your new skills, and become a dab hand at segues, here's a challe
 
 Your first challenge is to complete the Scale Segue. You will create the dismiss animator and set the segue to use this dismiss animator.
 
-The code will look very similar to the presenting animator from this chapter, except that the from- view controller is now the modal view controller and to- view will be the view underneath. On an iPhone, the framework removes this view because modal views fully cover the screen. So `toView` needs to be added back in to the view hierarchy. This is the code you will use for that:
+The code will look very similar to the presenting animator from this chapter, except that the from- view controller is now the modal view controller and to- view will be the view underneath. On a compact size class, the framework removes this view because modal views fully cover the screen. So `toView` needs to be added back in to the view hierarchy of the `containerView`. This is the code you will use for that:
 
 ```swift
 if let fromView = fromView,
   toView = toView {
     transitionContext.containerView()?
-              .insertSubview(toView, belowSubview: fromView)
+      .insertSubview(toView, belowSubview: fromView)
 }
 ```
 
-You can find the solution in the sample code included with this chapter.
+You can find the full solution in the sample code included with this chapter.
 
 ### A Swipe segue
 
-Your next challenge is to create a completely new reusable segue that uses the default transition to present, but takes an up or down swipe to dismiss. The modal scene should slide away in the direction of the swipe.
+Your next challenge is to create a completely new reusable segue called `SwipeSegue` that uses the default transition to present, but takes an up or down swipe to dismiss. The modal scene should slide away in the direction of the swipe.
 
 Here are some tips:
 
-* The SwipeSegue class will be almost the same as the ScaleSegue class.
+* The `SwipeSegue` class will be almost the same as the `ScaleSegue` class.
 * Add a new animator object similar to the Scale dismissal animator that moves the presented frame off either the top of the screen or the bottom of the screen depending on swipe direction.
-* Add a new protocol `Swipeable` that stores the swipe direction
-* Add two swipe gestures, one up and one down, to the AnimalPhotoViewController image view. Attach an `@IBAction` handler method to them to store the swipe direction in the view controller.
-* Add an extension to the view controller to give `Swipeable` the direction used.
-* Change the existing PhotoDetail segue to use your new Swipe segue.
+* Add a new protocol `ViewSwipeable` that stores the swipe direction
+* Add two swipe gestures, one up and one down, to the `AnimalPhotoViewController` image view. Attach an `@IBAction` handler method to them to store the swipe direction in the view controller.
+* Add an extension to the view controller for the `ViewSwipeable` protocol that retruns the direction used.
+* Change the existing `PhotoDetail` segue to use your new Swipe segue.
 
 As always the solution is in the accompanying sample code.
 
