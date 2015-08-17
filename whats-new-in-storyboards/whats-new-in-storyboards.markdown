@@ -46,95 +46,95 @@ Click and drag to highlight all scenes in the storyboard except for the tab bar 
 
 ![bordered width=90%](images/02-HighlightStoryboard.png)
 
-Select **Editor\Refactor to Storyboard** and enter **Checklists.storyboard** as the name of the new storyboard. Set the **Group** to **Checklists**. Click **Save**.
+Select **Editor\Refactor to Storyboard** and enter **Checklists.storyboard** as the name of the new storyboard. Set the **Group** to **Checklists**, then click **Save**.
 
-As if by magic, Xcode will now:
+As if by magic, Xcode does the following:
 
-1. Split out the selected scenes into a new storyboard.
-2. Change the target of the tab bar controller's "view controllers" segue to a storyboard reference that points to the relevant scene in the new storyboard.
-3. Take you to the new storyboard.
+1. Splits out the selected scenes into a new storyboard.
+2. Changes the target of the tab bar controller's "view controllers" segue to a storyboard reference that points to the relevant scene in the new storyboard.
+3. Takes you to the new storyboard.
 
-You may have to zoom out and reposition the new storyboard to see all the scenes. The arrangement of the scenes complete with segues is exactly as in the original storyboard. Here's what the new storyboard should look like:
+You may have to zoom out and reposition the new storyboard to see all of its scenes. The arrangement of the scenes and their segues is exactly like it was in the original storyboard. Here's what the new storyboard should look like:
 
 ![bordered width=90%](images/03-Refactored.png)
 
-Lets check out what happened to the original storyboard. Open **Main.storyboard** and take a look.
+But what happened to the original storyboard? Open **Main.storyboard** and take a look:
 
 ![bordered width=95%](images/04-AfterRefactor.png)
 
-The tab bar controller's "view controllers" segue now points to the storyboard reference for the navigation controller in **Checklists.storyboard**. The storyboard reference uses the navigation controller's storyboard ID to refer to it.
+The tab bar controller's "view controllers" segue now points to the storyboard reference for the navigation controller in **Checklists.storyboard**. The storyboard reference uses the navigation controller's storyboard ID to refer to it [TODO: FPE: What's "it"?].
 
-There are three 'dangling' storyboard references to view controllers that had storyboard IDs set: `ChecklistDetailViewController`, `AddChecklistItemNavigationController` and `AddChecklistItemViewController`. Select these and delete them, as they're not needed.
+There are a few 'dangling' storyboard references to view controllers that had storyboard IDs set; you won't need these any longer. Select `ChecklistDetailViewController`, `AddChecklistItemNavigationController` and `AddChecklistItemViewController` and delete them.
 
-> **Note**: If your view controllers don't have a storyboard ID set in the storyboard, then Interface Builder will automatically generate an ID for them when you use the Refactor to Storyboard command. However, these IDs are pretty ugly; for example _UIViewController-gtY-c7-gYu_. Whilst you can change this later, we'd recommend that you explicitly set storyboard IDs yourself for any view controllers you want to use with references, as it makes things much easier to follow.
+> **Note**: If you don't have a storyboard ID set on your view controllers in the storyboard, the **Refactor to Storyboard** command automatically generates an ugly ID for them [TODO: FPE: What's "them" - the storyboard IDs, the view controllers...?], such as _UIViewController-gtY-c7-gYu_. You can change this later, but it's much easier to keep track of things when you explicitly set the storyboard IDs yourself.
 
-As well as referencing a specific view controller, storyboard references can also just refer to the initial scene in a storyboard. Let's change this one to do so.
+Instead of referencing specific view controllers, storyboard references can simply refer to the initial scene in a storyboard.
 
-Still in **Main.storyboard**, select the new storyboard reference (it'll be named **ChecklistsNavigationController**). In the **Attributes Inspector** remove the **Referenced ID**.
+Still in **Main.storyboard**, select the new storyboard reference named **ChecklistsNavigationController** and use the **Attributes Inspector** to remove the **Referenced ID**, like so:
 
 ![bordered height=12%](images/05-StoryboardReferenceID.png)
 
-&nbsp;
-
-The reference will now point to whatever the initial view controller is in **Checklists.storyboard**.
+The reference now points to whatever the initial view controller might be is in **Checklists.storyboard**.
 
 ![bordered height=5%](images/06-ChecklistsStoryboardRef.png)
 
-> **Note**: The Initial View Controller in a storyboard is the one with the arrow pointing to it from the left.
+> **Note**: The initial view controller has arrow pointing to it from the left-hand side.
 
-Head over to **Checklists.storyboard** and select the **Checklists Navigation Controller** scene. In the **Attributes Inspector** check **Is Initial View Controller** to indicate that this is the scene that should be the entry point for the storyboard.
+Open **Checklists.storyboard** and select the **Checklists Navigation Controller** scene. Use the **Attributes Inspector** to check **Is Initial View Controller**; this indicates this scene should be the entry point for the storyboard.
 
 ![bordered width=36%](images/07-NavigationStoryboardID.png)
 
-Build and run. The app should perform just as it did when you started. The only difference is that things are better organized behind the scenes!
+Build and run your project; the app performs just as it did when you started. The only difference is that things are a little more organized behind the scenes!
 
 ## Storyboards within a team
 
-In the past it has been difficult to design and share storyboards amongst the members of a development team. In fact, this has been a big reason that some developers have still been avoiding storyboards: fear of the dreaded merge conflict.
+Distributed development of storyboards has always been a challenge; in fact, many developers still avoiding storyboards out of fear of the dreaded merge conflict. But storyboard references can help you avoid the complications of team storyboard development.
 
-Imagine that you are writing Prepped together with a fellow apocalypse survivor, whose task it is to create the diary entries functionality. She's finished building it using a separate storyboard, and now you need to add it to your own storyboard hierarchy... while you still can!
+Consider the following scenario: you're writing Prepped with a fellow apocalypse survivor, whose task it is to create the functionality to handle the diary entries. She's built it using a separate storyboard, and now you need to add it to your own storyboard hierarchy...before the zombies descend upon your little enclave.
 
-In the project navigator, select the top level **Prepped group**, just below the project itself. Click **File\Add Files to "Prepped"**. Navigate to the Prepped folder, and select the **Diary** folder. Ensure that **Copy items if needed** is checked in the dialog box, and that **Added folders** is set to **Create groups**. Ensure that **Add to targets** is ticked for **Prepped**. Click **Add** to add the folder and its contents to the project.
+In the project navigator, select the top level **Prepped group**, found just below the project itself. Click **File\Add Files to "Prepped"**. Navigate to the Prepped folder, and select the **Diary** folder. Ensure that **Copy items if needed** is checked in the dialog box, and that **Added folders** is set to **Create groups**. Ensure that **Add to targets** is ticked for **Prepped**. Click **Add** to add the folder and its contents to the project.
 
-In **Main.storyboard** drag a **storyboard reference** from the **Object Library** into the storyboard (drag it to an empty space, not onto a scene).
+In **Main.storyboard**, drag a **storyboard reference** from the **Object Library** into an empty space on the storyboard:
 
 ![bordered height=20%](images/08-StoryboardReference.png)
 
-**Ctrl-drag** from the existing tab bar controller scene to the **storyboard reference**.
+**Ctrl-drag** from the existing tab bar controller scene to the **storyboard reference**:
 
 ![bordered height=23%](images/09-ConnectStoryboardRef.png)
 
 In the pop-up that appears, choose **view controllers** from the **Relationship Segue** section.
 
-Select the **storyboard reference** you just added. In the **Attributes Inspector** set the **Storyboard** to **Diary**.
+Select the **storyboard reference** you just added. In the **Attributes Inspector** set the **Storyboard** to **Diary**:
 
 ![bordered height=13%](images/10-DiaryStoryboardRef.png)
 
-Build and run the app and you should now have two tabs: one for Checklists and one for Diary. You can now add Diary entries using the storyboard scenes and code created by your sister-in-arms. Storyboard references make it easier to share the load :].
+Build and run your app; you'll see one tab to handle Checklists, and another tab for the Diary entries – the functionality your teammate worked on. You can now add Diary entries using the storyboard scenes and code created by your sister-in-arms:
 
 ![iphone bordered](images/11-Diary.png)
 
-> **Note**: Currently both of the tabs in the tab bar controller in the storyboard have the title _Item_. The correct title is loaded during runtime from the Checklists and Diary storyboards. You can change the titles in **Main.storyboard** for your reference, but it won't make any difference at runtime.
+> **Note**: Currently both tabs in the tab bar controller in the storyboard display the title _Item_. The proper title will be loaded at runtime from the Checklists and Diary storyboards. You can change the titles in **Main.storyboard** for your own reference, but it won't make any difference at runtime.
 
 ## Focus on a storyboard
 
-For the next few sections, you'll be working on checklist items. When working on scenes deep down in the app hierarchy, it can be annoying to tap down into them just to test your new code. Now with storyboard references you can isolate the scenes you're currently working on into their own storyboard and instruct the app to launch straight into it. You'll do that now for the checklist item section.
+Isn't it annoying when you have to tap through a bunch of scenes in your app, when you're just trying to test one single scene buried deep in the stack? With storyboard references you can isolate the scenes you're interested in into their own storyboard and instruct the app to launch straight into that. You'll do that now for the checklist item section.
 
-In **Checklists.storyboard** highlight the **Checklist Detail View Controller**, the **Add Item Navigation Controller** and the **Add Item View Controller** scenes.
+In **Checklists.storyboard** highlight the **Checklist Detail View Controller**, **Add Item Navigation Controller** and **Add Item View Controller** scenes:
 
 ![bordered width=90%](images/12-ItemsRefactored.png)
 
 Select **Editor\Refactor to Storyboard** and name the new storyboard **ChecklistDetail.storyboard**. Ensure that the **Group** is still set to **Checklists**.
 
-Just as you did for the CheckLists storyboard, in **ChecklistDetail.storyboard** select the **Checklist Detail View Controller** scene and in the **Attributes Inspector** check **Is Initial View Controller**. The Checklist Detail View Controller should now have an arrow on its left indicating that it is the first scene in the storyboard.
+Just as you did for the CheckLists storyboard, select the **Checklist Detail View Controller** scene in **ChecklistDetail.storyboard**, and use the **Attributes Inspector** to check **Is Initial View Controller**. The Checklist Detail View Controller should now have an arrow on its left to indicate it's the first scene in the storyboard.
 
-Click on the **Prepped project** at the top of the **project navigator**, then click on the **Prepped target** and choose the **General** tab. Change **Main Interface** to **ChecklistDetail.storyboard**.
+Click on the **Prepped project** at the top of the project navigator, then click on **Prepped target** and choose the **General** tab. Change **Main Interface** to **ChecklistDetail.storyboard**:
 
 ![bordered height=24%](images/13-ProjectSettings1.png)
 
-Build and run the app and see that the checklist detail scene is loaded first. Note that the navigation bar and tab bar are missing, because the view controller is no longer embedded in a navigation or tab bar controller. This is only a temporary situation while you work on the items storyboard.
+Build and run your app; you'll see the checklist detail scene loads first:
 
 ![iPhone bordered](images/14-ChecklistDetail.png)
+
+ Where are the navigation and tab bar? Since the view controller is no longer embedded in a navigation or tab bar controller, you won't see those two elements while you're working on the items storyboard.***
 
 > **Note:** If a view controller that you're working on requires properties to be set on it by its presenting view controller before it loads correctly, changing the initial storyboard temporarily may not work for you. In this example though, `ChecklistDetailViewController` has been set up to load initial sample data.
 
