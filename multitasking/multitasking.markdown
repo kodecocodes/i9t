@@ -149,7 +149,7 @@ Build and run; again, verify the app still looks and behaves as it did before mu
 
 ## Adaptive presentation
 
-Continue your evaluation of the app: this time with the device in landscape orientation and the Split View at 33%, tap the **Photo Library** bar button. You'll see the following popover:
+Continue your evaluation of the app: this time with the device in landscape orientation and the Split View at 33%, tap the **Photo Library** bar button. You'll see the following popover:***
 
 ![bordered ipad](images/mt091.png)
 
