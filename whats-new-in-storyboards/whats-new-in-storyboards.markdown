@@ -1,52 +1,48 @@
 # Chapter 5: What's New in Storyboards
 
-Storyboards were first introduced back with iOS 5. For the first time, they allowed the view controller hierarchy of an app to be mapped out visually, making the flow of larger apps easier to understand and navigate.
+Storyboards have been around since iOS 5 and have received lots of upgrades and new features since then, including unwind segues for reverse navigation, universal storyboards for both iPhone and iPad, and live rendering of views designed in code.
 
-Apple have continued to improve storyboards over the years with unwind segues for reverse navigation, universal storyboards for both iPhone and iPad, and live rendering which lets us preview and configure views designed in code.
+Xcode 7 brings a new set of additions to storyboards that let you do the following:
 
-Xcode 7 brings its own set of great new additions to storyboards. This chapter will give you some experience using each one:
+* Refactor single storyboards into multiple storyboards and link them visually via _storyboard references_.
+* Add supplementary views to a view controller using the _scene dock_.
+* Add _multiple buttons_ to a navigation bar, right from the storyboard itself!
 
-* Refactoring single storyboards into multiple storyboards and linking them together visually with _storyboard references_.
-* Adding supplementary views to a view controller using the _scene dock_.
-* Adding _multiple buttons_ to a navigation bar, right in a storyboard!
+You'll learn how to use the above features as you update an app designed to help you with all those listable moments in life, whether it's grocery shopping, packing your luggage for vacation, or a survival checklist for the impending zombie apocalypse! :]  
 
-You'll do all of this whilst updating a cool app designed to help you with all those moments in life that need lists: whether it's grocery shopping, packing your luggage for vacation, or a survival checklist for the impending zombie apocalypse. :]  
-
-To get the most out of this chapter, it'll help if you have some basic storyboard and table view knowledge. Check out our _Storyboards Tutorial in Swift_ at <http://bit.ly/1SCaJuN> if you need to brush up.
+To get the most out of this chapter you should have some basic storyboard and table view knowledge. Need a quick brush-up? Check out our _Storyboards Tutorial in Swift_ at <http://bit.ly/1SCaJuN>.
 
 ## Getting started
 
-Open up the starter project for this chapter and run it in the simulator. You'll see a list of checklists. Tap into one to see the items that are on the list, whether it's groceries, medical supplies, or equipment to fend off an undead hoard. You can tick off an item by tapping its checkbox.
+Open the starter project for this chapter and run it in the simulator; tap one of the displayed checklists to view the items contained within. Tapping an item checks it off. Done and done!
 
 ![iphone bordered](images/01-Prepped.png)
 
-Head back to Xcode to familiarize yourself with the code. **ChecklistsViewController.swift** contains the initial list of checklists, and **ChecklistDetailViewController.swift** displays the items within each list.
+Take a quick look at the code to get you bearings. **ChecklistsViewController.swift** contains the initial list of checklists, and **ChecklistDetailViewController.swift** displays the items within each list. **Main.storyboard** contains the user interface items.
 
-The user interface is currently all contained in **Main.storyboard**. There are also two scenes in there that aren't used in the starter app. You'll hook those up later in the tutorial so that you can add checklist items.
+There are two unused scenes in there [TODO: FPE: In where?]; you'll use those later in the tutorial.
 
-When you've finished the final app, you will be able to add checklist items to a list, add notes to an item, delete items, and also make diary entries to record your survival efforts.
+The app is not quite complete; your task in this chapter is to improve it so you can add items to a list, add notes to an item, delete an item and add diary entries to record your zombie survival efforts.
 
 ## Storyboard references
 
-If you've used storyboards on a large project or as part of a team with other developers, you'll know that they can sometimes become a bit unwieldy. Merge conflicts, spaghetti-like segue arrows, and navigating your way around a wall of view controllers is enough to make anybody question whether storyboards are worth the effort.
+If you've used storyboards on a large project or as part of a team with other developers, you'll know they're a bit unwieldy sometimes. Merge conflicts, spaghetti-like segue arrows and navigating your way around a wall of view controllers is enough to make anybody question whether storyboards are worth the effort.
 
-Whilst you've always been able to use multiple storyboards within an app, you've never been able to add segues between those storyboards in Interface Builder. Up until now, if you wanted to present a view controller from a different storyboard, you'd have to instantiate it and present it in code. But no longer!
+Although you've always been able to use multiple storyboards in your apps, you've never been able to add segues between those storyboards in Interface Builder. To present a view controller from a different storyboard, you'd have to instantiate it first and present it in code. But no longer!
 
-Xcode 7 introduces **storyboard references**, which allow you to add references between storyboards right in Interface Builder. Storyboard references can refer to storyboards within the same bundle or even different bundles. They can point to specific view controllers, or just to the initial view controller within another storyboard.
+With Xcode 7, you can add references between storyboards right in Interface Builder using **storyboard references**, which can either point to specific view controllers or to the initial view controller within another storyboard. This makes it much easier to divide up storyboards into smaller storyboards, and alleviates many of the issues mentioned above without needing to add any extra code. Multiple smaller storyboards also make it possible for other team members to work independently on their own storyboards without stepping on each other's toes.
 
-> **Note**: Storyboard references are actually backwards compatible back to iOS 8. However when used on iOS 8, you can't use a storyboard reference with a relationship segue, or to point to storyboards in external bundles.
+Enough theory – time to put it into practice!
 
-This makes it much easier to divide up storyboards into smaller storyboards, and alleviates many of the issues mentioned above without having to add any extra code. Having separate storyboards means that each one can be smaller and easier to work with. It also means that other people on your team can be working on their own storyboards independently, making it much easier to work together on a project that uses storyboards.
-
-Enough theory - let's put it into practice!
+> **Note**: Storyboard references are actually backwards-compatible to iOS 8. However, in iOS 8 you can't use a storyboard reference with a relationship segue, or use it to point to storyboards in external bundles.
 
 ## Creating your first storyboard reference
 
-Whilst **Prepped** is currently only a small app in the early stages of development, there are already some logical places to divide up its main storyboard. Container view controllers are a good place to consider splitting out functionality into new storyboards. Prepped uses a tab bar controller, and in this case it makes sense to separate each tab's children into their own storyboards.
+In its current state, **Prepped** is a small app in the early stages of development, but there's enough structure there to discern where to divide up the main storyboard. Container view controllers are a good place to consider splitting out functionality into new storyboards. Prepped uses a tab bar controller, and in this case it makes sense to separate each tab's children into their own storyboards.
 
-In the starter project, open **Main.storyboard** and zoom out so that you can see all six scenes. You can hold **Command** and press **+** to zoom in or **-** to zoom out, or right-click on a blank area in the storyboard and choose your zoom level.
+Open **Main.storyboard** and zoom out so you can see all six scenes. Hold **Command** and press **+** to zoom in and **-** to zoom out, or **right-click** on a blank area in the storyboard and choose your zoom level.
 
-Highlight all the scenes in the storyboard except for the tab bar controller on the left hand side by clicking and dragging over them:
+Click and drag to highlight all scenes in the storyboard except for the tab bar controller on the left-hand side:
 
 ![bordered width=90%](images/02-HighlightStoryboard.png)
 
