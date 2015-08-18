@@ -18,9 +18,9 @@ It's time to see how the app behaves in a multitasking environment. Swipe from t
 
 > **Note**:  If the locale of the iPad is set to a region with right-to-left language, swipe from the right edge of the screen to activate multitasking.
 
-Tap on any app to launch it. A small version of the app opens in the previous position of the list. At this point you're in **Slide Over** multitasking mode. Note that Travelog is dimmed out but otherwise unaffected. The app running in slide over mode sits on top of Travelog, and a short handle bar sits at top of the slide over. Swipe down on the handle to expose the list of multitasking apps and launch a different app in the Slide Over.
+Tap on any app to launch it. A small version of the app opens in the previous position of the list. At this point you're in **Slide Over** multitasking mode. Note that Travelog is dimmed out but otherwise unaffected. The app running in Slide Over mode sits on top of Travelog, and a short handle bar sits at top of the Slide Over. Swipe down on the handle to expose the list of multitasking apps and launch a different app in the Slide Over.
 
-You'll notice a handle at the edge of the slide over view. Tap it, and you'll see the following:
+You'll notice a handle at the edge of the Slide Over view. Tap it, and you'll see the following:
 
 ![width=90% ipad](images/mt06.png)
 
@@ -149,21 +149,21 @@ Build and run; again, verify the app still looks and behaves as it did before mu
 
 ## Adaptive presentation
 
-Continue your evaluation of the app: this time with the device in landscape orientation and the Split View at 33%, tap the **Photo Library** bar button. You'll see the following popover:***
+Continue your evaluation of the app: this time with the device in landscape orientation and the Split View at 33%, tap the **Photo Library** bar button. You'll see the following popover:
 
 ![bordered ipad](images/mt091.png)
 
-With popover still visible, drag the divider further to the left so that the screen is divided in half between the two apps.
+With the popover still visible, drag the divider further to the left so the screen is evenly divided between the two apps:
 
 ![bordered ipad](images/mt092.png)
 
-You notice that the popover automatically turns into a modal view. When you drag the divider to 50%, the horizontal size class of the app changes from regular to compact. In this situation the default behavior of UIKit is to present a popover as a modal view, but this is not exactly what you want.
+The popover automatically turned into a modal view without any action on your part; dragging the divider to 50% changes the horizontal size class of the app from regular to compact. That's neat, but it's not quite the functionality you're looking for.
 
-You want to present Photo Library modally only if the app is in slide over mode or it is the secondary app in 33% Split View, similar to an iPhone screen size. You get to this size if your app is opened in the Slide Over. But at 50%, you'd still rather present the Photo Library in a popover.
+Instead, you want to present your Photo Library in a modal fashionn _only_ when the app is in Slide Over mode, or when it's the secondary app in 33% Split View mode; Your app assumes the smaller size when it's opened in the Slide Over. [TODO: FPE: Previous sentence was unclear when I edited it, please check for technical accuracy.]  But at 50%, you'd still rather present the Photo Library in a popover.
 
-In iOS 8 Apple introduced `UIPopoverPresentationController` to manage the display of content in a popover. You use `UIPopoverPresentationController` along with `UIModalPresentationPopover` presentation style to present popovers. You can intercept the presentation and customize by using `UIPopoverPresentationControllerDelegate` callbacks.
+iOS 8 introduced `UIPopoverPresentationController` to manage the display of the content in a popover; you use it along with the `UIModalPresentationPopover` presentation style to present popovers. However, you can intercept the presentation and customize it with `UIPopoverPresentationControllerDelegate` callbacks.
 
-Open **LogsViewController.swift** and add a class extension at the end of the file:
+Open **LogsViewController.swift** and add the following class extension to the end of the file:
 
 ```swift
 extension LogsViewController : UIPopoverPresentationControllerDelegate {
@@ -185,10 +185,12 @@ extension LogsViewController : UIPopoverPresentationControllerDelegate {
 
 Here's a breakdown of the code:
 
-1. Ensure that this is an iPad (the photo picker should always be presented modally on the iPhone)
-2. Check that the split view controller is larger than 320 points (the size of the slide over / 33% view). If it is, you can return `.None` to keep the popover, otherwise return `.FullScreen` to do a modal presentation instead.
+1. Check that the app is running on an iPad; the photo picker should always be presented modally on the iPhone.
+2. Check that the split view controller is larger than 320 points — the size of the Slide Over / 33% view. If so, return `.None` to retain the popover, otherwise return `.FullScreen` for a modal presentation instead.
 
-Now that `LogsViewController` can be a delegate of the popover presentation controller, you can make it so. Find the implementation of `presentImagePickerControllerWithSourceType(_:)`. You see that if the source type is `.PhotoLibrary`, the `UIImagePickerController` instance is presented as a popover. Update its implementation by adding `presenter?.delegate = self` as shown below:
+Now you can make `LogsViewController` a delegate of the popover presentation controller.
+
+Find the implementation of `presentImagePickerControllerWithSourceType(_:)`. Read through the implementation and you'll see that when the source type is `.PhotoLibrary`, `UIImagePickerController` presents as a popover. Update the implementation by adding `presenter?.delegate = self` as shown below:
 
 ```swift
 func presentImagePickerControllerWithSourceType(sourceType: UIImagePickerControllerSourceType) {
@@ -201,38 +203,40 @@ func presentImagePickerControllerWithSourceType(sourceType: UIImagePickerControl
 }
 ```
 
-Build and run. Verify that the only time you see the popover turning into a modal fullscreen view is when your app is in the Slide Over or in the portrait orientation with multitasking enabled.
+Build and run your app; verify that the popover transitions to a modal fullscreen view only when your app is in the Slide Over mode or portrait orientation with multitasking enabled" [TODO: FPE: Please check the preceding sentence for technical accuracy as I edited it a fari bit.]
 
 ![width=95%](images/mt093.png)
 
-There are some great tools in UIKit to prepare you for multitasking and adaptivity. Auto Layout, Size Classes are couple of them. If you are not using them already, it's time to update your code. In addition to those, there are  some new tools in UIKit to further assist you with multitasking; `UIStackView`,  `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth` are just a few of them. You can learn more about **UIStackView and Auto Layout Changes** in chapter XX of this book.
+[TODO: CRB: Need header]
+
+If you're not already using Auto Layout, Size Classes or other excellent responsive layout tools in UIKit, you should definitely consider upgrading your code to do so. UIKit has some new functionality to further assist you with multitasking, including `UIStackView`,  `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth`. Want more information on this functionality? Chapter XX, "UIStackView and Auto Layout Changes" has you covered.
 
 ## Other considerations
 
-There are other things to look out for when multitasking. Many of these are things you already know or should be doing, but have to consider more carefully now. Here are a few:
+Beyond what's been covered in this chapter, there are a few other things to look out for when multitasking. You should already have incorporated most of these suggestions into your existing apps, but there are a few extra considerations in the new paradigm of multitasking.
 
 ### Keyboard
 
-Dealing with keyboard presentation has always been an "interesting" topic in iOS. You probably have the experience of adjusting your view layout when the keyboard is presented to give user some room or move some UI elements to keep them visible.
+Dealing with keyboard presentation has always been an "interesting" topic in iOS. :] You've probably had to adjust the layout of your view so critical elements weren't covered when the keyboard appeared or to give the keyboard enough room. In the multitasking world, you need to anticipate the keyboard appearing at any time — and over any view controller.
 
-In a multitasking environment you have new requirement: the keyboard could appear at any time, over any view controller!
-
-Other apps running next to your app may present the keyboard and you need to adjust your layout so that the user can continue to use your app - or they may leave you bad reviews in the App Store! :]
-
-Judicious use of scroll views and / or table view controllers (which automatically adjust for the keyboard!) will help you here.
+Apps running next to yours may present the keyboard, which means you'll have to adjust the layout of your app in a way that a user can still effectively work with it — or you'll risk getting one-star reviews in the App Store! :] Judicious use of scroll views and/or table view controllers that automatically adjust for the keyboard will help you out here.
 
 ### Designs
 
-- **Be flexible:** Step away from a pixel-perfect design for various platforms and orientations. You need to think about different sizes and how you can have a flexible app that responds to size changes appropriately.
-- **Use Auto Layout:** Remove hardcoded sizes or code that manually changes size of elements. It's time to consider Auto Layout and make your code more flexible and easier to maintain.
-- **Use Size classes:** One single layout doesn't always fit all displays. Use size classes to build a base layout and then customize each specific size class based on the individual needs of that size class. Don’t treat each of the size classes as a completely separate design, though, because as you see in this chapter, an app on a single device can go from one size class to another size class. You don't want to make a dramatic change as user drags the divider!
+Above and beyond coding considerations, you'll need to change your approach to app visual design a little differently:
+
+- **Be flexible:** Step away from a pixel-perfect design for various platforms and orientations. You need to think about different sizes and how you can have a flexible app that responds appropriately to size changes.
+- **Use Auto Layout:** Remove hardcoded sizes or custom code that resizes elements. It's time to consider Auto Layout and make your code more flexible and future-proof.
+- **Use size classes:** One single layout won't always fit all displays. Use size classes to build a base layout and then customize each specific size class based on individual needs. But don’t treat each size class as a completely separate design; as you saw in this chapter, app should easily transition from one size class to another, and you don't want to surprise your user with a dramatic change as they drag the divider.
 
 ### Resources
 
-Memory is a limited resource. You've always been told to be a good memory citizen. In a multitasking enabled iPad, you can potentially have up to 3 apps running at full speed at the same time: the primary app, the secondary app and Picture in Picture. It's important to understand how these apps interact and how they affect available memory. Use Instruments and try and get your memory usage as low as possible.
+You've worked hard to be a good memory citizen over the years, and that won't change with multitasking. You can potentially have up to three apps running at full speed, all at the same time: the primary app, the secondary app and Picture in Picture. Instruments is an invaluable tool for monitoring memory usage in your app and can help you whittle your memory usage back to the bare minimum.
 
-## Where to go from here
-In this chapter you learned about basics of Multitasking. Multitasking completely changes the way users use their iPads. Here are a number of resources that you can bookmark for future reference:
+## Where to go from here?
+
+In this chapter, you learned about basics of multitasking, which will completely change the way users interact with their iPads. To help you along the journey to multitasking, here are some resources you can bookmark for future reference:
+
 * [Adopting Multitasking Enhancements on iPad- http://apple.co/1MdssbK](https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html)
 * [Getting Started with Multitasking on iPad in iOS 9 (Session 205) - http://apple.co/1ItxCtH](https://developer.apple.com/videos/wwdc/2015/?id=205)
 * [Multitasking Essentials for Media-Based Apps on iPad in iOS 9 (session 211) - http://apple.co/1hm8v5s](https://developer.apple.com/videos/wwdc/2015/?id=211)
