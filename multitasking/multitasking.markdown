@@ -2,7 +2,7 @@
 
 By Soheil Azarpour
 
-iOS 9 introduces a phenomenal feature for the iPad — **multitasking**. For the first time ever on the iPad, users can run two apps on screen at the same time. You can read a proposal in your email client while you research the topic in Safari, open on the same screen. Or you can keep an eye on Twitter while you enjoy your favorite sports show at the same time on the same screen. This is an insane productivity boost for a small device you can hold in your hands and is likely to change the way users interact with their iPads.
+iOS 9 introduces a phenomenal feature for the iPad — **multitasking**. For the first time ever, iPad users can run two apps on screen at the same time. Maybe you want to read a proposal in your email client while you research the topic in Safari. Or you'd like to keep an eye on Twitter while you enjoy your favorite sports show. For a tiny device that you can hold in one hand, this is a crazy amount of productivity power. It's undoubtedly going to change the way users interact with their iPads.
 
 In this chapter, you'll learn how to update an existing app so that it plays nicely in a multi-tasked iPad environment.
 
