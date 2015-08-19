@@ -67,9 +67,14 @@ class EmployeeViewController: UIViewController {
     
     
     let activity = employee.userActivity
-    if case .Disabled = Setting.searchIndexingPreference {
+    
+    switch Setting.searchIndexingPreference {
+    case .Disabled:
       activity.eligibleForSearch = false
-    } else {
+    case .ViewedRecords:
+      activity.eligibleForSearch = true
+      activity.contentAttributeSet?.relatedUniqueIdentifier = nil
+    case .AllRecords:
       activity.eligibleForSearch = true
     }
     

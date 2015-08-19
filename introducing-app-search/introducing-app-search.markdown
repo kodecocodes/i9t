@@ -107,17 +107,22 @@ Now your `NSUserActivity` property you can be used when an employee record is be
 Open **EmployeeViewController.swift** and add the following at the bottom of the `viewDidLoad()` method.
 
 ```swift
-let activity = employee.userActivity
-if case .Disabled = Setting.searchIndexingPreference {
+switch Setting.searchIndexingPreference {
+case .Disabled:
   activity.eligibleForSearch = false
-} else {
+case .ViewedRecords:
+  activity.eligibleForSearch = true
+  activity.contentAttributeSet?.relatedUniqueIdentifier = nil
+case .AllRecords:
   activity.eligibleForSearch = true
 }
 
 userActivity = activity
 ```
 
-In this code you are retrieving the `userActivity` property that you just created on `Employee` via an `extension`. You then check the app's setting. If searching is disabled, mark the activity as not eligible for search, otherwise mark it true. Finally, set the view controller's `userActivity` property to your value.
+In this code you are retrieving the `userActivity` property that you just created on `Employee` via an `extension`. You then check the app's search setting. If searching is disabled, mark the activity as not eligible for search. If it's `ViewedRecords` mark the activity eligible for search, but also set the `relatedUniqueIdentifier` to `nil`. This attribute is currently not being set, but you will set it later when performing a full-index of the app's contents. It is required that this be `nil` if you do not have a corresponding Core Spotlight index item. When the search setting is `AllRecords` mark the activity as eligible for search.
+
+Finally, set the view controller's `userActivity` property to your value.
 
 > **NOTE**: The `userActivity` property on the view controller is inherited from `UIResponder`, in iOS 8 Apple added this property for Handoff support.
 
