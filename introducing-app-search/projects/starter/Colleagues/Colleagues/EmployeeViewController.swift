@@ -39,20 +39,6 @@ class EmployeeViewController: UIViewController {
   
   var employee: Employee!
   
-  override func loadView() {
-    super.loadView()
-    
-    let sameDepartmentList = storyboard!.instantiateViewControllerWithIdentifier("EmployeeList") as! EmployeeListViewController
-    addChildViewController(sameDepartmentList)
-    sameDepartmentList.willMoveToParentViewController(self)
-    sameDepartmentList.view.frame = sameDepartmentContainerView.bounds
-    sameDepartmentContainerView.addSubview(sameDepartmentList.view)
-    sameDepartmentList.didMoveToParentViewController(self)
-    sameDepartmentList.runFilter { employee -> Bool in
-      employee.department == self.employee.department && employee.objectId != self.employee.objectId
-    }
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -64,7 +50,15 @@ class EmployeeViewController: UIViewController {
     emailLabel.text = employee.email
     skillsLabel.text = ", ".join(employee.skills)
     otherEmployeesLabel.text = "Other employees in \(employee.department)"
-    
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if let destination = segue.destinationViewController as? EmployeeListViewController
+      where segue.identifier == "EmployeeListEmbedSegue" {
+        destination.runFilter { employee -> Bool in
+          employee.department == self.employee.department && employee.objectId != self.employee.objectId
+      }
+    }
   }
   
   @IBAction func call(sender: UITapGestureRecognizer) {
