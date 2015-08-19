@@ -33,6 +33,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    configureAppearance()
+    return true
+  }
+  
+  func configureAppearance() {
     UINavigationBar.appearance().translucent = true
     UINavigationBar.appearance().titleTextAttributes =
       [NSForegroundColorAttributeName : UIColor.whiteColor()]
@@ -41,7 +46,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     UITableView.appearance().backgroundColor = AppBackgroundColor
     UITableViewCell.appearance().backgroundColor = AppBackgroundColor
-    return true
   }
   
 }

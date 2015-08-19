@@ -503,7 +503,7 @@ To help cement your new skills, and become a dab hand at segues, here's a challe
 
 Your first challenge is to complete the Scale Segue. You will create the dismiss animator and set the segue to use this dismiss animator.
 
-The code will look very similar to the presenting animator from this chapter, except that the from- view controller is now the modal view controller and to- view will be the view underneath. On a compact size class, the framework removes this view because modal views fully cover the screen. So `toView` needs to be added back in to the view hierarchy of the `containerView`. This is the code you will use for that:
+The code will look very similar to the presenting animator from this chapter, except that the from- view controller is now the modal view controller and to- view will be the view underneath. The animator object is responsible for adding the to- view back to the hierarchy during the transition, so you will need to add this code to insert the to- view at the right place in the hierarchy:
 
 ```swift
 if let fromView = fromView,
