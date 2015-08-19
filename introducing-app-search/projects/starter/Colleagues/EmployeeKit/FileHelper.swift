@@ -29,10 +29,10 @@ class FileHelper {
   }
   
   static var bundlePath: String {
-    return self.bundle.bundlePath
+    return bundle.bundlePath
   }
   
   static var employeesJsonFilePath: String {
-    return self.bundle.pathForResource("employees", ofType: "json")!
+    return bundle.pathForResource("employees", ofType: "json")!
   }
 }

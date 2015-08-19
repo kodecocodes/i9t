@@ -41,6 +41,7 @@ class EmployeeListViewController: UIViewController {
   
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
+    
     if let selectedIndexPath = selectedIndexPath {
       tableView.deselectRowAtIndexPath(selectedIndexPath, animated: true)
     }
@@ -48,10 +49,11 @@ class EmployeeListViewController: UIViewController {
   
   override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
     if identifier == "ViewEmployee" && navigationController?.viewControllers.count > navigationStackLimit {
-      // prevent the user from going TOO deep
+      // prevent the user from navigation too many levels deep
       if let cell = sender as? UITableViewCell, indexPath = tableView.indexPathForCell(cell) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
       }
+      
       return false
     }
     
@@ -66,13 +68,13 @@ class EmployeeListViewController: UIViewController {
     }
   }
   
-  func runFilter(filter: (Employee -> Bool)) {
+  func filterEmployees(filter: (Employee -> Bool)) {
     employeeList = employeeList.filter(filter)
   }
 }
 
 
-extension EmployeeListViewController: UITableViewDataSource, UITableViewDelegate {
+extension EmployeeListViewController: UITableViewDataSource {
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return employeeList.count
@@ -90,6 +92,9 @@ extension EmployeeListViewController: UITableViewDataSource, UITableViewDelegate
     
     return cell
   }
+}
+
+extension EmployeeListViewController: UITableViewDelegate {
   
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     selectedIndexPath = indexPath

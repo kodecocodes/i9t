@@ -55,7 +55,7 @@ class EmployeeViewController: UIViewController {
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let destination = segue.destinationViewController as? EmployeeListViewController
       where segue.identifier == "EmployeeListEmbedSegue" {
-        destination.runFilter { employee -> Bool in
+        destination.filterEmployees { employee -> Bool in
           employee.department == self.employee.department && employee.objectId != self.employee.objectId
       }
     }
