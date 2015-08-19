@@ -27,6 +27,16 @@ class AnimalsViewController: UIViewController {
   
   @IBOutlet var tableView: UITableView!
   
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    configureView()
+  }
+  
+  func configureView() {
+    let image = UIImage(named: "LogoTitle")
+    navigationItem.titleView = UIImageView(image: image)
+  }
+  
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let cell = sender as? UITableViewCell {
       let indexPath = tableView.indexPathForCell(cell)!
