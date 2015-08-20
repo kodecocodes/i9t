@@ -84,7 +84,7 @@ It looks like `viewWillTransitionToSize(_:, withTransitionCoordinator:)` is a go
 ```swift
 func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
   if size.width < UIScreen.mainScreen().bounds.width || size.width < size.height {
-    maximumPrimaryColumnWidth = 160.0
+    maximumPrimaryColumnWidth = 170.0
   } else {
     maximumPrimaryColumnWidth = UISplitViewControllerAutomaticDimension
   }
@@ -136,7 +136,7 @@ override func layoutSubviews() {
 Also update `widthThreshold`, declared at the beginning of `LogCell`, as follows:
 
 ```swift
-static let widthThreshold: CGFloat = 160.0
+static let widthThreshold: CGFloat = 170.0
 ```
 
 The updated code checks the width of the cell itself instead of the width of the screen. This decouples the view's behavior from its superviews. Adaptivity is now self-contained! :]
