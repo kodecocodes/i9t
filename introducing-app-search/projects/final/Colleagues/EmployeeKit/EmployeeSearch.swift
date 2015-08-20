@@ -24,21 +24,19 @@ import Foundation
 import CoreSpotlight
 import MobileCoreServices
 
-
 extension Employee {
   public static let domainIdentifier = "com.raywenderlich.colleagues.employee"
   
   public var userActivityUserInfo: [NSObject: AnyObject] {
     return ["id": objectId]
   }
-
+  
   public var userActivity: NSUserActivity {
     let activity = NSUserActivity(activityType: Employee.domainIdentifier)
     activity.title = name
     activity.userInfo = userActivityUserInfo
     activity.keywords = [email, department]
     activity.contentAttributeSet = attributeSet
-    
     return activity
   }
   
@@ -54,8 +52,9 @@ extension Employee {
     attributeSet.phoneNumbers = [phone]
     attributeSet.emailAddresses = [email]
     attributeSet.keywords = skills
-    attributeSet.relatedUniqueIdentifier = objectId
     
+    attributeSet.relatedUniqueIdentifier = objectId
+
     return attributeSet
   }
   
@@ -65,7 +64,4 @@ extension Employee {
       attributeSet: attributeSet)
     return item
   }
-
 }
-
-

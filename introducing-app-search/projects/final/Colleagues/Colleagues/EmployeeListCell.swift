@@ -25,6 +25,10 @@ import EmployeeKit
 
 class EmployeeListCell: UITableViewCell {
   
+  @IBOutlet private weak var pictureImageView: UIImageView!
+  @IBOutlet private weak var nameLabel: UILabel!
+  @IBOutlet private weak var titleLabel: UILabel!
+  
   var employee: Employee! {
     didSet {
       pictureImageView.image = employee.loadPicture()
@@ -32,9 +36,5 @@ class EmployeeListCell: UITableViewCell {
       titleLabel.text = employee.title
     }
   }
-  
-  @IBOutlet private weak var pictureImageView: UIImageView!
-  @IBOutlet private weak var nameLabel: UILabel!
-  @IBOutlet private weak var titleLabel: UILabel!
   
 }

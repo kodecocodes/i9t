@@ -23,7 +23,6 @@
 import Foundation
 import CoreSpotlight
 
-
 // MARK: Indexing
 extension EmployeeService {
   public func indexAllEmployees() {
@@ -49,7 +48,7 @@ extension EmployeeService {
         } else {
           print("Employees indexing deleted.")
         }
-    } 
+    }
   }
 }
 
@@ -57,13 +56,14 @@ public struct EmployeeService {
   
   public init() { }
   
-  /** Lookup an Employee by its `objectId`
-  - Parameter objectId: The `objectId` of the employee to lookup
+  /** Look up an employee by its `objectId`
+  - Parameter objectId: The `objectId` of the employee to look up
   - Returns: The employee or `nil` if one does not exist
   */
   public func employeeWithObjectId(objectId: String) -> Employee? {
     let employees = fetchEmployees()
     let filteredEmployees = employees.filter { $0.objectId == objectId }
+    
     return filteredEmployees.first
   }
   

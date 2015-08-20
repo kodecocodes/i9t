@@ -29,10 +29,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   var window: UIWindow?
   
+  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
+  
+    switch Setting.searchIndexingPreference {
+    case .Disabled:
+       EmployeeService().destroyEmployeeIndexing()
+    case .AllRecords:
+       EmployeeService().indexAllEmployees()
+    default: break
+    }
+    
+    return true
+  }
+  
   func application(application: UIApplication,
     continueUserActivity userActivity: NSUserActivity,
     restorationHandler: ([AnyObject]?) -> Void) -> Bool {
-      
       let objectId: String
       if userActivity.activityType == Employee.domainIdentifier,
         let activityObjectId = userActivity.userInfo?["id"] as? String {
@@ -49,35 +61,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
       if let nav = window?.rootViewController as? UINavigationController,
         listVC = nav.viewControllers.first as? EmployeeListViewController,
-        employee = EmployeeService().employeeWithObjectId(objectId)
-      {
-        nav.popToRootViewControllerAnimated(false)
-        
-        let employeeViewController = listVC
-          .storyboard?
-          .instantiateViewControllerWithIdentifier("EmployeeView") as! EmployeeViewController
-        
-        employeeViewController.employee = employee
-        nav.pushViewController(employeeViewController, animated: false)
-        return true
-      } else {
-        return false
+        employee = EmployeeService().employeeWithObjectId(objectId) {
+          nav.popToRootViewControllerAnimated(false)
+          
+          let employeeViewController = listVC
+            .storyboard?
+            .instantiateViewControllerWithIdentifier("EmployeeView") as! EmployeeViewController
+          
+          employeeViewController.employee = employee
+          nav.pushViewController(employeeViewController, animated: false)
+          return true
       }
+      
+      return false
   }
-  
-  
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-  
-    switch Setting.searchIndexingPreference {
-    case .Disabled:
-       EmployeeService().destroyEmployeeIndexing()
-    case .AllRecords:
-       EmployeeService().indexAllEmployees()
-    default: break
-    }
-    
-    return true
-  }
-  
 }
 

@@ -39,20 +39,6 @@ class EmployeeViewController: UIViewController {
   
   var employee: Employee!
   
-  override func loadView() {
-    super.loadView()
-    
-    let sameDepartmentList = storyboard!.instantiateViewControllerWithIdentifier("EmployeeList") as! EmployeeListViewController
-    addChildViewController(sameDepartmentList)
-    sameDepartmentList.willMoveToParentViewController(self)
-    sameDepartmentList.view.frame = sameDepartmentContainerView.bounds
-    sameDepartmentContainerView.addSubview(sameDepartmentList.view)
-    sameDepartmentList.didMoveToParentViewController(self)
-    sameDepartmentList.runFilter { employee -> Bool in
-      employee.department == self.employee.department && employee.objectId != self.employee.objectId
-    }
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -65,9 +51,8 @@ class EmployeeViewController: UIViewController {
     skillsLabel.text = ", ".join(employee.skills)
     otherEmployeesLabel.text = "Other employees in \(employee.department)"
     
-    
     let activity = employee.userActivity
-    
+
     switch Setting.searchIndexingPreference {
     case .Disabled:
       activity.eligibleForSearch = false
@@ -84,6 +69,15 @@ class EmployeeViewController: UIViewController {
   override func updateUserActivityState(activity: NSUserActivity) {
     activity.addUserInfoEntriesFromDictionary(
       employee.userActivityUserInfo)
+  }
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if let destination = segue.destinationViewController as? EmployeeListViewController
+      where segue.identifier == "EmployeeListEmbedSegue" {
+        destination.filterEmployees { employee -> Bool in
+          employee.department == self.employee.department && employee.objectId != self.employee.objectId
+      }
+    }
   }
   
   @IBAction func call(sender: UITapGestureRecognizer) {
