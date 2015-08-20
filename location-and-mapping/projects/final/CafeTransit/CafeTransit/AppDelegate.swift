@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			[NSForegroundColorAttributeName : UIColor.whiteColor()]
 		UINavigationBar.appearance().barTintColor = barColor
 		UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-		
+		UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
 		return true
 		
 	}
