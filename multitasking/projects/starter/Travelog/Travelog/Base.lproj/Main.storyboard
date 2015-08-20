@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QWS-6m-FVU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="QWS-6m-FVU">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
@@ -9,10 +9,7 @@
     <customFonts key="customFonts">
         <mutableArray key="HelveticaNeue.ttc">
             <string>HelveticaNeue</string>
-        </mutableArray>
-        <mutableArray key="HelveticaNeueExtras.ttc">
-            <string>HelveticaNeue-CondensedBold</string>
-            <string>HelveticaNeue-CondensedBold</string>
+            <string>HelveticaNeue</string>
         </mutableArray>
     </customFonts>
     <scenes>
@@ -189,7 +186,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yu4-XF-nmk" userLabel="Regular View">
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yu4-XF-nmk" userLabel="Regular View">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xnl-ZU-SBB" customClass="BorderedView" customModule="Travelog" customModuleProvider="target">
@@ -311,41 +308,65 @@
                                         <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8tO-Z2-6Q1" userLabel="Compact View">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k6P-Fq-ENn" userLabel="Day Label">
-                                                    <rect key="frame" x="0.0" y="4" width="590" height="40"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="blv-uH-hVw" customClass="BorderedView" customModule="Travelog" customModuleProvider="target">
+                                                    <rect key="frame" x="530" y="25.5" width="50" height="50"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="04" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2PJ-Vv-q65" userLabel="Day Label">
+                                                            <rect key="frame" x="0.0" y="4" width="50" height="32"/>
+                                                            <animations/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" priority="999" constant="100" id="1bp-oU-Cz3"/>
+                                                                <constraint firstAttribute="height" constant="32" id="AMS-U0-BXK"/>
+                                                                <constraint firstAttribute="height" constant="40" id="Sel-XG-vXk"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="28"/>
+                                                            <color key="textColor" red="0.2901960784" green="0.75294117650000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <variation key="default">
+                                                                <mask key="constraints">
+                                                                    <exclude reference="1bp-oU-Cz3"/>
+                                                                    <exclude reference="Sel-XG-vXk"/>
+                                                                </mask>
+                                                            </variation>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APR 2015" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="35e-El-WXm" userLabel="Month Year Label">
+                                                            <rect key="frame" x="0.0" y="28" width="50" height="22"/>
+                                                            <animations/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" priority="999" constant="100" id="21A-yV-GGr"/>
+                                                                <constraint firstAttribute="height" constant="22" id="4DP-1l-jPc"/>
+                                                                <constraint firstAttribute="height" constant="40" id="gNO-XE-a0w"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="8"/>
+                                                            <color key="textColor" red="0.2901960784" green="0.75294117650000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <variation key="default">
+                                                                <mask key="constraints">
+                                                                    <exclude reference="21A-yV-GGr"/>
+                                                                    <exclude reference="gNO-XE-a0w"/>
+                                                                </mask>
+                                                            </variation>
+                                                        </label>
+                                                    </subviews>
                                                     <animations/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="40" id="cSc-1V-MS3"/>
-                                                        <constraint firstAttribute="width" priority="999" constant="100" id="olx-S8-db8"/>
+                                                        <constraint firstItem="2PJ-Vv-q65" firstAttribute="top" secondItem="blv-uH-hVw" secondAttribute="top" constant="4" id="4IQ-Em-WPm"/>
+                                                        <constraint firstAttribute="height" constant="50" id="6w1-Co-wyD"/>
+                                                        <constraint firstItem="2PJ-Vv-q65" firstAttribute="leading" secondItem="blv-uH-hVw" secondAttribute="leading" id="9Mq-ZX-JhH"/>
+                                                        <constraint firstItem="35e-El-WXm" firstAttribute="top" secondItem="2PJ-Vv-q65" secondAttribute="bottom" constant="-8" id="9t6-Cj-ImX"/>
+                                                        <constraint firstItem="35e-El-WXm" firstAttribute="leading" secondItem="blv-uH-hVw" secondAttribute="leading" id="Cd7-vS-UEc"/>
+                                                        <constraint firstAttribute="trailing" secondItem="2PJ-Vv-q65" secondAttribute="trailing" id="PYT-07-cVR"/>
+                                                        <constraint firstAttribute="trailing" secondItem="35e-El-WXm" secondAttribute="trailing" id="jmY-mg-vBa"/>
+                                                        <constraint firstAttribute="width" constant="50" id="suW-ol-MQJ"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="44"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="APR 2015" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TqP-Nw-gQE" userLabel="Month Year Label">
-                                                    <rect key="frame" x="0.0" y="34" width="590" height="40"/>
-                                                    <animations/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" priority="999" constant="100" id="CcD-ZP-eUU"/>
-                                                        <constraint firstAttribute="height" constant="40" id="o8d-k1-CTO"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="22"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <variation key="default">
-                                                        <mask key="constraints">
-                                                            <exclude reference="CcD-ZP-eUU"/>
-                                                        </mask>
-                                                    </variation>
-                                                </label>
+                                                </view>
                                             </subviews>
                                             <animations/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
-                                                <constraint firstItem="TqP-Nw-gQE" firstAttribute="leading" secondItem="k6P-Fq-ENn" secondAttribute="leading" id="BdW-tX-OOC"/>
-                                                <constraint firstItem="TqP-Nw-gQE" firstAttribute="top" secondItem="k6P-Fq-ENn" secondAttribute="top" constant="30" id="Qhy-t2-jxJ"/>
-                                                <constraint firstItem="TqP-Nw-gQE" firstAttribute="width" secondItem="k6P-Fq-ENn" secondAttribute="width" id="S5G-HR-WZa"/>
-                                                <constraint firstItem="k6P-Fq-ENn" firstAttribute="leading" secondItem="8tO-Z2-6Q1" secondAttribute="leading" id="Tfe-oi-W7N"/>
-                                                <constraint firstAttribute="trailing" secondItem="k6P-Fq-ENn" secondAttribute="trailing" constant="10" id="oOH-6Q-Iuq"/>
-                                                <constraint firstItem="k6P-Fq-ENn" firstAttribute="top" secondItem="8tO-Z2-6Q1" secondAttribute="top" constant="4" id="qSV-LU-B2S"/>
+                                                <constraint firstItem="blv-uH-hVw" firstAttribute="centerY" secondItem="8tO-Z2-6Q1" secondAttribute="centerY" id="0oQ-x0-0MH"/>
+                                                <constraint firstAttribute="trailing" secondItem="blv-uH-hVw" secondAttribute="trailing" constant="20" id="EwK-E9-woM"/>
                                             </constraints>
                                         </view>
                                     </subviews>
@@ -363,8 +384,8 @@
                                 </tableViewCellContentView>
                                 <animations/>
                                 <connections>
-                                    <outlet property="compactDayLabel" destination="k6P-Fq-ENn" id="Oq5-A3-6vP"/>
-                                    <outlet property="compactMonthYearLabel" destination="TqP-Nw-gQE" id="n5t-NY-Ufi"/>
+                                    <outlet property="compactDayLabel" destination="2PJ-Vv-q65" id="9J5-uX-3sR"/>
+                                    <outlet property="compactMonthYearLabel" destination="35e-El-WXm" id="APb-jC-aNk"/>
                                     <outlet property="compactView" destination="8tO-Z2-6Q1" id="h7v-Av-ION"/>
                                     <outlet property="customImageView" destination="TRV-cm-0d3" id="fue-FA-QDt"/>
                                     <outlet property="customTextLabel" destination="jmL-ep-AJT" id="lR4-R0-Gzi"/>
