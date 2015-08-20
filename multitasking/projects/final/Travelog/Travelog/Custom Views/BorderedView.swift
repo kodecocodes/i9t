@@ -22,14 +22,13 @@
 
 import UIKit
 
-extension UIColor {
-  
-  class func themeColor() -> UIColor {
-    return UIColor(red: (101.0/255.0), green: (113.0/255.0), blue: (135.0/255.0), alpha: 1.0)
+@IBDesignable
+class BorderedView: UIView {
+  override func drawRect(rect: CGRect) {
+    super.drawRect(rect)
+    layer.borderColor = UIColor.themeTineColor().CGColor
+    layer.borderWidth = 2
+    layer.masksToBounds = true
+    layer.cornerRadius = 10
   }
-  
-  class func themeTineColor() -> UIColor {
-    return UIColor(red: (74.0/255.0), green: (192.0/255.0), blue: (255.0/255.0), alpha: 1.0)
-  }
-  
 }

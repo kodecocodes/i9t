@@ -37,7 +37,7 @@ class SplitViewController: UISplitViewController {
   
   func updateMaximumPrimaryColumnWidth() {
     if UIInterfaceOrientationIsPortrait(UIApplication.sharedApplication().statusBarOrientation) {
-      maximumPrimaryColumnWidth = 160.0
+      maximumPrimaryColumnWidth = 170.0
     } else {
       maximumPrimaryColumnWidth = UISplitViewControllerAutomaticDimension
     }

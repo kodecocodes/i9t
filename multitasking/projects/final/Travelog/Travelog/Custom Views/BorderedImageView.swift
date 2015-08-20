@@ -22,14 +22,37 @@
 
 import UIKit
 
-extension UIColor {
+@IBDesignable
+class BorderedImageView: UIImageView {
   
-  class func themeColor() -> UIColor {
-    return UIColor(red: (101.0/255.0), green: (113.0/255.0), blue: (135.0/255.0), alpha: 1.0)
+  var maskLayer: CAShapeLayer?
+  var maskLayerRect = CGRect()
+  
+  override func layoutSubviews() {
+    super.layoutSubviews()
+    
+    if !CGRectEqualToRect(maskLayerRect, bounds) {
+      maskLayer?.removeFromSuperlayer()
+      maskLayer = nil
+    }
+    
+    if maskLayer == nil {
+      let outterPath = UIBezierPath(roundedRect: bounds, cornerRadius: 0)
+      let innerRect = CGRectInset(bounds, 4, 4)
+      let innerPath = UIBezierPath(roundedRect: innerRect, cornerRadius: 10)
+      outterPath.appendPath(innerPath)
+      outterPath.usesEvenOddFillRule = true
+      
+      maskLayer = CAShapeLayer()
+      maskLayer!.path = outterPath.CGPath
+      maskLayer!.fillRule = kCAFillRuleEvenOdd;
+      maskLayer!.fillColor = UIColor.whiteColor().CGColor
+      maskLayer!.opacity = 1.0
+      
+      layer.masksToBounds = true
+      layer.addSublayer(maskLayer!)
+      
+      maskLayerRect = bounds
+    }
   }
-  
-  class func themeTineColor() -> UIColor {
-    return UIColor(red: (74.0/255.0), green: (192.0/255.0), blue: (255.0/255.0), alpha: 1.0)
-  }
-  
 }
