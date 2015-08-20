@@ -25,7 +25,7 @@ import AVKit
 import MobileCoreServices
 import UIKit
 
-class LogsViewController: UITableViewController, DetailViewControllerPresenter, UIPopoverPresentationControllerDelegate {
+class LogsViewController: UITableViewController, DetailViewControllerPresenter {
   
   @IBOutlet var photoLibraryButton: UIBarButtonItem!
   @IBOutlet var cameraButton: UIBarButtonItem!
@@ -39,7 +39,6 @@ class LogsViewController: UITableViewController, DetailViewControllerPresenter, 
   
   deinit {
     LogStore.sharedStore.unregisterObserver(self)
-    NSNotificationCenter.defaultCenter().removeObserver(self)
   }
   
   override func awakeFromNib() {
@@ -58,9 +57,6 @@ class LogsViewController: UITableViewController, DetailViewControllerPresenter, 
     tableView.cellLayoutMarginsFollowReadableWidth = true
     LogStore.sharedStore.registerObserver(self)
     LogsSeed.preload()
-    
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAppearanceDidChangeWithNotification:", name: UIKeyboardDidShowNotification, object: nil)
-    NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardAppearanceDidChangeWithNotification:", name: UIKeyboardDidHideNotification, object: nil)
   }
   
   override func viewWillAppear(animated: Bool) {
@@ -70,23 +66,6 @@ class LogsViewController: UITableViewController, DetailViewControllerPresenter, 
       selectedLog = nil
     } else if let selectedIndexPath = selectedIndexPath {
       tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: false)
-    }
-  }
-  
-  /// Update view and content offset when keybaord appears or disappears.
-  func keyboardAppearanceDidChangeWithNotification(notification: NSNotification) {
-    guard let userInfo: [NSObject: AnyObject] = notification.userInfo else { return }
-    let keyboardEndFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue).CGRectValue()
-    let convertedFrame = view.convertRect(keyboardEndFrame, fromView: nil)
-    let keyboardTop = CGRectGetMinY(convertedFrame)
-    let delta = max(0.0, CGRectGetMaxY(tableView.bounds) - keyboardTop)
-    var contentInset = tableView.contentInset
-    contentInset.bottom = delta
-    tableView.contentInset = contentInset
-    tableView.scrollIndicatorInsets = contentInset
-    
-    if let selectedIndexPath = selectedIndexPath {
-      tableView.scrollToRowAtIndexPath(selectedIndexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
     }
   }
   
@@ -132,10 +111,20 @@ class LogsViewController: UITableViewController, DetailViewControllerPresenter, 
     presentTextViewController(textLog.text)
   }
   
-  // MARK: UIPopoverPresentationControllerDelegate
-  
-  func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-    return (splitViewController?.view.bounds.size.width > 320 ? .None : .FullScreen)
-  }
-  
+}
+
+extension LogsViewController : UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        
+        guard traitCollection.userInterfaceIdiom == .Pad else {
+            return .FullScreen
+        }
+        
+        if splitViewController?.view.bounds.width > 320 {
+            return .None
+        } else {
+            return .FullScreen
+        }
+    }
 }
