@@ -27,19 +27,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		
-		//Set up app appearance
     let barColor = UIColor(red: 108/255, green: 69/255, blue: 54/255, alpha: 1.0)
 		
-		UINavigationBar.appearance().translucent = true
+		UINavigationBar.appearance().translucent = false
 		UINavigationBar.appearance().titleTextAttributes =
 			[NSForegroundColorAttributeName : UIColor.whiteColor()]
 		UINavigationBar.appearance().barTintColor = barColor
 		UINavigationBar.appearance().tintColor = UIColor.whiteColor()
 		
 		return true
-		
 	}
+}
 
+extension UINavigationController {
+  public override func childViewControllerForStatusBarStyle() -> UIViewController? {
+    return self.topViewController
+  }
+}
+
+extension ViewController {
+  override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
+  }
 }
 

@@ -67,15 +67,14 @@
 		103F85711B5C5CB3000B6E4E /* CafeTransit */ = {
 			isa = PBXGroup;
 			children = (
-				103F858A1B5C99F5000B6E4E /* Controller */,
-				103F85891B5C99EE000B6E4E /* Model */,
-				103F85861B5C6715000B6E4E /* Frameworks */,
+				103F85741B5C5CB3000B6E4E /* ViewController.swift */,
+				103F858B1B5C9A0E000B6E4E /* CoffeeShop.swift */,
+				1065F0781B6481B300289F65 /* CoffeeShopPin.swift */,
+				1065F07C1B652FFA00289F65 /* CoffeeShopPinDetailView.swift */,
 				103F85721B5C5CB3000B6E4E /* AppDelegate.swift */,
-				1065F07A1B64A94A00289F65 /* CoffeeShopPinDetailView.xib */,
-				103F85761B5C5CB3000B6E4E /* Main.storyboard */,
-				103F85791B5C5CB3000B6E4E /* Assets.xcassets */,
-				103F857B1B5C5CB3000B6E4E /* LaunchScreen.storyboard */,
+				17476B111B87048F000032D8 /* Resources */,
 				103F857E1B5C5CB3000B6E4E /* Info.plist */,
+				103F85861B5C6715000B6E4E /* Frameworks */,
 			);
 			path = CafeTransit;
 			sourceTree = "<group>";
@@ -88,23 +87,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		103F85891B5C99EE000B6E4E /* Model */ = {
+		17476B111B87048F000032D8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1065F07A1B64A94A00289F65 /* CoffeeShopPinDetailView.xib */,
+				103F85761B5C5CB3000B6E4E /* Main.storyboard */,
 				5F108B0A1B65D02800A76C0D /* sanfrancisco_coffeeshops.plist */,
-				103F858B1B5C9A0E000B6E4E /* CoffeeShop.swift */,
-				1065F0781B6481B300289F65 /* CoffeeShopPin.swift */,
-				1065F07C1B652FFA00289F65 /* CoffeeShopPinDetailView.swift */,
+				103F85791B5C5CB3000B6E4E /* Assets.xcassets */,
+				103F857B1B5C5CB3000B6E4E /* LaunchScreen.storyboard */,
 			);
-			name = Model;
-			sourceTree = "<group>";
-		};
-		103F858A1B5C99F5000B6E4E /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				103F85741B5C5CB3000B6E4E /* ViewController.swift */,
-			);
-			name = Controller;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

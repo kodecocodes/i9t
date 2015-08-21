@@ -23,88 +23,29 @@
 import UIKit
 import CoreLocation
 
-enum PriceGuide : Int {
-	case Unknown = 0
-	case Low = 1
-	case Medium = 2
-	case High = 3
-}
-
-extension PriceGuide : CustomStringConvertible {
-	var description : String {
-		switch self {
-		case .Unknown:
-			return "?"
-		case .Low:
-			return "💰"
-		case .Medium:
-			return "💰💰"
-		case .High:
-			return "💰💰💰"
-		}
-	}
-}
-
-enum CoffeeRating {
-	case Unknown
-	case Rating(Int)
-}
-
-extension CoffeeRating {
-	init?(value: Int) {
-		if value > 0 && value <= 5 {
-			self = .Rating(value)
-		} else {
-			self = .Unknown
-		}
-	}
-	
-	var value : Int {
-		switch self {
-		case .Unknown:
-		  return 0
-		case .Rating(let value):
-			return value
-		}
-	}
-}
-
-extension CoffeeRating : CustomStringConvertible {
-	var description : String {
-		switch self {
-		case .Unknown:
-			return ""
-		case .Rating(let value):
-			var rating = ""
-			for var index = 0; index < value; ++index {
-				rating += "★"
-			}
-			return rating
-		}
-	}
-}
-
 struct CoffeeShop {
 	let name: String
 	let priceGuide: PriceGuide
-	let location: CLLocationCoordinate2D?
+	let location: CLLocationCoordinate2D
 	let details: String
 	let rating: CoffeeRating
 	let yelpWebsite: String
-	let startTime: NSDate?
-	let endTime: NSDate?
+	let openTime: NSDate
+	let closeTime: NSDate
 	let phone: String
-}
 
-extension CoffeeShop {
-	init?(dict: [String : AnyObject]) {
-		guard let name = dict["name"] as? String,
-			let phone = dict["phone"] as? String,
-			let yelpWebsite = dict["yelpWebsite"] as? String,
-			let priceGuideRaw = dict["priceGuide"] as? Int,
+	init?(dictionary: [String : AnyObject]) {
+		guard let name = dictionary["name"] as? String,
+			let phone = dictionary["phone"] as? String,
+			let yelpWebsite = dictionary["yelpWebsite"] as? String,
+			let priceGuideRaw = dictionary["priceGuide"] as? Int,
 			let priceGuide = PriceGuide(rawValue: priceGuideRaw),
-			let details = dict["details"] as? String,
-			let ratingRaw = dict["rating"] as? Int,
+			let details = dictionary["details"] as? String,
+			let ratingRaw = dictionary["rating"] as? Int,
+      let latitude = dictionary["latitude"] as? Double,
+      let longitude = dictionary["longitude"] as? Double,
+      let openTime = dictionary["openTime"] as? NSDate,
+      let closeTime = dictionary["closeTime"] as? NSDate,
 			let rating = CoffeeRating(value: ratingRaw) else {
 				return nil
 		}
@@ -116,43 +57,66 @@ extension CoffeeShop {
 		self.details = details
 		self.rating = rating
 		
-		if let latitude = dict["latitude"] as? Double,
-			let longitude = dict["longitude"] as? Double {
-				location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-		} else {
-			location = nil
-		}
-		
-		if let openTime = dict["openTime"] as? NSDate {
-			startTime = openTime
-		} else {
-			startTime = nil
-		}
-		
-		if let closeTime = dict["closeTime"] as? NSDate {
-			endTime = closeTime
-		} else {
-			endTime = nil
-		}
-	}
-}
+    self.location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
 
-extension CoffeeShop {
-	static func loadDefaultCoffeeShops() -> [CoffeeShop]? {
-		return loadCoffeeShopsFromPlistNamed("sanfrancisco_coffeeshops")
+    self.openTime = openTime
+		self.closeTime = closeTime
 	}
-	
-	static func loadCoffeeShopsFromPlistNamed(plistName: String) -> [CoffeeShop]? {
-		guard let path = NSBundle.mainBundle().pathForResource(plistName, ofType: "plist"),
+
+	static func allCoffeeShops() -> [CoffeeShop] {
+		guard let path = NSBundle.mainBundle().pathForResource("sanfrancisco_coffeeshops", ofType: "plist"),
 			let array = NSArray(contentsOfFile: path) as? [[String : AnyObject]] else {
-				return nil
+				return [CoffeeShop]()
 		}
-		return array.flatMap { CoffeeShop(dict: $0) }
+    
+    return array.flatMap { CoffeeShop(dictionary: $0) }.sort { $0.name < $1.name }
 	}
+  
+  func isOpenAtTime(date: NSDate) -> Bool {
+    let calendar = NSCalendar.currentCalendar()
+    let nowComponents = calendar.componentsInTimeZone(NSTimeZone(abbreviation: "PST")!, fromDate: date)// components([.Hour, .Minute], fromDate: date)
+    
+    let openTimeComponents = calendar.components([.Hour, .Minute], fromDate: openTime)
+    let closeTimeComponents = calendar.components([.Hour, .Minute], fromDate: closeTime)
+    
+    let isEarlier = nowComponents.hour < openTimeComponents.hour || (nowComponents.hour == openTimeComponents.hour && nowComponents.minute < openTimeComponents.minute)
+    let isLater = nowComponents.hour > closeTimeComponents.hour || (nowComponents.hour == closeTimeComponents.hour && nowComponents.minute > closeTimeComponents.minute)
+    
+    return !(isEarlier || isLater)
+  }
 }
 
 extension CoffeeShop : CustomStringConvertible {
 	var description : String {
-		return "\(name) :: \(details)"
+		return "\(name): \(details)"
 	}
+}
+
+enum PriceGuide : Int {
+  case Unknown
+  case Low
+  case Medium
+  case High
+}
+
+enum CoffeeRating {
+  case Unknown
+  case Rating(Int)
+  
+  init?(value: Int) {
+    if value > 0 && value <= 5 {
+      self = .Rating(value)
+    } else {
+      self = .Unknown
+    }
+  }
+  
+  var value : Int {
+    switch self {
+    case .Unknown:
+      return 0
+    case .Rating(let value):
+      return value
+    }
+  }
 }

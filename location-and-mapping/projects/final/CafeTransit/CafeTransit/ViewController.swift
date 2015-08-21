@@ -24,124 +24,111 @@ import UIKit
 import MapKit
 
 class ViewController: UIViewController {
-	
-	//Make sure the user set's up custom location to be in San Francisco.
-	
-	@IBOutlet var mapView: MKMapView!
-	
-	let locationManager = CLLocationManager()
-	var currentLocation: CLLocationCoordinate2D?
-	
-	var coffeeShops = [CoffeeShop]()
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		
-		customizeMap()
-		setupMapData()
-		
-		locationManager.delegate = self
-		locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-	}
-	
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
-		askUserForPermissionToUseLocation()
-	}
-	
-	//MARK: Setup
-	func customizeMap() {
-		mapView.showsTraffic = false
-		mapView.showsCompass = false
-		mapView.showsScale = false
-		mapView.showsPointsOfInterest = true
-		mapView.showsBuildings = false
-		
-		//For Tutorial Purposes, only focusing on San Francisco for now.
-		let sanFrancisco = CLLocationCoordinate2D(latitude: 37.7833, longitude: -122.4167)
-		centerMap(mapView, atPosition: sanFrancisco)
-	}
-	
-	func setupMapData() {
-		if let seedCoffeeShops = CoffeeShop.loadDefaultCoffeeShops() {
-			coffeeShops += seedCoffeeShops
-			coffeeShops = coffeeShops.sort { $0.name < $1.name }
-		}
-		
-		for coffeeshop in coffeeShops {
-			let annotation = CoffeeShopPin(coffeeshop: coffeeshop)
-			mapView.addAnnotation(annotation)
-		}
-	}
-	
-	private func centerMap(map: MKMapView?, atPosition position: CLLocationCoordinate2D?) {
-		guard let map = map,
-			let position = position else {
-				return
-		}
-		map.setCenterCoordinate(position, animated: true)
-		let zoomRegion = MKCoordinateRegionMakeWithDistance(position, 10000, 10000)
-		map.setRegion(zoomRegion, animated: true)
-	}
-	
-	//MARK: Locations and Time functions
-	func askUserForPermissionToUseLocation() {
-		if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
-			mapView.showsUserLocation = true
-			locationManager.requestLocation()
-			
-		} else {
-			locationManager.requestWhenInUseAuthorization()
-		}
-	}
+  
+  @IBOutlet var mapView: MKMapView!
+  
+  lazy var locationManager = CLLocationManager()
+  
+  var currentUserLocation: CLLocationCoordinate2D?
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    setupMap()
+    addMapData()
+    
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    requestLocationPermission()
+  }
+  
+  private func setupMap() {
+    let sanFrancisco = CLLocationCoordinate2D(latitude: 37.7833, longitude: -122.4167)
+    centerMap(mapView, atPosition: sanFrancisco)
+  }
+  
+  private func addMapData() {
+    for coffeeshop in CoffeeShop.allCoffeeShops() {
+      let annotation = CoffeeShopPin(coffeeshop: coffeeshop)
+      mapView.addAnnotation(annotation)
+    }
+  }
+  
+  private func centerMap(map: MKMapView?, atPosition position: CLLocationCoordinate2D?) {
+    guard let map = map, let position = position else {
+      return
+    }
+    
+    map.setCenterCoordinate(position, animated: true)
+    
+    let zoomRegion = MKCoordinateRegionMakeWithDistance(position, 10000, 10000)
+    map.setRegion(zoomRegion, animated: true)
+  }
+  
+  private func requestLocationPermission() {
+    if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
+      mapView.showsUserLocation = true
+      locationManager.requestLocation()
+    } else {
+      locationManager.requestWhenInUseAuthorization()
+    }
+  }
 }
 
-// MARK: - CLLocationManagerDelegate
+// MARK:- CLLocationManagerDelegate
 extension ViewController: CLLocationManagerDelegate {
-	
-	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		guard let location = locations.first else {
-			print("No Location Found.")
-			return
-		}
-		currentLocation = location.coordinate
-	}
-	
-	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-		print("Error finding location: \(error.localizedDescription)")
-	}
+  
+  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    currentUserLocation = locations.first?.coordinate
+  }
+  
+  func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    print("Error finding location: \(error.localizedDescription)")
+  }
 }
 
-// MARK: - MKMapViewDelegate
+// MARK:- MKMapViewDelegate
 extension ViewController: MKMapViewDelegate {
-	func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-		let identifier = "coffeeShopPin"
-		var view: MKPinAnnotationView
-		let orangeColor = UIColor(red: 255.0/255.0, green: 153.0/255.0, blue: 0, alpha: 1.0)
-		guard let annotation = annotation as? CoffeeShopPin else {
-			return nil
-		}
-		
-		guard let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) as? MKPinAnnotationView else {
-			view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
-			view.canShowCallout = true
-			view.pinTintColor = orangeColor
-			let detail = UIView.loadFromNibNamed("CoffeeShopPinDetailView") as! CoffeeShopPinDetailView
-			detail.updateDetailView(annotation.coffeeshop!)
-			view.detailCalloutAccessoryView = detail
-			return view
-		}
-		//reuse
-		dequeuedView.annotation = annotation
-		view = dequeuedView
-		view.pinTintColor = orangeColor
-		return view
-	}
-	
-	
-	func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-		if let detail = view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
-				detail.currentLocation = currentLocation
-		}
-	}
+  func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    guard let annotation = annotation as? CoffeeShopPin else {
+      return nil
+    }
+    
+    let identifier = "CoffeeShopPinDetailView"
+    
+    var annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) as? MKPinAnnotationView
+    
+    if annotationView == nil {
+      annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+      annotationView!.canShowCallout = true
+      
+      let detailView = UIView.loadFromNibNamed("CoffeeShopPinDetailView") as! CoffeeShopPinDetailView
+      detailView.coffeeShop = annotation.coffeeshop
+      
+      annotationView!.detailCalloutAccessoryView = detailView
+    }
+    
+    if annotation.coffeeshop.rating.value == 5 {
+      annotationView!.pinTintColor = UIColor(red:1, green:0.79, blue:0, alpha:1)
+    } else {
+      annotationView!.pinTintColor = UIColor(red:0.419, green:0.266, blue:0.215, alpha:1)
+    }
+    
+    annotationView!.annotation = annotation
+    
+    return annotationView
+  }
+  
+  
+  func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+    if let detailView = view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
+      detailView.currentUserLocation = currentUserLocation
+    }
+  }
 }
 

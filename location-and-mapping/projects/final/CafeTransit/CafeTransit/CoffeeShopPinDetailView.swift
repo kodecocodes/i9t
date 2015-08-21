@@ -24,47 +24,39 @@ import UIKit
 import MapKit
 
 class CoffeeShopPinDetailView : UIView {
+  
 	@IBOutlet var hoursLabel: UILabel!
 	@IBOutlet var descriptionLabel: UILabel!
 	@IBOutlet var departureLabel: UILabel!
 	@IBOutlet var arrivalLabel: UILabel!
-	
 	@IBOutlet var timeStackView: UIStackView!
-	var coffeeShop: CoffeeShop?
-	
-	@IBOutlet var openCloseStatusImage: UIImageView!
-	@IBOutlet var priceGuideImages: [UIImageView]!
-	
-	@IBOutlet var ratingImages: [UIImageView]!
-	var view: UIView!
-	var nibName: String = "CoffeeShopPinDetailView"
-	var currentLocation:CLLocationCoordinate2D?
-	
-	private static var dateFormatter = NSDateFormatter()
+  
+  @IBOutlet var openCloseStatusImage: UIImageView!
+  @IBOutlet var priceGuideImages: [UIImageView]!
+  @IBOutlet var ratingImages: [UIImageView]!
+
+  var currentUserLocation: CLLocationCoordinate2D?
+
+  var coffeeShop: CoffeeShop! {
+    didSet {
+      descriptionLabel.text = coffeeShop.details
+      
+      updateRating()
+      updatePriceGuide()
+      updateOpeningHours()
+      updateShopAvailability()
+    }
+  }
 	
 	override func awakeFromNib() {
 		timeStackView.hidden = true
 	}
 	
-	//MARK: Update UI
-	func updateDetailView(coffeeShop: CoffeeShop) {
-		self.coffeeShop = coffeeShop
-		
-		descriptionLabel.text = coffeeShop.details
-		updateRating(coffeeShop.rating)
-		updatePriceGuide(coffeeShop.priceGuide)
-		updateShopAvailability(coffeeShop)
-		
-		CoffeeShopPinDetailView.dateFormatter.dateFormat = "h:mm a"
-		let startTime = CoffeeShopPinDetailView.dateFormatter.stringFromDate(coffeeShop.startTime!)
-		let endTime = CoffeeShopPinDetailView.dateFormatter.stringFromDate(coffeeShop.endTime!)
-		hoursLabel.text = "\(startTime) - \(endTime)"
-	}
-	
-	func updateRating(rating: CoffeeRating) {
-		var count = rating.value
+  //MARK:- Updating UI
+	func updateRating() {
+		var count = coffeeShop.rating.value
 		for imageView in ratingImages {
-			if (count != 0) {
+			if (count > 0) {
 				imageView.hidden = false
 				count--
 			} else {
@@ -73,10 +65,10 @@ class CoffeeShopPinDetailView : UIView {
 		}
 	}
 	
-	func updatePriceGuide(priceGuide: PriceGuide) {
-		var count = priceGuide.rawValue
+	func updatePriceGuide() {
+		var count = coffeeShop.priceGuide.rawValue
 		for imageView in priceGuideImages {
-			if (count != 0) {
+			if (count > 0) {
 				imageView.hidden = false
 				count--
 			} else {
@@ -84,94 +76,68 @@ class CoffeeShopPinDetailView : UIView {
 			}
 		}
 	}
+  
+  func updateOpeningHours() {
+    let startTime = shortDateFormatter.stringFromDate(coffeeShop.openTime)
+    let endTime = shortDateFormatter.stringFromDate(coffeeShop.closeTime)
+    
+    hoursLabel.text = "\(startTime) - \(endTime)"
+  }
 	
-	func updateShopAvailability(coffeeShop: CoffeeShop) {
-		let calendar = NSCalendar.currentCalendar()
-		let nowComponents = calendar.components([.Hour, .Minute, .Second], fromDate: NSDate())
+	func updateShopAvailability() {
+		let isOpen = coffeeShop.isOpenAtTime(NSDate())
 		
-		guard let startTime = coffeeShop.startTime else {
-			print("No Start Time!")
-			return
-		}
-		
-		guard let endTime = coffeeShop.endTime else {
-			print("No End Time!")
-			return
-		}
-		
-		let startTimeComponents = calendar.components([.Hour, .Minute, .Second], fromDate: startTime)
-		let endTimeComponents = calendar.components([.Hour, .Minute, .Second], fromDate: endTime)
-		
-		let isEarlier = nowComponents.hour < startTimeComponents.hour //Checks to see if current time is before opening
-		//Check to see if current time is after closing
-		let isLate = nowComponents.hour > endTimeComponents.hour || nowComponents.hour == endTimeComponents.hour && (startTimeComponents.minute > 0 || startTimeComponents.second > 0)
-		
-		if (isEarlier || isLate) {
-				openCloseStatusImage.image = UIImage(named: "cafétransit_icon_closed")
+		if isOpen {
+				openCloseStatusImage.image = UIImage(named: "cafetransit_icon_open")
 		} else {
-				openCloseStatusImage.image = UIImage(named: "cafétransit_icon_open")
+				openCloseStatusImage.image = UIImage(named: "cafetransit_icon_closed")
 		}
 	}
 	
 	func updateEstimatedTimeLabels(response: MKETAResponse?) {
 		if let response = response {
-			CoffeeShopPinDetailView.dateFormatter.dateFormat = "yyyy-MM-dd h:mm a"
-			
-			let arrivalTimeString = CoffeeShopPinDetailView.dateFormatter.stringFromDate(response.expectedArrivalDate)
-			let departureTimeString = CoffeeShopPinDetailView.dateFormatter.stringFromDate(response.expectedDepartureDate)
-			
-			let departureTime = String(format: "%@", departureTimeString)
-			let arrivalTime = String(format: "%@", arrivalTimeString)
-			
-			self.departureLabel.text = departureTime
-			self.arrivalLabel.text = arrivalTime
+			self.departureLabel.text = shortDateFormatter.stringFromDate(response.expectedArrivalDate)
+			self.arrivalLabel.text = shortDateFormatter.stringFromDate(response.expectedDepartureDate)
 		}
 	}
-	
-	//MARK: Tapping Icons
-	@IBAction func phoneTapped(sender: AnyObject) {
-		if let phone = self.coffeeShop?.phone {
-			let phoneString = "tel://" + phone
-			if let url = NSURL(string: phoneString) {
-				UIApplication.sharedApplication().openURL(url)
-			}
-		}
-	}
+}
+
+extension CoffeeShopPinDetailView {
+  
+	//MARK:- IBActions
+  @IBAction func phoneTapped(sender: AnyObject) {
+    let phoneString = "tel://" + coffeeShop.phone
+    if let url = NSURL(string: phoneString) {
+      UIApplication.sharedApplication().openURL(url)
+    }
+  }
 	
 	@IBAction func transitTapped(sender: AnyObject) {
-		if let location = self.coffeeShop?.location {
-			openInMapTransit(location)
-		}
+    openInMapTransit(coffeeShop.location)
 	}
 	
 	@IBAction func internetTapped(sender: AnyObject) {
-		if let website = self.coffeeShop?.yelpWebsite {
-			UIApplication.sharedApplication().openURL(NSURL(string: website)!)
-		}
+    if let url = NSURL(string: coffeeShop.yelpWebsite) {
+			UIApplication.sharedApplication().openURL(url)
+    }
 	}
 	
+  @IBAction func timeTapped(sender: AnyObject) {
+    if timeStackView.hidden {
+      animateView(timeStackView, toHidden: false)
+      calculateTransitTimes()
+    } else {
+      animateView(timeStackView, toHidden: true)
+    }
+  }
+  
 	private func animateView(view: UIView, toHidden hidden: Bool) {
-		UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: { () -> Void in
+		UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: {
 			view.hidden = hidden
-			}, completion: nil)
+    }, completion: nil)
 	}
 	
-	@IBAction func timeTapped(sender: AnyObject) {
-		if timeStackView.hidden {
-			animateView(timeStackView, toHidden: false)
-			setTransitEstimatedTimes()
-		} else {
-			animateView(timeStackView, toHidden: true)
-		}
-	}
-	
-	private func animateView(view: UIView,hidden: Bool) {
-		UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: { () -> Void in
-			view.hidden = hidden
-			}, completion: nil)
-	}
-	
-	//MARK: Transit Helpers
+	//MARK:- Transit Helpers
 	func openInMapTransit(coord:CLLocationCoordinate2D) {
 		let placemark = MKPlacemark(coordinate: coord, addressDictionary: nil)
 		let mapItem = MKMapItem(placemark: placemark)
@@ -179,14 +145,15 @@ class CoffeeShopPinDetailView : UIView {
 		mapItem.openInMapsWithLaunchOptions(launchOptions)
 	}
 	
-	func setTransitEstimatedTimes() {
-		if let currentLocation = currentLocation {
+	func calculateTransitTimes() {
+		if let currentUserLocation = currentUserLocation {
 			let request = MKDirectionsRequest()
-			let source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation, addressDictionary: nil))
-			let destination = MKMapItem(placemark: MKPlacemark(coordinate: (self.coffeeShop?.location)!, addressDictionary: nil))
+
+			let source = MKMapItem(placemark: MKPlacemark(coordinate: currentUserLocation, addressDictionary: nil))
+			let destination = MKMapItem(placemark: MKPlacemark(coordinate: coffeeShop.location, addressDictionary: nil))
+      
 			request.source = source
 			request.destination = destination
-			//Set Transport Type to be Transit
 			request.transportType = MKDirectionsTransportType.Transit
 			
 			let directions = MKDirections(request: request)
@@ -206,6 +173,12 @@ extension UIView {
 		return UINib(
 			nibName: nibNamed,
 			bundle: bundle
-			).instantiateWithOwner(nil, options: nil)[0] as? UIView
+			).instantiateWithOwner(nil, options: nil).first as? UIView
 	}
 }
+
+let shortDateFormatter: NSDateFormatter = {
+  let formatter = NSDateFormatter()
+  formatter.timeStyle = .ShortStyle
+  return formatter
+}()
