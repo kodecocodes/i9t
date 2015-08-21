@@ -22,25 +22,21 @@
 
 import UIKit
 
-class AnimalsTableViewCell: UITableViewCell {
+@IBDesignable
 
-  @IBOutlet var photoView: UIImageView!
-  @IBOutlet var nameLabel: UILabel!
-  @IBOutlet var descriptionLabel: UILabel!
+class BackgroundView: UIView {
   
-  var animal:Animal? {
+  @IBInspectable var image:UIImage? {
     didSet {
-      nameLabel.text = animal?.name
-      descriptionLabel.text = animal?.description
-      if let name = animal?.name {
-        photoView.image = UIImage(named: name)
-      }
+      setNeedsDisplay()
     }
   }
   
-  required init?(coder aDecoder: NSCoder) {
-    super.init(coder: aDecoder)
-    let image = UIImage(named: "DisclosureIndicator")
-    self.accessoryView = UIImageView(image: image)
+  override func drawRect(rect: CGRect) {
+    if let image = image {
+      let context = UIGraphicsGetCurrentContext()
+      UIColor(patternImage: image).setFill()
+      CGContextFillRect(context, rect)
+    }
   }
 }

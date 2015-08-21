@@ -46,7 +46,7 @@ extension FadeSegue: UIViewControllerTransitioningDelegate {
     let fade = FadeAnimator()
     fade.isPresenting = false
     return fade
-  }
+  } 
 }
 
 // MARK: - Animator

@@ -44,7 +44,7 @@ class AnimalPhotoViewController: UIViewController {
     
     swipeGestureUp.addTarget(self, action: "handleSwipe:")
     swipeGestureDown.addTarget(self, action: "handleSwipe:")
-
+    
     updateViewForImage()
   }
   

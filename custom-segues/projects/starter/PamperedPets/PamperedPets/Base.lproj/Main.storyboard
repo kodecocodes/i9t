@@ -266,35 +266,35 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="DTh-dK-B9z"/>
+                                <exclude reference="FFE-AJ-MvP"/>
+                                <exclude reference="ZX5-HQ-sOK"/>
                                 <exclude reference="axV-Cw-yiu"/>
                                 <exclude reference="ikg-rn-IVH"/>
                                 <exclude reference="mCB-Da-CRi"/>
                                 <exclude reference="t8t-Jz-ZsA"/>
-                                <exclude reference="DTh-dK-B9z"/>
-                                <exclude reference="FFE-AJ-MvP"/>
-                                <exclude reference="ZX5-HQ-sOK"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
                             <mask key="constraints">
+                                <exclude reference="1w8-Te-YGK"/>
+                                <include reference="FFE-AJ-MvP"/>
                                 <exclude reference="Z7m-9h-nIq"/>
                                 <exclude reference="hI8-vx-TvN"/>
                                 <include reference="ikg-rn-IVH"/>
                                 <include reference="mCB-Da-CRi"/>
-                                <exclude reference="1w8-Te-YGK"/>
-                                <include reference="FFE-AJ-MvP"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
-                                <exclude reference="Z7m-9h-nIq"/>
-                                <include reference="axV-Cw-yiu"/>
-                                <exclude reference="hI8-vx-TvN"/>
-                                <include reference="t8t-Jz-ZsA"/>
                                 <exclude reference="1w8-Te-YGK"/>
                                 <include reference="DTh-dK-B9z"/>
                                 <exclude reference="PDO-Ia-138"/>
                                 <include reference="ZX5-HQ-sOK"/>
+                                <exclude reference="Z7m-9h-nIq"/>
+                                <include reference="axV-Cw-yiu"/>
+                                <exclude reference="hI8-vx-TvN"/>
+                                <include reference="t8t-Jz-ZsA"/>
                             </mask>
                         </variation>
                     </view>
@@ -321,6 +321,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="JvO-TD-0X1" customClass="BackgroundView" customModule="PamperedPets" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="image" keyPath="image" value="BackgroundPaws"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                             <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B10-c3-qIb" userLabel="Pet Photo View" customClass="RoundedImageView" customModule="PamperedPets" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -338,14 +345,18 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.99844795470000003" green="0.98719674349999997" blue="0.97270131110000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="JvO-TD-0X1" firstAttribute="centerX" secondItem="Ao8-me-SQt" secondAttribute="centerX" id="0QU-D4-NFj"/>
                             <constraint firstItem="B10-c3-qIb" firstAttribute="height" secondItem="Ao8-me-SQt" secondAttribute="height" id="8go-tu-DLB"/>
+                            <constraint firstItem="JvO-TD-0X1" firstAttribute="width" secondItem="Ao8-me-SQt" secondAttribute="width" id="DRl-r0-TdC"/>
                             <constraint firstItem="B10-c3-qIb" firstAttribute="width" secondItem="Ao8-me-SQt" secondAttribute="width" id="HrD-rC-XLN">
                                 <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                             </constraint>
+                            <constraint firstItem="JvO-TD-0X1" firstAttribute="height" secondItem="Ao8-me-SQt" secondAttribute="height" id="fNS-t3-tHt"/>
                             <constraint firstItem="B10-c3-qIb" firstAttribute="centerX" secondItem="Ao8-me-SQt" secondAttribute="centerX" id="gSO-10-Xdn"/>
                             <constraint firstItem="B10-c3-qIb" firstAttribute="centerY" secondItem="Ao8-me-SQt" secondAttribute="centerY" id="tkJ-As-IB0"/>
+                            <constraint firstItem="JvO-TD-0X1" firstAttribute="centerY" secondItem="Ao8-me-SQt" secondAttribute="centerY" id="yeH-mm-J4r"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">

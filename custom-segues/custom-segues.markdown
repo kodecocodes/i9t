@@ -373,7 +373,7 @@ You'll have a compile warning about `fromView` not being used. Don't worry - you
 
 Run the app, and the segue now causes the image to expand from its original position. This is starting to look better!
 
-![bordered height=22%](images/BetterScale.png)
+![height=22%](images/BetterScale.png)
 
 There are just a few more tweaks for you to make while we look at how all these views fit together. 
 
