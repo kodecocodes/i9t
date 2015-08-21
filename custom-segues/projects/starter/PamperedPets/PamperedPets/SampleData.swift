@@ -51,7 +51,7 @@ let animalData:[Animal] = [
               address:"7880 Devon Road\nEllenwood",
          instructions:"One cup layer pellets\nOyster shell"),
   Animal(        name: "Leslie",
-          description:"Lesser sulphur crested cockatoo",
+          description:"Sulphur crested cockatoo",
                 owner:"Robert Harvey",
               address:"632 Cross Street\nUnion City",
          instructions:"Bird feed in kitchen cupboard"),

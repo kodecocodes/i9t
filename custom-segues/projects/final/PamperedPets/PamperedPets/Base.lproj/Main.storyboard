@@ -108,24 +108,24 @@
         <!--Animal Detail View Controller-->
         <scene sceneID="66G-Nt-aFl">
             <objects>
-                <viewController id="8mc-FN-o1T" customClass="AnimalDetailViewController" customModule="PamperedPets" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" id="8mc-FN-o1T" customClass="AnimalDetailViewController" customModule="PamperedPets" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="H5m-dr-kk4"/>
                         <viewControllerLayoutGuide type="bottom" id="SH3-pN-LQE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rZq-m1-OIc">
-                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ZT0-6k-lgq" customClass="BackgroundView" customModule="PamperedPets" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="image" keyPath="image" value="BackgroundPaws"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bubbles" translatesAutoresizingMaskIntoConstraints="NO" id="mQF-Cm-jUr" userLabel="Pet Photo Thumbnail" customClass="RoundedImageView" customModule="PamperedPets" customModuleProvider="target">
-                                <rect key="frame" x="225" y="40" width="150" height="150"/>
+                                <rect key="frame" x="225" y="104" width="150" height="150"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -148,7 +148,7 @@
                                 </connections>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="gVN-4U-suy" userLabel="Pet Details StackView">
-                                <rect key="frame" x="74" y="215" width="452" height="210"/>
+                                <rect key="frame" x="74" y="279" width="452" height="210"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="EtK-Yj-mJt" userLabel="Address StackView">
                                         <rect key="frame" x="194.5" y="0.0" width="63" height="41"/>
@@ -393,7 +393,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2408" y="1080"/>
+            <point key="canvasLocation" x="2410" y="1100"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8QW-7D-El7">
