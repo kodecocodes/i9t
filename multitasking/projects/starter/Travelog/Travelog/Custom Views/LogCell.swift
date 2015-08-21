@@ -72,10 +72,10 @@ class LogCell: UITableViewCell {
       formattedMonthYear = logDateFormatter.formattedComponent(FormattedComponentRequest.MonthYear, fromDate: date)
     }
     
-    compactDayLabel.text = formattedDay
-    compactMonthYearLabel.text = formattedMonthYear
-    regularDayLabel.text = formattedDay
-    regularMonthYearLabel.text = formattedMonthYear
+    compactDayLabel.text = formattedDay?.uppercaseString
+    compactMonthYearLabel.text = formattedMonthYear?.uppercaseString
+    regularDayLabel.text = formattedDay?.uppercaseString
+    regularMonthYearLabel.text = formattedMonthYear?.uppercaseString
   }
   
   override func setSelected(selected: Bool, animated: Bool) {
@@ -83,8 +83,8 @@ class LogCell: UITableViewCell {
     
     // A block of animation code to run when cell is selected.
     let animationBlockSelected: (() -> Void) = {
-      self.contentView.alpha = 0.5
-      self.backgroundColor = UIColor.ultimateRedColor().colorWithAlphaComponent(0.3)
+      self.contentView.alpha = 0.8
+      self.backgroundColor = UIColor.themeTineColor().colorWithAlphaComponent(0.7)
     }
     
     // A block of animation code to run when cell is unselected.

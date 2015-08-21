@@ -19,6 +19,8 @@
 		4BB4F5F2198ABC8400533A19 /* LogCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152914F1B41BE0500EB3A7F /* LogCollection.swift */; };
 		4BB4F5F3198ABC8400533A19 /* LogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291501B41BE0500EB3A7F /* LogModels.swift */; };
 		4BB4F5F4198ABC8400533A19 /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291511B41BE0500EB3A7F /* LogStore.swift */; };
+		4BCC914A1B72E34E00F3D866 /* BorderedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCC91491B72E34E00F3D866 /* BorderedView.swift */; };
+		4BCC914C1B72F08200F3D866 /* BorderedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCC914B1B72F08200F3D866 /* BorderedImageView.swift */; };
 		4BCD3BE81B52973000BC44D8 /* LogDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD3BE71B52973000BC44D8 /* LogDateFormatter.swift */; };
 		4BD957551B48174600E2D162 /* LogsSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD957541B48174600E2D162 /* LogsSeed.swift */; };
 		4BFA875B1B44BAD1005291F4 /* LogsViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */; };
@@ -50,6 +52,8 @@
 		4B27FA981B40DCB100F356DB /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
 		4B27FAAA1B410C8100F356DB /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		4B53B98E1B42495E00BF989E /* LogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
+		4BCC91491B72E34E00F3D866 /* BorderedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedView.swift; sourceTree = "<group>"; };
+		4BCC914B1B72F08200F3D866 /* BorderedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedImageView.swift; sourceTree = "<group>"; };
 		4BCD3BE71B52973000BC44D8 /* LogDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDateFormatter.swift; sourceTree = "<group>"; };
 		4BD957541B48174600E2D162 /* LogsSeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsSeed.swift; sourceTree = "<group>"; };
 		4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewControllerExtension.swift; sourceTree = "<group>"; };
@@ -121,6 +125,8 @@
 			isa = PBXGroup;
 			children = (
 				4B53B98E1B42495E00BF989E /* LogCell.swift */,
+				4BCC91491B72E34E00F3D866 /* BorderedView.swift */,
+				4BCC914B1B72F08200F3D866 /* BorderedImageView.swift */,
 			);
 			name = "Custom Views";
 			path = "Travelog/Custom Views";
@@ -209,10 +215,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4BB4F5F4198ABC8400533A19 /* LogStore.swift in Sources */,
+				4BCC914A1B72E34E00F3D866 /* BorderedView.swift in Sources */,
 				4BFA875B1B44BAD1005291F4 /* LogsViewControllerExtension.swift in Sources */,
 				4B27FA991B40DCB100F356DB /* TextViewController.swift in Sources */,
 				4BD957551B48174600E2D162 /* LogsSeed.swift in Sources */,
 				4B27FAAB1B410C8100F356DB /* UIColorExtension.swift in Sources */,
+				4BCC914C1B72F08200F3D866 /* BorderedImageView.swift in Sources */,
 				4BB4F5F3198ABC8400533A19 /* LogModels.swift in Sources */,
 				4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */,
 				4B10884C1B52908600FB0CFB /* SplitViewController.swift in Sources */,

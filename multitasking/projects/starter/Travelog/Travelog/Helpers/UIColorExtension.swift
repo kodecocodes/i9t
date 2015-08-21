@@ -24,9 +24,12 @@ import UIKit
 
 extension UIColor {
   
-  /// Returns the Ultimate Red Color that's the theme and identity of the app.
-  class func ultimateRedColor() -> UIColor {
-    return UIColor(red: (241.0/255.0), green: (40.0/255.0), blue: (35.0/255.0), alpha: 1.0)
+  class func themeColor() -> UIColor {
+    return UIColor(red: (101.0/255.0), green: (113.0/255.0), blue: (135.0/255.0), alpha: 1.0)
+  }
+  
+  class func themeTineColor() -> UIColor {
+    return UIColor(red: (74.0/255.0), green: (192.0/255.0), blue: (255.0/255.0), alpha: 1.0)
   }
   
 }

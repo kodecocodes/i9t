@@ -111,17 +111,18 @@ class DetailViewController: UIViewController, UIImagePickerControllerDelegate, U
     guard let textView = textView else { return }
     guard let imageView = imageView else { return }
     
+    if let selectedLog = selectedLog {
+      titleLabel.text = self.dateFormatter.stringFromDate(selectedLog.date).uppercaseString
+    }
+    
     if let selectedLog = selectedLog as? TextLog {
       textView.text = selectedLog.text
-      titleLabel.text = self.dateFormatter.stringFromDate(selectedLog.date)
       setDetailViewState(DetailViewState.DisplayTextLog)
     } else if let selectedLog = selectedLog as? ImageLog {
       imageView.image = selectedLog.image
-      titleLabel.text = self.dateFormatter.stringFromDate(selectedLog.date)
       setDetailViewState(DetailViewState.DisplayImageLog)
     } else if let selectedLog = selectedLog as? VideoLog {
       imageView.image = selectedLog.previewImage
-      titleLabel.text = self.dateFormatter.stringFromDate(selectedLog.date)
       setDetailViewState(DetailViewState.DisplayVideoLog)
     } else {
       setDetailViewState(DetailViewState.DisplayNone)

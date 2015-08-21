@@ -50,6 +50,8 @@ class LogsViewController: UITableViewController, DetailViewControllerPresenter {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    tableView.contentInset = UIEdgeInsets(top: -36, left: 0, bottom: 0, right: 0)
+    
     let hasCamera = UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Rear) ||
       UIImagePickerController.isCameraDeviceAvailable(UIImagePickerControllerCameraDevice.Front)
     cameraButton.enabled = hasCamera
@@ -89,7 +91,7 @@ class LogsViewController: UITableViewController, DetailViewControllerPresenter {
     controller.delegate = self
     controller.sourceType = sourceType
     controller.mediaTypes = [String(kUTTypeImage), String(kUTTypeMovie)]
-    controller.view.tintColor = UIColor.ultimateRedColor()
+    controller.view.tintColor = UIColor.themeTineColor()
     if sourceType == UIImagePickerControllerSourceType.PhotoLibrary {
       controller.modalPresentationStyle = .Popover
       let presenter = controller.popoverPresentationController
