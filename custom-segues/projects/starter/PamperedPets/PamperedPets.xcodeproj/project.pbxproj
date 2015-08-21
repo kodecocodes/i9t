@@ -79,6 +79,7 @@
 				825FD7F71B65CC15000AA792 /* Storyboards */,
 				82276AE21B64ECAE006C0BC0 /* View Controllers */,
 				82276AE11B64EC97006C0BC0 /* Custom Segues */,
+				827015C61B864E0A001F9247 /* Views */,
 			);
 			path = PamperedPets;
 			sourceTree = "<group>";
@@ -87,8 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				8251A99A1B64B3A900FE2BEF /* PamperedPets */,
-				8251A9A61B64B3A900FE2BEF /* RoundedImageView.swift */,
-				82AEA6BA1B8639F8004D89C7 /* BackgroundView.swift */,
 				8251A99C1B64B3A900FE2BEF /* Assets.xcassets */,
 				8251A9A21B64B3A900FE2BEF /* Info.plist */,
 				825B0B2B1B5F630D00F581BC /* Products */,
@@ -110,6 +109,16 @@
 				8251A99D1B64B3A900FE2BEF /* LaunchScreen.storyboard */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		827015C61B864E0A001F9247 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8251A9A61B64B3A900FE2BEF /* RoundedImageView.swift */,
+				82AEA6BA1B8639F8004D89C7 /* BackgroundView.swift */,
+			);
+			name = Views;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

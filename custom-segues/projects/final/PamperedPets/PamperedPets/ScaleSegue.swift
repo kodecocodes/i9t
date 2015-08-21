@@ -2,14 +2,14 @@
 //  ScaleSegue.swift
 //  PamperedPets
 //
-//  Created by Caroline Begbie on 2/08/2015.
+//  Created by Caroline Begbie on 21/08/2015.
 //  Copyright © 2015 Caroline Begbie. All rights reserved.
 //
 
 import UIKit
 
 class ScaleSegue: UIStoryboardSegue {
-
+  
   override func perform() {
     destinationViewController.transitioningDelegate = self
     super.perform()
@@ -41,12 +41,12 @@ class ScalePresentAnimator: NSObject, UIViewControllerAnimatedTransitioning {
       }
     }
     let fromView = transitionContext.viewForKey(UITransitionContextFromViewKey)
-
+    
     // 1. Get the transition context to- controller and view
     let toViewController = transitionContext.viewControllerForKey(UITransitionContextToViewControllerKey)!
     let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
-    
-    // 2. Add the to-view to the transition context
+
+    // 2. Add the to- view to the transition context
     if let toView = toView {
       transitionContext.containerView()?.addSubview(toView)
     }

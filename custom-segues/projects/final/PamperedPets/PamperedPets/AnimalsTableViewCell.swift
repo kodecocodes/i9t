@@ -24,4 +24,9 @@ class AnimalsTableViewCell: UITableViewCell {
     }
   }
   
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+    let image = UIImage(named: "DisclosureIndicator")
+    self.accessoryView = UIImageView(image: image)
+  }
 }

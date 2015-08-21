@@ -28,7 +28,7 @@ The app you'll be updating today is a pet minding app called **PamperedPets**. I
 
 Explore your starter project and see how it works. When you run the app, you'll see a single scene which shows the photo, address and feeding instructions the star of our show - Bubbles the goldfish. No transitions are yet implemented.
 
-> **Note**: The project will throw some warnings related to the Storyboard. Don't panic.  You'll hook the disconnected storyboards up later in the chapter.
+> **Note**: The project will throw some warnings related to the Storyboard. Don't panic. You'll hook up the disconnected storyboards later in the chapter.
 
 Have a look at **Main.storyboard**. There are a number of scenes that have been created for you, but initially the Animal Detail scene and the Animal Photo scene are the scenes that you'll be working with. 
 
@@ -161,7 +161,7 @@ These are the protocols that you will be encountering.
 
 If you're floundering, don't worry if you don't have these down just yet - when you have used them a few times they will become clear. 
 
-Before you start, here's an overview the steps required to create every animated segue:
+Before you start, here's an overview of the steps required to create every animated segue:
 
 1. Subclass `UIStoryboardSegue` and set the segue as the destination controller's transitioning delegate 
 2. Create the presenting and dismissing animator classes
@@ -309,7 +309,7 @@ Take a moment to look at the code of the included example custom segues in **Dro
 
 Let's continue to improve your scaling segue. It would be good to have the larger photo smoothly scale up from the smaller one instead of from the corner. But how do you tell the animator object what view it is scaling? 
 
-There's so much decoupling happening that you don't have a direct reference to the source image view. This sounds like a great job for a protocol. The Animal Detail can adopt a protocol to set what view is to be scaled, and the animator object can then use that protocol's scaling view without having to know anything else about the source view controller. 
+There's so much decoupling happening that you don't have a direct reference to the source image view. This sounds like a great job for a protocol. The Animal Detail View Controller can adopt a protocol to set what view is to be scaled, and the animator object can then use that protocol's scaling view without having to know anything else about the source view controller. 
 
 In **ScaleSegue.swift** create the protocol:
 

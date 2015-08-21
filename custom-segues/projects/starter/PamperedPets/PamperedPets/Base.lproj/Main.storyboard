@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="9VQ-8j-vgH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8mc-FN-o1T">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -266,35 +266,35 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="DTh-dK-B9z"/>
-                                <exclude reference="FFE-AJ-MvP"/>
-                                <exclude reference="ZX5-HQ-sOK"/>
                                 <exclude reference="axV-Cw-yiu"/>
                                 <exclude reference="ikg-rn-IVH"/>
                                 <exclude reference="mCB-Da-CRi"/>
                                 <exclude reference="t8t-Jz-ZsA"/>
+                                <exclude reference="DTh-dK-B9z"/>
+                                <exclude reference="FFE-AJ-MvP"/>
+                                <exclude reference="ZX5-HQ-sOK"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact">
                             <mask key="constraints">
-                                <exclude reference="1w8-Te-YGK"/>
-                                <include reference="FFE-AJ-MvP"/>
                                 <exclude reference="Z7m-9h-nIq"/>
                                 <exclude reference="hI8-vx-TvN"/>
                                 <include reference="ikg-rn-IVH"/>
                                 <include reference="mCB-Da-CRi"/>
+                                <exclude reference="1w8-Te-YGK"/>
+                                <include reference="FFE-AJ-MvP"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=regular">
                             <mask key="constraints">
-                                <exclude reference="1w8-Te-YGK"/>
-                                <include reference="DTh-dK-B9z"/>
-                                <exclude reference="PDO-Ia-138"/>
-                                <include reference="ZX5-HQ-sOK"/>
                                 <exclude reference="Z7m-9h-nIq"/>
                                 <include reference="axV-Cw-yiu"/>
                                 <exclude reference="hI8-vx-TvN"/>
                                 <include reference="t8t-Jz-ZsA"/>
+                                <exclude reference="1w8-Te-YGK"/>
+                                <include reference="DTh-dK-B9z"/>
+                                <exclude reference="PDO-Ia-138"/>
+                                <include reference="ZX5-HQ-sOK"/>
                             </mask>
                         </variation>
                     </view>
