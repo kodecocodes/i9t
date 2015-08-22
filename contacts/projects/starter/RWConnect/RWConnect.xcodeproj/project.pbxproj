@@ -8,24 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		2021C6BB1B6820E40072F4C5 /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2021C6BA1B6820E40072F4C5 /* FriendCell.swift */; };
+		202A88391B88DC5300E374D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 202A88381B88DC5300E374D2 /* LaunchScreen.storyboard */; };
 		202D14031B3F748E0012E77B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D14021B3F748E0012E77B /* AppDelegate.swift */; };
 		202D14081B3F748E0012E77B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 202D14061B3F748E0012E77B /* Main.storyboard */; };
 		202D14151B3F74EE0012E77B /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D14141B3F74EE0012E77B /* FriendsViewController.swift */; };
 		202D14171B3F75070012E77B /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 202D14161B3F75070012E77B /* Friend.swift */; };
-		20E8D13F1B3F766A00A0ACE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20E8D13E1B3F766A00A0ACE9 /* Assets.xcassets */; };
-		79FE94841B53F4EB009F0946 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79FE94831B53F4EB009F0946 /* LaunchScreen.xib */; };
+		209086AF1B88DD9100B7C189 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 209086AE1B88DD9100B7C189 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2021C6BA1B6820E40072F4C5 /* FriendCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		202A88381B88DC5300E374D2 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		202D13FF1B3F748E0012E77B /* RWConnect.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RWConnect.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		202D14021B3F748E0012E77B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		202D14071B3F748E0012E77B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		202D140E1B3F748E0012E77B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		202D14141B3F74EE0012E77B /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		202D14161B3F75070012E77B /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
-		20E8D13E1B3F766A00A0ACE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		79FE94831B53F4EB009F0946 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		209086AE1B88DD9100B7C189 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,9 +63,9 @@
 				202D14161B3F75070012E77B /* Friend.swift */,
 				2021C6BA1B6820E40072F4C5 /* FriendCell.swift */,
 				202D14061B3F748E0012E77B /* Main.storyboard */,
-				79FE94831B53F4EB009F0946 /* LaunchScreen.xib */,
+				202A88381B88DC5300E374D2 /* LaunchScreen.storyboard */,
 				202D140E1B3F748E0012E77B /* Info.plist */,
-				20E8D13E1B3F766A00A0ACE9 /* Assets.xcassets */,
+				209086AE1B88DD9100B7C189 /* Assets.xcassets */,
 			);
 			path = RWConnect;
 			sourceTree = "<group>";
@@ -127,8 +127,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				20E8D13F1B3F766A00A0ACE9 /* Assets.xcassets in Resources */,
-				79FE94841B53F4EB009F0946 /* LaunchScreen.xib in Resources */,
+				202A88391B88DC5300E374D2 /* LaunchScreen.storyboard in Resources */,
+				209086AF1B88DD9100B7C189 /* Assets.xcassets in Resources */,
 				202D14081B3F748E0012E77B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
