@@ -140,18 +140,3 @@ extension CoffeeShopPinDetailView {
 	//MARK:- Transit Helpers
   
 }
-
-extension UIView {
-	class func loadFromNibNamed(nibNamed: String, bundle : NSBundle? = nil) -> UIView? {
-		return UINib(
-			nibName: nibNamed,
-			bundle: bundle
-			).instantiateWithOwner(nil, options: nil).first as? UIView
-	}
-}
-
-let shortDateFormatter: NSDateFormatter = {
-  let formatter = NSDateFormatter()
-  formatter.timeStyle = .ShortStyle
-  return formatter
-}()

@@ -24,30 +24,33 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-	var window: UIWindow?
-	
-	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+  var window: UIWindow?
+  
+  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     let barColor = UIColor(red: 108/255, green: 69/255, blue: 54/255, alpha: 1.0)
-		
-		UINavigationBar.appearance().translucent = false
-		UINavigationBar.appearance().titleTextAttributes =
-			[NSForegroundColorAttributeName : UIColor.whiteColor()]
-		UINavigationBar.appearance().barTintColor = barColor
-		UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-		
-		return true
-	}
-}
-
-extension UINavigationController {
-  public override func childViewControllerForStatusBarStyle() -> UIViewController? {
-    return self.topViewController
+    
+    UINavigationBar.appearance().translucent = false
+    UINavigationBar.appearance().titleTextAttributes =
+      [NSForegroundColorAttributeName : UIColor.whiteColor()]
+    UINavigationBar.appearance().barTintColor = barColor
+    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+    UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
+    return true
   }
 }
 
-extension ViewController {
-  override func preferredStatusBarStyle() -> UIStatusBarStyle {
-    return .LightContent
+extension UIView {
+  class func loadFromNibNamed(nibNamed: String, bundle : NSBundle? = nil) -> UIView? {
+    return UINib(
+      nibName: nibNamed,
+      bundle: bundle
+      ).instantiateWithOwner(nil, options: nil).first as? UIView
   }
 }
+
+let shortDateFormatter: NSDateFormatter = {
+  let formatter = NSDateFormatter()
+  formatter.timeStyle = .ShortStyle
+  return formatter
+}()
 
