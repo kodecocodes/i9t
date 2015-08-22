@@ -1,272 +1,281 @@
 # Chapter 12: Location and Mapping
 
-Apple continues to enhance its Map and Location's framework every year. Developers that incorporate MapKit into their apps should look forward to improved tools that yield greater user experiences.
+After Apple Maps' slightly shaky start in iOS 6, Apple has continued to enhance its mapping and location frameworks every year. iOS 9 is no exception, with a number of great updates to both MapKit and Core Location.
 
-Prior to the upgrade/Before, only directions to our desired destinations were available via walking and driving. Now, Maps also provides Transit, informing users of the various metro stops available en route to their destination.  
+Some of the most useful improvements come from iOS 9's addition of transit directions in Apple Maps, alongside  existing walking and driving directions. Transit is initially launching in a small number of cities around the world, but will likely be rolling out to more as time goes on. It features directions for subways, trains, buses and more.
 
-In addition, Apple has released their flyover API, enabling the inclusion of flyovers within applications. These enhancements further boost the customizability of MapKit.
+In this chapter, you'll take a look at:
 
-Lastly, Core Locations complements MapKit by allowing the location framework to be much more user friendly. Apple designed this API with the users in mind, focusing on device battery life and how to improve background location fetching.
+* New ways of customizing of the appearance of Maps in your apps
+*	Presenting transit directions in Apple Maps
+*	Requesting estimated travel times for transit directions
+*	Requesting a single location update with Core Location
 
-In this chapter you will be introduced to:
-* The customizability of MapKit’s appearance
-*	The use of Transit API
-*	The estimation of travel time duration
-*	How to request user’s location in a straightforward way
+> **Note**: This chapter will be easier to follow if you have some basic MapKit knowledge. If you need to brush up, take a look at our [Getting Started With MapKit tutorial](http://bit.ly/1PrurqE):  <http://bit.ly/1PrurqE>.
 
-This chapter is an introduction to MapKit and is a great way to kick-start your learning about the changes to Maps in iOS9!
+## Getting started
 
-## Getting Started
-Is coffee a staple in your trek to that final exam, or the key to how the rest of your day will unfold? Whether you are a student, working professional or simply just a coffee aficionado, Café Transit is an app that can ease your search for coffee. Access information about coffee shops around your area through Café Transit and receive directions to them! The app lets you know when to get going, so you will never be late again.
+The sample app for this chapter is one for all the coffee aficionados out there. Café Transit is an app that can ease the eternal search for good coffee. It currently just shows a handful of nearby coffee shops (well, in San Francisco!), marking them on the map using standard map pins.
 
-By the end of the tutorial, the app you will create will look like this:
-![iPhone](images/Final.png)
+By the time you've finished this chapter, the app will show all sorts of useful information for each coffee shop including a rating, pricing information, and opening hours. It will also be able to provide you with transit directions to a given coffee shop, and even let you know when you'll need to leave and when you'll be likely to arrive.
 
-Open **CafeTransit-Starter** and run it on the iPhone 6 Simulator.
+Time to get acquainted. Open the **starter project** for this chapter and build and run.
 
 ![iPhone](images/starter.png)
 
-The starter app is using the standard MapKit features that existed before. Other than clicking on a pin to reveal the title and mini description, there's a limit to what you can do right now.
+The starter app is using a standard MapKit `MKMapView`. You can tap on a pin to reveal the coffee shop's name and a brief description, but that's about it for now.
 
-### What's included in the starter project
+Now, head back over to Xcode and open **ViewController.swift**. The methods `setupMap()` and `addMapData()` are responsible for centering the map on San Francisco, and adding an annotation for each coffee shop. The model code for coffee shops is in **CoffeeShop.swift**, which also takes care of loading all of the sample coffee shop data from **sanfrancisco_coffeeshops.plist**.
 
-Now open **ViewController.swift**; you can see that you have setup the initial properties to customize the map, and centered it around San Francisco. You also loaded the sample coffee shop data and created a pin (**CoffeeShopPin.swift**) for each shop and placed it on the map.
+Finally, take a quick look at **CoffeeShopPinDetailView.swift** and **CoffeeShopPinDetailView.xib**. These define the custom annotation that you'll be adding in later to spice up the map view. It shows a rating, price information, and opening hours - it's just waiting to be used!
 
-Lastly you may have noticed a prebuild custom view. **CoffeeShopPinDetailView.swift** and **CoffeeShopPinDetailView.xib** will be used to spice up the interaction on the map view. The outlets and helper methods to update the UI has already been created so you can focus on what's new with MapKit!
+## Customizing maps
 
-Your first task is to customize the map's appearance.
+Previously, when configuring an `MKMapView` in code, the only visible items that you could toggle on and off were buildings and places of interest. MapKit in iOS 9 introduces to this three new boolean properties: you can now show or hide the map's **compass**, **scale** (that's the small bar that shows for example how big a mile is), and **traffic** display. These can allow you to either clean up your map by removing items, or provide extra information to your users by showing them current traffic conditions.
 
-## Customizing Map View's appearance
+![width=40%](images/compasstrafficscale.png)
 
-Before, only the decision on whether to hide places of interest and buildings on the map could be controlled. The framework introduces three new boolean properties. You can now show/hide the map's `compass`, `scale`, and `traffic`, which provides less clutter for your app. This clean customization allows users to focus on the content of your app by filtering out the traffic. Now go ahead and transform the appearance of your map!
+Café Transit could benefit from showing the map's scale, so that users can have a better idea how far it might be to walk to a particular coffee shop from their current location.
 
-![iPhone](images/compasstrafficscale.png)
-
-Open **ViewController.swift** and add the following code at the very beginning of `customizeMap`:
-```swift
-mapView.showsTraffic = false
-mapView.showsCompass = false
-mapView.showsScale = false
-```
-
-Depending on the contents of your apps, it may also be useful to show some of these features on the map!
-
-## Customizing Map Pins
-
-Before, you could only make the pin color red, green or purple by changing `pinColor`. The property `pinColor` in **MKPinAnnotationView** is now deprecated.
-You can now use any color you want by setting `pinTintColor`. FINALLY!
-
-![iPhone](images/rainbow.png)
-
-So within `mapView:ViewForAnnotation` your task is to change the pin's color with the endless options of colors that can now be used!
-
-## Customizing Callout
-
-A callout is a popover that appears above your annotation view on the map. This callout provides subtle information regarding a particular location. The old callout is very limited in its customization. While allowing you to set the title, subtitle and left/right accessory views, only two lines of text can be shown via the old callout.
-
-![iPhone](images/defaultcallout.png)
-
-In order to further customize your callout, you can now use a new property: `detailCalloutAccessoryView`, a subclass of `UIView`. This means that almost any UI component can be added to the detail view. For example: the new UIStackView, or something as crazy as a Collection View!
-
-### Ways to change the detail callout's size
-The callout is built on auto layout, and unfortunately there is no properties that the framework has exposed to explicitly resize the height or width of your callout. There are **two** ways to change the size of the accessory view:
-1. The view you set has to use auto layout and let intrinsic content size do its  thing.
-2. You can override `intrinsicContentSize`, and pass in your own size.
-
-For more information on this please refer to this documentation:
-TODO: btly
-https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/AutolayoutPG/ImplementingView/ImplementingView.html
-
-For this app, you are going to use technique one, and learn to use a xib to create your custom view. The project navigator contains a pre-created custom view using a xib. Its contents is organized using the new UIStackView component.
-
-When a coffee pin is tapped on, the detail view will show various information about that coffee shop.
-
-Feel free to explore how the xib makes use of UIStackView and constraints.
-
-![iPhone](images/customview.png)
-
-### Adding the detail view to the callout
-Open **ViewController.swift** and add the following code in `mapView:viewForAnnotation` within the `guard` statement of `dequeuedView` just before returning the `view`:
+Open **ViewController.swift** and add the following code at the very beginning of `setupMap()`:
 
 ```swift
-let detail = UIView.loadFromNibNamed("CoffeeShopPinDetailView") as! CoffeeShopPinDetailView
-detail.updateDetailView(annotation.coffeeshop!)
-view.detailCalloutAccessoryView = detail
+mapView.showsScale = true
 ```
-Here's a line-by-line explanation of the code above:
-1. Create the detail view by initializing the nib.
-2. Pass the coffee shop's information so the custom view can update its UI.
-3. Set the callout's detail view with our custom view.
 
-It's that simple! Build and run your app, click on one of the pins and you should now see the following:
+Build and run the app, and you should see the scale appear in the top left of the map. As you pan and zoom around the map, it'll update itself to match the map's current scale.
+
+![width=60%](images/cafetransit-scale.png)
+
+### Customizing map pins
+
+Since iOS 3, MapKit pins have had a `pinColor` property which allowed you to set their color to either red, green, or purple. Pretty good, but what if you wanted a yellow pin? Or an orange pin? Or... a blue pin?! Tough luck!
+
+In iOS 9, however, `MKPinAnnotationView`'s `pinColor` is now deprecated. It's been replaced by a new property: `pinTintColor`. And get this - you can set it to _any color you like_.
+
+![width=35%](images/rainbow.png)
+
+Café Transit currently uses boring red map pins, which doesn't really fit in with the coffee aesthetic. It would be nicer if they were the same brown color used throughout the app. Any why stop there? You could use a different color to pick out any cafes with a 5 star rating, to make them easier to see at a glance.
+
+In **ViewController.swift**'s `mapView(_:viewForAnnotation:)`, add the following code before the `return` statement at the end:
+
+```swift
+if annotation.coffeeshop.rating.value == 5 {
+  annotationView!.pinTintColor =
+    UIColor(red:1, green:0.79, blue:0, alpha:1)
+} else {
+  annotationView!.pinTintColor =
+    UIColor(red:0.419, green:0.266, blue:0.215, alpha:1)
+}
+```
+
+This sets a different `pinTintColor` depending on the annotation's coffee shop's star rating; if the coffee shop has a 5 star rating then it's set to a gold color, otherwise brown.
+
+Build and run, and check out your fancy new pins. That was easy!
+
+![iPhone](images/customizedMapPins.png)
+
+## Customizing annotation callouts
+
+Each map pin (or annotation view) can show a 'callout' when tapped. A callout is a popover that appears above your annotation view on the map. This callout can provide extra information regarding a particular location.
+
+![width=60%](images/defaultcallout.png)
+
+ Until now, annotation callouts have been very limited in terms of customization. You could set a title, subtitle and left and right accessory views. If you wanted to do any other kind of customization, you'd need to manually try and add a custom view to the annotation view. It wasn't an easy thing to do.
+
+iOS 9 makes the whole process much simpler, with a new property on `MKAnnotationView`: `detailCalloutAccessoryView`. This can be set to any view you like, meaning almost unlimited customization options for your callouts. You could even use the new `UIStackView`, or something kind of crazy collection view!
+
+### Callout size
+
+A callout will use the _intrinsic content size_ of your custom view to size itself appropriately. There are two ways to take advantage of this to size your custom callouts:
+
+1. Use Auto Layout to lay out your custom view, and let intrinsic content size do its thing.
+2. You can override `intrinsicContentSize` within your custom view size and return a size of your choice.
+
+> **Note**: For more information on intrinsic content size and Auto Layout, take a look at Apple's "Implementing a Custom View to Work with Auto Layout" documentation: <http://apple.co/1PHbKA5>.
+
+The XIB for Café Transit's `CoffeeShopPinDetailView` uses `UIStackView` and Auto Layout, so no manual specification of `intrinsicContentSize` is required. Feel free to explore how the XIB makes use of `UIStackView` and constraints.
+
+In addition, custom callouts aren't able to fill the entire area of the callout popover. The title of the annotation and a certain amount of padding is added by iOS. In the screenshot below, the green area is the entire area filled by the `detailCalloutAccessoryView`:
+
+![width=50%](images/customCalloutArea.png)
+
+You should bear this in mind when designing your custom callout views, as there is currently no way to modify the padding or title area.
+
+### Adding a custom callout accessory view
+
+With that theory out of the way, it's time to add a custom callout of your own! If you haven't seen it already, **CoffeeShopPinDetailView.xib** defines the UI for the callout accessory view. It shows the opening hours, star rating, and cost rating of a coffee shop, along with a description and a set of action buttons for things like calling the coffee shop or viewing their _Yelp_ page.
+
+![width=45%](images/customview.png)
+
+Open **ViewController.swift** and add the following code in `mapView(_:viewForAnnotation:)`, just before the `return` statement:
+
+```swift
+let detailView =
+  UIView.loadFromNibNamed(identifier) as! CoffeeShopPinDetailView
+detailView.coffeeShop = annotation.coffeeshop
+annotationView!.detailCalloutAccessoryView = detailView
+```
+
+First, this code loads the `CoffeeShopPinDetailView` from its XIB file. Then it's assigned a coffee shop, which it uses to populate its various labels and subviews. Finally, it assigns the view to the annotation view's `detailCalloutAccessoryView` property.
+
+It's that simple! Build and run your app, tap on one of the pins and you should now see the following:
 
 ![iPhone](images/addingDetailView.png)
 
->**Note**:
-Clicking on the phone button will only work on an actual device. Currently, you should only be able to click the yelp button which will open up safari and take you to the shop's yelp review. You can also click the clock button, but has static text. You will implement actions for transit and the time buttons later in this chapter.
+>**Note**: Tapping on the phone button in the callout will only work on an actual device. Currently you will only be able to tap the Yelp button which will open up Safari and take you to the coffee shop's Yelp review page. You can also tap the clock button, but it currently won't show any useful information. You will implement actions for transit and the clock buttons later in this chapter.
 
-Try adding a custom view to a callout! This creates opportunities for developers to open source their own custom views designs for map's callouts.
+## Simulating your location
 
-## User Location Simulator Initial Setup
+All of Café Transit's sample coffee shops are based in San Francisco. Statistically, however, it's very likely that _you_ aren't in San Francisco. The rest of this chapter will make use of the user's location, so it would be pretty useful if you could at least _pretend_ to be there. Fortunately, Xcode provides the functionality to simulate your location which will make testing Café Transit much easier! This isn't new functionality with Xcode 7, but it's certainly useful when working with Core Location.
 
-Now let's shift our attention from MapKit to understanding how to set up the user's current location. When running location based apps on the iOS Simulator, you need to set up a default location to test on.
+With the starter project open, click on the **CafeTransit** scheme and choose **Edit Scheme...**.
 
-![iPhone](images/defaultLocation1.png)
-You do this by clicking **CafeTransit** target, and select **Edit Scheme...**
+![bordered width=60%](images/editScheme.png)
 
-![iPhone](images/defaultLocation2.png)
-Now go to **Options** and set your default location to **San Francisco, CA, USA**. Your sample data is based in San Francisco.
+Select **Run** in the left pane, and **Options** from the tab bar at the top of the right pane. Enable **Core Location > Allow Location Simulation**, and set your **Default Location** to **San Francisco, CA, USA**. Click **Close** to save.
 
-## Core Location Overview - Single Location
+![bordered width=90%](images/simulateLocation.png)
 
-Now that the scheme's default location is set up, you are ready to get the user's location whenever they run it on a real device! Apple has made it extremely easy for us to grab their location without a hassle in iOS 9. You will learn how to get the user's location with just one call in this section.
+The app will now be fooled into thinking you're in San Francisco! You'll see this in action in the next section, as you plot the user's location on the map. You'll also be requesting the user's location so that you can use it to provide transit directions from the user's current location to a selected coffee shop.
 
-### Set Up Location Manager
+## Making a single request for the user's location
 
-First open **ViewController.swift** and add the following code just below the class definition:
+In previous versions of iOS, if you wanted to just access the user's current location you would have to jump through a number of hoops. You'd need to create a `CLLocationManager`, implement some delegate methods, and then ask it to `startUpdatingLocation()`. This would repeatedly call the location manager delegate methods with updates to the user's location. Once it was at an accuracy you were happy with, you'd need to call `stopUpdatingLocation()` to stop the location manager. If you don't stop it, you could accidentally be draining the user's battery life!
+
+Core Location in iOS 9 has now made this process possible with just one method call: `requestLocation()`. It still makes use of the existing delegate callback methods, but there's now no need to manually start and stop the location manager. You just tell it the accuracy you'd like, and it'll give you the location once it narrows down the user's location for you. It only calls your delegate once, and only returns a single location.
+
+![width=50%](images/winningBaby.jpg)
+
+[NOTE: FPE: I'm not sure this image adds much here?]
+
+### Add a location manager
+
+First, open **ViewController.swift** and add the following line just below the class declaration:
 
 ```swift
-let locationManager = CLLocationManager()
+lazy var locationManager = CLLocationManager()
 var currentLocation: CLLocationCoordinate2D?
 ```
-The code creates a **CLLocationManager** object. This is used to access any location related information such as getting permission and obtaining the user's location. Also you create a **CLLocationCoordinate2D** property that will be used later to store the user's current location.
+The code lazily creates a `CLLocationManager` object whenever it's first used. You also create a `CLLocationCoordinate2D` property that will be used later to store the user's current location.
 
-Next within **viewDidLoad** add these two lines:
+Next, at the end of `viewDidLoad()` add these two lines:
 ```swift
 locationManager.delegate = self
 locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
 ```
-Here you set the delegate for location manager, and you determine how accurate you want the coordinates to be. By setting **desiredAccuracy**, the system will attempt to determine the best accuracy for your location within the given range.
+Here you set the delegate for location manager, and you determine how accurate you want the coordinates to be. By setting **desiredAccuracy**, the system will attempt to only provide you with the user's location once it's accurate enough. In some cases, it may not be possible for the system to reach the desired accuracy. In these situations, if the accuracy isn't improving, you may receive a location with a lower accuracy than you'd like.
 
-### Requesting Permission
-
->**Note:**
-To save you some time location manager's authorization request for `requestWhenInUseAuthorization` has been setup for you within **Info.plist**  ![iPhone](images/plist.png)
-
-Before accessing the user's location, it is courtesy to first ask for their permission. Add the following method in **ViewController.swift**
+Next, add the following extension to the bottom of **ViewController.swift**, adding conformance to the `CLLocationManagerDelegate` protocol:
 
 ```swift
-func askUserForPermissionToUseLocation() {
-  if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse { //1
-    mapView.showsUserLocation = true //2
-    locationManager.requestLocation() //3
+// MARK:- CLLocationManagerDelegate
+extension ViewController: CLLocationManagerDelegate {
 
+  func locationManager(manager: CLLocationManager,
+    didUpdateLocations locations: [CLLocation]) {
+      currentUserLocation = locations.first?.coordinate
+  }
+
+  func locationManager(manager: CLLocationManager,
+    didFailWithError error: NSError) {
+      print("Error finding location: \(error.localizedDescription)")
+  }
+}
+```
+
+This extension implements two of `CLLocationManagerDelegate`'s methods. In `locationManager(_:didFailWithError:)`, you simply log out an error if one occurs. In `locationManager(_:didUpdateLocations:)`, you store the coordinate of the first location returned in the property you created earlier. When you use the new `requestLocation()` method, only one location will ever be returned.
+
+Now you just need to actually _call_ `requestLocation()`! Still in **ViewController.swift**, add the following method to `ViewController`, below `centerMap(_:atPosition:)`:
+
+```swift
+private func requestUserLocation() {
+  if CLLocationManager.authorizationStatus() ==
+    .AuthorizedWhenInUse { // 1
+      mapView.showsUserLocation = true    // 2
+      locationManager.requestLocation()   // 3
   } else {
-    locationManager.requestWhenInUseAuthorization() //4
+    locationManager.requestWhenInUseAuthorization()   // 4
   }
 }
 ```
 
 Let's go over the code line by line:
-1. Check to see if you have permission to use the user's location.
-2. If you have permission, show the user's location on the map.
-3. Find out where the user is by calling **requestLocation()**.
-3. If you don't have permission to use the user's location, ask for it.
 
-Lastly add the following code under **viewDidLoad()**:
+1. Before you can request the user's location, you must first ask for permission to do so. This line checks whether you already have position.
+2. If you do have permission, show the user's location on the map.
+3. Then call **requestLocation()** to request the user's current position. Once this is done, the delegate method `locationManager(_:didUpdateLocations:)` that you just implemented will be called.
+4. If you don't have permission to use the user's location, ask for it.
+
+> **Note**: When calling `requestWhenInUseAuthorization()`, you must have configured your Info.plist file with a value for the key `NSLocationWhenInUseUsageDescription` stating _why_ you would like access to the user's location. This message will be displayed to the user in the usual permission alert that pops up. To save you time, this setting has already been added to Café Transit's Info.plist. ![bordered width=80%](images/plist.png)
+
+Next, add the following implementation for `viewDidAppear(_:)` under **viewDidLoad()**:
 ```swift
 override func viewDidAppear(animated: Bool) {
   super.viewDidAppear(animated)
-  askUserForPermissionToUseLocation()
+
+  requestUserLocation()
 }
 ```
-When the app first launches, it will check to see if the app has permission to use the user's location.
 
-### Request Location
+This will call the method you just wrote when the app first launches and the map view appears.
 
-Core Location has simplified the way you get their location by calling a single method **requestLocation()**.
-
-Before, you would have to start your location's update and watch multiple locations come into your delegate callback and then, determine which location is the most accurate to use. Once you determine the location to use, you have to remember to stop location updates. If you don't stop it, you will be draining the user's battery life!
-
-**requestLocation()** automates all of this for you!
-
- When you call this method, it will start to get the location, and will only call your delegate once. It will also stop location updates for you when complete. This means you get to implement more features and spend less time debugging and fixing bugs!
-
- ![iPhone](images/winningBaby.jpg)
-
-### Implement Delegate Method to get Location
-
-Let's now go ahead and add the delegate methods to receive our location!
-
-Within **ViewController.swift** add the following code at the very end of the last curly brace:
+Finally, find the `MKMapViewDelegate` extension at the bottom of **ViewController.swift**, and add the following method to it:
 
 ```swift
-// MARK: - CLLocationManagerDelegate
-extension ViewController: CLLocationManagerDelegate {
-
-	func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) { //1
-		guard let location = locations.first else { //2
-			return
-		}
-		currentLocation = location.coordinate //3
-	}
-
-	func locationManager(manager: CLLocationManager, didFailWithError error: NSError) { //4
-		print("Error finding location: \(error.localizedDescription)")
-	}
+func mapView(mapView: MKMapView,
+  didSelectAnnotationView view: MKAnnotationView) {
+    if let detailView =  
+      view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
+        detailView.currentUserLocation = currentUserLocation
+    }
 }
 ```
 
-Here's a line by line explanation of the code:
-1. `locationManager:didUpdateLocations` lets us know when new location data is available to grab.
-2. Check to see if a location is found.
-3. If a location is found, store it in `currentLocation` so you can reference it later on.
-4. `locationManager:didFailWithError` lets us know when location manager has failed to retrieve a location.
+This will pass the user's current location onto an annotation whenever it's displayed. You'll use this soon to request transit directions from this location.
 
-Lastly in **ViewController.swift** add the following code within `MKMapViewDelegate` extension:
-```swift
-func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-  if let detail = view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
-      detail.currentLocation = currentLocation
-  }
-}
-```
-
-Whenever an annotation is clicked on, we pass the current location into the detail callout.
-
->**Fun Fact**:
-Background location updates and single location updates use the same delegate callbacks!
-
-Build and Run your App, you should see a blue dot with a force field around it!
+Wow! That was quite a bit to get through, but well done! Build and run your app. If everything's working correctly, should see a blue dot appear on the map.
 
 ![iPhone](images/forcefield.png)
 
-## Launching Map's Transit directions
+## Transit directions
 
-Now that you have obtained the user's current location, you are now ready to get transit directions to your coffee shops! Open **CoffeeShopPinDetailView.swift** and add the following function below the function **animateView**:
+Now that you've obtained the user's current location, you're ready to get transit directions to coffee shops! Since Apple Maps launched back with iOS 6, developers have had the ability to launch Maps with either driving or walking directions to a particular location. Maps in iOS 9 has had an upgrade and now contains fantastic public transit information for a number of cities around the world, which developers can take advantage of too!
+
+Open **CoffeeShopPinDetailView.swift** and add the following method below `//MARK:- Transit Helpers` near the bottom of the file:
 
 ```swift
-//MARK: Transit Helpers
-func openInMapTransit(coord:CLLocationCoordinate2D) {
-	let placemark = MKPlacemark(coordinate: coord, addressDictionary: nil) // 1
-	let mapItem = MKMapItem(placemark: placemark) //2
-	let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeTransit] //3
-	mapItem.openInMapsWithLaunchOptions(launchOptions) //4
+func openTransitDirectionsForCoordinates(coord:CLLocationCoordinate2D) {
+  let placemark = MKPlacemark(coordinate: coord,
+    addressDictionary: coffeeShop.addressDictionary) // 1
+  let mapItem = MKMapItem(placemark: placemark)  // 2
+  let launchOptions = [MKLaunchOptionsDirectionsModeKey:
+    MKLaunchOptionsDirectionsModeTransit]  // 3
+  mapItem.openInMapsWithLaunchOptions(launchOptions)  // 4
 }
 ```
 
 This is a helper method that will give you transit directions to the coordinates you pass in. Let's go over how this works:
 
-1. Create a place mark that will be used to store your coordinates. Place mark usually has an associated address, but in this case we have none.
-2. Initialize an `MKMapItem` with the place mark.
-3. Specify that you want to launch maps in transit mode.
-4. Launch Apple Maps to show directions to the location via transit.
+1. Create an `MKPlacemark` that will store your coordinates. Placemarks usually have an associated address, and the coffee shop model provides a basic one which just includes the coffee shop's name.
+2. Initialize an `MKMapItem` with the placemark.
+3. Specify that you want to launch Maps in **transit** mode.
+4. Launch Maps to show transit directions to the requested location.
 
-Lastly replace the `TODO` code in `transitTapped` with the following:
+Now all you need to do is replace the `TODO` in `transitTapped()` with a call to the method above, passing in the coffee shop's location:
+
 ```swift
-@IBAction func transitTapped(sender: AnyObject) {
-  if let location = self.coffeeShop?.location {
-    openInMapTransit(location)
-  }
-}
+openTransitDirectionsForCoordinates(coffeeShop.location)
 ```
-Here you simply check to see if the coffee shop has a location, and launch transit directions to that coffee shop!
 
-Build and Run your app, tap on a coffeeshop, and click the train icon to see it launch the transit directions to that coffee shop!
+Build and run the app. Tap on a coffee shop, and click the train icon in the callout. You should be launched straight into transit directions to the coffee shop!
 
-## Query Estimated Time of Arrival
+![iPhone bordered](images/transitDirections.png)
 
-Apple has brought us some really cool APIs within **MKETAResponse** as shown below:
+## Querying Transit ETA
+
+The final new feature of MapKit that you'll add to Café Transit is the ability to query public transit journey information. In particular, the **MKETAResponse** class includes these properties:
+
 ```swift
 public var expectedTravelTime: NSTimeInterval { get }
 @available(iOS 9.0, *)
@@ -276,82 +285,81 @@ public var expectedArrivalDate: NSDate { get }
 @available(iOS 9.0, *)
 public var expectedDepartureDate: NSDate { get }
 @available(iOS 9.0, *)
+public var transportType: MKDirectionsTransportType { get }
 ```
-You are now able to obtain the distance, the expected duration of travel, arrival, and departure time. This is especially useful for travel based applications.
 
-Before you had to rely on Google Maps API, or query some third party server for this information, but not anymore! You can now query Apple's very own server.
+You are now able to obtain the distance of a journey, the expected duration of travel, arrival, and departure times. This is really useful for apps to provide some high level journey information without pushing the user out into a separate app.
 
-### How to calculate the response
-If you tap a coffee shop and tap on the clock button, it animates upwards to show you the depart and arrival times. There is currently no mechanism to retrieve that information. So let's find out how to calculate estimated times of travel!
+If you tap a coffee shop in Café Transit and then and tap on the clock button, the view animates upwards to show you estimated departure and arrival times. But there are no times displayed yet. MapKit to the rescue!
 
-Open **CoffeeShopPinDetailView.swift** and add the following function just after **openInMapTransit**:
+Open **CoffeeShopPinDetailView.swift** and add the following method just after `openTransitDirectionsForCoordinates(_:)`:
 
 ```swift
-func setTransitEstimatedTimes() {
-	if let currentLocation = currentLocation { //1
-		let request = MKDirectionsRequest() //2
-		let source = MKMapItem(placemark: MKPlacemark(coordinate: currentLocation, addressDictionary: nil)) //3
-		let destination = MKMapItem(placemark: MKPlacemark(coordinate: (self.coffeeShop?.location)!, addressDictionary: nil)) //4
-		request.source = source //5
-		request.destination = destination
-		//Set Transport Type to be Transit
-		request.transportType = MKDirectionsTransportType.Transit //6
+func requestTransitTimes() {
+  guard let currentUserLocation = currentUserLocation else {
+    return
+  }
 
-		let directions = MKDirections(request: request) //7
-    //8
-		directions.calculateETAWithCompletionHandler { response, error in
-			if let error = error {
-				print(error.localizedDescription)
-			} else {
-				self.updateEstimatedTimeLabels(response) //9
-			}
-		}
-	}
+  // 1
+  let request = MKDirectionsRequest()
+
+  // 2
+  let source = MKMapItem(placemark:
+    MKPlacemark(coordinate: currentUserLocation,
+      addressDictionary: nil))
+  let destination = MKMapItem(placemark:
+    MKPlacemark(coordinate: coffeeShop.location,
+      addressDictionary: nil))
+
+  // 3
+  request.source = source
+  request.destination = destination
+  request.transportType = MKDirectionsTransportType.Transit
+
+  // 4
+  let directions = MKDirections(request: request)
+  directions.calculateETAWithCompletionHandler { response, error in
+    if let error = error {
+      print(error.localizedDescription)
+    } else {
+      // 5
+      self.updateEstimatedTimeLabels(response)
+    }
+  }
 }
 ```
 
 Let's go over how you request for the times:
-1. First check to see if you have the user's current location.
-2. Create a **MKDirectionsRequest** object.
-3. Create an **MKMapItem** to hold the user's current location.
-4. Create an **MKMapItem** to hold the location of the coffee shop.
-5. Set the source and destination.
-6. Set the form of transportation to be transit.
-7. Create **MKDirections** object  that will provide route based directions from Apple's servers.
-8. Request directions from Apple's server by calling `calculateETAWithCompletionHandler`.
-9. If the response is valid, update our departure and arrival labels based on the response.
+1. After checking that there's currently a user location set, initialize an instance of `MKDirectionsRequest`.
+2. Create `MKMapItem`s to represent both the user's current location, and the coffee shop's location. There's no address dictionary populated here because the latitude and longitude are all that's needed.
+3. Configure the `MKDirectionsRequest` with the source, destination, and the type of transport.
+4. Create an `MKDirections` object, initialized with the `MKDirectionsRequest`, and tell it to actually perform the ETA calculation.
+5. If a successful response is returned, update the departure and arrival labels accordingly.
 
-Lastly in **CoffeeShopPinDetailView.swift** replace `timeTapped` with the following:
+Finally, still in **CoffeeShopPinDetailView.swift**, replace `timeTapped()` with the following:
 
 ```swift
-@IBAction func timeTapped(sender: AnyObject) {
+@IBAction func timeTapped() {
   if timeStackView.hidden {
     animateView(timeStackView, toHidden: false)
-    setTransitEstimatedTimes()
+    requestTransitTimes()
   } else {
     animateView(timeStackView, toHidden: true)
   }
 }
 ```
 
-When the time button is tapped, it animates upwards and sends a request to Apple's server to get the time estimates and updates your callout labels!
+When the time button is tapped, it'll animate upwards, a request will be sent to Apple's servers to get the journey's ETA and ETD, and the callout's labels will be updated! Magic!
 
-Build and run your app; Click on one of the coffee shop pins and click the clock. You should now get an update on when to leave and get there!
+Build and run the app. Tap on one of the coffee shop pins, and then tap the clock. You should now see an update on when to leave and and when you'll arrive!
 
-## Miscellaneous
-**MKMapItem** now contains a `timeZone` property. This can be useful to find out what timezone a coordinate is in.
+![iPhone](images/completedApp.png)
 
 ## Where to go to from here?
 
-Congratulations! I hope you learned a lot about what's new with MapKit in iOS 9. The framework is always improving, and it's really exciting to see it get better every year! In this chapter, you have acquired the necessary skills to customize the map view, and techniques to add a custom view into a callout. Next you saw how simple it was to request the user's location. After that, you messed with some really sweet api related to transit, getting directions, and calculating the estimated times! Wasn't that awesome?
+Congratulations, you've done a great job! In this chapter you've customized a map view, added a custom callout, requested the user's location, and made use of transit directions and estimated journey times. Awesome stuff.
 
-This touches upon most of the main topics in what's new with location and mapping in iOS 9.
+There are a couple of other MapKit and Core Location updates that this chapter did not cover. This includes a 3D flyover view in maps, timezone support for `MKMapItem`, and some changes to background location updates. For more information about these, check out their WWDC talks:
 
-This chapter did not cover the flyover, and background location updates. For more information or to continue learning about these, check out the WWDC talks below:
-
-TODO: btly
-https://developer.apple.com/videos/wwdc/2015/?id=206
-https://developer.apple.com/videos/wwdc/2015/?id=714
-
-Also keep a look out for Watch OS 2 By tutorials, and specialize tutorials related to flyover and background location updates in iOS 9.  
-If you have any cool ideas or questions please refer to the forum, and start a discussion!
+* What's New In MapKit: <http://apple.co/1h4r4e7>
+* What's New in Core Location: <http://apple.co/1EcdPD7>

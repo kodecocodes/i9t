@@ -22,55 +22,59 @@
 
 import UIKit
 import CoreLocation
+import Contacts
 
 struct CoffeeShop {
-	let name: String
-	let priceGuide: PriceGuide
-	let location: CLLocationCoordinate2D
-	let details: String
-	let rating: CoffeeRating
-	let yelpWebsite: String
-	let openTime: NSDate
-	let closeTime: NSDate
-	let phone: String
-
-	init?(dictionary: [String : AnyObject]) {
-		guard let name = dictionary["name"] as? String,
-			let phone = dictionary["phone"] as? String,
-			let yelpWebsite = dictionary["yelpWebsite"] as? String,
-			let priceGuideRaw = dictionary["priceGuide"] as? Int,
-			let priceGuide = PriceGuide(rawValue: priceGuideRaw),
-			let details = dictionary["details"] as? String,
-			let ratingRaw = dictionary["rating"] as? Int,
+  let name: String
+  let priceGuide: PriceGuide
+  let location: CLLocationCoordinate2D
+  let details: String
+  let rating: CoffeeRating
+  let yelpWebsite: String
+  let openTime: NSDate
+  let closeTime: NSDate
+  let phone: String
+  var addressDictionary: [String: AnyObject] {
+    return [CNPostalAddressStreetKey: name]
+  }
+  
+  init?(dictionary: [String : AnyObject]) {
+    guard let name = dictionary["name"] as? String,
+      let phone = dictionary["phone"] as? String,
+      let yelpWebsite = dictionary["yelpWebsite"] as? String,
+      let priceGuideRaw = dictionary["priceGuide"] as? Int,
+      let priceGuide = PriceGuide(rawValue: priceGuideRaw),
+      let details = dictionary["details"] as? String,
+      let ratingRaw = dictionary["rating"] as? Int,
       let latitude = dictionary["latitude"] as? Double,
       let longitude = dictionary["longitude"] as? Double,
       let openTime = dictionary["openTime"] as? NSDate,
       let closeTime = dictionary["closeTime"] as? NSDate,
-			let rating = CoffeeRating(value: ratingRaw) else {
-				return nil
-		}
-		
-		self.name = name
-		self.phone = phone
-		self.yelpWebsite = yelpWebsite
-		self.priceGuide = priceGuide
-		self.details = details
-		self.rating = rating
-		
+      let rating = CoffeeRating(value: ratingRaw) else {
+        return nil
+    }
+    
+    self.name = name
+    self.phone = phone
+    self.yelpWebsite = yelpWebsite
+    self.priceGuide = priceGuide
+    self.details = details
+    self.rating = rating
+    
     self.location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-
+    
     self.openTime = openTime
-		self.closeTime = closeTime
-	}
-
-	static func allCoffeeShops() -> [CoffeeShop] {
-		guard let path = NSBundle.mainBundle().pathForResource("sanfrancisco_coffeeshops", ofType: "plist"),
-			let array = NSArray(contentsOfFile: path) as? [[String : AnyObject]] else {
-				return [CoffeeShop]()
-		}
+    self.closeTime = closeTime
+  }
+  
+  static func allCoffeeShops() -> [CoffeeShop] {
+    guard let path = NSBundle.mainBundle().pathForResource("sanfrancisco_coffeeshops", ofType: "plist"),
+      let array = NSArray(contentsOfFile: path) as? [[String : AnyObject]] else {
+        return [CoffeeShop]()
+    }
     
     return array.flatMap { CoffeeShop(dictionary: $0) }.sort { $0.name < $1.name }
-	}
+  }
   
   func isOpenAtTime(date: NSDate) -> Bool {
     let calendar = NSCalendar.currentCalendar()
@@ -87,9 +91,9 @@ struct CoffeeShop {
 }
 
 extension CoffeeShop : CustomStringConvertible {
-	var description : String {
-		return "\(name): \(details)"
-	}
+  var description : String {
+    return "\(name): \(details)"
+  }
 }
 
 enum PriceGuide : Int {

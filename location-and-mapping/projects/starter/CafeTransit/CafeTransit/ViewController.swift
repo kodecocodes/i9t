@@ -26,9 +26,7 @@ import MapKit
 class ViewController: UIViewController {
   
   @IBOutlet var mapView: MKMapView!
-  
-  var currentUserLocation: CLLocationCoordinate2D?
-  
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -79,7 +77,7 @@ extension ViewController: MKMapViewDelegate {
       annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
       annotationView!.canShowCallout = true
     }
-
+    
     annotationView!.annotation = annotation
     
     return annotationView

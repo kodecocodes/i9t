@@ -25,18 +25,18 @@ import MapKit
 
 class CoffeeShopPinDetailView : UIView {
   
-	@IBOutlet var hoursLabel: UILabel!
-	@IBOutlet var descriptionLabel: UILabel!
-	@IBOutlet var departureLabel: UILabel!
-	@IBOutlet var arrivalLabel: UILabel!
-	@IBOutlet var timeStackView: UIStackView!
+  @IBOutlet var hoursLabel: UILabel!
+  @IBOutlet var descriptionLabel: UILabel!
+  @IBOutlet var departureLabel: UILabel!
+  @IBOutlet var arrivalLabel: UILabel!
+  @IBOutlet var timeStackView: UIStackView!
   
   @IBOutlet var openCloseStatusImage: UIImageView!
   @IBOutlet var priceGuideImages: [UIImageView]!
   @IBOutlet var ratingImages: [UIImageView]!
-
+  
   var currentUserLocation: CLLocationCoordinate2D?
-
+  
   var coffeeShop: CoffeeShop! {
     didSet {
       descriptionLabel.text = coffeeShop.details
@@ -47,82 +47,82 @@ class CoffeeShopPinDetailView : UIView {
       updateShopAvailability()
     }
   }
-	
-	override func awakeFromNib() {
-		timeStackView.hidden = true
-	}
-	
-  //MARK:- Updating UI
-	func updateRating() {
-		var count = coffeeShop.rating.value
-		for imageView in ratingImages {
-			if (count > 0) {
-				imageView.hidden = false
-				count--
-			} else {
-				imageView.hidden = true
-			}
-		}
-	}
-	
-	func updatePriceGuide() {
-		var count = coffeeShop.priceGuide.rawValue
-		for imageView in priceGuideImages {
-			if (count > 0) {
-				imageView.hidden = false
-				count--
-			} else {
-				imageView.hidden = true
-			}
-		}
-	}
   
-  func updateOpeningHours() {
+  override func awakeFromNib() {
+    timeStackView.hidden = true
+  }
+  
+  //MARK:- Updating UI
+  private func updateRating() {
+    var count = coffeeShop.rating.value
+    for imageView in ratingImages {
+      if (count > 0) {
+        imageView.hidden = false
+        count--
+      } else {
+        imageView.hidden = true
+      }
+    }
+  }
+  
+  private func updatePriceGuide() {
+    var count = coffeeShop.priceGuide.rawValue
+    for imageView in priceGuideImages {
+      if (count > 0) {
+        imageView.hidden = false
+        count--
+      } else {
+        imageView.hidden = true
+      }
+    }
+  }
+  
+  private func updateOpeningHours() {
     let startTime = shortDateFormatter.stringFromDate(coffeeShop.openTime)
     let endTime = shortDateFormatter.stringFromDate(coffeeShop.closeTime)
     
     hoursLabel.text = "\(startTime) - \(endTime)"
   }
-	
-	func updateShopAvailability() {
-		let isOpen = coffeeShop.isOpenAtTime(NSDate())
-		
-		if isOpen {
-				openCloseStatusImage.image = UIImage(named: "cafetransit_icon_open")
-		} else {
-				openCloseStatusImage.image = UIImage(named: "cafetransit_icon_closed")
-		}
-	}
-	
-	func updateEstimatedTimeLabels(response: MKETAResponse?) {
-		if let response = response {
-			self.departureLabel.text = shortDateFormatter.stringFromDate(response.expectedArrivalDate)
-			self.arrivalLabel.text = shortDateFormatter.stringFromDate(response.expectedDepartureDate)
-		}
-	}
+  
+  private func updateShopAvailability() {
+    let isOpen = coffeeShop.isOpenAtTime(NSDate())
+    
+    if isOpen {
+      openCloseStatusImage.image = UIImage(named: "cafetransit_icon_open")
+    } else {
+      openCloseStatusImage.image = UIImage(named: "cafetransit_icon_closed")
+    }
+  }
+  
+  private func updateEstimatedTimeLabels(response: MKETAResponse?) {
+    if let response = response {
+      self.departureLabel.text = shortDateFormatter.stringFromDate(response.expectedDepartureDate)
+      self.arrivalLabel.text = shortDateFormatter.stringFromDate(response.expectedArrivalDate)
+    }
+  }
 }
 
 extension CoffeeShopPinDetailView {
   
-	//MARK:- IBActions
-  @IBAction func phoneTapped(sender: AnyObject) {
+  //MARK:- IBActions
+  @IBAction func phoneTapped() {
     let phoneString = "tel://" + coffeeShop.phone
     if let url = NSURL(string: phoneString) {
       UIApplication.sharedApplication().openURL(url)
     }
   }
-	
-	@IBAction func transitTapped(sender: AnyObject) {
+  
+  @IBAction func transitTapped() {
     //TODO: Open transit directions in Maps
-	}
-	
-	@IBAction func internetTapped(sender: AnyObject) {
+  }
+  
+  @IBAction func internetTapped() {
     if let url = NSURL(string: coffeeShop.yelpWebsite) {
-			UIApplication.sharedApplication().openURL(url)
+      UIApplication.sharedApplication().openURL(url)
     }
-	}
-	
-  @IBAction func timeTapped(sender: AnyObject) {
+  }
+  
+  @IBAction func timeTapped() {
     if timeStackView.hidden {
       animateView(timeStackView, toHidden: false)
       //TODO: Calculate transit ETA
@@ -131,12 +131,12 @@ extension CoffeeShopPinDetailView {
     }
   }
   
-	private func animateView(view: UIView, toHidden hidden: Bool) {
-		UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: {
-			view.hidden = hidden
-    }, completion: nil)
-	}
-	
-	//MARK:- Transit Helpers
+  private func animateView(view: UIView, toHidden hidden: Bool) {
+    UIView.animateWithDuration(0.8, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 10.0, options: UIViewAnimationOptions(), animations: {
+      view.hidden = hidden
+      }, completion: nil)
+  }
+  
+  //MARK:- Transit Helpers
   
 }
