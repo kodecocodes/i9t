@@ -55,7 +55,7 @@ Custom segues have been around for a while, but previously, a segue was *either*
 
 ![bordered width=25%](images/NewSegueInspector.png)
 
-In this chapter you will be customizing only Modal and Popover segues. 
+In this chapter you will be customizing only Modal segues. 
 
 ## A Simple Segue
 
@@ -68,7 +68,7 @@ There are two main parts to this segue:
 1. Setting up the segue. `prepareForSegue(_:sender:)` is performed when the segue is activated. This is where you will set up the destination view controller with the necessary data.
 2. Performing the destination controller's transition animation. Initially you'll use the default transition, but shortly you will customize that.
 
-First in **Main.storyboard**, select the **Animal Detail View Controller** scene. Drag a **Tap Gesture Recognizer** from the Object Library onto the **Image View** photo of Bubbles the fish. This will hook up the tap gesture with that image view.
+First in **Main.storyboard**, select the **Animal Detail View Controller** scene. Drag a **Tap Gesture Recognizer** from the Object Library onto the **Pet Photo Thumbnail** of Bubbles the fish. This will hook up the tap gesture with that image view.
 
 In the Document Outline ctrl-drag from this **Tap Gesture Recognizer** to **Animal Photo View Controller**. Choose **present modally** from the popup menu. 
 
@@ -111,7 +111,7 @@ This method doesn't require any code for a simple unwind segue. Any method with 
 
 In **Main.storyboard** select the **Animal Photo View Controller** scene. Drag a **Tap Gesture Recognizer** from the Object Library onto **Pet Photo View**. 
 
-In the Document Outline ctrl-drag from this new **Tap Gesture Recognizer** to **Exit**. Select **unwindToAnimalDetailViewController** from the popup menu.
+In the Document Outline ctrl-drag from this new **Tap Gesture Recognizer** to **Exit**. Select **unwindToAnimalDetailViewController:** from the popup menu.
 
 ![bordered width=40%](images/ExitSegue.png)
 
@@ -165,7 +165,7 @@ Before you start, here's an overview of the steps required to create every anima
 
 1. Subclass `UIStoryboardSegue` and set the segue as the destination controller's transitioning delegate 
 2. Create the presenting and dismissing animator classes
-3. Define the duration and animation in the animators.
+3. Define the duration and animation in the animators
 4. Tell the segue what animator classes to use for presentation and dismissal
 5. Use the segue in the storyboard
 
@@ -297,7 +297,7 @@ You've done all the code necessary, so in **Main.storyboard** locate the **Photo
 
 Run the application, tap the fish, and watch it scale up from the top left of the screen to full screen on the iPhone and a form sheet on the iPad. (Note that when you tap the large photo to dismiss, the regular dismiss animation takes place.)
 
-![bordered height=22%](images/InitialScale.png)
+![height=22%](images/InitialScale.png)
 
 Congratulations! That's your first custom segue! 
 
@@ -428,7 +428,7 @@ Run the app on both the iPhone 6 and any iPad. The iPhone from- view will fade o
 
 ![iPad](images/FinalScale.png)
 
-That's it! You have now completed your first custom segue with animated transition! At the end of the chapter, you will be presented with two challenges. The first one will be to create the corresponding dismiss animation for scaling the photo back down to the intial small photo.
+That's it! You have now completed your first custom segue with animated transition! At the end of the chapter, you will be presented with two challenges. The first one will be to create the corresponding dismiss animation for scaling the photo back down to the initial small photo.
 
 ## When View Controllers are Embedded
 
@@ -525,7 +525,7 @@ Here are some tips:
 * Add a new animator object similar to the Scale dismissal animator that moves the presented frame off either the top of the screen or the bottom of the screen depending on swipe direction.
 * Add a new protocol `ViewSwipeable` that stores the swipe direction
 * Add two swipe gestures, one up and one down, to the `AnimalPhotoViewController` image view. Attach an `@IBAction` handler method to them to store the swipe direction in the view controller.
-* Add an extension to the view controller for the `ViewSwipeable` protocol that retruns the direction used.
+* Add an extension to the view controller for the `ViewSwipeable` protocol that returns the direction used.
 * Change the existing `PhotoDetail` segue to use your new Swipe segue.
 
 As always the solution is in the accompanying sample code.
