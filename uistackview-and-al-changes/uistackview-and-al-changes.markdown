@@ -11,7 +11,6 @@ Perhaps you're one of the lucky ones, and your view hierarchy didn't have to cha
 I bet you've found yourself clearing all constraints and re-adding them from scratch because it was easier than breaking out your virtual scalpel and performing painstaking _constraints-surgery_.
 
 With the introduction of `UIStackView`, the above tasks become trivial. No more will you find yourself lying awake at night wondering how to wrangle your runtime views!
-
 ![bordered width=50%](images/more_time_for_sleep.png)
 
 Stack views provide a way to horizontally or vertically position a series of views. By simply configuring alignment, distribution and spacing, and you can make the views gel together. More precisely, you can define _how_ the contained views adjust themselves to the available space.
@@ -29,11 +28,9 @@ Don't pack the bags just yet, because there's a few issues you'll need to fix by
 Towards the end of this chapter, you'll also fix another issue with the use of layout guides and layout anchors.
 
 For a teaser, here's the finished version of the app:
-
 ![height=41%](images/01-full-app_2318x1344.png)
 
 Open **VacationSpots-Starter**, and run it on the **iPhone 6 Simulator**. The first thing you'll notice is the name and location label in a few cells are off center.
-
 ![bordered width=30%](images/02-alignment-issue-on-table-view_750x534.png)
 
 Both the name and location label for a vacation spot should be centered vertically (as a group) so there is an equal amount of space above the name label, and below the location label – this is a fix with a layout guide that you'll learn towards the end of the chapter by using a layout guide. For now, go to the info view for London by tapping on the **London** cell.
@@ -77,7 +74,6 @@ Also, any outlet-connected labels have placeholder text that's set to the name o
 Another thing to note is that the scenes in the storyboard are not the default 600 x 600 squares that you get when using size classes.
 
 Size classes are still enabled, but the size of the initial Navigation Controller has been set to **iPhone 4-inch** under the **Simulated Metrics** section in the **Attributes inspector**. This just makes it a bit easier to work with the storyboard – and it helps make the screenshots fit in this book.
-
 ![bordered width=99%](images/06-simulated-metrics-iphone-4-inch_640x140.png)
 
 ## Your first stack view
@@ -90,21 +86,17 @@ TODO: screenshot
 ![bordered width=70%](images/07-drag-select-bottom-row-of-buttons_480x117.png)
 
 If the outline view is not already open, go ahead and open it by using the **Show Document Outline** button at the bottom left of the storyboard canvas:
-
 ![bordered width=20%](images/08-document-outline-button_120x40.png)
 
 Verify that all buttons are selected by checking them in the outline view:
-
 ![bordered width=40%](images/09-verify-button-selection_357x94.png)
 
 In case they are not all selected, you can also **Command-click** on each button in the outline view to select them.
 
 Once selected, click on the new **Stack** button in the Auto Layout toolbar at the bottom right of the storyboard canvas:
-
 ![bordered width=20%](images/10-stack_button_outlined_148x52.png)
 
 The buttons will become embedded in a new stack view:
-
 ![bordered width=96%](images/11-bottom-row-is-now-in-stack-view_640x100.png)
 
 The buttons are now flush with each other – you'll that fix shortly.
@@ -112,21 +104,17 @@ The buttons are now flush with each other – you'll that fix shortly.
 While the stack view takes care of positioning the buttons, you still need to add Auto Layout constraints to position the stack view itself.
 
 When you embed a view in a stack view, any constraints to other views are removed. For example, prior to embedding the buttons in a stack view, the top of the **Submit Rating** button had a vertical spacing constraint connecting it to the bottom of the **Rating:** label:
-
 ![bordered width=40%](images/12-prior-constraint_354x95.png)
 
 Click on the **Submit Rating** button to see it no longer has any constraints attached to it:
-
 ![bordered width=50%](images/13-no-more-constraints_366x99.png)
 
 Another way to verify the constraints are gone is by looking at the **Size inspector** (⌥⌘5):
-
 ![bordered width=90%](images/14-size-inspector_621x84.png)
 
 Select the stack view itself to be able to add constraints to position it. However, selecting a stack view in the storyboard can get tricky if its views completely fill the stack view.
 
 So a good workaround is to select the stack view in the outline view:
-
 ![bordered width=90%](images/15-document-outline-selection_640x72.png)
 
 Another trick is to hold **Shift** and **Right-click** on any of the views in the stack view, or **Control-Shift-click** if you're using a trackpad. You'll get a context menu that shows the view hierarchy at the location you clicked, and you simply select the stack view by clicking on it in the menu.
@@ -137,7 +125,6 @@ For now, select the stack view using the **Shift-Right-click** method:
 ![bordered width=40%](images/16-view-hierarchy-menu_384x212.png)
 
 Now, click the **Pin** button on the Auto Layout toolbar to add constraints to it:
-
 ![bordered width=20%](images/17-pin-button_142x57.png)
 
 Set the following constraints to the edges of your stack view:
@@ -148,11 +135,9 @@ Set the following constraints to the edges of your stack view:
 - Bottom: 0
 
 Double-check the numbers for the top, left, right and bottom and that the **I-beams** are selected. You'll always set constraints to margins, so make sure that **Constrain to margins** is checked as well. Then click on **Add 4 Constraints**:
-
 ![bordered width=30%](images/18-bottom-stack-view-constraints.png)
 
 And now the stack view is the correct size, but it has stretched the first button to fill in the extra space:
-
 ![bordered width=50%](images/19-bottom-stack-view-with-distribution-fill2_384x103.png)
 
 The property that determines how a stack view lays out its views along its axis is its `distribution`. Currently, it's set to `Fill`, which means the contained views will completely fill the stack view along its axis. To accomplish this, the stack view will only expand one of its views to fill that extra space; specifically, it expands the view with the lowest horizontal content hugging priority, or if all of the priorities are equal, it expands the first view.
@@ -160,11 +145,9 @@ The property that determines how a stack view lays out its views along its axis 
 However, you're not looking for the buttons to fill the stack view completely – you're after equal spacing.
 
 Make sure the stack view is still selected, and go to the **Attributes inspector**. Change the **Distribution** from **Fill** to **Equal Spacing**:
-
 ![bordered width=90%](images/20-equal-spacing_607x148.png)
 
 Now build and run, tap on any cell, and rotate the simulator (⌘→). You'll see that the bottom buttons now space themselves equally!
-
 ![bordered iphone-landscape](images/21-now-buttons-are-equally-spaced_1334x750.png)
 
 ### Consider the alternatives
@@ -177,7 +160,6 @@ Now that you've had your first taste of the ease of working with stack views, th
 - Alternatively, you could pin the top and bottom edges to the adjacent buttons.
 
 It would have looked something like the following. For visibility in the screenshot, the spacer views have been given a light gray background:
-
 ![bordered width=50%](images/22-alternate-solution-1_346x76.png)
 
 ### But I'm an Auto Layout master
@@ -187,21 +169,17 @@ Perhaps you're a seasoned Auto Layout veteran, and adding constraints like these
 You'd still have optimized your layout by not having to include unnecessary spacer views, but even if you ignore this benefit, think about the long term.
 
 What happens when you need to add a new button? Oh, right, you could just add a new button because it's not too difficult for a master like you to re-do all the constraints. But doesn't dragging and dropping the additional button into place, and having the stack view take care of the positioning sound better?
-
 ![bordered width=50%](images/stack_views_do_laundry.png)
 
 There's more. What if you needed to conditionally hide and show one of the buttons and reposition all of the remaining ones at runtime? If you stuck to the old ways, you'd have to manually remove and re-add constraints in code as well as remove and add back the adjacent spacer view.
-
 ![bordered width=50%](images/me_and_auto_layout.png)
 
 And what if the requirement specified that more than one button could be removed and re-added at any time? At this point, you might as well do everything in code.
-
 ![bordered width=50%](images/code_it_all.png)
 
 ### Stack views are just better
 
 In order to hide a view within a stack view, all you have to do is set the contained view's `hidden` property to `true` and the stack view handles the rest. This is how you'll fix the spacing under the **Weather:** label when the user hides the text below it.
-
 ![bordered width=50%](images/stack_views_look_good.png)
 
 But that's something for the next chapter, where you'll dive deeper into stack views. For now, you'll take a quick detour to learn about some of the other new Auto Layout updates in iOS 9.
@@ -291,7 +269,6 @@ let constraint = NSLayoutConstraint(
 ```
 ### Including a multiplier
 So, how do you include a multiplier if you need to? If you look at the documentation for `NSLayoutAnchor`, you won't find any methods that contain a `multiplier` parameter.
-
 ![bordered width=50%](images/some_riddle.png)
 
 But `NSLayoutAnchor` _does_ have a subclass called `NSLayoutDimension` that has the following methods:
@@ -327,13 +304,11 @@ This intelligent design prevents you from mistakes such as pinning the top of on
 The `constraint[Equal|LessThanOrEqual|GreaterThanOrEqual]ToAnchor` family of methods are actually generic methods that, when called from an object of type, `NSLayoutXAxisAnchor`, will only take a parameter of type `NSLayoutXAxisAnchor`. When called from an object of type, `NSLayoutYAxisAnchor` will only take in a parameter of type `NSLayoutYAxisAnchor`.
 
 Though this type checking hasn't yet made its way into Swift, it currently works with Objective-C:
-
 ![bordered width=99%](images/26-xAnchor-and-yAnchor-incompatibility_632x60.png)
 
 At the time of writing, Swift will still crash at runtime with the message "Invalid pairing of layout attributes", so you'll know pretty quickly if you've made a mistake.
 
 You'll also still get an error in Swift if you try to constrain an `NSLayoutDimension` anchor with a different type of anchor, for example, a `widthAnchor` with a `topAnchor`:
-
 ![bordered width=99%](images/27-widthAnchor-and-topAnchor-compile-error_585x76.png)
 
 To summarize:
@@ -367,11 +342,9 @@ Okay, now it's time to dive back into the project and fix that alignment bug.
 ## Fixing the alignment bug
 
 You'll remember that the whole reason for the dive into layout guides and anchors was so that you could vertically center some labels in the cell by using the new tools available in iOS 9:
-
 ![bordered width=32%](images/28-recap-of-alignment-issue_750x534.png)
 
 They're out of line because the current constraint specifies that the top of the name label should be a fixed distance from the top margin of the cell's `contentView`:
-
 ![bordered width=80%](images/29-the-incorrect-constraint_662x250.png)
 
 If the name label was always on a single line, the current config would have been fine. But this app has labels that span two lines.
@@ -422,17 +395,14 @@ Build and run, you should see the following:
 The labels are centered, but now those labels that previously spanned two lines are truncated to a single line, and that's because of the constraint that's still in the storyboard.
 
 So, in order to satisfy that constraint as well as the newly added centering constraint, the label had to compress its content. Don't even try removing the constraint from the storyboard because you'll just get a missing constraint error:
-
 ![bordered width=96%](images/31-missing-constraint-error_674x174.png)
 
 Instead, simply set it as a placeholder constraint. This is a trick to tell Xcode that you'll leave this constraint here for the storyboard, but you want it removed at runtime since you've got it covered in code.
 
 Open **Main.storyboard**, and in the **Vacation Spots scene** click on **&lt;nameLabel>** to select it, and then click on the constraint connecting the top of the label to the top margin of the cell. Place a checkmark next to **Remove at build time**:
-
 ![bordered width=90%](images/32-remove-at-build-time_640x279.png)
 
 Build and run, and you'll see the labels centered correctly!
-
 ![bordered iphone](images/33-table-view-is-now-correct_750x1334.png)
 
 
@@ -443,4 +413,3 @@ In this chapter, you started learning about stack views and also learned about s
 At this point, you've just scratched the surface. Keep up the momentum and proceed to the next chapter, where you'll continue to learn about stack views in depth.
 **Note**:
 At the end of the next chapter, there will be some additional resources you can use to further your learning, but for now, all you have to do is turn to the next page!
-
