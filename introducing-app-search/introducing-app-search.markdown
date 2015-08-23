@@ -171,7 +171,6 @@ Now, build and run the app and select **Brent Reid**.
 At this point you won't see anything happen, but behind the scenes the activity has been indexed. Exit to the home screen. If you're using the simulator you can press **Command-H**. Bring up Spotlight by either swiping down from the middle of the screen or swiping all the way to the left of your home screen pages. Type **"brent reid"** into the search field.
 
 ![width=35%](/images/app-screen-4.png)
-[TODO: Update once an App Icon is in place.]
 
 And there's Brent Reid as a result! If you do not see the result, you may need to scroll down past any other results. If you tap on the result, you should see it further up the list next time you perform the same search.
 
