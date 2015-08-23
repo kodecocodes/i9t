@@ -23,9 +23,7 @@
 #import "RWHTTPManager.h"
 
 @interface RWHTTPManager ()
-
 @property (nonatomic, strong) NSURLSession *session;
-
 @end
 
 
@@ -46,9 +44,8 @@
 {
   NSString *fullPath = [self.baseURL.absoluteString stringByAppendingPathComponent:relativePath];
   NSURLSessionDataTask *dataTask = [self.session dataTaskWithURL:[NSURL URLWithString:fullPath]
-                                               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-{
-    if (error != nil) {
+                                               completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    if (error) {
       dispatch_async(dispatch_get_main_queue(), ^{
         completionBlock(nil, error);
       });
@@ -57,7 +54,7 @@
       id json = [NSJSONSerialization JSONObjectWithData:data
                                                 options:NSJSONReadingMutableContainers error:&error];
 
-      if (error != nil) {
+      if (error) {
         dispatch_async(dispatch_get_main_queue(), ^{
           completionBlock(nil, error);
         });

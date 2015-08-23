@@ -35,7 +35,7 @@ class FormatHelper {
 
   - parameter number: The `Double` to format
   - parameter withFractionDigitCount: The number of digits that should be shown after the decimal.
-  - returns: The number with the specified number of digits as a string
+  - returns: `number` as a string with the specified number of fraction digits
   */
   class func formatNumber(number: Double, withFractionDigitCount fractionDigitCount: Int) -> String {
     let numberFormatter = NSNumberFormatter()

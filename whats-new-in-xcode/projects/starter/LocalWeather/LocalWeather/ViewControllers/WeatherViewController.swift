@@ -55,11 +55,11 @@ class WeatherViewController: UIViewController {
   var weatherNeedsFetchUpdate = true
 
   /*
-    This is the timer that will fetch the weather periodically, currently every 15 seconds
+    Used to fetch the weather periodically. Currently every 15 seconds
     */
   var networkFetchTimer: NSTimer?
 
-  /// This is the timer that will update the countdown label every 0.1 seconds
+  /// Used to update the countdown label every 0.1 seconds
   var countdownUpdateTimer: NSTimer?
 
   // MARK: - Lifecycle
@@ -67,7 +67,9 @@ class WeatherViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    assert(CLLocationManager.locationServicesEnabled())
+    if !CLLocationManager.locationServicesEnabled() {
+      print("Location services are not enabled.")
+    }
 
     // Set numbers to monospaced so that the label maintains its width
     countdownLabel.font = UIFont.monospacedDigitSystemFontOfSize(countdownLabel.font.pointSize, weight: 0)
@@ -85,7 +87,7 @@ class WeatherViewController: UIViewController {
       requestLocationAndFetchWeather()
     }
 
-    // Refresh the location and weather anytime the application returns from the background
+    // Refresh the location and weather any time the application returns from the background
     NSNotificationCenter.defaultCenter().addObserver(self,
       selector: "requestLocationAndFetchWeather",
       name: UIApplicationDidBecomeActiveNotification,
@@ -93,7 +95,7 @@ class WeatherViewController: UIViewController {
   }
 
   deinit {
-    NSNotificationCenter.defaultCenter().removeObserver(self)
+    NSNotificationCenter.defaultCenter().removeObserver(self, name: UIApplicationDidBecomeActiveNotification, object: nil)
   }
 
   /// This method is called every 15 seconds and also upon initial load of the view controller
@@ -122,8 +124,7 @@ class WeatherViewController: UIViewController {
 
   /// Requests the weather for a particular location, and then calls `updateViewsWithWeatherData`
   func fetchWeatherForCoordinate(coordinate: CLLocationCoordinate2D) {
-    let usesMetricSystem = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool ?? true
-    let units = usesMetricSystem ? "metric" : "imperial"
+    let units = NSLocale.currentLocale().usesMetricSystem ? "metric" : "imperial"
 
     var apiEndpointPath = "weather?lat=\(coordinate.latitude)&lon=\(coordinate.longitude)&units=\(units)"
 
@@ -147,8 +148,7 @@ class WeatherViewController: UIViewController {
 
   /// Updates the views and resets the timers
   func updateViewsWithWeatherData(weatherData: WeatherData, coordinate: CLLocationCoordinate2D) {
-    let usesMetricSystem = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool ?? true
-    let unitAbbreviation = usesMetricSystem ? "C" : "F"
+    let unitAbbreviation = NSLocale.currentLocale().usesMetricSystem ? "C" : "F"
 
     let countryNameText: String
     if let countryName = NSLocale.systemLocale().displayNameForKey(NSLocaleCountryCode, value: weatherData.countryCode) {
@@ -212,6 +212,7 @@ class WeatherViewController: UIViewController {
       UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
     }
     alertController.addAction(appSettingsAction)
+    
     presentViewController(alertController, animated: true, completion: nil)
   }
 }
@@ -223,7 +224,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
   func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
     switch status {
     case .NotDetermined:
-      print("NotDetermined")
+      print("Location authorization not determined")
     case .Restricted, .Denied:
       showLocationRequiredAlert()
     case .AuthorizedAlways, .AuthorizedWhenInUse:
@@ -233,7 +234,7 @@ extension WeatherViewController: CLLocationManagerDelegate {
   }
 
   func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    let location = locations.last! // force unwrap since its guaranteed to contain at least one object
+    let location = locations.last! // guaranteed to contain at least one object
 
     if weatherNeedsFetchUpdate {
       zoomMapToCoordinate(location.coordinate)
@@ -247,4 +248,10 @@ extension WeatherViewController: CLLocationManagerDelegate {
     print("locationManager didFailWithError: \(error.localizedDescription)")
   }
 
+}
+
+extension NSLocale {
+  var usesMetricSystem: Bool {
+    return NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool ?? true
+  }
 }

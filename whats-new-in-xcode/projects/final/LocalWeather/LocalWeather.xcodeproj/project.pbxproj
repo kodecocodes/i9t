@@ -22,11 +22,11 @@
 		5C6028FE1B76A62B009D8EA4 /* FormatHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatHelper.swift; sourceTree = "<group>"; };
 		5CEABCB81B66D84700777F78 /* LocalWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CEABCBB1B66D84700777F78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5CEABCBD1B66D84700777F78 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		5CEABCBD1B66D84700777F78 /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WeatherViewController.swift; path = ViewControllers/WeatherViewController.swift; sourceTree = "<group>"; };
 		5CEABCC01B66D84700777F78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5CEABCC21B66D84700777F78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CEABCC71B66D84700777F78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5CEABCCD1B6706DC00777F78 /* WeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherData.swift; sourceTree = "<group>"; };
+		5CEABCCD1B6706DC00777F78 /* WeatherData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WeatherData.swift; path = Models/WeatherData.swift; sourceTree = "<group>"; };
 		5CEF462F1B6B55440054C1B5 /* LocalWeather-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LocalWeather-Bridging-Header.h"; sourceTree = "<group>"; };
 		5CEF46301B6B55450054C1B5 /* RWHTTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWHTTPManager.h; sourceTree = "<group>"; };
 		5CEF46311B6B55450054C1B5 /* RWHTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWHTTPManager.m; sourceTree = "<group>"; };
@@ -43,22 +43,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5CDAB1031B6BCD9E0000847D /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				5CEABCCD1B6706DC00777F78 /* WeatherData.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		5CDAB1041B6BCDAF0000847D /* ViewControllers */ = {
-			isa = PBXGroup;
-			children = (
-				5CEABCBD1B66D84700777F78 /* WeatherViewController.swift */,
-			);
-			path = ViewControllers;
-			sourceTree = "<group>";
-		};
 		5CDAB1051B6BCDCF0000847D /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -67,14 +51,6 @@
 				5C6028FE1B76A62B009D8EA4 /* FormatHelper.swift */,
 			);
 			path = Helpers;
-			sourceTree = "<group>";
-		};
-		5CDAB1061B6BCDD80000847D /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				5CEABCBF1B66D84700777F78 /* Main.storyboard */,
-			);
-			path = Storyboards;
 			sourceTree = "<group>";
 		};
 		5CEABCAF1B66D84700777F78 = {
@@ -97,10 +73,10 @@
 			isa = PBXGroup;
 			children = (
 				5CEABCBB1B66D84700777F78 /* AppDelegate.swift */,
-				5CDAB1041B6BCDAF0000847D /* ViewControllers */,
-				5CDAB1031B6BCD9E0000847D /* Models */,
+				5CEABCBD1B66D84700777F78 /* WeatherViewController.swift */,
+				5CEABCCD1B6706DC00777F78 /* WeatherData.swift */,
 				5CDAB1051B6BCDCF0000847D /* Helpers */,
-				5CDAB1061B6BCDD80000847D /* Storyboards */,
+				5CEABCBF1B66D84700777F78 /* Main.storyboard */,
 				5CEABCC21B66D84700777F78 /* Assets.xcassets */,
 				5CFD8A311B76424D001223FB /* Support */,
 			);
@@ -205,7 +181,7 @@
 				5CEABCC01B66D84700777F78 /* Base */,
 			);
 			name = Main.storyboard;
-			path = .;
+			path = Storyboards/.;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

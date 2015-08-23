@@ -25,7 +25,7 @@ import Foundation
 // API Docs
 // http://openweathermap.org/current#parameter
 
-// SampleCall
+// Sample call
 // http://api.openweathermap.org/data/2.5/weather?lat=33.92&lon=-84.38&units=metric
 
 class WeatherData {
