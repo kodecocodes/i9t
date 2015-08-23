@@ -25,12 +25,11 @@ import MapKit
 
 class ViewController: UIViewController {
   
-  @IBOutlet var mapView: MKMapView!
-  
   lazy var locationManager = CLLocationManager()
-  
   var currentUserLocation: CLLocationCoordinate2D?
   
+  @IBOutlet var mapView: MKMapView!
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -44,10 +43,12 @@ class ViewController: UIViewController {
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     
-    requestLocationPermission()
+    requestUserLocation()
   }
   
   private func setupMap() {
+    mapView.showsScale = true
+
     let sanFrancisco = CLLocationCoordinate2D(latitude: 37.7833, longitude: -122.4167)
     centerMap(mapView, atPosition: sanFrancisco)
   }
@@ -70,25 +71,14 @@ class ViewController: UIViewController {
     map.setRegion(zoomRegion, animated: true)
   }
   
-  private func requestLocationPermission() {
-    if CLLocationManager.authorizationStatus() == .AuthorizedWhenInUse {
-      mapView.showsUserLocation = true
-      locationManager.requestLocation()
+  private func requestUserLocation() {
+    if CLLocationManager.authorizationStatus() ==
+      .AuthorizedWhenInUse { // 1
+        mapView.showsUserLocation = true    // 2
+        locationManager.requestLocation()   // 3
     } else {
-      locationManager.requestWhenInUseAuthorization()
+      locationManager.requestWhenInUseAuthorization()   // 4
     }
-  }
-}
-
-// MARK:- CLLocationManagerDelegate
-extension ViewController: CLLocationManagerDelegate {
-  
-  func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    currentUserLocation = locations.first?.coordinate
-  }
-  
-  func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
-    print("Error finding location: \(error.localizedDescription)")
   }
 }
 
@@ -106,29 +96,46 @@ extension ViewController: MKMapViewDelegate {
     if annotationView == nil {
       annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
       annotationView!.canShowCallout = true
-      
-      let detailView = UIView.loadFromNibNamed("CoffeeShopPinDetailView") as! CoffeeShopPinDetailView
-      detailView.coffeeShop = annotation.coffeeshop
-      
-      annotationView!.detailCalloutAccessoryView = detailView
-    }
-    
-    if annotation.coffeeshop.rating.value == 5 {
-      annotationView!.pinTintColor = UIColor(red:1, green:0.79, blue:0, alpha:1)
-    } else {
-      annotationView!.pinTintColor = UIColor(red:0.419, green:0.266, blue:0.215, alpha:1)
     }
     
     annotationView!.annotation = annotation
     
+    if annotation.coffeeshop.rating.value == 5 {
+      annotationView!.pinTintColor =
+        UIColor(red:1, green:0.79, blue:0, alpha:1)
+    } else {
+      annotationView!.pinTintColor =
+        UIColor(red:0.419, green:0.266, blue:0.215, alpha:1)
+    }
+    
+    let detailView =
+    UIView.loadFromNibNamed(identifier) as! CoffeeShopPinDetailView
+    detailView.coffeeShop = annotation.coffeeshop
+    annotationView!.detailCalloutAccessoryView = detailView
+    
     return annotationView
   }
   
+  func mapView(mapView: MKMapView,
+    didSelectAnnotationView view: MKAnnotationView) {
+      if let detailView =
+        view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
+          detailView.currentUserLocation = currentUserLocation
+      }
+  }
+}
+
+// MARK:- CLLocationManagerDelegate
+extension ViewController: CLLocationManagerDelegate {
   
-  func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
-    if let detailView = view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
-      detailView.currentUserLocation = currentUserLocation
-    }
+  func locationManager(manager: CLLocationManager,
+    didUpdateLocations locations: [CLLocation]) {
+      currentUserLocation = locations.first?.coordinate
+  }
+  
+  func locationManager(manager: CLLocationManager,
+    didFailWithError error: NSError) {
+      print("Error finding location: \(error.localizedDescription)")
   }
 }
 

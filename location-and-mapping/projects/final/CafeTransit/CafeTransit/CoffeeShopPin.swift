@@ -24,15 +24,15 @@ import Foundation
 import MapKit
 
 class CoffeeShopPin : NSObject, MKAnnotation {
-	let coffeeshop: CoffeeShop
-	var coordinate: CLLocationCoordinate2D
-	var title: String?
-	var subtitle: String?
-	
-	init(coffeeshop: CoffeeShop) {
-		self.coffeeshop = coffeeshop
-		self.coordinate = coffeeshop.location
-		self.title = coffeeshop.name
-		self.subtitle = ""
-	}
+  let coffeeshop: CoffeeShop
+  var coordinate: CLLocationCoordinate2D
+  var title: String?
+  var subtitle: String?
+  
+  init(coffeeshop: CoffeeShop) {
+    self.coffeeshop = coffeeshop
+    self.coordinate = coffeeshop.location
+    self.title = coffeeshop.name
+    self.subtitle = coffeeshop.details
+  }
 }

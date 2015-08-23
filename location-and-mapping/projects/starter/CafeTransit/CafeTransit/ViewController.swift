@@ -34,10 +34,6 @@ class ViewController: UIViewController {
     addMapData()
   }
   
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-  }
-  
   private func setupMap() {
     let sanFrancisco = CLLocationCoordinate2D(latitude: 37.7833, longitude: -122.4167)
     centerMap(mapView, atPosition: sanFrancisco)

@@ -21,7 +21,7 @@ By the time you've finished this chapter, the app will show all sorts of useful 
 
 Time to get acquainted. Open the **starter project** for this chapter and build and run.
 
-![iPhone](images/starter.png)
+![iPhone](images/01-starter.png)
 
 The starter app is using a standard MapKit `MKMapView`. You can tap on a pin to reveal the coffee shop's name and a brief description, but that's about it for now.
 
@@ -33,7 +33,7 @@ Finally, take a quick look at **CoffeeShopPinDetailView.swift** and **CoffeeShop
 
 Previously, when configuring an `MKMapView` in code, the only visible items that you could toggle on and off were buildings and places of interest. MapKit in iOS 9 introduces to this three new boolean properties: you can now show or hide the map's **compass**, **scale** (that's the small bar that shows for example how big a mile is), and **traffic** display. These can allow you to either clean up your map by removing items, or provide extra information to your users by showing them current traffic conditions.
 
-![width=40%](images/compasstrafficscale.png)
+![width=40%](images/02-compasstrafficscale.png)
 
 Café Transit could benefit from showing the map's scale, so that users can have a better idea how far it might be to walk to a particular coffee shop from their current location.
 
@@ -45,7 +45,7 @@ mapView.showsScale = true
 
 Build and run the app, and you should see the scale appear in the top left of the map. As you pan and zoom around the map, it'll update itself to match the map's current scale.
 
-![width=60%](images/cafetransit-scale.png)
+![width=60%](images/03-cafetransit-scale.png)
 
 ### Customizing map pins
 
@@ -53,7 +53,7 @@ Since iOS 3, MapKit pins have had a `pinColor` property which allowed you to set
 
 In iOS 9, however, `MKPinAnnotationView`'s `pinColor` is now deprecated. It's been replaced by a new property: `pinTintColor`. And get this - you can set it to _any color you like_.
 
-![width=35%](images/rainbow.png)
+![width=35%](images/04-rainbow.png)
 
 Café Transit currently uses boring red map pins, which doesn't really fit in with the coffee aesthetic. It would be nicer if they were the same brown color used throughout the app. Any why stop there? You could use a different color to pick out any cafes with a 5 star rating, to make them easier to see at a glance.
 
@@ -73,15 +73,15 @@ This sets a different `pinTintColor` depending on the annotation's coffee shop's
 
 Build and run, and check out your fancy new pins. That was easy!
 
-![iPhone](images/customizedMapPins.png)
+![iPhone](images/05-customizedMapPins.png)
 
 ## Customizing annotation callouts
 
 Each map pin (or annotation view) can show a 'callout' when tapped. A callout is a popover that appears above your annotation view on the map. This callout can provide extra information regarding a particular location.
 
-![width=60%](images/defaultcallout.png)
+![width=60%](images/06-defaultCallout.png)
 
- Until now, annotation callouts have been very limited in terms of customization. You could set a title, subtitle and left and right accessory views. If you wanted to do any other kind of customization, you'd need to manually try and add a custom view to the annotation view. It wasn't an easy thing to do.
+Until now, annotation callouts have been very limited in terms of customization. You could set a title, subtitle and left and right accessory views. If you wanted to do any other kind of customization, you'd need to manually try and add a custom view to the annotation view. It wasn't an easy thing to do.
 
 iOS 9 makes the whole process much simpler, with a new property on `MKAnnotationView`: `detailCalloutAccessoryView`. This can be set to any view you like, meaning almost unlimited customization options for your callouts. You could even use the new `UIStackView`, or something kind of crazy collection view!
 
@@ -98,7 +98,7 @@ The XIB for Café Transit's `CoffeeShopPinDetailView` uses `UIStackView` and Aut
 
 In addition, custom callouts aren't able to fill the entire area of the callout popover. The title of the annotation and a certain amount of padding is added by iOS. In the screenshot below, the green area is the entire area filled by the `detailCalloutAccessoryView`:
 
-![width=50%](images/customCalloutArea.png)
+![width=50%](images/07-customCalloutArea.png)
 
 You should bear this in mind when designing your custom callout views, as there is currently no way to modify the padding or title area.
 
@@ -106,7 +106,7 @@ You should bear this in mind when designing your custom callout views, as there 
 
 With that theory out of the way, it's time to add a custom callout of your own! If you haven't seen it already, **CoffeeShopPinDetailView.xib** defines the UI for the callout accessory view. It shows the opening hours, star rating, and cost rating of a coffee shop, along with a description and a set of action buttons for things like calling the coffee shop or viewing their _Yelp_ page.
 
-![width=45%](images/customview.png)
+![width=45%](images/08-customview.png)
 
 Open **ViewController.swift** and add the following code in `mapView(_:viewForAnnotation:)`, just before the `return` statement:
 
@@ -121,7 +121,7 @@ First, this code loads the `CoffeeShopPinDetailView` from its XIB file. Then it'
 
 It's that simple! Build and run your app, tap on one of the pins and you should now see the following:
 
-![iPhone](images/addingDetailView.png)
+![iPhone](images/09-addingDetailView.png)
 
 >**Note**: Tapping on the phone button in the callout will only work on an actual device. Currently you will only be able to tap the Yelp button which will open up Safari and take you to the coffee shop's Yelp review page. You can also tap the clock button, but it currently won't show any useful information. You will implement actions for transit and the clock buttons later in this chapter.
 
@@ -131,11 +131,11 @@ All of Café Transit's sample coffee shops are based in San Francisco. Statistic
 
 With the starter project open, click on the **CafeTransit** scheme and choose **Edit Scheme...**.
 
-![bordered width=60%](images/editScheme.png)
+![bordered width=60%](images/10-editScheme.png)
 
 Select **Run** in the left pane, and **Options** from the tab bar at the top of the right pane. Enable **Core Location > Allow Location Simulation**, and set your **Default Location** to **San Francisco, CA, USA**. Click **Close** to save.
 
-![bordered width=90%](images/simulateLocation.png)
+![bordered width=90%](images/11-simulateLocation.png)
 
 The app will now be fooled into thinking you're in San Francisco! You'll see this in action in the next section, as you plot the user's location on the map. You'll also be requesting the user's location so that you can use it to provide transit directions from the user's current location to a selected coffee shop.
 
@@ -145,7 +145,7 @@ In previous versions of iOS, if you wanted to just access the user's current loc
 
 Core Location in iOS 9 has now made this process possible with just one method call: `requestLocation()`. It still makes use of the existing delegate callback methods, but there's now no need to manually start and stop the location manager. You just tell it the accuracy you'd like, and it'll give you the location once it narrows down the user's location for you. It only calls your delegate once, and only returns a single location.
 
-![width=50%](images/winningBaby.jpg)
+![width=50%](images/12-winningBaby.jpg)
 
 [NOTE: FPE: I'm not sure this image adds much here?]
 
@@ -155,7 +155,7 @@ First, open **ViewController.swift** and add the following line just below the c
 
 ```swift
 lazy var locationManager = CLLocationManager()
-var currentLocation: CLLocationCoordinate2D?
+var currentUserLocation: CLLocationCoordinate2D?
 ```
 The code lazily creates a `CLLocationManager` object whenever it's first used. You also create a `CLLocationCoordinate2D` property that will be used later to store the user's current location.
 
@@ -207,9 +207,10 @@ Let's go over the code line by line:
 3. Then call **requestLocation()** to request the user's current position. Once this is done, the delegate method `locationManager(_:didUpdateLocations:)` that you just implemented will be called.
 4. If you don't have permission to use the user's location, ask for it.
 
-> **Note**: When calling `requestWhenInUseAuthorization()`, you must have configured your Info.plist file with a value for the key `NSLocationWhenInUseUsageDescription` stating _why_ you would like access to the user's location. This message will be displayed to the user in the usual permission alert that pops up. To save you time, this setting has already been added to Café Transit's Info.plist. ![bordered width=80%](images/plist.png)
+> **Note**: When calling `requestWhenInUseAuthorization()`, you must have configured your Info.plist file with a value for the key `NSLocationWhenInUseUsageDescription` stating _why_ you would like access to the user's location. This message will be displayed to the user in the usual permission alert that pops up. To save you time, this setting has already been added to Café Transit's Info.plist. ![bordered width=80%](images/13-plist.png)
 
-Next, add the following implementation for `viewDidAppear(_:)` under **viewDidLoad()**:
+Next, add the following implementation for `viewDidAppear(_:)` underneath **viewDidLoad()**:
+
 ```swift
 override func viewDidAppear(animated: Bool) {
   super.viewDidAppear(animated)
@@ -220,7 +221,7 @@ override func viewDidAppear(animated: Bool) {
 
 This will call the method you just wrote when the app first launches and the map view appears.
 
-Finally, find the `MKMapViewDelegate` extension at the bottom of **ViewController.swift**, and add the following method to it:
+Finally, find the `MKMapViewDelegate` extension near the bottom of **ViewController.swift**, and add the following method to it:
 
 ```swift
 func mapView(mapView: MKMapView,
@@ -232,11 +233,11 @@ func mapView(mapView: MKMapView,
 }
 ```
 
-This will pass the user's current location onto an annotation whenever it's displayed. You'll use this soon to request transit directions from this location.
+This will pass the user's current location onto an annotation whenever it's displayed. You'll use this in the next section to request transit directions from this location.
 
-Wow! That was quite a bit to get through, but well done! Build and run your app. If everything's working correctly, should see a blue dot appear on the map.
+Wow! That was quite a bit to get through, but well done! Build and run your app. If everything's working correctly, should see a blue dot appear on the map. Sure, that doesn't seem like a lot, considering all the code you just added - but that code will enable you to easily add some cool new features very soon...
 
-![iPhone](images/forcefield.png)
+![iPhone](images/14-forcefield.png)
 
 ## Transit directions
 
@@ -270,7 +271,7 @@ openTransitDirectionsForCoordinates(coffeeShop.location)
 
 Build and run the app. Tap on a coffee shop, and click the train icon in the callout. You should be launched straight into transit directions to the coffee shop!
 
-![iPhone bordered](images/transitDirections.png)
+![iPhone bordered](images/15-transitDirections.png)
 
 ## Querying Transit ETA
 
@@ -353,7 +354,7 @@ When the time button is tapped, it'll animate upwards, a request will be sent to
 
 Build and run the app. Tap on one of the coffee shop pins, and then tap the clock. You should now see an update on when to leave and and when you'll arrive!
 
-![iPhone](images/completedApp.png)
+![iPhone](images/16-completedApp.png)
 
 ## Where to go to from here?
 
