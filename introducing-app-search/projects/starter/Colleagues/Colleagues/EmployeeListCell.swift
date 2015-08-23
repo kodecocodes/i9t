@@ -31,7 +31,7 @@ class EmployeeListCell: UITableViewCell {
   
   var employee: Employee! {
     didSet {
-      pictureImageView.image = employee.loadPicture()
+      pictureImageView.image = employee.loadSmallPicture()
       nameLabel.text = employee.name
       titleLabel.text = employee.title
     }

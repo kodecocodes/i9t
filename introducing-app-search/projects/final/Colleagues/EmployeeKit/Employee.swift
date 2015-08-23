@@ -71,4 +71,15 @@ public struct Employee: JSONDecodable {
       return UIImage()
     }
   }
+  
+  public func loadSmallPicture() -> UIImage {
+    let fullImage = loadPicture()
+    let size = CGSize(width: 40, height: 40)
+    UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+    fullImage.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+    let smallImage = UIGraphicsGetImageFromCurrentImageContext()
+    UIGraphicsEndImageContext()
+    
+    return smallImage
+  }
 }

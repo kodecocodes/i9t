@@ -31,7 +31,7 @@ extension EmployeeService {
     CSSearchableIndex
       .defaultSearchableIndex()
       .indexSearchableItems(searchableItems) { error in       // 3
-        if let error = error {                                  // 4
+        if let error = error {                                // 4
           print("Error indexing employees: \(error)")
         } else {
           print("Employees indexed.")
