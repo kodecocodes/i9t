@@ -1,12 +1,12 @@
 # Chapter 14: What's New in Xcode
 
-As an iOS developer, the single most important tool that you use is Xcode, and each new release adds a variety of features and improvements. In prior chapters, you've already learned about many of Xcode's new features such as storyboard references, support for app thinning, improvements to testing, code coverage, and many more.
+As an iOS developer, the most important tool you use is Xcode, and each new release adds a variety of features and improvements. In prior chapters, you've already learned about many of Xcode's new features such as storyboard references, support for app thinning, improvements to testing, code coverage, and many more.
 
 This chapter will introduce you to some of the other new features in Xcode such as the new energy gauge, and improvements to playgrounds. Along the way, you'll also learn about some of the other miscellaneous features and improvements that will make you a more productive developer.
 
 ## Getting Started
 
-In this chapter, you'll work with an app called **Local Weather** which uses your GPS location to show you the weather.
+In this chapter, you'll work with an app called **Local Weather** which uses your GPS location to show you your weather.
 
 You won't make too many changes to the app, but rather, you'll use it to explore the various new features of Xcode, especially the new energy gauge. You'll need to run the app on an actual device since the energy gauge in Xcode isn't displayed when running the app on the simulator.
 
@@ -18,7 +18,7 @@ Open **LocalWeather-Starter** and select your device from the destination menu:
 After selecting your device, build and run. Then tap on **Allow** on the location access request. The location and weather should update fairly quickly:
 ![bordered width=31%](images/02-app-screenshot_750x1334.png)
 
-While the energy gauge won't show up unless you run the app on a device, you can still run it on the simulator. If you do, make sure to select a location using the Simulate location button in the Debug area. You can also use this feature to simulate a different location while running on your device. Perhaps you'd like to find out how cold it is in Moscow. No problem, just simulate it from the menu.
+While the energy gauge won't show up unless you run the app on a device, you can still run it on the simulator. If you do, make sure to select a location using the **Simulate location** button in the Debug area. You can also use this feature to simulate a different location while running on your device. Perhaps you'd like to find out how cold it is in Moscow. No problem, just simulate it from the menu.
 ![bordered width=31%](images/03-simulate-location_199x113.png)
 
 ### Free Provisioning
@@ -103,7 +103,7 @@ Now wouldn't it also be cool if you could take an _Objective-C_ header file and 
 
 ### Generated Swift interface for Objective-C headers
 
-In the **Project navigator** expand the **Helpers** group and you'll see RWHTTPManager.h and RWHTTPManager.m. RWHTTPManager is a convenience wrapper around `NSURLSession` written in Objective-C.
+In the **Project navigator** expand the **Helpers** group and you'll see RWHTTPManager.h and RWHTTPManager.m. The RWHTTPManager class is a convenience wrapper around `NSURLSession` and is written in Objective-C.
 
 Click on **RWNetworkHelper.h** to open it in the primary editor:
 ![bordered width=75%](images/14-objc-file-in-primary-editor_714x147.png)
@@ -137,9 +137,9 @@ var baseURL: NSURL
 
 > **Note**: You can also select **Generated Interface** instead of **Counterparts ► RWHTTPManager.h (Interface)** to view the same result.
 
-There is actually another issue. Note that the `relativePath:` parameter takes a `String?` whereas the comment says `relativePath` is required. Can you fix this yourself? Go ahead and try it.
+There is actually another issue. Note that the `relativePath:` parameter takes a `String?` i.e. an _optional_ String, whereas the comment says `relativePath` is required. Can you fix this yourself? Go ahead and try it.
 
-Ok I'll give you the answer, but I'm going to have to make it upside down so that it really feels like a puzzle:
+Ok, I'll give you the answer, but I'm going to have to make it upside down so that it really feels like a puzzle:
 ![bordered width=50%](images/16-upside-down-answer_385x15.png)
 
 Next you'll read some documentation!
@@ -224,7 +224,7 @@ The next thing to do is to reduce the Location energy impact by turning off GPS.
 
 However, in iOS 9 if you only need a single location update, you can just call `requestLocation()` instead of `startUpdatingLocation()` and then you won't need to call `stopUpdatingLocation()` yourself.
 
-In **requestLocationAndFetchWeather()** replace `.startUpdatingLocations()` with `.requestLocation()`:
+In **requestLocationAndFetchWeather()** replace `.startUpdatingLocation()` with `.requestLocation()`:
 
 ```swift
 // Step 2: Request the location
@@ -238,7 +238,7 @@ Build and run. You'll see that after the initial activity all other activity is 
 
 Recall that when you pressed the home button, the Background graph started registering activity but didn't stop, even though the console log indicated that all background work was complete in about 11 seconds.
 
-Open **AppDelegate.swift** and take a look at **performBackgroundWork()**. Technically the method isn't doing any real background work, it's just simulating 10 seconds of activity, but pretend that it is. The one rule of calling `beginBackgroundTaskWithExpirationHandler(_:)` is that once you're done with any work, you should call `endBackgroundTask(_:)` to let the system know that you no longer need further background execution time.
+Open **AppDelegate.swift** and take a look at **performBackgroundWork()**. Technically the method isn't doing any real background work, it's just simulating 10 seconds of activity, but humor me and pretend that it is! So the one rule of calling `beginBackgroundTaskWithExpirationHandler(_:)` is that once you're done with any work, you should call `endBackgroundTask(_:)` to let the system know that you no longer need further background execution time.
 
 Add a call to `endBackgroundTask(_:)` at the end of `performBackgroundWork()` right after the print call:
 
@@ -403,7 +403,7 @@ Now click on the **Show Result** button in the sidebar:
 ![bordered width=28%](images/39-show-result-button_242x94.png)
 
 
-You'll see the view appear inline right under the `view` variable:
+You'll see the view appear inline right under the `view` variable!
 ![bordered width=40%](images/40-show-inline-result_408x195.png)
 
 ### Sources and Resources
@@ -428,7 +428,7 @@ You can enable Address Sanitizer by going to **Product \ Scheme \ Edit Scheme** 
 
 ### Right to Left Support
 
-iOS 9 contains significant updates for the support of right-to-left languages such as Arabic and Hebrew. For right-to-left languages, the complete view hierarchy will be flipped, and even navigation will occur in the opposite direction.
+iOS 9 contains significant updates for the support of right-to-left languages such as Arabic and Hebrew. For right-to-left languages, the complete view hierarchy will be flipped, and navigation will occur in the opposite direction.
 
 There is a new option that you can use to test your view hierarchy in that flipped state without having to change your primary language. Go to your scheme and in the **Options** view, under Application Language, there is a new **Right to Left Pseudolanguage** option that you can select:
 ![bordered width=75%](images/44-right-to-left-pseudolanguage_896x506.png)
@@ -439,7 +439,7 @@ There are lots of other minor features and improvements that have been made and 
 
 There are others you may or may not notice, like how constraints in the document outline in the storyboard appear in a much more readable way. Or how in Xcode 7, if you've already implemented a delegate method it will no longer suggest it to you in the autocomplete menu.
 
-And there are others that you may never notice. Remember the prompt asking you if you wanted to take automatic snapshots? Did you always choose disable because you had everything in git anyway? Well, you'll never get that prompt again because the Snapshots feature is gone.
+And there are others that you may never notice. Remember the prompt asking you if you wanted to take automatic snapshots? Did you always choose disable because you had everything in git anyway? Well, you'll never get that prompt again because the Snapshots feature is gone. :]
 
 ## Where to go from here?
 

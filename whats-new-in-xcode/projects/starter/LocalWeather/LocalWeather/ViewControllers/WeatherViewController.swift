@@ -148,14 +148,14 @@ class WeatherViewController: UIViewController {
     let unitAbbreviation = usesMetricSystem ? "C" : "F"
 
     if let countryName = NSLocale.systemLocale().displayNameForKey(NSLocaleCountryCode, value: weatherData.countryCode) {
-      countryNameLabel.text = countryName
+      countryNameLabel.text = countryName.uppercaseString
     } else if weatherData.countryCode == "none" {
       countryNameLabel.text = ""
     } else {
       countryNameLabel.text = weatherData.countryCode
     }
 
-    cityNameLabel.text = weatherData.name
+    cityNameLabel.text = weatherData.name.uppercaseString
     temperatureLabel.text = "\(weatherData.temperature)°\(unitAbbreviation)"
     humidityLabel.text = "\(weatherData.humidity) %"
     pressureLabel.text = "\(weatherData.pressure) hPa"
