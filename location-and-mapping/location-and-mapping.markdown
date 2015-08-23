@@ -125,17 +125,70 @@ It's that simple! Build and run your app, tap on one of the pins and you should 
 
 >**Note**: Tapping on the phone button in the callout will only work on an actual device. Currently you will only be able to tap the Yelp button which will open up Safari and take you to the coffee shop's Yelp review page. You can also tap the clock button, but it currently won't show any useful information. You will implement actions for transit and the clock buttons later in this chapter.
 
+## Time zone support
+
+The custom callout view that you just added contains a small image that indicates whether a particular coffee shop is currently open for business or not.
+
+![bordered width=50%](images/10-openclosed.png)
+
+Open up **CoffeeShop.swift** and find `isOpenNow`, a computed property that determines this information.
+
+![bordered width=90%](images/11-timezonecode.png)
+
+This property takes the current time (using `NSDate()`) and converts its components into the time zone of the coffee shop. These date components are then used to calculate whether the time falls within the opening hours of the shop. The time needs to be converted because the coffee shop's opening hours are stored in its own time zone.
+
+But take a look at the time zone definition above `isOpenNow`:
+
+    static var timeZone = NSTimeZone(abbreviation: "PST")!
+
+The timezone is hardcoded to PST! Whilst Café Transit currently only contains some sample coffee shops from San Francisco, it would be nice if the time zone could be inferred from the location of the coffee shop in case more are added in different locations.
+
+Fortunately, iOS 9 adds a `timeZone` property to both `MKMapItem` and `CLPlacemark`. You can use this to ensure that the correct time zone is used no matter where the shop is located.
+
+Still in **CoffeeShop.swift**, find `allCoffeeShops`, and replace the `return` statement with the following code:
+
+```swift
+// 1
+let shops = array.flatMap { CoffeeShop(dictionary: $0) }
+  .sort { $0.name < $1.name }
+
+// 2
+let first = shops.first!
+let location = CLLocation(latitude: first.location.latitude,
+  longitude: first.location.longitude)
+
+// 3
+let geocoder = CLGeocoder()
+geocoder.reverseGeocodeLocation(location) { (placemarks, _) -> Void in
+  if let placemark = placemarks?.first, timeZone = placemark.timeZone {
+    self.timeZone = timeZone
+  }
+}
+
+return shops
+```
+
+This code performs a couple of functions:
+
+1. This is just value of the previous `return` statement, but stored into a variable.
+2. The location of the first coffee shop in the list is converted to a `CLLocation` for use with `CLGeocoder`.
+3. A `CLGeocoder` instance is used to _reverse geocode_ the coffee shop's location. This takes the latitude and longitude of the coffee shop and produces a `CLPlacemark` with extra information about the location. This includes the new `timeZone` property, which you then assign to the `CoffeeShop` struct's `timeZone` property.
+
+Build and run the app now, and check that the opening hours labels are still showing the correct value. Remember, they're based on whether the current time in San Francisco, not the current time whereever you may be!
+
+> **Note**: For the purposes of this chapter, you've just fetched the time zone for a single coffee shop. In a real project, you'd want to check the time zone for each coffee shop, as they may be spread across different time zones.
+
 ## Simulating your location
 
 All of Café Transit's sample coffee shops are based in San Francisco. Statistically, however, it's very likely that _you_ aren't in San Francisco. The rest of this chapter will make use of the user's location, so it would be pretty useful if you could at least _pretend_ to be there. Fortunately, Xcode provides the functionality to simulate your location which will make testing Café Transit much easier! This isn't new functionality with Xcode 7, but it's certainly useful when working with Core Location.
 
 With the starter project open, click on the **CafeTransit** scheme and choose **Edit Scheme...**.
 
-![bordered width=60%](images/10-editScheme.png)
+![bordered width=60%](images/12-editScheme.png)
 
 Select **Run** in the left pane, and **Options** from the tab bar at the top of the right pane. Enable **Core Location > Allow Location Simulation**, and set your **Default Location** to **San Francisco, CA, USA**. Click **Close** to save.
 
-![bordered width=90%](images/11-simulateLocation.png)
+![bordered width=90%](images/13-simulateLocation.png)
 
 The app will now be fooled into thinking you're in San Francisco! You'll see this in action in the next section, as you plot the user's location on the map. You'll also be requesting the user's location so that you can use it to provide transit directions from the user's current location to a selected coffee shop.
 
@@ -145,7 +198,7 @@ In previous versions of iOS, if you wanted to just access the user's current loc
 
 Core Location in iOS 9 has now made this process possible with just one method call: `requestLocation()`. It still makes use of the existing delegate callback methods, but there's now no need to manually start and stop the location manager. You just tell it the accuracy you'd like, and it'll give you the location once it narrows down the user's location for you. It only calls your delegate once, and only returns a single location.
 
-![width=50%](images/12-winningBaby.jpg)
+![width=50%](images/14-winningBaby.jpg)
 
 [NOTE: FPE: I'm not sure this image adds much here?]
 
@@ -207,7 +260,7 @@ Let's go over the code line by line:
 3. Then call **requestLocation()** to request the user's current position. Once this is done, the delegate method `locationManager(_:didUpdateLocations:)` that you just implemented will be called.
 4. If you don't have permission to use the user's location, ask for it.
 
-> **Note**: When calling `requestWhenInUseAuthorization()`, you must have configured your Info.plist file with a value for the key `NSLocationWhenInUseUsageDescription` stating _why_ you would like access to the user's location. This message will be displayed to the user in the usual permission alert that pops up. To save you time, this setting has already been added to Café Transit's Info.plist. ![bordered width=80%](images/13-plist.png)
+> **Note**: When calling `requestWhenInUseAuthorization()`, you must have configured your Info.plist file with a value for the key `NSLocationWhenInUseUsageDescription` stating _why_ you would like access to the user's location. This message will be displayed to the user in the usual permission alert that pops up. To save you time, this setting has already been added to Café Transit's Info.plist. ![bordered width=80%](images/15-plist.png)
 
 Next, add the following implementation for `viewDidAppear(_:)` underneath **viewDidLoad()**:
 
@@ -237,7 +290,7 @@ This will pass the user's current location onto an annotation whenever it's disp
 
 Wow! That was quite a bit to get through, but well done! Build and run your app. If everything's working correctly, should see a blue dot appear on the map. Sure, that doesn't seem like a lot, considering all the code you just added - but that code will enable you to easily add some cool new features very soon...
 
-![iPhone](images/14-forcefield.png)
+![iPhone](images/16-forcefield.png)
 
 ## Transit directions
 
@@ -271,7 +324,7 @@ openTransitDirectionsForCoordinates(coffeeShop.location)
 
 Build and run the app. Tap on a coffee shop, and click the train icon in the callout. You should be launched straight into transit directions to the coffee shop!
 
-![iPhone bordered](images/15-transitDirections.png)
+![iPhone bordered](images/17-transitDirections.png)
 
 ## Querying Transit ETA
 
@@ -354,13 +407,13 @@ When the time button is tapped, it'll animate upwards, a request will be sent to
 
 Build and run the app. Tap on one of the coffee shop pins, and then tap the clock. You should now see an update on when to leave and and when you'll arrive!
 
-![iPhone](images/16-completedApp.png)
+![iPhone](images/18-completedApp.png)
 
 ## Where to go to from here?
 
 Congratulations, you've done a great job! In this chapter you've customized a map view, added a custom callout, requested the user's location, and made use of transit directions and estimated journey times. Awesome stuff.
 
-There are a couple of other MapKit and Core Location updates that this chapter did not cover. This includes a 3D flyover view in maps, timezone support for `MKMapItem`, and some changes to background location updates. For more information about these, check out their WWDC talks:
+There are a couple of other MapKit and Core Location updates that this chapter did not cover. This includes a 3D flyover view in maps, and a couple of changes to background location updates. For more information about these, check out their WWDC talks:
 
 * What's New In MapKit: <http://apple.co/1h4r4e7>
 * What's New in Core Location: <http://apple.co/1EcdPD7>

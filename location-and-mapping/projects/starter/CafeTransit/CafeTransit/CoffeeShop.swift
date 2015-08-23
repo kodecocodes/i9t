@@ -38,6 +38,22 @@ struct CoffeeShop {
     return [CNPostalAddressStreetKey: name]
   }
   
+  static var timeZone = NSTimeZone(abbreviation: "PST")!
+  
+  /// Calculates whether a coffee shop is currently open for business
+  var isOpenNow: Bool {
+    let calendar = NSCalendar.currentCalendar()
+    let nowComponents = calendar.componentsInTimeZone(CoffeeShop.timeZone, fromDate: NSDate())
+    
+    let openTimeComponents = calendar.components([.Hour, .Minute], fromDate: openTime)
+    let closeTimeComponents = calendar.components([.Hour, .Minute], fromDate: closeTime)
+    
+    let isEarlier = nowComponents.hour < openTimeComponents.hour || (nowComponents.hour == openTimeComponents.hour && nowComponents.minute < openTimeComponents.minute)
+    let isLater = nowComponents.hour > closeTimeComponents.hour || (nowComponents.hour == closeTimeComponents.hour && nowComponents.minute > closeTimeComponents.minute)
+    
+    return !(isEarlier || isLater)
+  }
+  
   init?(dictionary: [String : AnyObject]) {
     guard let name = dictionary["name"] as? String,
       let phone = dictionary["phone"] as? String,

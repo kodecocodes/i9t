@@ -85,9 +85,7 @@ class CoffeeShopPinDetailView : UIView {
   }
   
   private func updateShopAvailability() {
-    let isOpen = coffeeShop.isOpenAtTime(NSDate())
-    
-    if isOpen {
+    if coffeeShop.isOpenNow {
       openCloseStatusImage.image = UIImage(named: "cafetransit_icon_open")
     } else {
       openCloseStatusImage.image = UIImage(named: "cafetransit_icon_closed")
