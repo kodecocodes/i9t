@@ -479,7 +479,7 @@ iOS 9 contains significant updates for the support of right-to-left languages su
 
 There is also a new option that you can use to test your view hierarchy in this flipped state without having to change your primary language. Edit your scheme and in the **Options** view, under **Application Language**, there is a new **Right to Left Pseudolanguage** option that you can select:
 
-![bordered width=75%](images/44-right-to-left-pseudolanguage_896x506.png)
+![bordered width=70%](images/44-right-to-left-pseudolanguage.png)
 
 ## Where to go from here?
 
