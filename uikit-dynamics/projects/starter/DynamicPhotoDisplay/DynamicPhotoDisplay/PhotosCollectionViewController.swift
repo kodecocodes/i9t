@@ -65,6 +65,8 @@ class PhotosCollectionViewController: UICollectionViewController {
     if let photoCell = cell as? PhotoCollectionViewCell {
       photoCell.imageView.image = photoData[indexPath.item].image
     }
+
+    cell.layer.cornerRadius = 10.0;
     
     return cell
   }

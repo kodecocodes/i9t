@@ -54,6 +54,6 @@ class FullPhotoViewController: UIViewController {
     super.viewDidLoad()
     
     tagView.layer.borderWidth = 0.5
-    tagView.layer.cornerRadius = 2
+    tagView.layer.cornerRadius = 15
   }
 }
