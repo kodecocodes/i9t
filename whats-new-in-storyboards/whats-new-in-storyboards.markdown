@@ -4,20 +4,23 @@ Storyboards have been around since iOS 5 and have received lots of upgrades and 
 
 Xcode 7 brings a new set of additions to storyboards that let you do the following:
 
-* Refactor single storyboards into multiple storyboards and link them visually via _storyboard references_.
+* Refactor a single storyboard into multiple storyboards and link them visually via _storyboard references_.
 * Add supplementary views to a view controller using the _scene dock_.
 * Add _multiple buttons_ to a navigation bar, right from the storyboard itself!
 
 You'll learn how to use the above features as you update an app designed to help you with all those listable moments in life, whether it's grocery shopping, packing your luggage for vacation, or a survival checklist for the impending zombie apocalypse! :]  
+
 To get the most out of this chapter you should have some basic storyboard and table view knowledge. Need a quick brush-up? Check out our _Storyboards Tutorial in Swift_ at <http://bit.ly/1SCaJuN>.
 
 ## Getting started
 
-Open the starter project for this chapter and run it in the simulator; tap one of the displayed checklists to view the items contained within. Tapping an item checks it off. Done and done!
+Open the starter project for this chapter and run it in the simulator; tap one of the displayed checklists to view the items contained within, then tap any entry to check it off. Done and done!
 
 ![iphone bordered](images/01-Prepped.png)
 
-Take a quick look at the code to get you bearings. **ChecklistsViewController.swift** contains the initial list of checklists, and **ChecklistDetailViewController.swift** displays the items within each list. **Main.storyboard** contains the user interface items.
+Take a quick look at the code to get your bearings.
+
+**ChecklistsViewController.swift** contains the initial list of checklists, and **ChecklistDetailViewController.swift** displays the items within each list. **Main.storyboard** contains the user interface items.
 
 There are two unused scenes in there [TODO: FPE: In where?]; you'll use those later in the tutorial.
 
@@ -29,7 +32,9 @@ If you've used storyboards on a large project or as part of a team with other de
 
 Although you've always been able to use multiple storyboards in your apps, you've never been able to add segues between those storyboards in Interface Builder. To present a view controller from a different storyboard, you'd have to instantiate it first and present it in code. But no longer!
 
-With Xcode 7, you can add references between storyboards right in Interface Builder using **storyboard references**, which can either point to specific view controllers or to the initial view controller within another storyboard. This makes it much easier to divide up storyboards into smaller storyboards, and alleviates many of the issues mentioned above without needing to add any extra code. Multiple smaller storyboards also make it possible for other team members to work independently on their own storyboards without stepping on each other's toes.
+With Xcode 7, you can add references between storyboards right in Interface Builder using **storyboard references**, which can either point to specific view controllers or to the initial view controller within another storyboard. This makes it much easier to divide up storyboards into smaller storyboards, and alleviates many of the issues mentioned above without needing to add any extra code.
+
+Multiple, smaller storyboards also make it possible for other team members to work independently on their own storyboards without stepping on each other's toes.
 
 Enough theory – time to put it into practice!
 
@@ -37,7 +42,9 @@ Enough theory – time to put it into practice!
 
 ## Creating your first storyboard reference
 
-In its current state, **Prepped** is a small app in the early stages of development, but there's enough structure there to discern where to divide up the main storyboard. Container view controllers are a good place to consider splitting out functionality into new storyboards. Prepped uses a tab bar controller, and in this case it makes sense to separate each tab's children into their own storyboards.
+In its current state, **Prepped** is a small app in the early stages of development, but there's enough structure there to discern where to divide up the main storyboard. Container view controllers are a good place to consider splitting out functionality into new storyboards.
+
+Prepped uses a tab bar controller, and in this case it makes sense to separate each tab's children into their own storyboards.
 
 Open **Main.storyboard** and zoom out so you can see all six scenes. Hold **Command** and press **+** to zoom in and **-** to zoom out, or **right-click** on a blank area in the storyboard and choose your zoom level.
 
@@ -113,7 +120,7 @@ Build and run your app; you'll see one tab to handle Checklists, and another tab
 
 > **Note**: Currently both tabs in the tab bar controller in the storyboard display the title _Item_. The proper title will be loaded at runtime from the Checklists and Diary storyboards. You can change the titles in **Main.storyboard** for your own reference, but it won't make any difference at runtime.
 
-## Focus on a storyboard
+## Focusing on a storyboard
 
 Isn't it annoying when you have to tap through a bunch of scenes in your app, when you're just trying to test one single scene buried deep in the stack? With storyboard references you can isolate the scenes you're interested in into their own storyboard and instruct the app to launch straight into that. You'll do that now for the checklist item section.
 
@@ -123,7 +130,7 @@ In **Checklists.storyboard** highlight the **Checklist Detail View Controller**,
 
 Select **Editor\Refactor to Storyboard** and name the new storyboard **ChecklistDetail.storyboard**. Ensure that the **Group** is still set to **Checklists**.
 
-Just as you did for the CheckLists storyboard, select the **Checklist Detail View Controller** scene in **ChecklistDetail.storyboard**, and use the **Attributes Inspector** to check **Is Initial View Controller**. The Checklist Detail View Controller should now have an arrow on its left to indicate it's the first scene in the storyboard.
+Just as you did for the Checklists storyboard, select the **Checklist Detail View Controller** scene in **ChecklistDetail.storyboard**, and use the **Attributes Inspector** to check **Is Initial View Controller**. The Checklist Detail View Controller should now have an arrow on its left to indicate it's the first scene in the storyboard.
 
 Click on the **Prepped project** at the top of the project navigator, then click on **Prepped target** and choose the **General** tab. Change **Main Interface** to **ChecklistDetail.storyboard**:
 
@@ -281,7 +288,7 @@ Build and run your app; tap any cell and you should see the notes view appear. U
 
 >**Note:** Being able to create a view in the scene dock is useful, but primarily if a view is only used within a single view controller. [TODO: FPE: I'm not sure what the author means by that second sentence fragment in the preceding sentence. Could you please revise] If the supplementary view is reused throughout the app, you'd probably be best off using a XIB file that you instantiate in code.
 
-## Multiple bar buttons
+## Using multiple bar buttons
 
 The final feature you'll be adding to your app is adding and deleting checklist items. The scene and code for adding a checklist item is already in the starter app, but it's not hooked up to anything yet. That's where you come in.
 
@@ -309,7 +316,7 @@ Still in **ChecklistDetail.storyboard**, select the **Add Item View Controller**
 
 **Ctrl-drag** from the **Save** button on the right side of the navigation bar to **Exit** on the scene dock and choose `saveToChecklistDetailViewController:` from the pop-up menu.
 
-Build and run your app; choose a checklist and try adding items with notes to the list. These won't be saved permanently, because the sample data is currently only held in arrays which only exist for the duration of the app.
+Build and run your app; choose a checklist and try adding items with notes to the list. These won't be saved permanently, because the sample data is currently only held in arrays which only exist as long as the app's running:
 
 ![bordered width=35%](images/29-AddChecklistItem.png)
 
