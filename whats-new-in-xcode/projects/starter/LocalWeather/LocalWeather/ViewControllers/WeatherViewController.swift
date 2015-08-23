@@ -69,6 +69,9 @@ class WeatherViewController: UIViewController {
 
     assert(CLLocationManager.locationServicesEnabled())
 
+    // Set numbers to monospaced so that the label maintains its width
+    countdownLabel.font = UIFont.monospacedDigitSystemFontOfSize(countdownLabel.font.pointSize, weight: 0)
+
     // Hide the main and the countdownLabel stack views when the view first loads
     mainStackView.hidden = true
     countdownLabelStackView.hidden = true
@@ -147,15 +150,17 @@ class WeatherViewController: UIViewController {
     let usesMetricSystem = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool ?? true
     let unitAbbreviation = usesMetricSystem ? "C" : "F"
 
+    let countryNameText: String
     if let countryName = NSLocale.systemLocale().displayNameForKey(NSLocaleCountryCode, value: weatherData.countryCode) {
-      countryNameLabel.text = countryName.uppercaseString
+      countryNameText = countryName.uppercaseString
     } else if weatherData.countryCode == "none" {
-      countryNameLabel.text = ""
+      countryNameText = ""
     } else {
-      countryNameLabel.text = weatherData.countryCode
+      countryNameText = weatherData.countryCode
     }
 
-    cityNameLabel.text = weatherData.name.uppercaseString
+    countryNameLabel.attributedText = NSAttributedString(string: countryNameText, attributes: [NSKernAttributeName: 2])
+    cityNameLabel.attributedText = NSAttributedString(string: weatherData.name.uppercaseString, attributes: [NSKernAttributeName: 4])
     temperatureLabel.text = "\(weatherData.temperature)°\(unitAbbreviation)"
     humidityLabel.text = "\(weatherData.humidity) %"
     pressureLabel.text = "\(weatherData.pressure) hPa"
