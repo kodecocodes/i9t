@@ -111,9 +111,8 @@ In the project navigator, click the **WorkoutsTests** group. Choose **File\New\F
 Name the class **DataModelTests** and ensure it's a subclass of **XCTest** and that sure **Swift** is selected. Click **Next** and then **Create**.
 
 As first order of business, add the following `import` at the top of **DataModelTests.swift**:
-```swift
+
     import Workouts
-```
 
 Your app and test bundle are in separate bundles, so you have to import your app's module before writing any tests against `DataModel`. 
 
