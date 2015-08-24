@@ -37,7 +37,7 @@ class MapContentTableViewController: UITableViewController {
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
-    navigationController?.navigationBar.barTintColor = UIColor(red: 109/255, green: 92/255, blue: 128/255, alpha: 1.0)
+    navigationController?.navigationBar.barTintColor = UIColor(red: 150/255, green: 125/255, blue: 179/255, alpha: 1.0)
     navigationController?.navigationBar.translucent = true
     navigationController?.navigationBar.alpha = 1
     navigationController?.navigationBar.titleTextAttributes = nil 
