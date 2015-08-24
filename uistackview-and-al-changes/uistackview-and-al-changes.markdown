@@ -42,7 +42,7 @@ At first glance, the view may seem okay, but look deeper.
 
 ![bordered width=32%](images/04-hide-weather-issue_750x820.png)
 
-3. The ordering of the sections can be improved. It would me more logical if **What to See** was positioned right after **Why Visit**, instead of having the **Weather** section in between them.
+3. The ordering of the sections can be improved. It would be more logical if **What to See** was positioned right after **Why Visit**, instead of having the **Weather** section in between them.
 
 4. The bottom row of buttons is a bit too close to the bottom edge of the view in landscape mode. It would be better if you could decrease the spacing between the different sections – but only in landscape mode, i.e. when the vertical size class is compact.
 
