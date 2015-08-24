@@ -28,6 +28,7 @@ class SpotInfoViewController: UIViewController {
   var vacationSpot: VacationSpot!
 
   @IBOutlet var backgroundColoredViews: [UIView]!
+  @IBOutlet var headingLabels: [UILabel]!
 
   @IBOutlet weak var whyVisitLabel: UILabel!
   @IBOutlet weak var whatToSeeLabel: UILabel!
@@ -52,6 +53,9 @@ class SpotInfoViewController: UIViewController {
     for view in backgroundColoredViews {
       view.backgroundColor = UIColor.clearColor()
     }
+
+    // Set the kerning to 1 to increase spacing between letters
+    headingLabels.forEach { $0.attributedText = NSAttributedString(string: $0.text!, attributes: [NSKernAttributeName: 1]) }
 
     title = vacationSpot.name
     
@@ -85,6 +89,7 @@ class SpotInfoViewController: UIViewController {
     let newButtonTitle = shouldHideWeatherInfo ? "Show" : "Hide"
     weatherHideOrShowButton.setTitle(newButtonTitle, forState: .Normal)
 
+    // TODO: Animate when animated == true
     weatherInfoLabel.hidden = shouldHideWeatherInfo
   }
 
