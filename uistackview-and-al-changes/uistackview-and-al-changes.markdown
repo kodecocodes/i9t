@@ -30,7 +30,7 @@ Towards the end of this chapter, you'll also fix another issue with the use of l
 Open **VacationSpots-Starter**, and run it on the **iPhone 6 Simulator**. The first thing you'll notice is the name and location label in a few cells are off center.
 ![bordered iphone](images/alignment-issue-on-table-view.png)
 
-Both labels should be centered vertically (as a group) so there is an equal amount of space above the name label, and below the location label – this is a fix with a layout guide that you'll learn towards the end of the chapter by using a layout guide. For now, go to the info view for London by tapping on the **London** cell.
+Both labels should be centered vertically (as a group) so there is an equal amount of space above the name label, and below the location label – you'll fix this towards the end of the chapter with a layout guide. For now, go to the info view for London by tapping on the **London** cell.
 
 At first glance, the view may seem okay, but look deeper.
 
