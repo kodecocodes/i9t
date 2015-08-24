@@ -269,7 +269,7 @@ Add the following to the class:
 func updateFieldsInBounds(bounds: CGRect) {
   
 //1
-  guard bounds != CGRect.zeroRect else { return }
+  guard bounds != CGRect.zero else { return }
   let h = bounds.height
   let w = bounds.width
   let itemHeight = item.bounds.height
@@ -341,7 +341,7 @@ Open **FullPhotoViewController.swift** and add the following below the existing 
 private var animator: UIDynamicAnimator!
 var stickyBehavior: StickyEdgesBehavior!
 
-private var offset = CGPoint.zeroPoint
+private var offset = CGPoint.zero
 ```
 
 Inside of `viewDidLoad()` add the following:

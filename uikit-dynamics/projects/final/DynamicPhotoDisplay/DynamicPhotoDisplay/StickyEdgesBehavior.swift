@@ -48,7 +48,7 @@ class StickyEdgesBehavior: UIDynamicBehavior {
   }
   
   func updateFieldsInBounds(bounds: CGRect) {
-    guard bounds != CGRect.zeroRect else { return }
+    guard bounds != CGRect.zero else { return }
     let h = bounds.height
     let w = bounds.width
     let itemHeight = item.bounds.height

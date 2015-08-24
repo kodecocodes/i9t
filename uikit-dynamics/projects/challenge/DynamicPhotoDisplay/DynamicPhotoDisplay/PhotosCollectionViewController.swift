@@ -32,7 +32,7 @@ class PhotosCollectionViewController: UICollectionViewController {
   var fullPhotoView: UIView!
   var animator: UIDynamicAnimator!
   var heavyCurtainBehavior: HeavyCurtainDynamicBehavior!
-  var offset = CGPoint.zeroPoint
+  var offset = CGPoint.zero
 
   override func viewDidLoad() {
     super.viewDidLoad()

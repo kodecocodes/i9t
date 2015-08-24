@@ -34,7 +34,7 @@ class FullPhotoViewController: UIViewController {
   private var animator: UIDynamicAnimator!
   var stickyBehavior: StickyEdgesBehavior!
   
-  private var offset = CGPoint.zeroPoint
+  private var offset = CGPoint.zero
   
   var photoPair: PhotoPair? {
     didSet {
