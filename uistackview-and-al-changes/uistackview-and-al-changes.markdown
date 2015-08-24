@@ -27,11 +27,8 @@ Don't pack the bags just yet, because there's a few issues you'll need to fix by
 
 Towards the end of this chapter, you'll also fix another issue with the use of layout guides and layout anchors.
 
-For a teaser, here's the finished version of the app:
-![height=41%](images/01-full-app_2318x1344.png)
-
 Open **VacationSpots-Starter**, and run it on the **iPhone 6 Simulator**. The first thing you'll notice is the name and location label in a few cells are off center.
-![bordered width=30%](images/02-alignment-issue-on-table-view_750x534.png)
+![bordered iphone](images/alignment-issue-on-table-view.png)
 
 Both the name and location label for a vacation spot should be centered vertically (as a group) so there is an equal amount of space above the name label, and below the location label – this is a fix with a layout guide that you'll learn towards the end of the chapter by using a layout guide. For now, go to the info view for London by tapping on the **London** cell.
 
