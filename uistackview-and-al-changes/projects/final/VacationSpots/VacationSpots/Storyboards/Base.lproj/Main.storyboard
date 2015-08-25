@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lE9-oT-ecO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lE9-oT-ecO">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -199,7 +199,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="zyx-1b-bjI">
                                                 <rect key="frame" x="20" y="240" width="280" height="30"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vi1-Tq-gH0">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vi1-Tq-gH0">
                                                         <rect key="frame" x="0.0" y="0.0" width="97" height="30"/>
                                                         <color key="backgroundColor" red="1" green="0.58823529409999997" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Submit Rating"/>
@@ -207,7 +207,7 @@
                                                             <segue destination="jVC-OA-UjZ" kind="presentation" identifier="presentRatingViewController" id="SLo-S6-7ry"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPk-7c-5ID">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPk-7c-5ID">
                                                         <rect key="frame" x="122" y="0.0" width="67" height="30"/>
                                                         <color key="backgroundColor" red="0.58881118880000005" green="1" blue="0.58881118880000005" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="View Map"/>
@@ -215,7 +215,7 @@
                                                             <segue destination="VRq-Jg-dcB" kind="presentation" identifier="presentMapViewController" id="s0s-Ck-VQG"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0z-xq-log">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k0z-xq-log">
                                                         <rect key="frame" x="213" y="0.0" width="67" height="30"/>
                                                         <color key="backgroundColor" red="1" green="0.58823529409999997" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Wikipedia"/>
@@ -305,6 +305,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="london-thumb" width="1280" height="960"/>
+        <image name="london-thumb" width="80" height="66"/>
     </resources>
 </document>
