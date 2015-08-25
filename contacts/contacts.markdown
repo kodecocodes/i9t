@@ -1,8 +1,8 @@
 # Chapter 11: Contacts
 
-A long time ago, in an operating system far far away, developers accessed a user's contacts on their iOS device with a C API and had to deal with the pain of using ancient structs and Core Foundation types in an object-oriented world.
+A long time ago, in an operating system far, far away, developers accessed a user's contacts on their iOS device with a C API and had to deal with the pain of using ancient structs and Core Foundation types in an object-oriented world.
 
-Actually, this isn't so long ago and far away — this antiquated Address Book framework was still in use as of iOS 8!
+Actually, this wasn't so long ago and far away — this antiquated Address Book framework was still in use as of iOS 8!
 
 Apple deprecated the Address Book framework in iOS 9 — hoorah! In its stead, they introduced two powerful object-oriented frameworks to manage user contacts: **Contacts** and **ContactsUI**. This chapter will show you how to use these frameworks to do the following:
 
@@ -10,13 +10,13 @@ Apple deprecated the Address Book framework in iOS 9 — hoorah! In its stead, t
 2. Add contacts to the user's contact store.
 3. Search the user’s contacts and filter using `NSPredicate`.
 
-Along the way, you'll learn about best practices for dealing with the user’s contacts and how to get the most our of the Contacts framework.
+Along the way, you'll learn about best practices for dealing with the user’s contacts and how to get the most out of the Contacts framework.
 
 ## Getting started
 
 In this chapter, you'll create the **RWConnect** app, which is a social network for iOS developers. The app has a friends list to help you keep in touch with all the great developers you know via email.
 
->**Note**: I highly recommend that you use the simulator instead of a real device to test your app in this chapter; you'll have to reset your device in order to test the app permissions, and you don't want to reset your personal iPhone, do you?
+>**Note**: You should use the simulator instead of a real device to test your app in this chapter; you'll have to reset your device in order to test the app permissions, and you don't want to reset your personal iPhone, do you?
 
 Open the starter project **RWConnect-Starter** and run it on the iPhone 6 Simulator; you'll see a table view with four friends listed, each with a name, picture, and email:
 
@@ -28,7 +28,7 @@ Time to look at the code behind the app. Open **Friend.swift**; it contains a st
 
 Now open **FriendsViewController.swift**; you can see that you create the `friendsList` property with the results of `defaultContacts()` to retrieve the sample friends at launch.
 
-The `UITableViewDataSource` methods in the view controller are straightforward; the table has one section with a cell for each friend in `friendsList`. Each cell displays a picture of a friend as well as the friend's email.
+The `UITableViewDataSource` methods in the view controller are straightforward; the table has one section with a cell for each friend in `friendsList`. Each cell displays the email address and photo of the respective friend.
 
 Your first task is to display your device's contacts instead of the default list.
 
@@ -85,7 +85,6 @@ Here's a line-by-line explanation of the code above:
 
 With this method implemented, you can convert any `Friend` to a `CNContact`. Now that you can convert from one type to another, you can move on to displaying the contact.
 
-[FPE: should a "Mission Accomplished" meme go here?]
 
 ### Showing the contact's information
 
@@ -145,7 +144,7 @@ In the storyboard, select the bar button item you just dragged in, then **Contro
 
 When the user presses the Add button, you'll present the **CNContactPickerViewController** so the user can import their friends from their contacts list.
 
-To do this, add the following lines of code to `addFriends(_:)`:
+To do this, add the following code to `addFriends(_:)`:
 
 ```swift
 let contactPicker = CNContactPickerViewController()
@@ -224,7 +223,7 @@ Go back to `addFriends(_:)`, and add the following line just before the call to 
 contactPicker.delegate = self
 ```
 
-[TODO: FPE: Code explanation warranted?]
+This oft-forgotten line assigns the friends view controller as at the contact picker's delegate.
 
 Build and run your project; you can now select multiple contacts:
 
@@ -246,13 +245,15 @@ Add the following line before `presentViewController(_:animated:completion:)`:
 
 The contact picker's `predicateForEnablingContacts` let you decide which contacts can be selected. In this case, you want to restrict the list of contacts to those with email addresses.
 
-Build and run your app again; press the Add button and you'll see that any contacts without email addresses are greyed out:
+Build and run your app again; press the Add button and you'll see that any contacts without email addresses are grayed out:
 
 ![iphone](/images/12-GrayedOutContacts.png)
 
-Now that you can create friends from your contacts, it's only natural to want to create contacts from your friends! :] When the user slides left on a table view cell, you'll show a "Create Contact" action to add a friend to the user's contact store.
+Now that you can create friends from your contacts, it's only natural to want to create contacts from your friends! Jump right on to the next section to discover how!
 
 ## Saving friends to the user's contacts
+
+When the user slides left on a table view cell, you'll show a "Create Contact" action to add a friend to the user's contact store.
 
 Add the following code inside the table view delegate extension you added to **FriendsViewController.swift**:
 
@@ -262,12 +263,12 @@ override func tableView(tableView: UITableView, editActionsForRowAtIndexPath ind
     tableView.setEditing(false, animated: true)
     // TODO: Add the contact
   }
-  createContact.backgroundColor = rwGreen
+  createContact.backgroundColor = BlueColor
   return [createContact]
 }
 ```
 
-The above code creates a single row action for the table view cells named "Create Contact" with a green background color.
+The above code creates a single row action for the table view cells named "Create Contact" with a blue background color.
 
 Build and run your app; slide left on a table view cell and you'll see the row action appear like so:
 
@@ -453,8 +454,6 @@ It looks like a lot of detailed code, but it breaks down quite simply:
 4. `CNContactStore` lets you query the user's contacts for those matching the predicate. In this case, you used `CNContact`'s `predicateForContactsMatchingName(_:)` method to create an `NSPredicate` that finds contacts having a name similar to the provided string.
 4. You only save the contact if there aren't any matches; the `guard` statement stops the process in the event of name matches.
 
-[TODO: FPE: The pragmatic part of me wonders why we didn't just use the email address as the key to prevent duplicates! ;]
-
 > **Note**: `unifiedContactsMatchingPredicate(_:keysToFetch:)` has a `keysToFetch` parameter that you ultimately ignore by passing in an empty array. However, if you were to try to access or modify the fetched contacts, you'd see an error thrown as the keys weren't fetched. For example, if you wanted to access the fetched contacts' first names you'd have to add `CNContactGivenNameKey` to `keysToFetch`.
 
 Build and run your app; try to add a contact that already exists and the app prevents you from doing so.
@@ -465,6 +464,6 @@ You're done! You've dramatically improved RWConnect — and learned a ton about 
 
 At this point you've learned just about everything you need to use the Contacts and ContactsUI frameworks in your own apps. However, there is more to learn about the two frameworks if you want to dig even deeper.
 
-To learn more, be sure to visit the Contact framework guide at [TODO: FPE: bit.ly please] (https://developer.apple.com/library/prerelease/ios/documentation/Contacts/Reference/Contacts_Framework/index.html#//apple_ref/doc/uid/TP40015328).
+To learn more, be sure to visit the Contact framework guide at [http://apple.co/1LuCodW](http://apple.co/1LuCodW).
 
-You can also check out the WWDC 2015 Session 223: Introducing the Contacts Framework for iOS and OS X [TODO: FPE: bit.ly please] (https://developer.apple.com/videos/wwdc/2015/?id=223).
+You can also check out the WWDC 2015 Session 223: Introducing the Contacts Framework for iOS and OS X [http://apple.co/1MQVNZV](http://apple.co/1MQVNZV).
