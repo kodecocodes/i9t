@@ -111,7 +111,7 @@ class RatingViewController: UIViewController {
 
     if starsToAdd > 0 {
       for _ in 1...starsToAdd {
-        let starImageView = UIImageView(image: UIImage(named: "star"))
+        let starImageView = UIImageView(image: UIImage(named: "rating_star"))
         starImageView.contentMode = .ScaleAspectFit
         starImageView.frame.origin = CGPoint(x: starsStackView.frame.width, y: 0) // animate in from the right
         starsStackView.addArrangedSubview(starImageView)

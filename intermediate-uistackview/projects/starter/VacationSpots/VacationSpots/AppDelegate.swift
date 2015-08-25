@@ -33,14 +33,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func setApplicationColorTheme() {
-    let darkerSkyBlue = RGB(64, 191, 246)
+    let tealColor = RGB(79, 183, 193)
 
     // Application tintColor
-    window?.tintColor = darkerSkyBlue
+    window?.tintColor = tealColor
 
     // Navigation bar background color
-    UINavigationBar.appearance().barTintColor = darkerSkyBlue
-
+    UINavigationBar.appearance().barTintColor = tealColor
 
     // Make the back button white (instead of the global tintColor)
     UINavigationBar.appearance().tintColor = UIColor.whiteColor()

@@ -28,6 +28,7 @@ class SpotInfoViewController: UIViewController {
   var vacationSpot: VacationSpot!
 
   @IBOutlet var backgroundColoredViews: [UIView]!
+  @IBOutlet var headingLabels: [UILabel]!
 
   @IBOutlet weak var ratingStackView: UIStackView!
   @IBOutlet weak var whyVisitLabel: UILabel!
@@ -53,6 +54,9 @@ class SpotInfoViewController: UIViewController {
     for view in backgroundColoredViews {
       view.backgroundColor = UIColor.clearColor()
     }
+
+    // Set the kerning to 1 to increase spacing between letters
+    headingLabels.forEach { $0.attributedText = NSAttributedString(string: $0.text!, attributes: [NSKernAttributeName: 1]) }
 
     title = vacationSpot.name
     
@@ -87,22 +91,23 @@ class SpotInfoViewController: UIViewController {
     weatherHideOrShowButton.setTitle(newButtonTitle, forState: .Normal)
 
     if animated {
-        UIView.animateWithDuration(0.3,
-            delay: 0.0,
-            usingSpringWithDamping: 0.6,
-            initialSpringVelocity: 10,
-            options: [],
-            animations: {
-                self.weatherInfoLabel.hidden = shouldHideWeatherInfo
-            }, completion: { finished in
-                UIView.animateWithDuration(0.3) {
-                    self.ratingStackView.axis = shouldHideWeatherInfo ? .Vertical : .Horizontal
-                }
-            }
-        )
+      UIView.animateWithDuration(0.3,
+        delay: 0.0,
+        usingSpringWithDamping: 0.6,
+        initialSpringVelocity: 10,
+        options: [],
+        animations: {
+          self.weatherInfoLabel.hidden = shouldHideWeatherInfo
+        }, completion: { finished in
+          UIView.animateWithDuration(0.3) {
+            self.ratingStackView.axis =
+              shouldHideWeatherInfo ? .Vertical : .Horizontal
+          }
+        }
+      )
     } else {
-        weatherInfoLabel.hidden = shouldHideWeatherInfo
-        ratingStackView.axis = shouldHideWeatherInfo ? .Vertical : .Horizontal
+      weatherInfoLabel.hidden = shouldHideWeatherInfo
+      ratingStackView.axis = shouldHideWeatherInfo ? .Vertical : .Horizontal
     }
   }
 

@@ -27,8 +27,12 @@ class StackWidthLabel: UILabel {
   override func layoutSubviews() {
     super.layoutSubviews()
 
-    // This is needed to resize the label properly when contained in a UIStackView
-    // Related: http://www.objc.io/issues/3-views/advanced-auto-layout-toolbox/#intrinsic-content-size-of-multi-line-text
+    // UILabel's preferredMaxLayoutWidth currently does not update automatically if the label is contained within a UIStackView
+    // It instead adopts the width of the label from its frame in the storyboard which can lead to an incorrect number of lines
+
+    // Uncomment the following line to observe the preferredMaxLayoutWidth be equal to the label's frame from the storyboard
+    // print("Updating preferredMaxLayoutWidth from: \(preferredMaxLayoutWidth) to: \(bounds.width) for label with text: \(text!.substringToIndex(advance(text!.startIndex, 30)))...")
+
     preferredMaxLayoutWidth = bounds.width
   }
 }
