@@ -31,6 +31,8 @@ class FriendsViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationItem.titleView = UIImageView(image: UIImage(named: "RWConnectTitle")!)
+    tableView?.rowHeight = UITableViewAutomaticDimension
+    tableView?.estimatedRowHeight = 60
   }
   
 }

@@ -35,25 +35,25 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="60" id="rtc-Cw-fl5" customClass="FriendCell" customModule="RWConnect" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86" width="600" height="60"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FriendCell" rowHeight="61" id="rtc-Cw-fl5" customClass="FriendCell" customModule="RWConnect" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="86" width="600" height="61"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rtc-Cw-fl5" id="ZMC-o2-bdL">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="60.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="I38-yT-dOv">
-                                            <rect key="frame" x="8" y="8" width="584" height="43.5"/>
+                                            <rect key="frame" x="8" y="8" width="584" height="44.5"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="MicProfilePicture" translatesAutoresizingMaskIntoConstraints="NO" id="2En-jZ-Xjt">
-                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="43.5"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="PlaceholderProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="2En-jZ-Xjt">
+                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="44.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="44" id="gdL-42-nbV"/>
                                                         <constraint firstAttribute="width" constant="44" id="nIc-P9-Uy4"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="p8j-b6-o8r">
-                                                    <rect key="frame" x="52" y="3.5" width="532" height="36.5"/>
+                                                    <rect key="frame" x="52" y="4" width="532" height="36.5"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" fixedFrame="YES" text="ContactName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F5R-AF-vyv">
                                                             <rect key="frame" x="0.0" y="0.0" width="100.5" height="19.5"/>
@@ -121,7 +121,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="MicProfilePicture" width="200" height="200"/>
+        <image name="PlaceholderProfilePic" width="180" height="180"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.60784313729999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>
