@@ -49,7 +49,7 @@ class WeatherViewController: UIViewController {
   @IBOutlet weak private var mapView: MKMapView!
 
   let httpManager = RWHTTPManager(baseURL: NSURL(string: openWeatherMapBaseUrl)!)
-  private let locationManager = CLLocationManager()
+  let locationManager = CLLocationManager()
 
   /// This prevents triggering multiple HTTP requests when locations are received
   var weatherNeedsFetchUpdate = true
