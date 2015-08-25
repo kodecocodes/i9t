@@ -48,11 +48,11 @@
                                     <rect key="frame" x="0.0" y="0.0" width="567" height="60.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rqZ-0L-h8X">
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="rqZ-0L-h8X">
                                             <rect key="frame" x="8" y="8" width="551" height="44.5"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="PlaceholderProfilePic" translatesAutoresizingMaskIntoConstraints="NO" id="Bmc-mA-GBP">
-                                                    <rect key="frame" x="0.0" y="0.5" width="44" height="44"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="44" height="44.5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="XEp-DX-fX0"/>
                                                         <constraint firstAttribute="height" constant="44" id="h43-4i-d6e"/>
