@@ -25,38 +25,38 @@ import Contacts
 import ContactsUI
 
 class FriendsViewController: UITableViewController {
-	
-	var friendsList = Friend.defaultContacts()
-	
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		navigationItem.titleView = UIImageView(image: UIImage(named: "RWConnectTitle")!)
-	}
-
+  
+  var friendsList = Friend.defaultContacts()
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    navigationItem.titleView = UIImageView(image: UIImage(named: "RWConnectTitle")!)
+  }
+  
 }
 
 //MARK: UITableViewDataSource
 extension FriendsViewController {
+  
+  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    return 1
+  }
+  
+  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return friendsList.count
+  }
+  
+  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("FriendCell", forIndexPath:indexPath)
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
+    let friend = friendsList[indexPath.row]
+    cell.textLabel?.text = friend.firstName + " " + friend.lastName
+    cell.detailTextLabel?.text = friend.workEmail
+    cell.imageView?.image = friend.profilePicture
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return friendsList.count
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("FriendCell", forIndexPath:indexPath)
-        
-        let friend = friendsList[indexPath.row]
-        cell.textLabel?.text = friend.firstName + " " + friend.lastName
-        cell.detailTextLabel?.text = friend.workEmail
-        cell.imageView?.image = friend.profilePicture
-        
-        return cell
-    }
-    
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {}
-    
+    return cell
+  }
+  
+  override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {}
+  
 }
