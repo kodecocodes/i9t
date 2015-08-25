@@ -54,8 +54,9 @@ class SpotsViewController: UITableViewController {
   // MARK: - Navigation
 
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    guard let selectedRowIndex = tableView.indexPathForSelectedRow?.row else {
-      fatalError("tableView.indexPathForSelectedRow should never be nil")
+    guard let selectedCell = sender as? UITableViewCell, selectedRowIndex = tableView.indexPathForCell(selectedCell)?.row
+      where segue.identifier == "showSpotInfoViewController" else {
+        fatalError("sender is not a UITableViewCell or was not found in the tableView, or segue.identifier is incorrect")
     }
 
     let vacationSpot = vacationSpots[selectedRowIndex]
