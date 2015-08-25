@@ -22,20 +22,29 @@
 
 import UIKit
 
+@IBDesignable
 class FriendCell: UITableViewCell {
 
-	override func layoutSubviews() {
-		super.layoutSubviews()
-		
-		if imageView?.image != nil{
-			imageView?.frame = CGRectMake(10, 13, 40, 40)
-			imageView?.contentMode = UIViewContentMode.ScaleAspectFill
-			imageView?.layer.masksToBounds = true
-			imageView?.layer.cornerRadius = 20
-			textLabel!.frame = CGRect(x: textLabel!.frame.origin.x - 38, y: textLabel!.frame.origin.y, width: textLabel!.frame.width, height: textLabel!.frame.height)
-			detailTextLabel!.frame = CGRect(x: detailTextLabel!.frame.origin.x - 38, y: detailTextLabel!.frame.origin.y, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
-			separatorInset = UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 0)
-		}
-	}
-
+  @IBOutlet weak var contactNameLabel: UILabel!
+  @IBOutlet weak var contactEmailLabel: UILabel!
+  @IBOutlet weak var contactImageView: UIImageView! {
+    didSet {
+      contactImageView.layer.masksToBounds = true
+      contactImageView.layer.cornerRadius = 22.0
+    }
+  }
+  
+  var friend : Friend? {
+    didSet {
+      configureCell()
+    }
+  }
+  
+  private func configureCell() {
+    if let friend = friend {
+      contactNameLabel.text = friend.firstName + " " + friend.lastName
+      contactEmailLabel.text = friend.workEmail
+      contactImageView.image = friend.profilePicture
+    }
+  }
 }
