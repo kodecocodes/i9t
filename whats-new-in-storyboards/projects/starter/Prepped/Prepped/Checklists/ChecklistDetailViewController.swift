@@ -58,11 +58,11 @@ class ChecklistDetailViewController: UITableViewController {
 
 // MARK: - UITableViewDelegate
 extension ChecklistDetailViewController {
-    override func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
-        if let selected = tableView.indexPathForSelectedRow where selected == indexPath {
-            self.tableView(tableView, didSelectRowAtIndexPath: indexPath)
-        }
+  override func tableView(tableView: UITableView, willBeginEditingRowAtIndexPath indexPath: NSIndexPath) {
+    if let selected = tableView.indexPathForSelectedRow where selected == indexPath {
+      self.tableView(tableView, didSelectRowAtIndexPath: indexPath)
     }
+  }
 }
 
 // MARK: - UITableViewDataSource
