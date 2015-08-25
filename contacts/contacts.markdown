@@ -50,7 +50,13 @@ Before you can display the friend to the user, you'll need to convert the `Frien
 
 The Contacts framework represents contacts as instances of `CNContact`, which contain the contact's properties such as `givenName`, `familyName`, `emailAddresses`, and `imageData`.
 
-Open **Friend.swift** and extend it with the following computed property:
+Open **Friend.swift** and add the following import statement:
+
+```swift
+import Contacts
+```
+
+Now, add this extension with the computed property `contactValue`:
 
 ```swift
 extension Friend {
@@ -88,7 +94,14 @@ With this method implemented, you can convert any `Friend` to a `CNContact`. Now
 
 ### Showing the contact's information
 
-Switch to **FriendsViewController.swift** and add the following extension to the bottom of the file:
+Switch to **FriendsViewController.swift** and add the following import statements:
+
+```swift
+import Contacts
+import ContactsUI
+```
+
+Also, add the following extension to the bottom of the file:
 
 ```swift
 //MARK: UITableViewDelegate

@@ -21,8 +21,6 @@
 */
 
 import UIKit
-import Contacts
-import ContactsUI
 
 class FriendsViewController: UITableViewController {
   

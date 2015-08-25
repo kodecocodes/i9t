@@ -22,7 +22,6 @@
 
 import UIKit
 import Contacts
-import ContactsUI
 
 func ==(lhs: Friend, rhs: Friend) -> Bool{
   return lhs.firstName == rhs.firstName && lhs.lastName == rhs.lastName && lhs.workEmail == rhs.workEmail && lhs.profilePicture == rhs.profilePicture
