@@ -231,7 +231,7 @@ For good measure, also comment out the line that unhides the `countdownLabelStac
 // countdownLabelStackView.hidden = false
 ```
 
-Build and run, and go back to the **energy gauge**. This looks much better!
+Build and run, and go back to the **energy gauge**. You may have to wait up to 30 seconds for things to settle down, but this looks much better!
 
 ![bordered width=80%](images/24-cpu-usage-reduced_970x328.png)
 
