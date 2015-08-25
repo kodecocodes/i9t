@@ -30,7 +30,7 @@ Now open **FriendsViewController.swift**; you can see that you create the `frien
 
 The `UITableViewDataSource` methods in the view controller are straightforward; the table has one section with a cell for each friend in `friendsList`. Each cell displays the email address and photo of the respective friend.
 
-Your first task is to display your device's contacts instead of the default list.
+Your first task is to use the ContactsUI framework to display your friends' contact information.
 
 ## Displaying a contact
 
