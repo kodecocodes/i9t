@@ -34,7 +34,7 @@ Although you've always been able to use multiple storyboards in your apps, you'v
 
 With Xcode 7, you can add references between storyboards right in Interface Builder using **storyboard references**, which can either point to specific view controllers or to the initial view controller within another storyboard. This makes it much easier to divide up storyboards into smaller storyboards, and alleviates many of the issues mentioned above without needing to add any extra code.
 
-Multiple, smaller storyboards also make it possible for other team members to work independently on their own storyboards without stepping on each other's toes.
+Multiple smaller storyboards also make it possible for other team members to work independently on their own storyboards without stepping on each other's toes.
 
 Enough theory — time to put it into practice!
 
@@ -154,7 +154,7 @@ Out of the box, the scene dock contains references to the current view controlle
 
 Any views you add in the scene dock won't be added to your view controller's initial subviews array; instead, you can add IBOutlets to them and make use of them at runtime.
 
-Selecting a checklist item in Prepped highlights its table row with boring gray color. You will now perform the amazing feat of changing the color of the selected row with no code at all — thanks to the scene dock!
+Selecting a checklist item in Prepped highlights its table row with a boring gray color. You will now perform the amazing feat of changing the color of the selected row with no code at all — thanks to the scene dock!
 
 In **ChecklistDetail.storyboard**, select **Checklist Detail View Controller** and drag a **view** from the Object Library onto the scene dock:
 
@@ -242,7 +242,7 @@ func removeNotesView() {
 
 This removes the notes view from the stack view's `arrangedSubviews` as well from its set of visible subviews.
 
-Next, you need to put these methods to use. Still in **ChecklistDetailViewController.swift**, find the table view delegate extension for `ChecklistDetailViewController` and the following code:
+Next, you need to put these methods to use. Still in **ChecklistDetailViewController.swift**, find the table view delegate extension for `ChecklistDetailViewController` and add the following code:
 
 ```swift
 override func tableView(tableView: UITableView,
@@ -278,7 +278,7 @@ This method does the following:
 4. Updates the notes text view to contain the notes for the selected checklist item.
 5. Finally, calls `tableView.endUpdates()` to commit the changes.
 
-Finally — don't forget that you changed the project's main interface earlier on. To change the project's main interface back to the main storyboard; click on the **Prepped project** in the **project navigator**, click on the **Prepped target** and then click on the **General** tab. Change **Main Interface** to **Main.storyboard**:
+Finally — don't forget that you changed the project's main interface earlier on. To change the project's main interface back to the main storyboard: click on the **Prepped project** in the **project navigator**, click on the **Prepped target** and then click on the **General** tab. Change **Main Interface** to **Main.storyboard**:
 
 ![bordered width=50%](images/24-ProjectSettings2.png)
 
