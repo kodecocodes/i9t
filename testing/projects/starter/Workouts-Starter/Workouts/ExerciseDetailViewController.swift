@@ -39,7 +39,7 @@ class ExerciseDetailViewController: UITableViewController {
     title = exercise.name
     
     nameLabel.text = exercise.name
-    exerciseImageView.image = exercise.thumbnail
+    exerciseImageView.image = UIImage(named: exercise.photoFileName)
     durationLabel.text = "\(Int(exercise.duration)) seconds"
     instructionsLabel.text = exercise.instructions
   }

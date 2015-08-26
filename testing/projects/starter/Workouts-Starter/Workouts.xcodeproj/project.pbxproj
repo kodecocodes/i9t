@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1212B5871B8D364700FA8DF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1212B5861B8D364700FA8DF8 /* LaunchScreen.storyboard */; };
 		179BE53E1B7BFF8300447187 /* WorkoutButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179BE53D1B7BFF8300447187 /* WorkoutButtonCell.swift */; };
 		FE1B99391B5FAEFB007A44D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1B99381B5FAEFB007A44D2 /* AppDelegate.swift */; };
 		FE1B993E1B5FAEFB007A44D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE1B993C1B5FAEFB007A44D2 /* Main.storyboard */; };
 		FE1B99401B5FAEFB007A44D2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE1B993F1B5FAEFB007A44D2 /* Images.xcassets */; };
-		FE1B99431B5FAEFB007A44D2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE1B99411B5FAEFB007A44D2 /* LaunchScreen.xib */; };
 		FE1B99591B5FB090007A44D2 /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1B99581B5FB090007A44D2 /* Exercise.swift */; };
 		FE1B995B1B5FB107007A44D2 /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1B995A1B5FB107007A44D2 /* Workout.swift */; };
 		FE1B995D1B5FB122007A44D2 /* ExerciseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1B995C1B5FB122007A44D2 /* ExerciseViewController.swift */; };
@@ -42,13 +42,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1212B5861B8D364700FA8DF8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		179BE53D1B7BFF8300447187 /* WorkoutButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutButtonCell.swift; sourceTree = "<group>"; };
 		FE1B99331B5FAEFB007A44D2 /* Workouts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workouts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1B99371B5FAEFB007A44D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE1B99381B5FAEFB007A44D2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FE1B993D1B5FAEFB007A44D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FE1B993F1B5FAEFB007A44D2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		FE1B99421B5FAEFB007A44D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		FE1B99481B5FAEFB007A44D2 /* WorkoutsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WorkoutsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1B994D1B5FAEFB007A44D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FE1B99581B5FB090007A44D2 /* Exercise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 				FE1B99371B5FAEFB007A44D2 /* Info.plist */,
 				FE1B993C1B5FAEFB007A44D2 /* Main.storyboard */,
 				FE1B993F1B5FAEFB007A44D2 /* Images.xcassets */,
-				FE1B99411B5FAEFB007A44D2 /* LaunchScreen.xib */,
+				1212B5861B8D364700FA8DF8 /* LaunchScreen.storyboard */,
 			);
 			name = "Other Sources";
 			path = Workouts;
@@ -263,7 +263,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FE1B993E1B5FAEFB007A44D2 /* Main.storyboard in Resources */,
-				FE1B99431B5FAEFB007A44D2 /* LaunchScreen.xib in Resources */,
+				1212B5871B8D364700FA8DF8 /* LaunchScreen.storyboard in Resources */,
 				FE1B99401B5FAEFB007A44D2 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,14 +328,6 @@
 				FE1B993D1B5FAEFB007A44D2 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		FE1B99411B5FAEFB007A44D2 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				FE1B99421B5FAEFB007A44D2 /* Base */,
-			);
-			name = LaunchScreen.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

@@ -2,16 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "63-runner.png",
+      "filename" : "workouts_tab_icon_exercises_off.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "63-runner@2x.png",
+      "filename" : "workouts_tab_icon_exercises_off@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "workouts_tab_icon_exercises_off@2x-1.png",
       "scale" : "3x"
     }
   ],

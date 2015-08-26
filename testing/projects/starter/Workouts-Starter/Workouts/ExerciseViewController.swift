@@ -67,7 +67,7 @@ class ExerciseViewController: UIViewController {
         exercise.instructions = instructionsTextField.text
         
         //create default
-        exercise.photoFileName = "squat"
+        exercise.photoFileName = "customExercise"
         
         self.dataModel.addExercise(exercise)
 
