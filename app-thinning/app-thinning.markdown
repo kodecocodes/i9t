@@ -2,7 +2,7 @@
 
 Kicking yourself that you didn't drop the extra dinero to multiply your iOS device's disk storage size by a factor of two? Feeling constrained by how massively huge your brilliant app concepts would be? Well, don't! Apple now takes a more frugal approach to how apps are stored on a device.
 
-With the introduction of iOS 8 and the demanding displays of the iPhone 6 and 6 Plus, Apple began pushing developers to adopt a more universal approach to building across devices. Adaptive Layout, Trait Collections, Universal UISplitViewControllers and (a more respectable) Auto Layout led to a seamless experience for the iOS developer to build universal applications for both iPhone & iPad.
+With the introduction of iOS 8 and the demanding displays of the iPhone 6 and 6 Plus, Apple began pushing developers to adopt a more universal approach to building across devices. Adaptive Layout, Trait Collections, Universal split view controllers and (a more respectable) Auto Layout led to a seamless experience for the iOS developer to build universal applications for both iPhone & iPad.
 
 However, it also meant that a so-called universal app requires a substantial chunk of device-specific content, and it sure has a huge impact to an app's bundle size. For an example, look at the chart below to see all the 1s and 0s that are stored locally on the device, but are never used unless the app runs on an iPhone 6+. 
 	
@@ -10,7 +10,7 @@ However, it also meant that a so-called universal app requires a substantial chu
 
 Fortunately, with the introduction of iOS 9, Apple introduced several solutions to address this problem:
 
-- **App Slicing**: When you submit your iOS 9 binary to the App Store, Apple compiles resources and executable architecture into variants that are specific to each device. In turn, devices only download the variant specific to their traits – meaning they only get content they will use. Traits include graphics capabilities, memory level, architecture, size classes, screen scaling and more. 
+- **App Slicing**: When you submit your iOS 9 binary to the App Store, Apple compiles resources and executable architecture into variants that are specific to each device. In turn, devices only download the variant specific to their traits — meaning they only get content they will use. Traits include graphics capabilities, memory level, architecture, size classes, screen scaling and more. 
 - **On Demand Resources**: Application resources are downloaded as needed and can be removed if the device needs room for other resources.
 - **Bitcode**: An intermediate representation of your compiled app can be sent when submitting to the App Store. This allows Apple to optimize your executables by compiling with the latest optimizations for a given target, including types that didn't exist when you submitted your app. 
  
@@ -28,7 +28,7 @@ With the Xcode project open, select the **iPad Air 2 Simulator** as the **scheme
 
 Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and see how the historical maps overlay with present-day maps. 
 
-![ipad-landscape](./images/ipad_air_2_starter_landscape.png)
+![bordered ipad-landscape](./images/ipad_air_2_starter_landscape.png)
 
 >**Note**: These overlays are created from image tiles that are found in `NSBundle`(s) and passed into a `MKTileOverlayRenderer` for drawing. Curious about what's going on under the hood? Unfortunately, if this chapter explored all of it, it would be impossibly long. Think of this stuff as a black box – all you care about is how to make this app as small as possible for the end user. :] 
 
@@ -36,11 +36,13 @@ Play around with the app for a bit. Tap on **Santa Cruz** and other overlays and
 
 When compiling your code into any iOS application, it's good to understand what Xcode does behind the scenes. So before you start thinning it out, take a few minutes to understand what happens.
 	
-This project contains a run script that launches a finder window with the location of the build directory where you'll see an app file - otherwise known as the application bundle. Build and run, and in Finder, right-click **Old CA Maps** and select **Show Package Contents** to view the compiled bundle.
+This project contains a run script that launches a finder window with the location of the build directory where you'll see an app file — otherwise known as the application bundle. Build and run, and in Finder, right-click **Old CA Maps** and select **Show Package Contents** to view the compiled bundle.
 
 ![bordered width=%40](./images/show_app_contents.png)
 
 Below is a side-by-side comparison of the Old CA Maps Xcode project's directory (on the left) and Old CA Map's application bundle's contents (on the right). Your output might vary slightly depending on whether you built for a device or simulator.
+
+[TODO: Update this screenshot to include the app icons that are there now. Maybe add an explanation as to why they are there.]
 
 ![bordered width=%60](./images/Directory_IPA_Comparison.png)
 
@@ -114,8 +116,7 @@ Build and run the application, again selecting the **iPad Air 2 Simulator**. Tak
 
 This is using the @2x image for Santa Cruz, and it ends up at 107 KB. You may see a slight difference based on the compiler version you use.
 
->**Note**: Reviewing a debug build is a great way to see how App Thinning works, and even before App Thinning existed, Xcode was tailoring debug builds
-to the targeted device. So, App Thinning essentially builds on what Xcode already did, but now, the end user enjoys the benefits.
+>**Note**: Reviewing a debug build is a great way to see how App Thinning works, and even before App Thinning existed, Xcode was tailoring debug builds to the targeted device. So, App Thinning essentially builds on what Xcode already did, but now, the end user enjoys the benefits.
 
 Now build and run with the **iPhone 6 Plus** simulator and take a look at the size of **Asset.car**:
 ![bordered width=40%](./images/iphone_6_plus_asset_car_size.png)
@@ -160,13 +161,12 @@ NSBundleResourceRequest(tags: [bundleTitle])
 
 // 3
 bundleResource.beginAccessingResourcesWithCompletionHandler {
-  [weak self] (error) -> Void in 
+  [weak self] error in 
 
-// 4
+  // 4
   NSOperationQueue.mainQueue().addOperationWithBlock({
-    () -> Void in
 
-// 5
+    // 5
     if error == nil {
       self?.displayOverlayFromBundle(bundleResource.bundle) 
     }
@@ -177,8 +177,8 @@ bundleResource.beginAccessingResourcesWithCompletionHandler {
 What's going on in there?
 
 1. Here you're grabbing the `bundleTitle` associated with your `mapOverlayData`, which was already set with an appropriate title in the included **HistoricMapOverlayData.swift**. You're using the `guard` statement, a new feature in Swift 2.0, that lets you maintain the "Golden Path" of code by returning immediately if the unwrap fails.
-2. You're instantiating an `NSBundleResourceRequest` with the `bundleTitle` tag associated with your bundle. PS: You'll add tags to all the content bundles shortly. 
-3. `beginAccessingResourcesWithCompletionHandler` calls the completion block when your app finishes downloading on-demand content or upon error.  
+2. You're instantiating an `NSBundleResourceRequest` with the `bundleTitle` tag associated with your bundle. You'll add tags to all the content bundles shortly. 
+3. `beginAccessingResourcesWithCompletionHandler(_:)` calls the completion block when your app finishes downloading on-demand content or upon error.  
 4. The completion handler is not called on the main thread, so you'll need to supply a block running on the main queue to handle any updates to the UI. 
 5. `NSBundleResourceRequest` has a read-only variable named **bundle**. Replacing `NSBundle.mainBundle()` with this variable makes the code more extensible if you decided to move the file structure of your resources around.
 
@@ -194,9 +194,9 @@ Give **LA_Map.bundle** the tag name **LA_Map**. Now go through the four remainin
 
 ![bordered width=80%](./images/Xcode_Asset_Tagging.png)
 
->**Note**: Make sure you spell the tag name with the _exact same_ spelling and casing as the bundle file. If you mistype it, you'll encounter issues.  
+>**Note**: Make sure you spell the tag name with _exactly the same_ spelling and case as the bundle file name. If you mistype it, you'll encounter issues.  
 
-Build your application for **iPad Air 2**, but don't run it yet. Take note of the application bundle size in the report navigator. 
+Build your application for **iPad Air 2**, but don't run it yet, using __Command-B__. Take note of the application bundle size in the report navigator. 
 
 Originally, the app was over 200 MB. Now, Old CA Maps is around 10MB. Xcode has achieved this by removing the bundle resources from the main application bundle, which can be confirmed by reviewing its contents:
 
@@ -204,7 +204,7 @@ Originally, the app was over 200 MB. Now, Old CA Maps is around 10MB. Xcode has 
  
 Now run your application. Select **Los Angeles** as the overlay and observe what happens. The app now downloads content on demand, then displays the overlay and adjusts the map when completed.
 
->**Note**: When your app is live in the App Store, it'll download these resources from there. However, to achieve the same effect while developing, Xcode makes a local network request from your device (or simulator) to your computer to download the ODR. This means that if you're testing your application and you turn your computer off, ODR will fail to work. It also means transfer time is drastically less when compared to what a user would see for assets housed on the store.
+>**Note**: When your app is live in the App Store, it'll download these resources from there. However, to achieve the same effect while developing, Xcode makes a local network request from your device (or simulator) to your computer to download the ODR. This means that if you're testing your application and you turn your computer off, ODR will fail to work. It also means transfer time is significantly less when compared to what a user would see for assets housed on the store.
 
 ## Make it download faster
 
@@ -227,18 +227,18 @@ Fortunately, `MapChromeViewController` already has an `IBOutlet property` called
 Navigate back to **downloadAndDisplayMapOverlay()** and replace the content with the following:
 
 ```swift
-// 1
 guard let bundleTitle =
   mapOverlayData?.bundleTitle else {
     return
 }
-// 2
+
 let bundleResource
   = NSBundleResourceRequest(tags: [bundleTitle])
+// 1
 bundleResource.loadingPriority
   = NSBundleResourceRequestLoadingPriorityUrgent 
 
-
+// 2
 loadingProgressView.observedProgress
   = bundleResource.progress 
 
@@ -247,18 +247,18 @@ loadingProgressView.hidden = false
 UIApplication.sharedApplication()
   .networkActivityIndicatorVisible = true
 
-// 4
+
 bundleResource.beginAccessingResourcesWithCompletionHandler {
-  [weak self] (error) -> Void in
-  NSOperationQueue.mainQueue().addOperationWithBlock(
-    { () -> Void in
-      self?.loadingProgressView.hidden = true 
-      UIApplication.sharedApplication()
-        .networkActivityIndicatorVisible = false
-      
-      if error == nil {
-        self?.displayOverlayFromBundle(bundleResource.bundle)
-      }
+  [weak self] error in
+  NSOperationQueue.mainQueue().addOperationWithBlock({
+    // 4
+    self?.loadingProgressView.hidden = true 
+    UIApplication.sharedApplication()
+      .networkActivityIndicatorVisible = false
+    
+    if error == nil {
+      self?.displayOverlayFromBundle(bundleResource.bundle)
+    }
   })
 }
 ```
@@ -266,7 +266,7 @@ bundleResource.beginAccessingResourcesWithCompletionHandler {
 1. This tells the system that the user is "patiently" waiting for this download and the system should be diverting all resources to complete it ASAP. 
 2. The `loadingProgressView` hooks into the `NSProgress` of the `NSBundleResourceRquest`. It will begin updating automatically once `beginAccessingResourcesWithCompletionHandler(_:)` is kicked off.
 3. Display the `loadingProgressView` and also the network activity indicator to inform the user that a network request is in progress.
-4. Once the download completes, hide the `loadingProgressView` and network activity indicator. This code could result in unexpected results due to a race condition that might happen if multiple downloads occur concurrently. But for this simple implementation, this approach is sufficient. 
+4. Once the download completes, hide the `loadingProgressView` and network activity indicator. This code could result in unexpected results due to a potential race condition if there are concurrent downloads. However, for this simple implementation, this approach is sufficient. 
 
 Build and run the application. Try all the bundles again and you'll notice a progress indicator just below the navbar while a download is in progress. 
 
