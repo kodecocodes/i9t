@@ -116,17 +116,17 @@ class LogsViewController: UITableViewController, DetailViewControllerPresenter {
 }
 
 extension LogsViewController : UIPopoverPresentationControllerDelegate {
+  
+  func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
     
-    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        
-        guard traitCollection.userInterfaceIdiom == .Pad else {
-            return .FullScreen
-        }
-        
-        if splitViewController?.view.bounds.width > 320 {
-            return .None
-        } else {
-            return .FullScreen
-        }
+    guard traitCollection.userInterfaceIdiom == .Pad else {
+      return .FullScreen
     }
+    
+    if splitViewController?.view.bounds.width > 320 {
+      return .None
+    } else {
+      return .FullScreen
+    }
+  }
 }

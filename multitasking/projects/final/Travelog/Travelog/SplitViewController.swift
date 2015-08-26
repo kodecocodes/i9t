@@ -24,25 +24,25 @@ import UIKit
 
 class SplitViewController: UISplitViewController {
   
-    // 1
-    func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
-        if size.width < UIScreen.mainScreen().bounds.width || size.width < size.height {
-            maximumPrimaryColumnWidth = 170.0
-        } else {
-            maximumPrimaryColumnWidth = UISplitViewControllerAutomaticDimension
-        }
+  // 1
+  func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
+    if size.width < UIScreen.mainScreen().bounds.width || size.width < size.height {
+      maximumPrimaryColumnWidth = 170.0
+    } else {
+      maximumPrimaryColumnWidth = UISplitViewControllerAutomaticDimension
     }
-    
-    // 2
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        updateMaximumPrimaryColumnWidthBasedOnSize(view.bounds.size)
-    }
-    
-    // 3
-    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-        updateMaximumPrimaryColumnWidthBasedOnSize(size)
-    }
+  }
+  
+  // 2
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    updateMaximumPrimaryColumnWidthBasedOnSize(view.bounds.size)
+  }
+  
+  // 3
+  override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+    updateMaximumPrimaryColumnWidthBasedOnSize(size)
+  }
   
 }
