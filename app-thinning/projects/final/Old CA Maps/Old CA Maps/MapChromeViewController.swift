@@ -115,7 +115,7 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
   
   private func downloadAndDisplayMapOverlay() {
     guard let bundleTitle = mapOverlayData?.bundleTitle else {
-        return
+      return
     }
     
     let bundleResource = NSBundleResourceRequest(tags: [bundleTitle])
@@ -128,15 +128,14 @@ class MapChromeViewController: UIViewController, MKMapViewDelegate {
     UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     
     bundleResource.beginAccessingResourcesWithCompletionHandler {
-      [weak self] (error) -> Void in
-      NSOperationQueue.mainQueue().addOperationWithBlock(
-        { () -> Void in
-          self?.loadingProgressView.hidden = true
-          UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-          
-          if error == nil {
-            self?.displayOverlayFromBundle(bundleResource.bundle)
-          }
+      [weak self] error in
+      NSOperationQueue.mainQueue().addOperationWithBlock({
+        self?.loadingProgressView.hidden = true
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+        
+        if error == nil {
+          self?.displayOverlayFromBundle(bundleResource.bundle)
+        }
       })
     }
   }
