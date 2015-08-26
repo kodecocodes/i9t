@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1212B5871B8D364700FA8DF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1212B5861B8D364700FA8DF8 /* LaunchScreen.storyboard */; };
+		12142F0C1B8D433A0043EB08 /* AddWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12142F0B1B8D433A0043EB08 /* AddWorkoutCell.swift */; settings = {ASSET_TAGS = (); }; };
 		179BE53E1B7BFF8300447187 /* WorkoutButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179BE53D1B7BFF8300447187 /* WorkoutButtonCell.swift */; };
 		FE1B99391B5FAEFB007A44D2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE1B99381B5FAEFB007A44D2 /* AppDelegate.swift */; };
 		FE1B993E1B5FAEFB007A44D2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FE1B993C1B5FAEFB007A44D2 /* Main.storyboard */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		1212B5861B8D364700FA8DF8 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		12142F0B1B8D433A0043EB08 /* AddWorkoutCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddWorkoutCell.swift; sourceTree = "<group>"; };
 		179BE53D1B7BFF8300447187 /* WorkoutButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutButtonCell.swift; sourceTree = "<group>"; };
 		FE1B99331B5FAEFB007A44D2 /* Workouts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Workouts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE1B99371B5FAEFB007A44D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				179BE53D1B7BFF8300447187 /* WorkoutButtonCell.swift */,
 				FE1B99661B5FB2E5007A44D2 /* WorkoutCell.swift */,
 				FE1B99681B5FB2F9007A44D2 /* ExerciseCell.swift */,
+				12142F0B1B8D433A0043EB08 /* AddWorkoutCell.swift */,
 				FE591E621B66561800CE6EBE /* AddWorkoutInfoCell.swift */,
 				FE591E641B66562E00CE6EBE /* AddWorkoutExerciseCell.swift */,
 			);
@@ -285,6 +288,7 @@
 				FE1B99671B5FB2E5007A44D2 /* WorkoutCell.swift in Sources */,
 				FE1B995F1B5FB140007A44D2 /* WorkoutViewController.swift in Sources */,
 				179BE53E1B7BFF8300447187 /* WorkoutButtonCell.swift in Sources */,
+				12142F0C1B8D433A0043EB08 /* AddWorkoutCell.swift in Sources */,
 				FE591E4B1B6262EA00CE6EBE /* DataModel.swift in Sources */,
 				FE1B99691B5FB2F9007A44D2 /* ExerciseCell.swift in Sources */,
 				FE1B995D1B5FB122007A44D2 /* ExerciseViewController.swift in Sources */,

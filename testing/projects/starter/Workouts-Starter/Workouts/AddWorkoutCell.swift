@@ -19,32 +19,13 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 */
-
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-  
-  var window: UIWindow?
-  
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    
-    let redColor = UIColor(red: 1.0, green: 57.0/255.0, blue: 0, alpha: 1.0)
-    window?.tintColor = redColor
-    
-    //UINavigationBar UIAppearance
-    UINavigationBar.appearance().barTintColor = redColor
-    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
-    
-    let navBarAttrs = [NSForegroundColorAttributeName : UIColor.whiteColor(),
-      NSFontAttributeName: UIFont.boldSystemFontOfSize(17)];
-    UINavigationBar.appearance().titleTextAttributes = navBarAttrs
-    
-    //UIBarButtonItem UIAppearance
-    let barButtonAttrs = [NSForegroundColorAttributeName : UIColor.whiteColor()]
-    UIBarButtonItem.appearance().setTitleTextAttributes(barButtonAttrs, forState: .Normal)
-    
-    return true
-  }
-}
+class AddWorkoutCell: UITableViewCell {
 
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    self.accessoryView = UIImageView(image: UIImage(named: "addIcon"))
+  }
+  
+}

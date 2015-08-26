@@ -23,7 +23,7 @@
 import UIKit
 
 private let addWorkoutIndex = 0
-private let addNewIdentifier = "AddNewWorkoutCell"
+private let addNewIdentifier = "AddWorkoutCell"
 private let workoutIdentifier = "WorkoutCell"
 private let toWorkoutDetailIdentifier = "toWorkoutDetailViewController"
 private let toAddWorkoutIdentifier = "toAddWorkoutViewController"
