@@ -93,7 +93,7 @@ let names = ["Charlie", "Chris", "Mic", "John", "Craig", "Felipe"]
 
 
 
-//: Use the following array for the next exmaple.
+//: Use the following array for the next example.
 
 let authors = [
   Author(name: "Chris Wagner", status: .Late(daysLate: 5)),

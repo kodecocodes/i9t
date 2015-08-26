@@ -99,12 +99,7 @@ for cName in names where cName.hasPrefix("C") {
 
 
 
-//: Display the result
-
-
-
-
-//: Use the following array for the next exmaple.
+//: Use the following array for the next example.
 
 let authors = [
   Author(name: "Chris Wagner", status: .Late(daysLate: 5)),
