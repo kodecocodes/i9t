@@ -1,17 +1,17 @@
 # Chapter X: UIKit Dynamics
 
-iOS applications essentially live in the hands of the people using them. Until somebody taps, swipes and enjoys your work, it sits in suspended animation on a device. It's safe to say that as users, we've come to expect our mobile apps to react to our touch and to provide some semblance of "realness". Your app's success depends in part on how much the user enjoys its responsiveness.
+iOS applications live in the hands of the people using them. Until somebody taps, swipes and enjoys your work, it sits in suspended animation on a device. Users have come to expect our mobile apps to react to touch and to provide some semblance of "realness". Your app's success depends in part on how much the user enjoys its responsiveness.
 
-iOS 7 introduced the idea of flatness in user interfaces rather than the heavily skeuomorphic concepts we previously experienced. Instead of heavy interfaces, we can help forge facilitate the users bonding with our apps through the use of animations and reactions to touch that mirror real-world physics.
+iOS 7 introduced the idea of flatness in user interfaces rather than the heavily skeuomorphic concepts we previously experienced. Instead of heavy interfaces, users bond with apps through animations and reactions to touch that mirror real-world physics.
 
-__UIKit Dynamics__ was designed to give you a simplistic set of tools to provide the physical experiences in your animations and view interactions. It's a 2D physics-inspired animation system designed with a convenient API. Originally introduced in iOS 7, UIKit Dynamics saw very few changes in iOS 8. 
+__UIKit Dynamics__ is a 2D physics-inspired animation system designed with a high-level API, allowing you to simulate the physical experiences in your animations and view interactions. Originally introduced in iOS 7, UIKit Dynamics saw very few changes in iOS 8. 
 
 iOS 9 is a different matter. With this update we get a bunch of exciting new things like gravity and magnetic fields, non-rectangular collision bounds and additional attachment behaviors.
 
-> **Note**: This chapter will primarily focus on the new features in UIKit Dynamics for iOS 9. Check out *iOS 7 by Tutorials* for a full introduction to the original APIs.
-[FPE TODO: Can you cite the chapter(s) with this format pretty please? Format: Chapter X, "Doing cool stuff with UI Kit" of iOS 7 by Tutorials]
+> **Note**: This chapter will primarily focus on the new features in UIKit Dynamics for iOS 9. Check out chapter 2, "UIKit Dynamics and Motion Effects" of iOS 7 by Tutorials for a full introduction to the original APIs.
+
 ## Getting started
-UIKit Dynamics is definitely a framework you have to learn by doing. Make sure you're using an Xcode Playground to follow along and watch the changes live!
+UIKit Dynamics is definitely a technology you have to learn through playing. Make sure you're using an Xcode Playground to follow along and watch the changes live!
 
 ### Create the playground
 
@@ -40,6 +40,8 @@ You just created a view and added two subviews while giving each a different col
 
 ![bordered width=40%](images/where_is_exiting_output.png)
 
+[TODO: The appearance of playgrounds has changed in later betas. Please update the screenshot.]
+
 Find it by switching to the assistant editor; simply press __Option + Command + Enter__ to bring it up quickly. You should see something like this now:
 
 ![bordered width=90%](images/playground_step1_assistant_editor.png)
@@ -52,15 +54,13 @@ Add the following line after the second subview:
 let animator = UIDynamicAnimator(referenceView: view)
 ```
 
-`UIDynamicAnimator` is where all the physics voodoo happens. 
+`UIDynamicAnimator` is where all the physics voodoo happens. The dynamic animator is an intermediary between your dynamic items — UIView subviews in this case — the dynamic behaviors you create, and the iOS physics engine. It provides a context for calculating the animations before rendering. 
 
-A dynamic animator is an intermediary between your dynamic items – UIView subviews in this case – the dynamic behaviors you create and the iOS physics engine. It provides a context for calculating the animations before rendering. 
-
-**Dynamic behaviors** encapsulate the physics for a particular desired effect like gravity, attraction or bounce. **Dynamic animators** keep track of where all of your items are during the animation process. The `referenceView` you passed in is the canvas where all the animation takes place. All of the views you animate _must_ be a subview of the reference view.
+**Dynamic behaviors** encapsulate the physics for a particular desired effect like gravity, attraction or bounce. **Dynamic animators** keep track of where all of your items are during the animation process. The `referenceView` you passed in is the canvas where all the animation takes place. All of the views you animate _must_ be subviews of the reference view.
 
 ### Your first behavior
 
-`UIDynamicBehavior` is the base class that describes an effect for one or more dynamic items, like your subviews, and how they take part in the 2D animation you are trying to achieve. Apple provides a bunch of behaviors, but the easiest one to start with is `UIGravityBehavior`. It's perfect since developers are like cats – we can't help it that we like to see things fall.
+`UIDynamicBehavior` is the base class that describes an effect for one or more dynamic items, like your subviews, and how they take part in the animation. Apple provides a bunch of behaviors, but the easiest one to start with is `UIGravityBehavior`. It's perfect since developers are like cats — we can't help it that we like to see things fall.
 
 ![bordered width=40%](images/and_bounce_and_explode.png)
 
@@ -71,7 +71,6 @@ animator.addBehavior(UIGravityBehavior(items: [orangeSquare]))
 ```
 
 This adds a basic gravity behavior to the orange square. See it fall off the screen in the assistant editor? 
-
 
 That took two lines of code. You should be feeling amazed and empowered right now. 
 
@@ -97,9 +96,9 @@ bounce.resistance = 2
 animator.addBehavior(bounce)
 ```
 
-A dynamic item’s density, along with its size, determines its "mass" when it participates with other behaviors.  Elasticity changes how much an item bounces in a collision – the default is 0.0. Resistance, when set, reduces linear velocity until the item stops.
+A dynamic item’s density, along with its size, determines its "mass" when it participates with other behaviors.  Elasticity changes how much an item bounces in a collision – the default is 0.0. Resistance represents a frictional force — reducing linear velocity until the item comes to rest.
 
-Play around with these values and observe how the animation changes if you like.
+Take a moment to play around with these values and observe how the animation changes.
 
 Add this line to the end of the playground:
 
@@ -107,28 +106,28 @@ Add this line to the end of the playground:
 animator.setValue(true, forKey: "debugEnabled")
 ```
 
-This is a new undocumented feature in iOS 9 that turns on a visual debugging mode. It was mentioned in the 2015 WWDC session *What's New in UIKit Dynamics and Visual Effects*, where it was said this had to be done in the console using LLDB, but it turns out you can also turn it on with the key-value coding method shown. Debug mode shows cool things like attachments, when collisions happen and visualizations of field effects. 
+This is a new undocumented feature in iOS 9 that turns on a visual debugging mode. It was mentioned in the 2015 WWDC session *What's New in UIKit Dynamics and Visual Effects* ([http://apple.co/1IO1nF3](http://apple.co/1IO1nF3)). Although this was described as only being available through the LLDB console, it transpires that you can also enable it via key-value coding using method shown. Debug mode shows cool things like attachments, collision locations and visualizations of field effects. 
 
 You'll notice the orange box, when animating, shows a blue border, which visually describes the collision borders for the item. 
 
-Keep this debug turned on for the rest of this tutorial.
+Leave this debug mode turned on for the remainder of this tutorial.
 
 ### Behaviors
 
 There are a number of types of behaviors to play around with: 
 
-* `UIAttachmentBehavior` – This specifies a connection between two dynamic items or a single item and an anchor point. New to iOS 9 are variants for a sliding attachment, a limit attachment that acts like a piece of rope, a fixed attachment that fuses two items, and a pin attachment that creates the effect of two limited items hanging over a pin.
+* `UIAttachmentBehavior` – This specifies a connection between two dynamic items or a single item and an anchor point. New to iOS 9 are variants for a sliding attachment, a limit attachment that acts like a piece of rope, a fixed attachment that fuses two items, and a pin attachment that creates the effect of two items connected by a piece of rope hanging over a pin.
 * `UICollisionBehavior` – As you've seen already, this behavior declares that an item has a physical interaction with other items. It can also make the reference view turn its border into a collision border with `translatesReferenceBoundsIntoBoundary`.
-* `UIDynamicItemBehavior` – This is a collection of physical properties for a dynamic item that aren't segmented into a specific behavior. You've seen friction, density and resistance already. In iOS 9, you can anchor an item to a spot and also change the charge for an item when it's participating in a magnetic or electric field behavior.
+* `UIDynamicItemBehavior` – This is a collection of physical properties for a dynamic item that are common to multiple behavior types. You've seen friction, density and resistance already. In iOS 9, you can anchor an item to a spot and also change the charge for an item when it's participating in a magnetic or electric field behavior.
 * `UIFieldBehavior` – Totally _new_ in iOS 9, this adds a number of physical field behaviors, including electric, magnetic, dragging, vortex, radial and linear gravity, velocity, noise, turbulence and spring fields.
-* `UIGravityBehavior` – Adds a bit of gravity to your views so they react by falling in a particular direction with a set acceleration.
-* `UIPushBehavior` – Gives your dynamic items a push and shove them around.
+* `UIGravityBehavior` – Adds a gravity field to your views so they react by falling in a particular direction, with constant acceleration.
+* `UIPushBehavior` – Applies a force to dynamic items, pushing them around.
 * `UISnapBehavior` – Moves a dynamic item to a specific point with a springy bounce-like effect.
 * Composite behaviors – You can combine behaviors together for easy packaging and reuse.
 
 ### MOAR playground
 
-You're probably eager to get lost in the playground with all these new "toys", and now you'll get your chance. Put this code in your playground:
+You're probably eager to get lost in the playground with all these new "toys", and now you'll get your chance. Add this code to your playground:
 
 ```swift
 let parentBehavior = UIDynamicBehavior()
@@ -179,21 +178,23 @@ dispatch_after(delayTime, dispatch_get_main_queue()) {
 
 Now you can really see the power of the spring field! The `UIPushBehavior` gave the white square a nudge upwards and it sprung right back to the center of the field. Push direction is a vector and setting _y_ to -1 means up. 
 
-The magnitude of the push behavior is set to a small number because the density is set to a small value – the normal push magnitude would kick that box out of the field. 
+The magnitude of the push behavior is set to a small number because the density is set to a small value — the normal push magnitude would kick that box out of the field. 
 
 Try removing the magnitude, and you'll notice it does exit the field; however, the collision boundary bounces it back into play.
 
-> **CHALLENGE**: Try attaching the orange box to a point with a `UIAttachmentBehavior` behavior. Use the `init(_:attachedToAnchor:)` method to anchor it to the point. You might like to play around with the playground (That's kind of the point!) and see what other effects you manifest.
+> **CHALLENGE**: Try attaching the orange box to a point with a `UIAttachmentBehavior` behavior. Use the `init(_:attachedToAnchor:)` method to anchor it to the point. Check out the end of the accompanying playground for the solution. You might like to _play around_ with the _playground_ (that's kind of the point!) to see what other effects you can create.
 
 ## Applying dynamics to a real app
 
-Playing around with UIKit Dynamics in a Playground is fun – but it's not real until it's in an app. UIKit Dynamics is really designed for non-game applications. In reality, your application may only need dynamics in a few key places to give it that extra "pop" you're after. A little goes a long way!
+Playing around with UIKit Dynamics in a Playground is fun — but it's not real until it's in an app. UIKit Dynamics is really designed for non-game applications. In reality, your application may only need dynamics in a few key places to give it that extra "pop" you're after. A little goes a long way!
 
 ### Meet DynamicPhotoDisplay
 
 For this part, you'll work with simple photo viewing application. The user sees a scrolling list of photo thumbnails and taps them to see a full screen version. 
 
 You'll find the starter project as well as the final solution in the resources folder for this chapter.  Open it in Xcode and build and run it. You should see the following:
+
+[TODO: These screenshots need replacing with the updated versions]
 
 ![width=80%](images/dynamicphotodisplay_initialwithfull.png)
 
@@ -248,7 +249,7 @@ class StickyEdgesBehavior: UIDynamicBehavior {
 }
 ```
 
-The composite behavior starts as a subclass of `UIDynamicBehavior`, which really has no behaviors on its own. (Make sure you've entered this and **not** `UIDynamicItemBehavior`.) 
+The composite behavior starts as a subclass of `UIDynamicBehavior`, which really has no behaviors on its own (make sure you've entered this and **not** `UIDynamicItemBehavior`). 
 
 `init` takes the item you're adding the behavior to, as well as an edge inset to make it customizable in the future. Then you create a `UIDynamicItemBehavior` to make the item lighter and more resistant, and also a `UICollisionBehavior` so it can collide with the reference view. Lastly, you add two `UIFieldBehavior` instances, one for the top-middle and one for the bottom-middle.
 
@@ -268,7 +269,7 @@ Add the following to the class:
 ```swift
 func updateFieldsInBounds(bounds: CGRect) {
   
-//1
+  //1
   guard bounds != CGRect.zero else { return }
   let h = bounds.height
   let w = bounds.width
@@ -331,7 +332,7 @@ func addLinearVelocity(velocity: CGPoint) {
 }
 ```
 
-Build your application to make sure it compiles correctly, but know the app won't look any different yet! 
+Build your application to make sure it compiles correctly. Disappointingly the app won't look any different yet :[
 
 The method you just added will help snap the metadata box into place with a velocity. Now you need some velocity. To get that, you'll need to add the pan gesture recognizer, which is next. 
 
@@ -426,8 +427,10 @@ Build and run. Now the velocity of your finger as it lifts from the screen will 
 For a better understanding of how the behaviors work, turn on debug mode by adding the following to `viewDidLoad()`:
 
 ```swift
-    animator.setValue(true, forKey: "debugEnabled")
+animator.setValue(true, forKey: "debugEnabled")
 ```
+
+[TODO: Replace screenshot]
 
 ![bordered iPhone](images/dynamicphotodisplay_debug.png)
 
@@ -435,20 +438,20 @@ Notice how the lines shorten and nearly disappear in the two zones where the met
 
 ### Full photo with a thud
 
-For your next trick, you're going to update the way the full photo view displays to make it feel more dynamic. Right now, the app uses a UIView animation to animate the bounds change when re-centering the image. 
+For your next trick, you're going to update the way the full photo view animates while appearing. Right now, the app uses a UIView animation to animate the bounds change when re-centering the image, you're going to update it to make it feel more dynamic.
 
-You'll effectively do the same action with UIKit Dynamics – animate the change of the center of the view, but this time you'll use gravity and a collision. 
+You'll effectively do the same action with UIKit Dynamics — animate the change of the center of the view, but this time you'll use gravity and a collision. 
 
 Open **PhotosCollectionViewController.swift**, and add the following to the top of the class:
 
 ```swift
-  var animator: UIDynamicAnimator!
+var animator: UIDynamicAnimator!
 ```
 
 Add this line inside of `viewDidLoad()`:
 
 ```swift
-    animator = UIDynamicAnimator(referenceView: self.view)
+animator = UIDynamicAnimator(referenceView: self.view)
 ```
 
 Now that you've created the animator, swap out the contents of `showFullImageView` with the following:
@@ -515,7 +518,7 @@ Also, check out these videos from the past WWDCs:
 
 ## Challenges
 
-Now it's time for you to take a whack at adding some dynamic goodness to the app. You'll find the solutions in the final version of this app – but give yourself a chance before you go reverse engineering! 
+Now it's time for you to take a whack at adding some dynamic goodness to the app. You'll find the solutions in the final version of this app — but give yourself a chance before you go reverse engineering! 
 
 ### Challenge #1
 
@@ -530,7 +533,7 @@ Instead of using UIView animations to dismiss the view after tapping the done bu
 
 ### Challenge #2
 
-Add an interaction to the app that allows you to swipe up on the full photo view to dismiss it – it's very similar to the lock screen photo behavior in iOS. You should be able to lift the full photo view up, but it should drop back down if you didn't lift it high enough. A good swipe upwards should fling it off the screen.
+Add an interaction to the app that allows you to swipe up on the full photo view to dismiss it — it's very similar to the lock screen photo behavior in iOS. You should be able to lift the full photo view up, but it should drop back down if you didn't lift it high enough. A good swipe upwards should fling it off the screen.
 
 **Hints:**
 
