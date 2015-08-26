@@ -34,7 +34,7 @@ class Checklist {
   }
 }
 
-struct ChecklistItem {
+class ChecklistItem {
   let name: String
   var checked: Bool
   let notes: String
