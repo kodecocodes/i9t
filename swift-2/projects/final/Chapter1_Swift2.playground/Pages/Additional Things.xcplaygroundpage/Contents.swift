@@ -8,17 +8,18 @@ import Foundation
 //: ### Going further with Extensions
 //: Define the `shuffleInPlace()` method below.
 extension MutableCollectionType where Self.Index == Int {
-    mutating func shuffleInPlace() {
-        let c = self.count
-        for i in 0..<(c-1) {
-            let j = Int(arc4random_uniform(UInt32(c - i))) + i
-            swap(&self[i], &self[j])
-        }
+  mutating func shuffleInPlace() {
+    let c = self.count
+    for i in 0..<(c-1) {
+      let j = Int(arc4random_uniform(UInt32(c - i))) + i
+      swap(&self[i], &self[j])
     }
+  }
 }
 //: Test out the `shuffleInPlace()` method.
 var people = ["Chris", "Ray", "Sam", "Jake", "Charlie"]
 people.shuffleInPlace()
+
 //: ### Using `defer`
 //: Review the following and take notice of the `defer` block at the beginning of `dispenseFunds(amount:account:)`
 
@@ -59,11 +60,12 @@ var atm = ATM()
 var billsAccount = Account(name: "Bill's Account", balance: 500.00, locked: true)
 
 do {
-    try atm.dispenseFunds(200.00, account: &billsAccount)
+  try atm.dispenseFunds(200.00, account: &billsAccount)
 } catch let error {
-    print(error)
+  print(error)
 }
 atm.log
+
 //: Below are a few more examples for you to review.
 var janesAccount = Account(name: "Jane's Account", balance:1500.00, locked: false)
 do {
@@ -92,7 +94,7 @@ let names = ["Charlie", "Chris", "Mic", "John", "Craig", "Felipe"]
 //: Implement a "for ... in" block that creates an array of names that start with "C"
 var namesThatStartWithC = [String]()
 for cName in names where cName.hasPrefix("C") {
-    namesThatStartWithC.append(cName)
+  namesThatStartWithC.append(cName)
 }
 
 
@@ -112,17 +114,18 @@ let authors = [
 
 let authorStatuses = authors.map { $0.status }
 
+
 //: Iterate over `authorStatuses` where the case is .Late(Int) and sum up the total number of days late
 var totalDaysLate = 0
 for case let .Late(daysLate) in authorStatuses {
-    totalDaysLate += daysLate
+  totalDaysLate += daysLate
 }
 //: Use "if case" matching to slap all authors that are running late.
 var slapLog = ""
 for author in authors {
-    if case .Late(let daysLate) = author.status where daysLate > 2 {
-        slapLog += "Ray slaps \(author.name) around a bit with a large trout \n"
-    }
+  if case .Late(let daysLate) = author.status where daysLate > 2 {
+    slapLog += "Ray slaps \(author.name) around a bit with a large trout \n"
+  }
 }
 
 
