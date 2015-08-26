@@ -2,7 +2,7 @@
 
 Storyboards have been around since iOS 5 and have received lots of upgrades and new features since then, including unwind segues for reverse navigation, universal storyboards for both iPhone and iPad, and live rendering of views designed in code.
 
-Xcode 7 brings a new set of additions to storyboards that let you do the following:
+Xcode 7 brings new features for storyboards that let you do the following:
 
 * Refactor a single storyboard into multiple storyboards and link them visually via _storyboard references_.
 * Add supplementary views to a view controller using the _scene dock_.
