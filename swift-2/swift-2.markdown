@@ -1,12 +1,12 @@
 # Chapter 1: Swift 2.0
 
-The 2104 WWDC keynote was nearly over, and Craig Federighi appeared to be wrapping things up. But instead he shocked nearly everyone watching by announcing the Swift programming language, which he promised, perhaps optimistically, as "Objective-C without the baggage of C". Swift would have the benefits of terseness and safety, while still being extremely expressive.
+The 2014 WWDC keynote was nearly over, and Craig Federighi appeared to be wrapping things up. But instead he shocked nearly everyone watching by announcing the Swift programming language, which he promised, perhaps optimistically, as "Objective-C without the baggage of C". Swift would have the benefits of terseness and safety, while still being extremely expressive.
 
 Once the implications of a new programming language had sunk in, many developers set out to explore the ins and outs of Swift. The year following WWDC 2014 was an exciting time for developers on the Apple platform; each developer had a chance to reimagine and redefine they way they wrote software for iOS and OS X.
 
 ## Whither Swift?
 
-Why would Apple introduce a new language, since Objective-C has served them so well? It's likely because Swift gave Apple a fresh start; Swift takes the best features from many different languages and combines them into one. Apple has created a language that is modern, expressive, safe, and a lot of fun to develop in. As well, Swift interoperates seamlessly with existing Cocoa and Cocoa Touch frameworks as well as all of your existing Objective-C code. This is likely one of the primary reasons Swift has seen such success and widespread adoption in the developer community.
+Why would Apple introduce a new language, since Objective-C has served them so well? It's likely because Swift gave Apple a fresh start; Swift takes the best features from many different languages and combines them into one. Apple has created a language that is modern, expressive, safe, and a lot of fun to develop in. Swift also interoperates seamlessly with existing Cocoa and Cocoa Touch frameworks as well as all of your existing Objective-C code. This is likely one of the primary reasons Swift has seen such success and widespread adoption in the developer community.
 
 ## The Real "One more thing"
 
@@ -38,7 +38,8 @@ This chapter is packed with information; you can read it end to end or use it as
 
 Unlike most chapters in this book, you _won't_ write or extend an app in this chapter. Instead, you'll work in a multipage Xcode Playground with the Swift language features as the focus. The first part of the chapter will introduce you to some new features using somewhat contrived examples; the second half walks you thorough the solution of a specific String validation problem using Swift 2.0 features in a tutorial-led playground.
 
-Open the provided **Chapter1_Swift2.playground** file in Xcode 7 and continue reading the chapter before diving into the playground. [TODO: CRB: Revisit]
+Open the provided **Chapter1_Swift2.playground** file in Xcode 7 and you'll be ready to dive right into the chapter!
+
 
 ## Control Flow
 
@@ -80,7 +81,7 @@ struct Beer {
 }
 ```
 
-The `\\1` comment indicates the `guard` that verifies the amount of beer left is greater than 0 and if not, executes the code in the trailing `else` block, which instructs you to order another brew! You then return immediately so you don't end up in some weird state with a negative amount of beer. Beer debt is not a good thing.
+The `//1` comment indicates the `guard` that verifies the amount of beer left is greater than 0 and if not, executes the code in the trailing `else` block, which instructs you to order another brew! You then return immediately so you don't end up in some weird state with a negative amount of beer. Beer debt is not a good thing.
 
 The `guard` control is defined as `guard (condition) else { // code to execute if condition is false }`. You _could_ use an `if` statement instead, but the logic is not quite as straightforward:
 
@@ -97,7 +98,7 @@ Not exactly; it comes down to _expressiveness_, which is a primary goal of Swift
 
 Now, before you write-off `guard` as _just_ an enhancement in expressiveness, take a look at its true power: working with Optionals.
 
-Consider the world of bartending: success is measured in the number of beers you sell. As a beer nears empty, the bartender tries to locate the owner so they can offer another. A harsh reality though, is that beer owners may abandon a half-drank beer (known as a wounded soldier), hence the reason the `owner` property is Optional on `Beer`.
+Consider the world of bartending: success is measured in the number of beers you sell. As a beer nears empty, the bartender tries to locate the owner so they can offer another. A harsh reality though, is that beer owners may abandon a half-drunk beer (known as a wounded soldier), hence the reason the `owner` property is Optional on `Beer`.
 
 Here's a good model for a successful bartender:
 
@@ -136,7 +137,7 @@ protocol JSONParsable {
 
 This protocol defines a single static method that takes a JSON dictionary and returns an instance of `Self`, where `Self` is the type that conforms to this protocol. The method also declares that it can throw an error.
 
-So, what exactly _is_ a Swift error? Is it an `NSError`? No...and yes. :] A pure Swift error is represented as an `enum` that conforms to the protocol `ErrorType`. However, Apple Engineers conveniently made `NSError` conform to the `ErrorType` protocol, which means this pattern works quite well between Swift and Objective-C. If you're interested to learn more about interoperability, the Swift and Objective-C Interoperability [(http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=401) session are a must-see!
+So, what exactly _is_ a Swift error? Is it an `NSError`? No...and yes. :] A pure Swift error is represented as an `enum` that conforms to the protocol `ErrorType`. However, Apple Engineers conveniently made `NSError` conform to the `ErrorType` protocol, which means this pattern works quite well between Swift and Objective-C. If you're interested to learn more about interoperability, the Swift and Objective-C Interoperability [(http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=401) session is a must-see!
 
 You can create your own error type as below:
 
@@ -212,13 +213,13 @@ In this section, you'll work at solving a String validation problem using some o
 
 ### String Validation Error
 
-Switch to the next page in the chapter's playground, **String Validation**. Now that you're familiar with defining custom `ErrorType`s, it's time to make use of robust error type for your potentia. validation errors.
+Switch to the next page in the chapter's playground, **String Validation**. Now that you're familiar with defining custom `ErrorType`s, it's time to make use of robust error types for potential validation errors.
 
 Take a look at the `ErrorType` defined at the top of the playground's "String Validation" page, right below `import UIKit`. This `ErrorType` has a number of cases with varying associative values that help describe the error.
 
-After the spot where you define the cases, you'll see a computed variable `description`. This conforms to the `CustomStringConvertible` protocol and lets you display the error in a human-readable format that you can take action on.
+After the spot where you define the cases, you'll see a computed variable `description`. This provides conformance to the `CustomStringConvertible` protocol and lets you display the error in a human-readable format.
 
-Now that the error types defined, it's time to start throwing them around! :] You'll first start with a protocol that defines a rule. You are going to be using protocol oriented programming patterns to make this solution robust and extendable.
+Now that the error type is defined, it's time to start throwing them around! :] You'll first start with a protocol that defines a rule. You are going to be using protocol oriented programming patterns to make this solution robust and extendable.
 
 Add the following protocol definition to the playground:
 
@@ -230,6 +231,8 @@ protocol StringValidationRule {
 ```
 
 This protocol requires three things: a method that returns a `Bool` denoting the validity of a given string and also throws an error, and that you provide the type of error that can be thrown.
+
+TODO: Please can you rewrite this sentence. I don't understand how there are three things here? Also, I'm confused about the use of the word "type". I think that "error type" is different from the use of "type" within Swift? Could you reword this to make it more obvious?
 
 > **Note:** The `errorType` property is not a Swift requirement. It's here so that you can be clear about the types of error that might be returned.
 
@@ -243,7 +246,7 @@ protocol StringValidator {
 }
 ```
 
-This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is a `Bool` that designates whether the string is valid; the second is an array of `StringValidationError`s. In this case you're not using `throws`; instead, you're returning an array of error types since each rule can throw its own error. When it comes to string validation and your user experience, it's best to let the user know of every rule they've broken so that they can resolve all of them in a single pass.
+This protocol requires an array of `StringValidationRule`s as well as a function that validates a given string and returns a tuple. The first value of the tuple is a `Bool` that designates whether the string is valid; the second is an array of `StringValidationError`s. In this case you're not using `throws`; instead, you're returning an array of error types since each rule can throw its own error. When it comes to string validation, it's best to let the user know of every rule they've broken so that they can resolve all of them in a single pass.
 
 Think how you might implement a `StringValidator`'s `validate(string:)` method. You'd likely iterate over each item in `validationRules`, collect any errors, and determine the status based on whether any errors occurred. This logic will likely be the same for any `StringValidator` you need.
 
@@ -281,7 +284,7 @@ Here's what you do in each commented section above:
 6. Execute `validate(string:)` for each rule; note that you must precede the call with `try` as this method is throwable.
 7. Catch any errors of the type `StringValidationError`.
 8. Capture the error in your `errors` array.
-9. If any error other than `StringValidationError` is thrown, crash with a message including which error occurred. Just as in a `switch` statement, your error handling must beexhaustive, or you'll get a compiler error.
+9. If any error other than `StringValidationError` is thrown, crash with a message including which error occurred. Just as in a `switch` statement, your error handling must be exhaustive, or you'll get a compiler error.
 10. Return the resultant tuple. If there are no errors validation passed, return the array of errors even if it's empty.
 
 Now each and every `StringValidator` you implement will have this method by default so you can avoid "copy and paste" coding. :]
@@ -359,7 +362,7 @@ struct EndsWithCharacterStringValidationRule: StringValidationRule {
 
 The above logic is quite similar to the first validator; it simply checks the ending character against your supplied character set.
 
-Now that you have two different rules, you can create your _own_ `StringValidator`. Create a validator that verifies a string both starts and ends with characters belonging to specific character sets by adding the following code:
+Now that you have two different rules, you can create your first `StringValidator`. Create a validator that verifies a string both starts and ends with characters belonging to specific character sets by adding the following code:
 
 ```
 struct StartsAndEndsWithStringValidator: StringValidator {
@@ -405,6 +408,8 @@ startsAndEndsWithStringValidator.validate("foo1").valid
 
 You should see the following result:
 
+TODO: this is not what I'm seeing in beta5&6 - the quicklook of the array of structs doesn't appear to be working correctly ({(...)}). Can you check this out and see whether there's a way to fix this please?
+
 ![bordered height=30%](/images/starts_and_ends_with_validator_result.png)
 
 ### Password Requirement Validation
@@ -419,7 +424,7 @@ It's time to put your StringValidator pattern to work. You're the software engin
 
 If you hadn't worked through the protocol-oriented solution above, you might have looked at this list of requirements and groaned a little. But instead you can take the pattern you've built and quickly create a `StringValidator` that contains the rules for this password requirement.
 
-Start by switching to the **Password Validation** page in the chapter's playground. For brevity, this playground page tucks away all of the previous work as a source file, which also contains two new rules you'll use. Click **Password Validation** > **Sources** > **StringValiation.swift** in the jump bar to view the code in that file.
+Start by switching to the **Password Validation** page in the chapter's playground. For brevity, this playground page tucks away all of the previous work as a source file, which also contains two new rules you'll use. Click **Password Validation** > **Sources** > **StringValidation.swift** in the jump bar to view the code in that file.
 
 #### `LengthStringValidationRule`
 
@@ -510,7 +515,7 @@ struct PasswordRequirementStringValidator: StringValidator {
 }
 ```
 
-[TODO: FPE: Do we require a basic code explanation here?]
+You'll recognize this code as being very similar to the concrete string validator you created. It simply provides an implementation for the `validationRules` computed property, which returns an array of the four rules you need to satisfy your requirements, in a remarkably readable configuration.
 
 Now, try it out! Add the following to the playground:
 
@@ -521,6 +526,8 @@ passwordValidator.validate("abc1!Fjk").errors
 ```
 
 You should see the following result:
+
+TODO: Another screenshot that doesn't match what's shown in beta5/6
 
 ![bordered height=25%](/images/password_validator_result.png)
 
@@ -534,9 +541,9 @@ The remainder of this chapter has you experimenting with some of the previously 
 
 ### Going further with Extensions
 
-One other amazing thing about Extensions is that you can provide functionality with generic type parameters; this means that you can provide a method on Arrays that contain a specific type. You can even do this with protocol extensions.
+One other amazing thing about Extensions is that you can provide functionality with generic type parameters; this means that you can provide a method on arrays that contain a specific type. You can even do this with protocol extensions.
 
-For example, say that you wanted to create a method that shuffles an array of names to determine the order of players in a game. Seems easy enough, right? You simplly take an array of names, mix it up and return it. Done and done. But what if you later discover a need to shuffle an array of cards for the same game? Now you have to either reproduce that shuffle logic for an array of cards, or create some kind of generic method that can shuffle both cards and names. There's got to be a better way, right?
+For example, say that you wanted to create a method that shuffles an array of names to determine the order of players in a game. Seems easy enough, right? You simply take an array of names, mix it up and return it. Done and done. But what if you later discover a need to shuffle an array of cards for the same game? Now you have to either reproduce that shuffle logic for an array of cards, or create some kind of generic method that can shuffle both cards and names. There's got to be a better way, right?
 
 How about creating an extension on the `MutableCollectionType` protocol? Conformers of the protocol must have an Index since you need to use ordered collections to retain the sort order.
 
