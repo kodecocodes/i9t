@@ -2,21 +2,21 @@
 
 By Soheil Azarpour
 
-iOS 9 introduces a phenomenal feature for the iPad — **multitasking**. For the first time ever, iPad users can run two apps on the screen at the same time. Maybe you want to read a proposal in your email client while you research the topic in Safari. Or you'd like to keep an eye on Twitter while you enjoy your favorite sports show. For a tiny device that you can hold in one hand, this is a crazy amount of productivity power. It's undoubtedly going to change the way users interact with their iPads.
+iOS 9 introduces a phenomenal feature for the iPad — **multitasking**. For the first time, iPad users can run two apps on the screen at the same time. Maybe you want to read a proposal in your email app while you research the topic in Safari. Or you'd like to keep an eye on Twitter while you enjoy your favorite sports show. For a device that you can hold in one hand, this is a crazy amount of productivity power. It's undoubtedly going to change the way users interact with their iPads.
 
-In this chapter, you'll learn how to update an existing app so that it plays nicely in a multi-tasked iPad environment.
+In this chapter, you'll learn how to update an existing app so that it plays nicely in a multi-tasking iPad environment.
 
 ## Getting started
 
-The starter project you’ll use for the remainder of this chapter is named **Travelog**. Open the project file in Xcode and build and run the application on the **iPad Air 2** simulator. You’ll see the following:
+The starter project you’ll use for this chapter is named **Travelog**. Open the project file in Xcode and build and run the application on the **iPad Air 2** simulator. You’ll see the following:
 
 ![width=90% ipad](images/mt05.png)
 
-Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. Tap any entry to display it in the right-hand view; rotate the device and you'll find both master and detail views of the Split View Controller are visible in both orientations. However, the master view is narrower in portrait orientation to give the content more room in the detail view.
+Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. Tap any entry to display it in the right-hand view; rotate the device and you'll find both master and detail views of the Split View Controller are visible in both orientations.
 
 It's time to see how the app behaves in a multitasking environment. Swipe from the right edge of the screen to expose the list of multitasking-ready apps on your iPad. This can be tricky in the simulator; try starting with your mouse pointer just inside the simulator window to simulate a swipe in from the edge.
 
-> **Note**:  If the locale of the iPad is set to a region with right-to-left language, swipe from the right edge of the screen to activate multitasking.
+> **Note**:  If the locale of the iPad is set to a region with right-to-left language, swipe from the left edge of the screen to activate multitasking.
 
 Tap on any app to launch it. A small version of the app opens in the previous position of the list. At this point you're in **Slide Over** multitasking mode. Note that Travelog is dimmed out but otherwise unaffected. The app running in Slide Over mode sits on top of Travelog, and a short handle bar sits at top of the Slide Over. Swipe down on the handle to expose the list of multitasking apps and launch a different app in the Slide Over.
 
@@ -38,7 +38,7 @@ The final type of multitasking, **Picture in Picture**, or **PIP**, works much l
 
 Here's the good news: if you paid attention at WWDC 2014 and built a universal app with size classes, adaptive layout and a launch storyboard or XIB, you're done! Rebuild your app with the iOS 9 SDK, go grab yourself a beverage and I'll see you in the next chapter!
 
-What's that? You live in the real world and don't _quite_ have all the above implemented in your app? Okay then; I can walk you through what it takes to make your app multitasking-ready.
+What's that? You live in the real world and don't _quite_ have all the above implemented in your app? Okay then; this chapter is here to walk you through what it takes to make your app multitasking-ready.
 
 Any new project created in Xcode 7 is automatically multitasking-ready. An existing app you convert to Xcode 7 automatically becomes multitasking-ready if your app:
 
@@ -83,8 +83,9 @@ It looks like `viewWillTransitionToSize(_:, withTransitionCoordinator:)` is a go
 
 ```swift
 func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
-  if size.width < UIScreen.mainScreen().bounds.width || size.width < size.height {
-    maximumPrimaryColumnWidth = 170.0
+  if size.width < UIScreen.mainScreen().bounds.width
+    || size.width < size.height {
+      maximumPrimaryColumnWidth = 170.0
   } else {
     maximumPrimaryColumnWidth = UISplitViewControllerAutomaticDimension
   }
@@ -107,9 +108,12 @@ This ensures that the split view starts in the right configuration.
 Add one final method:
 
 ```swift
-override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-  super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
-  updateMaximumPrimaryColumnWidthBasedOnSize(size)
+override func viewWillTransitionToSize(size: CGSize,
+  withTransitionCoordinator coordinator:
+  UIViewControllerTransitionCoordinator) {
+    super.viewWillTransitionToSize(size,
+      withTransitionCoordinator: coordinator)
+    updateMaximumPrimaryColumnWidthBasedOnSize(size)
 }
 ```
 
@@ -139,7 +143,7 @@ Also update `widthThreshold`, declared at the beginning of `LogCell`, as follows
 static let widthThreshold: CGFloat = 170.0
 ```
 
-The updated code checks the width of the cell itself instead of the width of the screen. This decouples the view's behavior from its superviews. Adaptivity is now self-contained! :]
+The updated code checks the width of the cell itself instead of the width of the screen. This decouples the view's behavior from that of its superview. Adaptivity is now self-contained! :]
 
 Build and run; again, verify the app still looks and behaves as it did before multitasking. This time around, Split View mode should play nicely in all orientations:
 
@@ -159,7 +163,7 @@ With the popover still visible, drag the divider further to the left so the scre
 
 The popover automatically turned into a modal view without any action on your part; dragging the divider to 50% changes the horizontal size class of the app from regular to compact. That's neat, but it's not quite the functionality you're looking for.
 
-Instead, you want to present your Photo Library in a modal fashion _only_ when the app is in Slide Over mode, or when it's the secondary app in 33% Split View mode. Your app assumes the smaller size when it's opened in the Slide Over. [TODO: FPE: Previous two sentence were unclear when I edited it, please check for technical accuracy.]  But at 50%, you'd still rather present the Photo Library in a popover.
+Instead, you only want to present the Photo Library in a modal fashion when the app is in Slide Over mode, or when it's the secondary (smaller) app in the 33% Split View mode. When your app is full screen or has 50% width, you'd prefer to present the Photo Library in a popover.
 
 iOS 8 introduced `UIPopoverPresentationController` to manage the display of the content in a popover; you use it along with the `UIModalPresentationPopover` presentation style to present popovers. However, you can intercept the presentation and customize it with `UIPopoverPresentationControllerDelegate` callbacks.
 
@@ -168,17 +172,19 @@ Open **LogsViewController.swift** and add the following class extension to the e
 ```swift
 extension LogsViewController : UIPopoverPresentationControllerDelegate {
 
-  func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-    //1
-    guard traitCollection.userInterfaceIdiom == .Pad else {
-      return .FullScreen
-    }
+  func adaptivePresentationStyleForPresentationController(controller:
+    UIPresentationController,
+    traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+      //1
+      guard traitCollection.userInterfaceIdiom == .Pad else {
+        return .FullScreen
+      }
 
-    if splitViewController?.view.bounds.width > 320 {
-      return .None
-    } else {
-      return .FullScreen
-    }
+      if splitViewController?.view.bounds.width > 320 {
+        return .None
+      } else {
+        return .FullScreen
+      }
   }
 }
 ```
@@ -193,23 +199,24 @@ Now you can make `LogsViewController` a delegate of the popover presentation con
 Find the implementation of `presentImagePickerControllerWithSourceType(_:)`. Read through the implementation and you'll see that when the source type is `.PhotoLibrary`, `UIImagePickerController` presents as a popover. Update the implementation by adding `presenter?.delegate = self` as shown below:
 
 ```swift
-func presentImagePickerControllerWithSourceType(sourceType: UIImagePickerControllerSourceType) {
-  // some code...
-  if sourceType == UIImagePickerControllerSourceType.PhotoLibrary {
+func presentImagePickerControllerWithSourceType(sourceType:
+  UIImagePickerControllerSourceType) {
     // some code...
-    presenter?.delegate = self
-  }
-  // some code...
+    if sourceType == UIImagePickerControllerSourceType.PhotoLibrary {
+      // some code...
+      presenter?.delegate = self
+    }
+    // some code...
 }
 ```
 
-Build and run your app; verify that the popover transitions to a modal fullscreen view only when your app is in the Slide Over mode or portrait orientation with multitasking enabled" [TODO: FPE: Please check the preceding sentence for technical accuracy as I edited it a fair bit.]
+Build and run your app; verify that the popover transitions to a modal fullscreen view only when your app is in the Slide Over mode or when the Split View pane is sufficiently narrow.
 
 ![width=95%](images/mt093.png)
 
-[TODO: FPE: It feels like this little section needs its own header, but I'm not quite sure what to put. Any ideas?]
+### The path to adaptivity
 
-If you're not already using Auto Layout, Size Classes or other excellent responsive layout tools in UIKit, you should definitely consider upgrading your code to do so. UIKit has some new functionality to further assist you with multitasking, including `UIStackView`,  `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth`. Want more information on this functionality? Chapter XX, "UIStackView and Auto Layout Changes" has you covered.
+If you're not already using Auto Layout, Size Classes or other excellent responsive layout tools in UIKit, you should definitely consider upgrading your code to do so. UIKit has some new functionality to further assist you with multitasking, including `UIStackView`,  `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth`. Want more information on this functionality? Chapter 6, "UIStackView and Auto Layout Changes" has you covered.
 
 ## Other considerations
 
@@ -235,7 +242,7 @@ You've worked hard to be a good memory citizen over the years, and that won't ch
 
 ## Where to go from here?
 
-This chapter only touched on the basics of multitasking – it's up to developers like you to help chart the course for accepted multitasking design patterns of the future. To help you along the journey to multitasking, here are some resources you can bookmark for future reference:
+This chapter only touched on the basics of multitasking — it's up to developers like you to help chart the course for accepted multitasking design patterns of the future. To help you along the journey to multitasking, here are some resources you can bookmark for future reference:
 
 * [Adopting Multitasking Enhancements on iPad- http://apple.co/1MdssbK](https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html)
 * [Getting Started with Multitasking on iPad in iOS 9 (Session 205) - http://apple.co/1ItxCtH](https://developer.apple.com/videos/wwdc/2015/?id=205)
