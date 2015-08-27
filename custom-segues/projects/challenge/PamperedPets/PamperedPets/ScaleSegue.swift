@@ -70,7 +70,7 @@ class ScalePresentAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     }
     
     // 3. Set up the initial state for the animation
-    var startFrame = CGRect.zeroRect
+    var startFrame = CGRect.zero
     if let fromViewController = fromViewController as? ViewScaleable {
       startFrame = fromViewController.scaleView.frame
     } else {
@@ -125,7 +125,7 @@ class ScaleDismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     toView?.alpha = 0.0
     
     // Work out the final frame for the animation
-    var finalFrame = CGRect.zeroRect
+    var finalFrame = CGRect.zero
     if let toViewController = toViewController as? ViewScaleable {
       finalFrame = toViewController.scaleView.frame
     } else {

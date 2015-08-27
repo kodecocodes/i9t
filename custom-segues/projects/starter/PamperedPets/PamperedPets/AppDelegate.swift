@@ -69,7 +69,7 @@ extension UIImage {
     UIGraphicsBeginImageContextWithOptions(size, true, 0.0)
     let context = UIGraphicsGetCurrentContext()
     color.setFill()
-    CGContextFillRect(context, CGRect(origin: .zeroPoint, size: size))
+    CGContextFillRect(context, CGRect(origin: .zero, size: size))
     let image = UIGraphicsGetImageFromCurrentImageContext()
     UIGraphicsEndImageContext()
     return image
