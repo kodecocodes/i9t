@@ -40,9 +40,7 @@ This project contains a run script that launches a finder window with the locati
 
 ![bordered width=%40](./images/show_app_contents.png)
 
-Below is a side-by-side comparison of the Old CA Maps Xcode project's directory (on the left) and Old CA Map's application bundle's contents (on the right). Your output might vary slightly depending on whether you built for a device or simulator.
-
-[TODO: Update this screenshot to include the app icons that are there now. Maybe add an explanation as to why they are there.]
+Understanding the content that goes in to your completed application will be useful when working with App-Thinning. Below is a side-by-side comparison of the Old CA Maps Xcode project's directory (on the left) and a relase build of Old CA Map's application bundle's contents (on the right). Your output might vary slightly depending on your device type, build configuration and Xcode version.
 
 ![bordered width=%60](./images/Directory_IPA_Comparison.png)
 
@@ -110,7 +108,7 @@ After that, make sure the Santa Cruz assets in the catalog looks like:
 
 ![bordered width=90%](./images/Santa_cruz_asset_catalog.png)
 
-Build and run the application, again selecting the **iPad Air 2 Simulator**. Take a look at the size of **Asset.car** by looking at the package contents in the build directory as you did earlier.
+Build and run the application, again selecting the **iPad Air 2 Simulator**. Take a look at the size of **Assets.car** by looking at the package contents in the build directory as you did earlier.
 
 ![bordered width=40%](./images/ipad_air_2_asset_car_size.png)
 
@@ -118,7 +116,7 @@ This is using the @2x image for Santa Cruz, and it ends up at 107 KB. You may se
 
 >**Note**: Reviewing a debug build is a great way to see how App Thinning works, and even before App Thinning existed, Xcode was tailoring debug builds to the targeted device. So, App Thinning essentially builds on what Xcode already did, but now, the end user enjoys the benefits.
 
-Now build and run with the **iPhone 6 Plus** simulator and take a look at the size of **Asset.car**:
+Now build and run with the **iPhone 6 Plus** simulator and take a look at the size of **Assets.car**:
 ![bordered width=40%](./images/iphone_6_plus_asset_car_size.png)
 
 As you can see, it's up to 144 KB. It makes sense that this build is larger given the higher resolution of @3x images used by the iPhone 6 Plus. While it may not directly reflect the size of the bundle on the store, this gives you a relative idea of how thinning works to size your bundle according to the needs of the target device.
@@ -273,8 +271,6 @@ Build and run the application. Try all the bundles again and you'll notice a pro
 It's better because at least there's a visual queue that something is happening, but the 120MB San Diego download still takes an eternity. Time to try something a bit more drastic. 
 
 ## The many flavors of tagging
-
-[NOTE TO EDITOR: This section currently does not work. Am waiting on a reply here: https://forums.developer.apple.com/message/25090#25090. If I can't get this section to work, I'll put this stuff under the "Where to Go From Here"]
 
 Displaying the progress makes for a better experience, but nobody wants to wait for a download. Keep in mind that you're testing on a controlled device with Simulator and locally hosted resources. Imagine a real-world user moving in and out Wi-Fi or cellular coverage. 
 
