@@ -1,8 +1,8 @@
 # Chapter 7: Intermediate UIStackView
 
-Welcome back! In the previous chapter, you spent some quality time with stack views and masterfully spaced a row of buttons with a horizontal stack view. Moreover, you also learned about layout guides and layout anchors, and learned how to use them to vertically center two labels in a table view cell, without the use of dummy container views.
+Welcome back! In the previous chapter, you spent some quality time with stack views and masterfully spaced a row of buttons with a horizontal stack view. Moreover, you also learned about layout guides and layout anchors, and discovered how to use them to vertically center two labels in a table view cell, without the use of dummy container views.
 
-In this chapter, you'll make further improvements to the Vacation Spots app by using – you guessed it – stack views.
+In this chapter, you'll make further improvements to the Vacation Spots app by using — you guessed it — stack views.
 
 ## Getting started
 
@@ -30,18 +30,18 @@ And as you work through this section, you'll learn about the various properties 
 
 ### Rating section
 
-The rating section is the low-hanging fruit here, because it's the simplest one to embed in a stack view. So, you'll convert it first.
+The rating section is the low-hanging fruit here, because it's the simplest one to embed in a stack view.
 
 Open **Main.storyboard** and in the **Spot Info View Controller** scene, select the **RATING** label and the stars label next to it:
 ![bordered width=96%](images/01-select-rating-label-and-stars-label_640x74.png)
 
-Then click on the **Stack** button to embed them in a stack view. Remember, it's this button at the bottom of the storyboard window:
+Then click on the **Stack** button to embed them in a stack view. Remember, this button is at the bottom of the storyboard window:
 ![bordered width=20%](images/02-stack_button_outlined_146x40.png)
 
 You can also use the menu bar and select **Editor \ Embed in \ Stack View**. Whichever way you go about it, this is the result:
 ![bordered width=96%](images/03-after-clicking-stack-button_640x74.png)
 
-Now click on the **Pin** button — remember that's the square TIE Fighter-looking icon that's sitting to the right of the stack button. Place a checkmark in **Constrain to margins** and add the following **three** constraints:
+Now click on the **Pin** button — remember that's the square TIE fighter-looking icon that's sitting to the right of the stack button. Place a checkmark in **Constrain to margins** and add the following **three** constraints:
 
 ```bash
 Top: 20, Leading: 0, Bottom: 20
@@ -54,9 +54,9 @@ Now go to the **Attributes inspector** and set the spacing to **8**:
 It's possible you may see a _Misplaced Views_ warning and see something like this in which the stars label has stretched beyond the bounds of the view:
 ![bordered width=96%](images/06-stars-label-weirdly-stretched_640x85.png)
 
-Sometimes Xcode may temporarily show a warning or position the stack view incorrectly, but the warning will go away as you make other updates. So you can normally ignore these and they will go away.
+Sometimes Xcode may temporarily show a warning or position the stack view incorrectly, but the warning will disappear as you make other updates. You can usually safely ignore these.
 
-But if this annoys you and you'd like to fix it immediately, you can sort of nudge the stack view by either moving its frame by one point and back or temporarily changing some property on the stack view.
+However, to fix it immediately, you can persuade the stack view to re-layout either by moving its frame by one point and back or temporarily changing one of its layout properties.
 
 To demonstrate this, change the **Alignment** from **Fill** to **Top** and then back to **Fill**. You'll now see the stars label positioned correctly:
 ![bordered width=96%](images/07-change-alignment-to-top-and-back_640x85.png)
@@ -74,29 +74,29 @@ First, you'd select the stack view you want to remove. Then from the menu you'd 
 
 ### Your first vertical stack view
 
-Now, you'll create your first vertical stack view, and actually Xcode will do it for you. Select the **WHY VISIT** label and the **&lt;whyVisitLabel>** below it:
+Now, you'll create your first vertical stack view. Select the **WHY VISIT** label and the **&lt;whyVisitLabel>** below it:
 ![bordered width=96%](images/09-select-why-visit-labels_640x90.png)
 
-Xcode will correctly infer that you'd like a vertical stack view based on the position of the labels. Click the **Stack** button to embed both of these into a stack view:
+Xcode will correctly infer that this should be a vertical stack view based on the position of the labels. Click the **Stack** button to embed both of these in a stack view:
 ![bordered width=96%](images/10-embed-why-visit-labels_640x90.png)
 
-The bottom label previously had a constraint pinning it to the right margin of the view, but that constraint got removed when it was embedded into this stack view. Currently, the stack view has no constraints, so it adopts the intrinsic width of its largest view.
+The lower label previously had a constraint pinning it to the right margin of the view, but that constraint was removed when it was embedded in the stack view. Currently, the stack view has no constraints, so it adopts the intrinsic width of its largest view.
 
-With the stack view selected, click on the **Pin** button. You'll add a total of four constraints. Checkmark **Constrain to margins**, and set the **Top**, **Leading** and **Trailing** constraints to **0**.
+With the stack view selected, click on the **Pin** button. Checkmark **Constrain to margins**, and set the **Top**, **Leading** and **Trailing** constraints to **0**.
 
 Then, click on the dropdown to the right of the bottom constraint and select **WEATHER (current distance = 20)**:
 ![bordered width=42%](images/11-dont-select-nearest-neighbor-constraint_463x417.png)
 
-By default, constraints are shown to the nearest neighbor, which for the bottom constraint was the **Hide** button at a distance of 15. However, you actually needed the constraint to be to the **WEATHER** label below it.
+By default, constraints are shown to the nearest neighbor, which for the bottom constraint is the **Hide** button at a distance of 15. You actually needed the constraint to be to the **WEATHER** label below it.
 
 Finally, click **Add 4 Constraints**. You should now see the following:
 ![bordered width=96%](images/12-why-visit-stack-view-stretched_640x90.png)
 
-Now you have an expanded stack view with its right edges pinned to the right margin of the view. However, the bottom label is still the same width. You'll fix this by updating the stack view's `alignment`, which you'll learn about next.
+You now have an expanded stack view with its right edges pinned to the right margin of the view. However, the bottom label is still the same width. You'll fix this by updating the stack view's `alignment` — keep reading to discover how!.
 
 ### Alignment property
 
-Remember how you previously learned that the `distribution` property specifies how a stack view lays out its views along its _axis_? You had set the bottom stack view's `distribution` to _Equal Spacing_ to space the buttons within it equally.
+Remember how you previously learned that the `distribution` property specifies how a stack view lays out its views _along_ its axis? You had set the bottom stack view's `distribution` to _Equal Spacing_ to space the buttons within it equally.
 ![bordered width=33%](images/13-i_did_that_317x288.png)
 
 Well, meet `alignment`. It's the property that determines how a stack view lays out its views _perpendicular_ to its axis. For a vertical stack view, the possible values are `Fill`, `Leading`, `Center` and `Trailing`.
@@ -206,21 +206,20 @@ When the `alignment` of a stack view is set to `fill` and the views are of diffe
 
 In your case, the stack view decides to expand the **WEATHER** label because its vertical content hugging priority of 251 is less than the **Hide** button's compression resistance priority of 750.
 
-You could decrease the **Hide** button's vertical compression resistance priority to 200 which would cause the stack view to compress the **Hide** button instead:
+You _could_ decrease the **Hide** button's vertical compression resistance priority to 200 which would cause the stack view to compress the **Hide** button instead:
 ![bordered width=90%](images/30-decrease-compression-resistence-priority_640x92.png)
 
-However, this isn't ideal since it would reduce the tap target of the button.
+However, this isn't ideal since it would reduce the size of the tap target of the button.
 
 ### Actual approach
 
 The actual approach you'll take is to have the **Hide** button _not_ be in the stack view for the **weather** section, or any other stack view for that matter.
 
-It will remain a subview of the top-level view, and you'll add a constraint from it to the **WEATHER** label – which will be in a stack view. That's right, you'll add a constraint from a button outside of a stack view to a label within a stack view!
-![bordered width=33%](images/31-celebrate_all_lightbulbs_323x300.png)
+It will remain a subview of the top-level view, and you'll add a constraint from it to the **WEATHER** label — which will be in a stack view. That's right, you'll add a constraint from a button outside of a stack view to a label within a stack view!
 
 ### Change the weather section – for real
 
-Now you can start following these steps again in Xcode. Select the **WEATHER** label and the **&lt;weatherInfoLabel>** below it:
+You can once again start following along in Xcode. Select the **WEATHER** label and the **&lt;weatherInfoLabel>** below it:
 ![bordered width=96%](images/32-select-weather-and-info-label_640x92.png)
 
 Click on the **Stack** button:
@@ -241,7 +240,7 @@ However, you _do_ want the bottom **&lt;weatherInfoLabel>** to fill the stack vi
 
 You can accomplish this by embedding just the **WEATHER** label into a vertical stack view. Remember that the `alignment` of a vertical stack view can be set to `.Leading`, and if the stack view is stretched beyond its intrinsic width, its contained views will remain aligned to its leading side.
 
-Select only the **WEATHER** label using the document outline, or by using the **Control-Shift-click** trick you learned in the previous chapter:
+Select the **WEATHER** label using the document outline, or by using the **Control-Shift-click** trick you learned in the previous chapter:
 ![bordered width=96%](images/35-select-just-the-weather-label_640x92.png)
 
 Then click on the **Stack** button:
@@ -279,7 +278,7 @@ Then click on the **Stack** button:
 Click the **Pin** button, checkmark **Constrain to margins** add constraints of **0** to all edges. Then set **Spacing** to **20** and **Alignment** to **Fill**. Your storyboard scene should now look like this:
 ![bordered width=73%](images/44-set-the-spacing-to-20-and-alignment-to-fill_640x300.png)
 
-Now build and run:
+Build and run:
 ![bordered width=32%](images/45-hide-button-lost-again_750x487.png)
 
 Whoops! Looks like the hide button lost its constraints again when the **WEATHER** stack view was embedded in the outer stack view. No biggie, just add constraints to it again in the same way you did before.
@@ -287,7 +286,7 @@ Whoops! Looks like the hide button lost its constraints again when the **WEATHER
 **Control-drag** from the **Hide** button to the **WEATHER** label, hold down **Shift**, select both **Horizontal Spacing** and **Baseline**. Then click on **Add Constraints**:
 ![bordered width=40%](images/46-add-constraints-to-button-again_380x223.png)
 
-Build and run. Now the **Hide** button is behaving.
+Build and run. The **Hide** button is now behaving itself.
 
 ### Repositioning views
 
@@ -295,7 +294,7 @@ Now that all of the sections are in a top-level stack view, you'll modify the po
 
 Select the **middle stack view** from the outline view and **drag it between** the first and second view.
 
->**Note:** Keep the mouse slightly to the left of the stack views that you're dragging it between, so that it remains a _subview_ of the outer stack view. The little blue circle should be positioned at the left edge between the two stack views and not at the right edge:
+>**Note:** Keep the pointer slightly to the left of the stack views that you're dragging it between, so that it remains a _subview_ of the outer stack view. The little blue circle should be positioned at the left edge between the two stack views and not at the right edge:
 ![bordered width=80%](images/47-drag-and-drop-to-reposition-section_639x130.png)
 
 And now the **weather** section is third from the top, but since the **Hide** button isn't part of the stack view, it won't be moved, so its frame will now be misplaced and the Hide button will look like it's lost its mind again.
@@ -314,9 +313,9 @@ Granted, repositioning the view with Auto Layout and re-adding constraints would
 
 ### Arranged subviews
 
-Okay, shift gears here because it's time for some theory!
+Okay, back away from Xcode — it's time for some theory!
 
-`UIStackView` has a property named `arrangedSubviews`, and it also has a `subviews` property since it's a subclass of `UIView` – which begs the question about how these two properties differ.
+`UIStackView` has a property named `arrangedSubviews`, and it also has a `subviews` property since it's a subclass of `UIView` — which begs the question about how these two properties differ.
 
 The `arrangedSubviews` array contains the subviews that the stack view lays out as part of its stack. The order in the array represents the ordering within the stack view, whereas the ordering in the `subviews` array represents the front-to-back placement of the subviews, i.e. the z-axis order.
 
@@ -330,11 +329,11 @@ Views can programmatically be added to the stack view, i.e. to `arrangedSubviews
 
 To remove an arranged subview, you can use `removeArrangedSubview(_:)`, however, using this method doesn't remove the view from `subviews`, so it doesn't actually get removed from the view hierarchy until you call `removeFromSuperview()` on the view.
 
-And since it's not possible to have a view in `arrangedSubviews` that's not in `subviews`, you can take the shortcut of just calling `removeFromSuperview()` on the subview, since this will remove it from `subviews` as well as from `arrangedSubviews`.
+And since it's not possible to have a view in `arrangedSubviews` that's not in `subviews`, you can take the shortcut of just calling `removeFromSuperview()` on the subview, since this will remove it from `arrangedSubviews` as well as from `subviews`.
 
 ### Size class based configuration
 
-And now to the very last task on your list. In landscape mode, vertical space is at a premium, so you want to bring the sections of the stack view closer together. To do this, you'll use size classes to set the spacing of the top-level stack view to **10** instead of **20** when the vertical size class is compact.
+Finally you can turn your attention to the one remaining task on your list. In landscape mode, vertical space is at a premium, so you want to bring the sections of the stack view closer together. To do this, you'll use size classes to set the spacing of the top-level stack view to **10** instead of **20** when the vertical size class is compact.
 
 Select the top-level stack view and click on the little **+** button next to **Spacing**:
 ![bordered width=33%](images/52-select-plus-button_260x120.png)
@@ -358,7 +357,7 @@ Currently, it's a bit jarring when hiding and showing the weather details. It's 
 
 ### Animating hidden
 
-In order to animate hiding, all you have to do is update the hidden property within an animation block.
+Stack views are fully compatible with the UIView animation engine. This means that animating the appearance/disappearance of an arranged subview, is as simple as toggling its `hidden` property _inside_ an animation block.
 
 It's finally time to write some code again! Open **SpotInfoViewController.swift** and take a look at `updateWeatherInfoViews(hideWeatherInfo:animated:)`. When the user taps **Hide**, the current state gets saved. In `viewDidLoad()` this method gets called with `animated: false` and when the button is pressed it gets called with `animated: true`, so the method already receives the `animate` parameter correctly.
 
@@ -435,10 +434,10 @@ With the following code:
 }
 ```
 
-This makes it so that once the initial hide or show animation completes, if the weather info was just hidden, then the `axis` of `ratingStackView` animates to horizontal. When the weather is shown again, the `axis` will be set back to vertical.
+Once the initial hide or show animation completes, if the weather info was just hidden, then the `axis` of `ratingStackView` animates to horizontal. When the weather is shown again, the `axis` will be set back to vertical.
 ![bordered width=32%](images/58-rating-animation_750x902.png)
 
-Also, add the following line right below the existing line in the `else` clause:
+Add the following lines immediately below the existing line in the `else` clause:
 
 ```swift
 } else {
@@ -447,17 +446,17 @@ Also, add the following line right below the existing line in the `else` clause:
 }
 ```
 
-This will set the `axis` of the `ratingStackView` correctly when the view first appears.
+This sets the `axis` of the `ratingStackView` correctly when the view first appears.
 
 ## Where to go from here?
 
-In this chapter, you continued your dive into stack views and learned about the various properties a stack view uses to position its subviews. Stack views are highly configurable, and there may be more than one way achieve the same result.
+In this chapter, you continued your dive into stack views and learned about the various properties that a stack view uses to position its subviews. Stack views are highly configurable, and there may be more than one way achieve the same result.
 
-The best way to build on what you've learned is to experiment with various properties for yourself. Instead of setting a property and moving on, see how setting other properties affect the layout of views in the stack view.
+The best way to build on what you've learned is to experiment with various properties yourself. Instead of setting a property and moving on, see how playing with the other properties affects the layout of views within the stack view.
 
-One way to speed up your learning is to test yourself, so before you change a property on a stack view, quiz yourself mentally to see if you can visually predict the change that will occur, and then see if your expectations match reality.
+One way to speed up your learning is to test yourself, so before you change a property on a stack view, quiz yourself mentally to see if you can predict the change that will occur, and then see if your expectations match reality.
 
-Stack views are now your new view hierarchy building blocks. Get to know them – and know them well. Really, just make them your new best friend.
+Stack views are now your new view hierarchy building blocks. Get to know them — and know them well. Really, just make them your new best friend.
 
 Here are some related videos from WWDC 2015 that may be of interest:
 
