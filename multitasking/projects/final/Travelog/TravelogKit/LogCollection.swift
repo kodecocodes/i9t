@@ -26,7 +26,7 @@ public class LogCollection {
   
   // MARK: Private
   
-  private var logs: Dictionary <NSDate, NSCoding> = Dictionary()
+  private var logs = [NSDate: BaseLog]()
   
   func dictionaryRepresentation() -> Dictionary <NSDate, NSCoding> {
     return logs
@@ -48,7 +48,7 @@ public class LogCollection {
   
   /// Returns an array of BaseLog or any of its subclasses sorted by date of creation.
   public func sortedLogs(ordered: NSComparisonResult) -> [BaseLog] {
-    guard let allLogs = logs.values.array as? [BaseLog] else { return [] }
+    let allLogs = logs.values
     let sorted = allLogs.sort { return $0.date.compare($1.date) == ordered }
     return sorted
   }
