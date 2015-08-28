@@ -24,7 +24,7 @@ import UIKit
 
 class LogCell: UITableViewCell {
   
-  static let widthThreshold: CGFloat = 160.0
+  static let widthThreshold: CGFloat = 180.0
   
   @IBOutlet private var compactView: UIView!
   @IBOutlet private var compactDayLabel: UILabel!

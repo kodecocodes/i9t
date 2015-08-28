@@ -140,7 +140,7 @@ override func layoutSubviews() {
 Also update `widthThreshold`, declared at the beginning of `LogCell`, as follows:
 
 ```swift
-static let widthThreshold: CGFloat = 170.0
+static let widthThreshold: CGFloat = 180.0
 ```
 
 The updated code checks the width of the cell itself instead of the width of the screen. This decouples the view's behavior from that of its superview. Adaptivity is now self-contained! :]
