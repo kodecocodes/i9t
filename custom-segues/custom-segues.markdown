@@ -2,9 +2,7 @@
 
 Segues have long been a familiar way to transition between scenes — all the way back to iOS 5. iOS 7 introduced custom view controller transitions to support custom, interactive transitions between views. iOS 9 takes custom transitions even further with custom segues that let you make a complete separation between your transition animation and view controller code.
 
-A small but important change is that segues are now retained during modal or popover presentations of scenes; segues instantiate when presenting a new scene and are held in memory until you dismiss the scene view controller. This means you can move _all_ your transition's animation and adaptivity code into a segue class and reuse that segue in any storyboard. When you dismiss the modal scene, the unwind transition will use the current segue's transition.
-
-[TODO: Does "the current segue's transition" mean the segue with which the modal view controller was presented? Maybe "presenting segue" would be clearer?]
+A small but important change is that segues are now retained during modal or popover presentations of scenes; segues instantiate when presenting a new scene and are held in memory until you dismiss the scene view controller. This means you can move _all_ your transition's animation and adaptivity code into a segue class and reuse that segue in any storyboard. When you dismiss the modal scene, the unwind transition will use the presenting segue's transition.
 
 This chapter will show you how to do the following:
 
@@ -32,7 +30,7 @@ There aren't any transitions yet - it's your job to add some awesome transitions
 
 ## What are segues?
 
-Segues describe transitions between scenes; they show up as the arrows between view controller scenes. There's several types of segues:
+Segues describe transitions between scenes; they show up as the arrows between view controller scenes. There are several types of segues:
 
 * **Show**: Pushes a scene from a navigation controller.
 * **Show Detail**: Replaces a scene detail when in a `UISplitViewController`.
@@ -317,18 +315,25 @@ extension AnimalDetailViewController: ViewScaleable {
 
 `AnimalDetailViewController` now conforms to `ViewScaleable`; this sets the protocol's property to `imageView`, which in this instance is your fish image.
 
+[TODO: FPE: Please recheck this section]
+
 Find the following code in `animateTransition(:_)` of **ScaleSegue.swift**:
 
 ```swift
 let toViewController = transitionContext
   .viewControllerForKey(UITransitionContextToViewControllerKey)!
+```
+
+Add the following code directly after the above line:
+
+```swift
 let fromViewController = transitionContext
   .viewControllerForKey(UITransitionContextFromViewControllerKey)!
 let fromView = transitionContext
   .viewForKey(UITransitionContextFromViewKey)
 ```
 
-This gets references for the "to" and "from" view controller and for the "from" view. Again, the view controllers are implicitly unwrapped while the "from" view is optional.
+This gets references for the "from" view controller and for the "from" view. Again, the view controller is implicitly unwrapped while the "from" view is optional.
 
 > **Note**: Make absolutely sure you use the correct key variables. It's frustratingly easy to use `UITransitionContextToViewControllerKey` instead of `UITransitionContextToViewKey`. Code completion makes it all too easy to pick the wrong variable or to mix up the "from" and "to".
 
