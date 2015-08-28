@@ -28,7 +28,7 @@ class AnimalDetailViewController: UIViewController {
   @IBOutlet var imageView: UIImageView!
   @IBOutlet var ownerName: UILabel!
   @IBOutlet var address: UILabel!
-  @IBOutlet var instructions: UITextView!
+  @IBOutlet var instructions: UILabel!
   
   var animal:Animal? {
     didSet {
