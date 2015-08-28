@@ -1,40 +1,40 @@
 # Chapter 14: What's New in Xcode
 
-The most important tool you use as an iOS developer is Xcode, and each new release adds a variety of features and improvements. In prior chapters, you've already learned about many of Xcode's new features such as storyboard references, support for app thinning, improvements to testing, and code coverage.
+The most important tool you use as an iOS developer is Xcode, and each new release adds a variety of features and improvements. In prior chapters, you've already learned about many of Xcode's new features, such as storyboard references, support for app thinning, improvements to testing and code coverage.
 
-This chapter will introduce you to some of the other new features in Xcode such as the new energy gauge and improvements to playgrounds. Along the way, you'll also learn about other miscellaneous features and improvements that will make you a more productive developer.
+This chapter will introduce you to some of the other new features in Xcode, like the new energy gauge and improvements to playgrounds. Along the way, you'll also learn about other miscellaneous features and improvements that will make your time spent developing more productive.
 
 ## Getting started
 
-In this chapter, you'll work with an app called **Local Weather** which uses your GPS location to show you the weather near you.
+In this chapter, you'll work **Local Weather**, an app that uses your GPS location to show you the weather near you.
 
-You won't make too many changes to the app, but rather you'll use it to explore various new features of Xcode, especially the new energy gauge. You'll need to run the app on an actual device since the energy gauge in Xcode isn't displayed when running the app on the simulator.
+You won't make too many changes to the app, but rather you'll use it to explore various new features of Xcode, especially the new energy gauge. Find an iPhone or iPad before you dig in; you'll need to run the app on an actual device since Xcode doesn't show the energy gauge on the simulator.
 
 Open the starter project for this chapter and select your device from the destination menu:
 
 ![bordered width=50%](images/01-select-your-device_391x105.png)
 
-> **Note:** If you're not able to run the app on your device, it may not be provisioned. See the next section on **free provisioning** to get set up.
+> **Note:** If you can't run the app on your device, it may not be provisioned. See the next section on **free provisioning** to get set up.
 
 After selecting your device, build and run. Then tap on **Allow** on the location access request. The location and weather should update fairly quickly:
 
 ![bordered width=31%](images/02-app-screenshot_750x1334.png)
 
-Whilst the energy gauge won't show up unless you run the app on a device, you can still run it in the simulator. If you do, make sure to select a location using the **Simulate Location** button in the **Debug Area**. You can also use this feature to simulate a different location while running on your device. Perhaps you'd like to find out how cold it is in Moscow. No problem, just choose it from the menu.
+Although the energy gauge won't show up unless you run the app on a device, you _can_ still run it in the simulator. If you do, make sure to select a location using the **Simulate Location** button in the **Debug Area**. You can also use this feature to simulate a different location while running on your device. Perhaps you'd like to find out how cold it is in Moscow or how balmy it is in Maui. No problem, just choose it from the menu.
 
 ![bordered width=31%](images/03-simulate-location_199x113.png)
 
-### Free Provisioning
+### Free provisioning
 
 One of the major changes this year is _free provisioning_, which means that anyone with an Apple ID can build and run their iOS app on a physical device without having to join the $99/yr Apple Developer Program. Now you only need to join the paid program if you want to distribute apps on the App Store.
 
-This chapter won't be covering the provisioning process, but if your device isn't already provisioned you can take a look at Apple's documentation to get things set up: [Launch Your App on Devices Using Free Provisioning (http://apple.co/1KJ12tJ)](http://apple.co/1KJ12tJ).
+This chapter won't cover the provisioning process, but if your device isn't already provisioned, you can take a look at Apple's documentation to get things set up: [Launch Your App on Devices Using Free Provisioning (http://apple.co/1KJ12tJ)](http://apple.co/1KJ12tJ).
 
 ### OpenWeatherMap API key (optional)
 
-**Local Weather** uses the _current weather data_ API from [openweathermap.org](http://openweathermap.org/). While the API works without the use of an API key, OpenWeatherMap notes that they reserve the right to not process requests made without an API key.
+**Local Weather** uses the _current weather data_ API from [openweathermap.org](http://openweathermap.org/). You don't have to use the API key, but OpenWeatherMap notes that they reserve the right to not process requests made without an API key. So it could get interesting without that API.
 
-If you want to sign up for a key, you can do so at [openweathermap.org/register](http://openweathermap.org/register).
+To sign up for a key, go to [openweathermap.org/register](http://openweathermap.org/register).
 
 If you do sign up, open **WeatherViewController.swift** and near the top of the file replace `"YOUR_API_KEY_HERE"` with your new API key.
 
@@ -48,51 +48,58 @@ Exploring the new energy gauge will be a major part of this chapter. With the ap
 
 ![bordered width=30%](images/05-choose-debug-navigator_260x204.png)
 
-> **Note:** If you can't see **Energy Impact**, you might need to click on the disclosure arrow on the LocalWeather process: ![bordered width=35%](images/05a-choose-debug-disclosure.png)
+> **Note:** If you can't see **Energy Impact**, try clicking on the disclosure arrow on the LocalWeather process:
 
-You'll see the new iOS energy gauge and it looks like the app a bit power hungry!
+![bordered width=35%](images/05a-choose-debug-disclosure.png)
+
+[TODO - crop image so it centers]
+
+You'll see the new iOS energy gauge and it shows the app is a bit power hungry!
+
 ![bordered width=98%](images/06-first-show-of-gauge_1281x480.png)
 
-The _Utilization_ section on the top left shows you the energy impact at the current moment in time. The top right shows the _average_ energy impact as well as the _overhead_. Overhead is the energy used due to bringing up radios and other system resources needed to perform work.
 
-At the bottom, you see four rows of blocks corresponding to CPU, Network, Location, and Background. If there is any kind of activity during a single second, it will be represented by a gray block.
+
+The _Utilization_ section on the top left shows you the energy impact at the current moment in time. The top right shows the _average_ energy impact as well as the **overhead**. Overhead is the energy consumed to bring up radios and other system resources needed to perform work.
+
+At the bottom, you see four rows of blocks corresponding to CPU, Network, Location and Background. If there is any kind of activity during a single second, it will be represented by a gray block.
 
 Note that the **CPU** and **Location** graphs show continuous activity. The **Network** graph shows an interesting pattern of 10 or 11 seconds of activity, then 3, 4, or 5 seconds of inactivity. The **Background** graph is completely clear since the app hasn't been put into the background... yet.
 
-Press the **Home button** to background the app. You'll eventually end up with the following graph in which the Location and Network activity will cease but you'll have continuous activity for Background and CPU:
+Press the **Home button** to background the app. You'll eventually end up with the following graph that shows the location and network activity have ceased, but you'll have continuous activity for Background and CPU:
 
 ![bordered width=98%](images/07-background-activity_1203x480.png)
 
 Take a look at the console. The log indicates that all of the background tasks were completed in 10.79 seconds, but the background energy graph didn't stop.
 ![bordered width=60%](images/08-background-activity-completes-in-10-seconds_503x184.png)
 
-You'll be fixing these energy issues shortly. But first, you'll take a quick detour to learn about some of the new features of Xcode that will speed up the way in which you browse and learn about new code.
+You'll fix these energy issues shortly. But before you dive in, how about a quick detour to find out more about some of these new features of Xcode? What you're about to learn will speed up the way you browse and learn about new code.
 
 ## Code browsing features
 
-There are many new features in Xcode that will not only help with development but will also allow you to get up to speed with a new codebase even faster. You'll use these new features to get a basic understanding of the architecture of the app, after which you'll fix each of the energy issues you just saw.
+Many of Xcode's features in Xcode not only help with development, but also help you get up to speed with a new codebase even faster. In this chapter, you'll use them to get a basic understanding of the app's architecture, and then you'll fix each of the energy issues you just saw.
 
 ### Interface of Swift classes
 
-Remember the good old Objective-C headers that would show you the public interface for a class? You probably don't miss maintaining those headers, but you may well  miss having them around. They were a great way of getting a quick summary of a class and its capabilities. You'd open up the header file and instantly be able to see what it could do.
+Remember the good old Objective-C headers that would show you the public interface for a class? You probably don't miss maintaining those headers, but you may as well miss having them around; they were handy for getting a quick summary of a class and its capabilities. Simply open up the header file and instantly you could see what its capabilities.
 
 Wouldn't it be dreamy if you could have a header file for Swift classes but didn't have to maintain it? Crazy talk you say?
 
-Open **WeatherViewController.swift** and then open the **assistant editor**. Click on the Assistant editor menu and choose **Counterparts (1) ► WeatherViewController.swift (Interface)**:
+Open **WeatherViewController.swift** and then open the **assistant editor**. Click on the assistant editor menu and choose **Counterparts (1) ► WeatherViewController.swift (Interface)**:
 
 ![bordered width=65%](images/09-assistant-editor-counterparts_498x79.png)
 
 > **Note**: You can also select **Generated Interface** instead of **Counterparts ► RWHTTPManager.h (Interface)** to view the same result.
 
-Like magic, in the assistant editor you'll see the public interface of your class:
+Like magic, you'll see the public interface of your class in the assistant editor:
 
 ![bordered width=75%](images/10-public-interface-of-swift-file.png)
 
-Any variable or method declared private won't show up in the interface. Take a look at the following part of WeatherViewController.swift:
+Private variables or methods won't show up in the interface. Take a look at the following part of WeatherViewController.swift:
 
 ![bordered width=75%](images/11-part-of-class-to-demo-interface.png)
 
-Now look at the interface again and note that `locationManager` isn't visible since it's declared `private` nor are any of the outlets visible since they are all `private`.
+Now look at the interface again and note that `locationManager` isn't visible since it's declared `private`, nor are any of the outlets visible since they are all `private`.
 
 > **Note**: Since the class is self-contained, every variable and method could actually have been made `private`. But then there wouldn't have been an interface to demo!
 
@@ -106,26 +113,28 @@ Press **Command-S** to save the file, and the interface should refresh itself. Y
 
 ![bordered width=50%](images/12-location-manager-shows-up.png)
 
-Did you notice that the comment for `countdownUpdateTimer` shows up in the interface but the comments for `weatherNeedsFetchUpdate` and `networkFetchTimer` do not? This is because a documentation comment is required to start with either **///** or **/\*\***.
+Did you notice that the comment for `countdownUpdateTimer` shows up in the interface, but the comments for `weatherNeedsFetchUpdate` and `networkFetchTimer` don't? This is the required documentation comment is nowhere in sight. You need either **///** or **/\*\***.
 
 Add an extra **/** to the comment for `weatherNeedsFetchUpdate` and an extra **\*** to the comment for `networkFetchTimer`. **Save** the file and you'll see both comments show up when the interface refreshes itself:
 
 ![bordered width=75%](images/13-now-both-show-up-after-adding-extra-chars.png)
 
-Now wouldn't it also be cool if you could take an _Objective-C_ header file and see what it would look like in Swift? No problem - coming right up!
+Now wouldn't it also be cool if you could take an _Objective-C_ header file and see what how it would look in Swift? No problem – coming right up!
 
 ### Generated Swift interface for Objective-C headers
 
-In the **Project navigator** expand the **Helpers** group and you'll see **RWHTTPManager.h** and **RWHTTPManager.m**. The `RWHTTPManager` class is a convenience wrapper around `NSURLSession` and is written in Objective-C.
+In the **Project navigator**, expand the **Helpers** group and you'll see **RWHTTPManager.h** and **RWHTTPManager.m**. The `RWHTTPManager` class is a convenience wrapper around `NSURLSession` and is written in Objective-C.
 
 Click on **RWNetworkHelper.h** to open it in the primary editor:
 
 ![bordered width=75%](images/14-objc-file-in-primary-editor.png)
 
-Now take a look at the Assistant editor:
+Now take a look at the assistant editor:
 ![bordered width=75%](images/15-swift-interface-of-an-objective-c-file.png)
 
-Isn't that just magical? There is an issue though, and it's a bit harder to catch in the RWHTTPManager.h file. Take a look at the Swift interface. In `init(baseURL:)` the type of `baseURL` is a non-optional `NSURL`, whereas the actual `baseURL` property on the line above it is an optional. The `init` method is correct; `baseURL` should be of type `NSURL` instead of `NSURL?`.
+Isn't that just magical? There's an issue though, and it's a bit harder to catch in the RWHTTPManager.h file. Take a look at the Swift interface. In `init(baseURL:)`, the type of `baseURL` is a non-optional `NSURL`, whereas the actual `baseURL` property on the line above it is an optional. The `init` method is correct; `baseURL` should be of type `NSURL` instead of `NSURL?`.
+
+[Somebody TODO: I'm probably missing something that's obvious to you all, but aren't the last two `NSURL` in the previous sentence the same thing?]
 
 Look at **RWHTTPManager.h** and note that `NSURL` is annotated with `_Nullable`:
 
@@ -147,60 +156,60 @@ var baseURL: NSURL
 
 There is actually another small issue. Note that the `relativePath:` parameter takes an optional, `String?`, whereas the comment says `relativePath` is a required parameter. Can you fix this yourself? Go ahead and try it.
 
-Okay, here's the answer. It's upside down so that you can't cheat quite so easily:
+Okay, here's the answer. It's upside down so you can't cheat quite so easily:
 
 ![bordered width=55%](images/16-upside-down-answer_385x15.png)
 
-Next you'll read some documentation!
-
 ### New documentation features
 
-Open **WeatherViewController.swift** and look at **updateCountdownLabel()**. Note the call to `FormatHelper.formatNumber(_:withFractionDigitCount)` right under the **Step 8** comment. **Option-click** on `formatNumber` and you'll see the documentation appear in rich formatting.
+Open **WeatherViewController.swift** and look at **updateCountdownLabel()**. Note the call to `FormatHelper.formatNumber(_:withFractionDigitCount)` right under the **Step 8** comment. **Option-click** on `formatNumber`, and you'll see the documentation appear in rich formatting.
 ![bordered width=70%](images/17-option-click-on-format-number_522x315.png)
 
-Now **Command-click** on `formatNumber` to jump to the implementation of the method. It's just using basic Markdown syntax!
+Now **Command-click** on `formatNumber` to jump to the implementation of the method. It's just using basic markdown syntax!
 
 ![bordered width=75%](images/18-rich-documentation_717x188.png)
 
 If you want to find out more, NSHipster has a great guide to Swift Documentation, which covers all of the possibilities: <http://bit.ly/1Ltcz0B>
+
+
 Think of all the beautiful documentation you'll now be able to produce!
 
 ### Find call hierarchy
 
-Seeing documentation is great, but you often also want to see all the places that a particular method is used. **Right-click** or **Control-click** on `formatNumber` and then click on **Find Call Hierarchy**.
+Seeing documentation is great, but think about how often you want to see all of the places that use a particular method. **Right-click** or **Control-click** on `formatNumber`, and then click on **Find Call Hierarchy**.
 
 ![bordered width=50%](images/19-find-call-hierarchy_500x147.png)
 
-Boom! You'll see all the places that `formatNumber` is called from. How cool is that? And you can also drill down to view the complete call hierarchy:
+Boom! You'll see all the places that call `formatNumber`. How cool is that? _And_ you can also drill down to view the complete call hierarchy:
 
 ![bordered width=50%](images/21-find-call-hierarchy-expanded_425x279.png)
 
-From here you can quickly jump to any level in the call hierarchy just by clicking on it.
+From here you can quickly jump to any level in the call hierarchy with a click of your trackpad.
 
 ## Decreasing energy impact
 
-It's time to get back to fixing those pesky energy issues! Before you dive in, here is a brief summary of the app flow:
+It's time to get back to fixing those draining energy issues! Before you do, here's a brief summary of the app flow:
 
-* First, the user's current location is requested.
-* Once the location is received, an HTTP request is made to fetch the weather for that location.
-* Once weather data is received, views are updated and another request is scheduled for 15 seconds later.
-* Every 0.1 seconds, `countdownLabel` will be refreshed to show the time remaining until the next network request.
+* First, it requests the user's current location.
+* Once it receives the location, it makes an HTTP request to fetch the weather for that location.
+* Once weather data is received, it updates views and schedules and another request for 15 seconds later.
+* Every 0.1 seconds, `countdownLabel` refreshes to show the time remaining until the next network request.
 
-That was a quick high-level overview. To review the app flow in a bit more detail  press **Command-Shift-F** and search for **// Step**:
+That was a quick, high-level overview. To review the app flow in a bit more detail, press **Command-Shift-F** and search for **// Step**:
 
 ![bordered width=60%](images/22-find-the-steps_469x281.png)
 
-Do you recall the interesting behavior in which you saw 10 - 11 seconds of network activity and then 3 - 5 seconds of non-activity? This is because any time a network request is made, the network radios stay on for about 10 seconds even after the network request completes.
+Do you recall the interesting behavior you saw when there was 10 - 11 seconds of network activity followed by 3 - 5 seconds of non-activity? It happens because any time a network request is made, the network radios stay on for about 10 seconds, even after the network request completes.
 
-This makes the amount of overhead for a single network request very high. While you may have thought that you were just using the network radio for about 1 second every 15 seconds (about 7%), you were actually using it for 11 seconds out of 15 seconds (about 73%).
+It's a recipe for very high overhead with every single network request. While you may have thought that you were just using the network radio for about 1 second every 15 seconds – that's 7 percent – you were _actually_ using it for 11 seconds out of 15 seconds, or a whopping 73 percent.
 
 This is the first thing you'll fix.
 
 ### Reducing network energy impact
 
-A weather app doesn't really need to update every 15 seconds. It's okay if it only updates whenever the user launches the app. In the Find results for  **// Step** click on **Step 6**, which is in **WeatherViewController.swift**.
+Weather changes quickly, but not 15 seconds quickly – unless you're out at sea. Hence, there's no need for a weather app to update every 15 seconds. A better plan is to make it update whenever the user launches the app. 
 
-Comment out the line directly below **Step 6**, which initializes the `networkFetchTimer`:
+In the Find results for  **// Step** click on **Step 6**, which is in **WeatherViewController.swift**. Comment out the line directly below **Step 6**, which initializes the `networkFetchTimer`:
 
 ```swift
 // Step 6: Set a timer to fetch the weather again in 15 seconds
@@ -208,15 +217,16 @@ Comment out the line directly below **Step 6**, which initializes the `networkFe
 ```
 
 Build and run, switch to the **Debug navigator** and click on the **Energy Impact** row to see the updated energy gauge:
+
 ![bordered width=80%](images/23-network-energy-reduced_970x326.png)
 
-That looks much better! Now the app will only make a single network request when it starts which is probably good enough for a weather app.
+Much better! Now the app will only make a single network request when it starts, saving the user's battery for more important things, like watching videos of pug puppies. 
 
 ### Reducing CPU energy impact
 
-In the previous graph, notice that the CPU is still being used even though the app really isn't performing any work.
+In the previous graph, notice that the CPU is still working even though the app is essentially twiddling its thumbs.
 
-The cause of the CPU activity is the `countdownUpdateTimer` that updates the `countdownLabel`. It continually sets the remaining time to 0 since there is no longer an active `networkFetchTimer`:
+`countdownUpdateTimer` that updates the `countdownLabel` is the culprit. It continually sets the remaining time to 0 since there is no longer an active `networkFetchTimer`:
 
 Switch back to the **Find navigator**, and click on **Step 7** to take you to the relevant line in **WeatherViewController.swift**. Comment out the line directly below **Step 7** which initializes `countdownUpdateTimer`:
 
@@ -225,7 +235,7 @@ Switch back to the **Find navigator**, and click on **Step 7** to take you to th
 // countdownUpdateTimer = NSTimer.scheduledTimerWithTimeInterval(0.1 ...
 ```
 
-For good measure, also comment out the line that unhides the `countdownLabelStackView` a few lines above (just above the `UIView` animation block), since you no longer need to see the countdown label:
+For good measure, also comment out the line that unhides the `countdownLabelStackView` just above the `UIView` animation block, since you no longer need to see the countdown label:
 
 ```swift
 // countdownLabelStackView.hidden = false
@@ -237,7 +247,7 @@ Build and run, and go back to the **energy gauge**. You may have to wait up to 3
 
 ### Reducing location energy impact
 
-The next thing to do is to reduce the location energy impact by turning off GPS when it's not needed. Once the initial location is received you no longer require location updates, so you should add a call to `locationManager.stopUpdatingLocation()`.
+The next thing to do is to reduce the location energy impact by turning off GPS when it's not needed. Once the initial location is received, you no longer require location updates, so you should add a call to `locationManager.stopUpdatingLocation()`.
 
 However, in iOS 9 if you only need a single location update, you can just call `requestLocation()` instead of `startUpdatingLocation()`. This new method automatically stops location updates once it's reported the user's location.
 
@@ -248,7 +258,7 @@ In **WeatherViewController.swift**, find **requestLocationAndFetchWeather()** an
 locationManager.requestLocation()
 ```
 
-Build and run, and check the **energy gauge** again. You'll see that after the initial burst of activity, there's then little to no activity at all. Nice work!
+Build and run, and check the **energy gauge** again. You'll see that after the initial burst of activity, there's little to no activity at all. Nice work!
 
 ![bordered width=80%](images/25-no-location-activity_970x328.png)
 
@@ -258,7 +268,7 @@ Recall that when you pressed the Home button, the background graph started regis
 
 Open **AppDelegate.swift** and take a look at **performBackgroundWork()**.
 
-Technically the method isn't doing any real background work, it's just simulating 10 seconds of activity, for the purposes of this chapter pretend that it is! The one rule of calling `beginBackgroundTaskWithExpirationHandler(_:)` is that once you're done with any work, you should call `endBackgroundTask(_:)` to let the system know that you no longer need further background execution time.
+Technically, the method isn't doing any real background work, it's just simulating 10 seconds of activity, for the purposes of this chapter pretend that it is! The one rule of calling `beginBackgroundTaskWithExpirationHandler(_:)` is that once you're done with any work, you should call `endBackgroundTask(_:)` to let the system know that you no longer need further background execution time.
 
 Add a call to `endBackgroundTask(_:)` at the very end of `performBackgroundWork()` right after the `print` call:
 
@@ -280,16 +290,17 @@ If you want to dig deeper into how the user's location is being accessed, then i
 
 ![bordered width=80%](images/28-click-on-location-to-open-location-instrument_974x161.png)
 
-Click on **Restart** on the _Transfer current debug session_ prompt that appears:
+Click **Restart** on the _Transfer current debug session_ prompt that appears:
+
 ![bordered width=40%](images/29-transfer-current-session-prompt_438x162.png)
 
-Instruments will open up and run the Core Location instrument, profiling LocalWeather. The graph will show whenever the app uses Core Location, and the table below shows extra information about each usage.
+Instruments will open up and run the Core Location instrument, profiling LocalWeather. The graph will show whenever the app uses Core Location, and the table, shown below, shows extra information about each usage.
 
 ![bordered width=99%](images/30-location-instrument-accuracy-best_1050x278.png)
 
-Notice the row that says "`CLLocationManager` changed accuracy to `kCLLocationAccuracyBest`". The _Energy Impact_ column shows _High_ and the duration shows _892.03 ms_.
+Notice the second row that says "`CLLocationManager` changed accuracy to `kCLLocationAccuracyBest`". The _Energy Impact_ column shows _High_ and the duration shows _892.03 ms_.
 
-The app is currently using the default accuracy of `kCLLocationAccuracyBest`, which as you can see has a high energy impact. This isn't really necessary for a weather app, so there's definitely room to improve the energy usage of the app here.
+The app currently uses the default accuracy of `kCLLocationAccuracyBest`. As you can see, it has a high energy impact. A weather app doesn't need to be so precise, so dialing it back is an easy way to improve the app's energy usage.
 
 Click the **stop** button in Instruments, and head back over to Xcode. In **WeatherViewController.swift**, find **viewDidLoad()** and add the following line just before the `locationManager`'s delegate is set:
 
@@ -297,13 +308,13 @@ Click the **stop** button in Instruments, and head back over to Xcode. In **Weat
 locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
 ```
 
-Build and run, go to the **energy gauge**, and click on the **Location** button again. Click on **Restart** on the prompt again to get back to the Core Location instrument:
+Build and run, go to the **energy gauge** and click on the **Location** button again. Click **Restart** on the prompt again to get back to the Core Location instrument:
 
 ![bordered width=99%](images/31-location-instrument-accuracy-kilometer_1058x278.png)
 
-The table now says that `CLLocationManager` changed accuracy to `kCLLocationAccuracyKilometer`, which has a _Low_ energy impact. It's now also much faster, at only _5.74 ms_!
+The table now says that `CLLocationManager` changed accuracy to `kCLLocationAccuracyKilometer`, which has a _Low_ energy impact. It's also much faster, at only _5.74 ms_!
 
-You now have the tools you need to be a good battery citizen on iOS and avoid ending up in the iOS battery hall-of-shame. In the iOS 8 Settings app, _Battery Usage_ was buried 3 levels deep. You had to get to it via Settings > General > Usage > Battery Usage. In iOS 9, it's now on the top-level Settings screen right above Privacy!
+You now have the tools you need to be a good battery citizen on iOS and avoid ending up in the battery hog hall-of-shame. In the iOS 8 settings app, _Battery Usage_ was buried 3 levels deep. You had to get to it via Settings \ General \ Usage \ Battery Usage. In iOS 9, it's now on the top-level Settings screen right above Privacy!
 
 ![bordered width=32%](images/27-battery-settings_750x546.png)
 
@@ -313,9 +324,9 @@ You're now finished with LocalWeather, so feel free to close the project in Xcod
 
 ## Playground improvements
 
-There have been many new features added to playgrounds since their debut in Xcode 6 last year. Support for rich authoring, auxiliary source files, and inline results were introduced in Xcode 6.3, released just 2 months before WWDC 2015. These features are significant, and even though they were initially released in Xcode 6.3, Apple has also chosen to make a note of them in their [New Features in Xcode 7 (http://apple.co/1JSDRMa)](http://apple.co/1JSDRMa) document.
+Playgrounds has seen many new features since its debut in Xcode 6 last year. Support for rich authoring, auxiliary source files and inline results were introduced in Xcode 6.3, just 2 months before WWDC 2015. These features are significant, and even though they were initially released in Xcode 6.3, Apple has also chosen to make a note of them in its [New Features in Xcode 7 (http://apple.co/1JSDRMa)](http://apple.co/1JSDRMa) document.
 
-Xcode 7 improves upon these features and adds others such as support for multiple pages, and the ability to pause code execution. Playgrounds were already an amazing education tool, and now support for multiple pages and the new authoring features now take them to the next level.
+Xcode 7 improves upon these features and adds others, such as support for multiple pages, and the ability to pause code execution. Playgrounds were already an amazing education tool, these new features take them to the next level.
 
 ### Rich playground authoring
 
@@ -333,13 +344,15 @@ Reveal the **File inspector** by pressing **Command-Option-1**, or by clicking o
 
 ![bordered width=25%](images/32-utilities-button_227x67.png)
 
-Under **Playground Settings** place a checkmark in **Render Documentation**:
+Under **Playground Settings**, place a checkmark in **Render Documentation**:
+
 ![bordered width=99%](images/33-render-documentation-setting_961x81.png)
 
 You'll now see the rendered markup:
+
 ![bordered width=99%](images/34-rendered-headings_960x269.png)
 
-Unlike Xcode's documentation syntax which uses an extra comment character (for example **///** or **/\*\***), for playgrounds you instead use a colon. So for single line comments the syntax is **//:** and for multiline comments the syntax is **/\*:** and **\*/**.
+Unlike Xcode's documentation syntax, which uses an extra comment character, like **///** or **/\*\***, for playgrounds you instead use a colon. So for single-line comments, the syntax is **//:**, and for multiline comments the syntax is **/\*:** and **\*/**.
 
 Consecutive lines using **//:** are rendered in the same block. Uncheck **Render Documentation** and add the following:
 
@@ -371,9 +384,9 @@ Uncheck **Render Documentation** and add the following:
 Check **Render Documentation** once more:
 ![bordered width=80%](images/36-second-block-syntax-example_506x108.png)
 
-Note that the text after **/\*:** is not shown at all.
+Note that the text after **/\*:** does not show at all.
 
-This was just a brief introduction to get you started. For a full reference on syntax see: [Playground Markup Format (http://apple.co/1IG2eZ9)](http://apple.co/1IG2eZ9)
+This was just a brief introduction to get you started. For a full reference on syntax, see: [Playground Markup Format (http://apple.co/1IG2eZ9)](http://apple.co/1IG2eZ9)
 
 ### Playground pages
 
@@ -381,7 +394,7 @@ You'll now add a second page to the playground. Reveal the **Project navigator**
 
 ![bordered width=15%](images/37-add-new-page_125x102.png)
 
-Name the newly added page **Page Two** and then rename the original page by clicking it once to select it and then again to edit its title. Change its name from **Untitled Page** to **Home**.
+Name the newly added page **Page Two**, and then rename the original page by clicking it once to select it and then again to edit its title. Change its name from **Untitled Page** to **Home**.
 
 ![bordered width=30%](images/38-home-and-page-two_260x109.png)
 
@@ -443,23 +456,26 @@ Change the view's layer's `borderWidth` to `40`, to see the view update:
 
 ### Sources and resources
 
-You can now add auxiliary source files and resources to the **Sources** and **Resources** folders in a playground. Moving supporting code to the Sources folder allows you to keep the focus on relevant content in the playground page and also speeds up things since the auxiliary files do not need to be recompiled if they do not change.
+You can now add auxiliary source files and resources to the **Sources** and **Resources** folders in a playground. Moving supporting code to the sources folder allows you to keep the focus on relevant content in the playground page and also speeds up things since the auxiliary files do not need to be recompiled if they do not change.
 
 ![bordered width=28%](images/41-sources-and-resources_261x137.png)
 
-Also, note that each playground _page_ has its own Sources and Resources folders. If there is an image of the same name in a page's Resources folder and also in the top level Resources folder, the image in the page's Resources folder will take precedence.
+Also, note that each playground _page_ has its own sources and resources folders. If there is an image of the same name in a page's resources folder and also in the top-level resources folder, the image in the page's Resources folder will take precedence.
 
 ### Manually run playgrounds
 
-You can also now choose to _manually_ run code in a playground instead of it running automatically as you type. To set a playground to run manually, press and hold down the **play** button until a menu appears from which you can select **Manually Run**:
+You can also now choose to _manually_ run code in a playground instead of it running automatically as you type; press and hold down the **play** button until a menu appears that lets you select **Manually Run**:
 
 ![bordered width=28%](images/42-manually-run-playground_262x84.png)
 
 ## Other improvements
 
-There are lots of other features and improvements in Xcode 7 - unfortunately too many to cover in detail in this book!
+There are many other features and improvements in Xcode 7 – unfortunately, too many to cover in detail in this book!
 
-There are many improvements to storyboards and Interface Builder: Things like how after Control-dragging from one view to another to add a constraint, if you press Option you'll now also see the _constants_ for the constraints that will be added. Or that you can now set the layout margins of a view, or the identifier of a constraint in a storyboard. Or that the constraints in the document outline in a storyboard now appear in a much more readable way.
+There are many improvements to storyboards and Interface Builder: 
+- After Control-dragging from one view to another to add a constraint, if you press Option you'll now also see the _constants_ for the constraints that will be added. 
+- You can now set the layout margins of a view, or the identifier of a constraint in a storyboard. 
+The constraints in the document outline in a storyboard now appear in a much more readable way.
 
 There are also probably some changes that you might not even notice until somebody points them out to you. Like how if you've already implemented a delegate method, Xcode will no longer suggest it to you in the autocomplete menu. And how the Snapshots feature has been removed entirely.
 
@@ -467,23 +483,23 @@ Before this chapter comes to an end, there are two other features worth mentioni
 
 ### Address sanitizer
 
-Xcode includes a new tool that will help catch memory corruption errors that may occur when using Objective-C or C. When enabled, Xcode will build your app with additional instrumentation so that memory errors are caught right as they occur.
+Xcode includes a new tool that will help catch memory corruption errors that may occur when using Objective-C or C. When enabled, Xcode will build your app with additional instrumentation to catch memory errors in the act.
 
-You can enable Address Sanitizer by going to **Product\Scheme\Edit Scheme** and placing a checkmark next to **Enable Address Sanitizer** under **Diagnostics**:
+You can enable address sanitizer by going to **Product\Scheme\Edit Scheme** and placing a checkmark next to **Enable Address Sanitizer** under **Diagnostics**:
 
 ![bordered width=75%](images/43-address-sanatizer_896x218.png)
 
 ### Right-to-left support
 
-iOS 9 contains significant updates for the support of right-to-left languages such as Arabic and Hebrew. For right-to-left languages, the complete view hierarchy will be flipped, and navigation will occur in the opposite direction. If you've been using Auto Layout (and you really should be!), this should mostly 'just work'.
+iOS 9 contains significant updates for the support of right-to-left languages such as Arabic and Hebrew. For these, the complete view hierarchy will be flipped, and navigation will occur in the opposite direction. If you've been using Auto Layout (and you really should be!), this should mostly 'just work'.
 
-There is also a new option that you can use to test your view hierarchy in this flipped state without having to change your primary language. Edit your scheme and in the **Options** view, under **Application Language**, there is a new **Right to Left Pseudolanguage** option that you can select:
+There is also a new option to test your view hierarchy in this flipped state without having to change your primary language. Edit your scheme and in the **Options** view, under **Application Language**, there is a new **Right to Left Pseudolanguage** option that you can select:
 
 ![bordered width=70%](images/44-right-to-left-pseudolanguage.png)
 
 ## Where to go from here?
 
-Wow. You've learned a _lot_ about Xcode in this chapter. From its new documentation and code browsing features to the new energy impact gauge and Core Location Instrument that will help make your apps more energy efficient.
+Wow. You've learned a _lot_ about Xcode in this chapter – from its new documentation and code browsing features to the new energy impact gauge and Core Location instrument that will help make your apps more energy efficient.
 
 You also learned about the various improvements to playgrounds as well as a few other miscellaneous things along the way.
 
