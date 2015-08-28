@@ -22,7 +22,7 @@ I'm an engineer, developer, author, creator, husband and father. I enjoy bicycli
 
 ### Evan Dekhayser
 
-TODO: PHOTO
+![width=30%](images/evan_dekhayser.jpg)
 
 Evan Dekhayser is a high school student, as well as an iOS developer. He first learned Python in 2012, and has since built up his knowledge of Objective C and Swift. He enjoys playing and watching baseball, and is always looking for intriguing topics to learn and potentially write about.
 
