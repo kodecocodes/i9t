@@ -94,7 +94,7 @@ struct CoffeeShop {
   
   func isOpenAtTime(date: NSDate) -> Bool {
     let calendar = NSCalendar.currentCalendar()
-    let nowComponents = calendar.componentsInTimeZone(NSTimeZone(abbreviation: "PST")!, fromDate: date)// components([.Hour, .Minute], fromDate: date)
+    let nowComponents = calendar.componentsInTimeZone(NSTimeZone(abbreviation: "PST")!, fromDate: date)
     
     let openTimeComponents = calendar.components([.Hour, .Minute], fromDate: openTime)
     let closeTimeComponents = calendar.components([.Hour, .Minute], fromDate: closeTime)
