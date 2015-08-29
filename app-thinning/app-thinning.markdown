@@ -353,7 +353,9 @@ Rebuild and run the system and keep an eye on the **Disk Report** screen while e
 
 Congratulations, you've learned the in and outs of App Thinning! Remember that the same cellular limits apply for ODR resources, so there are limits on the resource size you can download.
 
-Be sure to check out these WWDC videos:
+Make sure to thoroughly test your ODR tags in a real-life setting using **TestFlight** so you can understand the same experience as your end users. 
+
+Also be sure to check out these WWDC videos:
 - [Introducing On Demand Resources (http://apple.co/1HMTaju)](https://developer.apple.com/videos/wwdc/2015/?id=214)
 - [App Thinning in Xcode (http://apple.co/1Kn8HIA)](https://developer.apple.com/videos/wwdc/2015/?id=404)
 
