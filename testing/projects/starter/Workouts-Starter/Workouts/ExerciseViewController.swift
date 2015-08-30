@@ -24,7 +24,7 @@ import UIKit
 
 private let addWorkoutIndex = 0
 private let exerciseIdentifier = "ExerciseCell"
-private let addExerciseNewIdentifier = "AddNewExerciseCell"
+private let addExerciseNewIdentifier = "AddWorkoutCell"
 private let toDetailSegue = "toExerciseDetailViewController"
 
 class ExerciseViewController: UIViewController {
@@ -134,6 +134,7 @@ extension ExerciseViewController: UITableViewDataSource {
     
     if indexPath.row == addWorkoutIndex {
       cell = tableView.dequeueReusableCellWithIdentifier(addExerciseNewIdentifier)!
+      cell.textLabel?.text = "Add New Exercise"
     } else {
       cell = tableView.dequeueReusableCellWithIdentifier(exerciseIdentifier)!
 

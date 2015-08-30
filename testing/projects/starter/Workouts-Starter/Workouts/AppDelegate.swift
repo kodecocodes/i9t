@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
     
-    let redColor = UIColor(red: 1.0, green: 57.0/255.0, blue: 0, alpha: 1.0)
+    let redColor = UIColor(red: 1.0, green: 87.0/255.0, blue: 40.0/255.0, alpha: 1.0)
     window?.tintColor = redColor
     
     //UINavigationBar UIAppearance
