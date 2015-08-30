@@ -15,3 +15,4 @@ view.backgroundColor = UIColor.redColor()
 view.layer.borderColor = UIColor.blueColor().CGColor
 view.layer.borderWidth = 40
 view
+
