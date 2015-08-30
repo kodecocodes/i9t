@@ -11,3 +11,6 @@ _— Evan Dekhayser_
 
 "To Ken who always encouraged me not to get a real job. Also to my weird and wonderful children Robin and Kayla - love you both!"
 _— Caroline Begbie_
+
+"To my wife Emily and my father Aldo."
+_— Pietro Rea_

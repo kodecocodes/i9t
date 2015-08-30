@@ -34,6 +34,13 @@ Evan Dekhayser is a high school student, as well as an iOS developer. He first l
 Caroline is an indie iOS developer and likes to relax with animation software, Arduino and electronics.  In her previous life she taught the elderly how to use their computers, performed marionette shows in schools, and ran a software company in Silicon Valley.
 
 
+### Pietro Rea
+
+![width=30%](image/pietro_rea.jpg)
+
+Pietro is a software engineer at Quidsi, where he builds e-commerce iOS applications for Diapers.com, Wag.com, Soap.com and 7 other brands. Previously, he's worked on the Huffington Post's mobile team. You can find Pietro on Twitter as @pietrorea.
+
+
 ## Editors
 
 ### Richard Turton
