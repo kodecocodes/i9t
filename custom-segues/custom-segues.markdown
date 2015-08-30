@@ -315,8 +315,6 @@ extension AnimalDetailViewController: ViewScaleable {
 
 `AnimalDetailViewController` now conforms to `ViewScaleable`; this sets the protocol's property to `imageView`, which in this instance is your fish image.
 
-[TODO: FPE: Please recheck this section]
-
 Find the following code in `animateTransition(:_)` of **ScaleSegue.swift**:
 
 ```swift
