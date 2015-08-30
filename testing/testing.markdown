@@ -16,7 +16,7 @@ Over the past few years, Apple has made it easier to test iOS apps. Here's a sho
 
 - This year, Xcode 7 introduced code coverage reports and UI testing.
 
-Before Xcode 7, you couldn't use XCTest to test your user interface or write functional tests, although there were third-party libraries such as KIF, Frank or Calabash to fill this gap. Unfortunately, none of these libraries have integrated with Xcode, so you sometimes find yourself fighting an uphill battle.
+Before Xcode 7, you couldn't use XCTest to test your user interface or write functional tests, you had to turn to third-party libraries such as KIF, Frank or Calabash to fill this gap. Unfortunately, none of these libraries are integrated with Xcode, so you sometimes find yourself fighting an uphill battle.
 
 This chapter focuses on the latest additions to XCTest. If you're interested in UI testing but don't know much about XCTest, you should first read Chapter 11, "Unit Testing in Xcode 5" in _iOS 7 by Tutorials_ and Chapter 29, "What's New with Testing?" in _iOS 8 by Tutorials_.
 
@@ -32,19 +32,20 @@ The app has two tabs: **Exercises** and **Workouts**. In the exercises tab, you 
 
 Take a minute to browse through the app. To try it out, tap the **Workouts** tab and select a workout, for example, **Ray's Full Body Workout**. Next, in the workout detail screen scroll to the bottom and tap **Select & Workout**.
 
-Though it's always a good idea to get your heart rate up, you can take a pass on _actually_ performing the exercises! You don't need to huff and puff to learn how to test. But you can still revel in some positive reinforcement from the congratulatory alert controller.
+Though it's always a good idea to get your heart rate up, you can take a pass on _actually_ performing the exercises! You don't need to huff and puff to learn how to test. But you can still revel in some positive reinforcement from the congratulatory alert.
 
 ![bordered width=40%](/images/walkthrough1.png)
 
 Try creating your own exercises and workouts by tapping **Add New Workout** or **Add New Exercises** in their respective sections of the app.
 
-Now that you've learned your way around, head back to Xcode and take a look at the project's files in the project navigator. The starter project is organized into a number of groups. Here's a quick summary of the most important ones:
+Now that you've learned your way around the app, head back to Xcode and take a look at the project's files in the project navigator. The starter project is organized into a number of groups. Here's a quick summary of the most important ones:
 
 - **Model:** The project relies on two model objects, `Exercise` and `Workout`. Each holds the data it needs to display on the screen, such as a name, image file name or its duration. Sets of exercises and workouts are stored within an instance of `DataModel`.
 
 - **View Controllers**: `WorkoutViewController` shows you a list of all workouts, both built-in and user-created. When you tap on a specific workout, `WorkoutDetailViewController` displays the workout's information and allows you to perform the workout. `AddWorkoutViewController` lets you add a new workout to the list of workouts.
 
-> Similarly, `ExerciseViewController` displays a list of all exercises in the app. From here, you can add a new exercise or tap into an existing exercise, taking you to `ExerciseDetailViewController`. [NOTE FROM TE: I've raised a deckle bug about the indentation of paragraphs like this in lists.][Follow up note from non-tech editor: I've formatted this as notes here and in other spots as a workaround.]
+[TODO: Check the formatting with a newer version of deckle]
+Similarly, `ExerciseViewController` displays a list of all exercises in the app. From here, you can add a new exercise or tap into an existing exercise, taking you to `ExerciseDetailViewController`.
 
 - **WorkoutTests:** The sample app already includes some unit tests in its testing target. **Exercises.swift** and **WorkoutsTests.swift** contain unit tests for their corresponding model objects.
 
@@ -58,7 +59,7 @@ As now know, the starter project already comes with some tests. However, how do 
 
 That's where code coverage comes in. With Xcode 7 came the ability to get coverage reports that show how much code in any given file is "exercised" by your tests.
 
-By default, code coverage isn't turned on. Change that now in the starter project by selecting **Product\Scheme\Edit Scheme...**, and then select the **Test** action and click on the **Code Coverage - Gather coverage data** checkbox.
+By default, code coverage isn't turned on. Change that now in the starter project by selecting **Product\Scheme\Edit Scheme...**, and then select the **Test** action and click on the **Code Coverage — Gather coverage data** checkbox.
 
 ![bordered width=85%](/images/codeCoverage2.png)
 
@@ -70,7 +71,7 @@ You'll run unit tests constantly in this chapter, so how about a quick refresher
 2. Select **Product\Test** from Xcode’s menu.
 3. Use the shortcut **Command+U**.
 
-Use whichever method you like to run your unit tests. Each tells Xcode to build and launch your app, and then run your tests. In the **test navigator**, you should see six total tests:
+Use whichever method you like to run your unit tests. Each tells Xcode to build and launch your app, and then run your tests. In the **test navigator**, you should see a total of six tests:
 
 ![bordered width=50%](/images/testNavigator.png)
 
@@ -239,13 +240,13 @@ Magic! All your compiler errors disappear. Run your tests again to check that th
 
 > **Note**: `@testable` has no effect on the _private_ access control. As they say in Vegas, what you declare `private` stays `private` :] 
 
-Once the tests have finished, head back to the code coverage report in the **report navigator**, select the most recent **test** run, and then click **Coverage** in the main panel. Check out the coverage percentage for **DataModel.swift** - it's now 100 percent! Nice work.
+Once the tests have finished, head back to the code coverage report in the **report navigator**, select the most recent **test** run, and then click **Coverage** in the main panel. Check out the coverage percentage for **DataModel.swift** — it's now 100 percent! Nice work.
 
 ## UI testing
 
-So far, you've explored code coverage reports and `@testable` imports. These are great new features – they give you more information and definitely make it easier to test your apps.
+So far, you've explored code coverage reports and `@testable` imports. These are great new features — they give you more information and definitely make it easier to test your apps.
 
-The third and last addition to Xcode’s testing capabilities lets you test your app in ways you didn't think possible: through _UI testing_.
+The third and final addition to Xcode’s testing capabilities lets you test your app in ways you didn't think possible: through _UI testing_.
 
 Before you can write your first UI test, you have to make sure your project has a UI testing target. The sample project doesn't, so you'll add one right now.
 
@@ -311,11 +312,13 @@ func testRaysFullBodyWorkout() {
  ``` 
 This test method is fairly small, but it contains classes and concepts you haven't encountered before – you'll read about them shortly. In the meantime, here's what the code does, in broad terms:
 
-1. First, you get references to all of the tables in the app. 
-2. Then you find the Workouts table using the `"Workouts Table"` accessibility identifier you added earlier. After that, you simulate a tap on the cell that contains the static text `"Ray's Full Body Workout"`. 
-3. You then simulate a tap on the back button to go back to the list of workouts. The back button is in the navigation bar and currently says `"Workouts"`.
+1. Get references to all of the tables in the app. 
+2. Find the Workouts table using the `"Workouts Table"` accessibility identifier you added earlier. After that, you simulate a tap on the cell that contains the static text `"Ray's Full Body Workout"`. 
+3. Simulate a tap on the back button to go back to the list of workouts. The back button is in the navigation bar and currently says `"Workouts"`.
 
-> **Note**: This test is rather verbose, and as it turns out, can be more concise. You'll get the chance to refactor it shortly. Go ahead and run this test. To run it in isolation, tap the diamond-shaped icon next to the method declaration:
+> **Note**: This test is rather verbose, and as it turns out, can be more concise. You'll get the chance to refactor it shortly.
+
+Go ahead and run this test. To run it in isolation, tap the diamond-shaped icon next to the method declaration:
 
 ![bordered width=70%](/images/singleTest.png)
 
@@ -332,7 +335,8 @@ There are three main classes involved in UI testing: `XCUIApplication`, `XCUIEle
 - **XCUIApplication** is a proxy for your application. You use it to launch and terminate the application as you start and end UI tests. Notice that `setup()` in **WorkoutsUITests.swift** launches the app. This means you're launching your `XCUIApplication` before every UI test in the file. `XCUIApplication` is also the root element in the element hierarchy visible to your test. 
 - **XCUIElement** is a proxy for UI elements in the application. Every `UIKit` class you can think of can be represented by an `XCUIElement` in the context of a UI test. How? `XCUIElement` has a type (e.g. `.Cell`, `.Table`, `.WebView`, etc.) as well as an identifier. The identifier usually comes from the element's accessibility information, such as its accessibility identifier, label or value.
 
-> So what can you do with an `XCUIElement`? You can tap, double-tap and swipe on it in every direction. You can also type text into elements like text fields.
+[TODO: Check before publication with a later version of Deckle]
+So what can you do with an `XCUIElement`? You can tap, double-tap and swipe on it in every direction. You can also type text into elements like text fields.
 
 - **XCUIElementQuery** queries an `XCUIElement` for sub-elements matching some criteria. The three most common ways to query elements is with `descendantsMatchingType(_:)`, `childrenMatchingType(:_)` and `containingType(_:)`.
 
@@ -368,7 +372,8 @@ That's a lot shorter than it was before! Here's what changed in the code:
 
 1. You didn't need to use the accessibility identifier `"Workout Table"` after all. Instead, you get _all_ tables in the app and then get all of their cells. Notice that you replaced `descendantsMatchingType(.Table)` with convenience method `tables` and `childrenMatchingType(.Cell)` with convenience method `cells`.
 
-> The element query `descendantsMatchingType(_:)` is so common that Apple provided convenience methods for all the common types. `childrenMatchingType(_:)`doesn't have convenience methods, but using `descendantsMatchingType(_:)` has the same effect in this case.
+[TODO: Check before publication with new version of Deckle]
+The element query `descendantsMatchingType(_:)` is so common that Apple provided convenience methods for all the common types. `childrenMatchingType(_:)`doesn't have convenience methods, but using `descendantsMatchingType(_:)` has the same effect in this case.
 
 2. Here's your extra step. Once in the workout detail screen, you find the appropriate table view by its accessibility identifier, scroll downwards by swiping up and tap on **Select & Workout**. Again, notice you don't need to specify _which_ table you're talking about. You can drill down from the app to its tables to the tables' buttons, then disambiguate using the button's title. You do the same with the alert's **OK** button, except this time you go through all of the app's _alerts_ instead of through all of the app's _tables_.
 
@@ -380,7 +385,7 @@ However, when it tries to return to the list of workouts...splat! The test fails
 
 ![bordered width=70%](/images/testFailure.png)
 
-Why did it fail? Xcode  gives you the error message **"UI Testing Failure - Multiple matches found"**. You get this error when you're expecting one `XCUIElement`, but instead you get multiple.
+Why did it fail? Xcode  gives you the error message **"UI Testing Failure — Multiple matches found"**. You get this error when you're expecting one `XCUIElement`, but instead you get multiple.
 
 How do you fix this? You have three options when you want to drill down from a set of query results to single `XCUIElement`:
 
@@ -461,7 +466,8 @@ If you ever find yourself fixing the same bug over and over, think back to this 
 
 There are a couple of WWDC sessions from 2015 that are worth looking at to find out more about the topics covered in this chapter:
 
-- _Session 406 - UI Testing in XCode_: <http://apple.co/1N1Eg0I> - _Session 410 - Continuous Integration and Code Coverage in Xcode_: <http://apple.co/1J1n1Kd>
+- _Session 406 — UI Testing in XCode_: <http://apple.co/1N1Eg0I>
+- _Session 410 — Continuous Integration and Code Coverage in Xcode_: <http://apple.co/1J1n1Kd>
 
 You can also read Chapter 29, "What’s New with Testing", in our _iOS 8 by Tutorials_ book and the "Unit Testing in Xcode 5" chapter in _iOS 7 by Tutorials_.
 
