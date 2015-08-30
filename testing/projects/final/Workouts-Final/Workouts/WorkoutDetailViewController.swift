@@ -38,6 +38,7 @@ class WorkoutDetailViewController: UIViewController {
     super.viewDidLoad()
     
     title = workout.name
+    tableView.accessibilityIdentifier = "Workout Detail Table"
   }
   
   override func viewWillAppear(animated: Bool) {

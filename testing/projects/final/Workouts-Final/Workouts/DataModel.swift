@@ -26,7 +26,7 @@ class DataModel {
   
   var workouts = [Workout]()
   var exercises = [Exercise]()
-
+  
   var allWorkouts: [Workout] {
     return workouts
   }
@@ -52,11 +52,11 @@ class DataModel {
     }
     return false
   }
-
+  
   init() {
     addTestData()
   }
-
+  
   func addWorkout(workout: Workout) {
     workouts.append(workout)
   }
@@ -80,7 +80,7 @@ class DataModel {
     let jumpingJacks = Exercise()
     jumpingJacks.userCreated = false
     jumpingJacks.name = "Jumping Jacks"
-    jumpingJacks.photoFileName = "squat"
+    jumpingJacks.photoFileName = "jumpingJack"
     jumpingJacks.instructions = "Start with your feet together and your arms on the sides. Then jump and land with your legs slightly wider than your shoulders at the same time as you move your arms over your head. Finish by jumping back to the starting point."
     jumpingJacks.duration = 30
     
@@ -90,7 +90,7 @@ class DataModel {
     let wallSit = Exercise()
     wallSit.userCreated = false
     wallSit.name = "Wall Sit"
-    wallSit.photoFileName = "squat"
+    wallSit.photoFileName = "wallSit"
     wallSit.instructions = "Stand with your legs shoulder width apart next to a wall. Then with your back against the wall, bend your knees until they are bent 90 degrees and hold the position. Rest your arms on your knees or against the wall."
     wallSit.duration = 30
     
@@ -100,7 +100,7 @@ class DataModel {
     let pushups = Exercise()
     pushups.userCreated = false
     pushups.name = "Push-Ups"
-    pushups.photoFileName = "squat"
+    pushups.photoFileName = "pushUp"
     pushups.instructions = "Start with your hands slightly wider apart than your shoulders. Then bend your arms until your chest almost touches the ground and push yourself up to the starting position. Maintain a straight body line through the whole exercise. You can make it easier by placing your knees on the ground."
     pushups.duration = 30
     
@@ -110,7 +110,7 @@ class DataModel {
     let crunches = Exercise()
     crunches.userCreated = false
     crunches.name = "Crunches"
-    crunches.photoFileName = "squat"
+    crunches.photoFileName = "crunch"
     crunches.instructions = "Lay down on your back with your legs apart and slightly bent. Then use your stomach muscles to crunch so your upper body lifts up from the ground towards your legs, then back down on the ground. Make sure you don't move your head up or down by always having free space between your chin and your chest."
     crunches.duration = 30
     
@@ -120,7 +120,7 @@ class DataModel {
     let stepups = Exercise()
     stepups.userCreated = false
     stepups.name = "Step-Ups"
-    stepups.photoFileName = "squat"
+    stepups.photoFileName = "stepUp"
     stepups.instructions = "Stand in front of a sturdy chair and step your first foot onto the chair followed by your second foot. When both are on the chair, move down your first foot and lift it back up again. Repeat, alternating the foot you step down with so you exercise each leg."
     stepups.duration = 30
     
@@ -140,7 +140,7 @@ class DataModel {
     let tricepsDips = Exercise()
     tricepsDips.userCreated = false
     tricepsDips.name = "Triceps Dips"
-    tricepsDips.photoFileName = "squat"
+    tricepsDips.photoFileName = "tricepsDip"
     tricepsDips.instructions = "Bend your elbows 90 degrees and place them right under your shoulders. Then lift your body up so it stays straight in the air supported by your arms and feet. If it's hard, try putting down your knees. Always keep your forearms straight forward."
     tricepsDips.duration = 30
     
@@ -150,7 +150,7 @@ class DataModel {
     let plank = Exercise()
     plank.userCreated = false
     plank.name = "Plank"
-    plank.photoFileName = "squat"
+    plank.photoFileName = "plank"
     plank.instructions = "Run in place by lifting your knees as high as possible and swinging your arms as if you were running normally. Make sure to land on the front of your foot to avoid stress on the knees."
     plank.duration = 30
     
@@ -160,7 +160,7 @@ class DataModel {
     let highKnees = Exercise()
     highKnees.userCreated = false
     highKnees.name = "High Knees"
-    highKnees.photoFileName = "squat"
+    highKnees.photoFileName = "highKnee"
     highKnees.instructions = "Stand up and go up and down"
     highKnees.duration = 30
     
@@ -170,7 +170,7 @@ class DataModel {
     let lunges = Exercise()
     lunges.userCreated = false
     lunges.name = "Lunges"
-    lunges.photoFileName = "squat"
+    lunges.photoFileName = "lunge"
     lunges.instructions = "Look forward with a straight back and relaxed shoulders. Then step forward with one left and bend it until both knees are in a 90 degree angle. Keep the weight on your heels as you push back up into the starting position and repeat with your opposite leg."
     lunges.duration = 30
     
@@ -180,7 +180,7 @@ class DataModel {
     let pushupRotation = Exercise()
     pushupRotation.userCreated = false
     pushupRotation.name = "Push-Ups With Rotation"
-    pushupRotation.photoFileName = "squat"
+    pushupRotation.photoFileName = "pushUpRotation"
     pushupRotation.instructions = "Perform a regular push-up, but when you enter the top position rotate to the side with both your arms extended. One lifting your body from the ground and the second straight towards the ceiling. Then rotate back and repeat to the opposite side."
     pushupRotation.duration = 30
     
@@ -190,7 +190,7 @@ class DataModel {
     let sidePlank = Exercise()
     sidePlank.userCreated = false
     sidePlank.name = "Side Plank"
-    sidePlank.photoFileName = "squat"
+    sidePlank.photoFileName = "sidePlank"
     sidePlank.instructions = "Start from the plank position and rotate to the side with a straight body supported by your forearms and side of your foot. Keep your hips up from the ground and your ankles straight as you hold the position. Make it harder by having straight arms, or easier by resting your knees on the ground."
     sidePlank.duration = 30
     

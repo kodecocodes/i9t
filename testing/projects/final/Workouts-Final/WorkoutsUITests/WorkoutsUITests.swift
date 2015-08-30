@@ -23,25 +23,30 @@
 import XCTest
 
 class WorkoutsUITests: XCTestCase {
-        
-    override func setUp() {
-        super.setUp()
-        
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-        // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
-        XCUIApplication().launch()
-    }
+  
+  override func setUp() {
+    super.setUp()
     
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    // In UI tests it is usually best to stop immediately when a failure occurs.
+    continueAfterFailure = false
+    // UI tests must launch the application that they test. Doing this in setup will make sure it happens for each test method.
+    XCUIApplication().launch()
+    
+    // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+  }
+  
   func testRaysFullBodyWorkout() {
     
     let app = XCUIApplication()
-    app.tables["Workouts Table"].cells.staticTexts["Ray's Full Body Workout"].tap()
-    app.tables.containingType(.Other, identifier:"EXERCISES").element.swipeUp()
-    app.tables.cells.buttons["Select & Workout"].tap()
-    app.alerts["Woo hoo! You worked out!"].collectionViews.buttons["OK"].tap()
+    app.tables["Workouts Table"].staticTexts["Ray's Full Body Workout"].tap()
     
+    let workoutDetailTableTable = app.tables["Workout Detail Table"]
+    workoutDetailTableTable.otherElements["EXERCISES"].swipeUp()
+    workoutDetailTableTable.buttons["Select & Workout"].tap()
+    app.alerts["Woo hoo! You worked out!"].collectionViews.buttons["OK"].tap()
+    app.navigationBars["Ray's Full Body Workout"].buttons["Workouts"].tap()
   }
+  
 }

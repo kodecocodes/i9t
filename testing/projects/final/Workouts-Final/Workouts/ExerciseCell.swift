@@ -27,7 +27,7 @@ class ExerciseCell: UITableViewCell {
   @IBOutlet weak var exerciseName: UILabel!
   
   func populate(exercise: Exercise) {
-    exerciseImageView.image = exercise.thumbnail
+    exerciseImageView.image = UIImage(named: exercise.photoFileName)
     exerciseName.text = exercise.name
   }
 }

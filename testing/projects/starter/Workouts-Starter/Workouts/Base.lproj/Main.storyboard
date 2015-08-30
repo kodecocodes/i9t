@@ -125,7 +125,7 @@
             </objects>
             <point key="canvasLocation" x="315" y="839"/>
         </scene>
-        <!--WORKOUTS-->
+        <!--Workouts-->
         <scene sceneID="xsx-XI-bVI">
             <objects>
                 <viewController id="PhO-dX-eGI" customClass="WorkoutViewController" customModule="Workouts" customModuleProvider="target" sceneMemberID="viewController">
@@ -200,7 +200,7 @@
                             <constraint firstItem="oJA-oy-Pmb" firstAttribute="bottom" secondItem="nxR-ne-2CR" secondAttribute="bottomMargin" id="khN-yn-HWI"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="WORKOUTS" id="fBB-ef-lIa">
+                    <navigationItem key="navigationItem" title="Workouts" id="fBB-ef-lIa">
                         <barButtonItem key="rightBarButtonItem" title="Edit" id="mBB-EX-jho">
                             <connections>
                                 <action selector="editButtonTapped:" destination="PhO-dX-eGI" id="0Ni-NJ-Hmn"/>

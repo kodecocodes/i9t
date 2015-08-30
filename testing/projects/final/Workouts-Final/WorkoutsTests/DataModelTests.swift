@@ -61,7 +61,8 @@ class DataModelTests: XCTestCase {
     
     XCTAssert(dataModel.containsUserCreatedWorkout)
     
-    dataModel.removeWorkoutAtIndex(dataModel.allWorkouts.count - 1)
+    dataModel
+      .removeWorkoutAtIndex(dataModel.allWorkouts.count - 1)
     XCTAssertFalse(dataModel.containsUserCreatedWorkout)
   }
   
@@ -79,7 +80,8 @@ class DataModelTests: XCTestCase {
     
     XCTAssert(dataModel.containsUserCreatedExercise)
     
-    dataModel.removeExerciseAtIndex(dataModel.allExercises.count - 1)
+    dataModel
+      .removeExerciseAtIndex(dataModel.allExercises.count - 1)
     XCTAssertFalse(dataModel.containsUserCreatedExercise)
   }
 }

@@ -28,9 +28,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    // Override point for customization after application launch.
+    
+    let redColor = UIColor(red: 1.0, green: 87.0/255.0, blue: 40.0/255.0, alpha: 1.0)
+    window?.tintColor = redColor
+    
+    //UINavigationBar UIAppearance
+    UINavigationBar.appearance().barTintColor = redColor
+    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+    
+    let navBarAttrs = [NSForegroundColorAttributeName : UIColor.whiteColor(),
+      NSFontAttributeName: UIFont.boldSystemFontOfSize(17)];
+    UINavigationBar.appearance().titleTextAttributes = navBarAttrs
+    
+    //UIBarButtonItem UIAppearance
+    let barButtonAttrs = [NSForegroundColorAttributeName : UIColor.whiteColor()]
+    UIBarButtonItem.appearance().setTitleTextAttributes(barButtonAttrs, forState: .Normal)
+    
     return true
   }
-  
 }
 

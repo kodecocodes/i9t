@@ -24,7 +24,7 @@ import UIKit
 
 private let addWorkoutIndex = 0
 private let exerciseIdentifier = "ExerciseCell"
-private let addExerciseNewIdentifier = "AddNewExerciseCell"
+private let addExerciseNewIdentifier = "AddWorkoutCell"
 private let toDetailSegue = "toExerciseDetailViewController"
 
 class ExerciseViewController: UIViewController {
@@ -67,7 +67,7 @@ class ExerciseViewController: UIViewController {
         exercise.instructions = instructionsTextField.text
         
         //create default
-        exercise.photoFileName = "squat"
+        exercise.photoFileName = "customExercise"
         
         self.dataModel.addExercise(exercise)
 
@@ -134,6 +134,7 @@ extension ExerciseViewController: UITableViewDataSource {
     
     if indexPath.row == addWorkoutIndex {
       cell = tableView.dequeueReusableCellWithIdentifier(addExerciseNewIdentifier)!
+      cell.textLabel?.text = "Add New Exercise"
     } else {
       cell = tableView.dequeueReusableCellWithIdentifier(exerciseIdentifier)!
 
