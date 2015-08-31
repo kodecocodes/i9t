@@ -21,34 +21,28 @@
  */
 
 import UIKit
+import MapKit
 
-class VacationSpotCell: UITableViewCell {
+class MapViewController: UIViewController {
 
-  @IBOutlet weak var nameLabel: UILabel!
-  @IBOutlet weak var locationNameLabel: UILabel!
-  @IBOutlet weak var thumbnailImageView: UIImageView!
+  var locationToShow: CLLocationCoordinate2D!
 
-  override func awakeFromNib() {
-    super.awakeFromNib()
+  @IBOutlet weak var mapView: MKMapView!
 
-    // 1
-    let layoutGuide = UILayoutGuide()
-    contentView.addLayoutGuide(layoutGuide)
+  override func viewDidLoad() {
+    super.viewDidLoad()
 
-    // 2
-    let topConstraint = layoutGuide.topAnchor
-      .constraintEqualToAnchor(nameLabel.topAnchor)
+    mapView.setCenterCoordinate(locationToShow, animated: true)
 
-    // 3
-    let bottomConstraint = layoutGuide.bottomAnchor
-      .constraintEqualToAnchor(locationNameLabel.bottomAnchor)
+    let zoomRegion = MKCoordinateRegionMakeWithDistance(locationToShow, 15000, 15000)
+    mapView.setRegion(zoomRegion, animated: true)
 
-    // 4
-    let centeringConstraint = layoutGuide.centerYAnchor
-      .constraintEqualToAnchor(contentView.centerYAnchor)
+    let annotation = MKPointAnnotation()
+    annotation.coordinate = locationToShow
+    mapView.addAnnotation(annotation)
+  }
 
-    // 5
-    NSLayoutConstraint.activateConstraints(
-      [topConstraint, bottomConstraint, centeringConstraint])
+  @IBAction func doneButtonTapped(sender: UIBarButtonItem) {
+    dismissViewControllerAnimated(true, completion: nil)
   }
 }

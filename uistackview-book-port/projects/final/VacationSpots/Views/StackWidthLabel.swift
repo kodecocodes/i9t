@@ -22,33 +22,17 @@
 
 import UIKit
 
-class VacationSpotCell: UITableViewCell {
+class StackWidthLabel: UILabel {
 
-  @IBOutlet weak var nameLabel: UILabel!
-  @IBOutlet weak var locationNameLabel: UILabel!
-  @IBOutlet weak var thumbnailImageView: UIImageView!
+  override func layoutSubviews() {
+    super.layoutSubviews()
 
-  override func awakeFromNib() {
-    super.awakeFromNib()
+    // UILabel's preferredMaxLayoutWidth currently does not update automatically if the label is contained within a UIStackView
+    // It instead adopts the width of the label from its frame in the storyboard which can lead to an incorrect number of lines
 
-    // 1
-    let layoutGuide = UILayoutGuide()
-    contentView.addLayoutGuide(layoutGuide)
+    // Uncomment the following line to observe the preferredMaxLayoutWidth be equal to the label's frame from the storyboard
+    // print("Updating preferredMaxLayoutWidth from: \(preferredMaxLayoutWidth) to: \(bounds.width) for label with text: \(text!.substringToIndex(advance(text!.startIndex, 30)))...")
 
-    // 2
-    let topConstraint = layoutGuide.topAnchor
-      .constraintEqualToAnchor(nameLabel.topAnchor)
-
-    // 3
-    let bottomConstraint = layoutGuide.bottomAnchor
-      .constraintEqualToAnchor(locationNameLabel.bottomAnchor)
-
-    // 4
-    let centeringConstraint = layoutGuide.centerYAnchor
-      .constraintEqualToAnchor(contentView.centerYAnchor)
-
-    // 5
-    NSLayoutConstraint.activateConstraints(
-      [topConstraint, bottomConstraint, centeringConstraint])
+    preferredMaxLayoutWidth = bounds.width
   }
 }

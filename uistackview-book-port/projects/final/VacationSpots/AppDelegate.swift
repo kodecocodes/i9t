@@ -22,33 +22,33 @@
 
 import UIKit
 
-class VacationSpotCell: UITableViewCell {
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
 
-  @IBOutlet weak var nameLabel: UILabel!
-  @IBOutlet weak var locationNameLabel: UILabel!
-  @IBOutlet weak var thumbnailImageView: UIImageView!
+  var window: UIWindow?
 
-  override func awakeFromNib() {
-    super.awakeFromNib()
+  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    setApplicationColorTheme()
+    return true
+  }
 
-    // 1
-    let layoutGuide = UILayoutGuide()
-    contentView.addLayoutGuide(layoutGuide)
+  func setApplicationColorTheme() {
+    let tealColor = RGB(79, 183, 193)
 
-    // 2
-    let topConstraint = layoutGuide.topAnchor
-      .constraintEqualToAnchor(nameLabel.topAnchor)
+    // Application tintColor
+    window?.tintColor = tealColor
 
-    // 3
-    let bottomConstraint = layoutGuide.bottomAnchor
-      .constraintEqualToAnchor(locationNameLabel.bottomAnchor)
+    // Navigation bar background color
+    UINavigationBar.appearance().barTintColor = tealColor
 
-    // 4
-    let centeringConstraint = layoutGuide.centerYAnchor
-      .constraintEqualToAnchor(contentView.centerYAnchor)
+    // Make the back button white (instead of the global tintColor)
+    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
 
-    // 5
-    NSLayoutConstraint.activateConstraints(
-      [topConstraint, bottomConstraint, centeringConstraint])
+    // Make the text in the navigation bar white
+    UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+  }
+
+  private func RGB(r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> UIColor {
+    return UIColor(red: r/255, green: g/255, blue: b/255, alpha: 1)
   }
 }
