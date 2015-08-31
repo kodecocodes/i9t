@@ -36,9 +36,17 @@ Caroline is an indie iOS developer and likes to relax with animation software, A
 
 ### Pietro Rea
 
-![width=30%](image/pietro_rea.jpg)
+![width=30%](images/pietro_rea.jpg)
 
 Pietro is a software engineer at Quidsi, where he builds e-commerce iOS applications for Diapers.com, Wag.com, Soap.com and 7 other brands. Previously, he's worked on the Huffington Post's mobile team. You can find Pietro on Twitter as @pietrorea.
+
+
+### Derek Selander
+
+![width=30%](images/derek_selander.png)
+
+Derek is an iOS developer who enjoys learning through debugging & disassembly to see how others have solved similar problems. In his free time, he enjoys surfing, playing classical guitar, and consuming bacon.
+
 
 
 ## Editors
@@ -48,4 +56,11 @@ Pietro is a software engineer at Quidsi, where he builds e-commerce iOS applicat
 ![width=30%](images/richard_turton.jpg)
 
 Richard is an iOS developer for MartianCraft, prolific Stack Overflow participant and author of a development blog, Command Shift. When he's not in front of a computer he is usually building Lego horse powered spaceships (don't ask!) with his daughter.
+
+
+### Jeff Rames
+
+![width=30%](images/jeff_rames.jpg)
+
+Jeff Rames is a developer currently working at AirStrip where he builds enterprise iOS products in the healthcare space.  He discovered his passion for mobile software shortly after the iPhone SDK was released, and made it his full time gig in 2011 after a decade in the industry. He spends his free time with his wife and daughters, except when he abandons them for trips to Cape Canaveral to watch rockets being launched into space.
 

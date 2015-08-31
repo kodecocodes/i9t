@@ -14,3 +14,7 @@ _— Caroline Begbie_
 
 "To my wife Emily and my father Aldo."
 _— Pietro Rea_
+
+"Thanks to Brittany & our doggie, Squid, for all the love and support... as well as constantly licking me when I sleep."
+_— Derek Selander_
+
