@@ -40,7 +40,7 @@ This project contains a run script that launches a finder window with the locati
 
 ![bordered width=%40](./images/show_app_contents.png)
 
-Understanding the content that goes in to your completed application will be useful when working with App-Thinning. Below is a side-by-side comparison of the Old CA Maps Xcode project's directory (on the left) and a relase build of Old CA Map's application bundle's contents (on the right). Your output might vary slightly depending on your device type, build configuration and Xcode version.
+Understanding the content that goes in to your completed application will be useful when working with App-Thinning. Below is a side-by-side comparison of the Old CA Maps Xcode project's directory (on the left) and a release build of Old CA Map's application bundle's contents (on the right). Your output might vary slightly depending on your device type, build configuration and Xcode version.
 
 ![bordered width=%60](./images/Directory_IPA_Comparison.png)
 
