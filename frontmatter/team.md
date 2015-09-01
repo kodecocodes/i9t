@@ -48,6 +48,12 @@ Pietro is a software engineer at Quidsi, where he builds e-commerce iOS applicat
 Derek is an iOS developer who enjoys learning through debugging & disassembly to see how others have solved similar problems. In his free time, he enjoys surfing, playing classical guitar, and consuming bacon.
 
 
+### Vincent Ngo
+
+![width=30%](images/vincent_ngo.jpg)
+
+Vincent is a full time iOS software engineer at IBM. He graduated from Virginia Tech with a Computer Science degree. He has passion for developing, sharing, and learning about what's new with the iOS SDK. On the side he loves playing video games, strumming his guitar, hitting golf balls, and chilling with friends.
+
 
 ## Editors
 

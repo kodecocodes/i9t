@@ -18,3 +18,5 @@ _— Pietro Rea_
 "Thanks to Brittany & our doggie, Squid, for all the love and support... as well as constantly licking me when I sleep."
 _— Derek Selander_
 
+"To my parents and sister for always encouraging, and helping me along my journey. I ♥︎ you guys so much!"
+_— Vincent Ngo_
