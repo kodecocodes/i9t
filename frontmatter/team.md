@@ -55,6 +55,13 @@ Derek is an iOS developer who enjoys learning through debugging & disassembly to
 Vincent is a full time iOS software engineer at IBM. He graduated from Virginia Tech with a Computer Science degree. He has passion for developing, sharing, and learning about what's new with the iOS SDK. On the side he loves playing video games, strumming his guitar, hitting golf balls, and chilling with friends.
 
 
+### Chris Wagner
+
+![width=30%](images/chris_wagner.jpg)
+
+Chris leads iOS development at Infusionsoft and has been developing for iOS since the release of the SDK in 2009. HIs background consists of gaming, customer support, systems administration and web development. When he's not working he enjoys spending time with his wife and son. By the time this is published our second son will have arrived!
+
+
 ## Editors
 
 ### Richard Turton
