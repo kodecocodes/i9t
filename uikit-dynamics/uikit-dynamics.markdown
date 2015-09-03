@@ -40,8 +40,6 @@ You just created a view and added two subviews while giving each a different col
 
 ![bordered width=40%](images/where_is_exiting_output.png)
 
-[TODO: The appearance of playgrounds has changed in later betas. Please update the screenshot.]
-
 Find it by switching to the assistant editor; simply press __Option + Command + Enter__ to bring it up quickly. You should see something like this now:
 
 ![bordered width=90%](images/playground_step1_assistant_editor.png)
@@ -193,8 +191,6 @@ Playing around with UIKit Dynamics in a Playground is fun — but it's not real 
 For this part, you'll work with simple photo viewing application. The user sees a scrolling list of photo thumbnails and taps them to see a full screen version. 
 
 You'll find the starter project as well as the final solution in the resources folder for this chapter.  Open it in Xcode and build and run it. You should see the following:
-
-[TODO: These screenshots need replacing with the updated versions]
 
 ![width=80%](images/dynamicphotodisplay_initialwithfull.png)
 
@@ -429,8 +425,6 @@ For a better understanding of how the behaviors work, turn on debug mode by addi
 ```swift
 animator.setValue(true, forKey: "debugEnabled")
 ```
-
-[TODO: Replace screenshot]
 
 ![bordered iPhone](images/dynamicphotodisplay_debug.png)
 
