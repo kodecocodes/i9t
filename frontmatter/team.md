@@ -77,3 +77,10 @@ Richard is an iOS developer for MartianCraft, prolific Stack Overflow participan
 
 Jeff Rames is a developer currently working at AirStrip where he builds enterprise iOS products in the healthcare space.  He discovered his passion for mobile software shortly after the iPhone SDK was released, and made it his full time gig in 2011 after a decade in the industry. He spends his free time with his wife and daughters, except when he abandons them for trips to Cape Canaveral to watch rockets being launched into space.
 
+
+### Chris Belanger
+
+![width=30%](images/chris_belanger.jpg)
+
+Chris Belanger spends his days developing real-time industrial control applications; he fills the rest of his time with writing, editing, travelling, composing music, enjoying the great outdoors and appreciating the finer things in life. He's excited to have worked on yet another book with the great raywenderlich.com team and can't imagine life without this crazy, wonderful bunch.
+
