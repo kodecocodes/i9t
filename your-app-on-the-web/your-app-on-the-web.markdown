@@ -32,12 +32,50 @@ Doing this would open your app and pass you the entire URL via app delegate meth
 
 This system worked fairly well for a long time (since iOS 3.0!) but it wasn't without major drawbacks:
 
-- Privacy: Unfortunately, UIApplication also shipped with method canOpenURL(_). The _intended_ purpose of this method was to provide a fallback if your device couldn't handle a particular custom URL. However, it can and was exploited to find out what other apps you have installed. If any app knows that this device can open clownapp://, it means that my social clown app is installed.
+- Privacy: Unfortunately, UIApplication also shipped with method canOpenURL(_:). The _intended_ purpose of this method was to provide a fallback if your device couldn't handle a particular custom URL. However, it can and was exploited to find out what other apps you have installed. If any app knows that this device can open clownapp://, it means that my social clown app is installed.
 - Custom Scheme Collisions: Let's say Facebook's custom URL scheme is fb://. What's stopping anyone else from also registering fb:// and capturing their deep links? In short, nothing. When two apps register for the same custom URL scheme, it's like dividing by zero. It's undefined.
-- No Graceful Fallback:
+- No Graceful Fallback: What happens if iOS tries to go to URL with a custom scheme that no installed app has registered to handle? Nothing happens — the action fails silently. This is a particularly bad problem going from a mobile browser to a deep link. The browser doesn't have canOpenURL(_:) so it better be sure there's an app backing the custom URL scheme before it tries it.
 
+>>Note: For reference, there are ways for a mobile browser to detect if an app is installed before trying to use its custom scheme by being smart with JavaScript and timeouts. This is "hacky" and violates user privacy so it won't be discussed in this chapter. 
+
+Now that you've read about deep links and its limitations, let's go ahead and implement its successor: universal HTTP links.
 
 ## Adding universal links to RWDevCon
+
+For this chapter you'll be working with an app called RWDevCon and its accompanying website http://www.rwdevcon.com. If RWDevCon sounds familiar, it's because it is the developer conference organized by the folks behind raywenderlich.com!
+
+Unlike the rest of the chapters in this book, the "sample app" for this chapter is a real world production app that's currently on the App Store. That's a lot of responsibility on your shoulders. Are you ready? 
+
+### Getting Your App Ready - Part 1
+
+There are two bonds you have to create to enable universal HTTP links for your app. First, you have
+
+### Getting Your Server Ready
+
+The first step to implement universal HTTP links has more to do with the web than with native apps. Open up your favorite text editor and type in the following JSON structure:
+
+````
+{
+    "applinks": {
+        "apps": [],
+        "details": {
+            "KFCNEC27GU.com.razeware.RWDevCon": {
+                "paths": [
+                    "/videos/rwdevcon/2015/*"
+                ]
+            }
+        }
+    }
+}
+````
+
+Once you're done, name the file **apple-app-site-association** and save it somewhere accessible. The name must match exactly and the file **must not have an extension**, not even .json.
+
+
+
+>>Note: Before uploading your apple-app-site-association file to your server, run your JSON through a JSON validator, such as http://www.jsonlint.com. Typing JSON by hand is prone to error. Having the slightest mistake in your JSON will mean your universal HTTP links won't work at all and you won't know why. Think ahead!
+
+### Getting Your App Ready - Part 2
 
 ## Web Markup
 
