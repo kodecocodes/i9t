@@ -12,9 +12,32 @@ If you've ever linked to a native app, you're probably familiar with universal H
 
 Prior to iOS 9, the main way to let apps communicate with each other was to register a custom URL scheme by adding a key to your Info.plist file. For example, if you're developing a social network app for clowns you would have registered clownapp:// or something similar.
 
-iOS would then round up all of the apps on your phone and look at all the custom URL schemes that were registered. Then if it came across a URL that contained a custom URL scheme handled by an installed apps, it would open that app and pass in the entire link.
+iOS would then round up all of the apps on your phone and look at all the custom URL schemes that were registered. Then if the system came across a URL that contained a custom URL scheme handled by an installed app, it would open that app and pass in the entire link.
+
+Deep linking applied to both system apps as well as third-party apps. You may have even come across some of Apple's own URL schemes:
+
+mailto://john.appleseed@apple.com
+tel://1-408-555-5555
+sms://1-408-555-5555
+facetime://user@icloud.com
+facetime-audio://user@icloud.com
+
+So if you wanted to "link" into your app from anywhere else in iOS, all you had to do was construct a link with your custom scheme and execute it like this:
+
+````
+let url = NSURL(string: "clownapp://home/feed")!
+UIApplication.sharedApplication().openURL(url)
+````
+Doing this would open your app and pass you the entire URL via app delegate method application(_:handleOpenURL:), where you could interpret the URL and respond appropriately. 
+
+This system worked fairly well for a long time (since iOS 3.0!) but it wasn't without major drawbacks:
+
+- Privacy: Unfortunately, UIApplication also shipped with method canOpenURL(_). The _intended_ purpose of this method was to provide a fallback if your device couldn't handle a particular custom URL. However, it can and was exploited to find out what other apps you have installed. If any app knows that this device can open clownapp://, it means that my social clown app is installed.
+- Custom Scheme Collisions: Let's say Facebook's custom URL scheme is fb://. What's stopping anyone else from also registering fb:// and capturing their deep links? In short, nothing. When two apps register for the same custom URL scheme, it's like dividing by zero. It's undefined.
+- No Graceful Fallback:
 
 
+## Adding universal links to RWDevCon
 
 ## Web Markup
 
