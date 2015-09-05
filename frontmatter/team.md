@@ -71,6 +71,13 @@ Chris leads iOS development at Infusionsoft and has been developing for iOS sinc
 Richard is an iOS developer for MartianCraft, prolific Stack Overflow participant and author of a development blog, Command Shift. When he's not in front of a computer he is usually building Lego horse powered spaceships (don't ask!) with his daughter.
 
 
+### James Frost
+
+![width=30%](images/james_frost.jpg)
+
+James is a senior iOS developer at Mubaloo Ltd, and lives in Bristol, UK. He taught himself to code in the early 90s on his family's BBC B, and was instantly hooked. He loves learning new things and teaching others, and enjoys spending time with his wife and son, reading, playing games, and cooking. You can find him on his blog at: http://www.jamesfrost.co.uk or as @frosty on Twitter.
+
+
 ### Jeff Rames
 
 ![width=30%](images/jeff_rames.jpg)
@@ -83,4 +90,11 @@ Jeff Rames is a developer currently working at AirStrip where he builds enterpri
 ![width=30%](images/chris_belanger.jpg)
 
 Chris Belanger spends his days developing real-time industrial control applications; he fills the rest of his time with writing, editing, travelling, composing music, enjoying the great outdoors and appreciating the finer things in life. He's excited to have worked on yet another book with the great raywenderlich.com team and can't imagine life without this crazy, wonderful bunch.
+
+
+### Wendy Lincoln
+
+![width=30%](images/wendy_lincoln.jpg)
+
+By day, she manages complex content development projects and by night she escapes into the world of iOS. Before all this, she graduated top of her class from Le Cordon Bleu Portland, produced a cooking show named Hot Kitchen, wrote a cookbook and taught cooking classes. A few years ago she realized it's way more fun to write (and every teacher ever told her to be a writer), edit and play with computers; she's never looked back.  Once in a while, her husband manages to tear her away from the computer for trips to the beach and random home improvement projects.
 
