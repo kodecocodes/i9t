@@ -1,4 +1,4 @@
-## Chapter X: Your App on the Web
+# Chapter X: Your App on the Web
 
 Since the beginning of iOS, native and web technologies have been two distinctly separate camps. One is a closed ecosystem tightly controlled by Apple whereas the other is based on long-standing open standards. On iOS, these two worlds wouldn't often cross paths, and when they did it wasn't easy or pretty. What happened in one world, say a mobile website, wouldn't at all affect what happened in the other, say the native app. 
 
@@ -60,16 +60,16 @@ Go to the files included with this chapter and open RWDevCon.xcodeproj. In the p
 
 ### Getting Your Server Ready
 
-The first step to implement universal HTTP links has more to do with the web than with native apps. Open up your favorite text editor and type in the following JSON structure:
+Next, you have to create the link from your website to your native app. Open up your favorite text editor and type in the following JSON structure:
 
-```swift
+```
 {
     "applinks": {
         "apps": [],
         "details": {
             "KFCNEC27GU.com.razeware.RWDevCon": {
                 "paths": [
-                    "/videos/rwdevcon/2015/*"
+                    "/videos/*"
                 ]
             }
         }
@@ -77,7 +77,30 @@ The first step to implement universal HTTP links has more to do with the web tha
 }
 ```
 
-Once you're done, name the file **apple-app-site-association** and save it somewhere accessible. The name must match exactly and the file **must not have an extension**, not even .json.
+Once you're done, name the file **apple-app-site-association** and save it somewhere on your computer. You'll need the file in a moment. For this universal HTTP linking to work correctly, this file name must match exactly and it **must not have an extension**, not even .json.
+
+If you worked with some of iOS 8's continuity features, this file will look familiar. The **apple-app-site-association** file was introduced in iOS 8 and it is also used to implement shared web credentials between your website and your app, as well as other continuity features. 
+
+You may be wondering where KFCNEC27GU.com.razeware.RWDevCon came from. It is your App ID, which is a two-part string used to identify an app. The string consists of a Team ID, KFCNEC27GU in this case, followed by a bundle ID, in the form of com.domainname.applicationname or com.razeware.RWDevCon in this case.
+
+The Team ID is supplied by Apple and is unique to a specific development team. KFCNEC27GU is specific to the team that originally developed the RWDevCon app so you'll have to swap that out for your own team identifier. If you're looking for your own team identifier, the easiest way to find it is by logging into Apple's developer portal and going to Your Account > Account Summary. It is listed under Developer Account Summary:
+
+//Add image here (/images/teamID.png)
+
+The bundle identifier is easier to find. If you don't know what it is for your app, click on the project file, select the main target and switch to the General Tab. It's listed next to **Bundle Identifier**. The convention is to make the bundle identifier a reverse-DNS notation identifier, such as com.razeware.RWDevCon, where the last component is the app's name.
+
+You may also be wondering where **/videos/** came from. As the name suggests, the paths array contains a list of "white listed" URL paths that you're letting your app handle instead of your website. If you're a little rusty on your URL 
+
+If you want your app to open every incoming link for your domain, you can include a "/*" in the paths array and your app will handle everything.
+
+
+TODO: blur out Ray's address?
+
+/videos/rwdevcon/2015/*":
+
+
+
+//In iOS 8, you had to sign this file using SSL. If you're only targeting iOS 9 and above, you don't have to sign the file anymore.
 
 
 
