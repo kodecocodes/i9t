@@ -65,10 +65,9 @@ Press the **Home button** to background the app. You'll eventually end up with t
 ![bordered width=98%](images/07-background-activity_1203x480.png)
 
 Take a look at the console. The log indicates that all of the background tasks completed in 10.79 seconds, but the background energy graph didn't stop.
-
 ![bordered width=60%](images/08-background-activity-completes-in-10-seconds_503x184.png)
 
-It would appear that Local Weather is a little energy vampire. 
+It would appear that Local Weather is a little energy vampire.
 
 ## Code browsing features
 
@@ -176,7 +175,6 @@ It's time to get back to fixing those draining energy issues! Before you do, her
 * Every 0.1 seconds, `countdownLabel` refreshes to show the time remaining until the next network request.
 
 That was a quick, high-level overview. To review the app flow in a bit more detail, press **Command-Shift-F** and search for **// Step**:
-
 ![bordered width=60%](images/22-find-the-steps_469x281.png)
 
 Do you recall the interesting behavior you saw when there was 10–11 seconds of network activity followed by three to five seconds of non-activity? It happens because any time a network request is made, the network radios stay on for about 10 seconds, even after the network request completes.
@@ -187,7 +185,7 @@ This is the first thing you'll fix.
 
 ### Reducing network energy impact
 
-Weather changes quickly, but not 15 seconds quickly – unless you're out at sea. Hence, there's not a strong use case for a weather app that updates every 15 seconds. A better plan is to make it update whenever the user launches the app. 
+Weather changes quickly, but not 15 seconds quickly – unless you're out at sea. Hence, there's not a strong use case for a weather app that updates every 15 seconds. A better plan is to make it update whenever the user launches the app.
 
 In the Find results for  **// Step** click on **Step 6**, which is in **WeatherViewController.swift**. Comment out the line directly below **Step 6**, which initializes the `networkFetchTimer`:
 
@@ -199,7 +197,7 @@ In the Find results for  **// Step** click on **Step 6**, which is in **WeatherV
 Build and run, switch to the **Debug navigator** and click on the **Energy Impact** row to see the updated energy gauge:
 ![bordered width=80%](images/23-network-energy-reduced_970x326.png)
 
-Much better! Now the app will only make a single network request when it starts, saving the user's battery for more important things, like watching videos of pug puppies. 
+Much better! Now the app will only make a single network request when it starts, saving the user's battery for more important things, like watching videos of pug puppies.
 
 ### Reducing CPU energy impact
 
@@ -243,7 +241,7 @@ Recall that when you pressed the home button, the background graph started regis
 
 Open **AppDelegate.swift** and take a look at **performBackgroundWork()**.
 
-> **Note**: Technically, the method isn't doing any "real" background work, it's just simulating 10 seconds of activity for the purposes of helping you learn how this all works! 
+> **Note**: Technically, the method isn't doing any "real" background work, it's just simulating 10 seconds of activity for the purposes of helping you learn how this all works!
 
 The one rule of calling `beginBackgroundTaskWithExpirationHandler(_:)` is that once you're done with any work, you should call `endBackgroundTask(_:)` to let the system know that you no longer need further background execution time.
 
@@ -277,18 +275,14 @@ The app currently uses the default accuracy of `kCLLocationAccuracyBest`. As you
 
 Click the **stop** button in Instruments, and head back over to Xcode. In **WeatherViewController.swift**, find **viewDidLoad()** and add the following line just before the `locationManager`'s delegate is set:
 
-
     locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
 
-
 Build and run, go to the **energy gauge** and click on the **Location** button again. Click **Restart** on the prompt to get back to the Core Location instrument:
-
 ![bordered width=99%](images/31-location-instrument-accuracy-kilometer_1058x278.png)
 
 The table now says that `CLLocationManager` changed accuracy to `kCLLocationAccuracyKilometer`, which has a low energy impact. It's also much faster, at only _5.74 ms_!
 
 You now have the tools you need to be a good battery citizen on iOS and avoid ending up in the battery hog hall-of-shame. In the iOS 8 settings app, _Battery Usage_ was buried 3 levels deep. You had to get to it via Settings \ General \ Usage \ Battery Usage. In iOS 9, it's now on the top-level Settings screen right above Privacy.
-
 ![bordered width=32%](images/27-battery-settings_750x546.png)
 
 It's now easier than ever for a user to keep an eye on the relative battery usage of their apps. And with the new energy impact gauge and Core Location instrument, Apple has made it easier than ever for developers to diagnose and fix energy issues as well.
@@ -436,9 +430,9 @@ You can also now choose to _manually_ run code in a playground instead of it run
 
 There are many other features and improvements in Xcode 7 – unfortunately, too many to cover in detail in this chapter!
 
-There are many improvements to storyboards and Interface Builder: 
-- After Control-dragging from one view to another to add a constraint, if you press Option you'll now also see the _constants_ for the constraints that will be added. 
-- You can now set the layout margins of a view, or the identifier of a constraint in a storyboard. 
+There are many improvements to storyboards and Interface Builder:
+- After Control-dragging from one view to another to add a constraint, if you press Option you'll now also see the _constants_ for the constraints that will be added.
+- You can now set the layout margins of a view, or the identifier of a constraint in a storyboard.
 The constraints in the document outline in a storyboard now appear in a much more readable way.
 
 There are also probably some changes that you might not even notice until somebody points them out to you. Like how if you've already implemented a delegate method, Xcode will no longer suggest it to you in the autocomplete menu. And how the Snapshots feature has been removed entirely.
