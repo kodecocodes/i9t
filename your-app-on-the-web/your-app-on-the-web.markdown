@@ -134,11 +134,28 @@ If the incoming NSUserActivity is of type NSUserActivityTypeBrowsingWeb, it mean
 
 ## Web Markup
 
-Web markup is a portion of a much bigger search topic introduced in iOS 9
+Web markup is part of a much bigger topic in iOS 9: search. Search includes three different APIs: NSUserActivity, CoreSpotlight and web markup. The second half of this chapter will focus on web markup but if you want to read more about the first two APIs, you should read Chapter X, which covers them in detail.
 
-### Add markup for mobile deep links
+Search in iOS 9 is about to get much better. Searching in an iOS device's Spotlight or in mobile Safari's URL bar will now work a lot like a search engine. Search results will come from a private index as well as a public index. The private index includes the "browsing history" of the user inside a particular app. This will be indexed and searchable through the iOS device.
+
+The public index includes information from two sources: from popular in-app user activities that the app developers have marked as public as well as from the web. Wait a minute, the web? How is that going to work?
+
+Apple has developed a web crawler, Applebot, to crawl and index the web for mobile content.
 
 ### Enable smart banners
+
+Go to the files that came with this chapter and locate the source code for http://www.rwdevcon.com. Open the file /videos/talk-ray-wenderlich-teamwork.html and add the following meta tag inside the head tag:
+
+```
+<meta name="apple-itunes-app" content="app-id=958625272" app-argument=http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html>
+```
+
+The meta tag has three components, explained below:
+
+
+The meta tag adds a Smart Banner to this web page. A Smart Banner on your website invites users who don't have your app installed to download it from the App Store and it gives users who already have your app installed an easy way to open a page deep within the app. If you've never seen a Smart Banner before, it looks like this:
+
+//Add image here (/images/appBanner.png)
 
 ### Semantic markup using Open Graph
 
@@ -151,7 +168,7 @@ This chapter covered a lot of ground, but you still only dipped your toes in eac
 You should also nos miss the following WWDC Sessions:
 - [Seamless Linking To Your App (http://apple.co/1IBTu8q)](https://developer.apple.com/videos/wwdc/2015/?id=509)
 - [Introducing Search APIs (http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=709)
-- [Your App, Your Website, and Safari (http://apple.co/2KBTu8q)(https://developer.apple.com/videos/wwdc/2014/#506)]
+- [Your App, Your Website, and Safari (http://apple.co/2KBTu8q)](https://developer.apple.com/videos/wwdc/2014/#506)]
 
 ~~~~~
 
@@ -160,8 +177,10 @@ Notes:
 - Mention you need SSL access to your domain
 - Don't append .json to the apple-app-site-association
 - Ammend robots.txt if necessary
+- Support or marketing URL
 
 Blockers:
+- Upload apple-app-site-association
 - Get team admin to turn on associated domains
 
 Resources:
