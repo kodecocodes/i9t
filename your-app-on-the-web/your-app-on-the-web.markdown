@@ -134,7 +134,7 @@ If the incoming NSUserActivity is of type NSUserActivityTypeBrowsingWeb, it mean
 
 ## Web Markup
 
-Web markup is part of a much bigger topic in iOS 9: search. Search includes three different APIs: NSUserActivity, CoreSpotlight and web markup. The second half of this chapter will focus on web markup but if you want to read more about the first two APIs, you should read Chapter X, which covers them in detail.
+Web markup is part of a much bigger topic in iOS 9: search. Search includes three different APIs: web markup, NSUserActivity and CoreSpotlight. The second half of this chapter focuses on web markup but if you want to read more about the other two search APIs, you should read Chapter X, which covers them in detail.
 
 Search in iOS 9 is about to get much better. Searching in an iOS device's Spotlight or in mobile Safari's URL bar will now work a lot like a search engine. Search results will come from a private index as well as a public index. The private index includes the "browsing history" of the user inside a particular app. This will be indexed and searchable through the iOS device.
 
@@ -142,20 +142,57 @@ The public index includes information from two sources: from popular in-app user
 
 Apple has developed a web crawler, Applebot, to crawl and index the web for mobile content.
 
-### Enable smart banners
+### Enable Smart Banners
+
+Smart Banners have been around since iOS 6. They used to be simple marketing tools provided by Apple that allowed developers to add advertising banners to promote apps directly on a website.
+
+A Smart Banner on your website invites users who don't have your app installed to download it from the App Store and it gives users who already have your app installed an easy way to open a page deep within the app. If you've never seen a Smart Banner before, it looks like this:
+
+//Add image here (/images/appBanner.png)
+
+In iOS 9, Apple is breathing new life into Smart App Banners and making them an integral part of web markup. In addition to being a marketing tool, Smart App Banners will now help your mobile content get indexed in Apple's public search index. Let's see this in action.
 
 Go to the files that came with this chapter and locate the source code for http://www.rwdevcon.com. Open the file /videos/talk-ray-wenderlich-teamwork.html and add the following meta tag inside the head tag:
 
 ```
-<meta name="apple-itunes-app" content="app-id=958625272" app-argument=http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html>
+<meta name="apple-itunes-app" content="app-id=958625272, app-argument=http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
 ```
 
-The meta tag has three components, explained below:
+The complete head tag should look like this:
 
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="apple-itunes-app" content="app-id=958625272, app-argument=http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
 
-The meta tag adds a Smart Banner to this web page. A Smart Banner on your website invites users who don't have your app installed to download it from the App Store and it gives users who already have your app installed an easy way to open a page deep within the app. If you've never seen a Smart Banner before, it looks like this:
+    <title>RWDevCon 2016: The Tutorial Conference – Videos</title>
 
-//Add image here (/images/appBanner.png)
+    <script type="text/javascript" src="//use.typekit.net/tnb2xob.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
+    
+    <!-- HTML5 Video Shiv -->
+    <script type="text/javascript">
+      document.createElement('video');document.createElement('audio');document.createElement('track');
+    </script>
+</head>
+```
+
+The most important part of the meta tag is the name attribute, which must always be apple-itunes-app. This identifies the type of meta tag, which in turn tells Safari to display your Smart App Banner.
+
+The content attribute contains the following two paramters/arguments:
+- app-id: This parameter to your app's Apple ID. It is 958625272 for the RWDevCon app and it will be different for your app. The easiest way to find out your App's Apple ID is to log into iTunes Connect, lick Manage your apps and then click on the application you're interested.
+- app-argument: This parameter contains the URL that Safari passes back to the application. This used to require that you use a custom-scheme deep link, but Apple now strongly recommends you switch over to HTTP universal links. That's what you use in this example. 
+
+> **Note:** This was a quick overview of Smart Banners. If you'd like to learn more about their capabilities, you can read the Smart App Banners Tutorial on raywenderlich.com: http://www.raywenderlich.com/80347/smart-app-banners-tutorial. You can also read the Safari Web Content Guide on this topic: https://developer.apple.com/library/prerelease/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html#//apple_ref/doc/uid/TP40002051-CH6.
+
+As an alternative to using Smart Banners, you can also use one of the open standards that Apple supports to provide deep links on your website. This currently includes Twitter Cards and Facebook's App Links. This is a good alternatives if you've already implemented one of those on your website.
+
+> Note: For more information about Twitter Cards, you can visit https://dev.twitter.com/cards/mobile. Similarly, for more information about Facebook's App Links, visit http://applinks.org.
 
 ### Semantic markup using Open Graph
 
