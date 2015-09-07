@@ -44,17 +44,25 @@ Now that you've read about deep links and its limitations, let's go ahead and im
 
 For this chapter you'll be working with an app called RWDevCon and its accompanying website http://www.rwdevcon.com. If RWDevCon sounds familiar, it's because it is the developer conference organized by the folks behind raywenderlich.com!
 
-Unlike the rest of the chapters in this book, the "sample app" for this chapter is a real world production app that's currently on the App Store. That's a lot of responsibility on your shoulders. Are you ready? 
+Unlike the rest of the chapters in this book, the "sample app" for this chapter is a real-world production app that's currently on the App Store. That's a lot of responsibility on your shoulders. Are you ready? 
 
 ### Getting Your App Ready - Part 1
 
-There are two bonds you have to create to enable universal HTTP links for your app. First, you have
+Instead of coming up and registering with a custom URL scheme, you will tie a domain with a native app. In this chapter, you'll tie rwdevcon.com with the RWDevCon native app. For this to be considered an improvement over the current system, Apple has to make sure only you can claim your website and no one else, right? 
+
+To prove that you are you and that you want to tie your domain to your native app, there are two bonds you have to create. The first one is from your native app to your domain. The second, covered in the next section, ties your domain to your native app. 
+
+Go to the files included with this chapter and open RWDevCon.xcodeproj. In the project navigator, select the RWDevcon project, then the main RWDevCon target and switch to the Capabilities tab and add the following two entries to the Associated Domains section:
+
+//Add image here (/images/associatedDomains.png)
+
+>*Note:* Only a team agent or a team administrator on your Apple developer program can make this change. If you're not those roles, reach out to the right person on the team to make this change. 
 
 ### Getting Your Server Ready
 
 The first step to implement universal HTTP links has more to do with the web than with native apps. Open up your favorite text editor and type in the following JSON structure:
 
-````
+```swift
 {
     "applinks": {
         "apps": [],
@@ -67,13 +75,13 @@ The first step to implement universal HTTP links has more to do with the web tha
         }
     }
 }
-````
+```
 
 Once you're done, name the file **apple-app-site-association** and save it somewhere accessible. The name must match exactly and the file **must not have an extension**, not even .json.
 
 
 
->>Note: Before uploading your apple-app-site-association file to your server, run your JSON through a JSON validator, such as http://www.jsonlint.com. Typing JSON by hand is prone to error. Having the slightest mistake in your JSON will mean your universal HTTP links won't work at all and you won't know why. Think ahead!
+>*Note:* Before uploading your apple-app-site-association file to your server, run your JSON through a JSON validator, such as http://www.jsonlint.com. Typing JSON by hand is prone to error. Having the slightest mistake in your JSON will mean your universal HTTP links won't work at all and you won't know why. Think ahead!
 
 ### Getting Your App Ready - Part 2
 
@@ -106,9 +114,8 @@ Notes:
 - Don't append .json to the apple-app-site-association
 - Ammend robots.txt if necessary
 
-
 Blockers:
-- SSL access to rwdevcon.com
+- Get team admin to turn on associated domains
 
 Resources:
 - http://blog.hokolinks.com/how-to-implement-apple-universal-links-on-ios-9/
