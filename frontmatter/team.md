@@ -96,5 +96,5 @@ Chris Belanger spends his days developing real-time industrial control applicati
 
 ![width=30%](images/wendy_lincoln.jpg)
 
-By day, she manages complex content development projects and by night she escapes into the world of iOS. Before all this, she graduated top of her class from Le Cordon Bleu Portland, produced a cooking show named Hot Kitchen, wrote a cookbook and taught cooking classes. A few years ago she realized it's way more fun to write (and every teacher ever told her to be a writer), edit and play with computers; she's never looked back.  Once in a while, her husband manages to tear her away from the computer for trips to the beach and random home improvement projects.
+By day, she manages complex content development projects and by night she escapes into the world of iOS. Before all this, she produced a cooking show named Hot Kitchen, wrote a cookbook and taught cooking classes. A few years ago she realized her love for writing, editing and playing with computers; she's never looked back.  Once in a while, her husband manages to tear her away from the computer for trips to the beach and random home improvement projects.
 
