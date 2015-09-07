@@ -155,9 +155,11 @@ If you need to change them to point to your app's website, you can do so in iTun
 
 ![bordered height=35%](/images/supportURL.png)
 
-//TODO: only the entry point, there's more
-//TODO: robots.txt
-//TODO: validation tool
+Doing this only ensures that Applebot can see the entry point to your website. The content you want to index should be accessible from this entry point. This means there should be a path of links that takes you from this entry point to the content you want to link.
+
+Something else you can do to make your website discoverable is check that your site's robots.txt file lets Applebot do its job. Robots.txt, also known as the robots exclusion protocol, is a standards used by websites to communicates with web crawlers and other web robots like Applebot. The file specifies parts of the site that the web crawler should **not** scan or process.
+
+Not all web crawlers follow these directives, but Applebot does! If your robots.txt specifies a certain part of your site shouldn't be crawled then those mobile links won't ever show up in Spotlight. You can learn more about the robots exlusion standard in Wikipedia: https://en.wikipedia.org/wiki/Robots_exclusion_standard.
 
 ### Enable Smart Banners
 
@@ -213,15 +215,38 @@ As an alternative to using Smart Banners, you can also use one of the open stand
 
 ### Handle Links in your app
 
+The next thing you need to do is to handle incoming search results links. Open Xcode once again and implement the following app delegate method in AppDelegate.swift:
+
+```
+  func application(application: UIApplication,
+    openURL url: NSURL, sourceApplication: String?,
+    annotation: AnyObject) -> Bool {
+      
+      if let components = NSURLComponents(URL: url, resolvingAgainstBaseURL: true),
+        let path = components.path, let query = components.query {
+          
+          if path == "/videos" {
+            //Do something with the query
+          }
+      }
+      
+      return false
+  }
+```
+
 ### Semantic markup using Open Graph
+
+
 
 ### Validation Tool
 
 ## Where to go form here?
 
-This chapter covered a lot of ground, but you still only dipped your toes in each topic. 
+As mentioned in the beginning of the chapter, iOS 9 is bringing the web and app ecosystem closer to each other than ever. Custom scheme deep links are all but deprecated in iOS 9 and Apple strongly suggests that you start using universal http links as soon as you can make the transition. This will make linking from the web to your apps a seamless experience.
 
-You should also nos miss the following WWDC Sessions:
+This chapter also discussed web markup as continuation of chapter 2's search APIs discussion. This particularly applies to apps that have websites that mirror their content. Implementing web markup correctly is one more way you can get new users. This chapter covered a lot of ground, but you still only dipped your toes in each topic. 
+
+You should also not miss the following WWDC Sessions:
 - [Seamless Linking To Your App (http://apple.co/1IBTu8q)](https://developer.apple.com/videos/wwdc/2015/?id=509)
 - [Introducing Search APIs (http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=709)
 - [Your App, Your Website, and Safari (http://apple.co/2KBTu8q)](https://developer.apple.com/videos/wwdc/2014/#506)]
@@ -229,16 +254,11 @@ You should also nos miss the following WWDC Sessions:
 Apple also provides excellent programming guides for universal linking and web markup:
 - [App Search Programming Guide (http://apple.co/aHcnuah)](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/index.html#//apple_ref/doc/uid/TP40016308)
 - [iOS Search API Best Practices and FAQs (http://apple.co/1He3shh)](https://developer.apple.com/library/prerelease/ios/technotes/tn2416/_index.html)
--
 
 ~~~~~
 
 Notes:
 - What will open your app: WKWebview, UIWebView, Safari, openURL, chrome? (yes)
-- Mention you need SSL access to your domain
-- Don't append .json to the apple-app-site-association
-- Ammend robots.txt if necessary
-- Support or marketing URL
 
 Blockers:
 - Upload apple-app-site-association
@@ -246,7 +266,5 @@ Blockers:
 
 Resources:
 - http://blog.hokolinks.com/how-to-implement-apple-universal-links-on-ios-9/
-- WWDC 2015 talk: Seamless Linking to Your app 
-- App Search Programming Guide: https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/
-- Search validation tool: https://search.developer.apple.com/appsearch-validation-tool
+
 
