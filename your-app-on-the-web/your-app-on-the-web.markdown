@@ -87,26 +87,50 @@ The Team ID is supplied by Apple and is unique to a specific development team. K
 
 //Add image here (/images/teamID.png)
 
+TODO: blur out Ray's address?
+
 The bundle identifier is easier to find. If you don't know what it is for your app, click on the project file, select the main target and switch to the General Tab. It's listed next to **Bundle Identifier**. The convention is to make the bundle identifier a reverse-DNS notation identifier, such as com.razeware.RWDevCon, where the last component is the app's name.
 
-You may also be wondering where **/videos/** came from. As the name suggests, the paths array contains a list of "white listed" URL paths that you're letting your app handle instead of your website. If you're a little rusty on your URL 
+You may also be wondering where **/videos/** came from. As the name suggests, the paths array contains a list of "white-listed" URL paths that you're letting your app handle instead of your website. If you're a little rusty on your URL components, the path is the part in bold:
+
+    https://www.rwdevcon.com**/videos/2015/inspiration/**?name=Inspiration
 
 If you want your app to open every incoming link for your domain, you can include a "/*" in the paths array and your app will handle everything.
 
+Note: If you're targeting iOS 8 because your app also implements continuity features, you'll have to sign your **apple-app-site-association** file using the openssl. You can read more about this process in Apple's Handoff Programming Guide: https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/Handoff/AdoptingHandoff/AdoptingHandoff.html
 
-TODO: blur out Ray's address?
+Finally, you have to upload this file to the root of your domain. In this case, the file has to be accessible at the following locations **over HTTPS**:
 
-/videos/rwdevcon/2015/*":
+    https://rwdevcon.com/apple-app-site-association
+    https://www.rwdevcon.com/apple-app-site-association
 
+If you can see the file when you request them with a web browse, that means you're ready for the next step.
 
-
-//In iOS 8, you had to sign this file using SSL. If you're only targeting iOS 9 and above, you don't have to sign the file anymore.
-
-
-
->*Note:* Before uploading your apple-app-site-association file to your server, run your JSON through a JSON validator, such as http://www.jsonlint.com. Typing JSON by hand is prone to error. Having the slightest mistake in your JSON will mean your universal HTTP links won't work at all and you won't know why. Think ahead!
+> **Note:** Before uploading your apple-app-site-association file to your server, run your JSON through a JSON validator, such as http://www.jsonlint.com. Typing JSON by hand is prone to error. Having the slightest mistake in your JSON will mean your universal HTTP links won't work at all and you won't know why. Think ahead!
 
 ### Getting Your App Ready - Part 2
+
+When the app receives a universal HTTP link, you want to respond by doing more than just opening the app. You want to take user to the correct place in the application! The final step to implement universal links is to handle the incoming URLs in your app. Open Xcode again and head to AppDelegate.swift. Add the following application delegate method:
+
+```swift
+  func application(application: UIApplication,
+    continueUserActivity
+    userActivity: NSUserActivity,
+    restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+    
+    if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+      let universalURL = userActivity.webpageURL!
+      //handle universal URL
+      
+    }
+    
+    return true
+  }
+```
+
+application(_:continueUserActivity:restorationHandler:) also plays a role in adopting Handoff and iOS 9's search APIs, but you'll focus on how to handle incoming universal links. 
+
+If the incoming NSUserActivity is of type NSUserActivityTypeBrowsingWeb, it means you've landded in this method through a universal link. If this is the case, you're guaranteed that the user activity will have a non-nil webpageURL. The next step is to parse this URL into something your app can understand.
 
 ## Web Markup
 
