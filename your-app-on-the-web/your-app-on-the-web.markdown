@@ -16,11 +16,11 @@ iOS would then round up all of the apps on your phone and look at all the custom
 
 Deep linking applied to both system apps as well as third-party apps. You may have even come across some of Apple's own URL schemes:
 
-mailto://john.appleseed@apple.com
-tel://1-408-555-5555
-sms://1-408-555-5555
-facetime://user@icloud.com
-facetime-audio://user@icloud.com
+- mailto://john.appleseed@apple.com
+- tel://1-408-555-5555
+- sms://1-408-555-5555
+- facetime://user@icloud.com
+- facetime-audio://user@icloud.com
 
 So if you wanted to "link" into your app from anywhere else in iOS, all you had to do was construct a link with your custom scheme and execute it like this:
 
@@ -54,7 +54,7 @@ To prove that you are you and that you want to tie your domain to your native ap
 
 Go to the files included with this chapter and open RWDevCon.xcodeproj. In the project navigator, select the RWDevcon project, then the main RWDevCon target and switch to the Capabilities tab and add the following two entries to the Associated Domains section:
 
-//Add image here (/images/associatedDomains.png)
+![bordered height=35%](/images/associatedDomains.png)
 
 >*Note:* Only a team agent or a team administrator on your Apple developer program can make this change. If you're not those roles, reach out to the right person on the team to make this change. 
 
@@ -85,7 +85,7 @@ You may be wondering where KFCNEC27GU.com.razeware.RWDevCon came from. It is you
 
 The Team ID is supplied by Apple and is unique to a specific development team. KFCNEC27GU is specific to the team that originally developed the RWDevCon app so you'll have to swap that out for your own team identifier. If you're looking for your own team identifier, the easiest way to find it is by logging into Apple's developer portal and going to Your Account > Account Summary. It is listed under Developer Account Summary:
 
-//Add image here (/images/teamID.png)
+![bordered height=35%](/images/teamID.png)
 
 TODO: blur out Ray's address?
 
@@ -134,13 +134,30 @@ If the incoming NSUserActivity is of type NSUserActivityTypeBrowsingWeb, it mean
 
 ## Web Markup
 
-Web markup is part of a much bigger topic in iOS 9: search. Search includes three different APIs: web markup, NSUserActivity and CoreSpotlight. The second half of this chapter focuses on web markup but if you want to read more about the other two search APIs, you should read Chapter X, which covers them in detail.
+TODO: benefits
+- even if your app is not installed, you appear in search results, prompts users to install your app
+- makes Handoff much simpler
+- Useful for apps that have mirrored content from the web
+
+Web markup is part of a much bigger topic in iOS 9: search. Search includes three different APIs: web markup, NSUserActivity and CoreSpotlight. All three APIs are important to your search strategy in iOS 9, but the second half of this chapter focuses on web markup. If you want to read more about the other two search APIs, read Chapter X, which covers them in detail.
 
 Search in iOS 9 is about to get much better. Searching in an iOS device's Spotlight or in mobile Safari's URL bar will now work a lot like a search engine. Search results will come from a private index as well as a public index. The private index includes the "browsing history" of the user inside a particular app. This will be indexed and searchable through the iOS device.
 
-The public index includes information from two sources: from popular in-app user activities that the app developers have marked as public as well as from the web. Wait a minute, the web? How is that going to work?
+The public index includes information from two sources: from popular in-app user activities that the app developers have marked as public as well as from the web. Wait a minute, the web? How is that going to work? Apple has developed a web crawler, Applebot, to crawl and index the web for mobile links. Next up, you'll learn about making your website indexable and searchable by Apple.
 
-Apple has developed a web crawler, Applebot, to crawl and index the web for mobile content.
+### Make your website discoverable
+
+Applebot crawls the web far and wide but there's no guarantee that it will find your website. And if it can't find your website, Apple won't be able to index your app links and your app won't show up in Spotlight's organic results. 
+
+Is there anything you can do to make your site more discoverable by Applebot? In fact there is. When you submit an app to the App Store you have to specify a Support URL (required) and a Marketing URL (optional). If any of those points to the app that contains your app links, that's all you have to do.
+
+If you need to change them to point to your app's website, you can do so in iTunes Connect. Simply log into iTunes Connect, go to My Apps and navigate to your app's information page. The fields you want to verify or change are labeled Support URL and Marketing URL:
+
+![bordered height=35%](/images/supportURL.png)
+
+//TODO: only the entry point, there's more
+//TODO: robots.txt
+//TODO: validation tool
 
 ### Enable Smart Banners
 
@@ -148,7 +165,7 @@ Smart Banners have been around since iOS 6. They used to be simple marketing too
 
 A Smart Banner on your website invites users who don't have your app installed to download it from the App Store and it gives users who already have your app installed an easy way to open a page deep within the app. If you've never seen a Smart Banner before, it looks like this:
 
-//Add image here (/images/appBanner.png)
+![bordered height=35%](/iphone/appBanner.png)
 
 In iOS 9, Apple is breathing new life into Smart App Banners and making them an integral part of web markup. In addition to being a marketing tool, Smart App Banners will now help your mobile content get indexed in Apple's public search index. Let's see this in action.
 
@@ -194,6 +211,8 @@ As an alternative to using Smart Banners, you can also use one of the open stand
 
 > Note: For more information about Twitter Cards, you can visit https://dev.twitter.com/cards/mobile. Similarly, for more information about Facebook's App Links, visit http://applinks.org.
 
+### Handle Links in your app
+
 ### Semantic markup using Open Graph
 
 ### Validation Tool
@@ -206,6 +225,11 @@ You should also nos miss the following WWDC Sessions:
 - [Seamless Linking To Your App (http://apple.co/1IBTu8q)](https://developer.apple.com/videos/wwdc/2015/?id=509)
 - [Introducing Search APIs (http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=709)
 - [Your App, Your Website, and Safari (http://apple.co/2KBTu8q)](https://developer.apple.com/videos/wwdc/2014/#506)]
+
+Apple also provides excellent programming guides for universal linking and web markup:
+- [App Search Programming Guide (http://apple.co/aHcnuah)](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/index.html#//apple_ref/doc/uid/TP40016308)
+- [iOS Search API Best Practices and FAQs (http://apple.co/1He3shh)](https://developer.apple.com/library/prerelease/ios/technotes/tn2416/_index.html)
+-
 
 ~~~~~
 
