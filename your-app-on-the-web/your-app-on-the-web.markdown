@@ -1,42 +1,41 @@
-# Chapter X: Your App on the Web
+# Chapter 2: Your App on the Web
 
-Since the beginning of iOS, native and web technologies have been two distinctly separate camps. One is a closed ecosystem tightly controlled by Apple whereas the other is based on long-standing open standards. On iOS, these two worlds wouldn't often cross paths, and when they did it wasn't easy or pretty. What happened in one world, say a mobile website, wouldn't at all affect what happened in the other, say the native app. 
+Since the beginning of iOS, native and web technologies have been two distinctly separate camps. One is a closed ecosystem tightly controlled by Apple whereas the other is open and based on long-standing standards. On iOS, these two worlds don't often cross paths. When they did it wasn't easy or pretty. What happened in one world, say a mobile website, wouldn't affect what happened in the other, say the native app. 
 
-For the past few years, Apple has worked to shorten the distance between web and native. For example, in iOS 7 Apple introduced JavaScriptCore — a framework meant to bridge native code with JavaScript. On iOS 8, Apple introduced more features that brought your website and your app closer together, such as Continuity and shared web credentials.
+Over the past couple of years, Apple has worked to shorten the distance between web and native. For example, in iOS 7 Apple introduced JavaScriptCore — a framework meant to bridge native code with JavaScript. On iOS 8, Apple introduced more features that brought your website and your app closer together, such as Continuity features like shared web credentials.
 
-In iOS 9, Apple is turning it up a notch and tearing down the last remaining walls between native apps and the web. In this chapter you'll read about two important developments in this area: universal HTTP links and web markup as it relates to the new search APIs in iOS 9. Without further ado, let's get started.
+In iOS 9, Apple is going one step further and tearing down the last remaining walls between native apps and the web. In this chapter you'll read about two important developments in this area: universal links and web markup as it relates to the new search APIs in iOS 9 that you read in the last chapter. Without further ado, let's get started.
 
-## Universal HTTP links
+## Universal Links
 
-If you've ever linked to a native app, you're probably familiar with universal HTTTP link's predecessor: "deep" links. Before diving into universal HTTP links, let's do a quick refresher on deep links so you know exactly how they differ from what we have now.
+If you've ever linked into a native app, either from a website or from another app, then you're probably familiar with universal links' predecessor: "deep" links. Before diving into universal links, let's do a quick refresher on deep links so you know exactly how they differ from the new technology you'll explore in this chapter.
 
-Prior to iOS 9, the main way to let apps communicate with each other was to register a custom URL scheme by adding a key to your Info.plist file. For example, if you're developing a social network app for clowns you would have registered clownapp:// or something similar.
+Prior to iOS 9, the primary way to let apps communicate with each other was to register a custom URL scheme by adding a key to your **Info.plist**. For example, if you were developing a social network app for clowns you would have registered something like `clownapp://` or `clown://`.
 
-iOS would then round up all of the apps on your phone and look at all the custom URL schemes that were registered. Then if the system came across a URL that contained a custom URL scheme handled by an installed app, it would open that app and pass in the entire link.
+iOS would then round up all of the apps on your phone and look at all the custom URL schemes that they registered. When iOS encountered a custom URL scheme handled by an installed app, the system would open that app and pass in the entire link.
 
-Deep linking applied to both system apps as well as third-party apps. You may have even come across some of Apple's own URL schemes:
+Deep linking applied to system apps as well as third-party apps. You may have come across some of Apple's own URL schemes:
 
-- mailto://john.appleseed@apple.com
-- tel://1-408-555-5555
-- sms://1-408-555-5555
-- facetime://user@icloud.com
-- facetime-audio://user@icloud.com
+- Mail.app: mailto://john.appleseed@apple.com
+- Phone.app: tel://1-408-555-5555
+- Phone.app: sms://1-408-555-5555
+- Facetime.app: facetime://user@icloud.com
 
-So if you wanted to "link" into your app from anywhere else in iOS, all you had to do was construct a link with your custom scheme and execute it like this:
+So if you wanted to link into your app from anywhere else in iOS, all you had to do was construct a link with your URL custom scheme and execute it like this:
 
 ````
 let url = NSURL(string: "clownapp://home/feed")!
 UIApplication.sharedApplication().openURL(url)
 ````
-Doing this would open your app and pass you the entire URL via app delegate method application(_:handleOpenURL:), where you could interpret the URL and respond appropriately. 
+iOS would then open your app and pass in the entire URL via the app delegate method `application(_:handleOpenURL:)`. Once inside that method, the app could interpret the URL whichever way it wanted and respond appropriately. 
 
-This system worked fairly well for a long time (since iOS 3.0!) but it wasn't without major drawbacks:
+This system worked fairly well for a long time (since iOS 3.0!) but had some major drawbacks:
 
-- Privacy: Unfortunately, UIApplication also shipped with method canOpenURL(_:). The _intended_ purpose of this method was to provide a fallback if your device couldn't handle a particular custom URL. However, it can and was exploited to find out what other apps you have installed. If any app knows that this device can open clownapp://, it means that my social clown app is installed.
-- Custom Scheme Collisions: Let's say Facebook's custom URL scheme is fb://. What's stopping anyone else from also registering fb:// and capturing their deep links? In short, nothing. When two apps register for the same custom URL scheme, it's like dividing by zero. It's undefined.
-- No Graceful Fallback: What happens if iOS tries to go to URL with a custom scheme that no installed app has registered to handle? Nothing happens — the action fails silently. This is a particularly bad problem going from a mobile browser to a deep link. The browser doesn't have canOpenURL(_:) so it better be sure there's an app backing the custom URL scheme before it tries it.
+1. **Privacy:** In addition to `openURL()`, `UIApplication` also has `canOpenURL(_:)`. The _intended_ purpose of this innocent-looking method was to provide a fall back if your device couldn't handle a particular custom URL. Unfortunately, it was exploited to find out what other apps a user has installed. For instance, if any app knows that a particular device can open `clownapp://`, it must mean that my social clown app is installed.
+- **Collisions**: Let's say Facebook's custom URL scheme is fb://. What's stopping anyone else from also registering fb:// and capturing their deep links? In short, nothing. When two apps register for the same custom URL scheme, it's like dividing by zero. It's undefined.
+- **No Fall back**: What happens if iOS tries to use a URL with a custom URL scheme that no installed app has registered? Nothing happens. The action fails silently. This problem gets worse on a mobile browser. A browser doesn't have `canOpenURL(_:)` so it better be sure there's an app backing the custom URL scheme before trying it.
 
->>Note: For reference, there are ways for a mobile browser to detect if an app is installed before trying to use its custom scheme by being smart with JavaScript and timeouts. This is "hacky" and violates user privacy so it won't be discussed in this chapter. 
+>> **Note:** There is a way for a mobile browser to detect if an app is installed before trying to use its custom URL scheme by being smart with JavaScript and timeouts. This is "hacky" and violates user privacy so it won't be discussed in this chapter. 
 
 Now that you've read about deep links and its limitations, let's go ahead and implement its successor: universal HTTP links.
 
@@ -44,11 +43,14 @@ Now that you've read about deep links and its limitations, let's go ahead and im
 
 For this chapter you'll be working with an app called RWDevCon and its accompanying website http://www.rwdevcon.com. If RWDevCon sounds familiar, it's because it is the developer conference organized by the folks behind raywenderlich.com!
 
-Unlike the rest of the chapters in this book, the "sample app" for this chapter is a real-world production app that's currently on the App Store. That's a lot of responsibility on your shoulders. Are you ready? 
+Unlike the rest of the chapters in this book, the "sample app" for this chapter is a real-world production app currently on the App Store.
+
+> **Note:** This is one of the only, if not the only, places in the book where you won't be able to verify your work as you follow along. Apple made the connection between an app and its accompanying website extremely secure, so there's no way to "try out" this feature without having a real website accessible via `https` as well as an app in the App Store under an account where you are either the team agent or the team admin. 
+
 
 ### Getting Your App Ready - Part 1
 
-Instead of coming up and registering with a custom URL scheme, you will tie a domain with a native app. In this chapter, you'll tie rwdevcon.com with the RWDevCon native app. For this to be considered an improvement over the current system, Apple has to make sure only you can claim your website and no one else, right? 
+Instead of registering a custom URL scheme, you will tie a domain with a native app. In this chapter, you'll tie rwdevcon.com with the RWDevCon native app. For this to be considered an improvement over the current system, Apple has to make sure only you can claim your website and no one else, right? 
 
 To prove that you are you and that you want to tie your domain to your native app, there are two bonds you have to create. The first one is from your native app to your domain. The second, covered in the next section, ties your domain to your native app. 
 
