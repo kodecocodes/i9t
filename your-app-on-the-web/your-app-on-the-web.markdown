@@ -169,7 +169,7 @@ Smart Banners have been around since iOS 6. They used to be simple marketing too
 
 A Smart Banner on your website invites users who don't have your app installed to download it from the App Store and it gives users who already have your app installed an easy way to open a page deep within the app. If you've never seen a Smart Banner before, it looks like this:
 
-![bordered height=35%](/iphone/appBanner.png)
+![bordered height=35%](/images/appBanner.png)
 
 In iOS 9, Apple is breathing new life into Smart App Banners and making them an integral part of web markup. In addition to being a marketing tool, Smart App Banners will now help your mobile content get indexed in Apple's public search index. Let's see this in action.
 
