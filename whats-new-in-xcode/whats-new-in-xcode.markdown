@@ -53,9 +53,7 @@ You'll see the new iOS energy gauge, and it shows the app is a bit power hungry!
 
 
 
-The _Utilization_ section on the top left shows you the energy impact at the current moment in time. In the top right section, you see the _average_ energy impact, as well as the **overhead**. This is the energy consumed by system resources to perform work like bringing up radios.
-
-[TODO: could you clarify the previous sentence please? What does 50% represent? The overhead of the out-of-process system resources as a percentage of what exactly?]
+The _Utilization_ section on the top left shows you the energy impact at the current moment in time. In the top right section, you see the _average_ energy impact, as well as the **overhead**. This includes the energy consumed by system resources to perform work like bringing up radios, as well as the energy used when the resources remain active but idle.
 
 At the bottom, you see four rows of blocks corresponding to CPU, network, location and background. Each block represents a second. If there is any kind of activity during a single second, the box will fill in with a gray block.
 
@@ -422,9 +420,7 @@ Also, note that each playground _page_ has its own sources and resources folders
 ### Manually run playgrounds
 
 You can also now choose to _manually_ run code in a playground instead of it running automatically as you type; press and hold down the **play** button until a menu appears that lets you select **Manually Run**:
-![bordered width=28%](images/42-manually-run-playground_262x84.png)
-
-[TODO: The timeline bit on the right was removed in beta6. Please update this image appropriately, and recheck with the GM]
+![bordered width=28%](images/42-manually-run-playground.png)
 
 ## Other improvements
 
