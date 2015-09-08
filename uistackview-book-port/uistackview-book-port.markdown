@@ -43,7 +43,7 @@ Now that you have an idea of the improvements you'll be making, it's time to div
 Open **Main.storyboard** and take a look at the **Spot Info View Controller** scene. And boom! Have some color with your stack view.
 ![bordered width=40%](images/04-colorful-scene-in-storyboard_504x636.png)
 
-These labels and buttons have various background colors set that will be cleared at runtime. In the storybord they're simply visual aids to help show how changing various properties of a stack view will affect the frames of its embedded views.
+These labels and buttons have various background colors set that will be cleared at runtime. In the storyboard, they're simply visual aids to help show how changing various properties of a stack view will affect the frames of its embedded views.
 
 You don't need to do this now, but if at any point you'd actually like to see the background colors while running the app, you can temporarily comment out the following lines in `viewDidLoad()` inside `SpotInfoViewController`.
 
@@ -134,7 +134,7 @@ Make sure the stack view is still selected, and go to the **Attributes inspector
 Now build and run, tap on any cell, and rotate the simulator (⌘→). You'll see that the bottom buttons now space themselves equally!
 ![bordered iphone-landscape](images/20-now-buttons-are-equally-spaced_1334x750.png)
 
-In order to solve this problem without a stack view you would have had to use spacer views, one between each pair of buttons. You'd have to add equal width constraints to all of the spacer views as well as lots of additional constraints to position the spacer views correctly.
+In order to solve this problem without a stack view, you would have had to use spacer views, one between each pair of buttons. You'd have to add equal width constraints to all of the spacer views as well as lots of additional constraints to position the spacer views correctly.
 
 It would have looked something like the following. For visibility in the screenshot, the spacer views have been given a light gray background:
 ![bordered width=50%](images/21-alternate-solution-1_346x76.png)
@@ -236,7 +236,7 @@ Select each value to see how it affects the placement of the labels for the vert
 When you're done testing each value, set the **Alignment** to **Fill**:
 ![bordered width=96%](images/38-now-select-alignment-fill_640x64.png)
 
-Then build and run to verify that everything looks good, and that there are no regressions.
+Then build and run to verify that everything looks good and that there are no regressions.
 
 Specifying `Fill` means you want all the views to completely fill the stack view perpendicular to its axis. This causes the **WHY VISIT** label to expand itself to the right edge as well.
 
@@ -362,7 +362,7 @@ Now that all of the sections are in a top-level stack view, you'll modify the po
 
 Select the **middle stack view** from the outline view and **drag it between** the first and second view.
 
->**Note:** Keep the pointer slightly to the left of the stack views that you're dragging it between, so that it remains a _subview_ of the outer stack view. The little blue circle should be positioned at the left edge between the two stack views and not at the right edge:
+>**Note:** Keep the pointer slightly to the left of the stack views that you're dragging it between so that it remains a _subview_ of the outer stack view. The little blue circle should be positioned at the left edge between the two stack views and not at the right edge:
 ![bordered width=80%](images/57-drag-and-drop-to-reposition-section_639x130.png)
 
 And now the **weather** section is third from the top, but since the **Hide** button isn't part of the stack view, it won't be moved, so its frame will now be misplaced.
@@ -380,7 +380,7 @@ Granted, repositioning the view with Auto Layout and re-adding constraints would
 
 ### Size class based configuration
 
-Finally you can turn your attention to the one remaining task on your list. In landscape mode, vertical space is at a premium, so you want to bring the sections of the stack view closer together. To do this, you'll use size classes to set the spacing of the top-level stack view to **10** instead of **20** when the vertical size class is compact.
+Finally, you can turn your attention to the one remaining task on your list. In landscape mode, vertical space is at a premium, so you want to bring the sections of the stack view closer together. To do this, you'll use size classes to set the spacing of the top-level stack view to **10** instead of **20** when the vertical size class is compact.
 
 Select the top-level stack view and click on the little **+** button next to **Spacing**:
 ![bordered width=33%](images/61-select-plus-button_260x120.png)
@@ -430,7 +430,7 @@ In addition to animating the hidden property on views contained within the stack
 
 ## Where to go from here?
 
-In this tutorial you learned a lot about stack views as well as the various properties that a stack view uses to position its subviews. Stack views are highly configurable, and there may be more than one way achieve the same result.
+In this tutorial, you learned a lot about stack views as well as the various properties that a stack view uses to position its subviews. Stack views are highly configurable, and there may be more than one way achieve the same result.
 
 The best way to build on what you've learned is to experiment with various properties yourself. Instead of setting a property and moving on, see how playing with the other properties affects the layout of views within the stack view.
 
