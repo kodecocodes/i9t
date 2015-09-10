@@ -209,9 +209,11 @@ The content attribute contains the following two paramters/arguments:
 - app-id: This parameter to your app's Apple ID. It is 958625272 for the RWDevCon app and it will be different for your app. The easiest way to find out your App's Apple ID is to log into iTunes Connect, lick Manage your apps and then click on the application you're interested.
 - app-argument: This parameter contains the URL that Safari passes back to the application. This used to require that you use a custom-scheme deep link, but Apple now strongly recommends you switch over to HTTP universal links. That's what you use in this example. 
 
-> **Note:** This was a quick overview of Smart Banners. If you'd like to learn more about their capabilities, you can read the Smart App Banners Tutorial on raywenderlich.com: http://www.raywenderlich.com/80347/smart-app-banners-tutorial. You can also read the Safari Web Content Guide on this topic: https://developer.apple.com/library/prerelease/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html#//apple_ref/doc/uid/TP40002051-CH6.
+> **Note:** This was a quick overview of Smart Banners. If you'd like to learn more about Smart Banner's full capabilities, you can read the Smart App Banners Tutorial on raywenderlich.com: http://www.raywenderlich.com/80347/smart-app-banners-tutorial. You can also read the Safari Web Content Guide on this topic: https://developer.apple.com/library/prerelease/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html#//apple_ref/doc/uid/TP40002051-CH6.
 
 As an alternative to using Smart Banners, you can also use one of the open standards that Apple supports to provide deep links on your website. This currently includes Twitter Cards and Facebook's App Links. This is a good alternatives if you've already implemented one of those on your website.
+
+//TODO: samples for both formats
 
 > Note: For more information about Twitter Cards, you can visit https://dev.twitter.com/cards/mobile. Similarly, for more information about Facebook's App Links, visit http://applinks.org.
 
@@ -238,7 +240,9 @@ The next thing you need to do is to handle incoming search results links. Open X
 
 ### Semantic markup using Open Graph
 
+You've learned how to add Smart Banners to a web page to make it easier for Applebot to index your universal links. But just because Applebot can find and crawl your website doesn't mean that your content will ever show up in Spotlight! Your content also has to be relevant and engaging if it 
 
+Apple ranks search results based on some secret algorithm they've developed. Little is known about 
 
 ### Validation Tool
 
@@ -268,5 +272,16 @@ Blockers:
 
 Resources:
 - http://blog.hokolinks.com/how-to-implement-apple-universal-links-on-ios-9/
+
+- check: check smart banners work in video pages
+- turn on associated domins, blocked!
+- build to a device, blocked! no certificate
+- open app, blocked!
+- validator
+
+* TODOs
+- update apple-app-site-association to newest format
+- add width and height meta tags to image
+- add width and height meta tags to video
 
 
