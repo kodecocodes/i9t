@@ -230,17 +230,23 @@ And with Facebook's App Links:
 
 > **Note**: For more information about Twitter Cards, you can visit https://dev.twitter.com/cards/mobile. Similarly, for more information about Facebook's App Links, visit http://applinks.org.
 
-***Continue here
-To see what this looks like in practice, 
+Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry!) you won't be able to see your changes in action. However, there is a way to see what the end result is supposed to look like. Go to the App Store and download the latest version of the RWDevCon app. If you search for "RWDevCon" you'll find it.
 
-//Note: Smart App Banners don't show up in the simulator
+Now switch to mobile Safari and head to http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html. The top of the page looks like this:
 
 ![bordered height=35%](/images/appBanner2.png)
 
-//TODO: show what its supposed to link to in the app
+//TODO: Verify this screenshot later on. The text on the banner is misaligned, which will probably get fixed before the release.
 
-//TODO: show that raywenderlich video is not in app, fall back to safari
-//TODO: show that another video can be played in the app
+If you don't see the Smart Banner, swipe down on the page until it comes into view. So what changed? The Smart Banner became thinner and it now says "Open in the RWDevCon app". This special version of the Smart Banner only shows up for URLs that match at least one of the paths specified in the **apple-app-site-association** file you saw earlier. 
+
+Verify this behavior by going to the homepage at `http://www.rwdevcon.com`. You'll see the regular-sized banner, not the thin banner you saw on the video page. Even though the homepage also has the appropriate meta tag, the URL in its `app-argument` parameter doesn't match the **/videos/** you specified in the **apple-app-site-association** file.
+
+> **Note:** Smart App Banners don't work on the simulator, so you always have to use a device if you want to see and interact with them.
+
+If you tap on the thin smart banner, Safari will open the RWDevCon app and play the correct video. You'll implement this behavior shortly in the local version of the app you've been working on.
+
+//TODO: This won't work until a new version of RWDevCon is in the App Store. 
 
 ### Handle Links in your app
 
@@ -262,12 +268,19 @@ The next thing you need to do is to handle incoming search results links. Open X
       return false
   }
 ```
+**Add a Pomodoro here**
+
+//TODO: show what its supposed to link to in the app
+//TODO: show that raywenderlich video is not in app, fall back to safari
+//TODO: show that another video can be played in the app
 
 ### Semantic markup using Open Graph
 
-You've learned how to add Smart Banners to a web page to make it easier for Applebot to index your universal links. But just because Applebot can find and crawl your website doesn't mean that your content will ever show up in Spotlight! Your content also has to be relevant and engaging if it 
+So far you've learned how to add Smart Banners to a web page to make it easier for Applebot to index a web site's universal links. However, just because Applebot can find and crawl a website doesn't mean that its content will show up in Spotlight! The content also has to be relevant and engaging if it has any chance of competing with other search results.
 
-Apple ranks search results based on some secret algorithm they've developed. Little is known about 
+Apple doesn't reveal much about the algorithm that determines the ranking and relevance for Spotlight search results, but it does give a big hint: all things equal, engaging content ranks higher.  
+
+
 
 ### Validation Tool
 
