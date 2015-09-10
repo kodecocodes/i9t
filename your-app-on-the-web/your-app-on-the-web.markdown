@@ -58,7 +58,7 @@ Go to the files included with this chapter and open RWDevCon.xcodeproj. In the p
 
 ![bordered height=35%](/images/associatedDomains.png)
 
->*Note:* Only a team agent or a team administrator on your Apple developer program can make this change. If you're not those roles, reach out to the right person on the team to make this change. 
+> **Note**: This only applies to developer accounts comprising of multiple people, but only a **team agent** or a **team administrator** can make this change. If you're not those roles, reach out to the right person on the team to make this change. 
 
 ### Getting Your Server Ready
 
@@ -68,13 +68,14 @@ Next, you have to create the link from your website to your native app. Open up 
 {
     "applinks": {
         "apps": [],
-        "details": {
-            "KFCNEC27GU.com.razeware.RWDevCon": {
+        "details": [
+            {
+                "appID": "KFCNEC27GU.com.razeware.RWDevCon",
                 "paths": [
                     "/videos/*"
                 ]
             }
-        }
+        ]
     }
 }
 ```
@@ -99,7 +100,7 @@ You may also be wondering where **/videos/** came from. As the name suggests, th
 
 If you want your app to open every incoming link for your domain, you can include a "/*" in the paths array and your app will handle everything.
 
-Note: If you're targeting iOS 8 because your app also implements continuity features, you'll have to sign your **apple-app-site-association** file using the openssl. You can read more about this process in Apple's Handoff Programming Guide: https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/Handoff/AdoptingHandoff/AdoptingHandoff.html
+> **Note:** If you're targeting iOS 8 because your app also implements continuity features, you'll have to sign your **apple-app-site-association** file using the openssl. You can read more about this process in Apple's Handoff Programming Guide: https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/Handoff/AdoptingHandoff/AdoptingHandoff.html
 
 Finally, you have to upload this file to the root of your domain. In this case, the file has to be accessible at the following locations **over HTTPS**:
 
@@ -108,7 +109,7 @@ Finally, you have to upload this file to the root of your domain. In this case, 
 
 If you can see the file when you request them with a web browse, that means you're ready for the next step.
 
-> **Note:** Before uploading your apple-app-site-association file to your server, run your JSON through a JSON validator, such as http://www.jsonlint.com. Typing JSON by hand is prone to error. Having the slightest mistake in your JSON will mean your universal HTTP links won't work at all and you won't know why. Think ahead!
+> **Note:** Before uploading **apple-app-site-association** file to your server, run your JSON through a JSON validator, such as http://www.jsonlint.com. Typing JSON by hand is prone to error. Having the slightest mistake in your JSON will mean your universal HTTP links won't work at all and you won't know why. Think ahead!
 
 ### Getting Your App Ready - Part 2
 
@@ -218,19 +219,23 @@ Apple understands that not everyone will want to use Smart Banners, which is why
 
 This is what the RWDevCon example look like using Twitter Cards:
 
+```
 <meta name="twitter:app:name:iphone" content="RWDevCon">
 <meta name="twitter:app:id:iphone" content="958625272">
 <meta name="twitter:app:url:iphone" content="http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
+```
 
 And with Facebook's App Links:
 
+```
 <meta property="al:ios:app_name" content="RWDevCon">
 <meta property="al:ios:app_store_id" content="958625272">
 <meta property="al:ios:url" content="http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
+```
 
 > **Note**: For more information about Twitter Cards, you can visit https://dev.twitter.com/cards/mobile. Similarly, for more information about Facebook's App Links, visit http://applinks.org.
 
-Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry!) you won't be able to see your changes in action. However, there is a way to see what the end result is supposed to look like. Go to the App Store and download the latest version of the RWDevCon app. If you search for "RWDevCon" you'll find it.
+Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry!) you won't be able to see your changes in action. However, there is a way to see what the end result is supposed to look like. Go to the App Store and download the latest version of the RWDevCon app. You'll find it if you search for "RWDevCon".
 
 Now switch to mobile Safari and head to http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html. The top of the page looks like this:
 
@@ -238,9 +243,9 @@ Now switch to mobile Safari and head to http://www.rwdevcon.com/videos/talk-ray-
 
 //TODO: Verify this screenshot later on. The text on the banner is misaligned, which will probably get fixed before the release.
 
-If you don't see the Smart Banner, swipe down on the page until it comes into view. So what changed? The Smart Banner became thinner and it now says "Open in the RWDevCon app". This special version of the Smart Banner only shows up for URLs that match at least one of the paths specified in the **apple-app-site-association** file you saw earlier. 
+If you don't see the Smart Banner, swipe down on the page until it comes into view. So what changed? The Smart Banner became thinner and it changed to say "Open in the RWDevCon app". This special version of the Smart Banner only shows up for URLs that match at least one of the paths specified in the **apple-app-site-association** file you saw earlier. 
 
-Verify this behavior by going to the homepage at `http://www.rwdevcon.com`. You'll see the regular-sized banner, not the thin banner you saw on the video page. Even though the homepage also has the appropriate meta tag, the URL in its `app-argument` parameter doesn't match the **/videos/** you specified in the **apple-app-site-association** file.
+Verify this behavior by going to the homepage at `http://www.rwdevcon.com`. You'll see the regular-sized banner, not the thin banner you saw on the video page. Even though the homepage also has the appropriate meta tag, the URL in its `app-argument` parameter doesn't match the **/videos/** path you specified in the **apple-app-site-association** file.
 
 > **Note:** Smart App Banners don't work on the simulator, so you always have to use a device if you want to see and interact with them.
 
@@ -248,7 +253,7 @@ If you tap on the thin smart banner, Safari will open the RWDevCon app and play 
 
 //TODO: This won't work until a new version of RWDevCon is in the App Store. 
 
-### Handle Links in your app
+### Handling universal links in RWDevCon
 
 The next thing you need to do is to handle incoming search results links. Open Xcode once again and implement the following app delegate method in AppDelegate.swift:
 
@@ -276,9 +281,36 @@ The next thing you need to do is to handle incoming search results links. Open X
 
 ### Semantic markup using Open Graph
 
-So far you've learned how to add Smart Banners to a web page to make it easier for Applebot to index a web site's universal links. However, just because Applebot can find and crawl a website doesn't mean that its content will show up in Spotlight! The content also has to be relevant and engaging if it has any chance of competing with other search results.
+So far you've learned how to add Smart Banners to a web page to make it easier for Applebot to index a web site's universal links. However, just because Applebot can find and crawl a website, it doesn't mean that its content will show up in Spotlight! The content also has to be relevant and engaging if it has any chance of competing with other search results.
 
-Apple doesn't reveal much about the algorithm that determines the ranking and relevance for Spotlight search results, but it does give a big hint: all things equal, engaging content ranks higher.  
+Apple doesn't reveal much about the relevance algorithm that determines the ranking for Spotlight search results, but it does give a us developers big hint: all things equal, engaging content ranks higher. If users tap on (or otherwise engage with) your search results relative to all other search results, your website will rank higher. 
+
+To this end, Apple recommends adding markup for structured data. Let's see this in action. Go back to **/videos/talk-ray-wenderlich-teamwork.html** and below the `meta` tag you added earlier to enable Smart Banners, add the following:
+
+```
+<meta property="og:image" content="http://www.rwdevcon.com/assets/images/videos/talk-ray-wenderlich-teamwork.jpg" />
+<meta property="og:image:secure_url" content="https://www.rwdevcon.com/assets/images/videos/talk-ray-wenderlich-teamwork.jpg" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:width" content="640" />
+<meta property="og:image:height" content="340" />
+
+<meta property="og:video" content="http://www.rwdevcon.com/videos/Ray-Wenderlich-Teamwork.mp4" />
+<meta property="og:video:secure_url" content="https://www.rwdevcon.com/videos/Ray-Wenderlich-Teamwork.mp4" />
+<meta property="og:video:type" content="video/mp4" />
+<meta property="og:video:width" content="1280" />
+<meta property="og:video:height" content="720" />
+
+<meta property="og:description" content="Learn how teamwork lets you dream bigger, through the story of an indie iPhone developer who almost missed out on the greatest opportunity of his life." />
+```
+You just added rich web markup to the web page by adding a video tag, an image tag and a description tag. The meta tags you just added contains information that's technically already on the page, but making it explicit using `meta` tags helps Applebot scrape your website and get what it needs.
+
+
+
+> **Note**: In the examples above, "og" stands for Open Graph. This is one of several standards Apple supports for structured markup. Other standards include schma.org, RDFA and JSON LD.
+
+
+
+This step is optional, but 
 
 
 
