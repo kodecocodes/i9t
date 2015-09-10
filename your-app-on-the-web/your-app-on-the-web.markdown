@@ -217,6 +217,15 @@ As an alternative to using Smart Banners, you can also use one of the open stand
 
 > Note: For more information about Twitter Cards, you can visit https://dev.twitter.com/cards/mobile. Similarly, for more information about Facebook's App Links, visit http://applinks.org.
 
+//TODO: show how smart banner looks like when it can be opened by native app
+
+![bordered height=35%](/images/appBanner2.png)
+
+//TODO: show what its supposed to link to in the app
+
+//TODO: show that raywenderlich video is not in app, fall back to safari
+//TODO: show that another video can be played in the app
+
 ### Handle Links in your app
 
 The next thing you need to do is to handle incoming search results links. Open Xcode once again and implement the following app delegate method in AppDelegate.swift:
@@ -273,11 +282,11 @@ Blockers:
 Resources:
 - http://blog.hokolinks.com/how-to-implement-apple-universal-links-on-ios-9/
 
-- check: check smart banners work in video pages
-- turn on associated domins, blocked!
-- build to a device, blocked! no certificate
-- open app, blocked!
-- validator
+- check smart banners work in video pages
+- turn on associated domins, works!
+- build to a device, blocked! 
+- smart banner opens app, works, must handle link!
+- validator, must update
 
 * TODOs
 - update apple-app-site-association to newest format
