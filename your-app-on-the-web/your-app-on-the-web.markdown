@@ -167,26 +167,27 @@ Not all web crawlers follow these directives, but Applebot does! If your robots.
 
 Smart Banners have been around since iOS 6. They used to be simple marketing tools provided by Apple that allowed developers to add advertising banners to promote apps directly on a website.
 
-A Smart Banner on your website invites users who don't have your app installed to download it from the App Store and it gives users who already have your app installed an easy way to open a page deep within the app. If you've never seen a Smart Banner before, it looks like this:
+Adding a Smart Banner to a website invites visitors who don't have your app installed to download it from the App Store. It also gives visitors who already have your app installed an easy way to open a page deep within the app. Here's a Smart Banner in action:
 
 ![bordered height=35%](/images/appBanner.png)
 
-In iOS 9, Apple is breathing new life into Smart App Banners and making them an integral part of web markup. In addition to being a marketing tool, Smart App Banners will now help your mobile content get indexed in Apple's public search index. Let's see this in action.
+The banner says "OPEN" because Safari detects that the visitor has installed the RWDevCon iOS app. That's why they're smart! If the visitor hadn't installed the RWDevCon app, the Smart Banner would say "VIEW" and tapping it would take you to its App Store page.
 
-Go to the files that came with this chapter and locate the source code for http://www.rwdevcon.com. Open the file /videos/talk-ray-wenderlich-teamwork.html and add the following meta tag inside the head tag:
+In iOS 9, Apple is breathing new life into Smart App Banners and making them an integral part of web markup. On top of being marketing tools, Smart App Banners will now help your mobile content get indexed in Apple's public search index. Let's see this in action.
+
+Go to the files that came with this chapter and locate the source code for `http://www.rwdevcon.com`. Open the file **/videos/talk-ray-wenderlich-teamwork.html** and add the following meta tag inside the head tag:
 
 ```
 <meta name="apple-itunes-app" content="app-id=958625272, app-argument=http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
 ```
 
-The complete head tag should look like this:
+If you're wondering exactly where to put it, the complete `<head>` tag should look similar to this snippet:
 
 ```
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
     <meta name="apple-itunes-app" content="app-id=958625272, app-argument=http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
 
     <title>RWDevCon 2016: The Tutorial Conference – Videos</title>
@@ -203,21 +204,36 @@ The complete head tag should look like this:
 </head>
 ```
 
-The most important part of the meta tag is the name attribute, which must always be apple-itunes-app. This identifies the type of meta tag, which in turn tells Safari to display your Smart App Banner.
+The most important part of the meta tag is the `name` attribute, which must always be **apple-itunes-app**. This identifies the type of meta tag as a Smart Banner meta tag, which in turn tells Safari to display your Smart App Banner.
 
-The content attribute contains the following two paramters/arguments:
-- app-id: This parameter to your app's Apple ID. It is 958625272 for the RWDevCon app and it will be different for your app. The easiest way to find out your App's Apple ID is to log into iTunes Connect, lick Manage your apps and then click on the application you're interested.
-- app-argument: This parameter contains the URL that Safari passes back to the application. This used to require that you use a custom-scheme deep link, but Apple now strongly recommends you switch over to HTTP universal links. That's what you use in this example. 
+The content attribute contains two paramters/arguments that you should also pay attention to:
+- **app-id**: This parameter maps to your app's Apple ID (yes, apps have them too!). The easiest way to find out your app's Apple ID is to log into iTunes Connect, click **Manage your apps** and then click on the application you're interested. In this case, the Apple ID for RWDevCon is 958625272 but it will be different for your app. 
+- **app-argument:** This parameter contains the URL that Safari passes back to the application. Before iOS 9, this meant passing in a deep link with a custom URL, but Apple now strongly recommends switching over to HTTP universal links. That's what you'll use in this example. 
 
-> **Note:** This was a quick overview of Smart Banners. If you'd like to learn more about Smart Banner's full capabilities, you can read the Smart App Banners Tutorial on raywenderlich.com: http://www.raywenderlich.com/80347/smart-app-banners-tutorial. You can also read the Safari Web Content Guide on this topic: https://developer.apple.com/library/prerelease/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html#//apple_ref/doc/uid/TP40002051-CH6.
+> **Note:** This was a quick overview of Smart Banners. If you'd like to learn more about their full capabilities, you can read Ray's Smart App Banners tutorial on raywenderlich.com: http://www.raywenderlich.com/80347/smart-app-banners-tutorial. You can also read the Safari Web Content Guide on this topic: https://developer.apple.com/library/prerelease/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html#//apple_ref/doc/uid/TP40002051-CH6.
 
-As an alternative to using Smart Banners, you can also use one of the open standards that Apple supports to provide deep links on your website. This currently includes Twitter Cards and Facebook's App Links. This is a good alternatives if you've already implemented one of those on your website.
+Smart Banners are helpful for many reasons, including increasing the odds of getting a website indexed by Applebot. However, Smart Banners also have their downsides. For one, Smart Banners only works in Safari. If a visitor comes to your website through another browser such as Chrome or Opera, they won't see the Smart Banner. 
 
-//TODO: samples for both formats
+Apple understands that not everyone will want to use Smart Banners, which is why they're supporting other options. As an alternative to using Smart Banners, you can also use one of the open standards, which currently includes Twitter Cards and Facebook's App Links. This is a good alternatives if you've already implemented one of those on your website.
 
-> Note: For more information about Twitter Cards, you can visit https://dev.twitter.com/cards/mobile. Similarly, for more information about Facebook's App Links, visit http://applinks.org.
+This is what the RWDevCon example look like using Twitter Cards:
 
-//TODO: show how smart banner looks like when it can be opened by native app
+<meta name="twitter:app:name:iphone" content="RWDevCon">
+<meta name="twitter:app:id:iphone" content="958625272">
+<meta name="twitter:app:url:iphone" content="http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
+
+And with Facebook's App Links:
+
+<meta property="al:ios:app_name" content="RWDevCon">
+<meta property="al:ios:app_store_id" content="958625272">
+<meta property="al:ios:url" content="http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
+
+> **Note**: For more information about Twitter Cards, you can visit https://dev.twitter.com/cards/mobile. Similarly, for more information about Facebook's App Links, visit http://applinks.org.
+
+***Continue here
+To see what this looks like in practice, 
+
+//Note: Smart App Banners don't show up in the simulator
 
 ![bordered height=35%](/images/appBanner2.png)
 
