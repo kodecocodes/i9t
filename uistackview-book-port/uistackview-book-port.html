@@ -1,0 +1,541 @@
+
+<h1>Tutorial: Introduction to UIStackView</h1>
+
+We've all been there. There's a new requirement and you need to add or remove a view at runtime, and also need to reposition adjacent views.
+
+What approach do you take? Do you add outlets to constraints in your storyboard so that you can activate or deactivate certain ones? Or do you use a third party library? Or depending on the complexity maybe you do everything in code.
+
+Maybe this time around your view hierarchy didn't have to change at runtime, but you still had to figure out how to squeeze this one new view into your storyboard.
+
+Did you ever end up just clearing all constraints and re-adding them from scratch because it was easier than performing painstaking <i>constraints-surgery</i>?
+
+With the introduction of <code>UIStackView</code>, the above tasks become trivial. Stack views provide a way to lay out a series of views horizontally or vertically. By configuring a few simple properties such as alignment, distribution, and spacing, you can define how the contained views adjust themselves to the available space.
+
+<div class="note">
+<em>Note</em>: This chapter assumes basic familiarity with Auto Layout. If you're new to Auto Layout get check out the <a href="http://www.raywenderlich.com/83129/beginning-auto-layout-tutorial-swift-part-1">Auto Layout Tutorial Part 1</a> tutorial.
+</div>
+
+<h2>Getting started</h2>
+
+In this tutorial, you'll work on an app called <em>Vacation Spots</em>. It's a simple app that shows you a list of places to get away from it all.
+
+But don't pack your bags just yet, because there are a few issues you'll fix by using stack views, and in a much simpler way than if you were using Auto Layout alone.
+
+Start by downloading the [starter project](TODO: Link) for this tutorial and run it on the <em>iPhone 6 Simulator</em>. You'll see a list of places you can go on vacation.
+<img src="images/01-table-view-is-now-correct_750x1334.png" alt="Optional("bordered width=30%")" title="nil" />
+
+
+Go to the info view for London by tapping on the <em>London</em> cell.
+
+At first glance, the view may seem okay, but it has a few issues.
+
+<ol start="1">
+<li>
+Look at the row of buttons at the bottom of the view. They are currently positioned with a fixed amount of space between themselves, so they don't adapt to the screen width. To see the problem in full glory, temporarily rotate the simulator to landscape orientation by pressing <em>Command-left</em>.
+</li>
+</ol>
+
+
+<img src="images/02-issues-visible-in-landscape-view_1334x750.png" alt="Optional("bordered iphone-landscape")" title="nil" />
+
+
+<ol start="2">
+<li>
+Tap on the <em>Hide</em> button next to <em>WEATHER</em>. It successfully hides the text, but it doesn't reposition the section below it, leaving a block of blank space.
+</li>
+</ol>
+
+
+<img src="images/03-hide-weather-issue_750x1334.png" alt="Optional("bordered width=31%")" title="nil" />
+
+
+<ol start="3">
+<li>
+The ordering of the sections can be improved. It would be more logical if the <em>what to see</em> section was positioned right after the <em>why visit</em> section, instead of having the <em>weather</em> section in between them.
+</li>
+
+<li>
+The bottom row of buttons is a bit too close to the bottom edge of the view in landscape mode. It would be better if you could decrease the spacing between the different sections – but only in landscape mode.
+</li>
+</ol>
+
+Now that you have an idea of the improvements you'll be making, it's time to dive into the project.
+
+Open <em>Main.storyboard</em> and take a look at the <em>Spot Info View Controller</em> scene. And boom! Have some color with your stack view.
+<img src="images/04-colorful-scene-in-storyboard_504x636.png" alt="Optional("bordered width=40%")" title="nil" />
+
+
+These labels and buttons have various background colors set that will be cleared at runtime. In the storyboard, they're simply visual aids to help show how changing various properties of a stack view will affect the frames of its embedded views.
+
+You don't need to do this now, but if at any point you'd actually like to see the background colors while running the app, you can temporarily comment out the following lines in <code>viewDidLoad()</code> inside <code>SpotInfoViewController</code>.
+
+<pre lang="swift">
+// Clear background colors from labels and buttons
+for view in backgroundColoredViews {
+  view.backgroundColor = UIColor.clearColor()
+}
+</pre>
+
+Also, any outlet-connected labels have placeholder text that's set to the name of the outlet variable to which they are connected. This makes it a bit easier to tell which labels will have their text updated at runtime. For example, the label with text <em><</em><em>whyVisitLabel></em> is connected to:
+
+<pre lang="swift">
+@IBOutlet weak var whyVisitLabel: UILabel!
+</pre>
+
+Another thing to note is that the scenes in the storyboard are not the default 600 x 600 squares that you get when using size classes.
+
+Size classes are still enabled, but the size of the initial Navigation Controller has been set to <em>iPhone 4-inch</em> under the <em>Simulated Metrics</em> section in the <em>Attributes inspector</em>. This just makes it a bit easier to work with the storyboard; the simulated metrics property has no effect at runtime — the view will resize for different devices.
+<img src="images/05-simulated-metrics-iphone-4-inch_639x173.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+<h2>Your first stack view</h2>
+
+The first thing you'll fix by using a stack view is the spacing between the bottom row of buttons. A stack view can distribute its views along its axis in various ways, and one of the ways is with an equal amount of spacing between each view.
+
+Fortunately, embedding existing views into a new stack view is not rocket science. First, select all of the buttons at the bottom of the <em>Spot Info View Controller</em> scene by <em>clicking</em> on one, then <em>Command-click</em> on the other two:
+<img src="images/06-select-bottom-row-of-buttons_420x80.png" alt="Optional("bordered width=63%")" title="nil" />
+
+
+If the outline view isn't already open, go ahead and open it by using the <em>Show Document Outline</em> button at the bottom left of the storyboard canvas:
+<img src="images/07-document-outline-button_120x40.png" alt="Optional("bordered width=20%")" title="nil" />
+
+
+Verify that all 3 buttons are selected by checking them in the outline view:
+<img src="images/08-verify-button-selection_360x90.png" alt="Optional("bordered width=54%")" title="nil" />
+
+
+In case they aren't all selected, you can also <em>Command-click</em> on each button in the outline view to select them.
+
+Once selected, click on the new <em>Stack</em> button in the Auto Layout toolbar at the bottom right of the storyboard canvas:
+<img src="images/09-stack_button_outlined_148x52.png" alt="Optional("bordered width=20%")" title="nil" />
+
+
+The buttons will become embedded in a new stack view:
+<img src="images/10-bottom-row-is-now-in-stack-view_640x100.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+The buttons are now flush with each other – you'll that fix shortly.
+
+While the stack view takes care of positioning the buttons, you still need to add Auto Layout constraints to position the stack view itself.
+
+When you embed a view in a stack view, any constraints to other views are removed. For example, prior to embedding the buttons in a stack view, the top of the <em>Submit Rating</em> button had a vertical spacing constraint connecting it to the bottom of the <em>Rating:</em> label:
+<img src="images/11-prior-constraint_420x90.png" alt="Optional("bordered width=63%")" title="nil" />
+
+
+Click on the <em>Submit Rating</em> button to see that it no longer has any constraints attached to it:
+<img src="images/12-no-more-constraints_400x80.png" alt="Optional("bordered width=60%")" title="nil" />
+
+
+Another way to verify that the constraints are gone is by looking at the <em>Size inspector</em> (⌥⌘5):
+<img src="images/13-check-size-inspector_640x80.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+In order to add constraints to position the stack view itself, you'll first need to select it. Selecting a stack view in the storyboard can get tricky if its views completely fill the stack view.
+
+One simple way is to select the stack view in the outline view:
+<img src="images/14-stack-view-document-outline-selection_660x80.png" alt="Optional("bordered width=99%")" title="nil" />
+
+
+Another trick is to hold <em>Shift</em> and <em>Right-click</em> on any of the views in the stack view, or <em>Control-Shift-click</em> if you're using a trackpad. You'll get a context menu that shows the view hierarchy at the location you clicked, and you simply select the stack view by clicking on it in the menu.
+
+For now, select the stack view using the <em>Shift-Right-click</em> method:
+<img src="images/15-select-stack-view-in-view-hierarchy-menu_400x280.png" alt="Optional("bordered width=40%")" title="nil" />
+
+
+Now, click the <em>Pin</em> button on the Auto Layout toolbar to add constraints to it:
+<img src="images/16-pin-button_142x57.png" alt="Optional("bordered width=20%")" title="nil" />
+
+
+First add a check to <em>Constrain to margins</em>. Then add the following constraints to the edges of your stack view:
+
+<pre lang="bash">
+Top: 20, Leading: 0, Trailing: 0, Bottom: 0
+</pre>
+
+Double-check the numbers for the top, leading, trailing, and bottom constraints and make sure that the <em>I-beams</em> are selected. Then click on <em>Add 4 Constraints</em>:
+<img src="images/17-bottom-stack-view-constraints_264x364.png" alt="Optional("bordered width=30%")" title="nil" />
+
+
+Now the stack view is the correct size, but it has stretched the first button to fill in any extra space:
+<img src="images/18-first-button-is-stretched_400x80.png" alt="Optional("bordered width=60%")" title="nil" />
+
+
+The property that determines how a stack view lays out its views along its axis is its <code>distribution</code> property. Currently, it's set to <code>Fill</code>, which means the contained views will completely fill the stack view along its axis. To accomplish this, the stack view will only expand one of its views to fill that extra space; specifically, it expands the view with the lowest horizontal content hugging priority, or if all of the priorities are equal, it expands the first view.
+
+However, you're not looking for the buttons to fill the stack view completely – you want them to be equally spaced.
+
+Make sure the stack view is still selected, and go to the <em>Attributes inspector</em>. Change the <em>Distribution</em> from <em>Fill</em> to <em>Equal Spacing</em>:
+<img src="images/19-change-distribution-to-equal-spacing_640x148.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Now build and run, tap on any cell, and rotate the simulator (⌘→). You'll see that the bottom buttons now space themselves equally!
+<img src="images/20-now-buttons-are-equally-spaced_1334x750.png" alt="Optional("bordered iphone-landscape")" title="nil" />
+
+
+In order to solve this problem without a stack view, you would have had to use spacer views, one between each pair of buttons. You'd have to add equal width constraints to all of the spacer views as well as lots of additional constraints to position the spacer views correctly.
+
+It would have looked something like the following. For visibility in the screenshot, the spacer views have been given a light gray background:
+<img src="images/21-alternate-solution-1_346x76.png" alt="Optional("bordered width=50%")" title="nil" />
+
+
+This isn't too much of an issue if you only have to do this once in the storyboard, but many views are dynamic. It's not a straightforward task to add a new button or to hide or remove an existing button at runtime because of the adjacent spacer views and constraints.
+
+In order to hide a view within a stack view, all you have to do is set the contained view's <code>hidden</code> property to <code>true</code> and the stack view handles the rest. This is how you'll fix the spacing under the <em>WEATHER</em> label when the user hides the text below it. You'll do that a bit later in the tutorial once you've added the weather section labels into a stack view.
+
+<h2>Converting the sections</h2>
+
+You will convert all of the other sections in <code>SpotInfoViewController</code> to use stack views as well. This will enable you to easily complete the remaining tasks. You'll convert the rating section next.
+
+<h3>Rating section</h3>
+
+Right above the stack view that you just created, select the <em>RATING</em> label and the stars label next to it:
+<img src="images/22-select-rating-label-and-stars-label_640x74.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Then click on the <em>Stack</em> button to embed them in a stack view:
+<img src="images/23-after-clicking-stack-button_640x74.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Now click on the <em>Pin</em> button. Place a checkmark in <em>Constrain to margins</em> and add the following <em>three</em> constraints:
+
+<pre lang="bash">
+Top: 20, Leading: 0, Bottom: 20
+</pre>
+
+
+<img src="images/24-add-second-stack-view-constraints_264x171.png" alt="Optional("bordered width=30%")" title="nil" />
+
+
+Now go to the <em>Attributes inspector</em> and set the spacing to <em>8</em>:
+<img src="images/25-set-spacing-to-8_259x87.png" alt="Optional("bordered width=38%")" title="nil" />
+
+
+It's possible you may see a <i>Misplaced Views</i> warning and see something like this in which the stars label has stretched beyond the bounds of the view:
+<img src="images/26-stars-label-weirdly-stretched_640x85.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Sometimes Xcode may temporarily show a warning or position the stack view incorrectly, but the warning will disappear as you make other updates. You can usually safely ignore these.
+
+However, to fix it immediately, you can persuade the stack view to re-layout either by moving its frame by one point and back or temporarily changing one of its layout properties.
+
+To demonstrate this, change the <em>Alignment</em> from <em>Fill</em> to <em>Top</em> and then back to <em>Fill</em>. You'll now see the stars label positioned correctly:
+<img src="images/27-change-alignment-to-top-and-back_640x85.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Build and run to verify that everything looks exactly the same as before.
+
+<h3>Unembedding a stack view</h3>
+
+Before you go too far, it's good to have some basic "first aid" training. Sometimes you may find yourself with an extra stack view that you no longer need, perhaps because of experimentation, refactoring or just by accident.
+
+Fortunately, there is an easy way to <i>unembed</i> views from a stack view.
+
+First, you'd select the stack view you want to remove. Then hold down the <em>Option</em> key and click on the <em>Stack</em> button. The click <em>Unembed</em> on the context menu that appears:
+<img src="images/28-how-to-unembed_186x71.png" alt="Optional("bordered width=20%")" title="nil" />
+
+
+Another way to do this is to select the stack view and then choose <em>Editor </em><em>\</em><em> Unembed</em> from the menu.
+
+<h3>Your first vertical stack view</h3>
+
+Now, you'll create your first vertical stack view. Select the <em>WHY VISIT</em> label and the <em><</em><em>whyVisitLabel></em> below it:
+<img src="images/29-select-why-visit-labels_640x90.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Xcode will correctly infer that this should be a vertical stack view based on the position of the labels. Click the <em>Stack</em> button to embed both of these in a stack view:
+<img src="images/30-embed-why-visit-labels_640x90.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+The lower label previously had a constraint pinning it to the right margin of the view, but that constraint was removed when it was embedded in the stack view. Currently, the stack view has no constraints, so it adopts the intrinsic width of its largest view.
+
+With the stack view selected, click on the <em>Pin</em> button. Checkmark <em>Constrain to margins</em>, and set the <em>Top</em>, <em>Leading</em> and <em>Trailing</em> constraints to <em>0</em>.
+
+Then, click on the dropdown to the right of the bottom constraint and select <em>WEATHER (current distance = 20)</em>:
+<img src="images/31-dont-select-nearest-neighbor-constraint_463x417.png" alt="Optional("bordered width=50%")" title="nil" />
+
+
+By default, constraints are shown to the nearest neighbor, which for the bottom constraint is the <em>Hide</em> button at a distance of 15. You actually needed the constraint to be to the <em>WEATHER</em> label below it.
+
+Finally, click <em>Add 4 Constraints</em>. You should now see the following:
+<img src="images/32-why-visit-stack-view-stretched_640x90.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+You now have an expanded stack view with its right edges pinned to the right margin of the view. However, the bottom label is still the same width. You'll fix this by updating the stack view's <code>alignment</code> property.
+
+<h3>Alignment property</h3>
+
+The <code>alignment</code> property determines how a stack view lays out its views <i>perpendicular</i> to its axis. For a vertical stack view, the possible values are <code>Fill</code>, <code>Leading</code>, <code>Center</code> and <code>Trailing</code>.
+
+The possible <code>alignment</code> values for a <i>horizontal</i> stack view differ slightly:
+<img src="images/33-horizontal-and-vertical-alignment_594x171.png" alt="Optional("width=75%")" title="nil" />
+
+
+It has <code>.Top</code> instead of <code>.Leading</code> and has <code>.Bottom</code> instead of <code>.Trailing</code>. There are also two more properties that are valid only in the horizontal direction, <code>.FirstBaseline</code> and <code>.LastBaseline</code>.
+
+Select each value to see how it affects the placement of the labels for the vertical stack view:
+
+<em>Fill:</em>
+<img src="images/34-alignment-fill_640x64.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+<em>Leading:</em>
+<img src="images/35-alignment-leading_640x64.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+<em>Center:</em>
+<img src="images/36-alignment-center_640x64.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+<em>Trailing:</em>
+<img src="images/37-alignment-trailing_640x64.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+When you're done testing each value, set the <em>Alignment</em> to <em>Fill</em>:
+<img src="images/38-now-select-alignment-fill_640x64.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Then build and run to verify that everything looks good and that there are no regressions.
+
+Specifying <code>Fill</code> means you want all the views to completely fill the stack view perpendicular to its axis. This causes the <em>WHY VISIT</em> label to expand itself to the right edge as well.
+
+But what if you only wanted the bottom label to expand itself to the edge?
+
+For now, it doesn't matter since both labels will have a clear background at runtime, but it will matter when you're converting the weather section.
+
+You'll learn how to accomplish that with the use of an additional stack view.
+
+<h3>Convert the "what to see" section</h3>
+
+This section is very similar to the previous one, so the instructions here are brief.
+
+<ol start="1">
+<li>
+First, select the <em>WHAT TO SEE</em> label and the <em><</em><em>whatToSeeLabel></em> below it.
+</li>
+
+<li>
+Click on the <em>Stack</em> button.
+</li>
+
+<li>
+Click on the <em>Pin</em> button.
+</li>
+
+<li>
+Checkmark <em>Constrain to margins</em>, and add the following <em>four</em> constraints:
+</li>
+</ol>
+
+<pre lang="bash">
+Top: 20, Leading: 0, Trailing: 0, Bottom: 20
+</pre>
+
+<ol start="5">
+<li>
+Set the stack view's <em>Alignment</em> to <em>Fill</em>.
+</li>
+</ol>
+
+Your storyboard should now look like this:
+<img src="images/39-after-what-to-see-section_640x308.png" alt="Optional("bordered width=66%")" title="nil" />
+
+
+Build and run to verify that everything still looks the same.
+
+This leaves you with just the <em>weather</em> section left.
+
+<h2>Convert the weather section</h2>
+
+The <em>weather</em> section is more complex than the others due to the inclusion of the <em>Hide</em> button.
+
+One approach you could take would be to create a nested stack view by embedding the <em>WEATHER</em> label and the <em>Hide</em> button into a horizontal stack view, and then embedding that horizontal stack view and the <em><</em><em>weatherInfoLabel></em> into a vertical stack view.
+
+It would look something like this:
+<img src="images/40-weather-stack-in-stack_640x92.png" alt="Optional("bordered width=90%")" title="nil" />
+
+
+Notice that the <em>WEATHER</em> label has expanded to be equal to the height of the <em>Hide</em> button. This isn't ideal since this will cause there to be extra space between the baseline of the <em>WEATHER</em> label and the text below it.
+
+Remember that <code>alignment</code> specifies positioning perpendicular to the stack view. So, you could set the <code>alignment</code> to <em>Bottom</em>:
+<img src="images/41-weather-stack-in-stack-alignment-bottom_640x92.png" alt="Optional("bordered width=90%")" title="nil" />
+
+
+But you really don't want the height of the <em>Hide</em> button to dictate the height of the stack view.
+
+The actual approach you'll take is to have the <em>Hide</em> button <i>not</i> be in the stack view for the <em>weather</em> section, or any other stack view for that matter.
+
+It will remain a subview of the top-level view, and you'll add a constraint from it to the <em>WEATHER</em> label — which will be in a stack view. That's right, you'll add a constraint from a button outside of a stack view to a label within a stack view!
+
+Select the <em>WEATHER</em> label and the <em><</em><em>weatherInfoLabel></em> below it:
+<img src="images/42-select-weather-and-info-label_640x92.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Click on the <em>Stack</em> button:
+<img src="images/43-weather-click-stack-button_640x92.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Click on the <em>Pin</em> button, checkmark <em>Constrain to margins</em> and add the following <em>four</em> constraints:
+
+<pre lang="bash">
+Top: 20, Leading: 0, Trailing: 0, Bottom: 20
+</pre>
+
+Set the stack view's <em>Alignment</em> to <em>Fill</em>:
+<img src="images/44-weather-alignment-fill_640x92.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+You need a constraint between the <em>Hide</em> button's left edge and the <em>WEATHER</em> label's right edge, so having the <em>WEATHER</em> label fill the stack view won't work.
+
+However, you <i>do</i> want the bottom <em><</em><em>weatherInfoLabel></em> to fill the stack view.
+
+You can accomplish this by embedding just the <em>WEATHER</em> label into a vertical stack view. Remember that the <code>alignment</code> of a vertical stack view can be set to <code>.Leading</code>, and if the stack view is stretched beyond its intrinsic width, its contained views will remain aligned to its leading side.
+
+Select the <em>WEATHER</em> label using the document outline, or by using the <em>Control-Shift-click</em> method:
+<img src="images/45-select-just-the-weather-label_640x92.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Then click on the <em>Stack</em> button:
+<img src="images/46-weather-in-horizontal-stack_640x92.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Set <em>Alignment</em> to <em>Leading</em>, and make sure <em>Axis</em> is set to <em>Vertical</em>:
+<img src="images/47-vertical-and-leading_640x92.png" alt="Optional("bordered width=96%")" title="nil" />
+
+
+Perfect! You've got the outer stack view stretching the inner stack view to fill the width, but the inner stack view allows the label to keep its original width!
+
+Build and run. Why on earth is the <em>Hide</em> button hanging out in the middle of the text?
+<img src="images/48-hide-label-incorrect-position_750x573.png" alt="Optional("bordered width=32%")" title="nil" />
+
+
+It's because when you embedded the <em>WEATHER</em> label in a stack view, any constraints between it and the <em>Hide</em> button were removed.
+
+To add new constraints <em>Control-drag</em> from the <em>Hide</em> button to the <em>WEATHER</em> label:
+<img src="images/49-drag-to-weather-label_380x94.png" alt="Optional("bordered width=40%")" title="nil" />
+
+
+Hold down <em>Shift</em> to select multiple options, and select <em>Horizontal Spacing</em> and <em>Baseline</em>. Then click on <em>Add Constraints</em>:
+<img src="images/50-add-multiple-constraints_380x224.png" alt="Optional("bordered width=40%")" title="nil" />
+
+
+Build and run. The <em>Hide</em> button should now be positioned correctly, and since the label that is being set to hidden is embedded in a stack view, pressing <em>Hide</em> hides the label, and adjusts the views below it – all without having to manually adjust any constraints.
+<img src="images/51-hide-button-works_750x732.png" alt="Optional("bordered width=32%")" title="nil" />
+
+
+Now that all the sections are in unique stack views, you're set to embed them all into an outer stack view, which will make the final two tasks trivial.
+
+<h3>Top-level stack view</h3>
+
+<em>Command-click</em> to select all five top-level stack views in the outline view:
+<img src="images/52-select-all-stack-views-in-outline_640x260.png" alt="Optional("bordered width=73%")" title="nil" />
+
+
+Then click on the <em>Stack</em> button:
+<img src="images/53-stack-all-the-views_640x185.png" alt="Optional("bordered width=73%")" title="nil" />
+
+
+Click the <em>Pin</em> button, checkmark <em>Constrain to margins</em> add constraints of <em>0</em> to all edges. Then set <em>Spacing</em> to <em>20</em> and <em>Alignment</em> to <em>Fill</em>. Your storyboard scene should now look like this:
+<img src="images/54-set-the-spacing-to-20-and-alignment-to-fill_640x300.png" alt="Optional("bordered width=73%")" title="nil" />
+
+
+Build and run:
+<img src="images/55-hide-button-lost-again_750x487.png" alt="Optional("bordered width=32%")" title="nil" />
+
+
+Whoops! Looks like the hide button lost its constraints again when the <em>WEATHER</em> stack view was embedded in the outer stack view. No problem, just add constraints to it again in the same way you did before.
+
+<em>Control-drag</em> from the <em>Hide</em> button to the <em>WEATHER</em> label, hold down <em>Shift</em>, select both <em>Horizontal Spacing</em> and <em>Baseline</em>. Then click on <em>Add Constraints</em>:
+<img src="images/56-add-constraints-to-button-again_380x223.png" alt="Optional("bordered width=40%")" title="nil" />
+
+
+Build and run. The <em>Hide</em> button is now positioned correctly.
+
+<h3>Repositioning views</h3>
+
+Now that all of the sections are in a top-level stack view, you'll modify the position of the <em>what to see</em> section so that it's positioned above the <em>weather</em> section.
+
+Select the <em>middle stack view</em> from the outline view and <em>drag it between</em> the first and second view.
+
+<div class="note">
+<em>Note:</em> Keep the pointer slightly to the left of the stack views that you're dragging it between so that it remains a <i>subview</i> of the outer stack view. The little blue circle should be positioned at the left edge between the two stack views and not at the right edge:
+<img src="images/57-drag-and-drop-to-reposition-section_639x130.png" alt="Optional("bordered width=80%")" title="nil" />
+
+</div>
+
+And now the <em>weather</em> section is third from the top, but since the <em>Hide</em> button isn't part of the stack view, it won't be moved, so its frame will now be misplaced.
+
+Click on the <em>Hide</em> button to select it:
+<img src="images/58-hide-button-not-moved_640x130.png" alt="Optional("bordered width=80%")" title="nil" />
+
+
+Then click on the <em>Resolve Auto Layout Issues</em> triangle shaped button in the Auto Layout toolbar and under the <em>Selected Views</em> section, click on <em>Update Frames</em>:
+<img src="images/59-resolve-auto-layout-issues_356x269.png" alt="Optional("bordered width=40%")" title="nil" />
+
+
+The <em>Hide</em> button will now be back in the correct position:
+<img src="images/60-hide-button-back-to-correct-position_640x130.png" alt="Optional("bordered width=80%")" title="nil" />
+
+
+Granted, repositioning the view with Auto Layout and re-adding constraints would not have been the most difficult thing you've ever done, but didn't this feel oh-so-much nicer?
+
+<h3>Size class based configuration</h3>
+
+Finally, you can turn your attention to the one remaining task on your list. In landscape mode, vertical space is at a premium, so you want to bring the sections of the stack view closer together. To do this, you'll use size classes to set the spacing of the top-level stack view to <em>10</em> instead of <em>20</em> when the vertical size class is compact.
+
+Select the top-level stack view and click on the little <em>+</em> button next to <em>Spacing</em>:
+<img src="images/61-select-plus-button_260x120.png" alt="Optional("bordered width=33%")" title="nil" />
+
+
+Choose <em>Any Width</em> > <em>Compact Height</em>:
+<img src="images/62-anywidth-compact-height_403x108.png" alt="Optional("bordered width=50%")" title="nil" />
+
+
+And set the <em>Spacing</em> to <em>10</em> in the new <em>wAny hC</em> field:
+<img src="images/63-set-spacing-to-10_260x160.png" alt="Optional("bordered width=33%")" title="nil" />
+
+
+Build and run. The spacing in portrait mode should remain unchanged. Rotate the simulator (⌘←) and note that the spacing between the sections has decreased and the buttons now have ample space from the bottom of the view:
+<img src="images/64-spacing-in-iphone-landscape_1334x750.png" alt="Optional("bordered iphone-landscape")" title="nil" />
+
+
+If you didn't add a top-level stack view, you still <i>could</i> have used size classes to set the vertical spacing to 10 on each of the four constraints that separate the five sections, but isn't it so much better to set it in just a single place?
+
+You have better things to do with your time, like animation!
+
+<h2>Animation</h2>
+
+Currently, it's a bit jarring when hiding and showing the weather details. You'll add some animation to smooth the transition.
+
+Stack views are fully compatible with the UIView animation engine. This means that animating the appearance/disappearance of an arranged subview, is as simple as toggling its <code>hidden</code> property <i>inside</i> an animation block.
+
+It's time to write some code! Open <em>SpotInfoViewController.swift</em> and take a look at <code>updateWeatherInfoViews(hideWeatherInfo:animated:)</code>.
+
+You'll see this line at the end of the method:
+
+<pre lang="swift">
+weatherInfoLabel.hidden = shouldHideWeatherInfo
+</pre>
+
+Replace it with the following:
+
+<pre lang="swift">
+if animated {
+  UIView.animateWithDuration(0.3) {
+    self.weatherInfoLabel.hidden = shouldHideWeatherInfo
+  }
+} else {
+  weatherInfoLabel.hidden = shouldHideWeatherInfo
+}
+</pre>
+
+Build and run, and tap the <em>Hide</em> or <em>Show</em> button. Doesn't the animated version feel much nicer?
+
+In addition to animating the hidden property on views contained within the stack view, you can also animate properties on the stack view itself, such as <code>alignment</code>, <code>distribution</code>, <code>spacing</code> and even the <code>axis</code>.
+
+<h2>Where to go from here?</h2>
+
+In this tutorial, you learned a lot about stack views as well as the various properties that a stack view uses to position its subviews. Stack views are highly configurable, and there may be more than one way achieve the same result.
+
+The best way to build on what you've learned is to experiment with various properties yourself. Instead of setting a property and moving on, see how playing with the other properties affects the layout of views within the stack view.
+
+This tutorial was an abbreviated version of Chapter 6, "UIStackView and Auto Layout changes" and Chapter 7, "Intermediate UIStackView" from iOS 9 by Tutorials. If you'd like to learn more about UIStackView and other new features in iOS 9 please check out the book!
