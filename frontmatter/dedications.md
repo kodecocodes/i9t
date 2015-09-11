@@ -21,6 +21,8 @@ _— Derek Selander_
 "To my parents and sister for always encouraging, and helping me along my journey. I ♥︎ you guys so much!"
 _— Vincent Ngo_
 
-
 "To my beautiful wife Sam, our ever curious son Hayden, and most recent addition to the family [NAME TBA]."
 _— Chris Wagner_
+
+"To my parents, my wife, and two daughters, for their support and encouragement."
+_— Jawwad Ahmad_
