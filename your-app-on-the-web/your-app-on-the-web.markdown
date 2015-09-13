@@ -137,38 +137,40 @@ If the incoming NSUserActivity is of type NSUserActivityTypeBrowsingWeb, it mean
 
 ## Web Markup
 
-TODO: benefits
-- even if your app is not installed, you appear in search results, prompts users to install your app
-- makes Handoff much simpler
-- Useful for apps that have mirrored content from the web
+Now that you know how to implement and handle universal links in iOS 9, it's time to move to the second topic in this chapter: web markup. As it turns out, web markup is part a much bigger topic that you started to learn about in chapter 2. That topic is search! 
 
-Web markup is part of a much bigger topic in iOS 9: search. Search includes three different APIs: web markup, NSUserActivity and CoreSpotlight. All three APIs are important to your search strategy in iOS 9, but the second half of this chapter focuses on web markup. If you want to read more about the other two search APIs, read Chapter X, which covers them in detail.
+To refresh your memory, search includes three different APIs: NSUserActivity, CoreSpotlight and web markup. All three approaches are important pieces of your search strategy but the second half of this chapter will only focus on web markup. If you skipped chapter 2 but want to learn more about search, go back and read that chapter. Web markup will still be here when you come back :]
 
-Search in iOS 9 is about to get much better. Searching in an iOS device's Spotlight or in mobile Safari's URL bar will now work a lot like a search engine. Search results will come from a private index as well as a public index. The private index includes the "browsing history" of the user inside a particular app. This will be indexed and searchable through the iOS device.
+To recap from the last chapter, in iOS 9 search results in Spotlight and in Safari will now include content from native apps. Wait a minute, you may be thinking, wasn't that already the case in iOS 8 and before? Yes, but search results only included content from Apple's own apps such as Mail and Notes. What makes this change in iOS 9 exciting is that, for the first time, search results will also include third party apps. Woo hoo!
 
-The public index includes information from two sources: from popular in-app user activities that the app developers have marked as public as well as from the web. Wait a minute, the web? How is that going to work? Apple has developed a web crawler, Applebot, to crawl and index the web for mobile links. Next up, you'll learn about making your website indexable and searchable by Apple.
+There are many ways to show up in Spotlight search results, but you'll learn about one in particular in the coming sections. If you have a website that mirrors your app's content, you can mark up its web pages with universal links that your native app can understand. Apple's web crawler, lovingly named Applebot, will then crawl your website and index your universal links. Then when iOS users search for relevant keywords, Apple can your your them your native content *even if they don't have your app already installed*.
+
+In other words, if you have a website and optimize your web markup correctly, you'll be able to get new downloads organically. Without further ado, let's dive into the specifics of web markup.
 
 ### Make your website discoverable
 
-Applebot crawls the web far and wide but there's no guarantee that it will find your website. And if it can't find your website, Apple won't be able to index your app links and your app won't show up in Spotlight's organic results. 
+Applebot crawls the web far and wide but there's no guarantee that it will ever land on your website. Fortunately, there are a few things you can do to make your site more discoverable and easy to crawl. 
 
-Is there anything you can do to make your site more discoverable by Applebot? In fact there is. When you submit an app to the App Store you have to specify a Support URL (required) and a Marketing URL (optional). If any of those points to the app that contains your app links, that's all you have to do.
+1. Point your app's **support URL** as well as the optional **marketing URL** in iTunes Connect to the domain that contains your web markup. These support URLS are Applebot's entry points to start crawling your content.
 
-If you need to change them to point to your app's website, you can do so in iTunes Connect. Simply log into iTunes Connect, go to My Apps and navigate to your app's information page. The fields you want to verify or change are labeled Support URL and Marketing URL:
+If you need to change your marketing or support URLs, you can do so in iTunes Connect. Simply log into iTunes Connect, go to **My Apps** and navigate to your app's detail page. The fields you want to change or at least verify are labeled Support URL and Marketing URL:
 
 ![bordered height=35%](/images/supportURL.png)
 
-Doing this only ensures that Applebot can see the entry point to your website. The content you want to index should be accessible from this entry point. This means there should be a path of links that takes you from this entry point to the content you want to link.
+2. Make sure the pages that contain your web markup are accessible from your support URL and marketing URL. If there aren't any direct paths from these entry points to your web markup, you should create them.
 
-Something else you can do to make your website discoverable is check that your site's robots.txt file lets Applebot do its job. Robots.txt, also known as the robots exclusion protocol, is a standards used by websites to communicates with web crawlers and other web robots like Applebot. The file specifies parts of the site that the web crawler should **not** scan or process.
+3. Check that your site's **robots.txt** file lets Applebot do its job. **Robots.txt**, also known as the robots exclusion protocol, is a standard used by websites to communicates with web crawlers and other web robots like Applebot. The file specifies which parts of the site that the web crawler should **not** scan or process.
 
-Not all web crawlers follow these directives, but Applebot does! If your robots.txt specifies a certain part of your site shouldn't be crawled then those mobile links won't ever show up in Spotlight. You can learn more about the robots exlusion standard in Wikipedia: https://en.wikipedia.org/wiki/Robots_exclusion_standard.
+> Not all web crawlers follow these directives, but Applebot does! If your **robots.txt** specifies a certain part of your site shouldn't be crawled then those mobile links won't ever show up in Spotlight. You can learn more about the robots exlusion standard in Wikipedia: https://en.wikipedia.org/wiki/Robots_exclusion_standard.
 
-### Enable Smart Banners
 
-Smart Banners have been around since iOS 6. They used to be simple marketing tools provided by Apple that allowed developers to add advertising banners to promote apps directly on a website.
+### Embed Universal Links with Smart Banners
 
-Adding a Smart Banner to a website invites visitors who don't have your app installed to download it from the App Store. It also gives visitors who already have your app installed an easy way to open a page deep within the app. Here's a Smart Banner in action:
+Once you make sure Applebot can crawl your website, the next step is to add your mobile links to your site's source code. Apple's recommended way of doing this is by using Smart Banners.
+
+Smart Banners have been around since iOS 6. They used to be simple marketing tools provided by Apple to allow developers to add advertising banners to promote apps directly on a website.
+
+A Smart Banner is always associated with a specific native app. Adding a Smart Banner to a website invites visitors who don't have your app installed to download it from the App Store. It also gives visitors who already have your app installed an easy way to open a page deep within the app. Here's a Smart Banner in action:
 
 ![bordered height=35%](/images/appBanner.png)
 
@@ -305,16 +307,13 @@ To this end, Apple recommends adding markup for structured data. Let's see this 
 You just added rich web markup to the web page by adding a video tag, an image tag and a description tag. The meta tags you just added contains information that's technically already on the page, but making it explicit using `meta` tags helps Applebot scrape your website and get what it needs.
 
 
-
 > **Note**: In the examples above, "og" stands for Open Graph. This is one of several standards Apple supports for structured markup. Other standards include schma.org, RDFA and JSON LD.
 
-
-
-This step is optional, but 
-
-
+//TODO: add action to play video
 
 ### Validation Tool
+
+
 
 ## Where to go form here?
 
@@ -330,6 +329,8 @@ You should also not miss the following WWDC Sessions:
 Apple also provides excellent programming guides for universal linking and web markup:
 - [App Search Programming Guide (http://apple.co/aHcnuah)](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/index.html#//apple_ref/doc/uid/TP40016308)
 - [iOS Search API Best Practices and FAQs (http://apple.co/1He3shh)](https://developer.apple.com/library/prerelease/ios/technotes/tn2416/_index.html)
+
+- Useful for apps that have mirrored content from the web
 
 ~~~~~
 
