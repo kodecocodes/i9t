@@ -51,19 +51,21 @@ Unlike the rest of the chapters in this book, the "sample app" for this chapter 
 
 ### Getting Your App Ready - Part 1
 
-Instead of registering a custom URL scheme, you will tie a domain with a native app. In this chapter, you'll tie rwdevcon.com with the RWDevCon native app. For this to be considered an improvement over the current system, Apple has to make sure only you can claim your website and no one else, right? 
+Instead of registering a custom URL scheme, you will tie a domain to a native app. In this chapter, you'll tie `rwdevcon.com` to the RWDevCon native app. For this to be considered an improvement over the current system, Apple has to make sure only you can claim your website and no one else, right? 
 
 To prove that you are you and that you want to tie your domain to your native app, there are two bonds you have to create. The first one is from your native app to your domain. The second, covered in the next section, ties your domain to your native app. 
 
-Go to the files included with this chapter and open RWDevCon.xcodeproj. In the project navigator, select the RWDevcon project, then the main RWDevCon target and switch to the Capabilities tab and add the following two entries to the Associated Domains section:
+Go to the files included with this chapter and open **RWDevCon.xcodeproj**. In the project navigator, select the `RWDevcon` project, then the main `RWDevCon` target, switch to the **Capabilities** tab and add the following two entries to the **Associated Domains** section:
 
 ![bordered height=35%](/images/associatedDomains.png)
 
-> **Note**: This only applies to developer accounts comprising of multiple people, but only a **team agent** or a **team administrator** can make this change. If you're not those roles, reach out to the right person on the team to make this change. 
+When you try to do this, Xcode will throw an error because you're not a member of the exclusive raywenderlich.com iOS developer program. Bummer! Unfortunately, there's no way to get around this error message for this tutorial. When you try add the associated domains for your own app, make sure you first sign into Xcode with the appropriate Apple ID. You can do this by going to **Xcode/Preferences/Account** then tapping on the plus button.
+
+> **Note**: There's one more caveat to turning on Associated Domains. Only a **team agent** or a **team administrator** on the Apple developer account can make this change. If you're not assigned one of those roles, reach out to the right person on the team to make this change. 
 
 ### Getting Your Server Ready
 
-Next, you have to create the link from your website to your native app. Open up your favorite text editor and type in the following JSON structure:
+Next, you have to create the link from your website to your native app. Open up your favorite text editor and type in the following JSON:
 
 ```javascript
 {
