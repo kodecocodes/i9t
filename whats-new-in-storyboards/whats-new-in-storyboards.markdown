@@ -10,7 +10,7 @@ Xcode 7 brings new features for storyboards that let you do the following:
 
 You'll learn how to use the above features as you update an app designed to help you with all those listable moments in life, whether it's grocery shopping, packing your luggage for vacation, or a survival checklist for the impending zombie apocalypse! :]  
 
-To get the most out of this chapter you should have some basic storyboard and table view knowledge. Need a quick brush-up? Check out our _Storyboards Tutorial in Swift_ at <http://bit.ly/1SCaJuN>.
+To get the most out of this chapter you should have some basic storyboard and table view knowledge. Need a quick brush-up? Check out our _Storyboards Tutorial in Swift_ at <http://www.raywenderlich.com/113388>.
 
 ## Getting started
 
