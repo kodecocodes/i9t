@@ -20,7 +20,7 @@ Open the starter project for this chapter and run it in the simulator; tap one o
 
 Take a quick look at the code to get your bearings.
 
-**ChecklistsViewController.swift** contains the initial list of checklists, and **ChecklistDetailViewController.swift** displays the items within each list. **Main.storyboard** contains the user interface items.
+**ChecklistsViewController.swift** displays the initial list of checklists, and **ChecklistDetailViewController.swift** displays the items within each list. **Main.storyboard** contains the user interface items.
 
 There are two unused scenes in the storyboard; you'll use those later in the tutorial.
 
