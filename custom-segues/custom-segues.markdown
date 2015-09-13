@@ -255,11 +255,11 @@ Taking each numbered comment in turn:
 2. Add the "to" view to the transition context `containerView` where the animation takes place. Left to its own devices, the framework doesn't add the "to" view to the view hierarchy until the end of the transition. In order to see the new view appear, you need to add it to the hierarchy in your code.
 3. The initial state for the "to" view frame is a rectangle of zero size in the top left-hand corner of the screen. When you change the frame of a view, you should always call `layoutIfNeeded()` to update the view's constraints.
 4. The animation block is a simple animation from the zero rectangle to the final frame calculated by the transition context.
-5. The transition context must always clean up at the end of the animation; calling `completeTransition(:_)` finalizes the view hierarchy and the layout of all views.
+5. The transition context must always clean up at the end of the animation; calling `completeTransition(_:)` finalizes the view hierarchy and the layout of all views.
 
 ### Set the animator in the segue
 
-Add the following delegate method to the `UIViewControllerTransitioningDelegate` extension:
+Add the following delegate method to `ScaleSegue`'s `UIViewControllerTransitioningDelegate` extension:
 
 ```swift
 func animationControllerForPresentedController(presented:
@@ -285,7 +285,7 @@ Run your application and tap the fish; the image will scale from the top left of
 
 Tap the large photo to dismiss it via the standard dismiss animation.
 
-Hey – you've completed your first custom segue! There's a bit of tweaking to do, for sure, but the current state of **ScaleSegue.swift** will serve as a blueprint for all animated segue transitions from here on out. You're going to need a dismissal animator and some more animation code, and your implementation of `animateTransition(:_)` can become quite complicated sometimes, but the basic process will be the same.
+Hey – you've completed your first custom segue! There's a bit of tweaking to do, for sure, but the current state of **ScaleSegue.swift** will serve as a blueprint for all animated segue transitions from here on out. You're going to need a dismissal animator and some more animation code, and your implementation of `animateTransition(_:)` can become quite complicated sometimes, but the basic process will be the same.
 
 Take a moment to browse through example custom segue code in **DropSegue.swift** and **FadeSegue.swift**. Even though the animations are different, the basic structure of both segues is exactly the same as `ScaleSegue`.
 
@@ -315,7 +315,7 @@ extension AnimalDetailViewController: ViewScaleable {
 
 `AnimalDetailViewController` now conforms to `ViewScaleable`; this sets the protocol's property to `imageView`, which in this instance is your fish image.
 
-Find the following code in `animateTransition(:_)` of **ScaleSegue.swift**:
+Find the following code in `animateTransition(_:)` of **ScaleSegue.swift**:
 
 ```swift
 let toViewController = transitionContext
@@ -335,7 +335,7 @@ This gets references for the "from" view controller and for the "from" view. Aga
 
 > **Note**: Make absolutely sure you use the correct key variables. It's frustratingly easy to use `UITransitionContextToViewControllerKey` instead of `UITransitionContextToViewKey`. Code completion makes it all too easy to pick the wrong variable or to mix up the "from" and "to".
 
-Still in `animateTransition(:_)`, replace:
+Still in `animateTransition(_:)`, replace:
 
 ```swift
 toView?.frame = .zero
@@ -363,17 +363,17 @@ Run your app; the segue now scales the original view as expected:
 
 ![height=22%](images/BetterScale.png)
 
-Things are going _swimmingly_! :] There's only a few more tweaks left; the following sections show you how all the views work together.
+Things are going _swimmingly_! :] There are only a few more tweaks left; the following sections show you how all the views work together.
 
 ## Working with the view hierarchy
 
-You've been using `transitionContext.viewForKey(:_)` in `animateTransition(:_)` to grab the "to" view. But why didn't you just use the destination controller's `view` property?
+You've been using `transitionContext.viewForKey(_:)` in `animateTransition(_:)` to grab the "to" view. But why didn't you just use the destination controller's `view` property?
 
 The transition context handles presentations differently based on the size class. The modal form sheet for a horizontal, regular-sized display is wrapped in a presentation layer that provides the dimming view and rounds the corners of the form sheet. In contrast, a modal controller on a compact display takes up the full screen.
 
 Therefore, on all iPhones, with the exception of the iPhone 6 Plus in landscape, `viewForKey(UITransitionContextToViewKey)` returns the same view as the destination controller's view because no presentation layer exists. However, the destination controller is wrapped in the presentation layer for iPads and the iPhone 6 Plus in landscape; if you referred to the destination controller's view in this case, you'd scale the destination view — not the presentation layer.
 
-You can try this yourself. Find the following in `animateTranstion(:_)` of **ScaleSegue.swift**:
+You can try this yourself. Find the following in `animateTranstion(_:)` of **ScaleSegue.swift**:
 
 ```swift
 let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
@@ -450,7 +450,7 @@ That's because the view controller is now embedded within a navigation controlle
 
 Fortunately, this is easy to fix. Simply check whether the presenting view controller is a navigation controller; if so, use the navigation controller's top view controller as the presenting view controller.
 
-Find the following code in the `ScalePresentAnimator` class of  **ScaleSegue.swift**, at the top of `animateTransition(:_)`:
+Find the following code in the `ScalePresentAnimator` class of  **ScaleSegue.swift**, at the top of `animateTransition(_:)`:
 
 ```swift
 let fromViewController = transitionContext
