@@ -1,0 +1,673 @@
+/*!
+Theme Name: RWDevCon
+Theme URI: http://rwdevcon.com/
+Author: Steve Oldham @ vdotgood
+Author URI: http://vdotgood.com/
+Description: The bespoke Wordpress theme for RWDevCon
+Version: 1.0
+*/
+
+/*
+===========================
+CONTENTS:
+
+01 Sensible defaults
+02 Typography
+03 Layout
+04 Media queries 
+===========================
+*/
+
+// --------------------------------------------------------------------------
+// 00 Vars + Mixins ---------------------------------------------------------
+// --------------------------------------------------------------------------
+
+@import "mixins";
+
+@black:    #222;
+@grey:     #b0b0b0;
+@green:    #006837;
+@green-lt: #7fb59c;
+@green-dk: #004223;
+@orange:   #fbb03b;
+@border:   #ccc;
+
+.font-body(){
+	font-family: 'proxima-nova', 'Montserrat', Helvetica, sans;
+}
+.font-titles(){
+	font-family: 'Bitter', serif;
+}
+.font-btns(){
+	font-family: 'multicolore_regular', Helvetica, sans;
+}
+
+.placeholder(){
+	border: 1px solid blue;
+}
+
+
+
+/* --------------------------------------------------------------------------
+01 Sensible defaults --------------------------------------------------------
+-------------------------------------------------------------------------- */
+
+@import (less) "../css/normalize.css";
+
+
+/* -------------------------------------------------------------------------- 
+02 Typography ---------------------------------------------------------------
+-------------------------------------------------------------------------- */
+
+@import url(http://fonts.googleapis.com/css?family=Bitter:400,700);
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+@font-face {
+  font-family: 'multicolore_regular';
+  src: url('/assets/css/fonts/multicolore/multicolore-webfont.eot');
+  src: url('/assets/css/fonts/multicolore/multicolore-webfont.eot?#iefix') format('embedded-opentype'), url('/assets/css/fonts/multicolore/multicolore-webfont.woff') format('woff'), url('/assets/css/fonts/multicolore/multicolore-webfont.ttf') format('truetype'), url('/assets/css/fonts/multicolore/multicolore-webfont.svg#multicolore_regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Main Style */
+body{
+	color: #333;
+	.font-body;
+	font-size: 16px;
+	font-weight:300;
+	line-height: 30px;
+	-webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Titles */
+h1, h2, h3{
+	.font-titles;
+	font-weight: bold;
+}
+h1{ font-size: 58px; }
+h2{ font-size: 40px; }
+h3{ font-size: 34px; }
+
+h4, h5{ .font-body; }
+
+
+/* Links */
+a{
+	color: @green;
+	font-weight: bold;
+	text-decoration: none;
+	outline: none;
+
+	&:hover{
+		color: @green-lt;
+	}
+}
+
+
+/* -------------------------------------------------------------------------- 
+02 Layout -------------------------------------------------------------------
+-------------------------------------------------------------------------- */
+html, body{
+	height:100%;
+}
+body{
+	margin: 0;
+	padding: 0;
+}
+
+#container{
+	width:100%;
+	height:100%;
+	min-height: 100%;
+}
+
+/* SECTIONS */
+.outer{
+	margin: 20px 20px 0 20px;
+}
+
+section{
+	position: relative;
+	width: 100%;
+	min-height: 200px;
+	margin:0;
+	padding:100px 0 130px;
+	.box-sizing;
+	overflow: hidden;
+	z-index: 1;
+
+	.inner{
+		width:70%;
+		margin:0 auto;
+	}
+}
+
+/* HEADER */
+#header{
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	.box-sizing;
+	z-index:5;
+	
+	#header_home{
+		margin:48px 0 0 45px;
+	}
+
+	#header_nav{
+		margin:50px 60px 0 0;
+
+		a{
+			position: relative;
+			display: inline-block;
+			margin: 0 0 0 10px;
+			outline: none;
+			color: #fff;
+			text-decoration: none;
+			text-transform: uppercase;
+			letter-spacing: 1px;
+			font-weight: 400;
+			text-shadow: 0 0 1px rgba(255,255,255,0.3);
+			font-size: 13px;
+			font-weight:bold;
+			.transition(~"margin 0.2s, color 0.2s");
+
+			&#bubble{
+				width:131px;
+				height:57px;
+				padding:11px 18px 14px;
+				.box-sizing;
+				background: url(/assets/images/bubble.png) no-repeat left top;
+
+				&:hover{
+					background-position: -131px top;
+				}
+			}
+
+			&.nav-item.highlight{
+				color: yellow;
+			}
+
+			&:hover{
+				color: lighten(@green, 20%);
+			}
+
+			&.nav-item::before,
+			&.nav-item::after {
+				display: inline-block;
+				opacity: 0;
+				color: #fff;
+				-webkit-transition: -webkit-transform 0.2s, opacity 0.15s;
+				-moz-transition: -moz-transform 0.2s, opacity 0.15s;
+				transition: transform 0.2s, opacity 0.15s;
+			}
+
+			&.nav-item::before {
+				margin-right: 8px;
+				content: '[';
+				-webkit-transform: translateX(15px);
+				-moz-transform: translateX(15px);
+				transform: translateX(15px);
+			}
+
+			&.nav-item::after {
+				margin-left: 8px;
+				content: ']';
+				-webkit-transform: translateX(-15px);
+				-moz-transform: translateX(-15px);
+				transform: translateX(-15px);
+			}
+
+			&.nav-item:hover::before,
+			&.nav-item:hover::after,
+			&.nav-item:focus::before,
+			&.nav-item:focus::after {
+				opacity: 1;
+				-webkit-transform: translateX(0px);
+				-moz-transform: translateX(0px);
+				transform: translateX(0px);
+			}
+		}
+	}
+}
+
+
+
+/* FOOTER */
+#footer{
+	display: block;
+	width:100%;
+	padding:0 30px;
+	.box-sizing;
+	font-size: 14px;
+	font-weight: bold;
+	color: #909090;
+	border-top: 2px solid fade(@border, 60%);
+	z-index:5;
+	
+	#copyright{
+		padding: 50px 0;
+	}
+
+	#footer_nav{
+		padding: 50px 0;
+
+		a{
+			display: inline-block;
+			margin: 0 0 0 20px;
+			font-size: 14px;
+			color: #909090;
+
+			&:hover{
+				color: @green-lt;
+			}
+		}
+	}
+}
+
+
+
+/* LAYOUT - HOME */
+@import "home";
+
+
+
+/* LAYOUT - PAGE */
+@import "page";
+
+
+
+/* Useful Classes */
+.row-fluid {
+	width: 100%;
+}
+.row-fluid:before,
+.row-fluid:after {
+	display: table;
+	line-height: 0;
+	content: "";
+}
+.row-fluid:after {
+	clear: both;
+}
+.row-fluid [class*="span"] {
+	display: block;
+	float: left;
+	.box-sizing;
+}
+
+.span4{
+	display:inline-block;
+	width: 33%;
+	.box-sizing;
+	padding:0 25px;
+}
+
+.half{
+	display: inline-block;
+	width:50%;		
+}
+
+/* POSITION */
+.pull-left{ float:left; }
+.pull-right{ float:right; }
+
+/* SPACERS */
+[class*="spacer"]{ display: block; }
+.spacer{ height: 10px; }
+.spacer2{ height: 20px; }
+.spacer3{ height: 30px; }
+.spacer4{ height: 40px; }
+.spacer5{ height: 50px; }
+.spacer6{ height: 60px; }
+.spacer7{ height: 70px; }
+.spacer8{ height: 80px; }
+.spacer9{ height: 90px; }
+.spacer10{ height: 100px; }
+
+.separator{
+	display: block;
+	width: 70%;
+	margin:0 auto;
+	border-bottom: 1px solid @border;
+}
+
+/* BACKGROUNDS */
+.bg-light{
+	background: #fff url(/assets/images/bg-light.jpg) fixed;
+}
+.bg-dark{
+	background: @black url(/assets/images/bg-dark.jpg) fixed;
+}
+.bg-green{
+	background: @green url(/assets/images/bg-green.jpg) fixed;
+}
+.bg-colors{
+	background: #fff url(/assets/images/bg-colors.jpg) scroll;
+}
+
+/* BUTTONS */
+.btn{
+	border: none;
+	.font-btns;
+	text-align: center;
+	cursor: pointer;
+	padding: 12px 27px;
+	display: inline-block;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
+	outline: none;
+	position: relative;
+	.box-sizing;
+	-webkit-transition: all 0.2s;
+	-moz-transition: all 0.2s;
+	transition: all 0.2s;
+	
+	color: #fff;
+	font-size: 14px;
+	letter-spacing: 1.5px;
+	background: @green;
+
+	&:hover{
+		color: #fff;
+		background: desaturate(lighten(@green, 10%), 15%);
+	}
+	
+	&:after,
+	&::before {
+	    .box-sizing;
+	}
+
+	&:after {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		-webkit-transition: all 0.1s;
+		-moz-transition: all 0.1s;
+		transition: all 0.1s;
+	}
+
+	&.wide{
+		min-width:280px;
+		padding-left: 40px;
+		padding-right: 40px;
+	}
+
+	&.shadow{
+		box-shadow: 0 4px @green-dk;
+		.border-radius(2px);
+		-webkit-transition: none;
+		-moz-transition: none;
+		transition: none;
+
+		&:active{
+			box-shadow: 0 1px @green-dk;
+			top: 3px;
+		}
+	}
+
+	&.orange{
+		background: @orange;
+
+		&:hover{
+			background: desaturate(lighten(@orange, 10%), 15%);
+		}
+
+		&.disabled{
+			background: @orange;
+
+			&.shadow{
+				box-shadow: 0 4px mix(@orange, @black, 60%);
+			}
+		}
+
+		&.shadow{
+			box-shadow: 0 4px mix(@orange, @black, 60%);
+		}
+	}
+
+	&.outline{
+		color: @black;
+		border: 1px solid @border;
+		background: none;
+
+		&:after {
+			width: 100%;
+			height: 0;
+			top: 0;
+			left: 0;
+			background: @green;
+		}
+
+		&:hover,
+		&:active {
+			color: #fff;
+			border-color: transparent;
+			background: none;
+		}
+
+		&:hover:after,
+		&:active:after {
+			height: 100%;
+		}
+	}
+
+	&.disabled{
+		cursor: default;
+		background: mix(@green, @black, 60%);
+
+		&.shadow{
+			box-shadow: 0 4px mix(@green-dk, @black, 60%);
+		}
+
+		&.outline{
+			border: none;
+			background: none;
+
+			&:hover{
+				color: @black;
+
+				&:after{
+					display: none;
+				}
+			}
+		}
+	}
+
+	&.giant{
+		position: relative;
+		padding:0;
+		background: none;
+		box-shadow: none;
+
+		span.text{
+			display: inline-block;
+			position: relative;
+			left:0;
+			padding:40px 35px;
+			font-size: 17px;
+			background: @green;
+		}
+		div.add-on{
+			position: absolute;
+			top:0;
+			width:166px;
+			height: 100%;
+			text-align: center;
+
+			.small{
+				display: block;
+				margin-top: 18px;
+				font-size: 14px;
+			}
+			.price{
+				font-size: 36px;
+			}
+
+			&#price_regular{
+				right:-166px;
+				background: #1a774b;
+			}
+			&#price_early{
+				right:-332px;
+				background: #33865f;
+			}
+		}
+
+		&.shadow{
+			span.text,
+			div.add-on{
+				box-shadow: 0 4px @green-dk;
+			}
+
+			&:active{
+				div.add-on{
+					box-shadow: 0 1px @green-dk;
+				}
+			}
+		}
+
+		&:hover{
+			span.text{
+				background: lighten(@green, 7%);
+			}
+			div#price_regular{
+				// color: mix(@green-lt, #fff, 50%);
+				background: lighten(#1a774b, 10%);
+			}
+			div#price_early{
+				background: lighten(#33865f, 10%);
+			}
+		}
+	}
+}
+
+/* FEATURES */
+.box{
+	display: inline-block;
+	padding: 4px 15px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #fff;
+	border: 2px solid #fff;
+}
+
+.quote{
+	span.quo{
+		position: relative;
+		
+		&:after{
+			content: '“';
+			position: absolute;
+			top: 5px;
+			left: -30px;
+			font-family: Georgia, Times, sans-serif;
+			font-size: 60px;
+			color: @grey;
+			opacity: .7;
+			z-index: -1;
+		}
+	}
+}
+
+/* ARROWS */
+.arrow{
+	display: inline-block;
+	position: absolute;
+	bottom:-1px;
+	left:50%;
+	margin-left:-20px;
+	width: 40px;
+	height: 50px;
+	background: #fff url(/assets/images/sprite-arrows.png) -169px center;
+	.border-radius(20px 20px 0 0);
+	z-index: 2;
+
+	&:after {
+		content: '';
+		position: absolute;
+		top:0;
+		left:0;
+		z-index: 1;
+		width: 40px;
+		height: 50px;
+		.border-radius(20px 20px 0 0);
+		border:2px solid #fff;
+		opacity: 0;
+		.box-sizing;
+		-webkit-transition: all 0.2s;
+		-moz-transition: all 0.2s;
+		transition: all 0.2s;
+	}
+
+	&:hover::after{
+		opacity: 1;
+		top:-6px;
+		left:-6px;
+		width: 52px;
+		height: 62px;
+		.border-radius(26px 26px 0 0);
+	}
+	
+	.arrow-color(@color:#fff, @bg-pos:-169px){
+		background-color: @color;
+		background-position: @bg-pos center;
+
+		&:after{ border-color: @color; }
+	}
+
+	&.white-on-green{
+		.arrow-color(@green, -115px);
+	}
+	&.green-on-white{
+		.arrow-color(#fff, -61px);
+	}
+	&.black-on-white{
+		.arrow-color(#fff, -169px);
+	}
+	&.white-on-black{
+		.arrow-color(@black, -115px);
+	}
+	&.white-on-grey{
+		.arrow-color(@grey, -115px);
+	}
+	&.grey-on-white{
+		.arrow-color(#fff, -223px);
+	}
+}
+
+/* ICONS */
+.icon-location{
+	display: inline-block;
+	width: 20px;
+	height: 26px;
+	background: url(/assets/images/icon-location.png) no-repeat center;
+}
+
+/* NOTE */
+.note{
+	max-width: 480px !important;
+	margin-top: 30px !important;
+	padding: 10px;
+	font-size: 0.80em;
+	line-height: 1.4em;
+	background: fade(@green, 70%);
+}
+
+/* VISIBILITY */
+.hide{
+	visibility: hidden;
+}
+
+
+/* -------------------------------------------------------------------------- 
+04 Media Queries ------------------------------------------------------------
+-------------------------------------------------------------------------- */
+
+@import "media";

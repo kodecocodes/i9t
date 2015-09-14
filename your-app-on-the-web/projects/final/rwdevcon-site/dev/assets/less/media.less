@@ -1,0 +1,510 @@
+/*  MAX HEIGHT + WIDTH */
+@media all and (max-height: 940px) and (min-width: 800px){
+	#header{
+		#toggle{
+			margin:40px 0 0 40px;
+		}
+		#header_nav{
+			margin:30px 30px 0 0;
+		}
+	}
+
+	#home{
+		height: 100%;
+		.box-sizing;
+		
+		.center{
+			top:50%;
+		}
+		
+		#home_pass{
+			position: absolute;
+			top:-480px;
+		}
+		#home_content{
+			top:-480px;
+		}
+	}
+}
+
+/*  MAX HEIGHT ONLY */
+@media all and (max-height: 800px){
+	#home{	
+		#home_pass{
+			position: absolute;
+			top:-400px;
+			left:-380px;
+			width:240px;
+		}
+	}
+}
+
+/*  MIN WIDTH ONLY */
+@media all and (min-width: 980px) {
+	
+	#register{
+		.giant{
+			// span.text{
+			// 	.transition(left .4s);
+			// 	transition-timing-function: cubic-bezier(.65, 1.95, .03, .32);
+			// 	z-index:1;
+			// }
+			// div.add-on{
+			// 	.transition(right .4s);
+			// 	transition-timing-function: cubic-bezier(.65, 1.95, .03, .32);
+			// }
+			// &:hover{
+			// 	span.text{
+			// 		left:83px;
+			// 	}
+			// 	div#price_early{
+			// 		right:-249px;
+			// 	}
+			// }
+		}
+	}
+}
+
+/*  MAX WIDTH ONLY */
+@media all and (max-width: 1110px) {
+	#header{
+		#header_nav{
+			#bubble{ display:none; }
+		}
+	}
+
+	#authors{
+		padding-left:20px;
+		padding-right:20px;
+
+		ul{
+			margin:40px 0 30px;
+
+			li{
+				width: 154px;
+				height: 200px;
+				margin-bottom: 20px;
+			}
+		}
+	}
+
+	#partners{
+		.btn.wide{
+			min-width:80px;
+			margin-left:-120px;
+		}
+	}
+}
+
+@media all and (max-width: 980px) {
+	#header{
+		text-align: center;
+
+		#toggle{ display:none; }
+		#header_nav{
+			float:none;
+			margin:40px 0 0 0;
+
+			#bubble{ display:none; }
+		}
+	}
+
+	section{
+		.inner{
+			width:90% !important;
+			
+			.span4{
+				display: block;
+				width:100%;
+			}
+
+			p{
+				margin:28px 0 0;
+
+				br{ display: none; }
+			}
+		}
+	}
+
+	#home{
+		height:660px;
+		text-align: center;
+		
+		.center{
+			position: relative;
+			left:0;
+			width: 100%;
+			background: url(/assets/images/logo.png) no-repeat center top;
+		}
+
+		#home_pass{ display:none; }
+		#home_content{
+			position: relative;
+			left:0;
+			width: 100%;
+			margin-top: 140px;
+			padding-top: 190px;
+
+			h1{ display: none; }
+			h2{
+				font-size: 30px;
+				line-height: 30px;
+				margin-bottom: 10px;
+			}
+			span#home_date{
+				margin-bottom: 20px;
+			}
+			span#home_location{
+				font-size: 18px;
+			}
+		}
+	}
+
+	#event{
+		#video{
+			position: relative;
+			width: 100%;
+			margin: 40px auto 0;
+			padding-bottom: 56.25%; /* 16:9 */
+			padding-top: 0px;
+			height: 0;
+		}
+	}
+
+	#speakers{
+		ul li{
+			width:240px;
+			margin:0 0 40px;
+			padding:0 20px;
+			.box-sizing;
+			text-align: center;
+
+			div.thumb{
+				width:120px;
+				height:120px;
+				margin:0 auto 20px;
+				.border-radius(60px);
+			}
+			h3{
+				margin:0 0 5px;
+			}
+		}
+	}
+
+	#register{
+		.giant{
+			left:-85px;
+
+			// div{
+			// 	top:100%;
+			// 	left:0;
+			// 	width:50%;
+			// 	height:80px;
+			// 	padding:10px 0;
+
+			// 	&#price_early{
+			// 		left:50%;
+			// 	}
+
+			// 	.small{
+			// 		margin-top: 0;
+			// 	}
+			// }
+			
+		}
+	}
+}
+
+@media all and (max-width: 700px) {
+	section{
+		padding:80px 0;
+
+		.half{
+			width:100%;
+		}
+	}
+
+	h2{
+		font-size: 34px;
+		line-height: 50px;
+
+		&.section-title{
+			margin-top: 0;
+		}
+	}
+	p{
+		font-size: 16px;
+	}
+
+	#header{
+		display:none;
+	}
+
+	#home{
+		height:620px;
+		
+		#home_content{
+			margin-top: 90px;
+		}
+	}
+
+	#authors{
+		padding-left:20px;
+		padding-right:20px;
+
+		ul{
+			margin:40px 0 30px;
+
+			li{
+				width: 154px;
+				height: 200px;
+				margin-bottom: 20px;
+			}
+		}
+	}
+
+	#tracks{
+		i{
+			margin-top: 0;
+		}
+		p{
+			margin: 0 0 40px;
+		}
+		.btn{
+			margin-top: 20px;
+		}
+	}
+
+	#speakers{
+		.section-title{
+			margin-bottom: 40px;
+		}
+	}
+
+	#sponsors{
+		h3{
+			margin-top: 0;
+			font-size: 28px;
+		}
+
+		ul li{
+			width:160px;
+			margin: 10px;
+
+			.thumb{
+				height:120px;
+			}
+		}
+	}
+
+	#partners{
+		.whole .half{
+			height:290px;
+
+			a img{
+				margin-top: 60px !important;
+			}
+		}
+	}
+
+	#venue{
+		#venue_info{
+			h3{
+				font-size: 24px;
+			}
+		}
+
+		.half.pull-right{
+			height:300px;
+		}
+	}
+
+	#register{
+		padding:120px 0 110px 0;
+
+		.giant{
+			span.small{
+				display: none;
+			}
+			span.price{
+				position: relative;
+				top: 20px;
+			}
+			span.text{
+				padding:20px;
+				font-size: 13px;
+			}
+		}
+	}
+
+	#footer{
+		text-align: center;
+
+		#copyright{
+			float:none;
+			padding:20px 0;
+		}
+		#footer_nav{ display: none; }
+	}
+}
+
+@media all and (max-width: 490px) {
+	#register{
+		padding: 80px 0 160px;
+
+		a.giant{
+			left: 0;
+		}
+
+		div{
+			top:100%;
+			left:0;
+			width:100%;
+			height:80px;
+			padding:10px 0;
+
+			&#price_early{
+				left:50%;
+			}
+
+			.small{
+				margin-top: 0;
+			}
+		}
+	}
+}
+
+@media all and (max-width: 600px) and (min-width: 320px) {
+	section{
+		.inner{
+			width:100%;
+		}
+	}
+
+	#authors{
+
+		ul{
+			margin:40px 0 10px;
+
+			li{
+				width: 90px;
+				height: 112px;
+				margin: 0 5px 0;
+			}
+		}
+	}
+}
+
+@media all and (max-width: 320px) {
+	section{
+		padding: 60px 10px;
+
+		.section-title{
+			font-size: 28px;
+			line-height: 36px;
+		}
+	}
+
+	#home{
+		height:570px;
+		padding:0 20px;
+
+		#home_content{
+			margin-top: 50px;
+			padding-top: 180px;
+
+			span#home_date{
+				margin-bottom: 5px;
+				font-size: 18px;
+			}
+			span#home_location{
+				padding:0 30px;
+				font-size: 15px;
+				line-height: 20px;
+
+				i{ display: none; }
+			}
+		}
+	}
+
+	#authors{
+		padding-left: 10px;
+		padding-right: 10px;
+
+		ul{
+			margin:30px 0 10px;
+
+			li{
+				width: 120px;
+				height: 150px;
+				margin: 0 10px 20px;
+			}
+		}
+
+		h3{
+			margin: 0 0 30px;
+			font-size: 18px;
+		}
+	}
+
+	#speakers{
+		ul li{
+			width:100%;
+			padding:0;
+		}
+	}
+
+	#sponsors{
+		.section-title{
+			margin-bottom: 40px;
+		}
+		h3{
+			font-size: 24px;
+		}
+
+		ul{
+			margin-bottom: 30px;
+
+			li{
+				width:200px;
+				margin: 10px;
+
+				.thumb{
+					height:150px;
+				}
+			}
+		}
+
+		.btn{
+			margin:0 0 20px;
+		}
+	}
+
+	#partners{
+		.btn{
+			margin-left:-106px !important;
+		}
+	}
+
+	#venue{
+		.half.pull-left{
+			height:580px;
+		}
+
+		#venue_info{
+			h3{
+				font-size: 24px;
+			}
+		}
+
+		.half.pull-right{
+			display: none;
+		}
+	}
+
+	.btn.wide{
+		padding-left: 25px;
+		padding-right: 25px;
+		min-width:100px;
+	}
+}

@@ -1,0 +1,159 @@
+//
+// Mixins
+// --------------------------------------------------
+
+.animation(@properties) {
+  -webkit-animation: @properties;
+     -moz-animation: @properties;
+       -o-animation: @properties;
+          animation: @properties;
+}
+
+.border-radius(@radius) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}
+
+.box-sizing(@boxmodel: border-box) {
+  -webkit-box-sizing: @boxmodel;
+     -moz-box-sizing: @boxmodel;
+          box-sizing: @boxmodel;
+}
+
+.background-clip(@clip: border-box) {
+  -webkit-background-clip: @clip;
+     -moz-background-clip: @clip;
+          background-clip: @clip;
+}
+
+.box-shadow(@properties) {
+  -webkit-box-shadow: @properties;
+     -moz-box-shadow: @properties;
+          box-shadow: @properties;
+}
+
+.inline-block {
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+}
+
+.opacity(@value) {
+  opacity: @value / 100;
+  filter: ~"alpha(opacity=@{value})";
+}
+
+// User select
+// For selecting text on the page
+.user-select(@select) {
+  -webkit-user-select: @select;
+     -moz-user-select: @select;
+      -ms-user-select: @select;
+       -o-user-select: @select;
+          user-select: @select;
+}
+
+.placeholder-height(@height) {
+  &:-moz-placeholder {
+    line-height: @height;
+  }
+  &::-webkit-input-placeholder {
+    line-height: @height;
+  }
+  &.placeholder {
+    line-height: @height;
+  }
+}
+
+.placeholder-color(@color) {
+  &:-moz-placeholder {
+    color: @color;
+    font-weight:100;
+  }
+  &::-webkit-input-placeholder {
+    color: @color;
+    font-weight:100;
+  }
+  &.placeholder {
+    color: @color;
+    font-weight:100;
+  }
+}
+
+.transition(@properties) {
+  -webkit-transition: @properties;
+     -moz-transition: @properties;
+       -o-transition: @properties;
+          transition: @properties;
+  -webkit-backface-visibility: hidden;
+}
+
+.transform(@properties) {
+  -webkit-transform: @properties;
+     -moz-transform: @properties;
+      -ms-transform: @properties;
+       -o-transform: @properties;
+          transform: @properties;
+}
+
+.vertical-gradient(@from, @to) {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, @from), color-stop(100%, @to));
+  background: -webkit-linear-gradient(top, @from, @to);
+  background:    -moz-linear-gradient(top, @from, @to);
+  background:     -ms-linear-gradient(top, @from, @to);
+  background:      -o-linear-gradient(top, @from, @to);
+  background:   linear-gradient(to bottom, @from, @to);
+}
+
+.selection(@color) {
+  &::selection {
+    background: @color;
+  }
+  &::-moz-selection {
+    background: @color;
+  }
+}
+
+.list-reset{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.clearfix {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+.swap-button-color(@color, @hover, @active) {
+  background-color: @color;
+
+  &:hover,
+  &:focus,
+  .btn-group:focus &.dropdown-toggle {
+    background-color: @hover;
+  }
+  &:active,
+  .btn-group.open &.dropdown-toggle,
+  &.active {
+    background-color: @active;
+  }
+}
+
+.input-states(@color) {
+  border-color: @color;
+  color: @color;
+  .box-shadow(none);
+
+  &:focus {
+    .box-shadow(none);
+  }
+}
