@@ -107,8 +107,6 @@ The convention is to make the bundle identifier a reverse-DNS notation identifie
 
 Notice that the `paths` array can support some basic pattern matching, such as the `*` wildcard, which matches any number of characters. It also supports `?` to match any single character. You can combine both wildcards in a single path, such as in `/videos/*/year/201?/videoName` or you can use a single `*` to specify your entire website.
 
-> **Note:** If you're targeting iOS 8 because your app also implements continuity features, you'll have to sign your **apple-app-site-association** file using the openssl. You can read more about this process in Apple's Handoff Programming Guide: https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/Handoff/AdoptingHandoff/AdoptingHandoff.html
-
 Once you have your **apple-app-site-association** file ready, you have to upload it to the root of your HTTPS web server. In this case, since you specified both `rwdevcon.com` and `www.rwdevcon.com` in your Associated Domains, the file has to be accessible, without any redirects, **over HTTPS** at the following locations:
 
     https://rwdevcon.com/apple-app-site-association
@@ -116,35 +114,107 @@ Once you have your **apple-app-site-association** file ready, you have to upload
 
 Obviously, since you don't have access to the web servers hosting `www.rwdevcon.com`, you can't do this step yourself. Luckily, Ray has already uploaded the file to the root of the web server for you. Thanks Ray! You can verify that it's there by requesting the file with your favorite web browser.
 
-Before moving on to the next section, there are two caveats that you should know about. **continue here**
+Before moving on to the next section, there are two caveats that you should know about: **continue here**
 
- Before uploading your **apple-app-site-association** file to your HTTPS web server, run your JSON through a JSON validator, such as [JSONLint](http://www.jsonlint.com). Typing JSON by hand is prone to error. Universal HTTP links won't work if there's even the slightest syntax error in your JSON file!
+1. If you have to target iOS 8 because your app has Continuity features like Handoff and shared web credentials, you'll have to sign your **apple-app-site-association** file using the `openssl`. You can read more about this process in Apple's [Handoff Programming Guide](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/Handoff/AdoptingHandoff/AdoptingHandoff.html).
 
-************
+1. Before uploading your **apple-app-site-association** file to your HTTPS web server, run your JSON through an online validator such as [JSONLint](http://www.jsonlint.com). Typing JSON by hand is prone to error. Universal HTTP links won't work if there's even the slightest syntax error in your JSON file!
 
 ### Getting Your App Ready - Part 2
 
-When the app receives a universal HTTP link, you want to respond by doing more than just opening the app. You want to take user to the correct place in the app! The final step to implement universal links is to handle the incoming URLs in your app. Open Xcode again and head to `AppDelegate.swift`. Add the following app delegate method:
+When the app receives an incoming universal link, you'll want to respond by taking the user to the right place in the app. The final step to implementing universal links is to parse, understand and handle the incoming URLs in RWDevCon. Open Xcode, switch to `Session.swift` and add the following class method:
 
 ```swift
-  func application(application: UIApplication,
-    continueUserActivity
-    userActivity: NSUserActivity,
-    restorationHandler: ([AnyObject]?) -> Void) -> Bool {
-    
-    if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
-      let universalURL = userActivity.webpageURL!
-      //handle universal URL
-      
-    }
-    
-    return true
+class func sessionByWebPath(path: String,
+  context: NSManagedObjectContext) -> Session? {
+  
+  let fetch = NSFetchRequest(entityName: "Session")
+  fetch.predicate = NSPredicate(format: "webPath = %@",
+    argumentArray: [path])
+  
+  do {
+    let results = try context.executeFetchRequest(fetch)
+    return results.first as? Session
+  } catch let fetchError as NSError {
+    print("fetch error: \(fetchError.localizedDescription)")
   }
+  
+  return nil
+}
 ```
 
-application(_:continueUserActivity:restorationHandler:) also plays a role in adopting Handoff and iOS 9's search APIs, but you'll focus on how to handle incoming universal links. 
+In the RWDevCon app, `Session` is the Core Data class that represents a particular presentation. `Session` contains a `webPath` property that holds the path of the corresponding video page in `rwdevcon.com`. The class method you just added passes in a URL's path string (e.g. `/videos/talk-ray-wenderlich-teamwork.html`) and returns the corresponding session object, or nil if it can't find one.
 
-If the incoming NSUserActivity is of type NSUserActivityTypeBrowsingWeb, it means you've landded in this method through a universal link. If this is the case, you're guaranteed that the user activity will have a non-nil webpageURL. The next step is to parse this URL into something your app can understand.
+Next, go to `AppDelegate` and add the following helper method:
+
+```swift
+func presentVideoViewController(URL: NSURL) {
+  
+  let storyboard = UIStoryboard(name: "Main", bundle: nil)
+  
+  let navVideoPlayerVC =
+  storyboard.instantiateViewControllerWithIdentifier("NavPlayerViewController")
+    as! UINavigationController
+  
+  navVideoPlayerVC.modalPresentationStyle = .FormSheet
+  
+  let videoPlayerVC = navVideoPlayerVC.topViewController
+    as! AVPlayerViewController
+  
+  videoPlayerVC.player = AVPlayer(URL: URL)
+  
+  let rootViewController = window!.rootViewController!
+  rootViewController.presentViewController(navVideoPlayerVC,
+    animated: true, completion: nil)
+}
+```
+
+This method takes in a video URL and presents an `AVPlayerViewController` embedded in a `UINavigationController` to play it. The video player and the container navigation controller have already been set up. If you want to see how they're configured you can open **Main.storyboard** to see them.
+
+Finally, add the following `UIApplicationDelegate` method:
+
+```swift
+
+func application(application: UIApplication,
+  continueUserActivity
+  userActivity: NSUserActivity,
+  restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+    
+    //1
+    if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+      let universalURL = userActivity.webpageURL!
+      
+    //2
+      if let components = NSURLComponents(URL: universalURL,
+        resolvingAgainstBaseURL: true),
+        let path = components.path {
+          
+          if let session = Session.sessionByWebPath(path,
+            context: coreDataStack.context) {
+    //3
+              let videoURL = NSURL(string: session.videoUrl)!
+              presentVideoViewController(videoURL)
+          } else {
+    //4
+            UIApplication.sharedApplication().openURL(universalURL)
+          }
+      }
+    }
+    return true
+}
+```
+
+Pay close attention to what's going on in `application(_:continueUserActivity:restorationHandler:)`. That's where all the action happens! This method gets called when there's an incoming universal HTTP link. Here's a breakdown of what each section does:
+
+**continue here**
+
+1. 
+1.
+1.
+1.
+
+> **Note:** `application(_:continueUserActivity:restorationHandler:)` should also look familiar. Apple introduced this application delegate method in iOS 8 to help developers implement Handoff. The method also makes an appearance in chapter 2 in relation to the new search APIs in iOS 9. This method is a real polymath!
+
 
 ## Web Markup
 
