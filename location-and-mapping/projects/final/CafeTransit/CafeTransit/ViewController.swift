@@ -47,7 +47,7 @@ class ViewController: UIViewController {
   
   private func setupMap() {
     mapView.showsScale = true
-		
+    
     let sanFrancisco = CLLocationCoordinate2D(latitude: 37.7833, longitude: -122.4167)
     centerMap(mapView, atPosition: sanFrancisco)
   }
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
   }
   
   private func requestUserLocation() {
-		mapView.showsUserLocation = true //1
+    mapView.showsUserLocation = true //1
     if CLLocationManager.authorizationStatus() ==
       .AuthorizedWhenInUse { // 2
         locationManager.requestLocation()   // 3
@@ -126,13 +126,13 @@ extension ViewController: MKMapViewDelegate {
 
 // MARK:- CLLocationManagerDelegate
 extension ViewController: CLLocationManagerDelegate {
-	
-	func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-		if (status == CLAuthorizationStatus.AuthorizedAlways || status == CLAuthorizationStatus.AuthorizedWhenInUse) {
-			locationManager.requestLocation()
-		}
-	}
-	
+  
+  func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+    if (status == CLAuthorizationStatus.AuthorizedAlways || status == CLAuthorizationStatus.AuthorizedWhenInUse) {
+      locationManager.requestLocation()
+    }
+  }
+  
   func locationManager(manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]) {
       currentUserLocation = locations.first?.coordinate

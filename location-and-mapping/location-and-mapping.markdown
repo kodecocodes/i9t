@@ -7,9 +7,9 @@ One of the most useful improvements is the addition of transit directions to App
 This chapter will show you how to take advantage of the following new features:
 
 * New methods to customize the appearance of Maps in your app
-*	Transit directions in Apple Maps
-*	Estimated travel times for transit directions
-*	Single location updates using Core Location
+* Transit directions in Apple Maps
+* Estimated travel times for transit directions
+* Single location updates using Core Location
 
 The sample app for this chapter, Café Transit, is for all the coffee aficionados out there. It can help you in your eternal search for good coffee. Currently, it only shows a handful of nearby coffee shops (well, nearby if you're in San Francisco!) and marks them on the map using standard map pins.
 
@@ -229,10 +229,10 @@ Next, add the following extension to the bottom of **ViewController.swift** to a
 extension ViewController: CLLocationManagerDelegate {
 
   func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-		if (status == CLAuthorizationStatus.AuthorizedAlways || status == CLAuthorizationStatus.AuthorizedWhenInUse) {
-			locationManager.requestLocation()
-		}
-	}
+    if (status == CLAuthorizationStatus.AuthorizedAlways || status == CLAuthorizationStatus.AuthorizedWhenInUse) {
+      locationManager.requestLocation()
+    }
+  }
 
   func locationManager(manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]) {
