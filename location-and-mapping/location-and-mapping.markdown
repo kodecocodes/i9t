@@ -13,7 +13,7 @@ This chapter will show you how to take advantage of the following new features:
 
 The sample app for this chapter, Café Transit, is for all the coffee aficionados out there. It can help you in your eternal search for good coffee. Currently, it only shows a handful of nearby coffee shops (well, nearby if you're in San Francisco!) and marks them on the map using standard map pins.
 
-By the time you've finished this chapter, your app will show lots of useful information for each coffee shop, including a rating, pricing information and opening hours. You app will also provide transit directions to a particular coffee shop, and even let you know what time you'll need to leave and when you're likely to arrive.
+By the time you've finished this chapter, your app will show lots of useful information for each coffee shop, including a rating, pricing information and opening hours. Your app will also provide transit directions to a particular coffee shop, and even let you know what time you'll need to leave and when you're likely to arrive.
 
 > **Note**: This chapter will be easier to follow if you have some basic MapKit knowledge. If you need to brush up, take a look at our [Getting Started With MapKit tutorial](http://bit.ly/1PrurqE):  <http://bit.ly/1PrurqE>.
 
@@ -228,6 +228,12 @@ Next, add the following extension to the bottom of **ViewController.swift** to a
 // MARK:- CLLocationManagerDelegate
 extension ViewController: CLLocationManagerDelegate {
 
+  func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
+		if (status == CLAuthorizationStatus.AuthorizedAlways || status == CLAuthorizationStatus.AuthorizedWhenInUse) {
+			locationManager.requestLocation()
+		}
+	}
+
   func locationManager(manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]) {
       currentUserLocation = locations.first?.coordinate
@@ -240,17 +246,17 @@ extension ViewController: CLLocationManagerDelegate {
 }
 ```
 
-This extension implements two methods of `CLLocationManagerDelegate`: in `locationManager(_:didFailWithError:)`, you simply log errors if they occur; in `locationManager(_:didUpdateLocations:)`, you store the coordinates of the first location returned in `currentUserLocation`. When you use your new `requestLocation()`, you'll receive the location one time only.
+This extension implements three methods of `CLLocationManagerDelegate`: in `locationManager(_:didFailWithError:)`, you simply log errors if they occur; in `locationManager(_:didUpdateLocations:)`, you store the coordinates of the first location returned in `currentUserLocation`; in `locationManager(_:didChangeAuthorizationStatus)`, you check to see if the user has enable you to use their location and if so you request for their location. When you use your new `requestLocation()`, you'll receive the location one time only.
 
-Now you need to _call_ `requestLocation()` from somewhere.
+Now you need to _call_ `requestLocation()` from somewhere else.
 
 Still in **ViewController.swift**, add the following method to `ViewController`, below `centerMap(_:atPosition:)`:
 
 ```swift
 private func requestUserLocation() {
+  mapView.showsUserLocation = true    // 1
   if CLLocationManager.authorizationStatus() ==
-    .AuthorizedWhenInUse { // 1
-      mapView.showsUserLocation = true    // 2
+    .AuthorizedWhenInUse { // 2
       locationManager.requestLocation()   // 3
   } else {
     locationManager.requestWhenInUseAuthorization()   // 4
@@ -259,9 +265,8 @@ private func requestUserLocation() {
 ```
 
 Taking each numbered comment in turn:
-
-1. Before you can request the user's location, you must first ask for permission to do so. This line checks whether you already have permission.
-2. If so, show the user's location on the map.
+1. Show the user's location on the map.
+2. Before you can request the user's location, you must first ask for permission to do so. This line checks whether you already have permission.
 3. Next, call **requestLocation()** to request the user's current position. When done, this invokes a call to `locationManager(_:didUpdateLocations:)`, which you just implemented.
 4. If you don't have permission to use the user's location, prompt for it.
 
