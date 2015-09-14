@@ -83,36 +83,42 @@ Next, you have to create the link from your website to your native app. Open up 
 }
 ```
 
-Once you're done, name the file **apple-app-site-association** and save it somewhere on your computer. You'll need the file in a moment. For this universal HTTP linking to work correctly, this file name must match exactly and it **must not have an extension**, not even .json.
+Once you're done, name the file **apple-app-site-association** and save it somewhere on your computer. You'll need the file in a moment. For universal HTTP linking to work correctly, this file name must match *exactly* and it **must not have an extension**, not even `.json`.
 
-If you worked with some of iOS 8's continuity features, this file will look familiar. The **apple-app-site-association** file was introduced in iOS 8 and it is also used to implement shared web credentials between your website and your app, as well as other continuity features. 
+This file will probably look familiar to you, and for good reason! Apple introduced the **apple-app-site-association** file in iOS 8 to implement shared web credentials between your website and your app as well as web browser-to-native app Handoff. 
 
-You may be wondering where KFCNEC27GU.com.razeware.RWDevCon came from. It is your App ID, which is a two-part string used to identify an app. The string consists of a Team ID, KFCNEC27GU in this case, followed by a bundle ID, in the form of com.domainname.applicationname or com.razeware.RWDevCon in this case.
+You may be wondering where **KFCNEC27GU.com.razeware.RWDevCon** came from. It is your app's App ID, which is a two-part string used to identify an app. The string consists of a Team ID, KFCNEC27GU in this case, followed by a bundle ID, in the form of `com.domainname.applicationname` or com.razeware.RWDevCon in this case.
 
-The Team ID is supplied by Apple and is unique to a specific development team. KFCNEC27GU is specific to the team that originally developed the RWDevCon app so you'll have to swap that out for your own team identifier. If you're looking for your own team identifier, the easiest way to find it is by logging into Apple's developer portal and going to Your Account > Account Summary. It is listed under Developer Account Summary:
+The Team ID is supplied by Apple and is unique to a specific development team. KFCNEC27GU is specific to the `raywenderlich.com` development team so you'll have a different identifier for your account
+
+The easiest way to find your team identifier if you don't know it is by logging into Apple's [developer portal](http://developer.apple.com/) and going to **Your Account** and then to **Account Summary**. Your team identifier will be listed under **Developer Account Summary**:
 
 ![bordered height=35%](/images/teamID.png)
 
 //TODO: blur out Ray's address?
 
-The bundle identifier is easier to find. If you don't know what it is for your app, click on the project file, select the main target and switch to the General Tab. It's listed next to **Bundle Identifier**. The convention is to make the bundle identifier a reverse-DNS notation identifier, such as com.razeware.RWDevCon, where the last component is the app's name.
+The bundle identifier is even easier to find. If you don't know what it is for your app, go to Xcode, go to the Project Navigator and click on the project file, then select the main target and switch to the **General Tab**. The identifier you're looking for is listed next to **Bundle Identifier**:
 
-You may also be wondering where **/videos/** came from. As the name suggests, the paths array contains a list of "white-listed" URL paths that you're letting your app handle instead of your website. If you're a little rusty on your URL components, the path is the part in bold:
+![bordered height=35%](/images/bundleID.png)
 
-    https://www.rwdevcon.com**/videos/2015/inspiration/**?name=Inspiration
+The convention is to make the bundle identifier a reverse-DNS notation identifier, such as com.razeware.RWDevCon, where the last component is the app's name. You may also be wondering where **/videos/** came from. As the name suggests, the `paths` array contains a list of "white-listed" URL paths that you're letting your app handle instead of your website. If you're a little rusty on your URL components, the path is **/videos/2015/inspiration/** in the URL below:
 
-If you want your app to open every incoming link for your domain, you can include a "/*" in the paths array and your app will handle everything.
+    https://www.rwdevcon.com/videos/2015/inspiration/?name=Inspiration
+
+Notice that the `paths` array can support some basic pattern matching, such as the `*` wildcard, which matches any number of characters. It also supports `?` to match any single character. You can combine both wildcards in a single path, such as in `/videos/*/year/201?/videoName` or you can use a single `*` to specify your entire website.
 
 > **Note:** If you're targeting iOS 8 because your app also implements continuity features, you'll have to sign your **apple-app-site-association** file using the openssl. You can read more about this process in Apple's Handoff Programming Guide: https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/Handoff/AdoptingHandoff/AdoptingHandoff.html
 
-Finally, you have to upload this file to the root of your domain. In this case, the file has to be accessible at the following locations **over HTTPS**:
+Once you have your **apple-app-site-association** file ready, you have to upload it to the root of your HTTPS web server. In this case, since you specified both `rwdevcon.com` and `www.rwdevcon.com` in your Associated Domains, the file has to be accessible, without any redirects, **over HTTPS** at the following locations:
 
     https://rwdevcon.com/apple-app-site-association
     https://www.rwdevcon.com/apple-app-site-association
 
-If you can see the file when you request them with a web browse, that means you're ready for the next step.
+Obviously, since you don't have access to the web servers hosting `www.rwdevcon.com`, you can't do this step yourself. Luckily, Ray has already uploaded the file to the root of the web server for you. Thanks Ray! You can verify that it's there by requesting the file with your favorite web browser.
 
-> **Note:** Before uploading **apple-app-site-association** file to your server, run your JSON through a JSON validator, such as http://www.jsonlint.com. Typing JSON by hand is prone to error. Having the slightest mistake in your JSON will mean your universal HTTP links won't work at all and you won't know why. Think ahead!
+Before moving on to the next section, there are two caveats that you should know about. **continue here**
+
+ Before uploading your **apple-app-site-association** file to your HTTPS web server, run your JSON through a JSON validator, such as [JSONLint](http://www.jsonlint.com). Typing JSON by hand is prone to error. Universal HTTP links won't work if there's even the slightest syntax error in your JSON file!
 
 ************
 
