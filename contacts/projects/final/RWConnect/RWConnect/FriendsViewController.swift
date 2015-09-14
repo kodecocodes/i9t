@@ -85,7 +85,7 @@ class FriendsViewController: UITableViewController {
       try contactStore.executeSaveRequest(saveRequest)
       // Show success alert
       dispatch_async(dispatch_get_main_queue()){
-        let successAlert = UIAlertController(title: "Contacts Saved", message: nil, preferredStyle: .Alert)
+        let successAlert = UIAlertController(title: "Contact Saved", message: nil, preferredStyle: .Alert)
         successAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
         self.presentViewController(successAlert, animated: true, completion: nil)
       }
