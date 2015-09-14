@@ -241,13 +241,13 @@ In the last screen shot, notice how there's a banner on top? That's a Smart Bann
 
 Now that you know how to implement and handle universal links in iOS 9, it's time to move to the second topic of this chapter: web markup. As it turns out, web markup is part a much bigger topic that you started to learn about in Chapter 2. That topic is search! 
 
-To refresh your memory, search includes three different APIs: NSUserActivity, CoreSpotlight and web markup. All three approaches are important pieces of your search strategy but the second half of this chapter will only focus on web markup. If you skipped Chapter 2 but want to learn more about search, go back and read that chapter. Web markup will still be here when you come back :]
+To refresh your memory, search includes three different APIs: `NSUserActivity`, `CoreSpotlight` and web markup. All three APIs are important pieces of your search strategy but the second half of this chapter will only focus on web markup. If you skipped Chapter 2 but want to learn more about search, go back and read that chapter. Web markup will still be here when you come back :]
 
-To recap from the last chapter, in iOS 9 search results that appear in Spotlight and in Safari will now include content from native apps. Wait a minute, you may be thinking, wasn't that already the case in iOS 8 and before? Yes, but search results only included content from Apple's own apps such as Mail and Notes. What makes this change in iOS 9 different and exciting is that (for the first time ever) search results will now include content from third party apps. Woo hoo!
+To recap from the last chapter, in iOS 9, search results that appear in Spotlight and in Safari will now include content from native apps. Wait a minute, you may be thinking, wasn't that already the case in iOS 8 and before? That's correct, but search results only included content from Apple's own apps such as Mail and Notes. In iOS 9, for the first time ever, Spotlight and Safari search results will now include content from third party apps. Woo hoo!
 
-There are many ways to show up in iOS 9 search results, but you'll learn about one in particular in the coming sections. If you have a website that mirrors your app's content, you can mark up its web pages with universal links that your native app can understand. 
+There are many ways to show up in iOS 9 search results, but you'll learn about one in particular. If you have a website that mirrors your app's content, you can mark up its web pages with universal links that your native app can understand. 
 
-Apple's web crawler, lovingly named Applebot, will then crawl your website and index your universal links. Then, when iOS users search for relevant keywords, Apple can surface your content *even if they don't have your app already installed*.
+Apple's web crawler, lovingly named Applebot, will then crawl your website and index your mobile links. Then, when iOS users search for relevant keywords, Apple can surface your content *even if they don't have your app already installed*.
 
 In other words, if you have a website and optimize your web markup correctly, you'll be able to get new downloads organically. Without further ado, let's dive into the specifics of web markup.
 
@@ -255,9 +255,9 @@ In other words, if you have a website and optimize your web markup correctly, yo
 
 Applebot crawls the web far and wide but there's no guarantee that it will ever land on your website. Fortunately, there are a few things you can do to make your site more discoverable and easier to crawl. 
 
-1. Point your app's **support URL** as well as the optional **marketing URL** in iTunes Connect to the domain that contains your web markup. These support URLS are Applebot's entry points to start crawling your content.
+1. Point your app's **support URL** as well as its optional **marketing URL** in iTunes Connect to the domain that contains your web markup. These support URLS are Applebot's entry points to start crawling your content.
 
-> If you need to change your marketing or support URLs, you can do so in iTunes Connect. Simply log into iTunes Connect, go to **My Apps** and navigate to your app's detail page. The fields you want to change (or at least verify) are labeled Support URL and Marketing URL:
+> If you need to change your support URLs, you can do so in iTunes Connect. Simply log into iTunes Connect, go to **My Apps** and navigate to your app's detail page. The fields you want to change (or at least verify) are labeled **Support URL** and **Marketing URL**:
 
 ![bordered height=35%](/images/supportURL.png)
 
@@ -265,57 +265,36 @@ Applebot crawls the web far and wide but there's no guarantee that it will ever 
 
 3. Check that your site's **robots.txt** file lets Applebot do its job. **Robots.txt**, also known as the robots exclusion protocol, is a standard used by websites to communicates with web crawlers and other web robots like Applebot. The file specifies which parts of the site the web crawler should **not** scan or process.
 
-> Not all web crawlers follow these directives, but Applebot does! If your **robots.txt** specifies that a certain part of your site shouldn't be crawled then those mobile links won't ever show up in iOS search results. You can learn more about the robots exlusion standard in Wikipedia: https://en.wikipedia.org/wiki/Robots_exclusion_standard.
+> Not all web crawlers follow these directives, but Applebot does! You can learn more about the robots exclusion standard in [Wikipedia](https://en.wikipedia.org/wiki/Robots_exclusion_standard).
 
-### Embed Universal Links with Smart Banners
+### Embed Universal Links using Smart Banners
 
-Once you make sure Applebot can crawl your website, the next step is to...make sure there is something to find! Apple's recommended way of adding mobile links to your site is by using Smart Banners.
+Once you make sure Applebot can find and crawl your website, the next step is to...add something worth finding! Apple's recommended way of adding mobile links to your site is by using Smart Banners.
 
 Smart Banners have been around since iOS 6. Before iOS 9, they used to be simple marketing tools provided by Apple that allowed developers to add advertising banners to promote apps directly on a website.
 
-Adding a Smart Banner to a website invites visitors who don't have your app installed to download it from the App Store. It also gives visitors who already have your app installed an easy way to open a page deep within the app. Here's a Smart Banner in action:
+Adding a Smart Banner to a website invites visitors who don't have your app installed to download it from the App Store. It also gives visitors who already have your app installed an easy way to open a page deep within the app. You briefly saw a smart banner in the last section, but here it is up close:
 
 ![bordered height=35%](/images/appBanner.png)
 
-This particular Smart Banner is promoting the RWDevCon iOS app on the RWDevCon website. The banner says **OPEN** because Safari detects that the visitor has the RWDevCon app installed on their device. That's why it's smart! If the visitor hadn't installed the RWDevCon app, the Smart Banner would say **VIEW** instead. Tapping it would take you to the RWDevCon App Store page.
+This particular Smart Banner is promoting the RWDevCon iOS app on the RWDevCon website. The banner says **OPEN** because Safari detects that the visitor has the RWDevCon app installed on their device. That's why it's smart! 
 
-In iOS 9, Apple is breathing new life into Smart Banners by making them an integral part of search. In addition to their day job as simple marketing tools, Smart Banners will also help surface universal links for Applebot to crawl and index. Let's see this in action.
+If the visitor hadn't installed the RWDevCon app, the Smart Banner would say **VIEW** instead of OPEN. Tapping it would take you to the RWDevCon's App Store page.
 
-Go to the files that came with this chapter and locate the source code for `www.rwdevcon.com`. Open the file **/videos/talk-ray-wenderlich-teamwork.html** and add the following meta tag inside the head tag:
+In iOS 9, Apple is breathing new life into Smart Banners by making them an integral part of search. In addition to their day job as marketing tools, Smart Banners will also help surface universal links for Applebot to crawl and index. Let's see this in action.
+
+Go to the files that came with this chapter and locate the source code for `www.rwdevcon.com`. Open the file **/videos/talk-ray-wenderlich-teamwork.html** and add the following meta tag inside the `head` tag:
 
 ```html
 <meta name="apple-itunes-app" content="app-id=958625272, app-argument=http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
 ```
 
-The complete `<head>` tag should look something like this:
-
-```html
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-
-    <meta name="apple-itunes-app" content="app-id=958625272, app-argument=http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
-
-    <title>RWDevCon 2016: The Tutorial Conference – Videos</title>
-
-    <script type="text/javascript" src="//use.typekit.net/tnb2xob.js"></script>
-    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-    
-    <link rel="stylesheet" type="text/css" href="/assets/css/style.css" />
-    
-    <!-- HTML5 Video Shiv -->
-    <script type="text/javascript">
-      document.createElement('video');document.createElement('audio');document.createElement('track');
-    </script>
-</head>
-```
-
 The most important part of the meta tag is the `name` attribute, which must always be **apple-itunes-app**. This identifies the type of meta tag as a Smart Banner meta tag, which in turn tells Safari to display your Smart Banner.
 
 The content attribute contains two paramters/arguments that you should also pay attention to:
-- **app-id**: This parameter corresponds to your app's Apple ID (yes, apps have them too!). 
 
-> **Note**: The easiest way to find your app's Apple ID is to log into iTunes Connect, click **Manage your apps** and then navigate to the app in question. For this particular example, the Apple ID for RWDevCon is 958625272 but it will be different for your app. 
+- **app-id**: This parameter corresponds to your app's Apple ID (yes, apps have them too!). 
+> **Note**: The easiest way to find your app's Apple ID is to log into iTunes Connect, click **Manage your apps** and then navigate to the app in question. For this particular example, the Apple ID for RWDevCon is 958625272. This number will be different for your app. 
 - **app-argument:** This parameter contains the URL that Safari passes back into the app (if it's installed). Before iOS 9, the value of this parameter used to be a custom URL scheme deep link, but Apple now strongly recommends switching over to HTTP universal links. 
 
 > **Note:** This was a quick overview of Smart Banners. If you'd like to learn more about their full capabilities, you can read Ray's [Smart Banners tutorial](http://www.raywenderlich.com/80347/smart-app-banners-tutorial). You can also read the [Safari Web Content Guide](https://developer.apple.com/library/prerelease/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html#//apple_ref/doc/uid/TP40002051-CH6) on the topic.
@@ -352,67 +331,52 @@ If you don't see the Smart Banner, swipe down on the page until it comes into vi
 
 Verify this behavior by going to the homepage at `http://www.rwdevcon.com`. You'll see the regular-sized banner is still there, not the thin banner you saw on the video page. Even though the homepage also has the appropriate meta tag, the URL in its `app-argument` parameter doesn't match the **/videos/** path you specified in the **apple-app-site-association** file.
 
-> **Note:** Smart App Banners don't work on the simulator, so you always have to use a device if you want to see and interact with them.
+> **Note:** Smart Banners don't work on the iOS simulator, so you always have to use a device if you want to see and interact with them.
 
-If you tap on the thin Smart Banner, Safari will open the RWDevCon app and play the correct video. You'll implement this behavior shortly in the local version of the app you've been working on.
+If you tap on the thin Smart Banner, Safari will open the RWDevCon app and play the correct video. This is because you implemented `application(_:continueUserActivity:restorationHandler:)` in the previous section. Good job!
 
 //TODO: This won't work until a new version of RWDevCon is in the App Store. 
 
-****************
-
-### Handling universal links in RWDevCon
-
-The next thing you need to do is to handle incoming search results links. Open Xcode once again and implement the following app delegate method in AppDelegate.swift:
-
-```swift
-  func application(application: UIApplication,
-    openURL url: NSURL, sourceApplication: String?,
-    annotation: AnyObject) -> Bool {
-      
-      if let components = NSURLComponents(URL: url, resolvingAgainstBaseURL: true),
-        let path = components.path, let query = components.query {
-          
-          if path == "/videos" {
-            //Do something with the query
-          }
-      }
-      
-      return false
-  }
-```
-
-As explained before, since the site and the app have to be closely tied to even be able to test the integration, you won't be able to see this snippet of code in action.
-
 ### Semantic markup using Open Graph
 
-So far you've learned how to add Smart Banners to a web page to make it easier for Applebot to index its universal links. However, just because Applebot can find and crawl a website, it doesn't mean that its content will show up in Spotlight! The content also has to be relevant and engaging if it has any chance of competing with other search results.
+So far you've learned how to add Smart Banners to a web page to make it easier for Applebot to index universal links. However, just because Applebot can find and crawl a website, it doesn't mean that its content will show up in Spotlight! The content also has to be relevant and engaging if it has any chance of competing with other search results.
 
-Apple doesn't reveal much about the relevance algorithm that determines the ranking for Spotlight search results, but it does give us developers with a big hint: all things equal, *engaging* content does better and ranks higher. If users tap on (or otherwise engage with) your search results, relative to all other search results your website will rank higher. 
+Apple doesn't reveal much about the relevance algorithm that determines the ranking for Spotlight search results, but it does reveal a big hint: all things equal, *engaging* content does better and ranks higher. If users tap on (or otherwise engage with) your search results, relative to all other search results your website will rank higher. 
 
 To this end, Apple recommends adding markup for structured data. Let's see this in action. Go back to **/videos/talk-ray-wenderlich-teamwork.html** and below the `meta` tag you added earlier to enable Smart Banners, add the following:
 
 ```html
 <meta property="og:image" content="http://www.rwdevcon.com/assets/images/videos/talk-ray-wenderlich-teamwork.jpg" />
 <meta property="og:image:secure_url" content="https://www.rwdevcon.com/assets/images/videos/talk-ray-wenderlich-teamwork.jpg" />
+
 <meta property="og:image:type" content="image/jpeg" />
 <meta property="og:image:width" content="640" />
 <meta property="og:image:height" content="340" />
 
 <meta property="og:video" content="http://www.rwdevcon.com/videos/Ray-Wenderlich-Teamwork.mp4" />
 <meta property="og:video:secure_url" content="https://www.rwdevcon.com/videos/Ray-Wenderlich-Teamwork.mp4" />
+
 <meta property="og:video:type" content="video/mp4" />
 <meta property="og:video:width" content="1280" />
 <meta property="og:video:height" content="720" />
 
 <meta property="og:description" content="Learn how teamwork lets you dream bigger, through the story of an indie iPhone developer who almost missed out on the greatest opportunity of his life." />
 ```
-You just added rich web markup to the web page by adding a `video` meta tag, an `image`meta tag and a `description` meta tag. These meta tags contains information that technically is already on the page, but making it explicit using `meta` tags helps Applebot scrape your website and get what it needs.
+You just added rich web markup to the web page by adding a `video` meta tag, an `image`meta tag and a `description` meta tag. These meta tags contains information that technically is already on the page, but making it explicit using `meta` tags helps Applebot scrape your website and get what it needs. You can refer to the 
 
-> **Note**: In the examples above, "og" stands for Open Graph. This is one of several standards Apple supports for structured markup. Other standards include schema.org, RDFA and JSON LD.
+In the last example, "og" stands for Open Graph. If you want to learn more about Open Graph, make sure to check out its [documentation page](http://ogp.me). Open Graph is one of several standards Apple supports for structured markup. Other standards include [schema.org](http://www.schema.org), [RDFA](http://rdfa.info) and [JSON LD](http://json-ld.org). 
 
-//TODO: add action to play video
+The goal of adding rich markup to your web pages is to adorn Spotlight's search results with more information. For example, a quick search for "ray wenderlich" comes up with these results:
+
+![iphone](/images/catnap.png)
+
+Pay attention to the CatNap video that Ray recently uploaded to Youtube, marked in red. In addition to the web page's title, the search result also contains a video thumbnail as well as a description. Youtube was able to achieve this by providing rich semantic markup.
 
 ### Validation Tool
+
+Since there's no "compiler" for the web, how are you supposed to know if your web markup is correct? Apple thought of this too. Along with iOS 9, Apple also launched a web-based [App Search API Validation Tool](https://search.developer.apple.com/appsearch-validation-tool/) that looks like this:
+
+![bordered height=35%](/images/validation.png)
 
 
 
