@@ -374,17 +374,25 @@ Pay attention to the CatNap video that Ray recently uploaded to Youtube, marked 
 
 ### Validation Tool
 
-Since there's no "compiler" for the web, how are you supposed to know if your web markup is correct? Apple thought of this too. Along with iOS 9, Apple also launched a web-based [App Search API Validation Tool](https://search.developer.apple.com/appsearch-validation-tool/) that looks like this:
+Since there's no "compiler" for the web, how are you supposed to know if your web markup is correct? Along with iOS 9, Apple also launched a web-based [App Search API Validation Tool](https://search.developer.apple.com/appsearch-validation-tool/) that looks like this:
 
-![bordered height=35%](/images/validation.png)
+![bordered height=30%](/images/validation.png)
 
+To see the validation tool in action, visit the validation tool URL and test the video page for Ray's 2015 inspiration talk. Once you've typed in the URL, click on "Test URL". 
 
+When you do this, a version of Applebot tries to crawl the URL you provided and gives you back a "report card" of the things are are missing or need to improve. For example, as of this writing, the validation tool returns this set of suggestions:
+
+![bordered height=30%](/images/validationToolResults.png)
+
+//TODO: Re-take this screenshot once the last set of changes get deployed on rwdevcon.com
 
 ## Where to go from here?
 
 As mentioned in the beginning of the chapter, iOS 9 is bringing the web and app ecosystem closer to each other than ever. Custom scheme deep links are all but deprecated in iOS 9 and Apple strongly suggests that you start using universal http links as soon as you can make the transition. This will make linking from the web to your apps a seamless experience.
 
-This chapter also discussed web markup as continuation of Chapter 2's search APIs discussion. This particularly applies to apps that have websites that mirror their content. Implementing web markup correctly is one more way you can get new users. This chapter covered a lot of ground, but you still only dipped your toes in each topic. 
+This chapter also discussed web markup as continuation of Chapter 2's search APIs discussion. This particularly applies to apps that have websites that mirror their content. This chapter covered a lot of ground, but you still only dipped your toes in each topic. 
+
+For example, there are ways to add rich semantic markup to your sites that weren't discussed on this chapter. These include using supported schemas such as `Interactionount`, `Organization` and `SearchAction`. As time goes on, Apple will support more schemas and more ways to markup your web pages to make search results come alive.
 
 You should also not miss the following WWDC Sessions:
 - [Seamless Linking To Your App (http://apple.co/1IBTu8q)](https://developer.apple.com/videos/wwdc/2015/?id=509)
