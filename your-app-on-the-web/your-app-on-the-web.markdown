@@ -199,7 +199,8 @@ func application(application: UIApplication,
           } else {
     //4
             let app = UIApplication.sharedApplication()
-            app.openURL(universalURL)
+            let url = NSURL(string: "http://www.rwdevcon.com")!
+            app.openURL(url)
           }
       }
     }
@@ -212,17 +213,29 @@ The system calls this method when there's an incoming universal HTTP link. Pay c
 1. The system invokes this method for several types of `NSUserActivity`. The type that corresponds to universal HTTP links is `NSUserActivityTypeBrowsingWeb`. When you see a user activity of this type, you're guaranteed that the `NSUserActivity` will have its `webPageURL` property (of type `NSURL?`) set to something you can inspect, so you go ahead and unwrap the optional.
 1. You use the new `NSURLComponents` API to extract the URL's path and you use it to reverse-map to the correct `Session` object using the class method you added earlier, `Session.sessionByWebPath(_:_:)`.
 1. `Session.sessionByWebPath(_:_:)` returns an optional `Session`. If there's a value behind the optional, you use the session's `videoURL` property to present the video player.
-1. If there's no value behind the optional, which can happen if you're handed a universal link that the app can't understand, then you fall back to opening Safari.
+1. If there's no value behind the optional, which can happen if you're handed a universal link that the app can't understand, then you fall back to opening the homepage in Safari.
 
 > **Note:** `application(_:continueUserActivity:restorationHandler:)` should also look familiar. Apple introduced this `UIApplicationDelegate` method back in iOS 8 to help developers implement Handoff. The method also makes an appearance in this book's Chapter 2 in relation to the new search APIs in iOS 9. This method is a real polymath!
 
 Build and run to validate your work. Again, you won't be able to validate the code you just wrote but you can see what the final result is supposed to look like. Double-tap the home screen button to go back to Springboard. Locate and delete the RWDevCon version of the app you've been working on. Then go to the App Store and download the latest version of RWDevCon.
 
-Now open your favorite mail client and write yourself an e-mail that looks like this. This part assumes that you're able to receive and open the e-mail on your test device.
-
-***continue here***
-
 //TODO: This part won't work until we release an update to RWDevCon
+
+Now open your favorite mail client and write yourself an e-mail that looks like this:
+
+![iphone](/images/testlinks.png)
+
+This part assumes that you're able to receive and open the e-mail on your test device. Open the e-mail on the device that you've been using to follow along and tap on the first link. This opens the app and starts streaming a video:
+
+![iphone](/images/videovalidlink.png)
+
+You tapped on a valid link that corresponds to Tammy Coron's 2015 inspiration talk titled "Possibility". Woo hoo! Now go back to your mail client and tap on the second link. Doing this also opens the app, but then you're bounced back to Safari:
+
+![iphone](/images/videoinvalidlink.png)
+
+Great job! You've seen how RWDevCon handles the universal links that it recognizes and how it gracefully falls back to Safari for the ones that it doesn't recognize. So what exactly can trigger your app receiving a universal HTTP link? As you saw, tapping on the directly link from another app will trigger this action. Executing the URL from Safari, `WKWebView`, `UIWebView` or using `UIApplication`'s `openURL(_:)` can also be triggers.
+
+In the last screen shot, notice how there's a banner on top? That's a Smart Banner, and you'll learn much more about them in the second half of the chapter.
 
 ## Web Markup
 
@@ -370,10 +383,6 @@ The next thing you need to do is to handle incoming search results links. Open X
 
 As explained before, since the site and the app have to be closely tied to even be able to test the integration, you won't be able to see this snippet of code in action.
 
-//TODO: show what its supposed to link to in the app
-//TODO: show that raywenderlich video is not in app, fall back to safari
-//TODO: show that another video can be played in the app
-
 ### Semantic markup using Open Graph
 
 So far you've learned how to add Smart Banners to a web page to make it easier for Applebot to index its universal links. However, just because Applebot can find and crawl a website, it doesn't mean that its content will show up in Spotlight! The content also has to be relevant and engaging if it has any chance of competing with other search results.
@@ -421,30 +430,5 @@ You should also not miss the following WWDC Sessions:
 Apple also provides excellent programming guides for universal linking and web markup:
 - [App Search Programming Guide (http://apple.co/aHcnuah)](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/index.html#//apple_ref/doc/uid/TP40016308)
 - [iOS Search API Best Practices and FAQs (http://apple.co/1He3shh)](https://developer.apple.com/library/prerelease/ios/technotes/tn2416/_index.html)
-
-- Useful for apps that have mirrored content from the web
-
-~~~~~
-
-Notes:
-- What will open your app: WKWebview, UIWebView, Safari, openURL, chrome? (yes)
-
-Blockers:
-- Upload apple-app-site-association
-- Get team admin to turn on associated domains
-
-Resources:
-- http://blog.hokolinks.com/how-to-implement-apple-universal-links-on-ios-9/
-
-- check smart banners work in video pages
-- turn on associated domins, works!
-- build to a device, blocked! 
-- smart banner opens app, works, must handle link!
-- validator, must update
-
-* TODOs
-- update apple-app-site-association to newest format
-- add width and height meta tags to image
-- add width and height meta tags to video
 
 
