@@ -114,7 +114,7 @@ Once you have your **apple-app-site-association** file ready, you have to upload
 
 Obviously, since you don't have access to the web servers hosting `www.rwdevcon.com`, you can't do this step yourself. Luckily, Ray has already uploaded the file to the root of the web server for you. Thanks Ray! You can verify that it's there by requesting the file with your favorite web browser.
 
-Before moving on to the next section, there are two caveats that you should know about: **continue here**
+Before moving on to the next section, there are two caveats that you should know about:
 
 1. If you have to target iOS 8 because your app has Continuity features like Handoff and shared web credentials, you'll have to sign your **apple-app-site-association** file using the `openssl`. You can read more about this process in Apple's [Handoff Programming Guide](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/Handoff/AdoptingHandoff/AdoptingHandoff.html).
 
@@ -151,9 +151,10 @@ Next, go to `AppDelegate` and add the following helper method:
 func presentVideoViewController(URL: NSURL) {
   
   let storyboard = UIStoryboard(name: "Main", bundle: nil)
+  let navID = "NavPlayerViewController"
   
   let navVideoPlayerVC =
-  storyboard.instantiateViewControllerWithIdentifier("NavPlayerViewController")
+  storyboard.instantiateViewControllerWithIdentifier(navID)
     as! UINavigationController
   
   navVideoPlayerVC.modalPresentationStyle = .FormSheet
@@ -174,14 +175,15 @@ This method takes in a video URL and presents an `AVPlayerViewController` embedd
 Finally, add the following `UIApplicationDelegate` method:
 
 ```swift
-
 func application(application: UIApplication,
   continueUserActivity
   userActivity: NSUserActivity,
   restorationHandler: ([AnyObject]?) -> Void) -> Bool {
     
     //1
-    if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+    if userActivity.activityType ==
+      NSUserActivityTypeBrowsingWeb {
+
       let universalURL = userActivity.webpageURL!
       
     //2
@@ -196,7 +198,8 @@ func application(application: UIApplication,
               presentVideoViewController(videoURL)
           } else {
     //4
-            UIApplication.sharedApplication().openURL(universalURL)
+            let app = UIApplication.sharedApplication()
+            app.openURL(universalURL)
           }
       }
     }
@@ -204,23 +207,28 @@ func application(application: UIApplication,
 }
 ```
 
-Pay close attention to what's going on in `application(_:continueUserActivity:restorationHandler:)`. That's where all the action happens! This method gets called when there's an incoming universal HTTP link. Here's a breakdown of what each section does:
+The system calls this method when there's an incoming universal HTTP link. Pay close attention to what's happening.  Here's a breakdown of what each section does:
 
-**continue here**
+1. The system invokes this method for several types of `NSUserActivity`. The type that corresponds to universal HTTP links is `NSUserActivityTypeBrowsingWeb`. When you see a user activity of this type, you're guaranteed that the `NSUserActivity` will have its `webPageURL` property (of type `NSURL?`) set to something you can inspect, so you go ahead and unwrap the optional.
+1. You use the new `NSURLComponents` API to extract the URL's path and you use it to reverse-map to the correct `Session` object using the class method you added earlier, `Session.sessionByWebPath(_:_:)`.
+1. `Session.sessionByWebPath(_:_:)` returns an optional `Session`. If there's a value behind the optional, you use the session's `videoURL` property to present the video player.
+1. If there's no value behind the optional, which can happen if you're handed a universal link that the app can't understand, then you fall back to opening Safari.
 
-1. 
-1.
-1.
-1.
+> **Note:** `application(_:continueUserActivity:restorationHandler:)` should also look familiar. Apple introduced this `UIApplicationDelegate` method back in iOS 8 to help developers implement Handoff. The method also makes an appearance in this book's Chapter 2 in relation to the new search APIs in iOS 9. This method is a real polymath!
 
-> **Note:** `application(_:continueUserActivity:restorationHandler:)` should also look familiar. Apple introduced this application delegate method in iOS 8 to help developers implement Handoff. The method also makes an appearance in chapter 2 in relation to the new search APIs in iOS 9. This method is a real polymath!
+Build and run to validate your work. Again, you won't be able to validate the code you just wrote but you can see what the final result is supposed to look like. Double-tap the home screen button to go back to Springboard. Locate and delete the RWDevCon version of the app you've been working on. Then go to the App Store and download the latest version of RWDevCon.
 
+Now open your favorite mail client and write yourself an e-mail that looks like this. This part assumes that you're able to receive and open the e-mail on your test device.
+
+***continue here***
+
+//TODO: This part won't work until we release an update to RWDevCon
 
 ## Web Markup
 
-Now that you know how to implement and handle universal links in iOS 9, it's time to move to the second topic of this chapter: web markup. As it turns out, web markup is part a much bigger topic that you started to learn about in chapter 2. That topic is search! 
+Now that you know how to implement and handle universal links in iOS 9, it's time to move to the second topic of this chapter: web markup. As it turns out, web markup is part a much bigger topic that you started to learn about in Chapter 2. That topic is search! 
 
-To refresh your memory, search includes three different APIs: NSUserActivity, CoreSpotlight and web markup. All three approaches are important pieces of your search strategy but the second half of this chapter will only focus on web markup. If you skipped chapter 2 but want to learn more about search, go back and read that chapter. Web markup will still be here when you come back :]
+To refresh your memory, search includes three different APIs: NSUserActivity, CoreSpotlight and web markup. All three approaches are important pieces of your search strategy but the second half of this chapter will only focus on web markup. If you skipped Chapter 2 but want to learn more about search, go back and read that chapter. Web markup will still be here when you come back :]
 
 To recap from the last chapter, in iOS 9 search results that appear in Spotlight and in Safari will now include content from native apps. Wait a minute, you may be thinking, wasn't that already the case in iOS 8 and before? Yes, but search results only included content from Apple's own apps such as Mail and Notes. What makes this change in iOS 9 different and exciting is that (for the first time ever) search results will now include content from third party apps. Woo hoo!
 
@@ -236,7 +244,7 @@ Applebot crawls the web far and wide but there's no guarantee that it will ever 
 
 1. Point your app's **support URL** as well as the optional **marketing URL** in iTunes Connect to the domain that contains your web markup. These support URLS are Applebot's entry points to start crawling your content.
 
-If you need to change your marketing or support URLs, you can do so in iTunes Connect. Simply log into iTunes Connect, go to **My Apps** and navigate to your app's detail page. The fields you want to change (or at least verify) are labeled Support URL and Marketing URL:
+> If you need to change your marketing or support URLs, you can do so in iTunes Connect. Simply log into iTunes Connect, go to **My Apps** and navigate to your app's detail page. The fields you want to change (or at least verify) are labeled Support URL and Marketing URL:
 
 ![bordered height=35%](/images/supportURL.png)
 
@@ -403,7 +411,7 @@ You just added rich web markup to the web page by adding a `video` meta tag, an 
 
 As mentioned in the beginning of the chapter, iOS 9 is bringing the web and app ecosystem closer to each other than ever. Custom scheme deep links are all but deprecated in iOS 9 and Apple strongly suggests that you start using universal http links as soon as you can make the transition. This will make linking from the web to your apps a seamless experience.
 
-This chapter also discussed web markup as continuation of chapter 2's search APIs discussion. This particularly applies to apps that have websites that mirror their content. Implementing web markup correctly is one more way you can get new users. This chapter covered a lot of ground, but you still only dipped your toes in each topic. 
+This chapter also discussed web markup as continuation of Chapter 2's search APIs discussion. This particularly applies to apps that have websites that mirror their content. Implementing web markup correctly is one more way you can get new users. This chapter covered a lot of ground, but you still only dipped your toes in each topic. 
 
 You should also not miss the following WWDC Sessions:
 - [Seamless Linking To Your App (http://apple.co/1IBTu8q)](https://developer.apple.com/videos/wwdc/2015/?id=509)
