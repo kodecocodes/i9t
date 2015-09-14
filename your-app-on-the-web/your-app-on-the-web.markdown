@@ -392,7 +392,7 @@ As mentioned in the beginning of the chapter, iOS 9 is bringing the web and app 
 
 This chapter also discussed web markup as continuation of Chapter 2's search APIs discussion. This particularly applies to apps that have websites that mirror their content. This chapter covered a lot of ground, but you still only dipped your toes in each topic. 
 
-For example, there are ways to add rich semantic markup to your sites that weren't discussed on this chapter. These include using supported schemas such as `Interactionount`, `Organization` and `SearchAction`. As time goes on, Apple will support more schemas and more ways to markup your web pages to make search results come alive.
+For example, there are ways to add rich semantic markup to your sites that weren't discussed on this chapter. These include using supported schemas such as `InteractionCount`, `Organization` and `SearchAction`. As time goes on, Apple will support more schemas and more ways to markup your web pages to make search results come alive.
 
 You should also not miss the following WWDC Sessions:
 - [Seamless Linking To Your App (http://apple.co/1IBTu8q)](https://developer.apple.com/videos/wwdc/2015/?id=509)
