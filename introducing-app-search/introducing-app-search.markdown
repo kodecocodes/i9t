@@ -159,7 +159,7 @@ This retrieves `userActivity` — the property you just created in the `Employee
 
 > **NOTE**: The `userActivity` property on the view controller is inherited from `UIResponder`. It's one of those things Apple added with iOS 8 to enable Handoff.
 
-The last step ensures that when a search result is selected, you'll have the information necessary is to override `updateUserActivityState()`.
+The last step is to override updateUserActivityState(). This ensures that when a search result is selected you'll have the information necessary.
 
 Add the following method after `viewDidLoad()`:
 
