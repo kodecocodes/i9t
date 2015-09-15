@@ -124,10 +124,10 @@ struct StartsAndEndsWithStringValidator: StringValidator {
 }
 //: Create a new instance of the validator to be used.
 let numberSet = NSCharacterSet.decimalDigitCharacterSet()
-let startsAndEndsWithStringValidator = StartsAndEndsWithStringValidator(startsWithSet: letterSet, startsWithDescription: "letter", endsWithSet: numberSet, endsWithDescription: "number")
+let startsAndEndsWithValidator = StartsAndEndsWithStringValidator(startsWithSet: letterSet, startsWithDescription: "letter", endsWithSet: numberSet, endsWithDescription: "number")
 //: Test that the validator works and view the resulting errors for invalid strings
-startsAndEndsWithStringValidator.validate("1foo").errors
-startsAndEndsWithStringValidator.validate("foo").errors
-startsAndEndsWithStringValidator.validate("foo1").valid
+startsAndEndsWithValidator.validate("1foo").errors.description
+startsAndEndsWithValidator.validate("foo").errors.description
+startsAndEndsWithValidator.validate("foo1").valid
 
 //: Move on to [Password Validation](@next)

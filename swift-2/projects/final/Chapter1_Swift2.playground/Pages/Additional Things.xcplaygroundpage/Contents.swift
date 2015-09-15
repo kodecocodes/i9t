@@ -7,17 +7,19 @@ import Foundation
 
 //: ### Going further with Extensions
 //: Define the `shuffleInPlace()` method below.
-extension MutableCollectionType where Self.Index == Int {
+extension MutableCollectionType where Index == Int {
   mutating func shuffleInPlace() {
     let c = self.count
     for i in 0..<(c-1) {
       let j = Int(arc4random_uniform(UInt32(c - i))) + i
+      guard i != j else { continue }
       swap(&self[i], &self[j])
     }
   }
 }
 //: Test out the `shuffleInPlace()` method.
 var people = ["Chris", "Ray", "Sam", "Jake", "Charlie"]
+
 people.shuffleInPlace()
 
 //: ### Using `defer`

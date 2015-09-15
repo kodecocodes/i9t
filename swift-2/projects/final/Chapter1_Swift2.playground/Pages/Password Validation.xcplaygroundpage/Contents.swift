@@ -20,6 +20,6 @@ struct PasswordRequirementsStringValidator : StringValidator {
 }
 //: Create a new instance of `PasswordRequirementStringValidator` and test it out.
 let passwordValidator = PasswordRequirementsStringValidator()
-passwordValidator.validate("abc1").errors
+passwordValidator.validate("abc1").errors.description
 passwordValidator.validate("abc1!Fjk").errors
 //: Move on to [Additional Things](@next)

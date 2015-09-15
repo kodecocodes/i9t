@@ -40,6 +40,7 @@ Unlike most chapters in this book, you _won't_ write or extend an app in this ch
 
 Open the provided **Chapter1_Swift2.playground** file in Xcode 7 and you'll be ready to dive right into the chapter!
 
+> **Note:** When running Playgrounds in Xcode 7 GM you may often see error messages like the following in the Debug Area. `CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.` According to Apple engineers in the [developer forums (http://apple.co/1FbVE0l)](http://apple.co/1FbVE0l) it is safe to ignore these messages.
 
 ## Control Flow
 
@@ -230,9 +231,7 @@ protocol StringValidationRule {
 }
 ```
 
-This protocol requires three things: a method that returns a `Bool` denoting the validity of a given string and also throws an error, and that you provide the type of error that can be thrown.
-
-TODO: Please can you rewrite this sentence. I don't understand how there are three things here? Also, I'm confused about the use of the word "type". I think that "error type" is different from the use of "type" within Swift? Could you reword this to make it more obvious?
+This protocol requires two things. The first being a method that returns a `Bool` denoting the validity of a given string and also throws an error. The second is a property which describes the type of error that may be thrown by the `validate(string:)` method.
 
 > **Note:** The `errorType` property is not a Swift requirement. It's here so that you can be clear about the types of error that might be returned.
 
@@ -395,20 +394,18 @@ Now give your new validator a try! Add the following to the playground:
 ```
 let numberSet = NSCharacterSet.decimalDigitCharacterSet()
 
-let startsAndEndsWithStringValidator = StartsAndEndsWithStringValidator(
+let startsAndEndsWithValidator = StartsAndEndsWithStringValidator(
   startsWithSet: letterSet,
   startsWithDescription: "letter",
   endsWithSet: numberSet,
   endsWithDescription: "number")
 
-startsAndEndsWithStringValidator.validate("1foo").errors
-startsAndEndsWithStringValidator.validate("foo").errors
-startsAndEndsWithStringValidator.validate("foo1").valid
+startsAndEndsWithValidator.validate("1foo").errors.description
+startsAndEndsWithValidator.validate("foo").errors.description
+startsAndEndsWithValidator.validate("foo1").valid
 ```
 
 You should see the following result:
-
-TODO: this is not what I'm seeing in beta5&6 - the quicklook of the array of structs doesn't appear to be working correctly ({(...)}). Can you check this out and see whether there's a way to fix this please?
 
 ![bordered height=30%](/images/starts_and_ends_with_validator_result.png)
 
@@ -527,9 +524,7 @@ passwordValidator.validate("abc1!Fjk").errors
 
 You should see the following result:
 
-TODO: Another screenshot that doesn't match what's shown in beta5/6
-
-![bordered height=25%](/images/password_validator_result.png)
+![bordered width=95%](/images/password_validator_result.png)
 
 Great work - you've used protocol oriented programming with Swift 2.0 features to implement a solution to a real-world non-trivial problem.
 
@@ -550,11 +545,12 @@ How about creating an extension on the `MutableCollectionType` protocol? Conform
 Add the following into the **Additional Things** page in the chapter's playground:
 
 ```
-extension MutableCollectionType where Self.Index == Int {
+extension MutableCollectionType where Index == Int {
   mutating func shuffleInPlace() {
     let c = self.count
-    for i in 0..<(c - 1) {
+    for i in 0..<(c-1) {
       let j = Int(arc4random_uniform(UInt32(c - i))) + i
+      guard i != j else { continue }
       swap(&self[i], &self[j])
     }
   }
