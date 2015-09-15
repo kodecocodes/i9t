@@ -48,7 +48,7 @@ class EmployeeViewController: UIViewController {
     titleLabel.text = employee.title
     phoneLabel.text = employee.phone
     emailLabel.text = employee.email
-    skillsLabel.text = ", ".join(employee.skills)
+    skillsLabel.text = employee.skills.joinWithSeparator(", ")
     otherEmployeesLabel.text = "Other employees in \(employee.department)"
   }
   
