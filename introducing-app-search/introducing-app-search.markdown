@@ -4,13 +4,9 @@ There's been a big hole in Spotlight on iOS for a long time. Although users can 
 
 An especially savvy user could launch your app by using Siri or searching for it in Spotlight, but neither of these tools help the user find what they want inside a non-Apple app. Meanwhile, Apple makes things like contacts, notes, messages, email and apps directly searchable within Spotlight. The user simply taps on the search result and goes straight to the content. No fair!
 
-Sometimes it seems like Apple keeps all the fun features to itself, like using Spotlight and Siri. The good news is that after Apple developers finish playing around with a feature and feel it's ready for showtime, it often lets the masses play too, like it did with app extensions in iOS 8.
+Sometimes it seems like Apple keeps all the fun features to itself, like using Spotlight. The good news is that after Apple developers finish playing around with a feature and feel it's ready for showtime, it often lets the masses play too, like it did with app extensions in iOS 8.
 
-With iOS 9, Apple is passing a very exciting feature off to the rest of us; third party developers now have the ability to make _their_ content searchable through Spotlight! This also means that users can search within your app with Siri. Not only that, but you also get to make Siri context-aware. By simply saying, "Remind me to log my hours when I get home", users can create a reminder that links to a specific piece of content they were viewing within _your_ app. When the reminder pops up, they can jump straight back into what they were doing.
-
-With iOS 9, you don't have to leave 20 tabs open in Safari and hope that you get back to them later. Create a reminder, close the tab and get on with your life!
-
-[TODO: Fact check this with GM on a device, as of beta 5 it only creates a reminder with the activity's title, no link.]
+With iOS 9, Apple is passing a very exciting feature off to the rest of us; third party developers now have the ability to make _their_ content searchable through Spotlight!
 
 ## App search APIs
 
@@ -81,8 +77,7 @@ That concludes your tour. The rest of the code is view controller logic that you
 When implementing app search, `NSUserActivity` is the first thing to work with because:
 1.	It's dead simple. Creating an `NSUserActivity` instance is as easy as setting a few properties.
 2.	When you use `NSUserActivity` to flag user activities, iOS will rank that content so that search results prioritize frequently accessed content.
-3.	You get the benefit of providing context to Siri. [TODO: Determine if this has notable benefits in GM]
-4.	You're one step closer to providing Handoff support.
+3.	You're one step closer to providing Handoff support.
 
 Time to prove how simple `NSUserActivity` can be to implement!
 
@@ -510,7 +505,7 @@ For further information on batching, check out the Apple documentation for `CSSe
 
 This chapter has covered iOS 9's simple yet powerful approach to indexing the content inside your app, either through Core Spotlight or user activities. The latter of these isn't limited to _content_ though — you can also use it to index navigation points within an app.
 
-Consider a CRM app that has multiple sections such as _Contacts_, _Orders_ and _Tasks_. By creating user activities whenever a user lands on one of these screens, you'd make it possible for them to search for _Orders_ and be directly to that section of your app. How powerful would this be if your app has many levels of navigation? It'll even be possible to search for these pages using Siri!
+Consider a CRM app that has multiple sections such as _Contacts_, _Orders_ and _Tasks_. By creating user activities whenever a user lands on one of these screens, you'd make it possible for them to search for _Orders_ and be directly to that section of your app. How powerful would this be if your app has many levels of navigation?
 
 There are many unique ways to bubble up content to your users. Think outside the box and remember to educate your users about this powerful function.
 
