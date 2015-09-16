@@ -451,13 +451,15 @@ Great work! Once you have all of the above working, you can set the sample proje
 
 ## Private vs. public indexing
 
+> **Note:** This section is inaccurate for iOS 9.0; Apple has not yet implemented the feature according to [Technical Note TN2416 (http://bit.ly/1NC7u72)](http://bit.ly/1NC7u72). "Activities marked as `eligibleForPublicIndexing` are kept on the private on-device index in iOS 9.0, however, they may be eligible for crowd-sourcing to Apple’s server-side index in a future release." Keep an eye on this technical note if the feature is of interest to you. The information described below is what Apple had outlined during the WWDC session and documentation.
+
 Imagine if a user could search for something in Spotlight, and see a result from inside an app _that they don't even have installed_! How cool would that be? Well, with public indexing, this is possible. Content from your app would appear in front of more users — helping them out with contextually relevant information, and hopefully getting you some extra downloads.
 
 By default, all indexed content is considered private. In fact, all content you index using Core Spotlight will always be private. You can, however, mark an `NSUserActivity` as being publicly indexable by setting the `eligibleForPublicIndexing` property to `true`.
 
 There's actually a little more to it than that. In order for content to become public in Apple's cloud index, it must first be reported by an undefined number of unique users. This protects users' privacy as well as maintaining the quality of the public index.
 
-As you might expect Apple has not quantified this threshold. There's however an [Apple provided tool](http://apple.co/1NAmYZ7) that will run a set of validations against your website and provide a "health check" with tips on to optimize for App Search.
+As you might expect Apple has not quantified this threshold.
 
 The other approach for making content publicly indexed is using _web markup_, which is covered in the next chapter.
 
