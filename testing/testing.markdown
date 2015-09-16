@@ -2,7 +2,7 @@
 
 "How did this feature break _again_?" If you've been writing code for any length of time, you've probably asked yourself that question at least once. As any experienced programmer will tell you, writing code "right" the first time is difficult. And even _if_ you get it right the first time, as you add code to your project, you can inadvertently introduce bugs to parts of your app that previously worked flawlessly.
 
-Wouldn't it be great if you could add little "scaffolds" as you code? In theory, these would prevent your code from failing after you've moved on to something else. At the very least, they would give you easy access to important parts and tell you if something broke. 
+Wouldn't it be great if you could add little "scaffolds" as you code? In theory, these would prevent your code from failing after you've moved on to something else. At the very least, they would give you easy access to important bits of logic and tell you if something broke. 
 
 The good news is _you can do this_. You can write tests!
 
@@ -16,7 +16,7 @@ Over the past few years, Apple has made it easier to test iOS apps. Here's a sho
 
 - This year, Xcode 7 introduced code coverage reports and UI testing.
 
-Before Xcode 7, you couldn't use XCTest to test your user interface or write functional tests, you had to turn to third-party libraries such as KIF, Frank or Calabash to fill this gap. Unfortunately, none of these libraries are integrated with Xcode, so you sometimes find yourself fighting an uphill battle.
+Before Xcode 7, you couldn't use XCTest to test your user interface or write functional tests, you had to turn to third-party libraries such as KIF, Frank or Calabash to fill this gap. Unfortunately, none of these libraries are integrated with Xcode, so you can sometimes find yourself fighting an uphill battle.
 
 This chapter focuses on the latest additions to XCTest. If you're interested in UI testing but don't know much about XCTest, you should first read Chapter 11, "Unit Testing in Xcode 5" in _iOS 7 by Tutorials_ and Chapter 29, "What's New with Testing?" in _iOS 8 by Tutorials_.
 
@@ -47,17 +47,15 @@ Now that you've learned your way around the app, head back to Xcode and take a l
 [TODO: Check the formatting with a newer version of deckle]
 Similarly, `ExerciseViewController` displays a list of all exercises in the app. From here, you can add a new exercise or tap into an existing exercise, taking you to `ExerciseDetailViewController`.
 
-- **WorkoutTests:** The sample app already includes some unit tests in its testing target. **Exercises.swift** and **WorkoutsTests.swift** contain unit tests for their corresponding model objects.
+- **WorkoutsTests:** The sample app already includes some unit tests in its testing target. **ExerciseTests.swift** and **WorkoutTests.swift** contain unit tests for their corresponding model objects.
 
-> **Note**: Even though the view controller source files are much longer than the model object source files, notice how they don't have any tests. Talk about a problem!
-
-That's a lot of UI code that has no test coverage. You'll learn how to measure and test this code later in the chapter.
+Even though the view controller source files are much longer than the model object source files, notice how they don't have any tests. Talk about a problem! You'll learn how to measure and test this code later in the chapter.
 
 ## Code coverage
 
 As now know, the starter project already comes with some tests. However, how do you know if you have _enough_ tests and whether you're testing the right parts of your project?
 
-That's where code coverage comes in. With Xcode 7 came the ability to get coverage reports that show how much code in any given file is "exercised" by your tests.
+That's where code coverage comes in. With Xcode 7 came the ability to get coverage reports that show how much code in any given file is "exercised" by your tests. No pun intended :]
 
 By default, code coverage isn't turned on. Change that now in the starter project by selecting **Product\Scheme\Edit Scheme...**, and then select the **Test** action and click on the **Code Coverage — Gather coverage data** checkbox.
 
@@ -71,7 +69,7 @@ You'll run unit tests constantly in this chapter, so how about a quick refresher
 2. Select **Product\Test** from Xcode’s menu.
 3. Use the shortcut **Command+U**.
 
-Use whichever method you like to run your unit tests. Each tells Xcode to build and launch your app, and then run your tests. In the **test navigator**, you should see a total of six tests:
+Use whichever method you like best to run your unit tests. Each tells Xcode to build and launch your app, and then run your tests. In the **test navigator**, you should see a total of six tests:
 
 ![bordered width=50%](/images/testNavigator.png)
 
@@ -87,7 +85,7 @@ This report shows you the code coverage for your entire app as well as the code 
 
 > **Note**: You'll notice the report doesn't show you the specific coverage percentage right away; you have to hover over the progress indicator until it shows up.
 
-You also have access to code coverage numbers for individual classes and methods. To see them, click on the disclosure indicator to the right of the file name. Xcode can even tell you the coverage of each line in a file. Hover over **Workout.swift** and click on the small right-facing arrow that appears to the left of its name:
+You also have access to code coverage numbers for individual classes and methods. To see them, click on the disclosure indicator to the left of the file name. Xcode can even tell you the coverage of each line in a file. To see this in action, hover over **Workout.swift** and click on the small right-facing arrow that appears to the right of its name:
 
 ![bordered width=20%](/images/codeCoverage2-5.png)
 
@@ -97,7 +95,7 @@ Doing this takes you to the file you clicked on in Xcode’s main editor. Notice
 
 If granularity is what you want, prepare to be delighted. Xcode's code coverage reports goes beyond the method level. The numbers on the right gutter represents the number of times those lines of code are executed by tests. For example, the getter for `workoutCount` has a 0 next to it because it isn't tested at all.
 
-As you can see, it tells you _which_ lines _inside_ a method are covered and which are not. Now you can identify those edge cases you haven't tested yet without losing your sanity! For instance, if you only test the `if` block in an `if-else` statement, Xcode will pick this up and let you know.
+As you can see, it tells you which lines inside a method are covered and which are not. Now you can identify those edge cases you haven't tested yet without losing your sanity! For instance, if you only test the `if` block in an `if-else` statement, Xcode will pick this up and let you know.
 
 
 ![bordered width=40%](/images/xcode_has_my_back.png)
@@ -199,7 +197,7 @@ A _module_ is a single unit of code distribution. This could be an application o
 Swift provides three different levels of access:
 
 1. **Public access** enables access to entities in any source file from within their own module, as well as any source file in any other module that imports that module. 
-2. **Internal access** enables access for entities in any source file from within their own module. Outside modules never get access, even if they import the module in question. 
+2. **Internal access** enables access for entities in any source file from within their own module. Files from outside modules never get access, even if they import the module in question. 
 3. **Private access** restricts access to entities from anywhere other than the source file where they're defined. This is the most restrictive of all access control levels.
 
 > **Note**: This was a broad overview of Swift's access control model. There's more to it, and if you’re interested in learning more, read Apple's documentation on the subject at <http://apple.co/1DH0v9y>.
@@ -212,13 +210,13 @@ Before Xcode 7, you could get around this problem one of two ways:
 
 1. Add every source file you want to test to your testing target. If you were wondering, this is how `WorkoutTests` and `ExercisesTests` currently compile without errors.
 
-2. Make every entity you want to test `public`. Doing this makes your entities visible from your testing module.
+2. Make every entity you want to test `public`. Doing this makes your entities visible from your testing module as long as you import your app's main module.
 
 Both options have downsides. With the first option, you know that adding files to both targets is a manual step that's easily forgotten. It also doesn't make much sense conceptually. The testing module should only contain tests!
 
 The second option, marking everything `public`, is even worse. If you have a large project that consists of several modules, there are probably parts of your code that shouldn't be exposed externally. Marking everything `public` for the sake of testability is asking for trouble.
 
-Lucky for you, Swift 2.0 introduces a third option: `@testable`.
+Lucky for you, Swift 2.0 introduces a third option: `@testable` imports.
 
 When you import a module, you can mark it as `@testable`, which changes the way that the default `internal` access control works. Normally you don't have visibility of internal entities from outside modules. With `@testable` you do!
 
@@ -326,13 +324,13 @@ Once the app has built and launched, the simulator does something you've probabl
 
 If you've written regular XCTest tests before, you know that they usually rely on one or more assertions, such as `XCTAssertTrue`, `XCTAssertFalse` or `XCTAssertEquals`. You may be thinking that this is not a real test since it has no assertions. 
 
-Although you _can_ add assertions, you don't have to explicitly assert anything in a UI test. If the test expects to find a specific UI element on the screen, like a button that says _Workouts_, but doesn’t find it, the test will fail. In other words, tapping through your app _implicitly_ asserts that UI looks and behaves a certain way.
+Although you can add assertions, you don't have to explicitly assert anything in a UI test. If the test expects to find a specific UI element on the screen, like a button that says _Workouts_, but doesn’t find it, the test will fail. In other words, tapping through your app _implicitly_ asserts that UI looks and behaves a certain way.
 
 ### UI test classes
 
 There are three main classes involved in UI testing: `XCUIApplication`, `XCUIElement` and `XCUIElementQuery`. They're difficult to distinguish in `testRaysFullBodyWorkout()` because of Swift's type inference, but they're there! Here's a short description of what they do:
 
-- **XCUIApplication** is a proxy for your application. You use it to launch and terminate the application as you start and end UI tests. Notice that `setup()` in **WorkoutsUITests.swift** launches the app. This means you're launching your `XCUIApplication` before every UI test in the file. `XCUIApplication` is also the root element in the element hierarchy visible to your test. 
+- **XCUIApplication** is a proxy for your application. You use it to launch and terminate the application as you start and end UI tests. Notice that `setup()` in **WorkoutsUITests.swift** launches the app. This means you're launching your `XCUIApplication` before every UI test in the file. `XCUIApplication` is also the root in the element hierarchy visible to your test. 
 - **XCUIElement** is a proxy for UI elements in the application. Every `UIKit` class you can think of can be represented by an `XCUIElement` in the context of a UI test. How? `XCUIElement` has a type (e.g. `.Cell`, `.Table`, `.WebView`, etc.) as well as an identifier. The identifier usually comes from the element's accessibility information, such as its accessibility identifier, label or value.
 
 [TODO: Check before publication with a later version of Deckle]
@@ -377,7 +375,7 @@ The element query `descendantsMatchingType(_:)` is so common that Apple provided
 
 2. Here's your extra step. Once in the workout detail screen, you find the appropriate table view by its accessibility identifier, scroll downwards by swiping up and tap on **Select & Workout**. Again, notice you don't need to specify _which_ table you're talking about. You can drill down from the app to its tables to the tables' buttons, then disambiguate using the button's title. You do the same with the alert's **OK** button, except this time you go through all of the app's _alerts_ instead of through all of the app's _tables_.
 
-3. In the previous implementation of this test, you first referenced the navigation bar to get to its back button. Now you directly query the app's buttons and tap on the one identified by the title`"Workouts"`.
+3. In the previous implementation of this test, you first referenced the navigation bar to get to its back button. Now you directly query the app's buttons and tap on the one identified by the title `"Workouts"`.
 
 Run `testRaysFullBodyWorkout()` one more time. The same sequence of events plays out, except this time, the test taps on **Select & Workout** and dismisses the alert controller.
 
@@ -391,9 +389,9 @@ How do you fix this? You have three options when you want to drill down from a s
 
 1. You can use **subscripting** if the element you want has a unique identifier. For example, `buttonsQuery["OK"]`. 
 2. You can use **indexing** if the element you want is located at a particular index. For example, you can use `tables.cells.elementAtIndex(0)` to get the first cell in a table view. 
-3. If you're _sure_ a query resolves down to one element, you can use the `element` property for  `XCUIElementQuery`.
+3. If you're _sure_ a query resolves down to one element, you can use the `element` property for `XCUIElementQuery`.
 
-If you use any of the three techniques shown above and end up with more than one `XCUIElement`, the test fails. This is because the UI testing framework has no way of knowing which element you actually want to interact with. In this case, `testRaysFullBodyWorkout()` failed because the query in the final line of the test resulted in two buttons:
+If you use any of the three techniques shown above and end up with more than one `XCUIElement`, the test fails. This is because the UI testing framework has no way of knowing which element you actually want to interact with. In this case, `testRaysFullBodyWorkout()` failed because the query in the final line of the test resulted in two buttons with the same identifier:
 
     app.buttons["Workouts"]
 
@@ -414,7 +412,7 @@ It's great to know how to write UI tests from scratch, but there is an easier wa
 
 ![bordered width=40%](/images/let_me_get_this_straight.png)
 
-To check it out in action, delete the current contents of `testRaysFullBodyWorkout()`. Place your cursor inside the empty method, then click the **Record UI Test** button at the bottom of the editor:
+To check it out in action, delete the current contents of `testRaysFullBodyWorkout()`. Place your cursor inside the empty method, then click on the red **Record UI Test** button at the bottom of the editor:
 
 ![bordered width=55%](/images/uiRecording.png)
 
@@ -446,11 +444,9 @@ You'll notice that some of the generated lines of code have **tokens** that cont
 
 There are many ways of querying the same UI elements, and in some cases, Xcode  can only make guesses about the steps you want your test to take. With these tokens, Xcode gives you options to help you disambiguate elements.
 
-Once you're happy with a particular path, double-click on the **token** to make it final.
+Once you're happy with a particular path, double-click on the blue **token** to make it final.
 
 > **Note**: Even if you're hardcore and opt to write your tests manually, you can still use UI recording to find out what the testing framework "sees" as you tap around the simulator. It's a good alternative to using the system-provided Accessibility Inspectors.
-
-[TODO / NOTE FOR AUTHOR: You had a note about adding final tests to the tutorial. Looking at the samples, it seems that these are to show using an XCTAssert in a UI test. Both tests look fairly similar, so I'd recommend only including one here if you have space? Or make the second a challenge? I've removed the tests from the current final project, so you'll have to add them back from Git if you need them.]
 
 Run the test again to check it's doing everything you expect. Do a victory dance when you get the desired results.
 
