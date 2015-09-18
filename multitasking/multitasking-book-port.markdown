@@ -4,19 +4,17 @@ By Soheil Azarpour
 
 iOS 9 introduces a phenomenal feature for the iPad — **multitasking**. For the first time, iPad users can run two apps on the screen at the same time. Maybe you want to read a proposal in your email app while you research the topic in Safari. Or you'd like to keep an eye on Twitter while you enjoy your favorite sports show. For a device that you can hold in one hand, this is a crazy amount of productivity power. It's undoubtedly going to change the way users interact with their iPads.
 
-In this chapter, you'll learn how to update an existing app so that it plays nicely in a multi-tasking iPad environment.
+In this tutorial, you'll learn how to update an existing app so that it plays nicely in a multi-tasking iPad environment.
 
 ## Getting started
 
-The starter project you’ll use for this chapter is named **Travelog**. Open the project file in Xcode and build and run the application on the **iPad Air 2** simulator. You’ll see the following:
+In this tutorial, you'll work on an app called **Travelog**. It's a simple app that you use to keep a diary of a business trip or a vacation. Start by downloading the starter project for this tutorial and run it on the **iPad Air 2** Simulator. The app is already seeded with some entries:
 
 ![width=90% ipad](images/mt05.png)
 
-Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. Tap any entry to display it in the right-hand view; rotate the device and you'll find both master and detail views of the Split View Controller are visible in both orientations.
+The app uses `UISplitViewController` to display entries on the left side. Tap any entry to display it in the right-hand view; rotate the device and you'll find both master and detail views of the Split View Controller are visible in both orientations.
 
 It's time to see how the app behaves in a multitasking environment. Swipe from the right edge of the screen to expose the list of multitasking-ready apps on your iPad. This can be tricky in the simulator; try starting with your mouse pointer just inside the simulator window to simulate a swipe in from the edge.
-
-> **Note**:  If the locale of the iPad is set to a region with right-to-left language, swipe from the left edge of the screen to activate multitasking.
 
 Tap on any app to launch it. A small version of the app opens in the previous position of the list. At this point you're in **Slide Over** multitasking mode. Note that Travelog is dimmed out but otherwise unaffected. The app running in Slide Over mode sits on top of Travelog, and a short handle bar sits at top of the Slide Over. Swipe down on the handle to expose the list of multitasking apps and launch a different app in the Slide Over.
 
@@ -30,15 +28,13 @@ W00t! The screen just divided in two! Isn't that neat?! This is **Split View** m
 
 The **primary app** is the original running app, while the **secondary app** is the newly opened app. If you drag the divider further out, the screen will split 50:50 between the apps. Drag it all the way to the other side and you're back to single app mode. The primary app is backgrounded at this point.
 
-The final type of multitasking, **Picture in Picture**, or **PIP**, works much like the picture-in-picture function on televisions. You can shrink the PIP window of a FaceTime call to one corner of the iPad and continue using other apps while you chat. PIP is only really applicable to apps that play video; therefore it won't be covered in this chapter.
-
-> **Note:** At the time of writing, Split View is **only** available on the iPad Air 2. Picture in Picture and Slide Over is available on iPad Air, iPad Air 2, iPad Mini 2, and iPad Mini 3.
+Now that you have an idea of the multitasking modes on iPad, it’s time to take a closer look and improve your app to better support multitasking.
 
 ## Preparing your app for multitasking
 
-Here's the good news: if you paid attention at WWDC 2014 and built a universal app with size classes, adaptive layout and a launch storyboard or XIB, you're done! Rebuild your app with the iOS 9 SDK, go grab yourself a beverage and I'll see you in the next chapter!
+Here's the good news: if you paid attention at WWDC 2014 and built a universal app with size classes, adaptive layout and a launch storyboard or XIB, you're done! Rebuild your app with the iOS 9 SDK, go grab yourself a beverage and I'll see you next year!
 
-What's that? You live in the real world and don't _quite_ have all the above implemented in your app? Okay then; this chapter is here to walk you through what it takes to make your app multitasking-ready.
+What's that? You live in the real world and don't _quite_ have all the above implemented in your app? Okay then; this tutorial will walk you through what it takes to make your app multitasking-ready.
 
 Any new project created in Xcode 7 is automatically multitasking-ready. An existing app you convert to Xcode 7 automatically becomes multitasking-ready if your app:
 
@@ -51,13 +47,13 @@ Since all the required criteria are in place, Travelog automatically becomes mul
 
 ## Orientation and size changes
 
-Run Travelog in Split View mode and rotate the iPad to portrait orientation; you'll see the app layout as shown below:
+Run Travelog in Split View mode and rotate the iPad to portrait orientation; you'll see the app layout changes:
 
 ![bordered ipad](images/mt061.png)
 
 While this layout is functional, it can certainly stand to be improved. There's whitespace wasted on the left hand side and all the labels are squashed over to the right hand side.
 
-Rotate the device to landscape orientation; you'll see the following:
+Now rotate the device to landscape orientation:
 
 ![bordered ipad](images/mt062.png)
 
@@ -72,10 +68,6 @@ UIKit provides a number of anchor points where you can hook in and update your l
 1. **willTransitionToTraitCollection(_:, withTransitionCoordinator:)**
 2. **viewWillTransitionToSize(_:, withTransitionCoordinator:)**
 3. **traitCollectionDidChange(_:):**
-
-The diagram below shows how the horizontal size classes of your app change during multitasking events (**R** means **Regular** and **C** means **Compact**):
-
-![width=100%](images/sizeclasses.png)
 
 Not all multitasking or orientation changes trigger a size class change, so you can't simply rely on size class changes to provide the best user experience.
 
@@ -149,11 +141,9 @@ Build and run; again, verify the app still looks and behaves as it did before mu
 
 ![width=95%](images/mt09.png)
 
-> **Note:** Unlike `UIScreen`, `UIWindow.bounds` always corresponds to the actual size of your app and its origin is always `(0, 0)`. In iOS 9 you can create a new instance of `UIWindow` _without_ passing a frame via `let window = UIWindow()`. The system will automatically give it a frame that matches your application's frame.
-
 ## Adaptive presentation
 
-Continue your evaluation of the app: this time with the device in landscape orientation and the Split View at 33%, tap the **Photo Library** bar button. You'll see the following popover:
+Let's try another scenario: this time with the device in landscape orientation and the Split View at 33%, tap the **Photo Library** bar button. You'll see the following popover:
 
 ![bordered ipad](images/mt091.png)
 
@@ -214,37 +204,20 @@ Build and run your app; verify that the popover transitions to a modal fullscree
 
 ![width=95%](images/mt093.png)
 
-### The path to adaptivity
+## Design Considerations
 
-If you're not already using Auto Layout, Size Classes or other excellent responsive layout tools in UIKit, you should definitely consider upgrading your code to do so. UIKit has some new functionality to further assist you with multitasking, including `UIStackView`,  `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth`. Want more information on this functionality? Chapter 6, "UIStackView and Auto Layout Changes" has you covered.
-
-## Other considerations
-
-Beyond what's been covered in this chapter, there are a few other things to look out for when multitasking. You should already have incorporated most of these suggestions into your existing apps, but the sections below highlight a few extra considerations to be made in the new paradigm of multitasking apps.
-
-### Keyboard
-
-Dealing with keyboard presentation has always been an "interesting" topic in iOS. :] You've probably had to adjust the layout of your view so critical elements weren't covered when the keyboard appeared, or perhaps you had to shuffle things around to give the keyboard enough room. In the multitasking world, you need to anticipate that the keyboard can appear at any time — and over any view controller.
-
-Apps running next to yours may present the keyboard, which means you'll have to adjust the layout of your app in a way that a user can still effectively work with it — or you'll risk getting one-star reviews in the App Store! Judicious use of scroll views and/or table view controllers that automatically adjust for the keyboard will help you out here.
-
-### Designs
-
-Above and beyond coding considerations, you'll need to change your approach to app visual design a little differently:
+Beyond coding considerations, you'll need to change your approach to app visual design a little differently:
 
 - **Be flexible:** Step away from a pixel-perfect design for various platforms and orientations. You need to think about different sizes and how you can have a flexible app that responds appropriately to size changes.
 - **Use Auto Layout:** Remove hardcoded sizes or custom code that resizes elements. It's time to consider Auto Layout and make your code more flexible and future-proof.
 - **Use size classes:** One single layout won't always fit all displays. Use size classes to build a base layout and then customize each specific size class based on individual needs. But don’t treat each size class as a completely separate design; as you saw in this chapter, your app should easily transition from one size class to another, and you don't want to surprise your user with a dramatic change as they drag the divider.
 
-### Resources
-
-You've worked hard to be a good memory citizen over the years, and that won't change with multitasking. You can potentially have up to three apps running at full speed, all at the same time: the primary app, the secondary app and Picture in Picture. Instruments is an invaluable tool for monitoring memory usage in your app and can help you whittle your memory usage back to the bare minimum.
-
 ## Where to go from here?
 
-This chapter only touched on the basics of multitasking — it's up to developers like you to help chart the course for accepted multitasking design patterns of the future. To help you along the journey to multitasking, here are some resources you can bookmark for future reference:
+You can download the completed project here.
 
-* [Adopting Multitasking Enhancements on iPad- http://apple.co/1MdssbK](https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html)
-* [Getting Started with Multitasking on iPad in iOS 9 (Session 205) - http://apple.co/1ItxCtH](https://developer.apple.com/videos/wwdc/2015/?id=205)
-* [Multitasking Essentials for Media-Based Apps on iPad in iOS 9 (session 211) - http://apple.co/1hm8v5s](https://developer.apple.com/videos/wwdc/2015/?id=211)
-* [Optimizing Your App for Multitasking on iPad in iOS 9 (Session 212) - http://apple.co/1T8CCcp](https://developer.apple.com/videos/wwdc/2015/?id=212)
+This tutorial only touched on the basics of multitasking — it's up to developers like you to help chart the course for accepted multitasking design patterns of the future.
+
+This tutorial was an abbreviated version of Chapter XXX, “Multitasking” from iOS 9 by Tutorials. If you’d like to learn more about multitasking and other new features in iOS 9 please check out the book!
+
+In the meantime, if you have any questions or comments about this tutorial or Stack Views in general, please join the forum discussion below!
