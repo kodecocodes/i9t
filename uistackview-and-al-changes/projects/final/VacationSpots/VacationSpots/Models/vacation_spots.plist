@@ -112,7 +112,7 @@
 		<key>latitude</key>
 		<real>13.1667</real>
 		<key>locationName</key>
-		<string>Carribean Islands</string>
+		<string>Caribbean Islands</string>
 		<key>longitude</key>
 		<real>-61.2333</real>
 		<key>name</key>
@@ -144,7 +144,7 @@
 		<key>name</key>
 		<string>Paris</string>
 		<key>placesList</key>
-		<string>Eiffel Tower, Arc de Triumphe</string>
+		<string>Eiffel Tower, Arc de Triomphe</string>
 		<key>thumbnailName</key>
 		<string>paris-thumb</string>
 		<key>userRating</key>
@@ -152,7 +152,7 @@
 		<key>weatherInfo</key>
 		<string>The weather is temperate year-round, with the hottest month in July and the coldest in December. Spring is gorgeous!</string>
 		<key>whatToSee</key>
-		<string>While classics like the Lourve, the Eiffel Tower and the Arc de Triumphe stand out, don&apos;t miss the Paris Catacombs and Tuileries Garden.</string>
+		<string>While classics like the Louvre, the Eiffel Tower and the Arc de Triomphe stand out, don&apos;t miss the Paris Catacombs and Tuileries Garden.</string>
 		<key>whyVisit</key>
 		<string>Paris is a prized gem in the crown of Europe. A hub of culture, arts, food and fashion, Paris won&apos;t dissapoint even the most discerning of travelers.</string>
 		<key>wikipediaLink</key>
