@@ -8,17 +8,15 @@ In iOS 9, Apple is pushing things forward yet again. In this chapter you'll read
 
 ## Getting started
 
-Unlike the rest of this book, the "sample app" for this chapter is actually a real-world production app currently on the App Store.
+Unlike the rest of this book, the "sample app" for this chapter is actually a real-world production app currently on the App Store. You'll be working with the app for **RWDevCon**, the conference organized by the folks behind [raywenderlich.com](http://www.raywenderlich.com)! You'll also be making some tweaks to its accompanying website: <http://www.rwdevcon.com>.
 
-// TODO: Excited rage face?
+![iPhone bordered](images/01-rwdevcon-screenshot.png)
 
-You'll be working with the app for **RWDevCon**, the conference organized by the folks behind [raywenderlich.com](http://www.raywenderlich.com)! You'll also be making some tweaks to its accompanying website: <http://www.rwdevcon.com>. // TODO: Mention where to find sample projects?
-
-// TODO: Screenshot?
+In the starter files for this chapter, you'll find both the code for the iOS app and the code for the website. There's quite a lot there, but don't be put off! You'll just be adding some extra functionality to the videos section. Feel free to take a look through and familiarize yourself. You can also browse the real [RWDevCon website (http://rwdevcom.com)](http://rwdevcom.com) and download the iOS app from the App Store ([http://apple.co/1YoKMTi](http://apple.co/1YoKMTi)).
 
 > **Note:** Due to the infrastructure and security requirements for web markup and universal links, this chapter is unfortunately the only place in this book where you **won't** be able to verify your work as you follow along. There's just no easy way to try out these features without having a real website accessible via HTTPS and an associated app in the App Store under an account where you are either the team agent or the team admin.
 >
-> The rest of this chapter includes a number of tutorial sections so that you can get some experience implementing the new functionality that you'll be learning about. You won't be able to build the sample app (due to not having the required provisioning profiles), but you can still get an understanding of how everything fits together.
+> The rest of this chapter includes a number of tutorial sections so that you can get some experience implementing the new functionality that you'll be learning about. You won't be able to build the sample app onto a device (due to not having the required provisioning profiles), but you can still get an understanding of how everything fits together.
 
 ## Linking to your app
 
@@ -65,11 +63,11 @@ To tie your domain to your native app and prove that it's your domain, there are
 
 Go to the starter files included with this chapter and open **RWDevCon.xcodeproj** from the **rwdevcon-app** directory. In the **project navigator**, select the **RWDevCon project**, then the main **RWDevCon target**. Switch to the **Capabilities** tab and add the following domains to the **Associated Domains** section:
 
-![bordered height=35%](/images/associatedDomains.png)
+![bordered width=90%](/images/02-associated-domains.png)
 
 This capability tells iOS which domains the app should respond to. You must make sure you prefix your domain names with `applinks:`.
 
-Xcode may prompt you to select a development team when you attempt to change these settings. Go ahead and pick a team – the selection you make doesn't really matter for this chapter as you won't actually be building the app. You'll also notice that Xcode will now show a provisioning error. Unfortunately, there's no way to get around this error message for this tutorial, because you're not a member of the RWDevCon development team. [NOTE: is this correct?]
+Xcode may prompt you to select a development team when you attempt to change these settings. For the purposes of this tutorial, you can just cancel out of this dialog when it appears. You'll also notice that Xcode will now show a provisioning warning. Unfortunately you won't be able to run the demo app on a device, because you're not a member of the
 
 When you try add the associated domains for your _own_ app, make sure you first sign into Xcode with the appropriate Apple ID. You can do this by going to **Xcode\Preferences\Account** and then tapping on the plus button. You'll then need to turn on the Associated Domains setting, and then add any domains you want to listen out for.
 
@@ -105,15 +103,13 @@ The `details` section contains an array of dictionaries pairing an `appID` with 
 
 Your `appID` string consists of your **team ID** (`KFCNEC27GU` in this example) followed by your app's **bundle ID** (`com.razeware.RWDevCon` in this case).
 
-The team ID is supplied by Apple and is unique to a specific development team. `KFCNEC27GU` is specific to the Ray Wenderlich development team so you'll have a different identifier for your own account. If you don't know your team ID, the easiest way to find it is by logging into Apple's [developer member center](https://developer.apple.com/membercenter/). Log in, click on **Your Account**, and then look for your team ID within the **Account Summary**.
+The team ID is supplied by Apple and is unique to a specific development team. `KFCNEC27GU` is specific to the Ray Wenderlich development team so you'll have a different identifier for your own account. If you don't know your team ID, the easiest way to find it is by logging into Apple's [developer member center (https://developer.apple.com/membercenter)](https://developer.apple.com/membercenter). Log in, click on **Your Account**, and then look for your team ID within the **Account Summary**.
 
-![bordered height=35%](/images/teamID.png)
-
-//TODO: blur out Ray's address?
+![bordered width=80%](/images/03-team-ID.png)
 
 If you don't know your app's bundle ID, go to Xcode and click on your project in the **project navigator**. Select the main target for your app and switch to the **General** tab. The identifier you're looking for is listed as **Bundle Identifier**:
 
-![bordered height=35%](/images/bundleID.png)
+![bordered width=80%](/images/04-bundle-ID.png)
 
 A bundle ID typically uses reverse-DNS notation, of the form `com.exampledomain.exampleappname`.
 
@@ -138,9 +134,9 @@ Obviously, since you don't have access to the web servers hosting `www.rwdevcon.
 
 Before moving on to the next section, there are two caveats that you should know about:
 
-1. If you have to target iOS 8 because your app has Continuity features like Handoff and shared web credentials, you'll have to sign your **apple-app-site-association** file using the `openssl`. You can read more about this process in Apple's [Handoff Programming Guide](https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/Handoff/AdoptingHandoff/AdoptingHandoff.html).
+1. If you have to target iOS 8 because your app has Continuity features like Handoff and shared web credentials, you'll have to sign your **apple-app-site-association** file using the `openssl`. You can read more about this process in Apple's [Handoff Programming Guide (http://apple.co/1yG4jR9)](http://apple.co/1yG4jR9).
 
-1. Before uploading your **apple-app-site-association** file to your web server, run your JSON through an online validator such as [JSONLint](http://www.jsonlint.com). Universal links won't work if there's even the slightest syntax error in your JSON file!
+1. Before uploading your **apple-app-site-association** file to your web server, run your JSON through an online validator such as [JSONLint (http://www.jsonlint.com)](http://www.jsonlint.com). Universal links won't work if there's even the slightest syntax error in your JSON file!
 
 ### Handling universal links in your app
 
@@ -247,15 +243,15 @@ Again, you won't be able to validate the code you just wrote, but hopefully it's
 
 Now, still on your device, open your favorite mail client and send yourself an e-mail that contains these two links:
 
-![iphone](/images/testlinks.png)
+![bordered width=80%](/images/05-testlinks.png)
 
 Once you receive the email that you just sent, tap on the first link. This opens the app and starts streaming a video:
 
-![iphone](/images/videovalidlink.png)
+![iPhone](/images/06-video-link-valid.png)
 
 You tapped on a valid link that corresponds to Tammy Coron's 2015 inspiration talk titled "Possibility". Woo hoo! Now go back to your mail client and tap on the second link. Doing this also opens the app, but then you're bounced back to Safari:
 
-![iphone](/images/videoinvalidlink.png)
+![iphone](/images/07-video-link-invalid.png)
 
 Great job! You've seen how RWDevCon handles the universal links that it recognizes and how it gracefully falls back to Safari for the ones that it doesn't recognize. So what exactly can trigger your app receiving a universal HTTP link? As you saw, tapping on the directly link from another app certainly does the trick. Loading the URL in Safari, a `WKWebView`, or a `UIWebView`, or using `UIApplication`'s `openURL(_:)` can also launch your app.
 
@@ -271,8 +267,6 @@ So in iOS 9, search results that appear in Spotlight and in Safari can now inclu
 
 Apple's web crawler, lovingly named Applebot, will then crawl your website and index your mobile links. Then, when iOS users search for relevant keywords, Apple can surface your content *even if they don't have your app already installed*.
 
-[TODO: Wow rageface?]
-
 In other words, if you have a website and optimize your web markup correctly, you'll be able to get new downloads organically. Without further ado, let's dive into the specifics of web markup.
 
 ### Make your website discoverable
@@ -283,14 +277,13 @@ Applebot crawls the web far and wide but there's no guarantee that it will ever 
 [TODO: Check Applebot capitalization]
 
 > If you need to change your support and marketing URL, simply log into iTunes Connect, go to **My Apps** and navigate to your app's detail page. The fields you want to change (or at least verify) are labeled **Support URL** and **Marketing URL**:
->
-> ![bordered height=35%](/images/supportURL.png)
+> ![bordered width=80%](/images/08-support-URL.png)
 
 2. Make sure the pages that contain your web markup are accessible from your support URL and marketing URL. If there aren't any direct paths from these entry points to your web markup, you should create them so that Applebot can find them.
 
 3. Check that your site's **robots.txt** file lets Applebot do its job. **Robots.txt**, also known as the robots exclusion protocol, is a standard used by websites to communicates with web crawlers and other web robots like Applebot. The file specifies which parts of the site the web crawler should not scan or process.
 
-> Not all web crawlers follow these directives, but Applebot does! You can learn more about the robots exclusion standard in [Wikipedia](https://en.wikipedia.org/wiki/Robots_exclusion_standard).
+> Not all web crawlers follow these directives, but Applebot does! You can learn more about the robots exclusion standard on [Wikipedia (http://bit.ly/1MNna6A)](http://bit.ly/1MNna6A).
 
 ### Embed universal links using Smart App Banners
 
@@ -302,7 +295,7 @@ Smart App Banners have been around since iOS 6. Before iOS 9, they used to be si
 
 Adding a Smart App Banner to a website invites visitors who don't have your app installed to download it from the App Store. It also gives visitors who already have your app installed an easy way to open a page deep within the app. You briefly saw a Smart App Banner in the last section, but here it is up close:
 
-![bordered height=35%](/images/appBanner.png)
+![bordered height=20%](/images/09-app-banner-1.png)
 
 This particular Smart App Banner is promoting the RWDevCon iOS app on the RWDevCon website. The banner says **OPEN** because Safari detects that the visitor has the RWDevCon app installed on their device. That's why it's smart!
 
@@ -323,7 +316,7 @@ The `content` attribute contains two parameters that you should pay attention to
 - **app-id**: This parameter corresponds to your app's Apple ID. Yes, apps have Apple IDs too! But this is a bit different from the sort of Apple ID you use to log into iCloud. Your app's Apple ID is simply a unique number, and all apps on the App Store have them. The easiest way to find your app's ID is to log into iTunes Connect, click **My Apps** and then navigate to the app in question. The Apple ID for RWDevCon is `958625272`. This number will be different for your app.
 - **app-argument:** This contains the URL that Safari will pass back into the app (if it's installed). Before iOS 9, the value of this parameter used to be a custom URL scheme deep link, but Apple now strongly recommends switching over to using universal links – just like you used earlier in this chapter.
 
-> **Note:** This was a quick overview of Smart App Banners. If you'd like to learn more about their full capabilities, you can read Ray's [Smart App Banners tutorial](http://www.raywenderlich.com/80347/smart-app-banners-tutorial). You can also read the [Safari Web Content Guide](https://developer.apple.com/library/prerelease/ios/documentation/AppleApplications/Reference/SafariWebContent/PromotingAppswithAppBanners/PromotingAppswithAppBanners.html#//apple_ref/doc/uid/TP40002051-CH6).
+> **Note:** This was a quick overview of Smart App Banners. If you'd like to learn more about their full capabilities, you can read Ray's [Smart App Banners tutorial (http://bit.ly/1iYlyea)](http://www.raywenderlich.com/80347/smart-app-banners-tutorial). You can also read the [Safari Web Content Guide (http://apple.co/1KYeI4I)](http://apple.co/1KYeI4I).
 
 Adding Smart App Banners to your website is helpful for many reasons, including increasing the odds of getting indexed by Applebot. However, it's worth noting that Smart App Banners only work in Safari. If a visitor comes to your website through another browser such as Chrome, they won't see the banner.
 
@@ -345,13 +338,13 @@ And with Facebook's App Links:
 <meta property="al:ios:url" content="http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
 ```
 
-> **Note**: To learn more about Twitter Cards, head over to their [documentation page](https://dev.twitter.com/cards/mobile). The same goes for [App Links](http://applinks.org).
+> **Note**: To learn more about Twitter Cards, head over to their [documentation page (https://dev.twitter.com/cards/mobile)](http://bit.ly/1REZOkC). The same goes for [App Links (http://applinks.org)](http://applinks.org).
 
 Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry!) you won't be able to see your changes in action. However, once again you can try it out using the RWDevCon app from the App Store. If you haven't already, go to the App Store on your device and download the latest version of the RWDevCon app.
 
 Now, switch to mobile Safari and head to <http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html>. The top of the web page looks like this:
 
-![bordered height=35%](/images/appBanner2.png)
+![bordered height=30%](/images/10-app-banner-2.png)
 
 If you don't see the Smart App Banner, swipe down on the page until it comes into view. Do you notice anything different from the Smart App Banner you saw earlier? This one is thinner, and has changed to say **Open in the RWDevCon app**. This special banner only shows up for URLs that match at least one of the paths specified in the **apple-app-site-association** file you saw earlier.
 
@@ -388,45 +381,42 @@ To this end, Apple recommends adding markup for structured data, to allow Spotli
 ```
 You just added rich web markup to the web page by adding a `video` meta tag, an `image` meta tag and a `description` meta tag. These meta tags contain information that technically is already on the page, but making it explicit using `meta` tags helps Applebot scrape your website and find what it needs.
 
-In the `property` fields above, "og" stands for **Open Graph**. If you want to learn more about Open Graph, make sure to check out its documentation at <http://ogp.me>. Open Graph is one of several standards Apple supports for structured markup. Other standards include [schema.org](http://www.schema.org), [RDFA](http://rdfa.info) and [JSON LD](http://json-ld.org).
+In the `property` fields above, "og" stands for **Open Graph**. If you want to learn more about Open Graph, make sure to check out its documentation at <http://ogp.me>. Open Graph is one of several standards Apple supports for structured markup. Other standards include [schema.org (http://www.schema.org)](http://www.schema.org), [RDFA (http://rdfa.info)](http://rdfa.info) and [JSON LD (http://json-ld.org)](http://json-ld.org).
 
 The goal of adding rich markup to your web pages is to adorn Spotlight's search results with more information. For example, a quick search for "ray wenderlich" comes up with these results:
 
-![iphone](/images/catnap.png)
+![iphone](/images/11-catnap.png)
 
 Notice the CatNap video that Ray recently uploaded to YouTube, marked in red. In addition to the web page's title, the search result also contains a video thumbnail as well as a description. YouTube was able to achieve this by providing rich semantic markup.
 
 ### Validation tool
 
-Since there's no "compiler" for the web, how are you supposed to know if your web markup is correct? Along with iOS 9, Apple also helpfully launched a web-based [App Search API Validation Tool](https://search.developer.apple.com/appsearch-validation-tool/) (https://search.developer.apple.com/appsearch-validation-tool/) that looks like this:
+Since there's no "compiler" for the web, how are you supposed to know if your web markup is correct? Along with iOS 9, Apple also helpfully launched a web-based [App Search API Validation Tool (http://apple.co/1F8tTGt)] (https://search.developer.apple.com/appsearch-validation-tool/) that looks like this:
 [TODO: bit.ly]
 
-![bordered height=30%](/images/validation.png)
+![bordered height=30%](/images/12-validation.png)
 
 To see the validation tool in action, try it out with the URL of the video page for Ray's 2015 inspiration talk. Simply visit the Validation Tool's web page, enter the video page URL, and click **Test URL**.
 
 When you do this, the tool gives you back a "report card" of the things that are good and the things that are missing or need to improve. For example, as of this writing, the validation tool returns this set of suggestions:
 
-![bordered height=30%](/images/validationToolResults.png)
+![bordered height=30%](/images/13-validation-tool-results.png)
 
-//TODO: Re-take this screenshot once the last set of changes get deployed on rwdevcon.com
-[TODO: Check this now]
 ## Where to go from here?
 
-This has been
-iOS 9 is bringing the web and app ecosystem closer to each other than ever. Custom URL scheme deep links are all but deprecated in iOS 9 and Apple strongly suggests that you start using universal links as soon as you can make the transition. This will make linking from the web to your apps a seamless experience.
+This has been a bit of an odd chapter because you haven't been able to test out your changes as you've gone along. Hopefully you've still found it useful to walk through the steps involved in adding web markup and universal links to your own apps.
 
-This chapter also discussed web markup as continuation of Chapter 2's search APIs discussion. This particularly applies to apps that have websites that mirror their content. This chapter covered a lot of ground, but you still only dipped your toes in each topic.
+iOS 9 is bringing the web and app ecosystem closer to each other than ever. Apple strongly suggests that you start using universal links as soon as you can. This will make linking from the web to your apps a seamless experience. And if you have a website that mirrors your app's content, web markup can help you provide rich search results in Spotlight and Safari. This chapter covered a lot of ground, but you still only dipped your toes in each topic.
 
-For example, there are ways to add rich semantic markup to your sites that weren't discussed on this chapter. These include using supported schemas such as `InteractionCount`, `Organization` and `SearchAction`. As time goes on, Apple will support more schemas and more ways to markup your web pages to make search results come alive.
+Whilst this chapter covered a lot of ground, there are other ways to add rich semantic markup to your sites that you haven't seen yet. These include using supported schemas such as `InteractionCount`, `Organization` and `SearchAction`. As time goes on, Apple will support more schemas and more ways to markup your web pages to make search results come alive.
 
-You should also definitely check out the following WWDC Sessions:
+You should also definitely check out the following WWDC sessions if you want to find out more:
 
-- [Seamless Linking To Your App (http://apple.co/1IBTu8q)](https://developer.apple.com/videos/wwdc/2015/?id=509)
-- [Introducing Search APIs (http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=709)
-- [Your App, Your Website, and Safari (http://apple.co/2KBTu8q)](https://developer.apple.com/videos/wwdc/2014/#506)]
+- [Seamless Linking To Your App (http://apple.co/1Way2xz)](https://developer.apple.com/videos/wwdc/2015/?id=509)
+- [Introducing Search APIs (http://apple.co/1LFjZZD)](https://developer.apple.com/videos/wwdc/2015/?id=709)
+- [Your App, Your Website, and Safari (http://apple.co/1OGLhE3)](https://developer.apple.com/videos/wwdc/2014/#506)
 
 Apple also provides excellent programming guides for universal linking and web markup:
 
-- [App Search Programming Guide (http://apple.co/aHcnuah)](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/index.html#//apple_ref/doc/uid/TP40016308)
-- [iOS Search API Best Practices and FAQs (http://apple.co/1He3shh)](https://developer.apple.com/library/prerelease/ios/technotes/tn2416/_index.html)
+- [App Search Programming Guide (http://apple.co/1ip7lGE)](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/index.html#//apple_ref/doc/uid/TP40016308)
+- [iOS Search API Best Practices and FAQs (http://apple.co/1Mj4yJe)](https://developer.apple.com/library/prerelease/ios/technotes/tn2416/_index.html)
