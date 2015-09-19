@@ -1,0 +1,304 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1727CBF41BAE09B2003B6DFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CBF31BAE09B2003B6DFE /* AppDelegate.swift */; };
+		1727CBF61BAE09B2003B6DFE /* DoodlesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CBF51BAE09B2003B6DFE /* DoodlesViewController.swift */; };
+		1727CBF91BAE09B2003B6DFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1727CBF71BAE09B2003B6DFE /* Main.storyboard */; };
+		1727CBFB1BAE09B2003B6DFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1727CBFA1BAE09B2003B6DFE /* Assets.xcassets */; };
+		1727CBFE1BAE09B2003B6DFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1727CBFC1BAE09B2003B6DFE /* LaunchScreen.storyboard */; };
+		1727CC071BAE0C7A003B6DFE /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC061BAE0C7A003B6DFE /* Canvas.swift */; settings = {ASSET_TAGS = (); }; };
+		1727CC091BAE136E003B6DFE /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC081BAE136E003B6DFE /* DoodleViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		1727CC0B1BAE1536003B6DFE /* AddDoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC0A1BAE1536003B6DFE /* AddDoodleViewController.swift */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1727CBF01BAE09B2003B6DFE /* Doodles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doodles.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1727CBF31BAE09B2003B6DFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1727CBF51BAE09B2003B6DFE /* DoodlesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoodlesViewController.swift; sourceTree = "<group>"; };
+		1727CBF81BAE09B2003B6DFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1727CBFA1BAE09B2003B6DFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1727CBFD1BAE09B2003B6DFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1727CBFF1BAE09B2003B6DFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1727CC061BAE0C7A003B6DFE /* Canvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
+		1727CC081BAE136E003B6DFE /* DoodleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
+		1727CC0A1BAE1536003B6DFE /* AddDoodleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDoodleViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1727CBED1BAE09B2003B6DFE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1727CBE71BAE09B2003B6DFE = {
+			isa = PBXGroup;
+			children = (
+				1727CBF21BAE09B2003B6DFE /* Doodles */,
+				1727CBF11BAE09B2003B6DFE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1727CBF11BAE09B2003B6DFE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1727CBF01BAE09B2003B6DFE /* Doodles.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1727CBF21BAE09B2003B6DFE /* Doodles */ = {
+			isa = PBXGroup;
+			children = (
+				1727CBF31BAE09B2003B6DFE /* AppDelegate.swift */,
+				1727CBF51BAE09B2003B6DFE /* DoodlesViewController.swift */,
+				1727CC081BAE136E003B6DFE /* DoodleViewController.swift */,
+				1727CC0A1BAE1536003B6DFE /* AddDoodleViewController.swift */,
+				1727CC061BAE0C7A003B6DFE /* Canvas.swift */,
+				1727CBF71BAE09B2003B6DFE /* Main.storyboard */,
+				1727CBFA1BAE09B2003B6DFE /* Assets.xcassets */,
+				1727CBFC1BAE09B2003B6DFE /* LaunchScreen.storyboard */,
+				1727CBFF1BAE09B2003B6DFE /* Info.plist */,
+			);
+			path = Doodles;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1727CBEF1BAE09B2003B6DFE /* Doodles */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1727CC021BAE09B2003B6DFE /* Build configuration list for PBXNativeTarget "Doodles" */;
+			buildPhases = (
+				1727CBEC1BAE09B2003B6DFE /* Sources */,
+				1727CBED1BAE09B2003B6DFE /* Frameworks */,
+				1727CBEE1BAE09B2003B6DFE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Doodles;
+			productName = Doodles;
+			productReference = 1727CBF01BAE09B2003B6DFE /* Doodles.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1727CBE81BAE09B2003B6DFE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Razeware LLC";
+				TargetAttributes = {
+					1727CBEF1BAE09B2003B6DFE = {
+						CreatedOnToolsVersion = 7.0;
+					};
+				};
+			};
+			buildConfigurationList = 1727CBEB1BAE09B2003B6DFE /* Build configuration list for PBXProject "Doodles" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1727CBE71BAE09B2003B6DFE;
+			productRefGroup = 1727CBF11BAE09B2003B6DFE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1727CBEF1BAE09B2003B6DFE /* Doodles */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1727CBEE1BAE09B2003B6DFE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1727CBFE1BAE09B2003B6DFE /* LaunchScreen.storyboard in Resources */,
+				1727CBFB1BAE09B2003B6DFE /* Assets.xcassets in Resources */,
+				1727CBF91BAE09B2003B6DFE /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1727CBEC1BAE09B2003B6DFE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1727CBF61BAE09B2003B6DFE /* DoodlesViewController.swift in Sources */,
+				1727CBF41BAE09B2003B6DFE /* AppDelegate.swift in Sources */,
+				1727CC071BAE0C7A003B6DFE /* Canvas.swift in Sources */,
+				1727CC091BAE136E003B6DFE /* DoodleViewController.swift in Sources */,
+				1727CC0B1BAE1536003B6DFE /* AddDoodleViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		1727CBF71BAE09B2003B6DFE /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1727CBF81BAE09B2003B6DFE /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1727CBFC1BAE09B2003B6DFE /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1727CBFD1BAE09B2003B6DFE /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1727CC001BAE09B2003B6DFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1727CC011BAE09B2003B6DFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1727CC031BAE09B2003B6DFE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Doodles/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Doodles;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1727CC041BAE09B2003B6DFE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = Doodles/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Doodles;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1727CBEB1BAE09B2003B6DFE /* Build configuration list for PBXProject "Doodles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1727CC001BAE09B2003B6DFE /* Debug */,
+				1727CC011BAE09B2003B6DFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1727CC021BAE09B2003B6DFE /* Build configuration list for PBXNativeTarget "Doodles" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1727CC031BAE09B2003B6DFE /* Debug */,
+				1727CC041BAE09B2003B6DFE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1727CBE81BAE09B2003B6DFE /* Project object */;
+}
