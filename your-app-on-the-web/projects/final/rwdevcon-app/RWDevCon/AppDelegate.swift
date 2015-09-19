@@ -210,75 +210,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Saves changes in the application's managed object context before the application terminates.
     coreDataStack.saveContext()
   }
-  
-  func application(application: UIApplication,
-    openURL url: NSURL, sourceApplication: String?,
-    annotation: AnyObject) -> Bool {
-      
-      if let components = NSURLComponents(URL: url, resolvingAgainstBaseURL: true),
-        let path = components.path, let query = components.query {
-          
-          if path == "/videos" {
-            //Do something with the query
-          }
-      }
-      
-      return false
-  }
-
-func application(application: UIApplication,
-  continueUserActivity
-  userActivity: NSUserActivity,
-  restorationHandler: ([AnyObject]?) -> Void) -> Bool {
-    
-    //1
-    if userActivity.activityType ==
-      NSUserActivityTypeBrowsingWeb {
-        
-      let universalURL = userActivity.webpageURL!
-      
-    //2
-      if let components = NSURLComponents(URL: universalURL,
-        resolvingAgainstBaseURL: true),
-        let path = components.path {
-          
-          if let session = Session.sessionByWebPath(path,
-            context: coreDataStack.context) {
-    //3
-              let videoURL = NSURL(string: session.videoUrl)!
-              presentVideoViewController(videoURL)
-          } else {
-    //4
-            let app = UIApplication.sharedApplication()
-            let url = NSURL(string: "http://www.rwdevcon.com")!
-            app.openURL(url)
-          }
-      }
-    }
-    return true
-}
-  
-  func presentVideoViewController(URL: NSURL) {
-    
-    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-    let navID = "NavPlayerViewController"
-    
-    let navVideoPlayerVC =
-    storyboard.instantiateViewControllerWithIdentifier(navID)
-      as! UINavigationController
-    
-    navVideoPlayerVC.modalPresentationStyle = .FormSheet
-    
-    let videoPlayerVC = navVideoPlayerVC.topViewController
-      as! AVPlayerViewController
-    
-    videoPlayerVC.player = AVPlayer(URL: URL)
-    
-    let rootViewController = window!.rootViewController!
-    rootViewController.presentViewController(navVideoPlayerVC,
-      animated: true, completion: nil)
-  }
-  
 }
 
 extension AppDelegate: UISplitViewControllerDelegate {
@@ -293,5 +224,61 @@ extension AppDelegate: UISplitViewControllerDelegate {
       }
     }
     return false
+  }
+}
+
+extension AppDelegate {
+  func presentVideoViewController(URL: NSURL) {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    let navID = "NavPlayerViewController"
+    
+    let navVideoPlayerVC =
+    storyboard.instantiateViewControllerWithIdentifier(navID)
+      as! UINavigationController
+    
+    navVideoPlayerVC.modalPresentationStyle = .FormSheet
+    
+    if let videoPlayerVC = navVideoPlayerVC.topViewController
+      as? AVPlayerViewController {
+        
+        videoPlayerVC.player = AVPlayer(URL: URL)
+        
+        let rootViewController = window?.rootViewController
+        rootViewController?.presentViewController(navVideoPlayerVC,
+          animated: true, completion: nil)
+    }
+  }
+  
+  func application(application: UIApplication,
+    continueUserActivity
+    userActivity: NSUserActivity,
+    restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+      
+      //1
+      if userActivity.activityType ==
+        NSUserActivityTypeBrowsingWeb {
+          
+          let universalURL = userActivity.webpageURL!
+          
+          //2
+          if let components = NSURLComponents(URL: universalURL,
+            resolvingAgainstBaseURL: true),
+            let path = components.path {
+              
+              if let session = Session.sessionByWebPath(path,
+                context: coreDataStack.context) {
+                  //3
+                  let videoURL = NSURL(string: session.videoUrl)!
+                  presentVideoViewController(videoURL)
+                  return true
+              } else {
+                //4
+                let app = UIApplication.sharedApplication()
+                let url = NSURL(string: "http://www.rwdevcon.com")!
+                app.openURL(url)
+              }
+          }
+      }
+      return false
   }
 }

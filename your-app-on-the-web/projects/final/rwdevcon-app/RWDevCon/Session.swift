@@ -77,12 +77,15 @@ class Session: NSManagedObject {
     return nil
   }
   
+  class func sessionByIdentifierOrNew(identifier: String, context: NSManagedObjectContext) -> Session {
+    return sessionByIdentifier(identifier, context: context) ?? Session(entity: NSEntityDescription.entityForName("Session", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
+  }
+  
   class func sessionByWebPath(path: String,
     context: NSManagedObjectContext) -> Session? {
       
       let fetch = NSFetchRequest(entityName: "Session")
-      fetch.predicate = NSPredicate(format: "webPath = %@",
-        argumentArray: [path])
+      fetch.predicate = NSPredicate(format: "webPath = %@", [path])
       
       do {
         let results = try context.executeFetchRequest(fetch)
@@ -92,9 +95,5 @@ class Session: NSManagedObject {
       }
       
       return nil
-  }
-  
-  class func sessionByIdentifierOrNew(identifier: String, context: NSManagedObjectContext) -> Session {
-    return sessionByIdentifier(identifier, context: context) ?? Session(entity: NSEntityDescription.entityForName("Session", inManagedObjectContext: context)!, insertIntoManagedObjectContext: context)
   }
 }
