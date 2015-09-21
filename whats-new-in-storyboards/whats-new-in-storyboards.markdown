@@ -355,9 +355,7 @@ Build and run your app; choose a check list, tap the **Edit** button and delete 
 
 Your app to help you survive the apocalypse is done! All the new features you've covered in this chapter, including storyboard references and an enhanced scene dock should show you there are very few reasons _not_ to use storyboards in your own projects.
 
-Storyboards in Xcode 7 also have greater support for custom segues. We've got that covered in chapter 9 of this book: _Custom Segues_.
-
-Prepped is currently designed for the iPhone only. If you want to make it a universal app, take a look at the entire section on Adaptive Layout in _iOS 8 by Tutorials_. You can also read more about supporting multitasking on the iPad in Chapter 5, "Multitasking".
+Storyboards in Xcode 7 also have greater support for custom segues. We've got that covered in chapter 9 of this book: _Custom Segues_. If you decide to make Prepped a universal app, you can read more about supporting multitasking on the iPad in Chapter 5: _Multitasking_.
 
 There are some useful sessions from WWDC 2015 that will help you as well:
 * Session 215, What's New In Storyboards: <http://apple.co/1Do4xn7>
