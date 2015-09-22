@@ -27,7 +27,9 @@ struct Doodle {
   let date: NSDate
   let image: UIImage?
   
-  static var allDoodles = [ Doodle(name: "Name", date: NSDate(), image: UIImage(named: "doodle1")) ]
+  static var allDoodles = [ Doodle(name: "Doggy", date: NSDate(), image: UIImage(named: "doodle1")),
+                            Doodle(name: "Razeware", date: NSDate(), image: UIImage(named: "doodle2")),
+                            Doodle(name: "House", date: NSDate(), image: UIImage(named: "doodle3")) ]
   
   static func addDoodle(doodle: Doodle) {
     allDoodles.append(doodle)

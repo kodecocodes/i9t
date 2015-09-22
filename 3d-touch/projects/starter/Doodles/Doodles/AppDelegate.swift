@@ -40,3 +40,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension UINavigationController {
+  public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
+  }
+}

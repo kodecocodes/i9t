@@ -12,9 +12,9 @@
 		1727CBF91BAE09B2003B6DFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1727CBF71BAE09B2003B6DFE /* Main.storyboard */; };
 		1727CBFB1BAE09B2003B6DFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1727CBFA1BAE09B2003B6DFE /* Assets.xcassets */; };
 		1727CBFE1BAE09B2003B6DFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1727CBFC1BAE09B2003B6DFE /* LaunchScreen.storyboard */; };
-		1727CC071BAE0C7A003B6DFE /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC061BAE0C7A003B6DFE /* Canvas.swift */; settings = {ASSET_TAGS = (); }; };
-		1727CC091BAE136E003B6DFE /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC081BAE136E003B6DFE /* DoodleViewController.swift */; settings = {ASSET_TAGS = (); }; };
-		1727CC0B1BAE1536003B6DFE /* AddDoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC0A1BAE1536003B6DFE /* AddDoodleViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		1727CC071BAE0C7A003B6DFE /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC061BAE0C7A003B6DFE /* Canvas.swift */; };
+		1727CC091BAE136E003B6DFE /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC081BAE136E003B6DFE /* DoodleViewController.swift */; };
+		1727CC0B1BAE1536003B6DFE /* AddDoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC0A1BAE1536003B6DFE /* AddDoodleViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -99,6 +99,7 @@
 		1727CBE81BAE09B2003B6DFE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Razeware LLC";
 				TargetAttributes = {
@@ -297,6 +298,7 @@
 				1727CC041BAE09B2003B6DFE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
