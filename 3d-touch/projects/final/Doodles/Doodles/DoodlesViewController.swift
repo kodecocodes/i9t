@@ -60,10 +60,30 @@ class DoodleCell: UITableViewCell {
 
 class DoodlesViewController: UITableViewController {
   
+  var alertController: UIAlertController? = nil
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    if traitCollection.forceTouchCapability != .Available {
+      alertController = UIAlertController(title: "3D Touch Not Available", message: "Unsupported device.", preferredStyle: .Alert)
+      alertController!.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: nil))
+    }
+  }
+  
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
     
     tableView.reloadData()
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    if let alertController = alertController {
+      presentViewController(alertController, animated: true, completion: nil)
+      self.alertController = nil
+    }
   }
   
   @IBAction func unwindToDoodlesViewController(segue: UIStoryboardSegue) {}

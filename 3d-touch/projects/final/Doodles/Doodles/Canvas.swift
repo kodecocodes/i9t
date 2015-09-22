@@ -41,13 +41,13 @@ public class Canvas : UIView {
 extension Canvas {
   public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
     if let touch = touches.first {
-      addLineFromPoint(touch.previousLocationInView(self), toPoint: touch.locationInView(self))
+      addLineFromPoint(touch.previousLocationInView(self), toPoint: touch.locationInView(self), withForce: touch.force)
     }
   }
 }
 
 extension Canvas {
-  private func addLineFromPoint(from: CGPoint, toPoint: CGPoint) {
+  private func addLineFromPoint(from: CGPoint, toPoint: CGPoint, withForce force: CGFloat) {
     UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
     
     drawing?.drawInRect(bounds)
@@ -57,7 +57,14 @@ extension Canvas {
     CGContextAddLineToPoint(cxt, toPoint.x, toPoint.y)
     
     CGContextSetLineCap(cxt, .Round)
-    CGContextSetLineWidth(cxt, strokeWidth)
+    
+    if traitCollection.forceTouchCapability == .Available {
+      let magnitude = max(force, strokeWidth)
+      CGContextSetLineWidth(cxt, magnitude)
+    } else {
+      CGContextSetLineWidth(cxt, strokeWidth)
+    }
+    
     strokeColor.setStroke()
     
     CGContextStrokePath(cxt)
