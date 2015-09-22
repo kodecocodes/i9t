@@ -23,18 +23,15 @@
 import UIKit
 
 class DoodleViewController: UIViewController {
-  var doodle: Doodle? //{
-//    didSet {
-//      if let doodle = doodle {
-//        
-//      }
-//    }
-//  }
+  var doodle: Doodle?
+  
   @IBOutlet weak var imageView: UIImageView!
   @IBOutlet weak var canvas: Canvas!
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    preferredContentSize = .zero
     
     if let doodle = doodle {
       title = doodle.name

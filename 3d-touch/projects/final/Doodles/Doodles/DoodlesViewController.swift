@@ -68,6 +68,8 @@ class DoodlesViewController: UITableViewController {
     if traitCollection.forceTouchCapability != .Available {
       alertController = UIAlertController(title: "3D Touch Not Available", message: "Unsupported device.", preferredStyle: .Alert)
       alertController!.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: nil))
+    } else {
+      registerForPreviewingWithDelegate(self, sourceView: view)
     }
   }
   
@@ -111,6 +113,27 @@ class DoodlesViewController: UITableViewController {
     cell.doodle = Doodle.allDoodles[indexPath.row]
     
     return cell
+  }
+}
+
+extension DoodlesViewController: UIViewControllerPreviewingDelegate {
+  func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+    guard let indexPath = tableView.indexPathForRowAtPoint(location),
+      cell = tableView.cellForRowAtIndexPath(indexPath) as? DoodleCell else {
+        return nil
+    }
+    
+    guard let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DoodleViewController") as? DoodleViewController else { return nil }
+    
+    detailViewController.doodle = cell.doodle
+    
+    previewingContext.sourceRect = cell.frame
+    
+    return detailViewController
+  }
+  
+  func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+    showViewController(viewControllerToCommit, sender: self)
   }
 }
 
