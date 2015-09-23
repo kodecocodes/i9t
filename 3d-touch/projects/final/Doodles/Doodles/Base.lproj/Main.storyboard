@@ -85,7 +85,7 @@
         <!--Doodle-->
         <scene sceneID="0uu-QW-7ay">
             <objects>
-                <viewController title="Doodle" id="VLu-LM-dFK" customClass="DoodleViewController" customModule="Doodles" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DoodleViewController" title="Doodle" id="VLu-LM-dFK" customClass="DoodleViewController" customModule="Doodles" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="oph-vX-NKH"/>
                         <viewControllerLayoutGuide type="bottom" id="Awh-VD-v8O"/>
@@ -119,7 +119,7 @@
         <!--Add Doodle-->
         <scene sceneID="hQo-bL-yWb">
             <objects>
-                <viewController title="Add Doodle" id="F0N-6i-2mq" customClass="AddDoodleViewController" customModule="Doodles" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddDoodleViewController" title="Add Doodle" id="F0N-6i-2mq" customClass="AddDoodleViewController" customModule="Doodles" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Jq3-FA-TeB"/>
                         <viewControllerLayoutGuide type="bottom" id="7hg-ik-aEQ"/>
@@ -168,7 +168,7 @@
         <!--Navigation Controller-->
         <scene sceneID="VWf-RR-tn8">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="m6O-ug-5Bk" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AddDoodleNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="m6O-ug-5Bk" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="r8e-JM-Ulp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

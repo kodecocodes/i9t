@@ -28,20 +28,71 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    window?.tintColor = UIColor(red:0.98, green:0.066, blue:0.309, alpha:1)
+    window?.tintColor = UIColor.hotPinkColor()
     
     UINavigationBar.appearance().translucent = false
-    UINavigationBar.appearance().barTintColor = UIColor(red:0.98, green:0.066, blue:0.309, alpha:1)
+    UINavigationBar.appearance().barTintColor = UIColor.hotPinkColor()
     UINavigationBar.appearance().tintColor = UIColor.whiteColor()
     UINavigationBar.appearance().titleTextAttributes = [ NSForegroundColorAttributeName: UIColor.whiteColor() ]    
+    
+    Doodle.configureDynamicShortcuts()
+    
+    if let launchOptions = launchOptions,
+      shortcutItem = launchOptions[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
+        handleShortcutItem(shortcutItem)
+        return false
+    }
     
     return true
   }
 
+  func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+    handleShortcutItem(shortcutItem)
+    completionHandler(true)
+  }
+  
+  func handleShortcutItem(shortcutItem: UIApplicationShortcutItem) {
+    switch shortcutItem.type {
+    case newDoodleShortcutItemType:
+      presentAddDoodleViewController()
+    case shareDoodleShortcutItemType:
+      shareMostRecentDoodle()
+    default: break
+    }
+  }
+  
+  func presentAddDoodleViewController() {
+    let doodleViewController = UIStoryboard.mainStoryboard.instantiateViewControllerWithIdentifier("AddDoodleNavigationController")
+
+    window?.rootViewController?.presentViewController(doodleViewController, animated: true, completion: nil)
+  }
+
+  func shareMostRecentDoodle() {
+    NSLog("SHARE MOST RECENT VIEW CONTROLLER")
+    if let mostRecentDoodle = Doodle.sortedDoodles.first,
+      navigationController = window?.rootViewController as? UINavigationController {
+        let doodleViewController = UIStoryboard.mainStoryboard.instantiateViewControllerWithIdentifier("DoodleViewController") as! DoodleViewController
+        
+        doodleViewController.doodle = mostRecentDoodle
+        doodleViewController.shareDoodle = true
+        
+        navigationController.pushViewController(doodleViewController, animated: true)
+    }
+  }
+}
+
+extension UIStoryboard {
+  class var mainStoryboard: UIStoryboard {
+    return UIStoryboard(name: "Main", bundle: nil)
+  }
 }
 
 extension UINavigationController {
   public override func preferredStatusBarStyle() -> UIStatusBarStyle {
     return .LightContent
   }
+}
+
+extension UIColor {
+  class func hotPinkColor() -> UIColor { return UIColor(red:0.98, green:0.066, blue:0.309, alpha:1) }
 }

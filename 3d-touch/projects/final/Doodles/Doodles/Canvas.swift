@@ -32,10 +32,10 @@ public class Canvas : UIView {
   private var drawing: UIImage?
   
   @IBInspectable
-  public var strokeWidth : CGFloat = 4.0
+  public var strokeWidth: CGFloat = 4.0
   
   @IBInspectable
-  public var strokeColor = UIColor(red:0.98, green:0.066, blue:0.309, alpha:1)
+  public var strokeColor = UIColor.hotPinkColor()
 }
 
 extension Canvas {

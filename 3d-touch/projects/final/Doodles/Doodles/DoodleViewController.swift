@@ -24,9 +24,9 @@ import UIKit
 
 class DoodleViewController: UIViewController {
   var doodle: Doodle?
+  var shareDoodle = false
   
   @IBOutlet weak var imageView: UIImageView!
-  @IBOutlet weak var canvas: Canvas!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -36,6 +36,17 @@ class DoodleViewController: UIViewController {
     if let doodle = doodle {
       title = doodle.name
       imageView.image = doodle.image
+    }
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    if let doodle = doodle,
+      image = doodle.image
+      where shareDoodle == true {
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        presentViewController(activityViewController, animated: true, completion: nil)
     }
   }
 }
