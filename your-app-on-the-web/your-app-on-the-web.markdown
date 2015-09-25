@@ -147,8 +147,8 @@ Before moving on to the next section, there are two caveats to consider when man
 ### Handling universal links in your app
 
 When your app receives an incoming universal link, you'll want to respond by taking the user straight to the targeted content. The final steps in implementing universal links are to parse the incoming URLs, determine what content to show, and navigate the user to the content.
-***
-Head back to the **RWDevCon project** in Xcode, open up **Session.swift** and add the following class method to the bottom of the class:
+
+Head back to the **RWDevCon project** in Xcode and add the following class method to **Session.swift** at the bottom of the class:
 
 ```swift
 class func sessionByWebPath(path: String,
@@ -168,9 +168,9 @@ class func sessionByWebPath(path: String,
 }
 ```
 
-In the RWDevCon app, `Session` is the Core Data class that represents a particular presentation. `Session` contains a `webPath` property that holds the path of the corresponding video page in `rwdevcon.com`. The class method you just added passes in a URL's path (e.g. `/videos/talk-ray-wenderlich-teamwork.html`) and returns the corresponding session object, or nil if it can't find one.
+In the RWDevCon app, the Core Data class `Session` represents a particular presentation and contains a `webPath` property that holds the path of the corresponding video page on `rwdevcon.com`. The method above takes a URL's path, such as `/videos/talk-ray-wenderlich-teamwork.html`, and returns either the corresponding session object or `nil` if it can't find one.
 
-Next, open **AppDelegate.swift** and add the following helper method to the `AppDelegate`:
+Next, open **AppDelegate.swift** and add the following helper method to `AppDelegate`:
 
 ```swift
 func presentVideoViewController(URL: NSURL) {  
@@ -195,7 +195,7 @@ func presentVideoViewController(URL: NSURL) {
 }
 ```
 
-This method takes in a video URL and presents an `AVPlayerViewController` embedded in a `UINavigationController` to play it. The video player and the container navigation controller have already been set up, and are loaded from the main storyboard. If you want to see how they're configured you can open **Main.storyboard** to see them.
+This method takes in a video URL and presents an `AVPlayerViewController` embedded in a `UINavigationController`. The video player and container navigation controller have already been set up and are loaded from the main storyboard. If you want to see how they're configured you can open **Main.storyboard** to have a look.
 
 Finally, still in **AppDelegate.swift**, implement the following `UIApplicationDelegate` method below the method you just added:
 
@@ -234,47 +234,49 @@ func application(application: UIApplication,
 }
 ```
 
-The system calls this delegate method when there's an incoming universal HTTP link. Pay close attention to what's happening. Here's a breakdown of what each section does:
+The system calls this delegate method when there's an incoming universal HTTP link. Here's a breakdown of what each section does:
 
-1. As mentioned above, the system invokes this method for several types of `NSUserActivity`. The type that corresponds to universal HTTP links is `NSUserActivityTypeBrowsingWeb`. When you see a user activity of this type, you're guaranteed that the `NSUserActivity` will have its `webPageURL` property (of type `NSURL?`) set to something you can inspect, so you go ahead and unwrap the optional.
-2. You use `NSURLComponents` to extract the URL's path and you use it to map to the correct `Session` object using the class method you added earlier, `sessionByWebPath(_:context:)`.
-3. `sessionByWebPath(_:context:)` returns an optional `Session`. If there's a value behind the optional, you use the session's `videoURL` property to present the video player using the `presentVideoViewController(_:)` method that you just added.
-4. If there's no value behind the optional, which can happen if you're handed a universal link that the app can't understand, then you just launch the RWDevCon home page in Safari and return false to indicate to the system that you didn't handle the activity.
+1. As mentioned above, the system invokes this method for several types of `NSUserActivity`; `NSUserActivityTypeBrowsingWeb` is the type that corresponds to universal HTTP links. When you see a user activity of this type, you're guaranteed that the `NSUserActivity` instance will have its `webPageURL` property of type `NSURL?` set to something you can inspect. Therefore you can unwrap the optional.
+2. You use an instance of `NSURLComponents` to extract the URL's path; you can then use `sessionByWebPath(_:context:)` along with the URL to map to the correct `Session` object.
+3. `sessionByWebPath(_:context:)` returns an optional `Session`. If there's a value behind the optional, you use the session's `videoURL` property to present the video player using `presentVideoViewController(_:)`.
+4. If there's no value behind the optional, which can happen if you're handed a universal link the app can't understand, you simply launch the RWDevCon home page in Safari and return `false` to tell system you couldn't handle the activity.
 
-> **Note:** `application(_:continueUserActivity:restorationHandler:)` may look familiar to you. Apple introduced this `UIApplicationDelegate` method back in iOS 8 to help developers implement Handoff. It also makes an appearance in Chapter 2 of this book in relation to the new search APIs in iOS 9. This method is truly a jack of all trades!
+> **Note:** `application(_:continueUserActivity:restorationHandler:)` may look familiar to you; Apple introduced this method of `UIApplicationDelegate` in iOS 8 to help developers implement Handoff. It also makes an appearance in Chapter 2 [TODO: FPE: Sanity check that this chapter ref is still correct] of this book, which deals with the new search APIs in iOS 9. This method is truly a jack-of-all-trades!
 
-Again, you won't be able to validate the code you just wrote, but hopefully it's useful to see how to handle an incoming link. You can see what the final result is supposed to look like by downloading the App Store version of the RWDevCon app. On your device, go to the App Store, search for **RWDevCon** and download the latest version of the app.
+Again, you won't be able to validate the code you just wrote, it's still useful to see how to handle an incoming link. To see what the final result should look like, download the RWDevCon app from the App Store. [TODO: FPE: linky?]
 
 [FPE: This part won't work until we release the update to RWDevCon]
 
-Now, still on your device, open your favorite mail client and send yourself an e-mail that contains these two links:
+On your device, open your favorite mail client and send yourself an e-mail that contains the following two links:
 
 ![bordered width=80%](/images/05-testlinks.png)
 
-Once you receive the email that you just sent, tap on the first link. This opens the app and starts streaming a video:
+Once you receive the email, tap the first link. This should open the app and start streaming Tammy Coron's 2015 inspiration talk titled "Possibility":
 
 ![iPhone](/images/06-video-link-valid.png)
 
-You tapped on a valid link that corresponds to Tammy Coron's 2015 inspiration talk titled "Possibility". Woo hoo! Now go back to your mail client and tap on the second link. Doing this also opens the app, but then you're bounced back to Safari:
+Looks great! Now return to your mail client and tap the second link. The app opens, but then you're bounced back to Safari, as shown below:
 
 ![iphone](/images/07-video-link-invalid.png)
 
-Great job! You've seen how RWDevCon handles the universal links that it recognizes and how it gracefully falls back to Safari for the ones that it doesn't recognize. So what exactly can trigger your app receiving a universal HTTP link? As you saw, tapping on the directly link from another app certainly does the trick. Loading the URL in Safari, a `WKWebView`, or a `UIWebView`, or using `UIApplication`'s `openURL(_:)` can also launch your app.
+The RWDevCon app neatly handles the universal links it recognizes, but gracefully falls back to Safari for any that it doesn't.
 
-In the last screen shot, notice that banner at the top? That's a **Smart App Banner**, and you'll learn much more about them in the second half of the chapter.
+Besides tapping a link, you can also loading the URL directly in Safari, a `WKWebView`, a `UIWebView`, or use `openURL(_:)` on an instance of `UIApplication` to trigger your app to handle a universal link.
+
+Did you notice the banner at the top of the previous screenshot? That's a **Smart App Banner**; you'll learn more about those in the second half of the chapter.
 
 ## Web markup
 
-Now that you know how to implement and handle universal links in iOS 9, it's time to move to the second topic of this chapter: web markup. As it turns out, web markup is part of a much bigger topic that you started to learn about in Chapter 2: app search!
+Now that you know how to implement and handle universal links in iOS 9, it's time to move to the second topic of this chapter: web markup. As it turns out, web markup is part of a much bigger topic that learned about in Chapter 2 [TODO: FPE: Sanity check]: app search!
 
-To refresh your memory, search includes three different APIs: `NSUserActivity`, `CoreSpotlight` and web markup. All three APIs are important pieces of your search strategy, and Chapter 2 covered both `NSUserActivity` and `CoreSpotlight`. If you skipped the last chapter and want to learn more about them, go ahead and read it now. Web markup will still be here when you get back! :]
+Search includes three different APIs: `NSUserActivity`, `CoreSpotlight` and web markup. Chapter 2 covered `NSUserActivity` and `CoreSpotlight`; it's well worth a read through that chapter if you haven't done so already.
 
-So in iOS 9, search results that appear in Spotlight and in Safari can now include content from native apps. Web markup is one way to get your app's content to appear in these search results. If you have a website that mirrors your app's content, you can mark up its web pages with standards-based markup, Smart App Banners, and universal links that your native app can understand.
+Search results that appear in Spotlight and in Safari can now include content from native apps in iOS 9, and you can use Web markup to get your app's content to surface in those search results. If you have a website that mirrors your app's content, you can mark up its web pages with standards-based markup, Smart App Banners, and universal links your native app understands.
 
-Apple's web crawler, lovingly named Applebot, will then crawl your website and index your mobile links. Then, when iOS users search for relevant keywords, Apple can surface your content *even if they don't have your app already installed*.
+Apple's web crawler, lovingly named "Applebot", will then crawl your website and index your mobile links. When iOS users search for relevant keywords, Apple can surface your content _even if users don't have your app installed_. In other words, optimizing your markup on your site helps you earn new downloads in an organic fashion.
 
-In other words, if you have a website and optimize your web markup correctly, you'll be able to get new downloads organically. Without further ado, let's dive into the specifics of web markup.
-
+ Without further ado, it's time to dive into the specifics of web markup.
+***
 ### Make your website discoverable
 
 Applebot crawls the web far and wide but there's no guarantee that it will ever land on your website. Fortunately, there are a few things you can do to make your site more discoverable and easier to crawl.
