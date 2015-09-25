@@ -27,6 +27,16 @@ class DoodleViewController: UIViewController {
   var shareDoodle = false
   
   @IBOutlet weak var imageView: UIImageView!
+  weak var doodlesViewController: DoodlesViewController?
+  
+  var activityViewController: UIActivityViewController? {
+    guard let doodle = doodle,
+      image = doodle.image else {
+        return nil
+    }
+    
+    return UIActivityViewController(activityItems: [image], applicationActivities: nil)
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -42,11 +52,31 @@ class DoodleViewController: UIViewController {
   override func viewDidAppear(animated: Bool) {
     super.viewDidAppear(animated)
     
-    if let doodle = doodle,
-      image = doodle.image
-      where shareDoodle == true {
-        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+    if shareDoodle == true {
+      if let activityViewController = activityViewController {
         presentViewController(activityViewController, animated: true, completion: nil)
+      }
     }
   }
+  
+  override func previewActionItems() -> [UIPreviewActionItem] {
+    let shareAction = UIPreviewAction(title: "Share", style: .Default) { (previewAction, viewController) in
+      if let doodlesViewController = self.doodlesViewController,
+        activityViewController = self.activityViewController {
+          doodlesViewController.presentViewController(activityViewController, animated: true, completion: nil)
+      }
+    }
+    
+    let deleteAction = UIPreviewAction(title: "Delete", style: .Destructive) { (previewAction, viewController) in
+      guard let doodle = self.doodle else { return }
+      Doodle.deleteDoodle(doodle)
+      
+      if let doodlesViewController = self.doodlesViewController {
+        doodlesViewController.tableView.reloadData()
+      }
+    }
+    
+    return [shareAction, deleteAction]
+  }
+
 }

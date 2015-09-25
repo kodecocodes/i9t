@@ -68,7 +68,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   }
 
   func shareMostRecentDoodle() {
-    NSLog("SHARE MOST RECENT VIEW CONTROLLER")
     if let mostRecentDoodle = Doodle.sortedDoodles.first,
       navigationController = window?.rootViewController as? UINavigationController {
         let doodleViewController = UIStoryboard.mainStoryboard.instantiateViewControllerWithIdentifier("DoodleViewController") as! DoodleViewController

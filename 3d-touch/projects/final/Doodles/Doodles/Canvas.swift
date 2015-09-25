@@ -47,7 +47,7 @@ extension Canvas {
 }
 
 extension Canvas {
-  private func addLineFromPoint(from: CGPoint, toPoint: CGPoint, withForce force: CGFloat) {
+  private func addLineFromPoint(from: CGPoint, toPoint: CGPoint, withForce force: CGFloat = 1.0) {
     UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
     
     drawing?.drawInRect(bounds)
@@ -59,8 +59,7 @@ extension Canvas {
     CGContextSetLineCap(cxt, .Round)
     
     if traitCollection.forceTouchCapability == .Available {
-      let magnitude = max(force, strokeWidth)
-      CGContextSetLineWidth(cxt, magnitude)
+      CGContextSetLineWidth(cxt, force * strokeWidth)
     } else {
       CGContextSetLineWidth(cxt, strokeWidth)
     }

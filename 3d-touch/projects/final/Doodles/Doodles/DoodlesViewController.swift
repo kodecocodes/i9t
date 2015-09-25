@@ -51,10 +51,7 @@ class DoodlesViewController: UITableViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    if traitCollection.forceTouchCapability != .Available {
-      alertController = UIAlertController(title: "3D Touch Not Available", message: "Unsupported device.", preferredStyle: .Alert)
-      alertController!.addAction(UIAlertAction(title: "Dismiss", style: .Default, handler: nil))
-    } else {
+    if traitCollection.forceTouchCapability == .Available {
       registerForPreviewingWithDelegate(self, sourceView: view)
     }
   }
@@ -112,6 +109,7 @@ extension DoodlesViewController: UIViewControllerPreviewingDelegate {
     guard let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DoodleViewController") as? DoodleViewController else { return nil }
     
     detailViewController.doodle = cell.doodle
+    detailViewController.doodlesViewController = self
     
     previewingContext.sourceRect = cell.frame
     

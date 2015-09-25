@@ -31,6 +31,12 @@ struct Doodle {
 
     Doodle.configureDynamicShortcuts()
   }
+  
+  static func deleteDoodle(doodle: Doodle) {
+    if let index = allDoodles.indexOf({ $0.name == doodle.name }) {
+      allDoodles.removeAtIndex(index)
+    }
+  }
 
   static func configureDynamicShortcuts() {
     let application = UIApplication.sharedApplication()
