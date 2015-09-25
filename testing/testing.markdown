@@ -1,4 +1,10 @@
-# Chapter X: What's New In Testing?
+```metadata
+author: Pietro Rea
+number: 12
+title: Testing
+```
+
+# Chapter 12: Testing
 
 "How did this feature break _again_?" If you've been writing code for any length of time, you've probably asked yourself that question at least once. As any experienced programmer will tell you, writing code "right" the first time is difficult. And even _if_ you get it right the first time, as you add code to your project, you can inadvertently introduce bugs to parts of your app that previously worked flawlessly.
 
