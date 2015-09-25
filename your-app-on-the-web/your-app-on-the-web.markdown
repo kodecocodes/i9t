@@ -1,4 +1,10 @@
-# Chapter 2: Your App on the Web
+```metadata
+author: Pietro Rea
+number: 3
+title: Your App on the Web
+```
+
+# Chapter 3: Your App on the Web
 
 Native and web technologies have remained in two distinct camps within iOS: native apps are part of a closed ecosystem tightly controlled by Apple, whereas web technologies are based on open standards and frameworks. These two worlds don't cross paths often, and what happens on a mobile website often doesn't directly affect what happens in a native app.
 
