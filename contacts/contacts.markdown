@@ -1,4 +1,8 @@
-# Chapter 11: Contacts
+```metadata
+author: Evan Dekhayser
+number: 11
+title: Contacts
+```
 
 A long time ago, in an operating system far, far away, developers accessed a user's contacts on their iOS device with a C API and had to deal with the pain of using ancient structs and Core Foundation types in an object-oriented world.
 
@@ -133,7 +137,7 @@ Here's what you're doing in the code above:
 
 Build and run your app; tap on one of the table view cells and the ContactsUI framework will display the friend's information as shown below:
 
-![width=32%](/images/4-ContactViewController.png)
+![width=50%](/images/4-ContactViewController.png)
 
 What good is a friends list if you can't add more friends? You can use the ContactsUI class `CNContactPickerViewController` to let your user select contacts to use in the app.
 
