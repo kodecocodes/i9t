@@ -22,15 +22,28 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-  var window: UIWindow?
+struct Doodle {
+  let name: String
+  let date: NSDate
+  let image: UIImage?
   
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    configureAppAppearance()
-    
-    return true
+  static var allDoodles = [
+    Doodle(name: "Doggy", date: NSDate(), image: UIImage(named: "doodle1")),
+    Doodle(name: "Razeware", date: NSDate(), image: UIImage(named: "doodle2")),
+    Doodle(name: "House", date: NSDate(), image: UIImage(named: "doodle3"))
+  ]
+  
+  static var sortedDoodles: [Doodle] {
+    return allDoodles.sort { $0.date.timeIntervalSinceNow > $1.date.timeIntervalSinceNow }
   }
-
+  
+  static func addDoodle(doodle: Doodle) {
+    allDoodles.append(doodle)
+  }
+  
+  static func deleteDoodle(doodle: Doodle) {
+    if let index = allDoodles.indexOf({ $0.name == doodle.name }) {
+      allDoodles.removeAtIndex(index)
+    }
+  }
 }

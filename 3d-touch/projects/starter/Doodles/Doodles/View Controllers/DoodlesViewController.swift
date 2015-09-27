@@ -22,43 +22,11 @@
 
 import UIKit
 
-struct Doodle {
-  let name: String
-  let date: NSDate
-  let image: UIImage?
-  
-  static var allDoodles = [ Doodle(name: "Doggy", date: NSDate(), image: UIImage(named: "doodle1")),
-                            Doodle(name: "Razeware", date: NSDate(), image: UIImage(named: "doodle2")),
-                            Doodle(name: "House", date: NSDate(), image: UIImage(named: "doodle3")) ]
-  
-  static func addDoodle(doodle: Doodle) {
-    allDoodles.append(doodle)
-  }
-}
-
-class DoodleCell: UITableViewCell {
-  @IBOutlet weak var doodleNameLabel: UILabel!
-  @IBOutlet weak var doodleDateLabel: UILabel!
-  @IBOutlet weak var doodlePreviewImageView: UIImageView!
-  
-  private static var dateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.dateFormat = "dd MMM yyyy, HH:mm"
-    return formatter
-  }()
-  
-  var doodle: Doodle? {
-    didSet {
-      if let doodle = doodle {
-        doodleNameLabel.text = doodle.name
-        doodleDateLabel.text = self.dynamicType.dateFormatter.stringFromDate(doodle.date)
-        doodlePreviewImageView.image = doodle.image
-      }
-    }
-  }
-}
-
 class DoodlesViewController: UITableViewController {
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
+  }
   
   override func viewWillAppear(animated: Bool) {
     super.viewWillAppear(animated)
@@ -69,14 +37,17 @@ class DoodlesViewController: UITableViewController {
   @IBAction func unwindToDoodlesViewController(segue: UIStoryboardSegue) {}
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if let destinationViewController = segue.destinationViewController as? DoodleViewController,
+    if let destinationViewController = segue.destinationViewController as? DoodleDetailViewController,
        let indexPath = tableView.indexPathForSelectedRow
        where segue.identifier == "ViewDoodleSegue" {
         let doodle = Doodle.allDoodles[indexPath.row]
         destinationViewController.doodle = doodle
     }
   }
-  
+}
+
+//MARK: UITableViewDataSource
+extension DoodlesViewController {
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
@@ -93,4 +64,3 @@ class DoodlesViewController: UITableViewController {
     return cell
   }
 }
-

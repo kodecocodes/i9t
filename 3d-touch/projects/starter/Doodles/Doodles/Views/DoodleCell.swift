@@ -22,15 +22,24 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-  var window: UIWindow?
+class DoodleCell: UITableViewCell {
+  @IBOutlet weak var doodleNameLabel: UILabel!
+  @IBOutlet weak var doodleDateLabel: UILabel!
+  @IBOutlet weak var doodlePreviewImageView: UIImageView!
   
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    configureAppAppearance()
-    
-    return true
+  private static var dateFormatter: NSDateFormatter = {
+    let formatter = NSDateFormatter()
+    formatter.dateFormat = "dd MMM yyyy, HH:mm"
+    return formatter
+  }()
+  
+  var doodle: Doodle? {
+    didSet {
+      if let doodle = doodle {
+        doodleNameLabel.text = doodle.name
+        doodleDateLabel.text = self.dynamicType.dateFormatter.stringFromDate(doodle.date)
+        doodlePreviewImageView.image = doodle.image
+      }
+    }
   }
-
 }

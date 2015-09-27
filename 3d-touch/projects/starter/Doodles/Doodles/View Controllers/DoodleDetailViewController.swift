@@ -22,15 +22,41 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-  var window: UIWindow?
+class DoodleDetailViewController: UIViewController {
+  var doodle: Doodle?
+  var shareDoodle = false
   
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    configureAppAppearance()
+  @IBOutlet weak var imageView: UIImageView!
+  
+  weak var doodlesViewController: DoodlesViewController?
+  
+  private var activityViewController: UIActivityViewController? {
+    guard let doodle = doodle,
+      image = doodle.image else { return nil }
     
-    return true
+    return UIActivityViewController(activityItems: [image], applicationActivities: nil)
   }
-
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    if let doodle = doodle {
+      title = doodle.name
+      imageView.image = doodle.image
+    }
+  }
+  
+  override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    
+    if shareDoodle == true {
+      presentActivityViewController()
+    }
+  }
+  
+  @IBAction func presentActivityViewController() {
+    if let activityViewController = activityViewController {
+      presentViewController(activityViewController, animated: true, completion: nil)
+    }
+  }
 }

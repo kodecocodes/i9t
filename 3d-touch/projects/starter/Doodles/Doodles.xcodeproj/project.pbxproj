@@ -13,8 +13,11 @@
 		1727CBFB1BAE09B2003B6DFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1727CBFA1BAE09B2003B6DFE /* Assets.xcassets */; };
 		1727CBFE1BAE09B2003B6DFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1727CBFC1BAE09B2003B6DFE /* LaunchScreen.storyboard */; };
 		1727CC071BAE0C7A003B6DFE /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC061BAE0C7A003B6DFE /* Canvas.swift */; };
-		1727CC091BAE136E003B6DFE /* DoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC081BAE136E003B6DFE /* DoodleViewController.swift */; };
-		1727CC0B1BAE1536003B6DFE /* AddDoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC0A1BAE1536003B6DFE /* AddDoodleViewController.swift */; };
+		1727CC091BAE136E003B6DFE /* DoodleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC081BAE136E003B6DFE /* DoodleDetailViewController.swift */; };
+		1727CC0B1BAE1536003B6DFE /* NewDoodleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1727CC0A1BAE1536003B6DFE /* NewDoodleViewController.swift */; };
+		17F2D1101BB2CE6C006A18D5 /* Doodle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F2D10F1BB2CE6C006A18D5 /* Doodle.swift */; settings = {ASSET_TAGS = (); }; };
+		17F2D1541BB7E634006A18D5 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F2D1531BB7E634006A18D5 /* Utilities.swift */; settings = {ASSET_TAGS = (); }; };
+		17F2D1561BB7EA3E006A18D5 /* DoodleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17F2D1551BB7EA3E006A18D5 /* DoodleCell.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +29,12 @@
 		1727CBFD1BAE09B2003B6DFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1727CBFF1BAE09B2003B6DFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1727CC061BAE0C7A003B6DFE /* Canvas.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
-		1727CC081BAE136E003B6DFE /* DoodleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoodleViewController.swift; sourceTree = "<group>"; };
-		1727CC0A1BAE1536003B6DFE /* AddDoodleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddDoodleViewController.swift; sourceTree = "<group>"; };
+		1727CC081BAE136E003B6DFE /* DoodleDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoodleDetailViewController.swift; sourceTree = "<group>"; };
+		1727CC0A1BAE1536003B6DFE /* NewDoodleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDoodleViewController.swift; sourceTree = "<group>"; };
+		17F2D10F1BB2CE6C006A18D5 /* Doodle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Doodle.swift; sourceTree = "<group>"; };
+		17F2D1531BB7E634006A18D5 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		17F2D1551BB7EA3E006A18D5 /* DoodleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DoodleCell.swift; sourceTree = "<group>"; };
+		17F2D15B1BB7EBE6006A18D5 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,17 +67,53 @@
 		1727CBF21BAE09B2003B6DFE /* Doodles */ = {
 			isa = PBXGroup;
 			children = (
+				17F2D1591BB7EB5A006A18D5 /* Model */,
+				17F2D1581BB7EB54006A18D5 /* Views */,
+				17F2D1571BB7EB49006A18D5 /* View Controllers */,
 				1727CBF31BAE09B2003B6DFE /* AppDelegate.swift */,
+				17F2D15B1BB7EBE6006A18D5 /* README.md */,
+				17F2D15A1BB7EB7E006A18D5 /* Resources */,
+			);
+			path = Doodles;
+			sourceTree = "<group>";
+		};
+		17F2D1571BB7EB49006A18D5 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				1727CBF51BAE09B2003B6DFE /* DoodlesViewController.swift */,
-				1727CC081BAE136E003B6DFE /* DoodleViewController.swift */,
-				1727CC0A1BAE1536003B6DFE /* AddDoodleViewController.swift */,
+				1727CC0A1BAE1536003B6DFE /* NewDoodleViewController.swift */,
+				1727CC081BAE136E003B6DFE /* DoodleDetailViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		17F2D1581BB7EB54006A18D5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				17F2D1551BB7EA3E006A18D5 /* DoodleCell.swift */,
 				1727CC061BAE0C7A003B6DFE /* Canvas.swift */,
+				17F2D1531BB7E634006A18D5 /* Utilities.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		17F2D1591BB7EB5A006A18D5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				17F2D10F1BB2CE6C006A18D5 /* Doodle.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		17F2D15A1BB7EB7E006A18D5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				1727CBF71BAE09B2003B6DFE /* Main.storyboard */,
 				1727CBFA1BAE09B2003B6DFE /* Assets.xcassets */,
 				1727CBFC1BAE09B2003B6DFE /* LaunchScreen.storyboard */,
 				1727CBFF1BAE09B2003B6DFE /* Info.plist */,
 			);
-			path = Doodles;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -105,6 +148,7 @@
 				TargetAttributes = {
 					1727CBEF1BAE09B2003B6DFE = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = C673G87399;
 					};
 				};
 			};
@@ -144,11 +188,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17F2D1101BB2CE6C006A18D5 /* Doodle.swift in Sources */,
 				1727CBF61BAE09B2003B6DFE /* DoodlesViewController.swift in Sources */,
+				17F2D1561BB7EA3E006A18D5 /* DoodleCell.swift in Sources */,
 				1727CBF41BAE09B2003B6DFE /* AppDelegate.swift in Sources */,
 				1727CC071BAE0C7A003B6DFE /* Canvas.swift in Sources */,
-				1727CC091BAE136E003B6DFE /* DoodleViewController.swift in Sources */,
-				1727CC0B1BAE1536003B6DFE /* AddDoodleViewController.swift in Sources */,
+				17F2D1541BB7E634006A18D5 /* Utilities.swift in Sources */,
+				1727CC091BAE136E003B6DFE /* DoodleDetailViewController.swift in Sources */,
+				1727CC0B1BAE1536003B6DFE /* NewDoodleViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,7 +309,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Doodles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Doodles;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamesfrost.Doodles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -274,7 +321,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Doodles/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.Doodles;
+				PRODUCT_BUNDLE_IDENTIFIER = com.jamesfrost.Doodles;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

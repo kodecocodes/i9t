@@ -22,30 +22,53 @@
 
 import UIKit
 
-class AddDoodleViewController: UIViewController {
+@IBDesignable
+public class Canvas : UIView {
   
-  var canvas: Canvas {
-    return view as! Canvas
+  var image: UIImage? {
+    return drawing
   }
   
-  @IBAction func saveTapped() {
-    let alert = UIAlertController(title: "Name it!", message: "What would you like to name your masterpiece?", preferredStyle: .Alert)
-    alert.addTextFieldWithConfigurationHandler { textField in
-      
+  private var drawing: UIImage?
+  
+  @IBInspectable
+  public var strokeWidth: CGFloat = 4.0
+  
+  @IBInspectable
+  public var strokeColor = UIColor.hotPinkColor()
+}
+
+extension Canvas {
+  public override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    if let touch = touches.first {
+      addLineFromPoint(touch.previousLocationInView(self), toPoint: touch.locationInView(self))
     }
+  }
+}
+
+extension Canvas {
+  private func addLineFromPoint(from: CGPoint, toPoint: CGPoint) {
+    UIGraphicsBeginImageContextWithOptions(bounds.size, false, 0.0)
     
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-    alert.addAction(UIAlertAction(title: "Save", style: .Default, handler: { action in
-        let name = alert.textFields!.first!.text!
-        let doodleImage = self.canvas.image
-        let doodle = Doodle(name: name, date: NSDate(), image: doodleImage)
-      
-        Doodle.addDoodle(doodle)
-      
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }))
+    drawing?.drawInRect(bounds)
     
-    presentViewController(alert, animated: true, completion: nil)
+    let cxt = UIGraphicsGetCurrentContext()
+    CGContextMoveToPoint(cxt, from.x, from.y)
+    CGContextAddLineToPoint(cxt, toPoint.x, toPoint.y)
+    
+    CGContextSetLineCap(cxt, .Round)
+    
+    CGContextSetLineWidth(cxt, strokeWidth)
+    
+    strokeColor.setStroke()
+    
+    CGContextStrokePath(cxt)
+    
+    drawing = UIGraphicsGetImageFromCurrentImageContext()
+    
+    layer.contents = drawing?.CGImage
+    
+    UIGraphicsEndImageContext()
   }
   
 }

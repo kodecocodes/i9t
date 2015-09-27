@@ -22,23 +22,29 @@
 
 import UIKit
 
-class DoodleViewController: UIViewController {
-  var doodle: Doodle? //{
-//    didSet {
-//      if let doodle = doodle {
-//        
-//      }
-//    }
-//  }
-  @IBOutlet weak var imageView: UIImageView!
-  @IBOutlet weak var canvas: Canvas!
+extension AppDelegate {
+  func configureAppAppearance()  {
+    UIApplication.sharedApplication().delegate?.window??.tintColor = UIColor.hotPinkColor()
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    if let doodle = doodle {
-      title = doodle.name
-      imageView.image = doodle.image
-    }
+    UINavigationBar.appearance().translucent = false
+    UINavigationBar.appearance().barTintColor = UIColor.hotPinkColor()
+    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+    UINavigationBar.appearance().titleTextAttributes = [ NSForegroundColorAttributeName: UIColor.whiteColor() ]
   }
+}
+
+extension UIStoryboard {
+  class var mainStoryboard: UIStoryboard {
+    return UIStoryboard(name: "Main", bundle: nil)
+  }
+}
+
+extension UINavigationController {
+  public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
+  }
+}
+
+extension UIColor {
+  class func hotPinkColor() -> UIColor { return UIColor(red:0.98, green:0.066, blue:0.309, alpha:1) }
 }

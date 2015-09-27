@@ -24,8 +24,6 @@ import UIKit
 
 class DoodlesViewController: UITableViewController {
   
-  var alertController: UIAlertController? = nil
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -39,16 +37,7 @@ class DoodlesViewController: UITableViewController {
     
     tableView.reloadData()
   }
-  
-  override func viewDidAppear(animated: Bool) {
-    super.viewDidAppear(animated)
-    
-    if let alertController = alertController {
-      presentViewController(alertController, animated: true, completion: nil)
-      self.alertController = nil
-    }
-  }
-  
+
   @IBAction func unwindToDoodlesViewController(segue: UIStoryboardSegue) {}
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

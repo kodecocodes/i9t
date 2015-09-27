@@ -22,15 +22,33 @@
 
 import UIKit
 
-@UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-  var window: UIWindow?
+class NewDoodleViewController: UIViewController {
   
-  func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-    configureAppAppearance()
-    
-    return true
+  private var canvas: Canvas {
+    return view as! Canvas
   }
-
+  
+  @IBAction func saveTapped() {
+    let alert = UIAlertController(title: "Name it!",
+                                  message: "What would you like to name your masterpiece?",
+                                  preferredStyle: .Alert)
+    
+    alert.addTextFieldWithConfigurationHandler { textField in
+      textField.autocapitalizationType = .Words
+    }
+    
+    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "Save", style: .Default, handler: { action in
+        let name = alert.textFields!.first!.text!
+        let doodleImage = self.canvas.image
+        let doodle = Doodle(name: name, date: NSDate(), image: doodleImage)
+      
+        Doodle.addDoodle(doodle)
+      
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }))
+    
+    presentViewController(alert, animated: true, completion: nil)
+  }
+  
 }
