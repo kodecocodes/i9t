@@ -22,30 +22,29 @@
 
 import UIKit
 
-class AddDoodleViewController: UIViewController {
+extension AppDelegate {
+  func configureAppAppearance()  {
+    UIApplication.sharedApplication().delegate?.window??.tintColor = UIColor.hotPinkColor()
   
-  var canvas: Canvas {
-    return view as! Canvas
+    UINavigationBar.appearance().translucent = false
+    UINavigationBar.appearance().barTintColor = UIColor.hotPinkColor()
+    UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+    UINavigationBar.appearance().titleTextAttributes = [ NSForegroundColorAttributeName: UIColor.whiteColor() ]
   }
-  
-  @IBAction func saveTapped() {
-    let alert = UIAlertController(title: "Name it!", message: "What would you like to name your masterpiece?", preferredStyle: .Alert)
-    alert.addTextFieldWithConfigurationHandler { textField in
-      
-    }
-    
-    alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
-    alert.addAction(UIAlertAction(title: "Save", style: .Default, handler: { action in
-        let name = alert.textFields!.first!.text!
-        let doodleImage = self.canvas.image
-        let doodle = Doodle(name: name, date: NSDate(), image: doodleImage)
-      
-        Doodle.addDoodle(doodle)
-      
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }))
-    
-    presentViewController(alert, animated: true, completion: nil)
+}
+
+extension UIStoryboard {
+  class var mainStoryboard: UIStoryboard {
+    return UIStoryboard(name: "Main", bundle: nil)
   }
-  
+}
+
+extension UINavigationController {
+  public override func preferredStatusBarStyle() -> UIStatusBarStyle {
+    return .LightContent
+  }
+}
+
+extension UIColor {
+  class func hotPinkColor() -> UIColor { return UIColor(red:0.98, green:0.066, blue:0.309, alpha:1) }
 }

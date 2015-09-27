@@ -22,28 +22,6 @@
 
 import UIKit
 
-class DoodleCell: UITableViewCell {
-  @IBOutlet weak var doodleNameLabel: UILabel!
-  @IBOutlet weak var doodleDateLabel: UILabel!
-  @IBOutlet weak var doodlePreviewImageView: UIImageView!
-  
-  private static var dateFormatter: NSDateFormatter = {
-    let formatter = NSDateFormatter()
-    formatter.dateFormat = "dd MMM yyyy, HH:mm"
-    return formatter
-  }()
-  
-  var doodle: Doodle? {
-    didSet {
-      if let doodle = doodle {
-        doodleNameLabel.text = doodle.name
-        doodleDateLabel.text = self.dynamicType.dateFormatter.stringFromDate(doodle.date)
-        doodlePreviewImageView.image = doodle.image
-      }
-    }
-  }
-}
-
 class DoodlesViewController: UITableViewController {
   
   var alertController: UIAlertController? = nil
@@ -74,14 +52,17 @@ class DoodlesViewController: UITableViewController {
   @IBAction func unwindToDoodlesViewController(segue: UIStoryboardSegue) {}
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if let destinationViewController = segue.destinationViewController as? DoodleViewController,
+    if let destinationViewController = segue.destinationViewController as? DoodleDetailViewController,
        let indexPath = tableView.indexPathForSelectedRow
        where segue.identifier == "ViewDoodleSegue" {
         let doodle = Doodle.allDoodles[indexPath.row]
         destinationViewController.doodle = doodle
     }
   }
-  
+}
+
+//MARK: UITableViewDataSource
+extension DoodlesViewController {
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
@@ -99,6 +80,7 @@ class DoodlesViewController: UITableViewController {
   }
 }
 
+//MARK: UIViewControllerPreviewingDelegate
 extension DoodlesViewController: UIViewControllerPreviewingDelegate {
   func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
     guard let indexPath = tableView.indexPathForRowAtPoint(location),
@@ -106,7 +88,7 @@ extension DoodlesViewController: UIViewControllerPreviewingDelegate {
         return nil
     }
     
-    guard let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DoodleViewController") as? DoodleViewController else { return nil }
+    guard let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DoodleDetailViewController") as? DoodleDetailViewController else { return nil }
     
     detailViewController.doodle = cell.doodle
     detailViewController.doodlesViewController = self

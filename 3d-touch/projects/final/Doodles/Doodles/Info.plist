@@ -30,7 +30,7 @@
 			<key>UIApplicationShortcutItemTitle</key>
 			<string>New Doodle</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>$(PRODUCT_BUNDLE_IDENTIFIER).new</string>
+			<string>com.razeware.Doodles.new</string>
 		</dict>
 	</array>
 	<key>UILaunchStoryboardName</key>
