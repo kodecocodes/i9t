@@ -23,7 +23,7 @@
 import UIKit
 
 class DoodlesViewController: UITableViewController {
-  
+
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -37,7 +37,7 @@ class DoodlesViewController: UITableViewController {
     
     tableView.reloadData()
   }
-
+  
   @IBAction func unwindToDoodlesViewController(segue: UIStoryboardSegue) {}
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -69,26 +69,35 @@ extension DoodlesViewController {
   }
 }
 
-//MARK: UIViewControllerPreviewingDelegate
 extension DoodlesViewController: UIViewControllerPreviewingDelegate {
-  func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-    guard let indexPath = tableView.indexPathForRowAtPoint(location),
-      cell = tableView.cellForRowAtIndexPath(indexPath) as? DoodleCell else {
-        return nil
-    }
-    
-    guard let detailViewController = storyboard?.instantiateViewControllerWithIdentifier("DoodleDetailViewController") as? DoodleDetailViewController else { return nil }
-    
-    detailViewController.doodle = cell.doodle
-    detailViewController.doodlesViewController = self
-    
-    previewingContext.sourceRect = cell.frame
-    
-    return detailViewController
+  func previewingContext(previewingContext: UIViewControllerPreviewing,
+    viewControllerForLocation location: CGPoint) -> UIViewController? {
+      
+      // 1
+      guard let indexPath = tableView.indexPathForRowAtPoint(location),
+        cell = tableView.cellForRowAtIndexPath(indexPath) as? DoodleCell
+        else {
+          return nil
+      }
+      
+      // 2
+      let identifier = "DoodleDetailViewController"
+      guard let detailVC = storyboard?
+        .instantiateViewControllerWithIdentifier(identifier)
+        as? DoodleDetailViewController else { return nil }
+      
+      detailVC.doodle = cell.doodle
+      detailVC.doodlesViewController = self
+      
+      // 3
+      previewingContext.sourceRect = cell.frame
+      
+      // 4
+      return detailVC
   }
   
-  func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
-    showViewController(viewControllerToCommit, sender: self)
+  func previewingContext(previewingContext: UIViewControllerPreviewing,
+    commitViewController viewControllerToCommit: UIViewController) {
+      showViewController(viewControllerToCommit, sender: self)
   }
 }
-

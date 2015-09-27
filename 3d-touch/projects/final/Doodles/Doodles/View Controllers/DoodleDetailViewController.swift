@@ -54,30 +54,34 @@ class DoodleDetailViewController: UIViewController {
     }
   }
   
+  override func previewActionItems() -> [UIPreviewActionItem] {
+    // 1
+    let shareAction = UIPreviewAction(title: "Share",
+      style: .Default) { (previewAction, viewController) in
+        if let doodlesVC = self.doodlesViewController,
+          activityViewController = self.activityViewController {
+            doodlesVC.presentViewController(activityViewController,
+              animated: true, completion: nil)
+        }
+    }
+    
+    // 2
+    let deleteAction = UIPreviewAction(title: "Delete",
+      style: .Destructive) { (previewAction, viewController) in
+        guard let doodle = self.doodle else { return }
+        Doodle.deleteDoodle(doodle)
+        
+        if let doodlesViewController = self.doodlesViewController {
+          doodlesViewController.tableView.reloadData()
+        }
+    }
+    
+    return [shareAction, deleteAction]
+  }
+  
   @IBAction func presentActivityViewController() {
     if let activityViewController = activityViewController {
       presentViewController(activityViewController, animated: true, completion: nil)
     }
   }
-  
-  override func previewActionItems() -> [UIPreviewActionItem] {
-    let shareAction = UIPreviewAction(title: "Share", style: .Default) { (previewAction, viewController) in
-      if let doodlesViewController = self.doodlesViewController,
-        activityViewController = self.activityViewController {
-          doodlesViewController.presentViewController(activityViewController, animated: true, completion: nil)
-      }
-    }
-    
-    let deleteAction = UIPreviewAction(title: "Delete", style: .Destructive) { (previewAction, viewController) in
-      guard let doodle = self.doodle else { return }
-      Doodle.deleteDoodle(doodle)
-      
-      if let doodlesViewController = self.doodlesViewController {
-        doodlesViewController.tableView.reloadData()
-      }
-    }
-    
-    return [shareAction, deleteAction]
-  }
-
 }

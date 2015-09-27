@@ -102,7 +102,7 @@ In this section, you'll use the peek and pop APIs to let users preview doodles f
 
 Open up **DoodlesViewController.swift** and add the following code to the end of `viewDidLoad()`:
 
-    if traitCollection.forceTouchCapability != .Available {
+    if traitCollection.forceTouchCapability == .Available {
       registerForPreviewingWithDelegate(self, sourceView: view)
     }
  
@@ -199,11 +199,11 @@ Peek.... pop!
 
 You've just implemented some crazy awesome functionality with very little code, but it doesn't stop there – a view controller can also present some useful quick actions whilst it's being peeked. 
 
-Open up **DoodleViewController.swift** and add a property at the top of the class to store a reference to `doodlesViewController`:
+Open up **DoodleDetailViewController.swift** and add a property at the top of the class to store a reference to `doodlesViewController`:
 
     weak var doodlesViewController: DoodlesViewController?
 
-Then add the following method to the bottom of the class, below `viewDidAppear(_:)`:
+Then add the following method to the bottom of the class, below `presentActivityViewController()`:
 
     override func previewActionItems() -> [UIPreviewActionItem] {
       // 1
@@ -291,7 +291,9 @@ There are a couple of other keys available which you haven't used here:
 
 See the `UIApplicationShortcutItems` documentation ([http://apple.co/1KX35t4](http://apple.co/1KX35t4)) for full details, including a list of built in icon types.
 
-Now that you've declared your shortcut item, what happens when somebody taps it? iOS 9 introduces a new `UIApplicationDelegate` method to do just this. Open **AppDelegate.swift**, and add the following method below `application(_:didFinishLaunchingWithOptions:)`:
+Now that you've declared your shortcut item, what happens when somebody taps it? iOS 9 introduces a new `UIApplicationDelegate` method to do just this. 
+
+Open **AppDelegate.swift**, and add the following method below `application(_:didFinishLaunchingWithOptions:)`:
 
     func application(application: UIApplication, 
       performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, 
@@ -349,6 +351,7 @@ Open **Doodle.swift** and add this static method to the end of the struct:
         UIApplication.sharedApplication().shortcutItems = [ shortcutItem ]
       } else {
         UIApplication.sharedApplication().shortcutItems = []
+      }
     }
 
 Just like you created a `UIApplicationShortcutItem` definition in your **Info.plist**, here you're creating a `UIApplicationShortcutItem` in code. The properties you're setting should look quite familiar: you set a `type` to a unique reverse-DNS string, a title and a subtitle, and a built-in icon. You've set the subtitle to the most recent doodle's name, so it'll be displayed right in the shortcut menu.

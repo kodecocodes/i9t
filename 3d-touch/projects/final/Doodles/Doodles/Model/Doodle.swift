@@ -39,28 +39,29 @@ struct Doodle {
   
   static func addDoodle(doodle: Doodle) {
     allDoodles.append(doodle)
-
+    
     Doodle.configureDynamicShortcuts()
   }
   
   static func deleteDoodle(doodle: Doodle) {
     if let index = allDoodles.indexOf({ $0.name == doodle.name }) {
       allDoodles.removeAtIndex(index)
-      
-      Doodle.configureDynamicShortcuts()
     }
-  }
-
-  static func configureDynamicShortcuts() {
-    let application = UIApplication.sharedApplication()
     
+    Doodle.configureDynamicShortcuts()
+  }
+  
+  static func configureDynamicShortcuts() {
     if let mostRecentDoodle = Doodle.sortedDoodles.first {
-      let shortcutItem = UIApplicationShortcutItem(type: "com.razeware.Doodles.share",
+      let shortcutType = "com.razeware.Doodles.share"
+      let shortcutItem = UIApplicationShortcutItem(type: shortcutType,
         localizedTitle: "Share Latest Doodle",
         localizedSubtitle: mostRecentDoodle.name,
         icon: UIApplicationShortcutIcon(type: .Share),
         userInfo: nil)
-      application.shortcutItems = [ shortcutItem ]
+      UIApplication.sharedApplication().shortcutItems = [ shortcutItem ]
+    } else {
+      UIApplication.sharedApplication().shortcutItems = []
     }
   }
 }

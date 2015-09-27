@@ -34,13 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     return true
   }
-
-  func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
-    handleShortcutItem(shortcutItem)
-    completionHandler(true)
+  
+  func application(application: UIApplication,
+    performActionForShortcutItem shortcutItem: UIApplicationShortcutItem,
+    completionHandler: (Bool) -> Void) {
+      handleShortcutItem(shortcutItem)
+      completionHandler(true)
   }
   
-  private func handleShortcutItem(shortcutItem: UIApplicationShortcutItem) {
+  func handleShortcutItem(shortcutItem: UIApplicationShortcutItem) {
     switch shortcutItem.type {
     case "com.razeware.Doodles.new":
       presentNewDoodleViewController()
@@ -50,21 +52,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
   }
   
-  private func presentNewDoodleViewController() {
-    let doodleViewController = UIStoryboard.mainStoryboard.instantiateViewControllerWithIdentifier("NewDoodleNavigationController")
-
-    window?.rootViewController?.presentViewController(doodleViewController, animated: true, completion: nil)
+  func presentNewDoodleViewController() {
+    let identifier = "NewDoodleNavigationController"
+    let doodleViewController = UIStoryboard.mainStoryboard
+      .instantiateViewControllerWithIdentifier(identifier)
+    
+    window?.rootViewController?
+      .presentViewController(doodleViewController, animated: true,
+        completion: nil)
   }
-
-  private func shareMostRecentDoodle() {
+  
+  func shareMostRecentDoodle() {
     if let mostRecentDoodle = Doodle.sortedDoodles.first,
-      navigationController = window?.rootViewController as? UINavigationController {
-        let doodleViewController = UIStoryboard.mainStoryboard.instantiateViewControllerWithIdentifier("DoodleDetailViewController") as! DoodleDetailViewController
-        
-        doodleViewController.doodle = mostRecentDoodle
-        doodleViewController.shareDoodle = true
-        
-        navigationController.pushViewController(doodleViewController, animated: true)
+      navigationController = window?
+        .rootViewController as? UINavigationController {
+          let identifier = "DoodleDetailViewController"
+          let doodleViewController = UIStoryboard.mainStoryboard
+            .instantiateViewControllerWithIdentifier(identifier) as!
+          DoodleDetailViewController
+          
+          doodleViewController.doodle = mostRecentDoodle
+          doodleViewController.shareDoodle = true
+          
+          navigationController.pushViewController(doodleViewController,
+            animated: true)
     }
   }
+
 }
