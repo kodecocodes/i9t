@@ -36,4 +36,5 @@ class EmployeeListCell: UITableViewCell {
       titleLabel.text = employee.title
     }
   }
+  
 }

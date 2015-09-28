@@ -22,7 +22,6 @@
 
 import UIKit
 import EmployeeKit
-import CoreSpotlight
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -31,49 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
   
-    switch Setting.searchIndexingPreference {
-    case .Disabled:
-       EmployeeService().destroyEmployeeIndexing()
-    case .AllRecords:
-       EmployeeService().indexAllEmployees()
-    default: break
+    if case .Disabled = Setting.searchIndexingPreference {
+      EmployeeService().destroyEmployeeIndexing()
     }
-    
+        
     return true
   }
   
-  func application(application: UIApplication,
-    continueUserActivity userActivity: NSUserActivity,
-    restorationHandler: ([AnyObject]?) -> Void) -> Bool {
-      let objectId: String
-      if userActivity.activityType == Employee.domainIdentifier,
-        let activityObjectId = userActivity.userInfo?["id"] as? String {
-          // Handle result from NSUserActivity indexing
-          objectId = activityObjectId
-      } else if userActivity.activityType == CSSearchableItemActionType,
-        let activityObjectId = userActivity
-          .userInfo?[CSSearchableItemActivityIdentifier] as? String  {
-            // Handle result from CoreSpotlight indexing
-            objectId = activityObjectId
-      } else {
-        return false
-      }
-      
-      if let nav = window?.rootViewController as? UINavigationController,
-        listVC = nav.viewControllers.first as? EmployeeListViewController,
-        employee = EmployeeService().employeeWithObjectId(objectId) {
-          nav.popToRootViewControllerAnimated(false)
-          
-          let employeeViewController = listVC
-            .storyboard?
-            .instantiateViewControllerWithIdentifier("EmployeeView") as! EmployeeViewController
-          
-          employeeViewController.employee = employee
-          nav.pushViewController(employeeViewController, animated: false)
-          return true
-      }
-      
-      return false
-  }
 }
 

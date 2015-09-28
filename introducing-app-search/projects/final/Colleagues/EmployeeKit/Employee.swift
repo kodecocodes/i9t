@@ -82,4 +82,5 @@ public struct Employee: JSONDecodable {
     
     return smallImage
   }
+  
 }

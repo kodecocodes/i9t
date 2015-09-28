@@ -50,25 +50,6 @@ class EmployeeViewController: UIViewController {
     emailLabel.text = employee.email
     skillsLabel.text = employee.skills.joinWithSeparator(", ")
     otherEmployeesLabel.text = "Other employees in \(employee.department)"
-    
-    let activity = employee.userActivity
-
-    switch Setting.searchIndexingPreference {
-    case .Disabled:
-      activity.eligibleForSearch = false
-    case .ViewedRecords:
-      activity.eligibleForSearch = true
-      activity.contentAttributeSet?.relatedUniqueIdentifier = nil
-    case .AllRecords:
-      activity.eligibleForSearch = true
-    }
-    
-    userActivity = activity
-  }
-  
-  override func updateUserActivityState(activity: NSUserActivity) {
-    activity.addUserInfoEntriesFromDictionary(
-      employee.userActivityUserInfo)
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
