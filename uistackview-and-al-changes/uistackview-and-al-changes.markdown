@@ -1,3 +1,9 @@
+```metadata
+author: Jawwad Ahmad
+number: 6
+title: UIStackView and Auto Layout changes
+```
+
 # Chapter 6: UIStackView and Auto Layout changes
 
 We've all been there. That annoying moment when you needed to add or remove a view at runtime and wished that other views knew how to reposition themselves automatically.
@@ -290,8 +296,6 @@ This means that you can't accidentally use a multiplier where it doesn't make se
 It gets better. `NSLayoutAnchor` has two additional subclasses — `NSLayoutXAxisAnchor` and `NSLayoutYAxisAnchor` — which represent anchors in the horizontal and vertical directions. For example, `bottomAnchor` is of type `NSLayoutYAxisAnchor` and `leadingAnchor` is of type `NSLayoutXAxisAnchor`. So all anchors are actually one of these three specific subclasses of `NSLayoutAnchor`.
 
 The `constraint[Equal|LessThanOrEqual|GreaterThanOrEqual]ToAnchor` family of methods are actually generic methods that, when called from an object of type, `NSLayoutXAxisAnchor`, will only take a parameter of type `NSLayoutXAxisAnchor` and when called from an object of type, `NSLayoutYAxisAnchor` will only take in a parameter of type `NSLayoutYAxisAnchor`. This can prevent you attempting to pin the top of one view to the leading edge of another, for example.
-
-TODO: Check this next bit with the GM. Fixing the interpretation of objC generics in Swift is just the kind of Swift change that they would slip into a tiny release without anybody noticing.
 
 Though this type checking hasn't yet made its way into Swift, it currently works with Objective-C:
 ![bordered width=99%](images/28-xAnchor-and-yAnchor-incompatibility_632x60.png)
