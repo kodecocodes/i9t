@@ -1,4 +1,10 @@
-# Chapter 14: What's New in Xcode
+```metadata
+author: Jawwad Ahmad
+number: 14
+title: What's New in Xcode?
+```
+
+# Chapter 14: What's New in Xcode?
 
 The most important tool you use as an iOS developer is Xcode, and each new release brings a variety of features and improvements. In prior chapters, you learned about many of Xcode's new features, such as storyboard references, support for app thinning, improvements to testing and code coverage.
 
