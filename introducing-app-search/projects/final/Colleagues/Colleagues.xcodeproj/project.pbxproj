@@ -14,6 +14,7 @@
 		078A11251B620368001C7FED /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 078A11241B620368001C7FED /* Settings.bundle */; };
 		078A11271B620D32001C7FED /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078A11261B620D32001C7FED /* Setting.swift */; };
 		07B0383E1B5B79F600FA765D /* EmployeeActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B0383D1B5B79F600FA765D /* EmployeeActions.swift */; };
+		07B34D191BB917EF005513DC /* EmployeeSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B34D181BB917EF005513DC /* EmployeeSearch.swift */; settings = {ASSET_TAGS = (); }; };
 		07B46B8E1B5AF7E400B55262 /* EmployeeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 07B46B8D1B5AF7E400B55262 /* EmployeeKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		07B46BA01B5AF7E400B55262 /* EmployeeKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07B46B8B1B5AF7E400B55262 /* EmployeeKit.framework */; };
 		07B46BA11B5AF7E400B55262 /* EmployeeKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 07B46B8B1B5AF7E400B55262 /* EmployeeKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -87,6 +88,7 @@
 		078A11241B620368001C7FED /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		078A11261B620D32001C7FED /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		07B0383D1B5B79F600FA765D /* EmployeeActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeActions.swift; sourceTree = "<group>"; };
+		07B34D181BB917EF005513DC /* EmployeeSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmployeeSearch.swift; sourceTree = "<group>"; };
 		07B46B8B1B5AF7E400B55262 /* EmployeeKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EmployeeKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		07B46B8D1B5AF7E400B55262 /* EmployeeKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmployeeKit.h; sourceTree = "<group>"; };
 		07B46B8F1B5AF7E400B55262 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 				07B46BAB1B5AF91D00B55262 /* Protocols.swift */,
 				07B46BAD1B5AFAAD00B55262 /* EmployeeService.swift */,
 				07B46BE71B5B0BB900B55262 /* FileHelper.swift */,
+				07B34D181BB917EF005513DC /* EmployeeSearch.swift */,
 			);
 			path = EmployeeKit;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				07B46BAE1B5AFAAD00B55262 /* EmployeeService.swift in Sources */,
 				07B46BAC1B5AF91D00B55262 /* Protocols.swift in Sources */,
 				07B46BE81B5B0BB900B55262 /* FileHelper.swift in Sources */,
+				07B34D191BB917EF005513DC /* EmployeeSearch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
