@@ -91,7 +91,8 @@ func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
     || size.width < size.height {
       maximumPrimaryColumnWidth = 170.0
   } else {
-    maximumPrimaryColumnWidth = UISplitViewControllerAutomaticDimension
+    maximumPrimaryColumnWidth =
+      UISplitViewControllerAutomaticDimension
   }
 }
 ```
@@ -174,11 +175,13 @@ iOS 8 introduced `UIPopoverPresentationController` to manage the display of the 
 Open **LogsViewController.swift** and add the following class extension to the end of the file:
 
 ```swift
-extension LogsViewController : UIPopoverPresentationControllerDelegate {
+extension LogsViewController:
+  UIPopoverPresentationControllerDelegate {
 
-  func adaptivePresentationStyleForPresentationController(controller:
-    UIPresentationController,
-    traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+  func adaptivePresentationStyleForPresentationController(
+    controller: UIPresentationController,
+    traitCollection: UITraitCollection)
+    -> UIModalPresentationStyle {
       //1
       guard traitCollection.userInterfaceIdiom == .Pad else {
         return .FullScreen
@@ -206,9 +209,10 @@ Find the implementation of `presentImagePickerControllerWithSourceType(_:)`. Rea
 func presentImagePickerControllerWithSourceType(sourceType:
   UIImagePickerControllerSourceType) {
     // some code...
-    if sourceType == UIImagePickerControllerSourceType.PhotoLibrary {
-      // some code...
-      presenter?.delegate = self
+    if sourceType ==
+      UIImagePickerControllerSourceType.PhotoLibrary {
+        // some code...
+        presenter?.delegate = self
     }
     // some code...
 }

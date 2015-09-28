@@ -284,7 +284,8 @@ It also has the `LessThanOrEqual` and `GreaterThanOrEqual` variants:
 ```swift
 func constraint[Less|Greater]ThanOrEqualToConstant(_:)
 func constraint[Less|Greater]ThanOrEqualToAnchor(_:multiplier:)
-func constraint[Less|Greater]ThanOrEqualToAnchor(_:multiplier:constant:)
+func constraint[Less|Greater]ThanOrEqualToAnchor(
+  _:multiplier:constant:)
 ```
 
 When would you actually use a multiplier other than 1? Here's an idea: When you want to add a proportional constraint between the width or height of one view to the width or height of another view, like if you wanted the width of user's profile photo to be one-quarter that of its superview.

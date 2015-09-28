@@ -96,8 +96,9 @@ Right now, you have no way to close this screen. You'll need to create a tap ges
 Add the following method to `AnimalDetailViewController` in **AnimalDetailViewController.swift**:
 
 ```swift
-@IBAction func unwindToAnimalDetailViewController(segue:UIStoryboardSegue) {
-  // placeholder for unwind segue
+@IBAction func unwindToAnimalDetailViewController(
+  segue:UIStoryboardSegue) {
+    // placeholder for unwind segue
 }
 ```
 
@@ -195,7 +196,8 @@ In previous iOS versions, you might have put the transition animation in `perfor
 Add the following new animator class at the end of **ScaleSegue.swift**:
 
 ```swift
-class ScalePresentAnimator : NSObject, UIViewControllerAnimatedTransitioning {
+class ScalePresentAnimator : NSObject,
+  UIViewControllerAnimatedTransitioning {
 
 }
 ```
@@ -211,8 +213,10 @@ You'll use `ScalePresentAnimator` to present the modal view controller. You'll c
 First, you have to specify the duration of the animation. Add the following method to `ScalePresentAnimator`:
 
 ```swift
-func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
-  return 2.0
+func transitionDuration(
+  transitionContext: UIViewControllerContextTransitioning?)
+  -> NSTimeInterval {
+    return 2.0
 }
 ```
 
@@ -226,7 +230,8 @@ func animateTransition(transitionContext:
 
   // 1. Get the transition context to- controller and view
   let toViewController = transitionContext
-    .viewControllerForKey(UITransitionContextToViewControllerKey)!
+    .viewControllerForKey(
+      UITransitionContextToViewControllerKey)!
   let toView = transitionContext
     .viewForKey(UITransitionContextToViewKey)
 
@@ -269,10 +274,10 @@ Add the following delegate method to `ScaleSegue`'s `UIViewControllerTransitioni
 
 ```swift
 func animationControllerForPresentedController(presented:
-               UIViewController,
-               presentingController presenting: UIViewController,
-               sourceController source: UIViewController) ->
-               UIViewControllerAnimatedTransitioning? {
+            UIViewController,
+            presentingController presenting: UIViewController,
+            sourceController source: UIViewController) ->
+            UIViewControllerAnimatedTransitioning? {
   return ScalePresentAnimator()
 }
 ```
@@ -332,7 +337,8 @@ Add the following code directly after the above line:
 
 ```swift
 let fromViewController = transitionContext
-  .viewControllerForKey(UITransitionContextFromViewControllerKey)!
+  .viewControllerForKey(
+    UITransitionContextFromViewControllerKey)!
 let fromView = transitionContext
   .viewForKey(UITransitionContextFromViewKey)
 ```
@@ -351,10 +357,12 @@ with the following:
 
 ```swift
 var startFrame = CGRect.zero
-if let fromViewController = fromViewController as? ViewScaleable {
-  startFrame = fromViewController.scaleView.frame
+if let fromViewController = fromViewController
+  as? ViewScaleable {
+    startFrame = fromViewController.scaleView.frame
 } else {
-  print("Warning: Controller \(fromViewController) does not conform to ViewScaleable")
+  print("Warning: Controller \(fromViewController) does not " +
+    "conform to ViewScaleable")
 }
 toView?.frame = startFrame
 ```
@@ -382,7 +390,8 @@ Therefore, on all iPhones, with the exception of the iPhone 6 Plus in landscape,
 You can try this yourself. Find the following in `animateTranstion(_:)` of **ScaleSegue.swift**:
 
 ```swift
-let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
+let toView = transitionContext
+  .viewForKey(UITransitionContextToViewKey)
 ```
 
 And modify it as follows:
@@ -396,7 +405,8 @@ Run your app on the iPhone 6 in portrait mode, and then run it on an iPad. You w
 Revert the code to its original state:
 
 ```swift
-let toView = transitionContext.viewForKey(UITransitionContextToViewKey)
+let toView = transitionContext
+  .viewForKey(UITransitionContextToViewKey)
 ```
 
 Similarly, the transition context's "from" view could be different to the source view controller's view. In a compact sized view, the transition context's "from" view will be the same as the source view controller's view, but in a normal-sized view the "from" view would be `nil`.
@@ -460,14 +470,16 @@ Find the following code in the `ScalePresentAnimator` class of  **ScaleSegue.swi
 
 ```swift
 let fromViewController = transitionContext
-  .viewControllerForKey(UITransitionContextFromViewControllerKey)!
+  .viewControllerForKey(
+    UITransitionContextFromViewControllerKey)!
 ```
 
 Replace the above code with the following:
 
 ```swift
 var fromViewController = transitionContext
-  .viewControllerForKey(UITransitionContextFromViewControllerKey)!
+  .viewControllerForKey(
+    UITransitionContextFromViewControllerKey)!
 if let fromNC = fromViewController as? UINavigationController {
   if let controller = fromNC.topViewController {
     fromViewController = controller

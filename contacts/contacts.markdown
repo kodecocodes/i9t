@@ -73,10 +73,13 @@ extension Friend {
     contact.givenName = firstName
     contact.familyName = lastName
     // 3
-    contact.emailAddresses = [CNLabeledValue(label: CNLabelWork, value: workEmail)]
+    contact.emailAddresses = [
+      CNLabeledValue(label: CNLabelWork, value: workEmail)
+    ]
     // 4
     if let profilePicture = profilePicture{
-      let imageData = UIImageJPEGRepresentation(profilePicture, 1)
+      let imageData =
+        UIImageJPEGRepresentation(profilePicture, 1)
       contact.imageData = imageData
     }
     // 5
@@ -112,20 +115,25 @@ Also, add the following extension to the bottom of the file:
 ```swift
 //MARK: UITableViewDelegate
 extension FriendsViewController {
-  override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    // 1
-    let friend = friendsList[indexPath.row]
-    let contact = friend.contactValue
-    // 2
-    let contactViewController = CNContactViewController(forUnknownContact: contact)
-    contactViewController.navigationItem.title = "Profile"
-    contactViewController.hidesBottomBarWhenPushed = true
-    // 3
-    contactViewController.allowsEditing = false
-    contactViewController.allowsActions = false
-    // 4
-    navigationController?.pushViewController(contactViewController, animated: true)
+  override func tableView(tableView: UITableView,
+    didSelectRowAtIndexPath indexPath: NSIndexPath) {
+      tableView.deselectRowAtIndexPath(indexPath,
+        animated: true)
+      // 1
+      let friend = friendsList[indexPath.row]
+      let contact = friend.contactValue
+      // 2
+      let contactViewController =
+        CNContactViewController(forUnknownContact: contact)
+      contactViewController.navigationItem.title = "Profile"
+      contactViewController.hidesBottomBarWhenPushed = true
+      // 3
+      contactViewController.allowsEditing = false
+      contactViewController.allowsActions = false
+      // 4
+      navigationController?
+        .pushViewController(contactViewController,
+          animated: true)
   }
 }
 ```
@@ -186,11 +194,10 @@ Create the following extension of `FriendsViewController` in **FriendsViewContro
 
 ```swift
 extension FriendsViewController: CNContactPickerDelegate {
-
-  func contactPicker(picker: CNContactPickerViewController, didSelectContacts contacts: [CNContact]) {
+  func contactPicker(picker: CNContactPickerViewController,
+    didSelectContacts contacts: [CNContact]) {
 
   }
-
 }
 ```
 
@@ -260,8 +267,10 @@ Recall that you force-unwrapped the first email from the contact's email address
 
 Add the following line before `presentViewController(_:animated:completion:)`:
 
-    contactPicker.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0")
-
+```swift
+contactPicker.predicateForEnablingContact =
+  NSPredicate(format: "emailAddresses.@count > 0")
+```
 The contact picker's `predicateForEnablingContacts` let you decide which contacts can be selected. In this case, you want to restrict the list of contacts to those with email addresses.
 
 Build and run your app again; press the Add button and you'll see that any contacts without email addresses are grayed out:
@@ -277,13 +286,16 @@ When the user slides left on a table view cell, you'll show a "Create Contact" a
 Add the following code inside the table view delegate extension you added to **FriendsViewController.swift**:
 
 ```swift
-override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-  let createContact = UITableViewRowAction(style: .Normal, title: "Create Contact") { rowAction, indexPath in
-    tableView.setEditing(false, animated: true)
-    // TODO: Add the contact
-  }
-  createContact.backgroundColor = BlueColor
-  return [createContact]
+override func tableView(tableView: UITableView,
+  editActionsForRowAtIndexPath indexPath: NSIndexPath)
+  -> [UITableViewRowAction]? {
+    let createContact = UITableViewRowAction(style: .Normal,
+      title: "Create Contact") { rowAction, indexPath in
+        tableView.setEditing(false, animated: true)
+        // TODO: Add the contact
+    }
+    createContact.backgroundColor = BlueColor
+    return [createContact]
 }
 ```
 
@@ -322,15 +334,24 @@ Add the following method to `FriendsViewController`:
 ```swift
 func presentPermissionErrorAlert() {
   dispatch_async(dispatch_get_main_queue()) {
-    let alert = UIAlertController(title: "Could Not Save Contact", message: "How am I supposed to add the contact if you didn't give me permission?", preferredStyle: .Alert)
+    let alert =
+      UIAlertController(title: "Could Not Save Contact",
+        message: "How am I supposed to add the contact if " +
+        "you didn't give me permission?",
+        preferredStyle: .Alert)
 
-    let openSettingsAction = UIAlertAction(title: "Settings", style: .Default, handler: { alert in
-      UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
+    let openSettingsAction = UIAlertAction(title: "Settings",
+      style: .Default, handler: { alert in
+        UIApplication.sharedApplication()
+          .openURL(
+            NSURL(string: UIApplicationOpenSettingsURLString)!)
     })
-    let dismissAction = UIAlertAction(title: "OK", style: .Cancel, handler: nil)
+    let dismissAction = UIAlertAction(title: "OK",
+      style: .Cancel, handler: nil)
     alert.addAction(openSettingsAction)
     alert.addAction(dismissAction)
-    self.presentViewController(alert, animated: true, completion: nil)
+    self.presentViewController(alert, animated: true,
+      completion: nil)
   }
 }
 ```
@@ -371,11 +392,13 @@ Add the following method to `FriendsViewController`:
 ```swift
 func saveFriendToContacts(friend: Friend) {
   // 1
-  let contact = friend.contactValue.mutableCopy() as! CNMutableContact
+  let contact = friend.contactValue.mutableCopy()
+    as! CNMutableContact
   // 2
   let saveRequest = CNSaveRequest()
   // 3
-  saveRequest.addContact(contact, toContainerWithIdentifier: nil)
+  saveRequest.addContact(contact,
+    toContainerWithIdentifier: nil)
   do {
     // 4
     let contactStore = CNContactStore()
@@ -402,9 +425,12 @@ Add the following code to display the alert at `// Show Success Alert`:
 
 ```swift
 dispatch_async(dispatch_get_main_queue()) {
-  let successAlert = UIAlertController(title: "Contacts Saved", message: nil, preferredStyle: .Alert)
-  successAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-  self.presentViewController(successAlert, animated: true, completion: nil)
+  let successAlert = UIAlertController(title: "Contacts Saved",
+    message: nil, preferredStyle: .Alert)
+  successAlert.addAction(UIAlertAction(title: "OK",
+    style: .Cancel, handler: nil))
+  self.presentViewController(successAlert, animated: true,
+    completion: nil)
 }
 ```
 
@@ -412,9 +438,14 @@ Next, add the following code at `// Show Failure Alert`:
 
 ```swift
 dispatch_async(dispatch_get_main_queue()) {
-  let failureAlert = UIAlertController(title: "Could Not Save Contact", message: "An unknown error occurred.", preferredStyle: .Alert)
-  failureAlert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-  self.presentViewController(failureAlert, animated: true, completion: nil)
+  let failureAlert = UIAlertController(
+    title: "Could Not Save Contact",
+    message: "An unknown error occurred.",
+    preferredStyle: .Alert)
+  failureAlert.addAction(UIAlertAction(title: "OK",
+  style: .Cancel, handler: nil))
+  self.presentViewController(failureAlert, animated: true,
+    completion: nil)
 }
 ```
 
@@ -449,17 +480,25 @@ Add the following to the top of `saveFriendToContacts(_:)`:
 //1
 let contactFormatter = CNContactFormatter()
 //2
-let contactName = contactFormatter.stringFromContact(friend.contactValue)!
+let contactName = contactFormatter
+  .stringFromContact(friend.contactValue)!
 //3
-let predicateForMatchingName = CNContact.predicateForContactsMatchingName(contactName)
+let predicateForMatchingName = CNContact
+  .predicateForContactsMatchingName(contactName)
 //4
-let matchingContacts = try! CNContactStore().unifiedContactsMatchingPredicate(predicateForMatchingName, keysToFetch: [])
+let matchingContacts = try! CNContactStore()
+  .unifiedContactsMatchingPredicate(predicateForMatchingName,
+    keysToFetch: [])
 //4
 guard matchingContacts.isEmpty else {
   dispatch_async(dispatch_get_main_queue()) {
-    let alert = UIAlertController(title: "Contact Already Exists", message: nil, preferredStyle: .Alert)
-    alert.addAction(UIAlertAction(title: "OK", style: .Cancel, handler: nil))
-    self.presentViewController(alert, animated: true, completion: nil)
+    let alert = UIAlertController(
+      title: "Contact Already Exists", message: nil,
+      preferredStyle: .Alert)
+    alert.addAction(UIAlertAction(title: "OK", style: .Cancel,
+      handler: nil))
+    self.presentViewController(alert, animated: true,
+      completion: nil)
   }
   return
 }

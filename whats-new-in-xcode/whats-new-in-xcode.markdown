@@ -195,7 +195,8 @@ In the Find results for  **// Step** click on **Step 6**, which is in **WeatherV
 
 ```swift
 // Step 6: Set a timer to fetch the weather again in 15 seconds
-// networkFetchTimer = NSTimer.scheduledTimerWithTimeInterval(15, ...
+// networkFetchTimer = NSTimer
+//  .scheduledTimerWithTimeInterval(15, ...
 ```
 
 Build and run, switch to the **Debug navigator** and click on the **Energy Impact** row to see the updated energy gauge:
@@ -252,7 +253,8 @@ The one rule of calling `beginBackgroundTaskWithExpirationHandler(_:)` is that o
 Add a call to `endBackgroundTask(_:)` at the very end of `performBackgroundWork()` right after the `print` call:
 
 ```swift
-print("Background work completed in: \(formattedElapsedTime) sec")
+print("Background work completed in: \(formattedElapsedTime) " +
+  "sec")
 UIApplication.sharedApplication().endBackgroundTask(
   backgroundTaskIdentifier)
 ```

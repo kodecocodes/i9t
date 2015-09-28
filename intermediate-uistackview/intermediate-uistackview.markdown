@@ -447,8 +447,9 @@ Add the following lines immediately below the existing line in the `else` clause
 
 ```swift
 } else {
-  weatherInfoLabel.hidden = shouldHideWeatherInfo // existing line
-  ratingStackView.axis = shouldHideWeatherInfo ? .Vertical : .Horizontal
+  weatherInfoLabel.hidden = shouldHideWeatherInfo
+  ratingStackView.axis =
+    shouldHideWeatherInfo ? .Vertical : .Horizontal
 }
 ```
 

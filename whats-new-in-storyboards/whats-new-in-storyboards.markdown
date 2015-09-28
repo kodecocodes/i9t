@@ -254,8 +254,8 @@ Next, you need to put these methods to use. Still in **ChecklistDetailViewContro
 override func tableView(tableView: UITableView,
   didSelectRowAtIndexPath indexPath: NSIndexPath) {
     // 1
-    guard let cell = tableView.cellForRowAtIndexPath(indexPath) as?
-      ChecklistItemTableViewCell else {
+    guard let cell = tableView.cellForRowAtIndexPath(indexPath)
+      as? ChecklistItemTableViewCell else {
         return
     }
 

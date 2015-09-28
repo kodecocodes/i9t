@@ -99,7 +99,8 @@ Next, still in **EmployeeSearch.swift**, add the following extension to the `Emp
 
 ```swift
 extension Employee {
-  public static let domainIdentifier = "com.raywenderlich.colleagues.employee"
+  public static let domainIdentifier =
+    "com.raywenderlich.colleagues.employee"
 }
 ```
 
@@ -115,7 +116,8 @@ This dictionary will serve as an attribute for your `NSUserActivity` to identify
 
 ```swift
 public var userActivity: NSUserActivity {
-  let activity = NSUserActivity(activityType: Employee.domainIdentifier)
+  let activity =
+    NSUserActivity(activityType: Employee.domainIdentifier)
   activity.title = name
   activity.userInfo = userActivityUserInfo
   activity.keywords = [email, department]
@@ -158,14 +160,14 @@ This retrieves `userActivity` — the property you just created in the `Employee
 - If the search setting is `AllRecords`, you mark the activity as eligible for search.
 - Finally, you set the view controller's `userActivity` property to your employee's activity.
 
-> **NOTE**: The `userActivity` property on the view controller is inherited from `UIResponder`. It's one of those things Apple added with iOS 8 to enable Handoff.
+> **Note**: The `userActivity` property on the view controller is inherited from `UIResponder`. It's one of those things Apple added with iOS 8 to enable Handoff.
 
 The last step is to override updateUserActivityState(). This ensures that when a search result is selected you'll have the information necessary.
 
 Add the following method after `viewDidLoad()`:
 
 ```swift
-override func updateUserActivityState(activity: NSUserActivity) {
+override func updateUserActivityState(activity: NSUserActivity){
   activity.addUserInfoEntriesFromDictionary(
     employee.userActivityUserInfo)
 }
@@ -216,7 +218,8 @@ public var attributeSet: CSSearchableItemAttributeSet {
   let attributeSet = CSSearchableItemAttributeSet(
     itemContentType: kUTTypeContact as String)
   attributeSet.title = name
-  attributeSet.contentDescription = "\(department), \(title)\n\(phone)"
+  attributeSet.contentDescription =
+    "\(department), \(title)\n\(phone)"
   attributeSet.thumbnailData = UIImageJPEGRepresentation(
     loadPicture(), 0.9)
   attributeSet.supportsPhoneCall = true
@@ -284,18 +287,21 @@ This `guard` statement verifies the `activityType` is what you defined as an act
 Next, below the `guard` statement, replace `return true` with the following:
 
 ```swift
-if let nav = window?.rootViewController as? UINavigationController,
-  listVC = nav.viewControllers.first as? EmployeeListViewController,
+if let nav = window?.rootViewController
+    as? UINavigationController,
+  listVC = nav.viewControllers.first
+    as? EmployeeListViewController,
   employee = EmployeeService().employeeWithObjectId(objectId) {
     nav.popToRootViewControllerAnimated(false)
 
     let employeeViewController = listVC
       .storyboard?
-      .instantiateViewControllerWithIdentifier("EmployeeView") as!
-        EmployeeViewController
+      .instantiateViewControllerWithIdentifier("EmployeeView")
+        as! EmployeeViewController
 
     employeeViewController.employee = employee
-    nav.pushViewController(employeeViewController, animated: false)
+    nav.pushViewController(employeeViewController,
+      animated: false)
     return true
 }
 
@@ -347,13 +353,13 @@ Now, within `indexAllEmployees()` replace the `TODO` comment with the following:
 ```swift
 // 1
 let employees = fetchEmployees()
-//2                
+// 2                
 let searchableItems = employees.map { $0.searchableItem }
 CSSearchableIndex
   .defaultSearchableIndex()
-//3
+// 3
   .indexSearchableItems(searchableItems) { error in       
-//4
+// 4
   if let error = error {                                  
     print("Error indexing employees: \(error)")
   } else {
@@ -363,10 +369,10 @@ CSSearchableIndex
 ```
 
 Stepping through the logic...
-1.	All employees are fetched from the database as an array of `Employee`.
-2.	The employee array is mapped to `[CSSearchableItem]`.
-3.	Using Core Spotlight's default index, the array of `CSSearchableItem`s is indexed.
-4.	Finally, log a message on success or failure.
+1. All employees are fetched from the database as an array of `Employee`.
+2. The employee array is mapped to `[CSSearchableItem]`.
+3. Using Core Spotlight's default index, the array of `CSSearchableItem`s is indexed.
+4. Finally, log a message on success or failure.
 
 And...that's it! Now when you launch the app with the option **All Records** set for the app's Indexing setting, all employee records become searchable.
 
@@ -374,7 +380,7 @@ Head over to the **Settings** app, and change the **Indexing** setting for Colle
 
 ![width=35%](/images/app-screen-6.png)
 
-> **NOTE**: You could see duplicate results because you were previously indexing `NSUserActivity` items without the `relatedUniqueIdentifier` set. You can delete the app to clear the index or continue to the next section to learn about removing indexed items.
+> **Note**: You could see duplicate results because you were previously indexing `NSUserActivity` items without the `relatedUniqueIdentifier` set. You can delete the app to clear the index or continue to the next section to learn about removing indexed items.
 
 ### Make the results do something
 
@@ -389,12 +395,14 @@ Then replace `guard` statement in `application(_:continueUserActivity:restoratio
 ```swift
 let objectId: String
 if userActivity.activityType == Employee.domainIdentifier,
-  let activityObjectId = userActivity.userInfo?["id"] as? String {
+  let activityObjectId = userActivity.userInfo?["id"]
+    as? String {
   // 1
   objectId = activityObjectId
-} else if userActivity.activityType == CSSearchableItemActionType,
+} else if userActivity.activityType ==
+    CSSearchableItemActionType,
   let activityObjectId = userActivity
-    .userInfo?[CSSearchableItemActivityIdentifier] as? String  {
+    .userInfo?[CSSearchableItemActivityIdentifier] as? String {
   // 2
   objectId = activityObjectId
 } else {

@@ -29,15 +29,18 @@ Once the playground opens, replace the contents with:
 import UIKit
 import XCPlayground
 
-let view = UIView(frame: CGRect(x: 0, y: 0, width: 600, height: 600))
+let view = UIView(frame: CGRect(x: 0, y: 0,
+  width: 600, height: 600))
 view.backgroundColor = UIColor.lightTextColor()
 XCPShowView("Main View", view: view)
 
-let whiteSquare = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+let whiteSquare = UIView(frame: CGRect(x: 100, y: 100,
+  width: 100, height: 100))
 whiteSquare.backgroundColor = UIColor.whiteColor()
 view.addSubview(whiteSquare)
 
-let orangeSquare = UIView(frame: CGRect(x: 400, y: 100, width: 100, height: 100))
+let orangeSquare = UIView(frame: CGRect(x: 400, y: 100,
+  width: 100, height: 100))
 orangeSquare.backgroundColor = UIColor.orangeColor()
 view.addSubview(orangeSquare)
 ```
@@ -81,7 +84,8 @@ That took two lines of code. You should be feeling amazed and empowered right no
 Now you'll make the box stop at the bottom of the screen.
 
 ```swift
-let boundaryCollision = UICollisionBehavior(items: [whiteSquare, orangeSquare])
+let boundaryCollision = UICollisionBehavior(items:
+  [whiteSquare, orangeSquare])
 boundaryCollision.translatesReferenceBoundsIntoBoundary = true
 animator.addBehavior(boundaryCollision)
 ```
@@ -170,13 +174,14 @@ Did you see the bouncy snag of the white square? Re-execute the Playground if yo
 
 ```swift
 let delayTime = dispatch_time(DISPATCH_TIME_NOW,
-    Int64(2 * Double(NSEC_PER_SEC)))
+  Int64(2 * Double(NSEC_PER_SEC)))
 
 dispatch_after(delayTime, dispatch_get_main_queue()) {
-    let pushBehavior = UIPushBehavior(items: [whiteSquare], mode: .Instantaneous)
-    pushBehavior.pushDirection = CGVector(dx: 0, dy: -1)
-    pushBehavior.magnitude = 0.3
-    animator.addBehavior(pushBehavior)
+  let pushBehavior = UIPushBehavior(items: [whiteSquare],
+    mode: .Instantaneous)
+  pushBehavior.pushDirection = CGVector(dx: 0, dy: -1)
+  pushBehavior.magnitude = 0.3
+  animator.addBehavior(pushBehavior)
 }
 ```
 
@@ -230,7 +235,8 @@ class StickyEdgesBehavior: UIDynamicBehavior {
     self.edgeInset = edgeInset
     
     collisionBehavior = UICollisionBehavior(items: [item])
-    collisionBehavior.translatesReferenceBoundsIntoBoundary = true
+    collisionBehavior.translatesReferenceBoundsIntoBoundary =
+      true
     
     itemBehavior = UIDynamicItemBehavior(items: [item])
     itemBehavior.density = 0.01
@@ -278,19 +284,24 @@ func updateFieldsInBounds(bounds: CGRect) {
   let itemHeight = item.bounds.height
 
   //2
-  func updateRegionForField(field: UIFieldBehavior, _ point: CGPoint) {
-    let size = CGSize(width: w - 2 * edgeInset, height: h - 2 * edgeInset - itemHeight)
-    field.position = point
-    field.region = UIRegion(size: size)
+  func updateRegionForField(field: UIFieldBehavior,
+    _ point: CGPoint) {
+      let size = CGSize(width: w - 2 * edgeInset,
+        height: h - 2 * edgeInset - itemHeight)
+      field.position = point
+      field.region = UIRegion(size: size)
   }
   
   //3
   let top = CGPoint(x: w / 2, y: edgeInset + itemHeight / 2)
-  let bottom = CGPoint(x: w / 2, y: h - edgeInset - itemHeight / 2)
+  let bottom = CGPoint(x: w / 2,
+    y: h - edgeInset - itemHeight / 2)
 
   //4
-  updateRegionForField(fieldBehaviors[StickyEdge.Top.rawValue], top)
-  updateRegionForField(fieldBehaviors[StickyEdge.Bottom.rawValue], bottom)
+  updateRegionForField(fieldBehaviors[StickyEdge.Top.rawValue],
+    top)
+  updateRegionForField(
+    fieldBehaviors[StickyEdge.Bottom.rawValue], bottom)
   }
 }
 ```
@@ -350,11 +361,13 @@ private var offset = CGPoint.zero
 Inside of `viewDidLoad()` add the following:
 
 ```swift
-let gestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
+let gestureRecognizer = UIPanGestureRecognizer(target: self,
+  action: "pan:")
 tagView.addGestureRecognizer(gestureRecognizer)
 
 animator = UIDynamicAnimator(referenceView: containerView)
-stickyBehavior = StickyEdgesBehavior(item: tagView, edgeInset: 8)
+stickyBehavior = StickyEdgesBehavior(item: tagView,
+  edgeInset: 8)
 animator.addBehavior(stickyBehavior)
 ```
 
@@ -402,7 +415,8 @@ func pan(pan:UIPanGestureRecognizer) {
     location.x = max(itemHalfWidth, location.x)
     location.x = min(referenceWidth - itemHalfWidth, location.x)
     location.y = max(itemHalfHeight, location.y)
-    location.y = min(referenceHeight - itemHalfHeight, location.y)
+    location.y = min(referenceHeight - itemHalfHeight,
+      location.y)
 
     tagView.center = location
           
@@ -459,33 +473,41 @@ Now that you've created the animator, swap out the contents of `showFullImageVie
 ```swift
 func showFullImageView(index: Int) {
   //1
-  let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.75 * Double(NSEC_PER_SEC)))
+  let delayTime = dispatch_time(DISPATCH_TIME_NOW,
+    Int64(0.75 * Double(NSEC_PER_SEC)))
   dispatch_after(delayTime, dispatch_get_main_queue()) {
-    let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismissFullPhoto:")
+    let doneButton = UIBarButtonItem(barButtonSystemItem: .Done,
+      target: self, action: "dismissFullPhoto:")
     self.navigationItem.rightBarButtonItem = doneButton
   }
   
   //2
   fullPhotoViewController.photoPair = photoData[index]
-  fullPhotoView.center = CGPoint(x: fullPhotoView.center.x, y: fullPhotoView.frame.height / -2)
+  fullPhotoView.center = CGPoint(x: fullPhotoView.center.x,
+    y: fullPhotoView.frame.height / -2)
   fullPhotoView.hidden = false
   
   //3
   animator.removeAllBehaviors()
   
-  let dynamicItemBehavior = UIDynamicItemBehavior(items: [fullPhotoView])
+  let dynamicItemBehavior = UIDynamicItemBehavior(items:
+    [fullPhotoView])
   dynamicItemBehavior.elasticity = 0.2
   dynamicItemBehavior.density = 400
   animator.addBehavior(dynamicItemBehavior)
   
-  let gravityBehavior = UIGravityBehavior(items: [fullPhotoView])
+  let gravityBehavior = UIGravityBehavior(items:
+    [fullPhotoView])
   gravityBehavior.magnitude = 5.0
   animator.addBehavior(gravityBehavior)
   
-  let collisionBehavior = UICollisionBehavior(items: [fullPhotoView])
+  let collisionBehavior = UICollisionBehavior(items:
+    [fullPhotoView])
   let left = CGPoint(x: 0, y: fullPhotoView.frame.height + 1.5)
-  let right = CGPoint(x: fullPhotoView.frame.width, y: fullPhotoView.frame.height + 1.5)
-  collisionBehavior.addBoundaryWithIdentifier("bottom", fromPoint: left, toPoint: right)
+  let right = CGPoint(x: fullPhotoView.frame.width,
+    y: fullPhotoView.frame.height + 1.5)
+  collisionBehavior.addBoundaryWithIdentifier("bottom",
+    fromPoint: left, toPoint: right)
   animator.addBehavior(collisionBehavior)
 }
 ```

@@ -169,10 +169,11 @@ let location = CLLocation(latitude: first.location.latitude,
 
 // 3
 let geocoder = CLGeocoder()
-geocoder.reverseGeocodeLocation(location) { (placemarks, _) -> Void in
-  if let placemark = placemarks?.first, timeZone = placemark.timeZone {
-    self.timeZone = timeZone
-  }
+geocoder.reverseGeocodeLocation(location) { (placemarks, _) in
+  if let placemark = placemarks?.first, timeZone =
+    placemark.timeZone {
+      self.timeZone = timeZone
+    }
 }
 
 return shops
@@ -224,7 +225,8 @@ Next, add the following lines to the end of `viewDidLoad()`:
 
 ```swift
 locationManager.delegate = self
-locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+locationManager.desiredAccuracy =
+  kCLLocationAccuracyHundredMeters
 ```
 Here you set the delegate for location manager, and you determine how accurate you want the coordinates to be. Setting **desiredAccuracy** tells the system to only provide you with the user's location once it's accurate enough for your purposes. In some cases, the system might not reach the level of accuracy you want, and will therefore provide you with a location of a lower accuracy than you requested.
 
@@ -235,7 +237,8 @@ Next, add the following extension to the bottom of **ViewController.swift** to a
 extension ViewController: CLLocationManagerDelegate {
 
   func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-    if (status == CLAuthorizationStatus.AuthorizedAlways || status == CLAuthorizationStatus.AuthorizedWhenInUse) {
+    if (status == CLAuthorizationStatus.AuthorizedAlways ||
+        status == CLAuthorizationStatus.AuthorizedWhenInUse) {
       locationManager.requestLocation()
     }
   }
@@ -247,7 +250,8 @@ extension ViewController: CLLocationManagerDelegate {
 
   func locationManager(manager: CLLocationManager,
     didFailWithError error: NSError) {
-      print("Error finding location: \(error.localizedDescription)")
+      print("Error finding location: " +
+        \(error.localizedDescription)")
   }
 }
 ```
@@ -298,8 +302,9 @@ Finally, find the `MKMapViewDelegate` extension near the bottom of **ViewControl
 func mapView(mapView: MKMapView,
   didSelectAnnotationView view: MKAnnotationView) {
     if let detailView =  
-      view.detailCalloutAccessoryView as? CoffeeShopPinDetailView {
-        detailView.currentUserLocation = currentUserLocation
+      view.detailCalloutAccessoryView
+        as? CoffeeShopPinDetailView {
+          detailView.currentUserLocation = currentUserLocation
     }
 }
 ```
@@ -319,13 +324,14 @@ Now that you have the user's current location, you're nearly ready to provide tr
 Open **CoffeeShopPinDetailView.swift** and add the following method below `//MARK:- Transit Helpers` near the bottom of the file:
 
 ```swift
-func openTransitDirectionsForCoordinates(coord:CLLocationCoordinate2D) {
-  let placemark = MKPlacemark(coordinate: coord,
-    addressDictionary: coffeeShop.addressDictionary) // 1
-  let mapItem = MKMapItem(placemark: placemark)  // 2
-  let launchOptions = [MKLaunchOptionsDirectionsModeKey:
-    MKLaunchOptionsDirectionsModeTransit]  // 3
-  mapItem.openInMapsWithLaunchOptions(launchOptions)  // 4
+func openTransitDirectionsForCoordinates(
+  coord:CLLocationCoordinate2D) {
+    let placemark = MKPlacemark(coordinate: coord,
+      addressDictionary: coffeeShop.addressDictionary) // 1
+    let mapItem = MKMapItem(placemark: placemark)  // 2
+    let launchOptions = [MKLaunchOptionsDirectionsModeKey:
+      MKLaunchOptionsDirectionsModeTransit]  // 3
+    mapItem.openInMapsWithLaunchOptions(launchOptions)  // 4
 }
 ```
 
@@ -353,7 +359,7 @@ The final new feature of MapKit to add to Café Transit is querying public trans
 ```swift
 public var expectedTravelTime: NSTimeInterval { get }
 @available(iOS 9.0, *)
-public var distance: CLLocationDistance { get } // overall route distance in meters
+public var distance: CLLocationDistance { get }
 @available(iOS 9.0, *)
 public var expectedArrivalDate: NSDate { get }
 @available(iOS 9.0, *)
@@ -392,7 +398,8 @@ func requestTransitTimes() {
 
   // 4
   let directions = MKDirections(request: request)
-  directions.calculateETAWithCompletionHandler { response, error in
+  directions.calculateETAWithCompletionHandler {
+    response, error in
     if let error = error {
       print(error.localizedDescription)
     } else {

@@ -441,14 +441,14 @@ Both types can be combined in a `StringValidator` to ensure the String is betwee
 
 ```
 public struct LengthStringValidationRule : StringValidationRule {
-    public enum Type {
-        case Min(length: Int)
-        case Max(length: Int)
-    }
-    public let type: Type
-    public var errorType: StringValidationError { get }
-    public init(type: Type)
-    public func validate(string: String) throws -> Bool
+  public enum Type {
+    case Min(length: Int)
+    case Max(length: Int)
+  }
+  public let type: Type
+  public var errorType: StringValidationError { get }
+  public init(type: Type)
+  public func validate(string: String) throws -> Bool
 }
 ```
 
@@ -466,20 +466,20 @@ Here's the implementation:
 
 ```
 public struct ContainsCharacterStringValidationRule : StringValidationRule {
-    public enum Type {
-        case MustContain
-        case CannotContain
-        case OnlyContain
-        case ContainAtLeast(Int)
-    }
-    public let characterSet: NSCharacterSet
-    public let description: String
-    public let type: Type
-    public var errorType: StringValidationError { get }
-    public init(characterSet: NSCharacterSet,
-      description: String,
-      type: Type)
-    public func validate(string: String) throws -> Bool
+  public enum Type {
+    case MustContain
+    case CannotContain
+    case OnlyContain
+    case ContainAtLeast(Int)
+  }
+  public let characterSet: NSCharacterSet
+  public let description: String
+  public let type: Type
+  public var errorType: StringValidationError { get }
+  public init(characterSet: NSCharacterSet,
+    description: String,
+    type: Type)
+  public func validate(string: String) throws -> Bool
 }
 ```
 

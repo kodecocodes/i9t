@@ -312,7 +312,8 @@ func testRaysFullBodyWorkout() {
   let backButton = buttonQuery["Workouts"]
   backButton.tap()
 }
- ``` 
+```
+
 This test method is fairly small, but it contains classes and concepts you haven't encountered before – you'll read about them shortly. In the meantime, here's what the code does, in broad terms:
 
 1. Get references to all of the tables in the app. 
@@ -374,7 +375,6 @@ That's a lot shorter than it was before! Here's what changed in the code:
 
 1. You didn't need to use the accessibility identifier `"Workout Table"` after all. Instead, you get _all_ tables in the app and then get all of their cells. Notice that you replaced `descendantsMatchingType(.Table)` with convenience method `tables` and `childrenMatchingType(.Cell)` with convenience method `cells`.
 
-   [TODO: Check formatting in Deckle]
    The element query `descendantsMatchingType(_:)` is so common that Apple provided convenience methods for all the common types. `childrenMatchingType(_:)`doesn't have convenience methods, but using `descendantsMatchingType(_:)` has the same effect in this case.
 
 2. Here's your extra step. Once in the workout detail screen, you find the appropriate table view by its accessibility identifier, scroll downwards by swiping up and tap on **Select & Workout**. Again, notice you don't need to specify _which_ table you're talking about. You can drill down from the app to its tables to the tables' buttons, then disambiguate using the button's title. You do the same with the alert's **OK** button, except this time you go through all of the app's _alerts_ instead of through all of the app's _tables_.
@@ -431,13 +431,17 @@ Your generated test method should look something like this:
 func testRaysFullBodyWorkout() {
   
   let app = XCUIApplication()
-  app.tables["Workouts Table"].staticTexts["Ray's Full Body Workout"].tap()
+  app.tables["Workouts Table"]
+    .staticTexts["Ray's Full Body Workout"].tap()
   
-  let workoutDetailTableTable = app.tables["Workout Detail Table"]
+  let workoutDetailTableTable =
+    app.tables["Workout Detail Table"]
   workoutDetailTableTable.otherElements["EXERCISES"].swipeUp()
   workoutDetailTableTable.buttons["Select & Workout"].tap()
-  app.alerts["Woo hoo! You worked out!"].collectionViews.buttons["OK"].tap()
-  app.navigationBars["Ray's Full Body Workout"].buttons["Workouts"].tap()
+  app.alerts["Woo hoo! You worked out!"].collectionViews
+    .buttons["OK"].tap()
+  app.navigationBars["Ray's Full Body Workout"]
+    .buttons["Workouts"].tap()
 }
 ``` 
 Magic! Depending on exactly where you swiped and which version of Xcode you're running, the generated code may be different from what you see above. Run the generated test to verify that it simulates your steps one by one.
