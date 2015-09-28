@@ -50,8 +50,7 @@ Now that you've learned your way around the app, head back to Xcode and take a l
 
 - **View Controllers**: `WorkoutViewController` shows you a list of all workouts, both built-in and user-created. When you tap on a specific workout, `WorkoutDetailViewController` displays the workout's information and allows you to perform the workout. `AddWorkoutViewController` lets you add a new workout to the list of workouts.
 
-[TODO: Check the formatting with a newer version of deckle]
-Similarly, `ExerciseViewController` displays a list of all exercises in the app. From here, you can add a new exercise or tap into an existing exercise, taking you to `ExerciseDetailViewController`.
+  Similarly, `ExerciseViewController` displays a list of all exercises in the app. From here, you can add a new exercise or tap into an existing exercise, taking you to `ExerciseDetailViewController`.
 
 - **WorkoutsTests:** The sample app already includes some unit tests in its testing target. **ExerciseTests.swift** and **WorkoutTests.swift** contain unit tests for their corresponding model objects.
 
@@ -339,8 +338,7 @@ There are three main classes involved in UI testing: `XCUIApplication`, `XCUIEle
 - **XCUIApplication** is a proxy for your application. You use it to launch and terminate the application as you start and end UI tests. Notice that `setup()` in **WorkoutsUITests.swift** launches the app. This means you're launching your `XCUIApplication` before every UI test in the file. `XCUIApplication` is also the root in the element hierarchy visible to your test. 
 - **XCUIElement** is a proxy for UI elements in the application. Every `UIKit` class you can think of can be represented by an `XCUIElement` in the context of a UI test. How? `XCUIElement` has a type (e.g. `.Cell`, `.Table`, `.WebView`, etc.) as well as an identifier. The identifier usually comes from the element's accessibility information, such as its accessibility identifier, label or value.
 
-[TODO: Check before publication with a later version of Deckle]
-So what can you do with an `XCUIElement`? You can tap, double-tap and swipe on it in every direction. You can also type text into elements like text fields.
+  So what can you do with an `XCUIElement`? You can tap, double-tap and swipe on it in every direction. You can also type text into elements like text fields.
 
 - **XCUIElementQuery** queries an `XCUIElement` for sub-elements matching some criteria. The three most common ways to query elements is with `descendantsMatchingType(_:)`, `childrenMatchingType(:_)` and `containingType(_:)`.
 
@@ -376,8 +374,8 @@ That's a lot shorter than it was before! Here's what changed in the code:
 
 1. You didn't need to use the accessibility identifier `"Workout Table"` after all. Instead, you get _all_ tables in the app and then get all of their cells. Notice that you replaced `descendantsMatchingType(.Table)` with convenience method `tables` and `childrenMatchingType(.Cell)` with convenience method `cells`.
 
-[TODO: Check before publication with new version of Deckle]
-The element query `descendantsMatchingType(_:)` is so common that Apple provided convenience methods for all the common types. `childrenMatchingType(_:)`doesn't have convenience methods, but using `descendantsMatchingType(_:)` has the same effect in this case.
+  [TODO: Check formatting in Deckle]
+  The element query `descendantsMatchingType(_:)` is so common that Apple provided convenience methods for all the common types. `childrenMatchingType(_:)`doesn't have convenience methods, but using `descendantsMatchingType(_:)` has the same effect in this case.
 
 2. Here's your extra step. Once in the workout detail screen, you find the appropriate table view by its accessibility identifier, scroll downwards by swiping up and tap on **Select & Workout**. Again, notice you don't need to specify _which_ table you're talking about. You can drill down from the app to its tables to the tables' buttons, then disambiguate using the button's title. You do the same with the alert's **OK** button, except this time you go through all of the app's _alerts_ instead of through all of the app's _tables_.
 
