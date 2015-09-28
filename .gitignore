@@ -31,6 +31,4 @@ DerivedData
 # Carthage/Checkouts
 
 Carthage/Build
-swift-2/.DS_Store
-swift-2/images/.DS_Store
 .DS_Store

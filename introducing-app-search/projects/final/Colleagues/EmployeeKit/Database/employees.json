@@ -1,0 +1,402 @@
+{ "employees": [
+	{
+        "createdAt": "2015-07-18T19:41:01.125Z",
+        "department": "Marketing",
+        "email": "louis.campbell@example.com",
+        "name": "Louis Campbell",
+        "objectId": "1xnwPwwWVk",
+        "phone": "(517)-516-9601",
+				"skills": [
+					"html",
+					"css",
+					"javascript",
+					"php",
+					"ruby"
+				],
+        "title": "Web Developer",
+        "updatedAt": "2015-07-18T19:41:23.363Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:46:55.135Z",
+        "department": "C-Level",
+        "email": "wendy.morris@example.com",
+        "name": "Wendy Morris",
+        "objectId": "qB5TDjlRJX",
+        "phone": "(229)-188-6780",
+        "skills": [
+            "leadership",
+            "operations"
+        ],
+        "title": "COO",
+        "updatedAt": "2015-07-18T19:50:40.022Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:46:30.742Z",
+        "department": "C-Level",
+        "email": "bradley.simmons@example.com",
+        "name": "Bradley Simmons",
+        "objectId": "x7FHdo3YzB",
+        "phone": "(102)-738-8532",
+        "skills": [
+            "technology",
+            "leadership",
+            "saas",
+            "software"
+        ],
+        "title": "CTO",
+        "updatedAt": "2015-07-18T19:51:04.296Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:45:52.574Z",
+        "department": "C-Level",
+        "email": "brent.reid@example.com",
+        "name": "Brent Reid",
+        "objectId": "Huu9atRWYU",
+        "phone": "(192)-862-3473",
+        "skills": [
+            "dolla bills",
+            "cash",
+            "checks",
+            "accounting"
+        ],
+        "title": "CFO",
+        "updatedAt": "2015-07-18T19:51:28.026Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:44:48.353Z",
+        "department": "C-Level",
+        "email": "joann.russel@example.com",
+        "name": "Joann Russel",
+        "objectId": "YgEjFuLMr3",
+        "phone": "(868)-704-7583",
+        "skills": [
+            "leadership",
+            "planning",
+            "strategy"
+        ],
+        "title": "CEO",
+        "updatedAt": "2015-07-18T19:51:46.115Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:43:56.932Z",
+        "department": "Human Resources",
+        "email": "kristin.castillo@example.com",
+        "name": "Kristin Castillo",
+        "objectId": "3tLKlfoJHX",
+        "phone": "(108)-933-1160",
+        "skills": [
+            "psychology",
+            "conflict resolution"
+        ],
+        "title": "Counselor",
+        "updatedAt": "2015-07-18T19:52:13.952Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:42:40.860Z",
+        "department": "Human Resources",
+        "email": "clifford.lewis@example.com",
+        "name": "Clifford Lewis",
+        "objectId": "y4pH9mhh6K",
+        "phone": "(872)-121-1908",
+        "skills": [
+            "insurance",
+            "medical",
+            "dental",
+            "retirement"
+        ],
+        "title": "Benefits Director",
+        "updatedAt": "2015-07-18T19:52:28.832Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:41:47.927Z",
+        "department": "Human Resources",
+        "email": "terrence.myers@example.com",
+        "name": "Terrence Myers",
+        "objectId": "CAvp2Dno68",
+        "phone": "(530)-552-9430",
+        "skills": [
+            "recruiting",
+            "sourcing",
+            "hiring",
+            "interviewing"
+        ],
+        "title": "Hiring Manager",
+        "updatedAt": "2015-07-18T19:52:48.976Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:40:02.351Z",
+        "department": "Marketing",
+        "email": "kay.kennedy@example.com",
+        "name": "Kay Kennedy",
+        "objectId": "I4ssHpo6bD",
+        "phone": "(901)-961-2935",
+        "skills": [
+            "writing",
+            "advertising",
+            "reporting"
+        ],
+        "title": "PR Manager",
+        "updatedAt": "2015-07-18T19:53:24.426Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:39:24.130Z",
+        "department": "Marketing",
+        "email": "randy.mckinney@example.com",
+        "name": "Randy McKinney",
+        "objectId": "AFa9kcCFzW",
+        "phone": "(896)-528-1520",
+        "skills": [
+            "twitter",
+            "facebook",
+            "pinterest",
+            "marketing",
+            "engagement"
+        ],
+        "title": "Social Media Expert",
+        "updatedAt": "2015-07-18T19:53:42.595Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:38:49.982Z",
+        "department": "Marketing",
+        "email": "priscilla.meyer@example.com",
+        "name": "Priscilla Meyer",
+        "objectId": "nOwL4khhKq",
+        "phone": "(611)-123-7590",
+        "skills": [
+            "social media",
+            "twitter",
+            "marketing",
+            "branding"
+        ],
+        "title": "Manager",
+        "updatedAt": "2015-07-18T19:54:00.736Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:38:14.965Z",
+        "department": "Support",
+        "email": "cary.iowa@example.com",
+        "name": "Cary Iowa",
+        "objectId": "jqQ5fWvg7B",
+        "phone": "(659)-322-9546",
+        "skills": [
+            "support",
+            "software",
+            "leadership",
+            "relationships"
+        ],
+        "title": "Team Lead",
+        "updatedAt": "2015-07-18T19:54:29.314Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:37:33.200Z",
+        "department": "Support",
+        "email": "jack.gomez@example.com",
+        "name": "Jack Gomez",
+        "objectId": "p6LcWJ9t1j",
+        "phone": "(484)-742-5020",
+        "skills": [
+            "database",
+            "servers",
+            "software"
+        ],
+        "title": "Tier 3 Rep",
+        "updatedAt": "2015-07-18T19:54:51.308Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:36:31.140Z",
+        "department": "Support",
+        "email": "terrence.phillips@example.com",
+        "name": "Terrence Phillips",
+        "objectId": "zkrSAdcRBR",
+        "phone": "(276)-418-7986",
+        "skills": [
+            "troubleshooting",
+            "communication",
+            "anger management"
+        ],
+        "title": "Tier 2 Rep",
+        "updatedAt": "2015-07-18T19:55:09.100Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:35:01.399Z",
+        "department": "Support",
+        "email": "leslie.daniels@example.com",
+        "name": "Leslie Daniels",
+        "objectId": "e1n3iOqSz5",
+        "phone": "(142)-177-3990",
+        "skills": [
+            "triage",
+            "troubleshooting"
+        ],
+        "title": "Tier 1 Rep",
+        "updatedAt": "2015-07-18T19:55:18.829Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:34:11.707Z",
+        "department": "Support",
+        "email": "edna.owens@example.com",
+        "name": "Edna Owens",
+        "objectId": "KEwySHNxTo",
+        "phone": "(694)-465-4131",
+        "skills": [
+            "leadership",
+            "support",
+            "triage"
+        ],
+        "title": "Manager",
+        "updatedAt": "2015-07-18T19:55:35.276Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:33:19.271Z",
+        "department": "Engineering",
+        "email": "kurt.horton@example.com",
+        "name": "Kurt Horton",
+        "objectId": "V5gSFtJ4GH",
+        "phone": "(932)-530-9369",
+        "skills": [
+            "testing",
+            "automation",
+            "software"
+        ],
+        "title": "Quality Engineer",
+        "updatedAt": "2015-07-18T19:55:48.912Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:32:22.442Z",
+        "department": "Engineering",
+        "email": "addison.hanson@example.com",
+        "name": "Addison Hanson",
+        "objectId": "d03Fux3eYY",
+        "phone": "(566)-800-4448",
+        "skills": [
+            "ios",
+            "android",
+            "api",
+            "swift",
+            "java"
+        ],
+        "title": "Engineer",
+        "updatedAt": "2015-07-18T19:58:52.929Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:31:26.529Z",
+        "department": "Engineering",
+        "email": "daniel.hall@example.com",
+        "name": "Daniel Hall",
+        "objectId": "BWi7gjyZWN",
+        "phone": "(511)-331-6189",
+        "skills": [
+            "leadership",
+            "training",
+            "speaking"
+        ],
+        "title": "Manager",
+        "updatedAt": "2015-07-18T19:56:16.165Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:29:30.782Z",
+        "department": "Sales",
+        "email": "johnni.walker@example.com",
+        "name": "Johnni Walker",
+        "objectId": "hKucV63xYZ",
+        "phone": "(384)-929-4399",
+        "skills": [
+            "separating people from their money",
+            "influencing",
+            "task management"
+        ],
+        "title": "Sales Rep",
+        "updatedAt": "2015-07-18T19:56:51.417Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:28:15.843Z",
+        "department": "Sales",
+        "email": "richard.george@example.com",
+        "name": "Richard George",
+        "objectId": "8S2MhtT2Dw",
+        "phone": "(762)-116-8746",
+        "skills": [
+            "sales",
+            "lead generation"
+        ],
+        "title": "Sales Rep",
+        "updatedAt": "2015-07-18T19:57:06.198Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:16:34.691Z",
+        "department": "Sales",
+        "email": "tracy.brown@example.com",
+        "name": "Tracy Brown",
+        "objectId": "KgofS4TrOn",
+        "phone": "(315)-750-3915",
+        "skills": [
+            "leadership",
+            "guidance",
+            "morale boosting",
+            "influencing",
+            "lead generation"
+        ],
+        "title": "Manager",
+        "updatedAt": "2015-07-18T19:57:30.899Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:49:27.945Z",
+        "department": "Engineering",
+        "email": "wayne.lucas@example.com",
+        "name": "Wayne Lucas",
+        "objectId": "Iawv9Ac1Z5",
+        "phone": "(210)-116-7719",
+        "skills": [
+            "training",
+            "trouble shooting",
+            "architecture"
+        ],
+        "title": "Developer Evangelist",
+        "updatedAt": "2015-07-18T20:01:22.718Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:49:08.398Z",
+        "department": "Engineering",
+        "email": "felix.ryan@example.com",
+        "name": "Felix Ryan",
+        "objectId": "uU0LXO3rZE",
+        "phone": "(385)-684-7010",
+        "skills": [
+            "mysql",
+            "postgresql",
+            "cassandra"
+        ],
+        "title": "Database Administrator",
+        "updatedAt": "2015-07-18T19:58:04.568Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:48:10.300Z",
+        "department": "Engineering",
+        "email": "melissa.ellis@example.com",
+        "name": "Melissa Ellis",
+        "objectId": "9jpK7B6y6F",
+        "phone": "(604)-757-4730",
+        "skills": [
+            "java",
+            "html",
+            "css"
+        ],
+        "title": "Engineer",
+        "updatedAt": "2015-07-18T19:58:23.838Z"
+    },
+	{
+        "createdAt": "2015-07-18T19:47:31.113Z",
+        "department": "Engineering",
+        "email": "leona.weaver@example.com",
+        "name": "Leona Weaver",
+        "objectId": "MzAYLhoJMj",
+        "phone": "(225)-932-8446",
+        "skills": [
+            "linux",
+            "apache",
+            "docker"
+        ],
+        "title": "Systems Administrator",
+        "updatedAt": "2015-07-18T19:58:39.298Z"
+    }
+] }
