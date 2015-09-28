@@ -1,0 +1,392 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4B10884C1B52908600FB0CFB /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B10884B1B52908600FB0CFB /* SplitViewController.swift */; };
+		4B27FA811B40A7A800F356DB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA801B40A7A800F356DB /* AppDelegate.swift */; };
+		4B27FA861B40A7A800F356DB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B27FA841B40A7A800F356DB /* Main.storyboard */; };
+		4B27FA8B1B40A7A800F356DB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4B27FA891B40A7A800F356DB /* LaunchScreen.storyboard */; };
+		4B27FA951B40DC1B00F356DB /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA941B40DC1B00F356DB /* DetailViewController.swift */; };
+		4B27FA971B40DC4400F356DB /* LogsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA961B40DC4400F356DB /* LogsViewController.swift */; };
+		4B27FA991B40DCB100F356DB /* TextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FA981B40DCB100F356DB /* TextViewController.swift */; };
+		4B27FAAB1B410C8100F356DB /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B27FAAA1B410C8100F356DB /* UIColorExtension.swift */; };
+		4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B53B98E1B42495E00BF989E /* LogCell.swift */; };
+		4BB4F5F2198ABC8400533A19 /* LogCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6152914F1B41BE0500EB3A7F /* LogCollection.swift */; };
+		4BB4F5F3198ABC8400533A19 /* LogModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291501B41BE0500EB3A7F /* LogModels.swift */; };
+		4BB4F5F4198ABC8400533A19 /* LogStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615291511B41BE0500EB3A7F /* LogStore.swift */; };
+		4BCC914A1B72E34E00F3D866 /* BorderedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCC91491B72E34E00F3D866 /* BorderedView.swift */; };
+		4BCC914C1B72F08200F3D866 /* BorderedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCC914B1B72F08200F3D866 /* BorderedImageView.swift */; };
+		4BCD3BE81B52973000BC44D8 /* LogDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BCD3BE71B52973000BC44D8 /* LogDateFormatter.swift */; };
+		4BD957551B48174600E2D162 /* LogsSeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BD957541B48174600E2D162 /* LogsSeed.swift */; };
+		4BFA875B1B44BAD1005291F4 /* LogsViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */; };
+		4BFA875D1B44CEF6005291F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4BFA875C1B44CEF6005291F4 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		615291741B41BE2D00EB3A7F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4B10884B1B52908600FB0CFB /* SplitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		4B27FA7D1B40A7A700F356DB /* Travelog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Travelog.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4B27FA801B40A7A800F356DB /* AppDelegate.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; };
+		4B27FA851B40A7A800F356DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4B27FA8A1B40A7A800F356DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4B27FA8C1B40A7A800F356DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4B27FA941B40DC1B00F356DB /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		4B27FA961B40DC4400F356DB /* LogsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewController.swift; sourceTree = "<group>"; };
+		4B27FA981B40DCB100F356DB /* TextViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewController.swift; sourceTree = "<group>"; };
+		4B27FAAA1B410C8100F356DB /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		4B53B98E1B42495E00BF989E /* LogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
+		4BCC91491B72E34E00F3D866 /* BorderedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedView.swift; sourceTree = "<group>"; };
+		4BCC914B1B72F08200F3D866 /* BorderedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedImageView.swift; sourceTree = "<group>"; };
+		4BCD3BE71B52973000BC44D8 /* LogDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDateFormatter.swift; sourceTree = "<group>"; };
+		4BD957541B48174600E2D162 /* LogsSeed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsSeed.swift; sourceTree = "<group>"; };
+		4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogsViewControllerExtension.swift; sourceTree = "<group>"; };
+		4BFA875C1B44CEF6005291F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		6152914F1B41BE0500EB3A7F /* LogCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCollection.swift; sourceTree = "<group>"; };
+		615291501B41BE0500EB3A7F /* LogModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogModels.swift; sourceTree = "<group>"; };
+		615291511B41BE0500EB3A7F /* LogStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogStore.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4B27FA7A1B40A7A700F356DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4B27FA741B40A7A700F356DB = {
+			isa = PBXGroup;
+			children = (
+				4B27FA7F1B40A7A700F356DB /* Travelog */,
+				4B27FAA91B410C8100F356DB /* Helpers */,
+				4B53B98D1B42491C00BF989E /* Custom Views */,
+				6152915B1B41BE2C00EB3A7F /* TravelogKit */,
+				4B27FA7E1B40A7A700F356DB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4B27FA7E1B40A7A700F356DB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4B27FA7D1B40A7A700F356DB /* Travelog.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4B27FA7F1B40A7A700F356DB /* Travelog */ = {
+			isa = PBXGroup;
+			children = (
+				4B27FA801B40A7A800F356DB /* AppDelegate.swift */,
+				4B10884B1B52908600FB0CFB /* SplitViewController.swift */,
+				4B27FA961B40DC4400F356DB /* LogsViewController.swift */,
+				4BFA875A1B44BAD1005291F4 /* LogsViewControllerExtension.swift */,
+				4B27FA941B40DC1B00F356DB /* DetailViewController.swift */,
+				4B27FA981B40DCB100F356DB /* TextViewController.swift */,
+				4B27FA841B40A7A800F356DB /* Main.storyboard */,
+				4B27FA891B40A7A800F356DB /* LaunchScreen.storyboard */,
+				4BFA875C1B44CEF6005291F4 /* Assets.xcassets */,
+				4B27FA8C1B40A7A800F356DB /* Info.plist */,
+			);
+			path = Travelog;
+			sourceTree = "<group>";
+		};
+		4B27FAA91B410C8100F356DB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4BD957541B48174600E2D162 /* LogsSeed.swift */,
+				4B27FAAA1B410C8100F356DB /* UIColorExtension.swift */,
+				4BCD3BE71B52973000BC44D8 /* LogDateFormatter.swift */,
+			);
+			name = Helpers;
+			path = Travelog/Helpers;
+			sourceTree = "<group>";
+		};
+		4B53B98D1B42491C00BF989E /* Custom Views */ = {
+			isa = PBXGroup;
+			children = (
+				4B53B98E1B42495E00BF989E /* LogCell.swift */,
+				4BCC91491B72E34E00F3D866 /* BorderedView.swift */,
+				4BCC914B1B72F08200F3D866 /* BorderedImageView.swift */,
+			);
+			name = "Custom Views";
+			path = "Travelog/Custom Views";
+			sourceTree = "<group>";
+		};
+		6152915B1B41BE2C00EB3A7F /* TravelogKit */ = {
+			isa = PBXGroup;
+			children = (
+				6152914F1B41BE0500EB3A7F /* LogCollection.swift */,
+				615291501B41BE0500EB3A7F /* LogModels.swift */,
+				615291511B41BE0500EB3A7F /* LogStore.swift */,
+			);
+			path = TravelogKit;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4B27FA7C1B40A7A700F356DB /* Travelog */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4B27FA8F1B40A7A800F356DB /* Build configuration list for PBXNativeTarget "Travelog" */;
+			buildPhases = (
+				4B27FA791B40A7A700F356DB /* Sources */,
+				4B27FA7A1B40A7A700F356DB /* Frameworks */,
+				4B27FA7B1B40A7A700F356DB /* Resources */,
+				615291741B41BE2D00EB3A7F /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Travelog;
+			productName = Travelog;
+			productReference = 4B27FA7D1B40A7A700F356DB /* Travelog.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4B27FA751B40A7A700F356DB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = www.razeware.com;
+				TargetAttributes = {
+					4B27FA7C1B40A7A700F356DB = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 2X468FT7VV;
+					};
+				};
+			};
+			buildConfigurationList = 4B27FA781B40A7A700F356DB /* Build configuration list for PBXProject "Travelog" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4B27FA741B40A7A700F356DB;
+			productRefGroup = 4B27FA7E1B40A7A700F356DB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4B27FA7C1B40A7A700F356DB /* Travelog */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4B27FA7B1B40A7A700F356DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4B27FA8B1B40A7A800F356DB /* LaunchScreen.storyboard in Resources */,
+				4BFA875D1B44CEF6005291F4 /* Assets.xcassets in Resources */,
+				4B27FA861B40A7A800F356DB /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4B27FA791B40A7A700F356DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4BB4F5F4198ABC8400533A19 /* LogStore.swift in Sources */,
+				4BCC914A1B72E34E00F3D866 /* BorderedView.swift in Sources */,
+				4BFA875B1B44BAD1005291F4 /* LogsViewControllerExtension.swift in Sources */,
+				4B27FA991B40DCB100F356DB /* TextViewController.swift in Sources */,
+				4BD957551B48174600E2D162 /* LogsSeed.swift in Sources */,
+				4B27FAAB1B410C8100F356DB /* UIColorExtension.swift in Sources */,
+				4BCC914C1B72F08200F3D866 /* BorderedImageView.swift in Sources */,
+				4BB4F5F3198ABC8400533A19 /* LogModels.swift in Sources */,
+				4B53B98F1B42495E00BF989E /* LogCell.swift in Sources */,
+				4B10884C1B52908600FB0CFB /* SplitViewController.swift in Sources */,
+				4B27FA951B40DC1B00F356DB /* DetailViewController.swift in Sources */,
+				4B27FA811B40A7A800F356DB /* AppDelegate.swift in Sources */,
+				4B27FA971B40DC4400F356DB /* LogsViewController.swift in Sources */,
+				4BB4F5F2198ABC8400533A19 /* LogCollection.swift in Sources */,
+				4BCD3BE81B52973000BC44D8 /* LogDateFormatter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4B27FA841B40A7A800F356DB /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4B27FA851B40A7A800F356DB /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4B27FA891B40A7A800F356DB /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4B27FA8A1B40A7A800F356DB /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4B27FA8D1B40A7A800F356DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B27FA8E1B40A7A800F356DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4B27FA901B40A7A800F356DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = Travelog/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.travelog;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4B27FA911B40A7A800F356DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				INFOPLIST_FILE = Travelog/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.razeware.travelog;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4B27FA781B40A7A700F356DB /* Build configuration list for PBXProject "Travelog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B27FA8D1B40A7A800F356DB /* Debug */,
+				4B27FA8E1B40A7A800F356DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4B27FA8F1B40A7A800F356DB /* Build configuration list for PBXNativeTarget "Travelog" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4B27FA901B40A7A800F356DB /* Debug */,
+				4B27FA911B40A7A800F356DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4B27FA751B40A7A700F356DB /* Project object */;
+}
