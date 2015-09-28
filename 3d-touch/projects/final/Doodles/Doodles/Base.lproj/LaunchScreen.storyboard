@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -30,16 +30,16 @@
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="50"/>
                                         </variation>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_icon" translatesAutoresizingMaskIntoConstraints="NO" id="YH8-TX-kZv" userLabel="Launch Icon">
-                                        <rect key="frame" x="229.5" y="66" width="141" height="141"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="launch_icon" translatesAutoresizingMaskIntoConstraints="NO" id="YH8-TX-kZv" userLabel="Launch Icon">
+                                        <rect key="frame" x="288" y="66" width="25" height="25"/>
                                         <animations/>
                                     </imageView>
-                                    <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" translatesAutoresizingMaskIntoConstraints="NO" id="lZy-KM-2qR" userLabel="Spacer View">
-                                        <rect key="frame" x="300" y="237" width="0.0" height="144.5"/>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lZy-KM-2qR" userLabel="Spacer View">
+                                        <rect key="frame" x="275" y="121" width="50" height="261"/>
                                         <animations/>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3D Touch" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLc-Sw-3gb" userLabel="Chapter Title">
-                                        <rect key="frame" x="241.5" y="411.5" width="117" height="33.5"/>
+                                        <rect key="frame" x="242" y="412" width="117" height="34"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,7 +49,7 @@
                                         </variation>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rw_launch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="KEl-ST-GJ9" userLabel="RW Logo">
-                                        <rect key="frame" x="112.5" y="475" width="375" height="65"/>
+                                        <rect key="frame" x="113" y="475" width="375" height="65"/>
                                         <animations/>
                                     </imageView>
                                 </subviews>

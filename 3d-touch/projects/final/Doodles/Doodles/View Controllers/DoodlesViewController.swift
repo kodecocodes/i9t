@@ -23,81 +23,76 @@
 import UIKit
 
 class DoodlesViewController: UITableViewController {
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
     
-    if traitCollection.forceTouchCapability == .Available {
-      registerForPreviewingWithDelegate(self, sourceView: view)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if traitCollection.forceTouchCapability == .Available {
+            registerForPreviewingWithDelegate(self, sourceView: view)
+        }
     }
-  }
-  
-  override func viewWillAppear(animated: Bool) {
-    super.viewWillAppear(animated)
     
-    tableView.reloadData()
-  }
-  
-  @IBAction func unwindToDoodlesViewController(segue: UIStoryboardSegue) {}
-  
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if let destinationViewController = segue.destinationViewController as? DoodleDetailViewController,
-       let indexPath = tableView.indexPathForSelectedRow
-       where segue.identifier == "ViewDoodleSegue" {
-        let doodle = Doodle.allDoodles[indexPath.row]
-        destinationViewController.doodle = doodle
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
     }
-  }
+    
+    @IBAction func unwindToDoodlesViewController(segue: UIStoryboardSegue) {}
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let destinationViewController = segue.destinationViewController as? DoodleDetailViewController,
+            let indexPath = tableView.indexPathForSelectedRow
+            where segue.identifier == "ViewDoodleSegue" {
+                let doodle = Doodle.allDoodles[indexPath.row]
+                destinationViewController.doodle = doodle
+        }
+    }
 }
 
 //MARK: UITableViewDataSource
 extension DoodlesViewController {
-  override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-    return 1
-  }
-
-  override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return Doodle.allDoodles.count
-  }
-
-  override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("DoodleCell", forIndexPath: indexPath) as! DoodleCell
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
     
-    cell.doodle = Doodle.allDoodles[indexPath.row]
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Doodle.allDoodles.count
+    }
     
-    return cell
-  }
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("DoodleCell", forIndexPath: indexPath) as! DoodleCell
+        
+        cell.doodle = Doodle.allDoodles[indexPath.row]
+        
+        return cell
+    }
 }
 
 extension DoodlesViewController: UIViewControllerPreviewingDelegate {
-  func previewingContext(previewingContext: UIViewControllerPreviewing,
-    viewControllerForLocation location: CGPoint) -> UIViewController? {
-      
-      // 1
-      guard let indexPath = tableView.indexPathForRowAtPoint(location),
-        cell = tableView.cellForRowAtIndexPath(indexPath) as? DoodleCell
-        else {
-          return nil
-      }
-      
-      // 2
-      let identifier = "DoodleDetailViewController"
-      guard let detailVC = storyboard?
-        .instantiateViewControllerWithIdentifier(identifier)
-        as? DoodleDetailViewController else { return nil }
-      
-      detailVC.doodle = cell.doodle
-      detailVC.doodlesViewController = self
-      
-      // 3
-      previewingContext.sourceRect = cell.frame
-      
-      // 4
-      return detailVC
-  }
-  
-  func previewingContext(previewingContext: UIViewControllerPreviewing,
-    commitViewController viewControllerToCommit: UIViewController) {
-      showViewController(viewControllerToCommit, sender: self)
-  }
+    func previewingContext(previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        // 1
+        guard let indexPath = tableView.indexPathForRowAtPoint(location),
+            cell = tableView.cellForRowAtIndexPath(indexPath) as? DoodleCell
+            else { return nil }
+        
+        // 2
+        let identifier = "DoodleDetailViewController"
+        guard let detailVC = storyboard?.instantiateViewControllerWithIdentifier(identifier) as? DoodleDetailViewController
+            else { return nil }
+        
+        detailVC.doodle = cell.doodle
+        detailVC.doodlesViewController = self
+        
+        // 3
+        previewingContext.sourceRect = cell.frame
+        
+        // 4 
+        return detailVC
+    }
+    func previewingContext(previewingContext: UIViewControllerPreviewing, commitViewController viewControllerToCommit: UIViewController) {
+        //pop!
+        showViewController(viewControllerToCommit, sender: self)
+    }
+    
 }

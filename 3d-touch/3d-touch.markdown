@@ -16,7 +16,7 @@ And best of all, Apple are opening 3D Touch up to third party developers through
 
 + `UITouch` now has a `force` property which tells you how hard the user is pressing.
 + `UIViewController` now has a set of previewing APIs that allow you to present a preview of a view controller (a "peek") when the user presses down on a view and then "pop" it open to display the full content when they press deeper.
-+ The new `UIApplicationShortcutItem`, which can be used to add quick actions to your application's home screen icon.
++ The new `UIApplicationShortcutItem` class, which can be used to add quick actions to your application's home screen icon.
 
 You'll be implementing each of these APIs in turn to add an extra dimension to a sample app. Strap in, it's going to be a wild ride!
 
@@ -50,7 +50,7 @@ Here are the highlights:
 
 It'd be great if you could add some more artistic flair to the doodles that you can create with the sample app. 
 
-`UITouch` has a new `CGFloat` `force` property. It ranges from 0 (no force) up to the value of `UITouch`'s other new property `maximumPossibleForce`, with 1.0 being "the force of an average touch". In this section, you'll use the force of the user's touch to make your sketches pressure sensitive. The harder you press, the thicker the line will be!
+`UITouch` has a new `force` property. It is a `CGFloat` ranging from 0 (no force) up to the value of `UITouch`'s other new property `maximumPossibleForce`, with 1.0 being "the force of an average touch". In this section, you'll use the force of the user's touch to make your sketches pressure sensitive. The harder you press, the thicker the line will be!
 
 In Xcode, open up **Canvas.swift**. Find `addLineFromPoint(_:toPoint:)`. This method adds a line to the drawing based on the points passed into it. Change the method definition to:
 
@@ -63,22 +63,20 @@ Here you've added a `force` parameter with a default value of 1. Now, in the bod
 
 And replace it with:
 
-    if traitCollection.forceTouchCapability == .Available {
-      CGContextSetLineWidth(cxt, force * strokeWidth)
-    } else {
-      CGContextSetLineWidth(cxt, strokeWidth)
-    }
+    CGContextSetLineWidth(cxt, force * strokeWidth)
 
-[TECH EDITOR NOTE: Calculating the line with force * strokeWidth here is the simplest thing that looks cool. However, I don't know if it'd be better to use a normalized force value (touch.force / touch.maximumPossibleForce), in case the range of force changes significantly in a future update (I don't see why it would, but you never know). To get a decent variation in line width, something like this works quite well: `normalizedForce * pow(strokeWidth, 2))`]
+Now the the `force` parameter is multiplied by `strokeWidth` to make the line thicker or thinner depending on the force. At the moment a default of 1 is all that's being passed, so you need to change that. Find `touchesMoved(_:withEvent:)`, and replace the call to `addLineFromPoint(_:toPoint:)` with the following code:
 
-The code above first checks the canvas view's `traitCollection`'s `forceTouchCapability` to see whether 3D Touch is available for use on this device. If it is, then the value of the `force` parameter is multiplied by `strokeWidth` to make the line thicker or thinner depending on the force. If 3D Touch isn't available, then the `strokeWidth` is used unmodified.
+```swift
+if traitCollection.forceTouchCapability == .Available {
+  addLineFromPoint(touch.previousLocationInView(self),
+    toPoint: touch.locationInView(self), withForce: touch.force)
+} else {
+  addLineFromPoint(touch.previousLocationInView(self), toPoint: touch.locationInView(self))
+}
+```
 
-Finally, near the top of the file, find `touchesMoved(_:withEvent:)`, and replace the call to `addLineFromPoint(_:toPoint:withForce:)`:
-
-    addLineFromPoint(touch.previousLocationInView(self), 
-      toPoint: touch.locationInView(self), withForce: touch.force)
-
-Here, you're passing the touch's force into the method you just modified so that it's used to calculate the width of the lines in your doodle.
+Here, you're checking to see if force touch is available, and if so, passing the touch's force into the method you just modified. If force touch is unavailable the value of the `force` property is `0`, rather than the `1` you might expect.
 
 Build and run the app onto a device that supports 3D Touch. Tap the **+** button in the top right, and start sketching! You should see the width of the line change as you vary the pressure you apply to the screen.
 
@@ -102,28 +100,32 @@ In this section, you'll use the peek and pop APIs to let users preview doodles f
 
 Open up **DoodlesViewController.swift** and add the following code to the end of `viewDidLoad()`:
 
-    if traitCollection.forceTouchCapability == .Available {
-      registerForPreviewingWithDelegate(self, sourceView: view)
-    }
+```swift
+if traitCollection.forceTouchCapability == .Available {
+  registerForPreviewingWithDelegate(self, sourceView: view)
+}
+```
  
 Just as you did when using `UITouch`'s `force` property, you first check whether 3D Touch is actually available for use on this device. Then you call the new `registerForPreviewingWithDelegate(_:sourceView:)` method on `UIViewController`. `sourceView` is the view that will respond to 3D Touch events, so you set it to the view controller's entire view.
 
-But there's one problem – this view controller isn't doesn't yet implement `UIViewControllerPreviewingDelegate`! Add an extension to the end of **DoodlesViewController.swift** to make `DoodlesViewController` conform to the protocol:
+But there's one problem – this view controller doesn't yet implement `UIViewControllerPreviewingDelegate`! Add an extension to the end of **DoodlesViewController.swift** to make `DoodlesViewController` conform to the protocol:
 
-    extension DoodlesViewController: UIViewControllerPreviewingDelegate {
-      func previewingContext(previewingContext: UIViewControllerPreviewing, 
-      	viewControllerForLocation location: CGPoint) -> UIViewController? {
-        // peek!
-        return nil
-      }
-      
-      func previewingContext(previewingContext: UIViewControllerPreviewing, 
-      	commitViewController viewControllerToCommit: UIViewController) {
-        // pop!
-      }
-    }
+```swift
+extension DoodlesViewController: UIViewControllerPreviewingDelegate {
+  func previewingContext(previewingContext: UIViewControllerPreviewing, 
+  	viewControllerForLocation location: CGPoint) -> UIViewController? {
+    // peek!
+    return nil
+  }
+  
+  func previewingContext(previewingContext: UIViewControllerPreviewing, 
+  	commitViewController viewControllerToCommit: UIViewController) {
+    // pop!
+  }
+}
+```
 
-An `UIViewControllerPreviewingDelegate` must implement both of these methods. 
+A `UIViewControllerPreviewingDelegate` must implement both of these methods. 
 
 The first, `previewingContext(_:viewControllerForLocation:)` is called when the user initiates a _peek_ action, and it gives the delegate an opportunity to return a view controller that contains a preview of relevant content. 
 
@@ -138,30 +140,32 @@ The `viewControllerToCommit` parameter that's passed in is the preview view cont
 
 To add peek functionality to Doodles, replace the stub implementation for `previewingContext(_:	viewControllerForLocation:)`  with the following:
 
-    func previewingContext(previewingContext: UIViewControllerPreviewing, 
-      viewControllerForLocation location: CGPoint) -> UIViewController? {
-      
-        // 1
-        guard let indexPath = tableView.indexPathForRowAtPoint(location),
-          cell = tableView.cellForRowAtIndexPath(indexPath) as? DoodleCell 
-            else {
-              return nil
-             }
+```swift
+func previewingContext(previewingContext: UIViewControllerPreviewing, 
+  viewControllerForLocation location: CGPoint) -> UIViewController? {
+  
+    // 1
+    guard let indexPath = tableView.indexPathForRowAtPoint(location),
+      cell = tableView.cellForRowAtIndexPath(indexPath) as? DoodleCell 
+        else {
+          return nil
+         }
 
-        // 2    
-        let identifier = "DoodleDetailViewController"
-        guard let detailVC = storyboard?
-          .instantiateViewControllerWithIdentifier(identifier) 
-            as? DoodleDetailViewController else { return nil }
-    
-	    detailVC.doodle = cell.doodle
-    
-        // 3
-        previewingContext.sourceRect = cell.frame
-    
-        // 4
-        return detailVC
-    }
+    // 2    
+    let identifier = "DoodleDetailViewController"
+    guard let detailVC = storyboard?
+      .instantiateViewControllerWithIdentifier(identifier) 
+        as? DoodleDetailViewController else { return nil }
+
+    detailVC.doodle = cell.doodle
+
+    // 3
+    previewingContext.sourceRect = cell.frame
+
+    // 4
+    return detailVC
+}
+```
     
  Let's take this line by line:
     
@@ -197,7 +201,7 @@ Peek.... pop!
 
 ### Preview actions
 
-You've just implemented some crazy awesome functionality with very little code, but it doesn't stop there – a view controller can also present some useful quick actions whilst it's being peeked. 
+You've just implemented some awesome functionality with very little code, but it doesn't stop there – a view controller can also present some useful quick actions whilst it's being peeked. 
 
 Open up **DoodleDetailViewController.swift** and add a property at the top of the class to store a reference to `doodlesViewController`:
 
@@ -205,30 +209,34 @@ Open up **DoodleDetailViewController.swift** and add a property at the top of th
 
 Then add the following method to the bottom of the class, below `presentActivityViewController()`:
 
-    override func previewActionItems() -> [UIPreviewActionItem] {
-      // 1
-      let shareAction = UIPreviewAction(title: "Share", 
-	    style: .Default) { (previewAction, viewController) in
-        if let doodlesVC = self.doodlesViewController,
-          activityViewController = self.activityViewController {
-            doodlesVC.presentViewController(activityViewController, 
-              animated: true, completion: nil)
-        }
-      }
-    
-       // 2
-      let deleteAction = UIPreviewAction(title: "Delete", 
-        style: .Destructive) { (previewAction, viewController) in
-          guard let doodle = self.doodle else { return }
-          Doodle.deleteDoodle(doodle)
-      
-          if let doodlesViewController = self.doodlesViewController {
-            doodlesViewController.tableView.reloadData()
-          }
-      }
-    
-      return [shareAction, deleteAction]
+```swift
+override func previewActionItems() -> [UIPreviewActionItem] {
+  // 1
+  let shareAction = UIPreviewAction(title: "Share", 
+    style: .Default) { 
+    (previewAction, viewController) in
+    if let doodlesVC = self.doodlesViewController,
+      activityViewController = self.activityViewController {
+        doodlesVC.presentViewController(activityViewController, 
+          animated: true, completion: nil)
     }
+  }
+
+  // 2
+  let deleteAction = UIPreviewAction(title: "Delete", 
+    style: .Destructive) { 
+    (previewAction, viewController) in
+    guard let doodle = self.doodle else { return }
+    Doodle.deleteDoodle(doodle)
+  
+    if let doodlesViewController = self.doodlesViewController {
+      doodlesViewController.tableView.reloadData()
+    }
+  }
+
+  return [shareAction, deleteAction]
+}
+```
   
 This method is called when a view controller is peeked, and gives it an opportunity to present some quick actions. Here, you're creating two `UIPreviewAction`s:
 
@@ -295,36 +303,42 @@ Now that you've declared your shortcut item, what happens when somebody taps it?
 
 Open **AppDelegate.swift**, and add the following method below `application(_:didFinishLaunchingWithOptions:)`:
 
-    func application(application: UIApplication, 
-      performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, 
-        completionHandler: (Bool) -> Void) {
-          handleShortcutItem(shortcutItem)
-          completionHandler(true)
-    }
+```swift
+func application(application: UIApplication, 
+  performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, 
+  completionHandler: (Bool) -> Void) {
+    handleShortcutItem(shortcutItem)
+    completionHandler(true)
+}
+```
  
 This method gets called when a user selects one of your application shortcuts. Here you're calling `handleShortcutItem(_:)` (which you'll implement in a moment) and then calling `completionHandler`, passing it `true` because you've handled the shortcut item. If for some reason you don't or can't handle a particular shortcut item, you should pass `false` to `completionHandler`.
 
 Now, add this method below the previous one:
- 
-    func handleShortcutItem(shortcutItem: UIApplicationShortcutItem) {
-      switch shortcutItem.type {
-        case "com.razeware.Doodles.new":
-          presentNewDoodleViewController()
-        default: break
-      }
-    }
+
+```swift 
+func handleShortcutItem(shortcutItem: UIApplicationShortcutItem) {
+  switch shortcutItem.type {
+    case "com.razeware.Doodles.new":
+      presentNewDoodleViewController()
+    default: break
+  }
+}
+```
 
 This code switches on the `shortcutItem`'s `type` property, which you defined earlier in **Info.plist**. If the type matches the "New Doodle" shortcut type, then you call `presentNewDoodleViewController()`. Add this method now below `handleShortcutItem(_:)`:
 
-    func presentNewDoodleViewController() {
-      let identifier = "NewDoodleNavigationController"
-      let doodleViewController = UIStoryboard.mainStoryboard
-        .instantiateViewControllerWithIdentifier(identifier)
+```swift
+func presentNewDoodleViewController() {
+  let identifier = "NewDoodleNavigationController"
+  let doodleViewController = UIStoryboard.mainStoryboard
+    .instantiateViewControllerWithIdentifier(identifier)
 
-      window?.rootViewController?
-        .presentViewController(doodleViewController, animated: true, 
-          completion: nil)
-    }
+  window?.rootViewController?
+    .presentViewController(doodleViewController, animated: true, 
+    completion: nil)
+}
+```
 
 First you instantiate a view controller from the main storyboard with the identifier `NewDoodleNavigationController`. This is a navigation controller that has a `NewDoodleViewController` as its root view controller. Then you present it from the `window`'s `rootViewController`. This will let the user create their new doodle.
     
@@ -332,7 +346,7 @@ Time to test it out! Build and run, and then press firmly on the Doodles app ico
 
 ![width=45%](images/10-static-shortcut.png)
 
-> **Note:** When an app is _launched_ due to a shortcut item being tapped, the `launchOptions` dictionary of `application(_:didFinishLaunchingWithOptions:)` will contain the `UIApplicationShortcutItem` in question as the value for the key `UIApplicationLaunchOptionsShortcutItemKey`. There are a few caveats to bear in mind when handling your shortcut items in this method, so be sure to check out the full documentation for more information: ([http://apple.co/1P04D7q](http://apple.co/1P04D7q)).
+> **Note:** When an app is _launched_ due to a shortcut item being tapped (as opposed to being brought back from the background), the `launchOptions` dictionary of `application(_:didFinishLaunchingWithOptions:)` will contain the `UIApplicationShortcutItem` in question as the value for the key `UIApplicationLaunchOptionsShortcutItemKey`. There are a few caveats to bear in mind when handling your shortcut items in this method, so be sure to check out the full documentation for more information: ([http://apple.co/1P04D7q](http://apple.co/1P04D7q)).
 
 ### Adding a dynamic shortcut
 
@@ -340,19 +354,21 @@ You've just seen how to add a static shortcut to your **Info.plist**. Now you'll
 
 Open **Doodle.swift** and add this static method to the end of the struct:
 
-    static func configureDynamicShortcuts() {
-      if let mostRecentDoodle = Doodle.sortedDoodles.first {
-        let shortcutType = "com.razeware.Doodles.share"
-        let shortcutItem = UIApplicationShortcutItem(type: shortcutType,
-          localizedTitle: "Share Latest Doodle",
-          localizedSubtitle: mostRecentDoodle.name,
-          icon: UIApplicationShortcutIcon(type: .Share),
-          userInfo: nil)
-        UIApplication.sharedApplication().shortcutItems = [ shortcutItem ]
-      } else {
-        UIApplication.sharedApplication().shortcutItems = []
-      }
-    }
+```swift
+static func configureDynamicShortcuts() {
+  if let mostRecentDoodle = Doodle.sortedDoodles.first {
+    let shortcutType = "com.razeware.Doodles.share"
+    let shortcutItem = UIApplicationShortcutItem(type: shortcutType,
+      localizedTitle: "Share Latest Doodle",
+      localizedSubtitle: mostRecentDoodle.name,
+      icon: UIApplicationShortcutIcon(type: .Share),
+      userInfo: nil)
+    UIApplication.sharedApplication().shortcutItems = [ shortcutItem ]
+  } else {
+    UIApplication.sharedApplication().shortcutItems = []
+  }
+}
+```
 
 Just like you created a `UIApplicationShortcutItem` definition in your **Info.plist**, here you're creating a `UIApplicationShortcutItem` in code. The properties you're setting should look quite familiar: you set a `type` to a unique reverse-DNS string, a title and a subtitle, and a built-in icon. You've set the subtitle to the most recent doodle's name, so it'll be displayed right in the shortcut menu.
 
@@ -370,38 +386,35 @@ Open **AppDelegate.swift** and add the same line to `application(_:didFinishLaun
     
 Next, replace `handleShortcutItem(_:)` with the following implementation:
 
-    func handleShortcutItem(shortcutItem: UIApplicationShortcutItem) {
-      switch shortcutItem.type {
-        case "com.razeware.Doodles.new":
-          presentNewDoodleViewController()
-        case "com.razeware.Doodles.share":
-          shareMostRecentDoodle()
-        default: break
-      }
-    }
+```swift
+func handleShortcutItem(shortcutItem: UIApplicationShortcutItem) {
+  switch shortcutItem.type {
+    case "com.razeware.Doodles.new":
+      presentNewDoodleViewController()
+    case "com.razeware.Doodles.share":
+      shareMostRecentDoodle()
+    default: break
+  }
+}
+```
 
 This adds an extra case to handle the new shortcut item type, and calls `shareMostRecentDoodle()`. Add an implementation for that method now, below `presentNewDoodleViewController()`:
 
-    func shareMostRecentDoodle() {
-      if let mostRecentDoodle = Doodle.sortedDoodles.first,
-        navigationController = window?
-          .rootViewController as? UINavigationController {
-            let identifier = "DoodleDetailViewController"
-            let doodleViewController = UIStoryboard.mainStoryboard
-              .instantiateViewControllerWithIdentifier(identifier) as! 	
-              DoodleDetailViewController
-          
-          	doodleViewController.doodle = mostRecentDoodle
-          	doodleViewController.shareDoodle = true
-          
-          	navigationController.pushViewController(doodleViewController, 
-          	  animated: true)
-      }
-    }
+```swift
+func shareMostRecentDoodle() {
+  guard let mostRecentDoodle = Doodle.sortedDoodles.first,
+    navigationController = window?.rootViewController as? UINavigationController
+    else { return }
+  let identifier = "DoodleDetailViewController"
+  let doodleViewController = UIStoryboard.mainStoryboard.instantiateViewControllerWithIdentifier(identifier) as! DoodleDetailViewController
+                
+  doodleViewController.doodle = mostRecentDoodle
+  doodleViewController.shareDoodle = true
+  navigationController.pushViewController(doodleViewController, animated: true)
+}
+```
 
 This method instantiates a new `DoodleDetailViewController` to display the most recent doodle, sets its `doodle` property and tells it to display a share sheet. Finally, it pushes it onto the navigation stack.
-
-[TECH EDITOR QUESTION: Is it work getting the reader to add the `shareDoodle` property and `viewWillAppear` method to `DoodleDetailViewController` themselves?]
 
 Build and run the app, and then return to the home screen. Press deeply on the app's icon to bring up the quick actions menu again. This time, you should see two items: "New Doodle", and "Share Latest Doodle". Tap **Share Latest Doodle**, and you should be taken into the app. The most recent doodle, House, will be displayed and then the system share sheet will appear. 
 
@@ -415,4 +428,6 @@ Press the home button to return to the home screen, and once again press deeply 
 
 Congratulations! You've reached the end of this chapter, and you've added some really cool features to the Doodles app. 3D Touch is an incredible new interaction method, and through `UITouch`'s new `force` property, peeks and pops, and home screen quick actions, you have a multitude of ways to put it to use in your own apps. May the Force (Touch) be with you!
 
-If you want to read more about 3D Touch, you should definitely check out with Apple's "Adopting 3D Touch on iPhone" ([http://apple.co/1JxalGK](http://apple.co/1JxalGK)) documentation. It's a great resource and for API it contains a top-level over, links to detailed documentation, and sample code.
+One of the most important things to note is that 3D touch isn't available to all users, and it isn't as discoverable as icons and labels. You can't have parts of your app that are only accessible via 3D touch, and shortcuts from the app icon aren't a substitute for sensible navigation in-app! 
+
+If you want to read more about 3D Touch, you should definitely check out Apple's "Adopting 3D Touch on iPhone" ([http://apple.co/1JxalGK](http://apple.co/1JxalGK)) documentation. It's a great resource for the API and it contains a top-level overview, links to detailed documentation, and sample code.
