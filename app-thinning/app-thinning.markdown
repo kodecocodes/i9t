@@ -1,4 +1,10 @@
-# Chapter _: App Thinning
+```metadata
+author: Derek Selander
+number: 4
+title: App Thinning
+```
+
+# Chapter 4: App Thinning
 
 Kicking yourself that you didn't drop the extra dinero to multiply your iOS device's disk storage size by a factor of two? Feeling constrained by how massively huge your brilliant app concepts would be? Well, don't! Apple now takes a more frugal approach to how apps are stored on a device.
 
