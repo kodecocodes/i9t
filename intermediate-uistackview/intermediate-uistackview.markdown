@@ -1,3 +1,9 @@
+```metadata
+author: Jawwad Ahmad
+number: 7
+title: Intermediate UIStackView
+```
+
 # Chapter 7: Intermediate UIStackView
 
 Welcome back! In the previous chapter, you spent some quality time with stack views and masterfully spaced a row of buttons with a horizontal stack view. Moreover, you also learned about layout guides and layout anchors, and discovered how to use them to vertically center two labels in a table view cell, without the use of dummy container views.
