@@ -4,6 +4,8 @@ number: 11
 title: Contacts
 ```
 
+# Chapter 11: Contacts
+
 A long time ago, in an operating system far, far away, developers accessed a user's contacts on their iOS device with a C API and had to deal with the pain of using ancient structs and Core Foundation types in an object-oriented world.
 
 Actually, this wasn't so long ago and far away — this antiquated Address Book framework was still in use as of iOS 8!
