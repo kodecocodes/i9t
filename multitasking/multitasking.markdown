@@ -14,7 +14,7 @@ In this chapter, you'll learn how to update an existing app so that it plays nic
 
 The starter project you’ll use for this chapter is named **Travelog**. Open the project file in Xcode and build and run the application on the **iPad Air 2** simulator. You’ll see the following:
 
-![width=90% ipad](images/mt05.png)
+![width=85%](images/mt05.png)
 
 Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. Tap any entry to display it in the right-hand view; rotate the device and you'll find both master and detail views of the Split View Controller are visible in both orientations.
 
@@ -26,7 +26,7 @@ Tap on any app to launch it. A small version of the app opens in the previous po
 
 You'll notice a handle at the edge of the Slide Over view. Tap it, and you'll see the following:
 
-![width=90% ipad](images/mt06.png)
+![width=90%](images/mt06.png)
 
 W00t! The screen just divided in two! Isn't that neat?! This is **Split View** multitasking mode. Travelog is now available for use and resized itself to fit the new, narrower portion of the window.
 
@@ -63,7 +63,7 @@ While this layout is functional, it can certainly stand to be improved. There's 
 
 Rotate the device to landscape orientation; you'll see the following:
 
-![bordered ipad](images/mt062.png)
+![bordered width=70%](images/mt062.png)
 
 Again, it's functional, but the master view column is too narrow and the text inside the table view cells doesn't really provide any value.
 
