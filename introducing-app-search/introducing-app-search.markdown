@@ -1,3 +1,9 @@
+```metadata
+author: Chris Wagner
+number: 2
+title: Introducing App Search
+```
+
 # Chapter 2: Introducing App Search
 
 There's been a big hole in Spotlight on iOS for a long time. Although users can use it to find you app, they can't see _inside_ it — to all the content that they really care about. Currently, when users want to get to content in an app, they have to flip through pages on their home screen to find it, open it and then search for what they're looking for — assuming you actually implemented a search feature in the first place!
@@ -61,8 +67,8 @@ From the **EmployeeKit** group in Xcode, open **Employee.swift**. This is the mo
 
 
 Moving on, open **EmployeeService.swift**. At the top of the file is an extension declaration, and there are two methods marked with `TODO`. You'll fill out these two method's implementation later. This service provides two documented public APIs:
-- `employeeWithObjectId()`: provides an `Employee` given its `objectId`
-- `fetchEmployees()`: returns all employee records from the database.
+- `indexAllEmployees()`: indexes all employee records via Core Spotlight
+- `destroyEmployeeIndexing()`: destroys all indexing
 
 There's more to the EmployeeKit target, but it's not related to app searches, so there's no need to go into it now. By all means though, feel free to poke around!
 
@@ -175,7 +181,7 @@ In the simulator or on your device, open the **Settings** app and scroll down to
 
 Now, build and run the app and select **Brent Reid**.
 
-Okay, so it doesn't look like anything spectacular, but behind the scenes, Brent's activity is being added to the search index. Exit to the home screen (⇧⌘H) and bring up Spotlight by either swiping down from the middle of the screen or swiping all the way to the left of your home screen pages. Type **brent reid** into the search.
+Okay, so it doesn't look like anything spectacular happened, but behind the scenes, Brent's activity is being added to the search index. Exit to the home screen (⇧⌘H) and bring up Spotlight by either swiping down from the middle of the screen or swiping all the way to the left of your home screen pages. Type **brent reid** into the search.
 
 ![width=35%](/images/app-screen-4.png)
 
@@ -298,7 +304,7 @@ return false
 
 If the `id` is obtained, your objective is to display the `EmployeeViewController` for the matching Employee.
 
-The code above may appear a bit confusing, but think about that app's design. There are two view controllers, one is the list of employees and the other shows employee details. The above code pops the application's navigation stack back to the list and then pushes to the specific employee's details view.
+The code above may appear a bit confusing, but think about the app's design. There are two view controllers, one is the list of employees and the other shows employee details. The above code pops the application's navigation stack back to the list and then pushes to the specific employee's details view.
 
 If for some reason the view cannot be presented, the method returns `false`.
 
