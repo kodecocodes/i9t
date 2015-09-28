@@ -1,4 +1,10 @@
-# Chapter 5: What's New in Storyboards
+```metadata
+author: Caroline Begbie
+number: 8
+title: What's New in Storyboards?
+```
+
+# Chapter 8: What's New in Storyboards?
 
 Storyboards have been around since iOS 5 and have received lots of upgrades and new features since then, including unwind segues for reverse navigation, universal storyboards for both iPhone and iPad, and live rendering of views designed in code.
 
