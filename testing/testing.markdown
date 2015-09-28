@@ -374,8 +374,8 @@ That's a lot shorter than it was before! Here's what changed in the code:
 
 1. You didn't need to use the accessibility identifier `"Workout Table"` after all. Instead, you get _all_ tables in the app and then get all of their cells. Notice that you replaced `descendantsMatchingType(.Table)` with convenience method `tables` and `childrenMatchingType(.Cell)` with convenience method `cells`.
 
-  [TODO: Check formatting in Deckle]
-  The element query `descendantsMatchingType(_:)` is so common that Apple provided convenience methods for all the common types. `childrenMatchingType(_:)`doesn't have convenience methods, but using `descendantsMatchingType(_:)` has the same effect in this case.
+   [TODO: Check formatting in Deckle]
+   The element query `descendantsMatchingType(_:)` is so common that Apple provided convenience methods for all the common types. `childrenMatchingType(_:)`doesn't have convenience methods, but using `descendantsMatchingType(_:)` has the same effect in this case.
 
 2. Here's your extra step. Once in the workout detail screen, you find the appropriate table view by its accessibility identifier, scroll downwards by swiping up and tap on **Select & Workout**. Again, notice you don't need to specify _which_ table you're talking about. You can drill down from the app to its tables to the tables' buttons, then disambiguate using the button's title. You do the same with the alert's **OK** button, except this time you go through all of the app's _alerts_ instead of through all of the app's _tables_.
 
