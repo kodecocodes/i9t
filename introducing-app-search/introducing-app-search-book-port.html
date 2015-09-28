@@ -1,0 +1,475 @@
+
+<pre lang="metadata">
+author: Chris Wagner
+number: 2
+title: Introducing App Search
+</pre>
+
+<h1>Tutorial: Introducing App Search</h1>
+
+There's been a big hole in Spotlight on iOS for a long time. Although users can use it to find you app, they can't see <i>inside</i> it — to all the content that they really care about. Currently, when users want to get to content in an app, they have to flip through pages on their home screen to find it, open it and then search for what they're looking for — assuming you actually implemented a search feature in the first place!
+
+An especially savvy user could launch your app by using Siri or searching for it in Spotlight, but neither of these tools help the user find what they want inside a non-Apple app. Meanwhile, Apple makes things like contacts, notes, messages, email and apps directly searchable within Spotlight. The user simply taps on the search result and goes straight to the content. No fair!
+
+Sometimes it seems like Apple keeps all the fun features to itself, like using Spotlight. The good news is that after Apple developers finish playing around with a feature and feel it's ready for showtime, it often lets the masses play too, like it did with app extensions in iOS 8.
+
+With iOS 9, Apple is passing a very exciting feature off to the rest of us; third party developers now have the ability to make <i>their</i> content searchable through Spotlight!
+
+<h2>App search APIs</h2>
+
+App search in iOS 9 comprises three main aspects. Each is broken into separate APIs that achieve distinct results, but they also work in concert with one another:
+
+<ul>
+<li>
+NSUserActivity
+</li>
+
+<li>
+Core Spotlight
+</li>
+
+<li>
+Web markup
+</li>
+</ul>
+
+<h3>NSUserActivity</h3>
+
+Being a clever little feature, this aspect of app search makes use of the same <code>NSUserActivity</code> API that enables Handoff in iOS 8.
+
+In iOS 9, <code>NSUserActivity</code> has been augmented with some new properties to enable search. Theoretically speaking, if a task can be represented as an <code>NSUserActivity</code> to be handed off to a <i>different</i> device, it can be stored in a search index and later continued on the <i>same</i> device. This enables you to index activities, states and navigation points within your app, allowing the user to find them later via Spotlight.
+
+For example, a travel app might index hotels the user has viewed, or a news app might index the topics the user browsed.
+
+<div class="note">
+<em>Note</em>: This tutorial will not specifically cover Handoff, but you’ll learn how to make content searchable once it’s viewed.
+</div>
+
+<h3>Core Spotlight</h3>
+
+The second, and perhaps most "conventional" aspect of app search is Core Spotlight, which is what the stock iOS apps like Mail and Notes use to index content. While it's nice to allow users to search for previously accessed content, you might take it a step further by making a large set of content searchable in one go.
+
+You can think of Core Spotlight as a database for search information. It provides you with fine-grained control of what, when and how content is added to the search index. You can index all kinds of content, from files to videos to messages and beyond, as well as updating and removing search index entries.
+
+Core Spotlight is the best way to provide full search capabilities of your app's private content.
+
+This tutorial will focus on what is required to get Spotlight results by using <code>NSUserActivity</code> described above. The full version of this tutorial in iOS 9 by Tutorials shows how to fully index your content by using Core Spotlight.
+
+<h3>Web markup</h3>
+
+The third aspect of app search is web markup, which is tailored towards apps that mirror their public content from a web site. A good example is Amazon, where you can search the millions of products it sells, or even raywenderlich.com. Using open standards for marking up web content, you can show it in Spotlight and Safari search results and even create deep links within your app.
+
+This tutorial will not cover web markup, but you can learn all about it in Chapter 3, "Your App On The Web" of iOS 9 by Tutorials.
+
+<h2>Getting started</h2>
+
+You'll work with a sample app named <i>Colleagues</i> that simulates a company address book. It provides an alternative to adding every coworker to your contacts, instead providing you with a directory of your colleagues. To keep things simple, it uses a local dataset, comprising of a folder of avatar images and a JSON file that contains employee information. In the real world, you would have a networking component that fetches contact data from a web-service. This is a tutorial, so JSON it is. Open the starter project, and before you do anything, build and run the app.
+
+
+<img src="/Users/sam/dev/razeware/books/i9t/introducing-app-search//images/app-preview.png" alt="Optional("height=35%")" title="nil" />
+
+
+You'll immediately see a list of employees. It's a small startup, so there's only 25 staff. Select <em>Brent Reid</em> from the list to see all of his details. You'll also see a list of employees who are in the same department. And that is the extent of the app's features — it's very simple!
+
+Search would make this app infinitely better. As it stands, you can't even search while you're <i>in</i> the app. You won't add in-app search, but instead add the ability to search from <i>outside</i> the app with Spotlight!
+
+<h3>Sample project</h3>
+
+Take a moment to familiarize yourself with the project's codebase. There are two targets: <em>Colleagues</em> which is the app itself, and <em>EmployeeKit</em> which is a framework to facilitate interactions with the employee database.
+
+From the <em>EmployeeKit</em> group in Xcode, open <em>Employee.swift</em>. This is the model for an employee that has all the properties you might expect. Employee instances are initialized using a JSON model, which are stored under the <em>Database</em> group in a file named <em>employees.json</em>.
+
+Moving on, open <em>EmployeeService.swift</em>. At the top of the file is an extension declaration, and there is a method named <code>destroyEmployeeIndexing()</code> marked with <code>TODO</code>. You'll fill out this method's implementation later. This method will destroy any indexing that has occurred.
+
+There's more to the EmployeeKit target, but it's not related to app searches, so there's no need to go into it now. By all means though, feel free to poke around!
+
+Open <em>AppDelegate.swift</em> in the <em>Colleagues</em> group. Notice there is only one method in here: <code>application(_:didFinishLaunchingWithOptions:)</code>. This implementation checks if <code>Setting.searchIndexingPreference</code> is set to <code>.Disabled</code>, if so it will destroy any search indexing that has occurred.
+
+You don't need to do anything other than just be aware of this setting. You can change the setting in the iOS system <em>Settings</em> app under <em>"</em><em>Colleagues"</em>.
+
+That concludes your tour. The rest of the code is view controller logic that you'll modify, but you don't need to know all of it to work with app search.
+
+<h2>Searching previously viewed records</h2>
+
+When implementing app search, <code>NSUserActivity</code> is the first thing to work with because:
+
+<ol start="1">
+<li>
+It's dead simple. Creating an <code>NSUserActivity</code> instance is as easy as setting a few properties.
+</li>
+
+<li>
+When you use <code>NSUserActivity</code> to flag user activities, iOS will rank that content so that search results prioritize frequently accessed content.
+</li>
+
+<li>
+You're one step closer to providing Handoff support.
+</li>
+</ol>
+
+Time to prove how simple <code>NSUserActivity</code> can be to implement!
+
+<h3>Implement <code>NSUserActivity</code></h3>
+
+With the <em>EmployeeKit group</em> selected, go to <em>File </em><em>\</em><em> New </em><em>\</em><em> File...</em>. Choose the <em>iOS </em><em>\</em><em> Source </em><em>\</em><em> Swift File</em> template and click <em>Next</em>. Name your new file <em>EmployeeSearch.swift</em> and verify that the target is set to <em>EmployeeKit</em>.
+
+Within the new file, first import <code>CoreSpotlight</code>:
+
+<pre lang="">
+import CoreSpotlight
+</pre>
+
+Next, still in <em>EmployeeSearch.swift</em>, add the following extension to the <code>Employee</code> struct:
+
+<pre lang="swift">
+extension Employee {
+  public static let domainIdentifier = "com.raywenderlich.colleagues.employee"
+}
+</pre>
+
+This reverse-DNS formatted string identifies the type of <code>NSUserActivity</code> created for employees. Next, add the following computed property below the <code>domainIdentifier</code> declaration:
+
+<pre lang="swift">
+public var userActivityUserInfo: [NSObject: AnyObject] {
+  return ["id": objectId]
+}
+</pre>
+
+This dictionary will serve as an attribute for your <code>NSUserActivity</code> to identify the activity. Now add another computed property named <code>userActivity</code>:
+
+<pre lang="swift">
+public var userActivity: NSUserActivity {
+  let activity = NSUserActivity(activityType: Employee.domainIdentifier)
+  activity.title = name
+  activity.userInfo = userActivityUserInfo
+  activity.keywords = [email, department]
+  return activity
+}
+</pre>
+
+This property will come into play later to conveniently obtain an <code>NSUserActivity</code> instance for an employee. It creates new <code>NSUserActivity</code> and sets a few properties:
+
+<ul>
+<li>
+<code>activityType</code>: The type of activity that this represents. You'll use this later to identify <code>NSUserActivity</code> instances that iOS provides to you. Apple suggests using reverse DNS formatted strings.
+</li>
+
+<li>
+<code>title</code>: The name of the activity — this will also appear as the primary name in a search result.
+</li>
+
+<li>
+<code>userInfo</code>: A dictionary of values for you to use however you wish. When the activity is passed to your app, such as when the user taps a search result in Spotlight, you'll receive this dictionary. You'll use it to store the unique employee ID, allowing you to display the correct record when the app starts.
+</li>
+
+<li>
+<code>keywords</code>: A set of localized keywords that help the user find the record when searching.
+</li>
+</ul>
+
+Next up, you are going to use this new <code>userActivity</code> property to make employee records searchable when the user views them. Since you added these definitions in the EmployeeKit framework, you'll need to build the framework so that Xcode is aware they can be used from the Colleagues app.
+
+Press <em>Command-B</em> to build the project.
+
+Open <em>EmployeeViewController.swift</em> and add the following to the bottom of <code>viewDidLoad()</code>:
+
+<pre lang="swift">
+let activity = employee.userActivity
+
+switch Setting.searchIndexingPreference {
+case .Disabled:
+  activity.eligibleForSearch = false
+case .ViewedRecords:
+  activity.eligibleForSearch = true
+}
+
+userActivity = activity
+</pre>
+
+This retrieves <code>userActivity</code> — the property you just created in the <code>Employee</code> extension. Then it checks the app's search setting.
+
+<ul>
+<li>
+If search is disabled, you mark the activity as ineligible for search.
+</li>
+
+<li>
+If the search setting is set to <code>ViewedRecords</code>, then you mark the activity as eligible for search.
+</li>
+
+<li>
+Finally, you set the view controller's <code>userActivity</code> property to your employee's activity.
+</li>
+</ul>
+
+<div class="note">
+<em>NOTE</em>: The <code>userActivity</code> property on the view controller is inherited from <code>UIResponder</code>. It's one of those things Apple added with iOS 8 to enable Handoff.
+</div>
+
+The last step is to override updateUserActivityState(). This ensures that when a search result is selected you'll have the information necessary.
+
+Add the following method after <code>viewDidLoad()</code>:
+
+<pre lang="swift">
+override func updateUserActivityState(activity: NSUserActivity) {
+  activity.addUserInfoEntriesFromDictionary(
+    employee.userActivityUserInfo)
+}
+</pre>
+
+During the lifecycle of <code>UIResponder</code>, the system calls this method at various times and you're responsible for keeping the activity up to date. In this case, you simply provide the <code>employee.userActivityUserInfo</code> dictionary that contains the employee's <code>objectId</code>.
+
+Great! Now when you pull up an employee, that bit of history will be tracked and become searchable, provided the setting is turned on.
+
+In the simulator or on your device, open the <em>Settings</em> app and scroll down to <em>Colleagues</em>. Change the <em>Indexing</em> setting to <em>Viewed Records</em>.
+
+
+<img src="/Users/sam/dev/razeware/books/i9t/introducing-app-search//images/app-screen-3.png" alt="Optional("width=35%")" title="nil" />
+
+
+Now, build and run the app and select <em>Brent Reid</em>.
+
+Okay, so it doesn't look like anything spectacular happened, but behind the scenes, Brent's activity is being added to the search index. Exit to the home screen (⇧⌘H) and bring up Spotlight by either swiping down from the middle of the screen or swiping all the way to the left of your home screen pages. Type <em>brent reid</em> into the search.
+
+
+<img src="/Users/sam/dev/razeware/books/i9t/introducing-app-search//images/app-screen-4.png" alt="Optional("width=35%")" title="nil" />
+
+
+And there's Brent Reid! If you don't see him, you may need to scroll past other results. And if you tap on it, it should move up the list next time you perform the same search.
+
+
+<img src="/Users/sam/dev/razeware/books/i9t/introducing-app-search//images/whoa-meme.jpg" alt="Optional("height=30%")" title="nil" />
+
+
+Now, of course this is <i>awesome</i>, but the result is a little...bland.
+
+Surely you can do more than give a name? Time to crack open the <em>Core Spotlight</em> framework and discover how.
+
+<h3>Adding more information to search results</h3>
+
+<code>NSUserActivity</code> has a property named <code>contentAttributeSet</code>. It is of the type <code>CSSearchableItemAttributeSet</code>, which allows you to describe your content with as many attributes as necessary. Review the <code>CSSearchableItemAttributeSet</code> class reference to see the many ways to describe your content with these attributes.
+
+Below is the desired result, complete with each component's property name called out:
+
+
+<img src="/Users/sam/dev/razeware/books/i9t/introducing-app-search//images/properties-diagram-1.png" alt="Optional("width=100%")" title="nil" />
+
+
+You've already set <code>title</code> on <code>NSUserActivity</code>, and at the moment it's all you see. The other three, <code>thumbnailData</code>, <code>supportsPhoneCall</code> and <code>contentDescription</code> are all properties of <code>CSSearchableItemAttributeSet</code>.
+
+Open <em>EmployeeSearch.swift</em>. At the top, import <code>MobileCoreServices</code>:
+
+<pre lang="">
+import MobileCoreServices
+</pre>
+
+<code>MobileCoreServices</code> is required for a special identifier that you'll use to create the <code>CSSearchableItemAttributeSet</code> instance. You've already imported <code>CoreSpotlight</code>, which is required for all of the APIs prefixed with <code>CS</code>.
+
+Still in <em>EmployeeSearch.swift</em>, add a new computed property named <code>attributeSet</code> to the <code>Employee</code> extension:
+
+<pre lang="swift">
+public var attributeSet: CSSearchableItemAttributeSet {
+  let attributeSet = CSSearchableItemAttributeSet(
+    itemContentType: kUTTypeContact as String)
+  attributeSet.title = name
+  attributeSet.contentDescription = "\(department), \(title)\n\(phone)"
+  attributeSet.thumbnailData = UIImageJPEGRepresentation(
+    loadPicture(), 0.9)
+  attributeSet.supportsPhoneCall = true
+
+  attributeSet.phoneNumbers = [phone]
+  attributeSet.emailAddresses = [email]
+  attributeSet.keywords = skills
+
+  return attributeSet
+}
+</pre>
+
+When initializing <code>CSSearchableItemAttributeSet</code>, an <code>itemContentType</code> parameter is required. You then pass in <code>kUTTypeContact</code> from the <code>MobileCoreServices</code> framework. (Read about these types on Apple's <a href="http://apple.co/1NilqiZ">UTType Reference</a> (http://apple.co/1NilqiZ) page.)
+
+The attribute set contains the relevant search metadata for the current employee: <code>title</code> is the same as the title from <code>NSUserActivity</code>, <code>contentDescription</code> contains the employee's department, title and phone number, and <code>thumbnailData</code> is the result of <code>loadPicture()</code> converted to <code>NSData</code>.
+
+To get the call button to appear, you must set <code>supportsPhoneCall</code> to <code>true</code> and provide a set of <code>phoneNumbers</code>. Finally, you add the employee's email addresses and set their various skills as keywords.
+
+Now that these details are included, Core Spotlight will index each and pull the results during a search. This means that your users can now search for coworkers by name, department, title, phone number email and even skills!
+
+Still in <em>EmployeeSearch.swift</em>, add the following line above the <code>return</code> in <code>userActivity</code>:
+
+<pre lang="">
+activity.contentAttributeSet = attributeSet
+</pre>
+
+Here you tell the <code>contentAttributeSet</code> from <code>NSUserActivity</code> to use this information.
+
+Build and run. Open <em>Brent Reid's</em> record so the index can do its thing. Now go to the home screen pull up Spotlight and search for "brent reid". If your previous search is still there, you'll need to clear it and search again.
+
+
+<img src="/Users/sam/dev/razeware/books/i9t/introducing-app-search//images/app-screen-5.png" alt="Optional("width=35%")" title="nil" />
+
+
+Voila! Aren't you amazed with how little code it took to pull this off?
+
+Great work! Now Spotlight can search for colleagues the user previously viewed. Unfortunately, there is one glaring omission...try opening the app from the search result. Nothing.
+
+<h3>Opening search results</h3>
+
+The ideal user experience is to launch the app directly to the relevant content without any fanfare. In fact — it's a requirement — Apple uses the speed at which your app launches and displays useful information as one of the metrics to rank search results.
+
+In the previous section, you laid the groundwork for this by providing both an <code>activityType</code> and a <code>userInfo</code> object for your <code>NSUserActivity</code> instances.
+
+Open <em>AppDelegate.swift</em> and add this empty implementation of  <code>application(_:continueUserActivity:restorationHandler:)</code> below <code>application(_:didFinishLaunchingWithOptions:)</code>:
+
+<pre lang="swift">
+func application(application: UIApplication,
+  continueUserActivity userActivity: NSUserActivity,
+  restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+
+  return true
+}
+</pre>
+
+When a user selects a search result, this method is called — it's the same method that's called by Handoff to continue an activity from another device.
+
+Add the following logic above <code>return true</code> in <code>application(_:continueUserActivity:restorationHandler:)</code>:
+
+<pre lang="swift">
+guard userActivity.activityType == Employee.domainIdentifier,
+  let objectId = userActivity.userInfo?["id"] as? String else {
+    return false
+}
+</pre>
+
+This <code>guard</code> statement verifies the <code>activityType</code> is what you defined as an activity for Employees, and then it attempts to extract the <code>id</code> from <code>userInfo</code>. If either of these fail, then the method returns <code>false</code>, letting the system know that the activity was not handled.
+
+Next, below the <code>guard</code> statement, replace <code>return true</code> with the following:
+
+<pre lang="swift">
+if let nav = window?.rootViewController as? UINavigationController,
+  listVC = nav.viewControllers.first as? EmployeeListViewController,
+  employee = EmployeeService().employeeWithObjectId(objectId) {
+    nav.popToRootViewControllerAnimated(false)
+
+    let employeeViewController = listVC
+      .storyboard?
+      .instantiateViewControllerWithIdentifier("EmployeeView") as!
+        EmployeeViewController
+
+    employeeViewController.employee = employee
+    nav.pushViewController(employeeViewController, animated: false)
+    return true
+}
+
+return false
+</pre>
+
+If the <code>id</code> is obtained, your objective is to display the <code>EmployeeViewController</code> for the matching Employee.
+
+The code above may appear a bit confusing, but think about the app's design. There are two view controllers, one is the list of employees and the other shows employee details. The above code pops the application's navigation stack back to the list and then pushes to the specific employee's details view.
+
+If for some reason the view cannot be presented, the method returns <code>false</code>.
+
+Okay, time to build and run! Select <em>Cary Iowa</em> from the employees list, and then go to the home screen. Activate Spotlight and search for <em>Brent Reid</em>. When the search result appears, tap it. The app will open and you'll see it fade delightfully from Cary to Brent. Excellent work!
+
+<h3>Deleting items from the search index</h3>
+
+Back to the premise of your app. Imagine that an employee was fired for duct taping the boss to the wall after a particularly rough day. Obviously, you won't contact that person anymore, so you need to remove him and anybody else that leaves the company from the Colleagues search index.
+
+For this sample app, you'll simply delete the entire index when the app's indexing setting is disabled.
+
+Open <em>EmployeeService.swift</em> and add the following import statement at the top of the file.
+
+<pre lang="swift">
+import CoreSpotlight
+</pre>
+
+Next, find <code>destroyEmployeeIndexing()</code>. Replace the <code>TODO</code> with the following logic:
+
+<pre lang="swift">
+CSSearchableIndex
+  .defaultSearchableIndex()
+  .deleteAllSearchableItemsWithCompletionHandler { error in
+  if let error = error {
+    print("Error deleting searching employee items: \(error)")
+  } else {
+    print("Employees indexing deleted.")
+  }
+}
+</pre>
+
+This single parameterless call destroys the entire indexed database for your app. Well played!
+
+Now to test out the logic; perform the following test to see if index deletion works as intended:
+
+<ol start="1">
+<li>
+Build and run to install the app.
+</li>
+
+<li>
+Stop the process in Xcode.
+</li>
+
+<li>
+In the simulator or on your device, go to <em>Settings </em><em>\</em><em> Colleagues</em> and set <em>Indexing</em> to <em>Viewed Records</em>.
+</li>
+
+<li>
+Open the app again and select a few employees so that they are indexed.
+</li>
+
+<li>
+Go back to the home screen and activate Spotlight.
+</li>
+
+<li>
+Search for one of the employees you viewed and verify the entry appears.
+</li>
+
+<li>
+Go to <em>Settings </em><em>\</em><em> Colleagues</em> and set <em>Indexing</em> to <em>Disabled</em>.
+</li>
+
+<li>
+Quit the app.
+</li>
+
+<li>
+Reopen the app. This will purge the search index.
+</li>
+
+<li>
+Go to the home screen and activate Spotlight.
+</li>
+
+<li>
+Search for one of the employees you viewed and verify that <i>no</i> results appear for the Colleagues app.
+</li>
+</ol>
+
+So deleting the entire search index was pretty easy, huh? But what if you want to single out a specific item? Good news — these two APIs give you more fine-tuned control over what is deleted:
+
+<ul>
+<li>
+<code>deleteSearchableItemsWithDomainIdentifiers(_:completionHandler:)</code> lets you delete entire "groups" of indexes based on their domain identifiers.
+</li>
+
+<li>
+<code>deleteSearchableItemsWithIdentifiers(_:completionHandler:)</code> allows you work with individual records using their unique identifiers.
+</li>
+</ul>
+
+This means that globally unique identifiers (within an app group) are <i>required</i> if you're indexing multiple types of records.
+
+<div class="note">
+<em>Note</em>: If you can't guarantee uniqueness across types, like when replicating a database that uses auto-incrementing IDs, then a simple solution could be to prefix the record's ID with its type. For example, if you had a contact object with an ID of 123 and an order object with an ID of 123, you could set their unique identifiers to <em>contact.123</em> and <em>order.123</em> respectively.
+</div>
+
+<h2>Where to go from here?</h2>
+
+This tutorial has covered iOS 9's simple yet powerful approach to indexing the content inside your app using user activities. Searching isn't limited to <i>content</i> though — you can also use it to index navigation points within an app.
+
+Consider a CRM app that has multiple sections such as <i>Contacts</i>, <i>Orders</i> and <i>Tasks</i>. By creating user activities whenever a user lands on one of these screens, you'd make it possible for them to search for <i>Orders</i> and be directly to that section of your app. How powerful would this be if your app has many levels of navigation?
+
+There are many unique ways to bubble up content to your users. Think outside the box and remember to educate your users about this powerful function.
+
+This tutorial was an abbreviated version of Chapter 2, "Introducing App Search" from iOS 9 by Tutorials. If you'd like to learn about indexing large data sets with Core Spotlight or web content with iOS 9 please check out the book!
