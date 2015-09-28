@@ -1,3 +1,9 @@
+```metadata
+author: Chris Wagner
+number: 1
+title: Swift 2.0
+```
+
 # Chapter 1: Swift 2.0
 
 The 2014 WWDC keynote was nearly over, and Craig Federighi appeared to be wrapping things up. But instead he shocked nearly everyone watching by announcing the Swift programming language, which he promised, perhaps optimistically, as "Objective-C without the baggage of C". Swift would have the benefits of terseness and safety, while still being extremely expressive.
