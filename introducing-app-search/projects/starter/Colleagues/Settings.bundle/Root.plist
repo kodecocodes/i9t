@@ -23,13 +23,11 @@
 			<array>
 				<string>Disabled</string>
 				<string>Viewed Records</string>
-				<string>All Records</string>
 			</array>
 			<key>Values</key>
 			<array>
 				<integer>0</integer>
 				<integer>1</integer>
-				<integer>2</integer>
 			</array>
 			<key>Key</key>
 			<string>SearchIndexingPreference</string>

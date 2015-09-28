@@ -30,14 +30,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
   
-    switch Setting.searchIndexingPreference {
-    case .Disabled:
-       EmployeeService().destroyEmployeeIndexing()
-    case .AllRecords:
-       EmployeeService().indexAllEmployees()
-    default: break
+    if case .Disabled = Setting.searchIndexingPreference {
+      EmployeeService().destroyEmployeeIndexing()
     }
-    
+        
     return true
   }
   

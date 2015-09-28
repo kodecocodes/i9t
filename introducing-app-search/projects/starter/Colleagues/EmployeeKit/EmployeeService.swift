@@ -24,9 +24,6 @@ import Foundation
 
 // MARK: Indexing
 extension EmployeeService {
-  public func indexAllEmployees() {
-    // TODO: Implement this
-  }
   
   public func destroyEmployeeIndexing() {
     // TODO: Implement this

@@ -23,7 +23,7 @@
 import Foundation
 
 enum SearchIndexingPreference: Int {
-  case Disabled, ViewedRecords, AllRecords
+  case Disabled, ViewedRecords
 }
 
 struct Setting {
