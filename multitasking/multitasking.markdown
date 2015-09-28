@@ -1,6 +1,10 @@
-# Multitasking
+```metadata
+author: Soheil Azarpour
+number: 5
+title: Multitasking
+```
 
-By Soheil Azarpour
+# Chapter 5: Multitasking
 
 iOS 9 introduces a phenomenal feature for the iPad — **multitasking**. For the first time, iPad users can run two apps on the screen at the same time. Maybe you want to read a proposal in your email app while you research the topic in Safari. Or you'd like to keep an eye on Twitter while you enjoy your favorite sports show. For a device that you can hold in one hand, this is a crazy amount of productivity power. It's undoubtedly going to change the way users interact with their iPads.
 
