@@ -232,7 +232,7 @@ public var attributeSet: CSSearchableItemAttributeSet {
 }
 ```
 
-When initializing `CSSearchableItemAttributeSet`, an `itemContentType` parameter is required. You then pass in `kUTTypeContact` from the `MobileCoreServices` framework. (Read about these types on Apple's [UTType Reference](http://apple.co/1NilqiZ) (http://apple.co/1NilqiZ) page.)
+When initializing `CSSearchableItemAttributeSet`, an `itemContentType` parameter is required. You then pass in `kUTTypeContact` from the `MobileCoreServices` framework. (Read about these types on Apple's UTType Reference page ([apple.co/1NilqiZ](http://apple.co/1NilqiZ)).
 
 The attribute set contains the relevant search metadata for the current employee: `title` is the same as the title from `NSUserActivity`, `contentDescription` contains the employee's department, title and phone number, and `thumbnailData` is the result of `loadPicture()` converted to `NSData`.
 
@@ -465,7 +465,7 @@ Great work! Once you have all of the above working, you can set the sample proje
 
 ## Private vs. public indexing
 
-> **Note:** This section is inaccurate for iOS 9.0; Apple has not yet implemented the feature according to [Technical Note TN2416 (http://bit.ly/1NC7u72)](http://bit.ly/1NC7u72). "Activities marked as `eligibleForPublicIndexing` are kept on the private on-device index in iOS 9.0, however, they may be eligible for crowd-sourcing to Apple’s server-side index in a future release." Keep an eye on this technical note if the feature is of interest to you. The information described below is what Apple had outlined during the WWDC session and documentation.
+> **Note:** This section is inaccurate for iOS 9.0; Apple has not yet implemented the feature according to Technical Note TN2416 ([bit.ly/1NC7u72)](http://bit.ly/1NC7u72)). "Activities marked as `eligibleForPublicIndexing` are kept on the private on-device index in iOS 9.0, however, they may be eligible for crowd-sourcing to Apple’s server-side index in a future release." Keep an eye on this technical note if the feature is of interest to you. The information described below is what Apple had outlined during the WWDC session and documentation.
 
 Imagine if a user could search for something in Spotlight, and see a result from inside an app _that they don't even have installed_! How cool would that be? Well, with public indexing, this is possible. Content from your app would appear in front of more users — helping them out with contextually relevant information, and hopefully getting you some extra downloads.
 
@@ -525,6 +525,6 @@ Consider a CRM app that has multiple sections such as _Contacts_, _Orders_ and _
 
 There are many unique ways to bubble up content to your users. Think outside the box and remember to educate your users about this powerful function.
 
-To find out more about app search, be sure to watch _Session 709 - Introducing Search APIs_ from WWDC 2015 (<http://apple.co/1gvlfGi>). The [App Search Programming Guide](http://apple.co/1J0WBs1) (http://apple.co/1J0WBs1) is also an excellent reference for implementing search in your own apps.
+To find out more about app search, be sure to watch _Session 709 - Introducing Search APIs_ from WWDC 2015 ([apple.co/1gvlfGi](http://apple.co/1gvlfGi)). The App Search Programming Guide ([apple.co/1J0WBs1](http://apple.co/1J0WBs1)) is also an excellent reference for implementing search in your own apps.
 
 Finally, if your app has a web counterpart, then jump straight in to the next chapter of this book, "Your App On The Web". You'll learn more about indexing the content that is available publicly, both on the web and within your app.
