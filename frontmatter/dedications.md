@@ -15,7 +15,7 @@ _— Evan Dekhayser_
 "To my husband, Mike, and my parents - all whom have inspired me to do my best and keep plugging away throughout the years."
 _— Aaron Douglas_
 
-"To Rich Turton. Every single day of my life is dedicated to trying to be more like him."
+"To my wonderful, ever-patient wife Hannah, and our son Rupert, who amazes me every day.
 _— James Frost_
 
 "To my parents and sister for always encouraging, and helping me along my journey. I ♥︎ you guys so much!"
