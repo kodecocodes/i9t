@@ -46,7 +46,11 @@ Unlike most chapters in this book, you _won't_ write or extend an app in this ch
 
 Open the provided **Chapter1_Swift2.playground** file in Xcode 7 and you'll be ready to dive right into the chapter!
 
-> **Note:** When running Playgrounds in Xcode 7 GM you may often see error messages like the following in the Debug Area. `CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.` According to Apple engineers in the [developer forums (http://apple.co/1FbVE0l)](http://apple.co/1FbVE0l) it is safe to ignore these messages.
+> **Note:** When running Playgrounds in Xcode 7 GM you may often see error messages like the following in the Debug Area.
+> 
+> `CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.`
+> 
+> According to Apple engineers in the developer forums ([apple.co/1FbVE0l](http://apple.co/1FbVE0l)) it is safe to ignore these messages.
 
 ## Control Flow
 
@@ -163,18 +167,19 @@ struct Person: JSONParsable {
   let firstName: String
   let lastName: String
 
-  static func parse(json: [String : AnyObject]) throws -> Person {
-    guard let firstName = json["first_name"] as? String else {
-      let message = "Expected first_name String"
-      throw ParseError.MissingAttribute(message: message) // 1
-    }
+  static func parse(json: [String : AnyObject]) throws
+    -> Person {
+      guard let firstName = json["first_name"] as? String else {
+        let message = "Expected first_name String"
+        throw ParseError.MissingAttribute(message: message) // 1
+      }
 
-    guard let lastName = json["last_name"] as? String else {
-      let message = "Expected last_name String"
-      throw ParseError.MissingAttribute(message: message) // 2
-    }
+      guard let lastName = json["last_name"] as? String else {
+        let message = "Expected last_name String"
+        throw ParseError.MissingAttribute(message: message) // 2
+      }
 
-    return Person(firstName: firstName, lastName: lastName)
+      return Person(firstName: firstName, lastName: lastName)
   }
 }
 ```
@@ -297,21 +302,22 @@ Now each and every `StringValidator` you implement will have this method by defa
 Time to implement your very first `StringValidationRule`, starting with the first error type `.MustStartWith`. Add the following code to your playground:
 
 ```
-struct StartsWithCharacterStringValidationRule: StringValidationRule {
-  let characterSet: NSCharacterSet            // 1
-  let description: String                     // 2
-  var errorType: StringValidationError {      // 3
-    return .MustStartWith(set: characterSet,
-      description: description)
-  }
-
-  func validate(string: String) throws -> Bool {
-    if string.startsWithCharacterFromSet(characterSet) {
-      return true
-    } else {
-      throw errorType                         // 4
+struct StartsWithCharacterStringValidationRule
+  : StringValidationRule {
+    let characterSet: NSCharacterSet            // 1
+    let description: String                     // 2
+    var errorType: StringValidationError {      // 3
+      return .MustStartWith(set: characterSet,
+        description: description)
     }
-  }
+
+    func validate(string: String) throws -> Bool {
+      if string.startsWithCharacterFromSet(characterSet) {
+        return true
+      } else {
+        throw errorType                         // 4
+      }
+    }
 }
 ```
 
@@ -347,21 +353,22 @@ You should see the following output in your playground.
 Great work! You've written your first validation rule; now you can create one for "Must End With". Add the following to the playground:
 
 ```
-struct EndsWithCharacterStringValidationRule: StringValidationRule {
-  let characterSet: NSCharacterSet
-  let description: String
-  var errorType: StringValidationError {
-    return .MustEndWith(set: characterSet,
-      description: description)
-  }
-
-  func validate(string: String) throws -> Bool {
-    if string.endsWithCharacterFromSet(characterSet) {
-      return true
-    } else {
-      throw errorType
+struct EndsWithCharacterStringValidationRule
+  : StringValidationRule {
+    let characterSet: NSCharacterSet
+    let description: String
+    var errorType: StringValidationError {
+      return .MustEndWith(set: characterSet,
+        description: description)
     }
-  }
+
+    func validate(string: String) throws -> Bool {
+      if string.endsWithCharacterFromSet(characterSet) {
+        return true
+      } else {
+        throw errorType
+      }
+    }
 }
 ```
 
@@ -400,11 +407,12 @@ Now give your new validator a try! Add the following to the playground:
 ```
 let numberSet = NSCharacterSet.decimalDigitCharacterSet()
 
-let startsAndEndsWithValidator = StartsAndEndsWithStringValidator(
-  startsWithSet: letterSet,
-  startsWithDescription: "letter",
-  endsWithSet: numberSet,
-  endsWithDescription: "number")
+let startsAndEndsWithValidator =
+  StartsAndEndsWithStringValidator(
+    startsWithSet: letterSet,
+    startsWithDescription: "letter",
+    endsWithSet: numberSet,
+    endsWithDescription: "number")
 
 startsAndEndsWithValidator.validate("1foo").errors.description
 startsAndEndsWithValidator.validate("foo").errors.description
@@ -440,15 +448,16 @@ The first new rule is `LengthStringValidationRule` that has the following featur
 Both types can be combined in a `StringValidator` to ensure the String is between a specific range in length. Here's the rule implementation:
 
 ```
-public struct LengthStringValidationRule : StringValidationRule {
-  public enum Type {
-    case Min(length: Int)
-    case Max(length: Int)
-  }
-  public let type: Type
-  public var errorType: StringValidationError { get }
-  public init(type: Type)
-  public func validate(string: String) throws -> Bool
+public struct LengthStringValidationRule
+  : StringValidationRule {
+    public enum Type {
+      case Min(length: Int)
+      case Max(length: Int)
+    }
+    public let type: Type
+    public var errorType: StringValidationError { get }
+    public init(type: Type)
+    public func validate(string: String) throws -> Bool
 }
 ```
 
@@ -465,21 +474,22 @@ The second rule is `ContainsCharacterStringValidationRule`, with the following r
 Here's the implementation:
 
 ```
-public struct ContainsCharacterStringValidationRule : StringValidationRule {
-  public enum Type {
-    case MustContain
-    case CannotContain
-    case OnlyContain
-    case ContainAtLeast(Int)
-  }
-  public let characterSet: NSCharacterSet
-  public let description: String
-  public let type: Type
-  public var errorType: StringValidationError { get }
-  public init(characterSet: NSCharacterSet,
-    description: String,
-    type: Type)
-  public func validate(string: String) throws -> Bool
+public struct ContainsCharacterStringValidationRule
+  : StringValidationRule {
+    public enum Type {
+      case MustContain
+      case CannotContain
+      case OnlyContain
+      case ContainAtLeast(Int)
+    }
+    public let characterSet: NSCharacterSet
+    public let description: String
+    public let type: Type
+    public var errorType: StringValidationError { get }
+    public init(characterSet: NSCharacterSet,
+      description: String,
+      type: Type)
+    public func validate(string: String) throws -> Bool
 }
 ```
 
@@ -592,12 +602,14 @@ struct ATM {
     inout account: Account) throws {
 
     defer {
-      log += "Card for \(account.name) has been returned to customer.\n"
+      log += "Card for \(account.name) has been returned " +
+        "to customer.\n"
       ejectCard()
     }
 
     log += "====================\n"
-    log += "Attempted to dispense \(amount) from \(account.name)\n"
+    log += "Attempted to dispense \(amount) from " +
+      "\(account.name)\n"
 
     guard account.locked == false else {
       log += "Account Locked\n"
@@ -667,8 +679,10 @@ for case let .Late(daysLate) in authorStatuses {
 ```
 var slapLog = ""
 for author in authors {
-  if case .Late(let daysLate) = author.status where daysLate > 2 {
-    slapLog += "Ray slaps \(author.name) around a bit with a large trout.\n"
+  if case .Late(let daysLate) =
+    author.status where daysLate > 2 {
+      slapLog += "Ray slaps \(author.name) around a bit " +
+        "with a large trout.\n"
   }
 }
 ```
@@ -695,7 +709,8 @@ struct RectangleBorderOptions: OptionSetType {
   static let Right = RectangleBorderOptions(rawValue: 1)
   static let Bottom = RectangleBorderOptions(rawValue: 2)
   static let Left = RectangleBorderOptions(rawValue: 3)
-  static let All: RectangleBorderOptions = [Top, Right, Bottom, Left]
+  static let All: RectangleBorderOptions =
+    [Top, Right, Bottom, Left]
 }
 ```
 
@@ -721,13 +736,13 @@ The compiler will also you know if you've used a new API when your deployment ta
 While this chapter covered a lot of ground, you mostly just dipped your toes into each feature. There is a ton of power in the new features of Swift 2.0. And there are even more that were not covered here. It is highly recommended that you continue down the path of learning about Swift 2.0 features so that you can write better code and make better apps even faster. Never hesitate to crack open an  Xcode Playground and start hacking away, prototyping ideas has never been easier. One pro-tip is to keep a playground in your Mac's Dock so that you can jump right in at a moment's notice.
 
 You also should not miss the following WWDC 2015 sessions:
-- [What's New In Swift (http://apple.co/1IBTu8q)](https://developer.apple.com/videos/wwdc/2015/?id=106)
-- [Protocol-Oriented Programming in Swift (http://apple.co/1B8r2LE)](https://developer.apple.com/videos/wwdc/2015/?id=408)
-- [Building Better Apps with Value Types in Swift (http://apple.co/1KMQesY)](https://developer.apple.com/videos/wwdc/2015/?id=414)
-- [Improving Your Existing Apps with Swift (http://apple.co/1LiO462)](https://developer.apple.com/videos/wwdc/2015/?id=403)
-- [Swift and Objective-C Interoperability (http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=401)
-- [Swift in Practice (http://apple.co/1LPx2cq)](https://developer.apple.com/videos/wwdc/2015/?id=411)
+- What's New In Swift [apple.co/1IBTu8q](https://developer.apple.com/videos/wwdc/2015/?id=106)
+- Protocol-Oriented Programming in Swift [apple.co/1B8r2LE](https://developer.apple.com/videos/wwdc/2015/?id=408)
+- Building Better Apps with Value Types in Swift [apple.co/1KMQesY](https://developer.apple.com/videos/wwdc/2015/?id=414)
+- Improving Your Existing Apps with Swift [apple.co/1LiO462](https://developer.apple.com/videos/wwdc/2015/?id=403)
+- Swift and Objective-C Interoperability [apple.co/1He5uhh](https://developer.apple.com/videos/wwdc/2015/?id=401)
+- Swift in Practice [apple.co/1LPx2cq](https://developer.apple.com/videos/wwdc/2015/?id=411)
 
-All of these and more can be found at [https://developer.apple.com/videos/wwdc/2015/ (http://apple.co/1HXDwT7)](https://developer.apple.com/videos/wwdc/2015/).
+All of these and more can be found at [developer.apple.com/videos/wwdc/2015/](https://developer.apple.com/videos/wwdc/2015/).
 
-And of course keep the official [Swift Programming Language Book (http://apple.co/1n5tB6q)](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/index.html) handy!
+And of course keep the official Swift Programming Language Book ([apple.co/1n5tB6q](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/Swift_Programming_Language/index.html)) handy!
