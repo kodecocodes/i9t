@@ -11,23 +11,23 @@ In the last few years, Apple has worked to bring the camps of web and native app
 
 iOS 9 pulls the web and native worlds just a little closer with **universal links** and **web markup**, which let you provide deep links directly into your app and surface web content in Spotlight and Safari search.
 
-You probably have a bunch of ideas on how to use those features from that basic introduction alone, so jump straight in to the next section to see how to blur the lines between web and native apps.
+You probably have a bunch of ideas on how to use those features from that basic introduction alone, so jump straight into the next section to see how to blur the lines between web and native apps.
 
 ## Getting started
 
-Unlike the rest of this book, the "sample app" for this chapter is a real-world production app available on the App Store. You'll be working with the app for **RWDevCon**, the conference organized by the folks behind [raywenderlich.com](http://www.raywenderlich.com). You'll also be making some tweaks to its accompanying website: [rwdevcon.com](http://rwdevcon.com).
+Unlike the rest of this book, the "sample app" for this chapter is a real-world app available on the App Store. You'll be working with the app for **RWDevCon**, the conference organized by the folks behind [raywenderlich.com](http://www.raywenderlich.com). You'll also be making some tweaks to its accompanying website: [rwdevcon.com](http://rwdevcon.com).
 
 ![iPhone bordered](images/01-rwdevcon-screenshot.png)
 
 In the starter files for this chapter, you'll find both the code for the iOS app and the code for the website. There's quite a lot there, but don't be put off – you'll only be editing one or two files and adding some extra functionality to the videos section. Feel free to take a look through the project to familiarize yourself with its contents; you can also browse the real [RWDevCon website (http://rwdevcon.com)](http://rwdevcon.com) and download the iOS app from the App Store ([http://apple.co/1YoKMTi](http://apple.co/1YoKMTi)).
 
-> **Note:** Due to the infrastructure and security requirements for web markup and universal links, this chapter is unfortunately the only place in this book where you **won't** be able to verify your work as you follow along. There's just no easy way to try out these features without having a real website accessible via HTTPS and an associated app in the App Store under an account where you're either the team agent or the team admin.
+> **Note:** Due to the infrastructure and security requirements for web markup and universal links, this chapter is unfortunately the only place in this book where you **won't** be able to verify your work as you follow along. There's no easy way to try out these features without having a real website accessible via HTTPS and an associated app in the App Store under an account where you're either the team agent or the team admin.
 >
 > The rest of this chapter includes a number of tutorial sections to give you some experience with universal links and web markup. You won't be able to run the sample app on a device, since you won't have the required provisioning profiles, but you can still get an understanding of how everything fits together.
 
 ## Linking to your app
 
-If you've ever linked into a native app, either from a website or from another app, then you're probably familiar with the predecessor to universal links: **deep links**. Before diving into universal links, take a read through the following quick refresher on deep links so you'll know exactly how they differ from the new technology you'll explore in this chapter.
+If you've ever linked into a native app, either from a website or from another app, then you're probably familiar with the predecessor to universal links: **deep links**. Before diving into universal links, read through the following refresher on deep links so you'll know exactly how they differ from the new technology you'll explore in this chapter.
 
 ### Deep links
 
@@ -37,7 +37,7 @@ Once you've registered your custom scheme, you can link into your app from other
 
 This system worked fairly well for a long time (since iOS 3.0, in fact!) but it has some major drawbacks:
 
-- **Privacy:** In addition to `openURL(_:)`, `UIApplication` also has the method `canOpenURL(_:)`. The _intended_ purpose of this innocent-looking method is to check if there's an app installed on the device that can handle a specific URL. Unfortunately, this method was exploited to gather a list of installed apps; if you know that a particular device can open a `clownapp://` URL then it's very likely the device has the social clown app installed.
+- **Privacy:** In addition to `openURL(_:)`, `UIApplication` also has the method `canOpenURL(_:)`. The _intended_ purpose of this innocent-looking method is to check if there's an app installed on the device that can handle a specific URL. Unfortunately, this method was exploited to gather a list of installed apps; if you know that a particular device can open a `clownapp://` URL then you also know that the device has the social clown app installed.
 - **Collisions**: Facebook's custom URL scheme is `fb://`. There's nothing stopping another app from registering `fb://` as _their_ URL scheme and capturing Facebook's deep links. When two apps register for the same custom URL scheme, it's indeterminate which app will win out and launch.
 - **No fallback**: If iOS tries to open a link of a custom URL scheme that's not registered to _any_ app, the action fails silently.
 
@@ -45,9 +45,9 @@ iOS 9 solves many of these problems and more with universal links; instead of re
 
 ### Universal links
 
-If you owned the domain `clownapp.com`, you could register `http://clownapp.com/clowns/*` as a universal app link. If the user has your social clown app installed and taps the link `http://clownapp.com/clowns/fizbo` within Safari or a web view, they could be taken straight to Fizbo's profile within your app.
+If you owned the domain `clownapp.com`, you could register `http://clownapp.com/clowns/*` as a universal app link. If the user installs your social clown app and taps the link `http://clownapp.com/clowns/fizbo` within Safari or a web view, iOS takes them straight to Fizbo's profile within your app.
 
-If they don't have the app installed, they could be taken to the clown's information on your website, just as if they'd followed a standard HTTP link. You'll see the same behavior if you open the link with `openURL(_:)`.
+If they don't have the app installed, they are taken to the clown's information on your website, just as if they'd followed a standard HTTP link. You'll see the same behavior if you open the link with `openURL(_:)`.
 
 Universal links have other advantages over deep links:
 
@@ -102,7 +102,7 @@ Next, you have to create the link from your website to your native app. To do th
 
 The file must be named **apple-app-site-association** and it _must not_ have an extension — not even `.json`.
 
-This might look familiar to you, and for good reason! Apple introduced the **apple-app-site-association** file in iOS 8 to implement shared web credentials between your website and your app as well as for Handoff tasks between web and native apps.
+The file name might look familiar to you, and for good reason! Apple introduced the **apple-app-site-association** file in iOS 8 to implement shared web credentials between your website and your app as well as for Handoff tasks between web and native apps.
 
 The `applinks` section of this file determines which of your apps can handle particular URL paths on your website. Somewhat confusingly, the `"apps"` property should _always_ be an empty array.
 
@@ -110,7 +110,9 @@ The `details` section contains an array of dictionaries pairing an `appID` with 
 
 Your `appID` string consists of your **team ID** (`KFCNEC27GU` in this example) followed by your app's **bundle ID** (`com.razeware.RWDevCon` in this case).
 
-The team ID is supplied by Apple and is unique to a specific development team. `KFCNEC27GU` is specific to the Ray Wenderlich development team; you'll have a different identifier for your own account. If you don't know your team ID, the easiest way to find it is by logging into Apple's [developer member center (developer.apple.com/membercenter)](https://developer.apple.com/membercenter). Log in, click on **Your Account**, and then look for your team ID within the **Account Summary**:
+The team ID is supplied by Apple and is unique to a specific development team. `KFCNEC27GU` is specific to the Ray Wenderlich development team; you'll have a different identifier for your own account. 
+
+If you don't know your team ID, the easiest way to find it is by logging into Apple's [developer member center (developer.apple.com/membercenter)](https://developer.apple.com/membercenter). Log in, click on **Your Account**, and then look for your team ID within the account summary:
 
 ![bordered width=80%](/images/03-team-ID.png)
 
@@ -139,7 +141,7 @@ Since you don't have access to the web servers that host `www.rwdevcon.com`, you
 
 Before moving on to the next section, there are two caveats to consider when managing your site association file:
 
-1. If your app must target iOS 8 because it contains Continuity features such as Handoff and shared web credentials, you'll have to sign **apple-app-site-association** using `openssl`. You can read more about this process in Apple's [Handoff Programming Guide (http://apple.co/1yG4jR9)](http://apple.co/1yG4jR9).
+1. If your app must target iOS 8 because it contains Continuity features such as Handoff or shared web credentials, you'll have to sign **apple-app-site-association** using `openssl`. You can read more about this process in Apple's [Handoff Programming Guide (http://apple.co/1yG4jR9)](http://apple.co/1yG4jR9).
 
 2. Before you upload **apple-app-site-association** to your web server, run your JSON through an online validator such as [JSONLint (www.jsonlint.com)](http://www.jsonlint.com). Universal links won't work if there's even the slightest syntax error in your JSON file!
 
@@ -237,12 +239,12 @@ func application(application: UIApplication,
 
 The system calls this delegate method when there's an incoming universal HTTP link. Here's a breakdown of what each section does:
 
-1. As mentioned above, the system invokes this method for several types of `NSUserActivity`; `NSUserActivityTypeBrowsingWeb` is the type that corresponds to universal HTTP links. When you see a user activity of this type, you're guaranteed that the `NSUserActivity` instance will have its `webPageURL` property of type `NSURL?` set to something you can inspect. Therefore you can unwrap the optional.
+1. The system invokes this method for several types of `NSUserActivity`; `NSUserActivityTypeBrowsingWeb` is the type that corresponds to universal HTTP links. When you see a user activity of this type, you're guaranteed that the `NSUserActivity` instance will have its `webPageURL` property of type `NSURL?` set to something you can inspect. Therefore you can unwrap the optional.
 2. You use an instance of `NSURLComponents` to extract the URL's path; you can then use `sessionByWebPath(_:context:)` along with the URL to map to the correct `Session` object.
 3. `sessionByWebPath(_:context:)` returns an optional `Session`. If there's a value behind the optional, you use the session's `videoURL` property to present the video player using `presentVideoViewController(_:)`.
 4. If there's no value behind the optional, which can happen if you're handed a universal link the app can't understand, you simply launch the RWDevCon home page in Safari and return `false` to tell the system you couldn't handle the activity.
 
-> **Note:** `application(_:continueUserActivity:restorationHandler:)` may look familiar to you; Apple introduced this method of `UIApplicationDelegate` in iOS 8 to allow developers implement Handoff. It also makes an appearance in Chapter 2, "Introducing App Search", which deals with the new search APIs in iOS 9. This method is truly a jack-of-all-trades!
+> **Note:** `application(_:continueUserActivity:restorationHandler:)` may look familiar to you; Apple introduced this `UIApplicationDelegate` method in iOS 8 to allow developers to implement Handoff. It also makes an appearance in Chapter 2, "Introducing App Search", which deals with the new search APIs in iOS 9. This method is a jack of all trades!
 
 Although you won't be able to validate the code you just wrote, it's still useful to see how to handle an incoming link. To see what the final result should look like, download the RWDevCon app from the App Store ([apple.co/1YoKMTi](http://apple.co/1YoKMTi)).
 
@@ -260,7 +262,7 @@ Looks great! Now return to your mail client and tap the second link. The app ope
 
 The RWDevCon app neatly handles the universal links it recognizes, but gracefully falls back to Safari for any that it doesn't.
 
-Besides tapping a link, you can also loading the URL directly in Safari, a `WKWebView`, a `UIWebView`, or use `openURL(_:)` on an instance of `UIApplication` to trigger your app to handle a universal link.
+Besides tapping a link, you can also load the URL directly in Safari, a `WKWebView`, a `UIWebView`, or use `openURL(_:)` on an instance of `UIApplication` to trigger your app to handle a universal link.
 
 Did you notice the banner at the top of the previous screenshot? That's a **Smart App Banner**; you'll learn more about those in the second half of the chapter.
 
@@ -270,9 +272,9 @@ Now that you know how to implement and handle universal links in iOS 9, it's tim
 
 Search includes three different APIs: `NSUserActivity`, `CoreSpotlight` and web markup. Chapter 2 covered `NSUserActivity` and `CoreSpotlight`; it's well worth a read through that chapter if you haven't done so already.
 
-Search results that appear in Spotlight and in Safari can now include content from native apps in iOS 9, and you can use Web markup to get your app's content to surface in those search results. If you have a website that mirrors your app's content, you can mark up its web pages with standards-based markup, Smart App Banners, and universal links your native app understands.
+Search results that appear in Spotlight and in Safari can now include content from native apps in iOS 9, and you can use web markup to get your app's content to surface in those search results. If you have a website that mirrors your app's content, you can mark up its web pages with standards-based markup, Smart App Banners, and universal links your native app understands.
 
-Apple's web crawler, lovingly named "Applebot", will then crawl your website and index your mobile links. When iOS users search for relevant keywords, Apple can surface your content _even if users don't have your app installed_. In other words, optimizing your markup on your site helps you earn new downloads in an organic fashion.
+Apple's web crawler, lovingly named "Applebot", will then crawl your website and index your mobile links. When iOS users search for relevant keywords, Apple can surface your content _even if users don't have your app installed_. In other words, optimizing your markup on your site helps you get new downloads organically.
 
 ### Making your website discoverable
 
@@ -298,7 +300,7 @@ Here's the Smart App Banner from the last section up close:
 
 ![bordered height=20%](/images/09-app-banner-1.png)
 
-This particular Smart App Banner promotes the RWDevCon iOS app on the RWDevCon website. Since Safari's detected that the visitor has the app installed, the banner says **OPEN**; otherwise, the Smart App Banner would say **VIEW** and take you to the App Store page for theRWDevCon app. That's why they call them "smart" banners! :]
+This particular Smart App Banner promotes the RWDevCon iOS app on the RWDevCon website. Since Safari's detected that the visitor has the app installed, the banner says **OPEN**; otherwise, the Smart App Banner would say **VIEW** and take you to the App Store page for the RWDevCon app. That's why they call them "smart" banners! :]
 
 iOS 9 brings new uses to Smart App Banners by making them an integral part of search. In addition to their day job as marketing tools, Smart App Banners can also help surface universal links for Applebot to crawl and index.
 
@@ -315,7 +317,7 @@ The `name` attribute of this `meta` tag is very important, and must always be **
 The `content` attribute contains two important parameters:
 
 - **app-id**: This parameter corresponds to your app's Apple ID. Yes, apps have Apple IDs too! But this is different from the sort of Apple ID you use to log into iCloud. Your app's Apple ID is simply a unique number; all apps on the App Store have them. The easiest way to find your app's ID is to log into iTunes Connect, click **My Apps** and then navigate to the app in question. The Apple ID for RWDevCon is `958625272`; the ID would be different for your own app.
-- **app-argument:** This contains the URL Safari will pass back to the app – if it's installed. Prior to iOS 9, the value of this parameter was a custom URL scheme deep link, but Apple now strongly recommends you switch this to universal links.
+- **app-argument:** This contains the URL Safari will pass back to the app if it's installed. Prior to iOS 9, the value of this parameter was a custom URL scheme deep link, but Apple now strongly recommends you switch to HTTP/HTTPS universal links.
 
 > **Note:** This was a quick overview of Smart App Banners. To learn more about their full capabilities, read Ray's [Smart App Banners tutorial (http://bit.ly/1iYlyea)](http://www.raywenderlich.com/80347/smart-app-banners-tutorial) as well as the [Safari Web Content Guide (http://apple.co/1KYeI4I)](http://apple.co/1KYeI4I).
 
@@ -339,9 +341,9 @@ And with Facebook's App Links:
 <meta property="al:ios:url" content="http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
 ```
 
-> **Note**: To learn more, read through Twitter's [documentation page on Cards (https://dev.twitter.com/cards/mobile)](http://bit.ly/1REZOkC) as well as Facebook's [App Links documentation (http://applinks.org)](http://applinks.org).
+> **Note**: To learn more, read through Twitter's [documentation page on Twitter Cards (https://dev.twitter.com/cards/mobile)](http://bit.ly/1REZOkC) as well as Facebook's [App Links documentation (http://applinks.org)](http://applinks.org).
 
-Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry, Ray's kind of picky about things like that), you won't be able to see your changes in action. However, you can see it in action using the RWDevCon app from the App Store.
+Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry, Ray's kind of picky about things like that), you won't be able to see your changes in action. However, you can see how it's supposed to work using the RWDevCon app from the App Store.
 
 Use mobile Safari to load <http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html>. The top of the web page should look like this:
 
@@ -354,6 +356,8 @@ You can verify this behavior by navigating to the site root <http://www.rwdevcon
 > **Note:** Smart App Banners don't work on the iOS simulator, so you must use a device to view and interact with the banners.
 
 Tap the thin banner; Safari opens the RWDevCon app and plays the correct video via your implementation of `application(_:continueUserActivity:restorationHandler:)` in the previous section.
+
+**CONTINUE HERE!**
 
 ### Semantic markup using Open Graph
 
