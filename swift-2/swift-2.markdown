@@ -46,7 +46,11 @@ Unlike most chapters in this book, you _won't_ write or extend an app in this ch
 
 Open the provided **Chapter1_Swift2.playground** file in Xcode 7 and you'll be ready to dive right into the chapter!
 
-> **Note:** When running Playgrounds in Xcode 7 GM you may often see error messages like the following in the Debug Area. `CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.` According to Apple engineers in the developer forums ([apple.co/1FbVE0l](http://apple.co/1FbVE0l)) it is safe to ignore these messages.
+> **Note:** When running Playgrounds in Xcode 7 GM you may often see error messages like the following in the Debug Area.
+> 
+> `CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.`
+> 
+> According to Apple engineers in the developer forums ([apple.co/1FbVE0l](http://apple.co/1FbVE0l)) it is safe to ignore these messages.
 
 ## Control Flow
 
