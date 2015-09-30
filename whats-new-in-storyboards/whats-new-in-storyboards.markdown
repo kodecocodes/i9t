@@ -1,7 +1,7 @@
 ```metadata
-author: Caroline Begbie
-number: 9
-title: What's New in Storyboards?
+author: "By Caroline Begbie"
+number: "9"
+title: "Chapter 9: What's New in Storyboards?"
 ```
 
 # Chapter 9: What's New in Storyboards?

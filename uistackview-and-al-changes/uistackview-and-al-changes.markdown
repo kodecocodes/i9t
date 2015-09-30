@@ -1,7 +1,7 @@
 ```metadata
-author: Jawwad Ahmad
-number: 7
-title: UIStackView and Auto Layout changes
+author: "By Jawwad Ahmad"
+number: "7"
+title: "Chapter 7: UIStackView and Auto Layout changes"
 ```
 
 # Chapter 7: UIStackView and Auto Layout changes

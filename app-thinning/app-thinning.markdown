@@ -1,7 +1,7 @@
 ```metadata
-author: Derek Selander
-number: 4
-title: App Thinning
+author: "By Derek Selander"
+number: "4"
+title: "Chapter 4: App Thinning"
 ```
 
 # Chapter 4: App Thinning

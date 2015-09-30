@@ -1,7 +1,7 @@
 ```metadata
-author: Chris Wagner
-number: 2
-title: Introducing App Search
+author: "By Chris Wagner"
+number: "2"
+title: "Chapter 2: Introducing App Search"
 ```
 
 # Chapter 2: Introducing App Search

@@ -1,7 +1,7 @@
 ```metadata
-author: Pietro Rea
-number: 3
-title: Your App on the Web
+author: "By Pietro Rea"
+number: "3"
+title: "Chapter 3: Your App on the Web"
 ```
 # Chapter 3: Your App on the Web
 

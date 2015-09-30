@@ -1,7 +1,7 @@
 ```metadata
-author: Chris Wagner
-number: 1
-title: Swift 2.0
+author: "By Chris Wagner"
+number: "1"
+title: "Chapter 1: Swift 2.0"
 ```
 
 # Chapter 1: Swift 2.0

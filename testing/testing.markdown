@@ -1,7 +1,7 @@
 ```metadata
-author: Pietro Rea
-number: 13
-title: Testing
+author: "By Pietro Rea"
+number: "13"
+title: "Chapter 13: Testing"
 ```
 
 # Chapter 13: Testing

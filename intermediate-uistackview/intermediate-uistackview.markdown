@@ -1,7 +1,7 @@
 ```metadata
-author: Jawwad Ahmad
-number: 8
-title: Intermediate UIStackView
+author: "By Jawwad Ahmad"
+number: "8"
+title: "Chapter 8: Intermediate UIStackView"
 ```
 
 # Chapter 8: Intermediate UIStackView

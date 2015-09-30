@@ -1,7 +1,7 @@
 ```metadata
-author: Aaron Douglas
-number: 11
-title: UIKit Dynamics
+author: "By Aaron Douglas"
+number: "11"
+title: "Chapter 11: UIKit Dynamics"
 ```
 
 # Chapter 11: UIKit Dynamics

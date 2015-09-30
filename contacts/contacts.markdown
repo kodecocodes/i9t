@@ -1,7 +1,7 @@
 ```metadata
-author: Evan Dekhayser
-number: 12
-title: Contacts
+author: "By Evan Dekhayser"
+number: "12"
+title: "Chapter 12: Contacts"
 ```
 
 # Chapter 12: Contacts

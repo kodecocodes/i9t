@@ -1,7 +1,7 @@
 ```metadata
-author: Caroline Begbie
-number: 10
-title: Custom Segues
+author: "By Caroline Begbie"
+number: "10"
+title: "Chapter 10: Custom Segues"
 ```
 
 # Chapter 10: Custom Segues

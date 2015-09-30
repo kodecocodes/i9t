@@ -1,7 +1,7 @@
 ```metadata
-author: Soheil Azarpour
-number: 5
-title: Multitasking
+author: "By Soheil Azarpour"
+number: "5"
+title: "Chapter 5: Multitasking"
 ```
 
 # Chapter 5: Multitasking

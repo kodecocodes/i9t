@@ -1,7 +1,7 @@
 ```metadata
-author: Vincent Ngo
-number: 14
-title: Location and Mapping
+author: "By Vincent Ngo"
+number: "14"
+title: "Chapter 14: Location and Mapping"
 ```
 
 # Chapter 14: Location and Mapping

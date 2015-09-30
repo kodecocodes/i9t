@@ -1,7 +1,7 @@
 ```metadata
-author: Jawwad Ahmad
-number: 15
-title: What's New in Xcode?
+author: "By Jawwad Ahmad"
+number: "15"
+title: "Chapter 15: What's New in Xcode?"
 ```
 
 # Chapter 15: What's New in Xcode?
