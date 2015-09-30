@@ -157,7 +157,7 @@ class func sessionByWebPath(path: String,
 
     let fetch = NSFetchRequest(entityName: "Session")
     fetch.predicate =
-      NSPredicate(format: "webPath = %@", [path])
+      NSPredicate(format: "webPath = %@", path)
 
     do {
       let results = try context.executeFetchRequest(fetch)
