@@ -227,7 +227,7 @@ Build and run your app; verify that the popover transitions to a modal fullscree
 
 ### The path to adaptivity
 
-If you're not already using Auto Layout, Size Classes or other excellent responsive layout tools in UIKit, you should definitely consider upgrading your code to do so. UIKit has some new functionality to further assist you with multitasking, including `UIStackView`,  `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth`. Want more information on this functionality? Chapter 7, "UIStackView and Auto Layout Changes" has you covered.
+If you're not already using Auto Layout, Size Classes or other excellent responsive layout tools in UIKit, you should definitely consider upgrading your code to do so. UIKit has some new functionality to further assist you with multitasking, including `UIStackView`,  `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth`. Want more information on this functionality? Chapter 7, "UIStackView & Auto Layout Changes" has you covered.
 
 ## Other considerations
 

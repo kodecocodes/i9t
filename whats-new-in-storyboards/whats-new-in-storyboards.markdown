@@ -216,7 +216,7 @@ Now **Ctrl-drag** from the text view to `ChecklistDetailViewController` to creat
 
 Finally, it's time to write some code! :] You'll use another new feature of iOS 9, _UIStackView_, to add and remove the notes view from a cell with an animation.
 
-> **Note:** To learn more about UIStackView, be sure to check out chapter 7, "UIStackView and Auto Layout Changes", and chapter 8, "Intermediate UIStackView".
+> **Note:** To learn more about UIStackView, be sure to check out chapter 7, "UIStackView & Auto Layout Changes", and chapter 8, "Intermediate UIStackView".
 
 In **ChecklistDetailViewController.swift**, add the following method to the bottom of the main class implementation:
 

@@ -1,10 +1,10 @@
 ```metadata
 author: "By Jawwad Ahmad"
 number: "7"
-title: "Chapter 7: UIStackView and Auto Layout changes"
+title: "Chapter 7: UIStackView & Auto Layout changes"
 ```
 
-# Chapter 7: UIStackView and Auto Layout changes
+# Chapter 7: UIStackView & Auto Layout changes
 
 We've all been there. That annoying moment when you needed to add or remove a view at runtime and wished that other views knew how to reposition themselves automatically.
 
