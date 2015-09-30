@@ -4,6 +4,8 @@ segments:
   - kind: chapter
     path: introducing-app-search/introducing-app-search.markdown
   - kind: chapter
+    path: your-app-on-the-web/your-app-on-the-web.markdown
+  - kind: chapter
     path: app-thinning/app-thinning.markdown
   - kind: chapter
     path: multitasking/multitasking.markdown
