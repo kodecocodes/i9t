@@ -45,9 +45,13 @@ Instead, we suggest a pragmatic approach — pick and choose the chapters that i
 
 Looking for some recommendations of important chapters to start with? Here's our suggested Core Reading List: 
 
--
+- Chapter 1, "Swift 2.0"
+- Chapter 2, "Introducing App Search"
+- Chapter 4, "App Thinning"
+- Chapter 6, "3D Touch"
+- Chapter 7, "UIStackView and Auto Layout changes"
 
-That covers the "Big 7" topics of iOS 9; from there you can dig into other topics of particular interest to you. 
+That covers the "Big 5" topics of iOS 9; from there you can dig into other topics of particular interest to you. 
 
 
 ## Book overview
@@ -59,15 +63,16 @@ iOS 9 has a selection of new technologies and APIs that cover the entire OS. Her
 3. __Chapter 3, Your App on the Web:__ Deep linking will allow you to direct users browsing your website directly to the correct point inside your iOS app. Find out how to integrate this functionality in your own site and app as you follow along with updating the RWDevCon website and app!
 4. __Chapter 4, App Thinning:__ App Thinning describes a collection of new App Store technologies that ensure that users downloading your app only download exactly what their specific device requires. Discover what you need to do to adopt App Thinning, together with how you can split your app's resources up into chunks that are only downloaded from the App Store when they are required.
 5. __Chapter 5, Multitasking:__ Completely new to iOS 9 is the ability to run two apps side-by-side on iPads. Get up to speed on what you need to do to ensure your apps are ready for multitasking.
-6. __Chapter 6, UIStackView & Auto Layout Changes:__ Stack views will change the way you build your interfaces. They remove a lot of the boilerplate Auto Layout and make it really easy to construct simple layouts. Learn the basics of stack views and many of the other new Auto Layout features.
-7. __Chapter 7, Intermediate UIStackView:__ Dive deeper into stack views — covering nesting, animation and working with them in code.
-8. __Chapter 8, What's New in Storyboards?:__ Ever faced the problem of unmanageably large storyboards? Discover how to refactor your huge storyboard into smaller segments with new storyboard references.
-9. __Chapter 9, Custom Segues:__ Creating custom view controller transitions has never been an easy task, but iOS 9 chips away at some of the complexity. Learn how to create your own custom segues to make custom transitions between view controllers far easier to understand.
-10. __Chapter 10, UIKit Dynamics:__ iOS 9 includes loads of great improvements to UIKit Dynamics — making it really easy to model complex physics animations within your apps. Learn all about the new behaviors and debugging improvements as you build a real-world example.
-11. __Chapter 11, Contacts:__ Accessing the on-device contacts has been challenging in the past — with a C-level API. iOS 9 introduces two new frameworks to ease interaction with the contacts. Discover how to integrate with the device address book in a much simpler manner.
-12. __Chapter 12, Testing:__ Xcode 7 now includes a fully-featured solution for creating UI tests for your application. Discover how to add UI tests to your own apps, and review some of the other improvements to testing.
-13. __Chapter 13, Location & Mapping:__ It's finally possible to choose your favorite color for a map pin! Learn about this, transit directions, Core Location enhancements and more!
-14. __Chapter 14, What's New in Xcode?:__ There's loads of cool new stuff in iOS 9, but don't forget about your friendly IDE! Learn how the improved gauges make optimizing your app really easy, along with many other new features.
+6. __Chapter 6, 3D Touch:__ The iPhone 6s and iPhone 6s Plus introduced a new technology called 3D Touch. Discover how to detect the force of a touch in iOS 9, and the new interaction paradigms—such as pop and peek—that come along with it.
+7. __Chapter 7, UIStackView and Auto Layout changes:__ Stack views will change the way you build your interfaces. They remove a lot of the boilerplate Auto Layout and make it really easy to construct simple layouts. Learn the basics of stack views and many of the other new Auto Layout features.
+8. __Chapter 8, Intermediate UIStackView:__ Dive deeper into stack views — covering nesting, animation and working with them in code.
+9. __Chapter 9, What's New in Storyboards?:__ Ever faced the problem of unmanageably large storyboards? Discover how to refactor your huge storyboard into smaller segments with new storyboard references.
+10. __Chapter 10, Custom Segues:__ Creating custom view controller transitions has never been an easy task, but iOS 9 chips away at some of the complexity. Learn how to create your own custom segues to make custom transitions between view controllers far easier to understand.
+11. __Chapter 11, UIKit Dynamics:__ iOS 9 includes loads of great improvements to UIKit Dynamics — making it really easy to model complex physics animations within your apps. Learn all about the new behaviors and debugging improvements as you build a real-world example.
+12. __Chapter 12, Contacts:__ Accessing the on-device contacts has been challenging in the past — with a C-level API. iOS 9 introduces two new frameworks to ease interaction with the contacts. Discover how to integrate with the device address book in a much simpler manner.
+13. __Chapter 13, Testing:__ Xcode 7 now includes a fully-featured solution for creating UI tests for your application. Discover how to add UI tests to your own apps, and review some of the other improvements to testing.
+14. __Chapter 14, Location & Mapping:__ It's finally possible to choose your favorite color for a map pin! Learn about this, transit directions, Core Location enhancements and more!
+15. __Chapter 15, What's New in Xcode?:__ There's loads of cool new stuff in iOS 9, but don't forget about your friendly IDE! Learn how the improved gauges make optimizing your app really easy, along with many other new features.
 
 ## Book source code and forums
 
