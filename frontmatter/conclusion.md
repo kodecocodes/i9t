@@ -1,7 +1,6 @@
 ```metadata
-number: C
-title: Conclusion
-author:
+number: "C"
+title: "Conclusion"
 ```
 
 # Conclusion
