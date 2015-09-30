@@ -118,6 +118,7 @@ Select each value to see how it affects the placement of the labels in the stack
 **Leading:**
 ![bordered width=96%](images/16-alignment-leading_640x64.png)
 
+$[break]
 **Center:**
 ![bordered width=96%](images/17-alignment-center_640x64.png)
 
@@ -151,8 +152,9 @@ Top: 20, Leading: 0, Trailing: 0, Bottom: 20
 ```
 5. Set the stack view's **Alignment** to **Fill**.
 
+$[break]
 Your storyboard should now look like this:
-![bordered width=66%](images/20-after-what-to-see-section_640x308.png)
+![bordered width=60%](images/20-after-what-to-see-section_640x308.png)
 
 Build and run to verify that everything still looks the same.
 
@@ -163,7 +165,7 @@ That leaves you with just the **weather** section left. But first, indulge in a 
 The `alignment` property is an enum of type `UIStackViewAlignment`. Its possible values in the vertical direction are `.Fill`, `.Leading`, `.Center`, and `.Trailing` which you saw in the previous section.
 
 The possible `alignment` values for a _horizontal_ stack view differ slightly:
-![width=80%](images/21-horizontal-and-vertical-alignment_594x171.png)
+![width=70%](images/21-horizontal-and-vertical-alignment_594x171.png)
 
 It has `.Top` instead of `.Leading` and has `.Bottom` instead of `.Trailing`. There are also two more properties that are valid only in the horizontal direction, `.FirstBaseline` and `.LastBaseline`.
 
@@ -171,27 +173,27 @@ Here's are some visuals to illustrate how each value works:
 
 ### Horizontal axis:
 Here labels of different widths are aligned according to each value:
-![bordered width=90%](images/22-horizontal-alignment_1200x223.png)
+![bordered width=70%](images/22-horizontal-alignment_1200x223.png)
 
 Now if the labels were the same width and the stack view was not stretched beyond its intrinsic width with a constraint, it wouldn't matter what value was chosen since they would all just fill the stack view.
 
 ### Vertical axis:
 Here the labels are configured with different font sizes to give them different intrinsic heights, in order to demonstrate the different values:
-![bordered width=90%](images/23-vertical-alignment_1200x206.png)
+![bordered width=80%](images/23-vertical-alignment_1200x206.png)
 
 ### FirstBaseline and LastBaseline:
 
 These values are valid only in a horizontal stack view. `FirstBaseline` uses the baseline of the _first_ line in multi-line text, and `LastBaseline` uses the baseline of the _last_ line in multi-line text.
 
-![bordered width=90%](images/24-baseline-alignment_1200x232.png)
+![bordered width=80%](images/24-baseline-alignment_1200x232.png)
 
 ## Convert the weather section
 
 The next task is to add the **weather** section to a stack view. You'll start by adding it to a stack view.
-![bordered width=33%](images/25-stack_view_easy_peasy_318x295.png)
+![width=33%](images/25-stack_view_easy_peasy_318x295.png)
 
 Remember that little **Hide** button? Get ready, because this stack view is a bit more complex due to the inclusion of the **Hide** button.
-![bordered width=33%](images/26-yeah_i_got_this_251x234.png)
+![width=33%](images/26-yeah_i_got_this_251x234.png)
 
 ### One possible approach
 
@@ -208,14 +210,14 @@ Remember that `alignment` specifies positioning perpendicular to the stack view.
 ![bordered width=100%](images/28-weather-stack-in-stack-alignment-bottom_640x92.png)
 
 But you really don't want the height of the **Hide** button to dictate the height of the stack view.
-![bordered width=40%](images/29-developer_to_do_331x290.png)
+![width=35%](images/29-developer_to_do_331x290.png)
 
 When the `alignment` of a stack view is set to `fill` and the views are of different sizes in the alignment direction, the stack view determines which views to compress or expand based on the relative content hugging priorities or the content compression resistance priorities of its views.
 
 In your case, the stack view decides to expand the **WEATHER** label because its vertical content hugging priority of 251 is less than the **Hide** button's compression resistance priority of 750.
 
 You _could_ decrease the **Hide** button's vertical compression resistance priority to 200 which would cause the stack view to compress the **Hide** button instead:
-![bordered width=100%](images/30-decrease-compression-resistence-priority_640x92.png)
+![bordered width=90%](images/30-decrease-compression-resistence-priority_640x92.png)
 
 However, this isn't ideal since it would reduce the size of the tap target of the button.
 
@@ -228,10 +230,10 @@ It will remain a subview of the top-level view, and you'll add a constraint from
 ### Change the weather section – for real
 
 You can once again start following along in Xcode. Select the **WEATHER** label and the **&lt;weatherInfoLabel>** below it:
-![bordered width=100%](images/32-select-weather-and-info-label_640x92.png)
+![bordered width=90%](images/32-select-weather-and-info-label_640x92.png)
 
 Click on the **Stack** button:
-![bordered width=100%](images/33-weather-click-stack-button_640x92.png)
+![bordered width=90%](images/33-weather-click-stack-button_640x92.png)
 
 Click on the **Pin** button, checkmark **Constrain to margins** and add the following **four** constraints:
 
@@ -240,7 +242,7 @@ Top: 20, Leading: 0, Trailing: 0, Bottom: 20
 ```
 
 Set the stack view's **Alignment** to **Fill**:
-![bordered width=100%](images/34-weather-alignment-fill_640x92.png)
+![bordered width=90%](images/34-weather-alignment-fill_640x92.png)
 
 You need a constraint between the **Hide** button's left edge and the **WEATHER** label's right edge, so having the **WEATHER** label fill the stack view won't work.
 
@@ -249,13 +251,13 @@ However, you _do_ want the bottom **&lt;weatherInfoLabel>** to fill the stack vi
 You can accomplish this by embedding just the **WEATHER** label into a vertical stack view. Remember that the `alignment` of a vertical stack view can be set to `.Leading`, and if the stack view is stretched beyond its intrinsic width, its contained views will remain aligned to its leading side.
 
 Select the **WEATHER** label using the document outline, or by using the **Control-Shift-click** trick you learned in the previous chapter:
-![bordered width=100%](images/35-select-just-the-weather-label_640x92.png)
+![bordered width=90%](images/35-select-just-the-weather-label_640x92.png)
 
 Then click on the **Stack** button:
-![bordered width=100%](images/36-weather-in-horizontal-stack_640x92.png)
+![bordered width=90%](images/36-weather-in-horizontal-stack_640x92.png)
 
 Set **Alignment** to **Leading**, and make sure **Axis** is set to **Vertical**:
-![bordered width=100%](images/37-vertical-and-leading_640x92.png)
+![bordered width=90%](images/37-vertical-and-leading_640x92.png)
 
 Perfect! You've got the outer stack view stretching the inner stack view to fill the width, but the inner stack view allows the label to keep its original width!
 
@@ -283,11 +285,14 @@ Now that all the sections are in unique stack views, you're set to embed them al
 Then click on the **Stack** button:
 ![bordered width=80%](images/43-stack-all-the-views_640x185.png)
 
-Click the **Pin** button, checkmark **Constrain to margins** add constraints of **0** to all edges. Then set **Spacing** to **20** and **Alignment** to **Fill**. Your storyboard scene should now look like this:
+Click the **Pin** button, checkmark **Constrain to margins** add constraints of **0** to all edges. Then set **Spacing** to **20** and **Alignment** to **Fill**. 
+
+$[break]
+Your storyboard scene should now look like this:
 ![bordered width=73%](images/44-set-the-spacing-to-20-and-alignment-to-fill_640x300.png)
 
 Build and run:
-![bordered width=40%](images/45-hide-button-lost-again_750x487.png)
+![bordered width=35%](images/45-hide-button-lost-again_750x487.png)
 
 Whoops! Looks like the hide button lost its constraints again when the **WEATHER** stack view was embedded in the outer stack view. No biggie, just add constraints to it again in the same way you did before.
 
@@ -306,7 +311,7 @@ Select the **middle stack view** from the outline view and **drag it between** t
 ![bordered width=80%](images/47-drag-and-drop-to-reposition-section_639x130.png)
 
 And now the **weather** section is third from the top, but since the **Hide** button isn't part of the stack view, it won't be moved, so its frame will now be misplaced and the Hide button will look like it's lost its mind again.
-![bordered width=33%](images/48-seriously_not_again_308x277.png)
+![width=33%](images/48-seriously_not_again_308x277.png)
 
 Click on the **Hide** button to select it:
 ![bordered width=80%](images/49-hide-button-not-moved_640x130.png)
@@ -352,7 +357,7 @@ Choose **Any Width** > **Compact Height**:
 And set the **Spacing** to **10** in the new **wAny hC** field:
 ![bordered width=33%](images/54-set-spacing-to-10_260x160.png)
 
-Build and run. Portrait mode should be unchanged, so rotate the simulator (⌘←) to see your handiwork. Note that spacing between the sections has decreased and the buttons now have ample space from the bottom of the view:
+Build and run. Portrait mode should be unchanged, so rotate the simulator (⌘←) to see your handiwork. Note that spacing between the sections has decreased and the buttons now have ample space from the bottom of the view.
 ![bordered iphone-landscape](images/55-spacing-in-iphone-landscape_1334x750.png)
 
 If you didn't add a top-level stack view, you still _could_ have used size classes to set the vertical spacing to 10 on each of the four constraints that separate the five sections, but isn't it so much better to set it in just a single place?
@@ -422,8 +427,9 @@ You can even animate the `axis`, and in fact, that's what you'll do next.
 Open **Main.storyboard** and locate the stack view for the **rating** section in the outline view. Open the assistant editor and **Control-drag** to **SpotInfoViewController** to create an outlet:
 ![bordered width=96%](images/56-create-outlet_1076x181.png)
 
+$[break]
 Name the outlet **ratingStackView** and click on **Connect**:
-![bordered width=60%](images/57-name-outlet_594x168.png)
+![bordered width=55%](images/57-name-outlet_594x168.png)
 
 Close the assistant editor and now open **SpotInfoViewController.swift** in the main editor. In `updateWeatherInfoViews(hideWeatherInfo:animated:)` replace the following nil completion block:
 

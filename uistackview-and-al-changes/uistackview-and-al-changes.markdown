@@ -15,7 +15,7 @@ Perhaps you're one of the lucky ones, and your view hierarchy didn't have to cha
 I bet you've found yourself clearing all constraints and re-adding them from scratch because it was easier than breaking out your virtual scalpel and performing painstaking _constraints-surgery_.
 
 With the introduction of `UIStackView`, the above tasks become trivial. No more will you find yourself lying awake at night wondering how to wrangle your views!
-![bordered width=35%](images/01-more_time_for_sleep_367x310.png)
+![width=40%](images/01-more_time_for_sleep_367x310.png)
 
 Stack views provide a way to horizontally or vertically position a series of views. By configuring a few simple properties such as alignment, distribution, and spacing, you can define how the contained views adjust themselves to the available space.
 
@@ -33,7 +33,7 @@ Towards the end of this chapter, you'll also fix another issue with the use of l
 
 Open **VacationSpots-Starter**, and run it on the **iPhone 6 Simulator**. The first thing you'll notice is the name and location label in a few cells are off center.
 
-![bordered iphone](images/02-alignment-issue-on-table-view_750x1334.png)
+![bordered iphone width=30%](images/02-alignment-issue-on-table-view_750x1334.png)
 
 Both labels should be centered vertically (as a group) so there is an equal amount of space above the name label, and below the location label – you'll fix this towards the end of the chapter with a layout guide. For now, go to the info view for London by tapping on the **London** cell.
 
@@ -69,7 +69,10 @@ for view in backgroundColoredViews {
 }
 ```
 
-Also, any outlet-connected labels have placeholder text that's set to the name of the outlet variable to which they are connected. This makes it a bit easier to tell which labels will have their text updated at runtime. For example, the label with text **&lt;whyVisitLabel>** is connected to:
+Also, any outlet-connected labels have placeholder text that's set to the name of the outlet variable to which they are connected. This makes it a bit easier to tell which labels will have their text updated at runtime. 
+
+$[break]
+For example, the label with text **&lt;whyVisitLabel>** is connected to:
 
 ```swift
 @IBOutlet weak var whyVisitLabel: UILabel!
@@ -90,6 +93,7 @@ Fortunately, embedding existing views into a new stack view is not rocket scienc
 If the outline view isn't already open, go ahead and open it by using the **Show Document Outline** button at the bottom left of the storyboard canvas:
 ![bordered width=20%](images/08-document-outline-button_120x40.png)
 
+$[break]
 Verify that all 3 buttons are selected by checking them in the outline view:
 ![bordered width=54%](images/09-verify-button-selection_360x90.png)
 
@@ -111,6 +115,7 @@ When you embed a view in a stack view, any constraints to other views are remove
 Click on the **Submit Rating** button to see that it no longer has any constraints attached to it:
 ![bordered width=60%](images/13-no-more-constraints_400x80.png)
 
+$[break]
 Another way to verify that the constraints are gone is by looking at the **Size inspector** (⌥⌘5):
 ![bordered width=96%](images/14-check-size-inspector_640x80.png)
 
@@ -133,7 +138,10 @@ First add a check to **Constrain to margins**. Then add the following constraint
 Top: 20, Leading: 0, Trailing: 0, Bottom: 0
 ```
 
-Double-check the numbers for the top, leading, trailing, and bottom constraints and make sure that the **I-beams** are selected. Then click on **Add 4 Constraints**:
+Double-check the numbers for the top, leading, trailing, and bottom constraints and make sure that the **I-beams** are selected. 
+
+$[break]
+Then click on **Add 4 Constraints**:
 ![bordered width=30%](images/18-bottom-stack-view-constraints_264x364.png)
 
 Now the stack view is the correct size, but it has stretched the first button to fill in any extra space:
@@ -167,18 +175,18 @@ Perhaps you're a seasoned Auto Layout veteran, and adding constraints like these
 You'd still have optimized your layout by not having to include unnecessary spacer views, but even if you ignore this benefit, think about the long term.
 
 What happens when you need to add a new button? Oh, right, you could just add a new button because it's not too difficult for an expert like you to re-do all the constraints. But doesn't dragging and dropping the additional button into place, and having the stack view take care of the positioning sound better?
-![bordered width=35%](images/23-stack_views_do_laundry_353x278.png)
+![width=35%](images/23-stack_views_do_laundry_353x278.png)
 
 There's more. What if you needed to conditionally hide and show one of the buttons and reposition all of the remaining ones at runtime? If you stuck to the old ways, you'd have to manually remove and re-add constraints in code as well as remove and add back the adjacent spacer view.
-![bordered width=35%](images/24-me_and_auto_layout_334x310.png)
+![width=35%](images/24-me_and_auto_layout_334x310.png)
 
 And what if the requirement specified that more than one button could be removed and re-added at any time? At this point, you might as well do everything in code.
-![bordered width=35%](images/25-code_it_all_281x278.png)
+![width=35%](images/25-code_it_all_281x278.png)
 
 ### Stack views are just better
 
 In order to hide a view within a stack view, all you have to do is set the contained view's `hidden` property to `true` and the stack view handles the rest. This is how you'll fix the spacing under the **WEATHER** label when the user hides the text below it.
-![bordered width=35%](images/26-stack_views_look_good_298x293.png)
+![width=35%](images/26-stack_views_look_good_298x293.png)
 
 But that's something for the next chapter, where you'll dive deeper into stack views. For now, you'll take a quick detour to learn about some of the other new Auto Layout updates in iOS 9.
 
@@ -206,6 +214,7 @@ This creates a constraint in which the topLabel's `.Bottom` is `.Equal` to the b
 
 Even the explanation contained far fewer characters than the code itself, and you're not even using Objective-C! Surely there's a more concise way to express this?
 
+$[break]
 Layout anchors allow you to do exactly that:
 
 ```swift
@@ -269,7 +278,7 @@ let constraint = NSLayoutConstraint(
 ```
 
 So, how do you include a multiplier if you need to? If you look at the documentation for `NSLayoutAnchor`, you won't find any methods that contain a `multiplier` parameter.
-![bordered width=35%](images/27-some_riddle_309x287.png)
+![width=35%](images/27-some_riddle_309x287.png)
 
 But `NSLayoutAnchor` _does_ have a subclass called `NSLayoutDimension` that has the following methods:
 
@@ -337,10 +346,10 @@ Okay, now it's time to dive back into the project and fix that alignment bug.
 ## Fixing the alignment bug
 
 You'll remember that the whole reason for the dive into layout guides and anchors was so that you could vertically center some of these misaligned labels in the cell by using the new tools available in iOS 9:
-![bordered width=32%](images/30-misaligned-labels-reminder_750x1334.png)
+![bordered width=25%](images/30-misaligned-labels-reminder_750x1334.png)
 
 They're misaligned because the current constraint specifies that the top of the name label should be a fixed distance from the top margin of the cell's `contentView`:
-![bordered width=80%](images/31-the-incorrect-constraint_683x269.png)
+![bordered width=65%](images/31-the-incorrect-constraint_683x269.png)
 
 If the name label was always on a single line, the current constraint would have been fine. But this app has labels that span two lines.
 
@@ -383,7 +392,7 @@ Here's the breakdown of the code you just added:
 >**Note**: Using the `activateConstraints(_:)` method on UIView is the recommended way of adding constraints in iOS 8 onwards, as opposed to the old way of using `addConstraints(_:)`.
 
 Build and run, you should see the following:
-![bordered iphone](images/32-before-making-constraint-placeholder_750x1334.png)
+![bordered iphone width=30%](images/32-before-making-constraint-placeholder_750x1334.png)
 
 ### Handling the truncation
 

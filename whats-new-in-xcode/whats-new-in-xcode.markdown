@@ -88,6 +88,7 @@ Open **WeatherViewController.swift** and then open the **assistant editor**. Cli
 
 > **Note**: You can also select **Generated Interface** instead of **Counterparts ► RWHTTPManager.h (Interface)** to view the same result.
 
+$[break]
 Like magic, you'll see the public interface of your class in the assistant editor:
 ![bordered width=75%](images/10-public-interface-of-swift-file.png)
 
@@ -200,7 +201,7 @@ In the Find results for  **// Step** click on **Step 6**, which is in **WeatherV
 ```
 
 Build and run, switch to the **Debug navigator** and click on the **Energy Impact** row to see the updated energy gauge:
-![bordered width=80%](images/23-network-energy-reduced_970x326.png)
+![bordered width=75%](images/23-network-energy-reduced_970x326.png)
 
 Much better! Now the app will only make a single network request when it starts, saving the user's battery for more important things, like watching videos of pug puppies.
 
@@ -222,7 +223,7 @@ For good measure, also comment out the line that unhides the `countdownLabelStac
     // countdownLabelStackView.hidden = false
 
 Build and run, and go back to the **energy gauge**. You may have to wait up to 30 seconds for things to settle down, but this looks much better!
-![bordered width=80%](images/24-cpu-usage-reduced_970x328.png)
+![bordered width=75%](images/24-cpu-usage-reduced_970x328.png)
 
 ### Reducing location energy impact
 
@@ -316,11 +317,12 @@ In Xcode, choose **File\New\Playground...**, and name it **Xcode7.playground**. 
 Reveal the **File inspector** by pressing **Command-Option-1**, or by clicking on the **Utilities** button followed by the **File Inspector** button:
 ![bordered width=25%](images/32-utilities-button_227x67.png)
 
+$[break]
 Under **Playground Settings**, place a checkmark in **Render Documentation**:
 ![bordered width=99%](images/33-render-documentation-setting_961x81.png)
 
 You'll now see the rendered markup:
-![bordered width=99%](images/34-rendered-headings_960x269.png)
+![bordered width=80%](images/34-rendered-headings_960x269.png)
 
 Unlike Xcode's documentation syntax, which uses an extra comment character, like **///** or **/\*\***, for playgrounds you use a colon instead. So for single-line comments, the syntax is **//:**, and for multiline comments the syntax is **/\*:** and **\*/**.
 
@@ -379,6 +381,7 @@ var str = "Hello, playground"
 
 **@next** and **@previous** are special tokens to get you to the next and previous pages. To add a link to a specific page, you can just use the page name. If the name has a space, replace it with **%20**, as you would in a URL.
 
+$[break]
 Add the following line anywhere in **Page Two**:
 
 ```swift

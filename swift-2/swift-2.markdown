@@ -14,6 +14,7 @@ Once the implications of a new programming language had sunk in, many developers
 
 Why would Apple introduce a new language, since Objective-C has served them so well? It's likely because Swift gave Apple a fresh start; Swift takes the best features from many different languages and combines them into one. Apple has created a language that is modern, expressive, safe, and a lot of fun to develop in. Swift also interoperates seamlessly with existing Cocoa and Cocoa Touch frameworks as well as all of your existing Objective-C code. This is likely one of the primary reasons Swift has seen such success and widespread adoption in the developer community.
 
+$[break]
 ## The Real "One more thing"
 
 WWDC 2015's big announcement is the open-sourcing of Swift by the end of 2015! But what does this really mean?
@@ -349,7 +350,7 @@ do {
 
 You should see the following output in your playground.
 
-![bordered height=16%](./images/starts_with_rule_result.png)
+![bordered width=75%%](./images/starts_with_rule_result.png)
 
 > **Note:** You can display the result inline with your code by pressing the **Show Result** circle button to the right of the output in the playground's timeline.
 
@@ -423,9 +424,10 @@ startsAndEndsWithValidator.validate("foo").errors.description
 startsAndEndsWithValidator.validate("foo1").valid
 ```
 
+$[break]
 You should see the following result:
 
-![bordered height=30%](/images/starts_and_ends_with_validator_result.png)
+![bordered width=70%](/images/starts_and_ends_with_validator_result.png)
 
 ### Password Requirement Validation
 
@@ -544,6 +546,7 @@ passwordValidator.validate("abc1").errors
 passwordValidator.validate("abc1!Fjk").errors
 ```
 
+$[break]
 You should see the following result:
 
 ![bordered width=95%](/images/password_validator_result.png)

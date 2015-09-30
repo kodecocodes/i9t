@@ -85,7 +85,7 @@ App slicing can be broken out into two parts: executable slicing and resource sl
 
 By default, release builds include all architectures configured in your build settings. When you submit such a build to the App Store, it automatically creates the variants needed on your behalf. All _you_ have to do is compile for iOS 9. 
 
-![bordered width=35%](./images/apple_heavy_lifting.png)
+![width=35%](./images/apple_heavy_lifting.png)
 
 ## Being smart with resources
 

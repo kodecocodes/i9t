@@ -14,6 +14,7 @@ Sometimes it seems like Apple keeps all the fun features to itself, like using S
 
 With iOS 9, Apple is passing a very exciting feature off to the rest of us; third party developers now have the ability to make _their_ content searchable through Spotlight!
 
+$[break]
 ## App search APIs
 
 App search in iOS 9 comprises three main aspects. Each is broken into separate APIs that achieve distinct results, but they also work in concert with one another:
@@ -413,6 +414,7 @@ if userActivity.activityType == Employee.domainIdentifier,
 }
 ```
 
+$[break]
 The user activity supplied to this delegate method will now have one of two types, handled with the `if` statement above:
 1. If the result was indexed by `NSUserActivity` then the `activityType` will be the one you defined in reverse-DNS notation. In this instance, the employee ID is obtained from the `userInfo` dictionary, as before.
 2. A result that Core Spotlight indexed directly, will arrive as an `NSUserActivity` with an `activityType` of `CSSearchableItemActionType`. Furthermore, the unique identifier is stored in the `userInfo` dictionary under the key `CSSearchableItemActivityIdentifier`. This logic handles both cases, regardless of how the employees are indexed.

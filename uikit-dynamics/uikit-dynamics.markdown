@@ -16,6 +16,7 @@ iOS 9 is a different matter. With this update we get a bunch of exciting new thi
 
 > **Note**: This chapter will primarily focus on the new features in UIKit Dynamics for iOS 9. Check out chapter 2, "UIKit Dynamics and Motion Effects" of iOS 7 by Tutorials for a full introduction to the original APIs.
 
+$[break]
 ## Getting started
 UIKit Dynamics is definitely a technology you have to learn through playing. Make sure you're using an Xcode Playground to follow along and watch the changes live!
 
@@ -47,7 +48,7 @@ view.addSubview(orangeSquare)
 
 You just created a view and added two subviews while giving each a different color, but you don't see anything! 
 
-![bordered width=40%](images/where_is_exiting_output.png)
+![width=30%](images/where_is_exiting_output.png)
 
 Find it by switching to the assistant editor; simply press __Option + Command + Enter__ to bring it up quickly. You should see something like this now:
 
@@ -69,7 +70,7 @@ let animator = UIDynamicAnimator(referenceView: view)
 
 `UIDynamicBehavior` is the base class that describes an effect for one or more dynamic items, like your subviews, and how they take part in the animation. Apple provides a bunch of behaviors, but the easiest one to start with is `UIGravityBehavior`. It's perfect since developers are like cats — we can't help it that we like to see things fall.
 
-![bordered width=40%](images/and_bounce_and_explode.png)
+![width=35%](images/and_bounce_and_explode.png)
 
 Add the following line:
 
@@ -203,7 +204,7 @@ For this part, you'll work with simple photo viewing application. The user sees 
 
 You'll find the starter project as well as the final solution in the resources folder for this chapter.  Open it in Xcode and build and run it. You should see the following:
 
-![width=80%](images/dynamicphotodisplay_initialwithfull.png)
+![width=70%](images/dynamicphotodisplay_initialwithfull.png)
 
 You'll notice the full screen view of a photo shows a bit of metadata. The user might encounter a photo where that metadata box obscures a part of the photo. 
 
@@ -441,6 +442,7 @@ case .Cancelled, .Ended:
 
 Build and run. Now the velocity of your finger as it lifts from the screen will transfer into the sticky behavior, so the view will continue for a moment before being dragged back to the closest field. 
 
+$[break]
 For a better understanding of how the behaviors work, turn on debug mode by adding the following to `viewDidLoad()`:
 
 ```swift
@@ -469,6 +471,7 @@ Add this line inside of `viewDidLoad()`:
 animator = UIDynamicAnimator(referenceView: self.view)
 ```
 
+$[break]
 Now that you've created the animator, swap out the contents of `showFullImageView` with the following:
 
 ```swift
@@ -517,13 +520,15 @@ Here's a breakdown of that block:
 
 1. Adds the Done button to the nav bar after a short delay. This lets the dynamic animator do most of its animations first before updating the nav bar. 
 2. Sets the image and repositions the full photo view above the thumbnails view, just off-screen.
+
+$[break]
 3. Removes any existing behaviors from the animator, and then adds the gravity, item and collision behaviors.
 
 Build and run the app. Tap a photo and notice the bounce when the view hits the bottom of the screen. The collision behavior demonstrated here is a bit different from previous examples; instead of using the reference view's boundary, this creates a single line of collision at the bottom. It's positioned just off the screen so the bounce doesn't leave a visible gap. 
 
 There are a lot of knobs and levers to change when dealing with behaviors. Play around with the `UIDynamicItemBehavior` and `UIGravityBehavior` properties to see if you can find a bounce behavior you like!
 
-![bordered width=40%](images/too_much_bounce.png)
+![width=35%](images/too_much_bounce.png)
 
 ## Where to go from here
 

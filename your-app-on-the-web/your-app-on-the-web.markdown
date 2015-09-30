@@ -17,7 +17,7 @@ You probably have a bunch of ideas on how to use those features from that basic 
 
 Unlike the rest of this book, the "sample app" for this chapter is a real-world app available on the App Store. You'll be working with the app for **RWDevCon**, the conference organized by the folks behind [raywenderlich.com](http://www.raywenderlich.com). You'll also be making some tweaks to its accompanying website: [rwdevcon.com](http://rwdevcon.com).
 
-![iPhone bordered](images/01-rwdevcon-screenshot.png)
+![iPhone bordered width=30%](images/01-rwdevcon-screenshot.png)
 
 In the starter files for this chapter, you'll find both the code for the iOS app and the code for the website. There's quite a lot there, but don't be put off – you'll only be editing one or two files and adding some extra functionality to the videos section. Feel free to take a look through the project to familiarize yourself with its contents; you can also browse the real RWDevCon website, [rwdevcon.com](http://rwdevcon.com) and download the iOS app from the App Store ([apple.co/1YoKMTi](http://apple.co/1YoKMTi)).
 
@@ -149,6 +149,7 @@ Before moving on to the next section, there are two caveats to consider when man
 
 When your app receives an incoming universal link, you should respond by taking the user straight to the targeted content. The final steps in implementing universal links are to parse the incoming URLs, determine what content to show, and navigate the user to the content.
 
+$[break]
 Head back to the **RWDevCon project** in Xcode and add the following class method to **Session.swift** at the bottom of the class:
 
 ```swift
@@ -254,11 +255,11 @@ On your device, open your favorite mail client and send yourself an e-mail that 
 
 Once you receive the email, tap the first link. This should open the app and start streaming Tammy Coron's 2015 inspiration talk titled "Possibility":
 
-![iPhone](/images/06-video-link-valid.png)
+![iPhone width=32%](/images/06-video-link-valid.png)
 
 Looks great! Now return to your mail client and tap the second link. The app opens, but then you're bounced back to Safari, as shown below:
 
-![iphone](/images/07-video-link-invalid.png)
+![iphone width=32%](/images/07-video-link-invalid.png)
 
 The RWDevCon app neatly handles the universal links it recognizes, but gracefully falls back to Safari for any that it doesn't.
 

@@ -80,7 +80,7 @@ iOS 9 has a selection of new technologies and APIs that cover the entire OS. Her
    ![width=80%](images/introduction03.png)
 9. __Chapter 9, What's New in Storyboards?:__ Ever faced the problem of unmanageably large storyboards? Discover how to refactor your huge storyboard into smaller segments with new storyboard references.
 10. __Chapter 10, Custom Segues:__ Creating custom view controller transitions has never been an easy task, but iOS 9 chips away at some of the complexity. Learn how to create your own custom segues to make custom transitions between view controllers far easier to understand.
-   ![width=40%](images/introduction04.png)
+   ![bordered width=35%](images/introduction04.png)
 11. __Chapter 11, UIKit Dynamics:__ iOS 9 includes loads of great improvements to UIKit Dynamics — making it really easy to model complex physics animations within your apps. Learn all about the new behaviors and debugging improvements as you build a real-world example.
 12. __Chapter 12, Contacts:__ Accessing the on-device contacts has been challenging in the past — with a C-level API. iOS 9 introduces two new frameworks to ease interaction with the contacts. Discover how to integrate with the device address book in a much simpler manner.
 13. __Chapter 13, Testing:__ Xcode 7 now includes a fully-featured solution for creating UI tests for your application. Discover how to add UI tests to your own apps, and review some of the other improvements to testing.

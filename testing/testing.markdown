@@ -64,7 +64,7 @@ That's where code coverage comes in. With Xcode 7 came the ability to get covera
 
 By default, code coverage isn't turned on. Change that now in the starter project by selecting **Product\Scheme\Edit Scheme...**, and then select the **Test** action and click on the **Code Coverage — Gather coverage data** checkbox.
 
-![bordered width=85%](/images/codeCoverage2.png)
+![bordered width=80%](/images/codeCoverage2.png)
 
 That's all you need to do to turn on code coverage reports. Easy, huh? To check your current levels of code coverage you need to run your test target.
 
@@ -76,15 +76,15 @@ You'll run unit tests constantly in this chapter, so how about a quick refresher
 
 Use whichever method you like best to run your unit tests. Each tells Xcode to build and launch your app, and then run your tests. In the **test navigator**, you should see a total of six tests:
 
-![bordered width=50%](/images/testNavigator.png)
+![bordered width=30%](/images/testNavigator.png)
 
 Now turn your focus towards the code coverage report. Switch to the **report navigator** and click on the latest **test** action.
 
-![bordered width=50%](/images/reportNavigator-test1.png)
+![bordered width=40%](/images/reportNavigator-test1.png)
 
 You're currently seeing the **tests** view of the test report. This shows you a list of your unit tests along with their pass / failure status. From here, click on the **Coverage** tab to switch to the code coverage report:
 
-![bordered width=65%](/images/reportNavigator1.png)
+![bordered width=55%](/images/reportNavigator1.png)
 
 This report shows you the code coverage for your entire app as well as the code coverage on a per-file basis. For example, the code coverage for the entire app is 37 percent – yikes! – whereas code coverage for **DataModel.swift** is 90 percent.
 
@@ -92,18 +92,18 @@ This report shows you the code coverage for your entire app as well as the code 
 
 You also have access to code coverage numbers for individual classes and methods. To see them, click on the disclosure indicator to the left of the file name. Xcode can even tell you the coverage of each line in a file. To see this in action, hover over **Workout.swift** and click on the small right-facing arrow that appears to the right of its name:
 
-![bordered width=20%](/images/codeCoverage2-5.png)
+![bordered width=25%](/images/codeCoverage2-5.png)
 
 Doing this takes you to the file you clicked on in Xcode’s main editor. Notice that there's a gutter on the right edge of the editor with small numbers on it:
 
-![bordered width=70%](/images/codeCoverage3.png)
+![bordered width=60%](/images/codeCoverage3.png)
 
 If granularity is what you want, prepare to be delighted. Xcode's code coverage reports goes beyond the method level. The numbers on the right gutter represents the number of times those lines of code are executed by tests. For example, the getter for `workoutCount` has a 0 next to it because it isn't tested at all.
 
 As you can see, it tells you which lines inside a method are covered and which are not. Now you can identify those edge cases you haven't tested yet without losing your sanity! For instance, if you only test the `if` block in an `if-else` statement, Xcode will pick this up and let you know.
 
 
-![bordered width=40%](/images/xcode_has_my_back.png)
+![width=30%](/images/xcode_has_my_back.png)
 
 > **Note**: A single code coverage report is simply a snapshot. If you want to know whether your coverage is improving or getting worse, you'll need to see how these numbers change over time. One way to do this is with continuous integration, by using the Xcode server. This chapter won't cover this, but you can learn more about it by catching up on session 410 from WWDC 2015: _Continuous Integration and Code Coverage in Xcode_ ([apple.co/1J1n1Kd](http://apple.co/1J1n1Kd).
 
@@ -401,7 +401,7 @@ If you use any of the three techniques shown above and end up with more than one
 
 Can you find the duplicates? One is in the top-left, next to the back button – this is the one you meant for the test to tap. The second is inside the **Workouts** tab at the bottom left of the screen:
 
-![bordered iphone](/images/duplicates.png)
+![bordered width=50%](/images/duplicates.png)
 
 Whoops! Fix the test by replacing the final line of `testRaysFullBodyWorkout()` with the following:
 
@@ -414,7 +414,7 @@ Adding `navigationBars`, which is short for is short for `descendantsMatchingTyp
 
 It's great to know how to write UI tests from scratch, but there is an easier way to get the job done: _UI recording_. With UI recording, you can simply "act out" the steps of your test in the simulator and Xcode will auto-magically translate your actions into UI testing code.
 
-![bordered width=40%](/images/let_me_get_this_straight.png)
+![width=40%](/images/let_me_get_this_straight.png)
 
 To check it out in action, delete the current contents of `testRaysFullBodyWorkout()`. Place your cursor inside the empty method, then click on the red **Record UI Test** button at the bottom of the editor:
 
@@ -425,6 +425,7 @@ The UI recording button builds and launches your app. Once that's done, "act out
 - Dismiss the alert controller by tapping **OK** and finally tap the **back** button. 
 - Tap the **record** button again, or Xcode’s main **stop** button to stop recording.
 
+$[break]
 Your generated test method should look something like this:
 
 ```swift

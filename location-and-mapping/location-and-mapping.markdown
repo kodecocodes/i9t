@@ -27,7 +27,7 @@ By the time you've finished this chapter, your app will show lots of useful info
 
 Open the starter project for this chapter. Run it up and you'll see it's built with a standard MapKit `MKMapView`; tap on a pin to reveal the coffee shop's name and a brief description:
 
-![iPhone](images/01-starter.png)
+![iPhone width=30%](images/01-starter.png)
 
 Open **ViewController.swift**; `setupMap()` and `addMapData()` center the map on San Francisco and add an annotation to each coffee shop. The model code for coffee shops is in **CoffeeShop.swift**, which also takes care of loading all of the sample coffee shop data from **sanfrancisco_coffeeshops.plist**.
 
@@ -37,7 +37,7 @@ Finally, take a quick look at **CoffeeShopPinDetailView.swift** and **CoffeeShop
 
 Prior to iOS 9, the only items you could programatically toggle on and off in an `MKMapView` were buildings and places of interest. MapKit in iOS 9 introduces three new boolean properties that let you toggle the map's **compass**, **scale bar** (the small ruler that shows distances on the map) and **traffic** display. You can choose to remove these to clean up your map display, or leave them on the screen to give your users extra information as they navigate:
 
-![width=40%](images/02-compasstrafficscale.png)
+![width=35%](images/02-compasstrafficscale.png)
 
 Café Transit would benefit from showing the map's scale — giving the users an idea how far they have to go to get their caffeine fix.
 
@@ -59,7 +59,7 @@ Since iOS 3, MapKit pins have had a `pinColor` property that let you select any 
 
 iOS 9 deprecates the `pincolor` property on `MKPinAnnotationView` in favor of the shiny new `pinTintColor`. And get this — you can set it to _any color you like_!
 
-![width=35%](images/04-rainbow.png)
+![width=20%](images/04-rainbow.png)
 
 Café Transit currently uses plain old red map pins, which don't really fit in with the coffee aesthetic. They'd look better with the same brown shade used throughout the app. And you could even use a different color to highlight cafés with a 5-star rating.
 
@@ -79,7 +79,7 @@ This chooses a `pinTintColor` that depends on the star rating of the coffee shop
 
 Build and run your app, and check out your fancy new pins:
 
-![iPhone](images/05-customizedMapPins.png)
+![iPhone width=30%](images/05-customizedMapPins.png)
 
 ## Customizing annotation callouts
 
@@ -135,6 +135,7 @@ That's all the code it takes! Build and run your app, tap on one of the pins and
 
 Tap the Yelp button to open up Safari and load the coffee shop's Yelp review page. Tapping the clock button won't show you any useful information; you'll implement actions for the transit and clock functions later in this chapter.
 
+$[break]
 ## Supporting time zones
 
 The custom callout view you added in the previous section contains a small image to indicate whether a particular coffee shop is currently open for business:
@@ -194,9 +195,10 @@ Build and run your app now; check that the opening hours labels are still showin
 
 All of Café Transit's sample coffee shops are based in San Francisco. Statistically, it's quite likely that _you_ aren't based in San Francisco. :] The rest of this chapter will make use of the user's location, so it would be pretty useful to at least _pretend_ to be there. Xcode lets you simulate your location, which will make testing Café Transit much easier!
 
+$[break]
 With the starter project open, click on the **CafeTransit** scheme and choose **Edit Scheme...**:
 
-![bordered width=60%](images/12-editScheme.png)
+![bordered width=50%](images/12-editScheme.png)
 
 Select **Run** in the left pane, and **Options** from the tab bar at the top of the right pane. Enable **Core Location > Allow Location Simulation**, and set your **Default Location** to **San Francisco, CA, USA** as shown below:
 

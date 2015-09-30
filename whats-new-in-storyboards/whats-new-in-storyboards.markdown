@@ -22,7 +22,7 @@ To get the most out of this chapter you should have some basic storyboard and ta
 
 Open the starter project for this chapter and run it in the simulator; tap one of the displayed checklists to view the items contained within, then tap any entry to check it off. Done and done!
 
-![iphone bordered](images/01-Prepped.png)
+![iphone bordered width=30%](images/01-Prepped.png)
 
 Take a quick look at the code to get your bearings.
 
@@ -84,7 +84,7 @@ Instead of referencing specific view controllers, storyboard references can simp
 
 Still in **Main.storyboard**, select the new storyboard reference named **ChecklistsNavigationController** and use the **Attributes Inspector** to remove the **Referenced ID**, like so:
 
-![bordered height=12%](images/05-StoryboardReferenceID.png)
+![bordered width=75%](images/05-StoryboardReferenceID.png)
 
 The reference now points to the initial view controller in **Checklists.storyboard**, and updates as shown:
 
@@ -92,7 +92,7 @@ The reference now points to the initial view controller in **Checklists.storyboa
 
 Open **Checklists.storyboard** and select the **Checklists Navigation Controller** scene. Use the **Attributes Inspector** to check **Is Initial View Controller**; this indicates this scene should be the entry point for the storyboard.
 
-![bordered width=36%](images/07-NavigationStoryboardID.png)
+![bordered width=28%](images/07-NavigationStoryboardID.png)
 
 > **Note**: The initial view controller of a storyboard has an arrow pointing to it from the left-hand side.
 
@@ -122,7 +122,7 @@ Select the **storyboard reference** you just added. In the **Attributes Inspecto
 
 Build and run your app; you'll see one tab to handle Checklists, and another tab for the Diary entries – the functionality your teammate worked on. You can now add Diary entries using the storyboard scenes and code created by your sister-in-arms:
 
-![iphone bordered](images/11-Diary.png)
+![iphone bordered width=30%](images/11-Diary.png)
 
 > **Note**: Currently both tabs in the tab bar controller in the storyboard display the title _Item_. The proper title will be loaded at runtime from the Checklists and Diary storyboards. You can change the titles in **Main.storyboard** for your own reference, but it won't make any difference at runtime.
 
@@ -164,9 +164,9 @@ Selecting a checklist item in Prepped highlights its table row with a boring gra
 
 In **ChecklistDetail.storyboard**, select **Checklist Detail View Controller** and drag a **view** from the Object Library onto the scene dock:
 
-![bordered height=16%](images/16-DragViewOntoSceneDock.png)
+![bordered width=50%](images/16-DragViewOntoSceneDock.png)
 
-![bordered height=21%](images/17-ViewInSceneDock.png)
+![bordered width=50%%](images/17-ViewInSceneDock.png)
 
 The new view will appear just above the scene dock. You can add subviews and controls to these docked views, just as you would any other view.
 
@@ -192,7 +192,10 @@ The checklist items in Prepped's sample data have notes accompanying them; you'r
 
 Still in **ChecklistDetail.storyboard**, drag a new **view** onto the scene dock, next to the selected background view you created in the last section. Select the view, and use the **Size Inspector** to set its width to **320** and its height to **128**.
 
-Drag a **label** from the Object Library onto the new view and use the **Attributes Inspector** to change the label text to **"Notes:"**. You may have to resize the label so that the text fits. Change the label's text color to **#BB991E**:
+Drag a **label** from the Object Library onto the new view and use the **Attributes Inspector** to change the label text to **"Notes:"**. You may have to resize the label so that the text fits. 
+
+$[break]
+Change the label's text color to **#BB991E**:
 
 ![bordered width=70%](images/20-NotesLabel.png)
 
@@ -248,7 +251,10 @@ func removeNotesView() {
 
 This removes the notes view from the stack view's `arrangedSubviews` as well from its set of visible subviews.
 
-Next, you need to put these methods to use. Still in **ChecklistDetailViewController.swift**, find the table view delegate extension for `ChecklistDetailViewController` and add the following code:
+Next, you need to put these methods to use. 
+
+$[break]
+Still in **ChecklistDetailViewController.swift**, find the table view delegate extension for `ChecklistDetailViewController` and add the following code:
 
 ```swift
 override func tableView(tableView: UITableView,

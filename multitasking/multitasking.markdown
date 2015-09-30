@@ -14,7 +14,7 @@ In this chapter, you'll learn how to update an existing app so that it plays nic
 
 The starter project you’ll use for this chapter is named **Travelog**. Open the project file in Xcode and build and run the application on the **iPad Air 2** simulator. You’ll see the following:
 
-![width=85%](images/mt05.png)
+![width=75%](images/mt05.png)
 
 Travelog is a journaling app. The app uses `UISplitViewController` to display entries on the left side. Tap any entry to display it in the right-hand view; rotate the device and you'll find both master and detail views of the Split View Controller are visible in both orientations.
 
@@ -57,13 +57,13 @@ Since all the required criteria are in place, Travelog automatically becomes mul
 
 Run Travelog in Split View mode and rotate the iPad to portrait orientation; you'll see the app layout as shown below:
 
-![bordered ipad](images/mt061.png)
+![bordered ipad width=45%](images/mt061.png)
 
 While this layout is functional, it can certainly stand to be improved. There's whitespace wasted on the left hand side and all the labels are squashed over to the right hand side.
 
 Rotate the device to landscape orientation; you'll see the following:
 
-![bordered width=70%](images/mt062.png)
+![bordered width=65%](images/mt062.png)
 
 Again, it's functional, but the master view column is too narrow and the text inside the table view cells doesn't really provide any value.
 
@@ -83,7 +83,10 @@ The diagram below shows how the horizontal size classes of your app change durin
 
 Not all multitasking or orientation changes trigger a size class change, so you can't simply rely on size class changes to provide the best user experience.
 
-It looks like `viewWillTransitionToSize(_:, withTransitionCoordinator:)` is a good candidate for an update. Remove `viewDidLayoutSubviews()` and `updateMaximumPrimaryColumnWidth()` from **SplitViewController.swift** and add the following:
+It looks like `viewWillTransitionToSize(_:, withTransitionCoordinator:)` is a good candidate for an update. 
+
+$[break]
+Remove `viewDidLayoutSubviews()` and `updateMaximumPrimaryColumnWidth()` from **SplitViewController.swift** and add the following:
 
 ```swift
 func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
@@ -152,9 +155,9 @@ static let widthThreshold: CGFloat = 180.0
 
 The updated code checks the width of the cell itself instead of the width of the screen. This decouples the view's behavior from that of its superview. Adaptivity is now self-contained! :]
 
-Build and run; again, verify the app still looks and behaves as it did before multitasking. This time around, Split View mode should play nicely in all orientations:
+Build and run; again, verify the app still looks and behaves as it did before multitasking. This time around, Split View mode should play nicely in all orientations.
 
-![width=95%](images/mt09.png)
+![width=85%](images/mt09.png)
 
 > **Note:** Unlike `UIScreen`, `UIWindow.bounds` always corresponds to the actual size of your app and its origin is always `(0, 0)`. In iOS 9 you can create a new instance of `UIWindow` _without_ passing a frame via `let window = UIWindow()`. The system will automatically give it a frame that matches your application's frame.
 
@@ -162,11 +165,11 @@ Build and run; again, verify the app still looks and behaves as it did before mu
 
 Continue your evaluation of the app: this time with the device in landscape orientation and the Split View at 33%, tap the **Photo Library** bar button. You'll see the following popover:
 
-![bordered ipad](images/mt091.png)
+![bordered ipad width=65%](images/mt091.png)
 
 With the popover still visible, drag the divider further to the left so the screen is evenly divided between the two apps:
 
-![bordered ipad](images/mt092.png)
+![bordered width=80% ](images/mt092.png)
 
 The popover automatically turned into a modal view without any action on your part; dragging the divider to 50% changes the horizontal size class of the app from regular to compact. That's neat, but it's not quite the functionality you're looking for.
 
@@ -223,7 +226,7 @@ func presentImagePickerControllerWithSourceType(sourceType:
 
 Build and run your app; verify that the popover transitions to a modal fullscreen view only when your app is in the Slide Over mode or when the Split View pane is sufficiently narrow.
 
-![width=95%](images/mt093.png)
+![width=100%](images/mt093.png)
 
 ### The path to adaptivity
 
