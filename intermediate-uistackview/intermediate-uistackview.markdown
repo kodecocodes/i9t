@@ -39,33 +39,33 @@ And as you work through this section, you'll learn about the various properties 
 The rating section is the low-hanging fruit here, because it's the simplest one to embed in a stack view.
 
 Open **Main.storyboard** and in the **Spot Info View Controller** scene, select the **RATING** label and the stars label next to it:
-![bordered width=96%](images/01-select-rating-label-and-stars-label_640x74.png)
+![bordered width=80%](images/01-select-rating-label-and-stars-label_640x74.png)
 
 Then click on the **Stack** button to embed them in a stack view. Remember, this button is at the bottom of the storyboard window:
-![bordered width=20%](images/02-stack_button_outlined_146x40.png)
+![bordered width=30%](images/02-stack_button_outlined_146x40.png)
 
 You can also use the menu bar and select **Editor \ Embed in \ Stack View**. Whichever way you go about it, this is the result:
-![bordered width=96%](images/03-after-clicking-stack-button_640x74.png)
+![bordered width=80%](images/03-after-clicking-stack-button_640x74.png)
 
 Now click on the **Pin** button — remember that's the square TIE fighter-looking icon that's sitting to the right of the stack button. Place a checkmark in **Constrain to margins** and add the following **three** constraints:
 
 ```bash
 Top: 20, Leading: 0, Bottom: 20
 ```
-![bordered width=30%](images/04-add-second-stack-view-constraints_264x171.png)
+![bordered width=40%](images/04-add-second-stack-view-constraints_264x171.png)
 
 Now go to the **Attributes inspector** and set the spacing to **8**:
-![bordered width=38%](images/05-set-spacing-to-8_259x87.png)
+![bordered width=42%](images/05-set-spacing-to-8_259x87.png)
 
 It's possible you may see a _Misplaced Views_ warning and see something like this in which the stars label has stretched beyond the bounds of the view:
-![bordered width=96%](images/06-stars-label-weirdly-stretched_640x85.png)
+![bordered width=90%](images/06-stars-label-weirdly-stretched_640x85.png)
 
 Sometimes Xcode may temporarily show a warning or position the stack view incorrectly, but the warning will disappear as you make other updates. You can usually safely ignore these.
 
 However, to fix it immediately, you can persuade the stack view to re-layout either by moving its frame by one point and back or temporarily changing one of its layout properties.
 
 To demonstrate this, change the **Alignment** from **Fill** to **Top** and then back to **Fill**. You'll now see the stars label positioned correctly:
-![bordered width=96%](images/07-change-alignment-to-top-and-back_640x85.png)
+![bordered width=90%](images/07-change-alignment-to-top-and-back_640x85.png)
 
 Build and run to verify that everything looks exactly the same as before.
 
@@ -76,37 +76,39 @@ Before you go too far, it's good to have some basic "first aid" training. Someti
 Fortunately, there is an easy way to _unembed_ views from a stack view.
 
 First, you'd select the stack view you want to remove. Then from the menu you'd choose **Editor \ Unembed**. Or another way is to hold down the **Option** key and click on the **Stack** button. The click **Unembed** on the context menu that appears:
-![bordered width=20%](images/08-how-to-unembed_186x71.png)
 
+![bordered width=30%](images/08-how-to-unembed_186x71.png)
+
+$[break]
 ### Your first vertical stack view
 
 Now, you'll create your first vertical stack view. Select the **WHY VISIT** label and the **&lt;whyVisitLabel>** below it:
-![bordered width=96%](images/09-select-why-visit-labels_640x90.png)
+![bordered width=80%](images/09-select-why-visit-labels_640x90.png)
 
 Xcode will correctly infer that this should be a vertical stack view based on the position of the labels. Click the **Stack** button to embed both of these in a stack view:
-![bordered width=96%](images/10-embed-why-visit-labels_640x90.png)
+![bordered width=80%](images/10-embed-why-visit-labels_640x90.png)
 
 The lower label previously had a constraint pinning it to the right margin of the view, but that constraint was removed when it was embedded in the stack view. Currently, the stack view has no constraints, so it adopts the intrinsic width of its largest view.
 
 With the stack view selected, click on the **Pin** button. Checkmark **Constrain to margins**, and set the **Top**, **Leading** and **Trailing** constraints to **0**.
 
 Then, click on the dropdown to the right of the bottom constraint and select **WEATHER (current distance = 20)**:
-![bordered width=42%](images/11-dont-select-nearest-neighbor-constraint_463x417.png)
+![bordered width=40%](images/11-dont-select-nearest-neighbor-constraint_463x417.png)
 
 By default, constraints are shown to the nearest neighbor, which for the bottom constraint is the **Hide** button at a distance of 15. You actually needed the constraint to be to the **WEATHER** label below it.
 
 Finally, click **Add 4 Constraints**. You should now see the following:
-![bordered width=96%](images/12-why-visit-stack-view-stretched_640x90.png)
+![bordered width=80%](images/12-why-visit-stack-view-stretched_640x90.png)
 
 You now have an expanded stack view with its right edges pinned to the right margin of the view. However, the bottom label is still the same width. You'll fix this by updating the stack view's `alignment` — keep reading to discover how!.
 
 ### Alignment property
 
 Remember how you previously learned that the `distribution` property specifies how a stack view lays out its views _along_ its axis? You had set the bottom stack view's `distribution` to _Equal Spacing_ to space the buttons within it equally.
-![bordered width=33%](images/13-i_did_that_317x288.png)
+![width=33%](images/13-i_did_that_317x288.png)
 
 Well, meet `alignment`. It's the property that determines how a stack view lays out its views _perpendicular_ to its axis. For a vertical stack view, the possible values are `Fill`, `Leading`, `Center` and `Trailing`.
-![bordered width=30%](images/14-vertical-alignment-values_260x131.png)
+![bordered width=40%](images/14-vertical-alignment-values_260x131.png)
 
 Select each value to see how it affects the placement of the labels in the stack view:
 
@@ -161,7 +163,7 @@ That leaves you with just the **weather** section left. But first, indulge in a 
 The `alignment` property is an enum of type `UIStackViewAlignment`. Its possible values in the vertical direction are `.Fill`, `.Leading`, `.Center`, and `.Trailing` which you saw in the previous section.
 
 The possible `alignment` values for a _horizontal_ stack view differ slightly:
-![width=75%](images/21-horizontal-and-vertical-alignment_594x171.png)
+![width=80%](images/21-horizontal-and-vertical-alignment_594x171.png)
 
 It has `.Top` instead of `.Leading` and has `.Bottom` instead of `.Trailing`. There are also two more properties that are valid only in the horizontal direction, `.FirstBaseline` and `.LastBaseline`.
 
@@ -198,22 +200,22 @@ Remember that little **Hide** button? Get ready, because this stack view is a bi
 You could create a nested stack view by embedding the **WEATHER** label and the **Hide** button into a horizontal stack view, and then embed that horizontal stack view and the **&lt;weatherInfoLabel>** into a vertical stack view.
 
 It would look something like this:
-![bordered width=90%](images/27-weather-stack-in-stack_640x92.png)
+![bordered width=100%](images/27-weather-stack-in-stack_640x92.png)
 
 Notice that the **WEATHER** label has expanded to be equal to the height of the **Hide** button. This isn't ideal since this will cause there to be extra space between the baseline of the **WEATHER** label and the text below it.
 
 Remember that `alignment` specifies positioning perpendicular to the stack view. So, you could set the `alignment` to **Bottom**:
-![bordered width=90%](images/28-weather-stack-in-stack-alignment-bottom_640x92.png)
+![bordered width=100%](images/28-weather-stack-in-stack-alignment-bottom_640x92.png)
 
 But you really don't want the height of the **Hide** button to dictate the height of the stack view.
-![bordered width=32%](images/29-developer_to_do_331x290.png)
+![bordered width=40%](images/29-developer_to_do_331x290.png)
 
 When the `alignment` of a stack view is set to `fill` and the views are of different sizes in the alignment direction, the stack view determines which views to compress or expand based on the relative content hugging priorities or the content compression resistance priorities of its views.
 
 In your case, the stack view decides to expand the **WEATHER** label because its vertical content hugging priority of 251 is less than the **Hide** button's compression resistance priority of 750.
 
 You _could_ decrease the **Hide** button's vertical compression resistance priority to 200 which would cause the stack view to compress the **Hide** button instead:
-![bordered width=90%](images/30-decrease-compression-resistence-priority_640x92.png)
+![bordered width=100%](images/30-decrease-compression-resistence-priority_640x92.png)
 
 However, this isn't ideal since it would reduce the size of the tap target of the button.
 
@@ -226,10 +228,10 @@ It will remain a subview of the top-level view, and you'll add a constraint from
 ### Change the weather section – for real
 
 You can once again start following along in Xcode. Select the **WEATHER** label and the **&lt;weatherInfoLabel>** below it:
-![bordered width=96%](images/32-select-weather-and-info-label_640x92.png)
+![bordered width=100%](images/32-select-weather-and-info-label_640x92.png)
 
 Click on the **Stack** button:
-![bordered width=96%](images/33-weather-click-stack-button_640x92.png)
+![bordered width=100%](images/33-weather-click-stack-button_640x92.png)
 
 Click on the **Pin** button, checkmark **Constrain to margins** and add the following **four** constraints:
 
@@ -238,7 +240,7 @@ Top: 20, Leading: 0, Trailing: 0, Bottom: 20
 ```
 
 Set the stack view's **Alignment** to **Fill**:
-![bordered width=96%](images/34-weather-alignment-fill_640x92.png)
+![bordered width=100%](images/34-weather-alignment-fill_640x92.png)
 
 You need a constraint between the **Hide** button's left edge and the **WEATHER** label's right edge, so having the **WEATHER** label fill the stack view won't work.
 
@@ -247,50 +249,50 @@ However, you _do_ want the bottom **&lt;weatherInfoLabel>** to fill the stack vi
 You can accomplish this by embedding just the **WEATHER** label into a vertical stack view. Remember that the `alignment` of a vertical stack view can be set to `.Leading`, and if the stack view is stretched beyond its intrinsic width, its contained views will remain aligned to its leading side.
 
 Select the **WEATHER** label using the document outline, or by using the **Control-Shift-click** trick you learned in the previous chapter:
-![bordered width=96%](images/35-select-just-the-weather-label_640x92.png)
+![bordered width=100%](images/35-select-just-the-weather-label_640x92.png)
 
 Then click on the **Stack** button:
-![bordered width=96%](images/36-weather-in-horizontal-stack_640x92.png)
+![bordered width=100%](images/36-weather-in-horizontal-stack_640x92.png)
 
 Set **Alignment** to **Leading**, and make sure **Axis** is set to **Vertical**:
-![bordered width=96%](images/37-vertical-and-leading_640x92.png)
+![bordered width=100%](images/37-vertical-and-leading_640x92.png)
 
 Perfect! You've got the outer stack view stretching the inner stack view to fill the width, but the inner stack view allows the label to keep its original width!
 
 Build and run. Why on earth is the **Hide** button hanging out in the middle of the text?
-![bordered width=32%](images/38-hide-label-incorrect-position_750x573.png)
+![bordered width=40%](images/38-hide-label-incorrect-position_750x573.png)
 
 It's because when you embedded the **WEATHER** label in a stack view, any constraints between it and the **Hide** button were removed. So you'll just add them back.
 
 **Control-drag** from the **Hide** button to the **WEATHER** label:
-![bordered width=40%](images/39-drag-to-weather-label_380x94.png)
+![bordered width=50%](images/39-drag-to-weather-label_380x94.png)
 
 Hold down **Shift** to select multiple options, and select **Horizontal Spacing** and **Baseline**. Then click on **Add Constraints**:
-![bordered width=40%](images/40-add-multiple-constraints_380x224.png)
+![bordered width=50%](images/40-add-multiple-constraints_380x224.png)
 
 Build and run. The **Hide** button should now be positioned correctly, and since the label that is being set to hidden is embedded in a stack view, pressing **Hide** hides the label, and adjusts the views below it – all without having to manually adjust any constraints.
-![bordered width=32%](images/41-hide-button-works_750x732.png)
+![bordered width=40%](images/41-hide-button-works_750x732.png)
 
 Now that all the sections are in unique stack views, you're set to embed them all into an outer stack view, which will make the final two tasks incredibly simple.
 
 ### Top-level stack view
 
 **Command-click** to select all five top-level stack views in the outline view:
-![bordered width=73%](images/42-select-all-stack-views-in-outline_640x260.png)
+![bordered width=80%](images/42-select-all-stack-views-in-outline_640x260.png)
 
 Then click on the **Stack** button:
-![bordered width=73%](images/43-stack-all-the-views_640x185.png)
+![bordered width=80%](images/43-stack-all-the-views_640x185.png)
 
 Click the **Pin** button, checkmark **Constrain to margins** add constraints of **0** to all edges. Then set **Spacing** to **20** and **Alignment** to **Fill**. Your storyboard scene should now look like this:
 ![bordered width=73%](images/44-set-the-spacing-to-20-and-alignment-to-fill_640x300.png)
 
 Build and run:
-![bordered width=32%](images/45-hide-button-lost-again_750x487.png)
+![bordered width=40%](images/45-hide-button-lost-again_750x487.png)
 
 Whoops! Looks like the hide button lost its constraints again when the **WEATHER** stack view was embedded in the outer stack view. No biggie, just add constraints to it again in the same way you did before.
 
 **Control-drag** from the **Hide** button to the **WEATHER** label, hold down **Shift**, select both **Horizontal Spacing** and **Baseline**. Then click on **Add Constraints**:
-![bordered width=40%](images/46-add-constraints-to-button-again_380x223.png)
+![bordered width=50%](images/46-add-constraints-to-button-again_380x223.png)
 
 Build and run. The **Hide** button is now behaving itself.
 

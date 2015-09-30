@@ -12,7 +12,7 @@ With the introduction of iOS 8 and the demanding displays of the iPhone 6 and 6 
 
 However, it also meant that a so-called universal app requires a substantial chunk of device-specific content, and it sure has a huge impact to an app's bundle size. For an example, look at the chart below to see all the 1s and 0s that are stored locally on the device, but are never used unless the app runs on an iPhone 6+. 
 	
-![width=%80](./images/Device-Breakdown.png)
+![width=%70](./images/Device-Breakdown.png)
 
 $[break]
 
@@ -50,7 +50,7 @@ This project contains a run script that launches a finder window with the locati
 
 Understanding the content that goes in to your completed application will be useful when working with App-Thinning. Below is a side-by-side comparison of the Old CA Maps Xcode project's directory (on the left) and a release build of Old CA Map's application bundle's contents (on the right). Your output might vary slightly depending on your device type, build configuration and Xcode version.
 
-![bordered width=%60](./images/Directory_IPA_Comparison.png)
+![bordered width=%70](./images/Directory_IPA_Comparison.png)
 
 There are a few important items to note:
 
@@ -71,7 +71,7 @@ To view the size of a build using this script, first build the project, then:
 3. Make sure the **All** and **All Messages** are selected
 4. Find the **Run custom shell script** output.
 
-![bordered width=90%](./images/app_size_viewing.png)
+![bordered width=80%](./images/app_size_viewing.png)
 
 You'll occasionally come back to this output to see your progress as you whittle the app down to size. 
 
@@ -85,7 +85,7 @@ App slicing can be broken out into two parts: executable slicing and resource sl
 
 By default, release builds include all architectures configured in your build settings. When you submit such a build to the App Store, it automatically creates the variants needed on your behalf. All _you_ have to do is compile for iOS 9. 
 
-![bordered width=40%](./images/apple_heavy_lifting.png)
+![bordered width=35%](./images/apple_heavy_lifting.png)
 
 ## Being smart with resources
 
@@ -93,7 +93,7 @@ By default, release builds include all architectures configured in your build se
 
 All you have to do is make sure your resources are compiled into **Asset Catalogs** and organized according to traits. You probably already organize your image assets according to scale factors. With Xcode 7, you can also tag assets by **Memory** and **Graphics** requirements in the Attributes Inspector.
 
-![bordered height=40%](./images/new_trait_attributes.png)
+![bordered height=25%](./images/new_trait_attributes.png)
 
 - The **Memory** setting lets you target different assets to devices with different amounts of RAM. 
 - The **Graphics** setting allows you to target either first or second generation Metal-capable GPUs.
@@ -108,7 +108,7 @@ The fix for this is quite simple: Just stick the Santa Cruz PNGs into the asset 
 
 Click **Assets.xcassets**, then click the **+** and select **New Image Set**. Drag the Santa Cruz images from the project navigator into their respective @1x, @2x and @3x slots, and make sure the **Image Set** name is **Santa Cruz**.
 
-![bordered width=60%](./images/create_new_asset_group.png)
+![bordered width=50%](./images/create_new_asset_group.png)
 
 Once the images copy to the assets catalog, delete the Santa Cruz PNGs from the resources folder.
 
@@ -124,6 +124,7 @@ This is using the @2x image for Santa Cruz, and it ends up at 107 KB. You may se
 
 >**Note**: Reviewing a debug build is a great way to see how App Thinning works, and even before App Thinning existed, Xcode was tailoring debug builds to the targeted device. So, App Thinning essentially builds on what Xcode already did, but now, the end user enjoys the benefits.
 
+$[break]
 Now build and run with the **iPhone 6 Plus** simulator and take a look at the size of **Assets.car**:
 ![bordered width=40%](./images/iphone_6_plus_asset_car_size.png)
 
@@ -145,6 +146,7 @@ So, what can you include when using ODR? They can be images, data, OpenGL shader
 
 Fortunately for this particular application, NSBundles fall into the data file category. This means you can apply ODR to the bundles without changing any of the file infrastructure within Old CA Maps. 
 
+$[break]
 ### Wire things up to use tags
 
 Time to finally whip out your coding skills. 
@@ -198,7 +200,7 @@ Navigate to the Project Navigator tab and expand the **Map Bundles** group. Sele
 
 Give **LA_Map.bundle** the tag name **LA_Map**. Now go through the four remaining bundles and give each a tag name identical to the bundle name without the file extension. These will match the names used for the `bundleTitle` that were set in **HistoricMapOverlayData.swift**.
 
-![bordered width=80%](./images/Xcode_Asset_Tagging.png)
+![bordered width=78%](./images/Xcode_Asset_Tagging.png)
 
 >**Note**: Make sure you spell the tag name with _exactly the same_ spelling and case as the bundle file name. If you mistype it, you'll encounter issues.  
 
@@ -206,7 +208,7 @@ Build your application for **iPad Air 2**, but don't run it yet, using __Command
 
 Originally, the app was over 200 MB. Now, Old CA Maps is around 10MB. Xcode has achieved this by removing the bundle resources from the main application bundle, which can be confirmed by reviewing its contents:
 
-![bordered width=30%](./images/bundle_size_after_odr.png)
+![bordered width=28%](./images/bundle_size_after_odr.png)
  
 Now run your application. Select **Los Angeles** as the overlay and observe what happens. The app now downloads content on demand, then displays the overlay and adjusts the map when completed.
 
@@ -220,11 +222,11 @@ Try clicking on the **San Diego** overlay and see how long it takes to display t
 
 >**Note**: If you choose a city that you've already viewed after building and running, you're likely going to notice it loads immediately, because ODR caches the assets until purge conditions are met. You'll learn more about this later.  
 
-![bordered width=40%](./images/iOS_10_before_loads.png)
+![width=35%](./images/iOS_10_before_loads.png)
 
 That took a little bit too long to display, right? Can you imagine how long it'll take for users that pull assets that are hosted on the store?
 
-![bordered width=40%](./images/user_tired_of_wait.png)
+![width=40%](./images/user_tired_of_wait.png)
 
 To avoid a deluge of rotten tomatoes and bad reviews, you'll need to show the user that something is happening while the app downloads content. 
 
@@ -282,7 +284,7 @@ It's better because at least there's a visual queue that something is happening,
 
 Displaying the progress makes for a better experience, but nobody wants to wait for a download. Keep in mind that you're testing on a controlled device with Simulator and locally hosted resources. Imagine a real-world user moving in and out Wi-Fi or cellular coverage. 
 
-![bordered width=40%](./images/mobile_data_connections.png)
+![width=40%](./images/mobile_data_connections.png)
 
 The San Diego asset is big and also likely to be the first thing the user selects since it's the first item in the table. It makes sense to include the San Diego asset along with the application itself so it feels snappy on initial use. 
 
@@ -310,7 +312,7 @@ Drag **SF_Map** over to the **Prefetched Tag Order section** to trigger download
 
 Once you're done, your tag setup should look like this:
 
-![bordered width=60%](./images/Install_Tag_Groups.png)
+![bordered width=70%](./images/Install_Tag_Groups.png)
 
 Unfortunately, testing these changes is a bit trickier. You will have to submit your app to **TestFlight Beta Testing** in order to see these changes propegated in your app.
 

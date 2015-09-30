@@ -18,11 +18,12 @@ This chapter will show you how to do the following:
 
  You'll need some basic knowledge of storyboards and segues, but if you understood the previous chapter "What's New In Storyboards?", consider yourself well prepared.
 
+$[break]
 ## Getting started
 
 The sample app for this chapter is **PamperedPets**, a simple pet-minding app that, when complete, will display a list of pets to mind and their details:
 
-![iPhone](images/PamperedPets.png)
+![iPhone width=60%](images/PamperedPets.png)
 
 Explore your starter project for a bit to see how it works. Run the app; you'll see a single scene showing the photo, address and feeding instructions for the star of your show: Bubbles the goldfish.
 
@@ -30,7 +31,7 @@ Explore your starter project for a bit to see how it works. Run the app; you'll 
 
 Have a look at **Main.storyboard**; it has a number of pre-created scenes, but you'll start working with the Animal Detail and Animal Photo scenes:
 
-![bordered width=80%](images/Storyboard.png)
+![bordered width=100%](images/Storyboard.png)
 
 There aren't any transitions yet - it's your job to add some awesome transitions and make this app shine. And to get you _hooked_, there may be some fish jokes before you _fin_-ish :].
 
@@ -47,7 +48,7 @@ Segues describe transitions between scenes; they show up as the arrows between v
 
 Segues have always been *either* modal and popover *or* custom. But in iOS 9, you can use the underlying segue type with your custom segue instead of having to define the segue from scratch:
 
-![bordered width=25%](images/NewSegueInspector.png)
+![bordered width=30%](images/NewSegueInspector.png)
 
 This chapter has you customizing modal segues alone.
 
@@ -89,7 +90,7 @@ Here you give the destination controller — in this case, `AnimalPhotoViewContr
 
 Run the app and tap the photo; you should see a larger photo slide up the screen:
 
-![bordered iPhone](images/FishDetail.png)
+![bordered iPhone width=60%](images/FishDetail.png)
 
 Right now, you have no way to close this screen. You'll need to create a tap gesture to perform an unwind segue.
 
@@ -106,15 +107,16 @@ For a simple unwind segue, this method doesn't require any code. Any method with
 
 In **Main.storyboard**, select the **Animal Photo View Controller** scene. Drag a **Tap Gesture Recognizer** from the Object Library onto **Pet Photo View**. Next, __Ctrl-drag__ from your new **Tap Gesture Recognizer** in the document outline to **Exit**, then select `unwindToAnimalDetailViewController:` from the popup:
 
-![bordered width=40%](images/ExitSegue.png)
+![bordered width=60%](images/ExitSegue.png)
 
+$[break]
 Run the app again and tap the photo; the larger photo appears and a simple tap unwinds it back to the first scene:
 
 ![bordered iPhone](images/DismissFish.png)
 
 Time to dissect what's happened here. When you tap the thumbnail on the detail view, the tap gesture recognizer initiates a modal segue from `AnimalDetailViewController` to `AnimalPhotoViewController`. `AnimalDetailViewController` is the **source view controller**, while `AnimalPhotoViewController` is the **destination view controller**. The segue holds a reference to _both_ the source and destination view controllers:
 
-![bordered height=20%](images/AppFlow.png)
+![bordered width=80%](images/AppFlow.png)
 
 The segue sets the transitioning delegate of the destination view controller behind the scenes and also sets up its presentation according to the current size class.
 
@@ -140,9 +142,12 @@ Once you've built up a library of custom segues, you only need to select the des
 
 ## Creating a custom segue
 
-You'll now create your own custom segue to replace `DropSegue`. As is befitting a fish, you'll create a `Scale` transition animation. :] The image below shows the transition you'll be creating:
+You'll now create your own custom segue to replace `DropSegue`. As is befitting a fish, you'll create a `Scale` transition animation. :] 
 
-![bordered height=22%](images/ScaleFlow.png)
+$[break]
+The image below shows the transition you'll be creating:
+
+![bordered width=70%](images/ScaleFlow.png)
 
 The hardest part of creating a custom segue is the terminology. The protocols you'll be working with have rather long names:
 
@@ -288,11 +293,11 @@ This simply tells the segue to use your `ScalePresentAnimator` during presentati
 
 That takes care of all the actual code; all that's left is to set your custom segue in the storyboard. In **Main.storyboard**, locate the **PhotoDetail** segue and change **Segue Class** to `ScaleSegue`. Also, change **Presentation** to **Form Sheet** to improve the appearance of the segue on the iPad:
 
-![bordered height=20%](images/ScaleSegue.png)
+![bordered height=18%](images/ScaleSegue.png)
 
 Run your application and tap the fish; the image will scale from the top left of the screen to take up the full screen on the iPhone, while on the iPad the image scales up to a form sheet:
 
-![height=22%](images/InitialScale.png)
+![width=80%](images/InitialScale.png)
 
 Tap the large photo to dismiss it via the standard dismiss animation.
 
@@ -347,6 +352,7 @@ This gets references for the "from" view controller and for the "from" view. Aga
 
 > **Note**: Make absolutely sure you use the correct key variables. It's frustratingly easy to use `UITransitionContextToViewControllerKey` instead of `UITransitionContextToViewKey`. Code completion makes it all too easy to pick the wrong variable or to mix up the "from" and "to".
 
+$[break]
 Still in `animateTransition(_:)`, replace:
 
 ```swift
@@ -444,7 +450,7 @@ This resets the alpha of the "from" view. If you don't do this, the alpha of the
 
 Run the app on both the iPhone 6 and any iPad; the "from" view on the iPad will fade out, but the same view on the iPad won't be affected because `fromView` is `nil`:
 
-![iPad](images/FinalScale.png)
+![iPad width=50%](images/FinalScale.png)
 
 You've created a great-looking custom segue with an animated transition! But don't forget what was promised at the beginning of this chapter — the ability to add multiple pets.
 
@@ -454,11 +460,11 @@ That seems like an easy task; you just need to set the table view of all pets as
 
 In **Main.storyboard**, select the **Navigation Controller** on the very left of the storyboard. Use the Attributes Inspector to tick **Is Initial View Controller**:
 
-![bordered height=20%](images/IsInitialViewController.png)
+![bordered width=25%](images/IsInitialViewController.png)
 
 Run your application; you'll see a list of all pets to be minded. Select any pet in the list and tap its photo:
 
-![height=20%](images/RageFish.png)
+![width=55%](images/RageFish.png)
 
 Oh no! The animation scales up from the wrong spot! Look in the debug console and you'll see the debug statement you added earlier indicating the presenting view controller doesn't conform to `ViewScalable`.
 
@@ -474,7 +480,7 @@ let fromViewController = transitionContext
     UITransitionContextFromViewControllerKey)!
 ```
 
-Replace the above code with the following:
+Replace the previous code with the following:
 
 ```swift
 var fromViewController = transitionContext
@@ -489,9 +495,10 @@ if let fromNC = fromViewController as? UINavigationController {
 
 Here you replace the transition context's "from" controller _only_ if the presenting view controller is a navigation controller.
 
+
 Run the application again, and the scale transition will work as expected:
 
-![iPad](images/CompletedScale.png)
+![iPad width=60%](images/CompletedScale.png)
 
 When building your reusable segues, expect that they could be used by container controllers. For example, the presenting controller in this case could be a `UITabBarController`, so you could add similar code to handle that case as well.
 
