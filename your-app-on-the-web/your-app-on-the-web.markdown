@@ -345,7 +345,7 @@ And with Facebook's App Links:
 
 Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry, Ray's kind of picky about things like that), you won't be able to see your changes in action. However, you can see how it's supposed to work using the RWDevCon app from the App Store.
 
-Use mobile Safari to load <http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html>. The top of the web page should look like this:
+Use mobile Safari to load <http://www.rwdevcon.com/videos/talk-jake-gundersen-opportunity.html>. That's the video for Jake Gundersen's 2015 talk titled "Opportunity". The top of the web page should look like this:
 
 ![bordered height=30%](/images/10-app-banner-2.png)
 
@@ -356,8 +356,6 @@ You can verify this behavior by navigating to the site root <http://www.rwdevcon
 > **Note:** Smart App Banners don't work on the iOS simulator, so you must use a device to view and interact with the banners.
 
 Tap the thin banner; Safari opens the RWDevCon app and plays the correct video via your implementation of `application(_:continueUserActivity:restorationHandler:)` in the previous section.
-
-**CONTINUE HERE!**
 
 ### Semantic markup using Open Graph
 
@@ -390,27 +388,31 @@ This adds rich web markup to the web page via the `video`, `image` and `descript
 
 In the `property` fields above, "og" stands for **Open Graph**. To learn more about Open Graph, check out the Open Graph documentation at <http://ogp.me>; it's one of several standards Apple supports for structured markup. Other standards include [schema.org (http://www.schema.org)](http://www.schema.org), [RDFA (http://rdfa.info)](http://rdfa.info) and [JSON LD (http://json-ld.org)](http://json-ld.org).
 
-The goal of adding rich markup to your web pages is to adorn Spotlight's search results with more information. For example, a quick search for "ray wenderlich" comes up with these results:
+The goal of adding rich markup to your web pages is to adorn Spotlight's search results with more information. For example, as this book goes to press, a quick search for "ray wenderlich" comes up with these results:
 
 ![iphone](/images/11-catnap.png)
 
-Notice the CatNap video that Ray recently uploaded to YouTube, marked in red. In addition to the title of the web page, the search result also contains a video thumbnail as well as a description. YouTube was able to achieve this through rich semantic markup.
+Notice the "CatNap for tvOS" video that Ray recently uploaded to YouTube, marked in red. In addition to the title of the web page, the search result also contains a video thumbnail as well as a description. YouTube was able to achieve this through rich semantic markup.
 
 ### Validating your markup
 
 Since there's no "compiler" for the web, how are you supposed to know if your web markup is correct? Apple's created a web-based [App Search API Validation Tool (http://apple.co/1F8tTGt)](https://search.developer.apple.com/appsearch-validation-tool/) for just that purpose.
 
-To see the validation tool in action, try it out with the URL of the video page for Ray's 2015 inspiration talk. Simply visit the Validation Tool's web page, enter the video page URL, and click **Test URL**. The tool will provide you with a "report card" of the good parts of your markup, along with things that are missing or need to be improved. For example, as of this writing, the validation tool returns this set of suggestions for `http://rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html`:
+To see the validation tool in action, try it out with the URL of the video page for Ray's 2015 inspiration talk. Simply visit the Validation Tool's web page, enter the video page URL, and click **Test URL**. The tool will provide you with a "report card" of the good parts of your markup, along with things that are missing or need to be improved. 
+
+For example, as of this writing, the validation tool returns this set of suggestions for `http://rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html`:
 
 ![bordered height=30%](/images/13-validation-tool-results.png)
 
+Apple's validation tool checks for the `meta` tags you added earlier, as well as for the page's `title` tag, Smart App Banner and universal link.
+
 ## Where to go from here?
 
-Although you weren't able to test your changes as you worked through this chapter, I still hope you found it useful to walk through the steps required to add web markup and universal links to your own apps.
-
-iOS 9 brings the web and app ecosystems closer to each other than ever before. Apple strongly suggests you start using universal links as soon as you can to make linking from the web an even more seamless experience. If you have a website that mirrors your app's content, web markup can help you provide rich search results in Spotlight and Safari.
+iOS 9 brings the web and app ecosystems closer than ever before. Apple strongly suggests that you start using universal links as soon as you can to make linking from the web a seamless experience. Furthermore, if you have a website that mirrors your app's content, web markup can help you provide rich search results in Spotlight and Safari.
 
 This chapter covered a lot of ground, but believe it or not you've only dipped your toes into each topic. There are other ways to add rich semantic markup to your sites that you haven't seen yet, such as supported schemas including `InteractionCount`, `Organization` and `SearchAction`. As time goes on, Apple will support more schemas and more ways to markup your web pages to make search results come alive.
+
+Although you weren't able to test your changes as you worked through this chapter, I still hope you found it useful to walk through the steps required to add web markup and universal links to your own apps.
 
 You should definitely check out the following WWDC sessions if you want to find out more about your app and the web:
 
