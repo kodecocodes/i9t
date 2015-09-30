@@ -1,10 +1,10 @@
 ```metadata
-author: Caroline Begbie
-number: 8
-title: What's New in Storyboards?
+author: "By Caroline Begbie"
+number: "9"
+title: "Chapter 9: What's New in Storyboards?"
 ```
 
-# Chapter 8: What's New in Storyboards?
+# Chapter 9: What's New in Storyboards?
 
 Storyboards have been around since iOS 5 and have received lots of upgrades and new features since then, including unwind segues for reverse navigation, universal storyboards for both iPhone and iPad, and live rendering of views designed in code.
 
@@ -16,7 +16,7 @@ Xcode 7 brings new features for storyboards that let you do the following:
 
 You'll learn how to use the above features as you update an app designed to help you with all those listable moments in life, whether it's grocery shopping, packing your luggage for vacation, or a survival checklist for the impending zombie apocalypse! :]  
 
-To get the most out of this chapter you should have some basic storyboard and table view knowledge. Need a quick brush-up? Check out our _Storyboards Tutorial in Swift_ at <http://www.raywenderlich.com/113388>.
+To get the most out of this chapter you should have some basic storyboard and table view knowledge. Need a quick brush-up? Check out our _Storyboards Tutorial in Swift_ at [raywenderlich.com/113388](http://www.raywenderlich.com/113388).
 
 ## Getting started
 
@@ -216,7 +216,7 @@ Now **Ctrl-drag** from the text view to `ChecklistDetailViewController` to creat
 
 Finally, it's time to write some code! :] You'll use another new feature of iOS 9, _UIStackView_, to add and remove the notes view from a cell with an animation.
 
-> **Note:** To learn more about UIStackView, be sure to check out chapter 6, "UIStackView and Auto Layout Changes", and chapter 7, "Intermediate UIStackView".
+> **Note:** To learn more about UIStackView, be sure to check out chapter 7, "UIStackView & Auto Layout Changes", and chapter 8, "Intermediate UIStackView".
 
 In **ChecklistDetailViewController.swift**, add the following method to the bottom of the main class implementation:
 
@@ -253,26 +253,25 @@ Next, you need to put these methods to use. Still in **ChecklistDetailViewContro
 ```swift
 override func tableView(tableView: UITableView,
   didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    // 1
-    guard let cell = tableView.cellForRowAtIndexPath(indexPath)
-      as? ChecklistItemTableViewCell else {
-        return
-    }
 
-    // 2
-    tableView.beginUpdates()
-    // 3
-    if cell.stackView.arrangedSubviews.contains(notesView) {
-      removeNotesView()
-    } else {
-      addNotesViewToCell(cell)
+  // 1
+  guard let cell = tableView.cellForRowAtIndexPath(indexPath)
+    as? ChecklistItemTableViewCell else { return }
 
-      // 4
-      notesTextView.text = checklist.items[indexPath.row].notes
-    }
+  // 2
+  tableView.beginUpdates()
+  // 3
+  if cell.stackView.arrangedSubviews.contains(notesView) {
+    removeNotesView()
+  } else {
+    addNotesViewToCell(cell)
 
-    // 5
-    tableView.endUpdates()
+    // 4
+    notesTextView.text = checklist.items[indexPath.row].notes
+  }
+
+  // 5
+  tableView.endUpdates()
 }
 ```
 
@@ -340,14 +339,15 @@ Still in **ChecklistDetailViewController.swift**, find the table view data sourc
 override func tableView(tableView: UITableView,
   commitEditingStyle editingStyle: UITableViewCellEditingStyle,
   forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-      removeNotesView()
 
-      checklist.items.removeAtIndex(indexPath.row)
+  if editingStyle == .Delete {
+    removeNotesView()
 
-      tableView.deleteRowsAtIndexPaths([indexPath],
-        withRowAnimation: .Fade)
-    }
+    checklist.items.removeAtIndex(indexPath.row)
+
+    tableView.deleteRowsAtIndexPaths([indexPath],
+      withRowAnimation: .Fade)
+  }
 }
 ```
 
@@ -361,8 +361,8 @@ Build and run your app; choose a check list, tap the **Edit** button and delete 
 
 Your app to help you survive the apocalypse is done! All the new features you've covered in this chapter, including storyboard references and an enhanced scene dock should show you there are very few reasons _not_ to use storyboards in your own projects.
 
-Storyboards in Xcode 7 also have greater support for custom segues. We've got that covered in chapter 9 of this book: _Custom Segues_. If you decide to make Prepped a universal app, you can read more about supporting multitasking on the iPad in Chapter 5: _Multitasking_.
+Storyboards in Xcode 7 also have greater support for custom segues. We've got that covered in chapter 10 of this book: _Custom Segues_. If you decide to make Prepped a universal app, you can read more about supporting multitasking on the iPad in Chapter 5: _Multitasking_.
 
 There are some useful sessions from WWDC 2015 that will help you as well:
-* Session 215, What's New In Storyboards: <http://apple.co/1Do4xn7>
-* Session 407, Implementing UI Designs in Interface Builder: <http://apple.co/1g60D7c>
+* Session 215, What's New In Storyboards: [apple.co/1Do4xn7](http://apple.co/1Do4xn7)
+* Session 407, Implementing UI Designs in Interface Builder: [apple.co/1g60D7c](http://apple.co/1g60D7c)

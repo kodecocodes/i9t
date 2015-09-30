@@ -1,10 +1,10 @@
 ```metadata
-author: Caroline Begbie
-number: 9
-title: Custom Segues
+author: "By Caroline Begbie"
+number: "10"
+title: "Chapter 10: Custom Segues"
 ```
 
-# Chapter 9: Custom Segues
+# Chapter 10: Custom Segues
 
 Segues have long been a familiar way to transition between scenes — all the way back to iOS 5. iOS 7 introduced custom view controller transitions to support custom, interactive transitions between views. iOS 9 takes custom transitions even further with custom segues that let you make a complete separation between your transition animation and view controller code.
 
@@ -78,11 +78,11 @@ Override `prepareForSegue(_:sender:)` in **AnimalDetailViewController.swift** to
 ```swift
 override func prepareForSegue(segue: UIStoryboardSegue,
   sender: AnyObject?) {
-    if segue.identifier == "PhotoDetail" {
-      let controller = segue.destinationViewController
-        as! AnimalPhotoViewController
-      controller.image = imageView.image
-    }
+  if segue.identifier == "PhotoDetail" {
+    let controller = segue.destinationViewController
+      as! AnimalPhotoViewController
+    controller.image = imageView.image
+  }
 }
 ```
 
@@ -99,7 +99,7 @@ Add the following method to `AnimalDetailViewController` in **AnimalDetailViewCo
 ```swift
 @IBAction func unwindToAnimalDetailViewController(
   segue:UIStoryboardSegue) {
-    // placeholder for unwind segue
+  // placeholder for unwind segue
 }
 ```
 
@@ -221,7 +221,7 @@ First, you have to specify the duration of the animation. Add the following meth
 func transitionDuration(
   transitionContext: UIViewControllerContextTransitioning?)
   -> NSTimeInterval {
-    return 2.0
+  return 2.0
 }
 ```
 
@@ -258,9 +258,9 @@ func animateTransition(transitionContext:
     toView?.frame = finalFrame
     toView?.layoutIfNeeded()
   }, completion: {
-      finished in
-      // 5. Clean up the transition context
-      transitionContext.completeTransition(true)
+    finished in
+    // 5. Clean up the transition context
+    transitionContext.completeTransition(true)
   })
 }
 ```
@@ -278,11 +278,11 @@ Taking each numbered comment in turn:
 Add the following delegate method to `ScaleSegue`'s `UIViewControllerTransitioningDelegate` extension:
 
 ```swift
-func animationControllerForPresentedController(presented:
-            UIViewController,
-            presentingController presenting: UIViewController,
-            sourceController source: UIViewController) ->
-            UIViewControllerAnimatedTransitioning? {
+func animationControllerForPresentedController(
+  presented: UIViewController,
+  presentingController presenting: UIViewController,
+  sourceController source: UIViewController)
+  -> UIViewControllerAnimatedTransitioning? {
   return ScalePresentAnimator()
 }
 ```
@@ -513,8 +513,8 @@ The code will look very similar to the presenting animator from this chapter, ex
 ```swift
 if let fromView = fromView,
   toView = toView {
-    transitionContext.containerView()?
-      .insertSubview(toView, belowSubview: fromView)
+  transitionContext.containerView()?
+    .insertSubview(toView, belowSubview: fromView)
 }
 ```
 

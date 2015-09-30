@@ -1,10 +1,10 @@
 ```metadata
-author: Evan Dekhayser
-number: 11
-title: Contacts
+author: "By Evan Dekhayser"
+number: "12"
+title: "Chapter 12: Contacts"
 ```
 
-# Chapter 11: Contacts
+# Chapter 12: Contacts
 
 A long time ago, in an operating system far, far away, developers accessed a user's contacts on their iOS device with a C API and had to deal with the pain of using ancient structs and Core Foundation types in an object-oriented world.
 
@@ -78,7 +78,7 @@ extension Friend {
       CNLabeledValue(label: CNLabelWork, value: workEmail)
     ]
     // 4
-    if let profilePicture = profilePicture{
+    if let profilePicture = profilePicture {
       let imageData =
         UIImageJPEGRepresentation(profilePicture, 1)
       contact.imageData = imageData
@@ -132,9 +132,8 @@ extension FriendsViewController {
       contactViewController.allowsEditing = false
       contactViewController.allowsActions = false
       // 4
-      navigationController?
-        .pushViewController(contactViewController,
-          animated: true)
+      navigationController?.pushViewController
+        (contactViewController, animated: true)
   }
 }
 ```
@@ -177,7 +176,8 @@ To do this, add the following code to `addFriends(_:)`:
 
 ```swift
 let contactPicker = CNContactPickerViewController()
-presentViewController(contactPicker, animated: true, completion: nil)
+presentViewController(contactPicker, animated: true,
+  completion: nil)
 ```
 
 $[break]
@@ -293,13 +293,13 @@ Add the following code inside the table view delegate extension you added to **F
 override func tableView(tableView: UITableView,
   editActionsForRowAtIndexPath indexPath: NSIndexPath)
   -> [UITableViewRowAction]? {
-    let createContact = UITableViewRowAction(style: .Normal,
-      title: "Create Contact") { rowAction, indexPath in
-        tableView.setEditing(false, animated: true)
-        // TODO: Add the contact
-    }
-    createContact.backgroundColor = BlueColor
-    return [createContact]
+  let createContact = UITableViewRowAction(style: .Normal,
+    title: "Create Contact") { rowAction, indexPath in
+    tableView.setEditing(false, animated: true)
+    // TODO: Add the contact
+  }
+  createContact.backgroundColor = BlueColor
+  return [createContact]
 }
 ```
 
@@ -447,7 +447,7 @@ dispatch_async(dispatch_get_main_queue()) {
     message: "An unknown error occurred.",
     preferredStyle: .Alert)
   failureAlert.addAction(UIAlertAction(title: "OK",
-  style: .Cancel, handler: nil))
+    style: .Cancel, handler: nil))
   self.presentViewController(failureAlert, animated: true,
     completion: nil)
 }
@@ -529,6 +529,6 @@ You're done! You've dramatically improved RWConnect — and learned a ton about 
 
 At this point you've learned just about everything you need to use the Contacts and ContactsUI frameworks in your own apps. However, there is more to learn about the two frameworks if you want to dig even deeper.
 
-To learn more, be sure to visit the Contact framework guide at [http://apple.co/1LuCodW](http://apple.co/1LuCodW).
+To learn more, be sure to visit the Contact framework guide at [apple.co/1LuCodW](http://apple.co/1LuCodW).
 
-You can also check out the WWDC 2015 Session 223: Introducing the Contacts Framework for iOS and OS X [http://apple.co/1MQVNZV](http://apple.co/1MQVNZV).
+You can also check out the WWDC 2015 Session 223: Introducing the Contacts Framework for iOS and OS X [apple.co/1MQVNZV](http://apple.co/1MQVNZV).

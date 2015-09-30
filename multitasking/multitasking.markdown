@@ -1,7 +1,7 @@
 ```metadata
-author: Soheil Azarpour
-number: 5
-title: Multitasking
+author: "By Soheil Azarpour"
+number: "5"
+title: "Chapter 5: Multitasking"
 ```
 
 # Chapter 5: Multitasking
@@ -89,7 +89,8 @@ It looks like `viewWillTransitionToSize(_:, withTransitionCoordinator:)` is a go
 func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
   if size.width < UIScreen.mainScreen().bounds.width
     || size.width < size.height {
-      maximumPrimaryColumnWidth = 170.0
+    
+    maximumPrimaryColumnWidth = 170.0
   } else {
     maximumPrimaryColumnWidth =
       UISplitViewControllerAutomaticDimension
@@ -116,9 +117,10 @@ Add one final method:
 override func viewWillTransitionToSize(size: CGSize,
   withTransitionCoordinator coordinator:
   UIViewControllerTransitionCoordinator) {
-    super.viewWillTransitionToSize(size,
-      withTransitionCoordinator: coordinator)
-    updateMaximumPrimaryColumnWidthBasedOnSize(size)
+
+  super.viewWillTransitionToSize(size,
+    withTransitionCoordinator: coordinator)
+  updateMaximumPrimaryColumnWidthBasedOnSize(size)
 }
 ```
 
@@ -182,16 +184,17 @@ extension LogsViewController:
     controller: UIPresentationController,
     traitCollection: UITraitCollection)
     -> UIModalPresentationStyle {
-      //1
-      guard traitCollection.userInterfaceIdiom == .Pad else {
-        return .FullScreen
-      }
 
-      if splitViewController?.view.bounds.width > 320 {
-        return .None
-      } else {
-        return .FullScreen
-      }
+    //1
+    guard traitCollection.userInterfaceIdiom == .Pad else {
+      return .FullScreen
+    }
+
+    if splitViewController?.view.bounds.width > 320 {
+      return .None
+    } else {
+      return .FullScreen
+    }
   }
 }
 ```
@@ -208,13 +211,13 @@ Find the implementation of `presentImagePickerControllerWithSourceType(_:)`. Rea
 ```swift
 func presentImagePickerControllerWithSourceType(sourceType:
   UIImagePickerControllerSourceType) {
+  // some code...
+  if sourceType ==
+    UIImagePickerControllerSourceType.PhotoLibrary {
     // some code...
-    if sourceType ==
-      UIImagePickerControllerSourceType.PhotoLibrary {
-        // some code...
-        presenter?.delegate = self
-    }
-    // some code...
+    presenter?.delegate = self
+  }
+  // some code...
 }
 ```
 
@@ -224,7 +227,7 @@ Build and run your app; verify that the popover transitions to a modal fullscree
 
 ### The path to adaptivity
 
-If you're not already using Auto Layout, Size Classes or other excellent responsive layout tools in UIKit, you should definitely consider upgrading your code to do so. UIKit has some new functionality to further assist you with multitasking, including `UIStackView`,  `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth`. Want more information on this functionality? Chapter 6, "UIStackView and Auto Layout Changes" has you covered.
+If you're not already using Auto Layout, Size Classes or other excellent responsive layout tools in UIKit, you should definitely consider upgrading your code to do so. UIKit has some new functionality to further assist you with multitasking, including `UIStackView`,  `UIView.readableContentGuide` and `UITableView.cellLayoutMarginsFollowReadableWidth`. Want more information on this functionality? Chapter 7, "UIStackView & Auto Layout Changes" has you covered.
 
 ## Other considerations
 
@@ -252,7 +255,7 @@ You've worked hard to be a good memory citizen over the years, and that won't ch
 
 This chapter only touched on the basics of multitasking — it's up to developers like you to help chart the course for accepted multitasking design patterns of the future. To help you along the journey to multitasking, here are some resources you can bookmark for future reference:
 
-* [Adopting Multitasking Enhancements on iPad- http://apple.co/1MdssbK](https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html)
-* [Getting Started with Multitasking on iPad in iOS 9 (Session 205) - http://apple.co/1ItxCtH](https://developer.apple.com/videos/wwdc/2015/?id=205)
-* [Multitasking Essentials for Media-Based Apps on iPad in iOS 9 (session 211) - http://apple.co/1hm8v5s](https://developer.apple.com/videos/wwdc/2015/?id=211)
-* [Optimizing Your App for Multitasking on iPad in iOS 9 (Session 212) - http://apple.co/1T8CCcp](https://developer.apple.com/videos/wwdc/2015/?id=212)
+* Adopting Multitasking Enhancements on iPad– [apple.co/1MdssbK](https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html)
+* Getting Started with Multitasking on iPad in iOS 9 (Session 205) – [apple.co/1ItxCtH](https://developer.apple.com/videos/wwdc/2015/?id=205)
+* Multitasking Essentials for Media-Based Apps on iPad in iOS 9 (session 211) – [apple.co/1hm8v5s](https://developer.apple.com/videos/wwdc/2015/?id=211)
+* Optimizing Your App for Multitasking on iPad in iOS 9 (Session 212) – [apple.co/1T8CCcp](https://developer.apple.com/videos/wwdc/2015/?id=212)

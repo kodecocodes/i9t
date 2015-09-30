@@ -1,7 +1,7 @@
 ```metadata
-author: Derek Selander
-number: 4
-title: App Thinning
+author: "By Derek Selander"
+number: "4"
+title: "Chapter 4: App Thinning"
 ```
 
 # Chapter 4: App Thinning
@@ -366,8 +366,8 @@ Congratulations, you've learned the in and outs of App Thinning! Remember that t
 Make sure to thoroughly test your ODR tags in a real-life setting using **TestFlight** before shipping your app off to the App Store. 
 
 Also be sure to check out these WWDC videos:
-- [Introducing On Demand Resources (http://apple.co/1HMTaju)](https://developer.apple.com/videos/wwdc/2015/?id=214)
-- [App Thinning in Xcode (http://apple.co/1Kn8HIA)](https://developer.apple.com/videos/wwdc/2015/?id=404)
+- Introducing On Demand Resources [apple.co/1HMTaju](https://developer.apple.com/videos/wwdc/2015/?id=214)
+- App Thinning in Xcode [apple.co/1Kn8HIA](https://developer.apple.com/videos/wwdc/2015/?id=404)
 
 Now that you've tapped into App Thinning, you should be able to make those big, beautiful apps while being mindful of the user's storage space. 
 

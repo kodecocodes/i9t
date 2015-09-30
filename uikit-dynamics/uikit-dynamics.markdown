@@ -1,10 +1,10 @@
 ```metadata
-author: Aaron Douglas
-number: 10
-title: UIKit Dynamics
+author: "By Aaron Douglas"
+number: "11"
+title: "Chapter 11: UIKit Dynamics"
 ```
 
-# Chapter 10: UIKit Dynamics
+# Chapter 11: UIKit Dynamics
 
 iOS applications live in the hands of the people using them. Until somebody taps, swipes and enjoys your work, it sits in suspended animation on a device. Users have come to expect our mobile apps to react to touch and to provide some semblance of "realness". Your app's success depends in part on how much the user enjoys its responsiveness.
 
@@ -114,7 +114,7 @@ Add this line to the end of the playground:
 animator.setValue(true, forKey: "debugEnabled")
 ```
 
-This is a new undocumented feature in iOS 9 that turns on a visual debugging mode. It was mentioned in the 2015 WWDC session *What's New in UIKit Dynamics and Visual Effects* ([http://apple.co/1IO1nF3](http://apple.co/1IO1nF3)). Although this was described as only being available through the LLDB console, it transpires that you can also enable it via key-value coding using method shown. Debug mode shows cool things like attachments, collision locations and visualizations of field effects. 
+This is a new undocumented feature in iOS 9 that turns on a visual debugging mode. It was mentioned in the 2015 WWDC session *What's New in UIKit Dynamics and Visual Effects* ([apple.co/1IO1nF3](http://apple.co/1IO1nF3)). Although this was described as only being available through the LLDB console, it transpires that you can also enable it via key-value coding using method shown. Debug mode shows cool things like attachments, collision locations and visualizations of field effects. 
 
 You'll notice the orange box, when animating, shows a blue border, which visually describes the collision borders for the item. 
 
@@ -286,10 +286,11 @@ func updateFieldsInBounds(bounds: CGRect) {
   //2
   func updateRegionForField(field: UIFieldBehavior,
     _ point: CGPoint) {
-      let size = CGSize(width: w - 2 * edgeInset,
-        height: h - 2 * edgeInset - itemHeight)
-      field.position = point
-      field.region = UIRegion(size: size)
+
+    let size = CGSize(width: w - 2 * edgeInset,
+      height: h - 2 * edgeInset - itemHeight)
+    field.position = point
+    field.region = UIRegion(size: size)
   }
   
   //3
@@ -532,11 +533,11 @@ At the time of writing this chapter, Apple hasn't created a guide for UIKit Dyna
 
 Also, check out these videos from the past WWDCs:
 
-* 2013 - #206 - [Getting Started with UIKit Dynamics - http://apple.co/1J1IoNB](https://developer.apple.com/videos/wwdc/2013/#206)
-* 2013 - #217 - [Exploring Scroll Views in iOS 7 - http://apple.co/1gQGtPM](https://developer.apple.com/videos/wwdc/2013/#217)
-* 2013 - #221 - [Advanced Techniques with UIKit Dynamics - http://apple.co/1T1N2Qf](https://developer.apple.com/videos/wwdc/2013/#221)
-* 2014 - #216 - [Building Adaptive Apps with UIKit - http://apple.co/1hoAQbr](https://developer.apple.com/videos/wwdc/2014/#216)
-* 2015 - #229 - [What's New in UIKit Dynamics and Visual Effects - http://apple.co/1IO1nF3](https://developer.apple.com/videos/wwdc/2015/?id=229)
+* 2013 - #206 - Getting Started with UIKit Dynamics - [apple.co/1J1IoNB](https://developer.apple.com/videos/wwdc/2013/#206)
+* 2013 - #217 - Exploring Scroll Views in iOS 7 - [apple.co/1gQGtPM](https://developer.apple.com/videos/wwdc/2013/#217)
+* 2013 - #221 - Advanced Techniques with UIKit Dynamics - [apple.co/1T1N2Qf](https://developer.apple.com/videos/wwdc/2013/#221)
+* 2014 - #216 - Building Adaptive Apps with UIKit - [apple.co/1hoAQbr](https://developer.apple.com/videos/wwdc/2014/#216)
+* 2015 - #229 - What's New in UIKit Dynamics and Visual Effects - [apple.co/1IO1nF3](https://developer.apple.com/videos/wwdc/2015/?id=229)
 
 ## Challenges
 

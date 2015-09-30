@@ -1,10 +1,10 @@
 ```metadata
-author: Vincent Ngo
-number: 13
-title: Location and Mapping
+author: "By Vincent Ngo"
+number: "14"
+title: "Chapter 14: Location and Mapping"
 ```
 
-# Chapter 13: Location and Mapping
+# Chapter 14: Location and Mapping
 
 Despite a slightly shaky start to its mapping effort in iOS 6, Apple has continued to enhance its mapping and location frameworks every year. iOS 9 is no exception, with a number of great updates to both MapKit and Core Location.
 
@@ -21,7 +21,7 @@ The sample app for this chapter, Café Transit, is for all the coffee aficionado
 
 By the time you've finished this chapter, your app will show lots of useful information for each coffee shop, including a rating, pricing information and opening hours. Your app will also provide transit directions to a particular coffee shop, and even let you know what time you'll need to leave and when you're likely to arrive.
 
-> **Note**: This chapter will be easier to follow if you have some basic MapKit knowledge. If you need to brush up, take a look at our [Getting Started With MapKit tutorial](http://bit.ly/1PrurqE):  <http://bit.ly/1PrurqE>.
+> **Note**: This chapter will be easier to follow if you have some basic MapKit knowledge. If you need to brush up, take a look at our Getting Started With MapKit tutorial [bit.ly/1PrurqE](http://bit.ly/1PrurqE).
 
 ## Getting started
 
@@ -98,7 +98,7 @@ Callouts will use the _intrinsic content size_ of your custom view to size thems
 1. Use Auto Layout to lay out your custom view, and let intrinsic content size do its thing.
 2. You can override `intrinsicContentSize` within your custom view size and return a size of your choice.
 
-> **Note**: For more information on intrinsic content size and Auto Layout, take a look at Apple's "Implementing a Custom View to Work with Auto Layout" documentation: <http://apple.co/1PHbKA5>.
+> **Note**: For more information on intrinsic content size and Auto Layout, take a look at Apple's "Implementing a Custom View to Work with Auto Layout" documentation: [apple.co/1PHbKA5](http://apple.co/1PHbKA5).
 
 The XIB for `CoffeeShopPinDetailView` uses `UIStackView` and Auto Layout, so you don't have to manually specify `intrinsicContentSize`. Feel free to explore how the XIB makes use of `UIStackView` and constraints.
 
@@ -119,8 +119,8 @@ The callout shows the opening hours, star and cost rating and a description of t
 Open **ViewController.swift** and add the following code to `mapView(_:viewForAnnotation:)`, just before the `return` statement:
 
 ```swift
-let detailView =
-  UIView.loadFromNibNamed(identifier) as! CoffeeShopPinDetailView
+let detailView = UIView.loadFromNibNamed(identifier) as!
+  CoffeeShopPinDetailView
 detailView.coffeeShop = annotation.coffeeshop
 annotationView!.detailCalloutAccessoryView = detailView
 ```
@@ -172,8 +172,9 @@ let geocoder = CLGeocoder()
 geocoder.reverseGeocodeLocation(location) { (placemarks, _) in
   if let placemark = placemarks?.first, timeZone =
     placemark.timeZone {
-      self.timeZone = timeZone
-    }
+  
+    self.timeZone = timeZone
+  }
 }
 
 return shops
@@ -245,13 +246,15 @@ extension ViewController: CLLocationManagerDelegate {
 
   func locationManager(manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]) {
-      currentUserLocation = locations.first?.coordinate
+    
+    currentUserLocation = locations.first?.coordinate
   }
 
   func locationManager(manager: CLLocationManager,
     didFailWithError error: NSError) {
-      print("Error finding location: " +
-        \(error.localizedDescription)")
+    
+    print("Error finding location: " +
+      \(error.localizedDescription)")
   }
 }
 ```
@@ -267,7 +270,8 @@ private func requestUserLocation() {
   mapView.showsUserLocation = true    // 1
   if CLLocationManager.authorizationStatus() ==
     .AuthorizedWhenInUse { // 2
-      locationManager.requestLocation()   // 3
+    
+    locationManager.requestLocation()   // 3
   } else {
     locationManager.requestWhenInUseAuthorization()   // 4
   }
@@ -301,11 +305,11 @@ Finally, find the `MKMapViewDelegate` extension near the bottom of **ViewControl
 ```swift
 func mapView(mapView: MKMapView,
   didSelectAnnotationView view: MKAnnotationView) {
-    if let detailView =  
-      view.detailCalloutAccessoryView
-        as? CoffeeShopPinDetailView {
-          detailView.currentUserLocation = currentUserLocation
-    }
+  if let detailView = view.detailCalloutAccessoryView
+    as? CoffeeShopPinDetailView {
+    
+    detailView.currentUserLocation = currentUserLocation
+  }
 }
 ```
 
@@ -326,12 +330,13 @@ Open **CoffeeShopPinDetailView.swift** and add the following method below `//MAR
 ```swift
 func openTransitDirectionsForCoordinates(
   coord:CLLocationCoordinate2D) {
-    let placemark = MKPlacemark(coordinate: coord,
-      addressDictionary: coffeeShop.addressDictionary) // 1
-    let mapItem = MKMapItem(placemark: placemark)  // 2
-    let launchOptions = [MKLaunchOptionsDirectionsModeKey:
-      MKLaunchOptionsDirectionsModeTransit]  // 3
-    mapItem.openInMapsWithLaunchOptions(launchOptions)  // 4
+
+  let placemark = MKPlacemark(coordinate: coord,
+    addressDictionary: coffeeShop.addressDictionary) // 1
+  let mapItem = MKMapItem(placemark: placemark)  // 2
+  let launchOptions = [MKLaunchOptionsDirectionsModeKey:
+    MKLaunchOptionsDirectionsModeTransit]  // 3
+  mapItem.openInMapsWithLaunchOptions(launchOptions)  // 4
 }
 ```
 
@@ -386,10 +391,10 @@ func requestTransitTimes() {
   // 2
   let source = MKMapItem(placemark:
     MKPlacemark(coordinate: currentUserLocation,
-      addressDictionary: nil))
+    addressDictionary: nil))
   let destination = MKMapItem(placemark:
     MKPlacemark(coordinate: coffeeShop.location,
-      addressDictionary: nil))
+    addressDictionary: nil))
 
   // 3
   request.source = source
@@ -443,5 +448,5 @@ In this chapter you've customized a map view, added a custom callout, requested 
 
 There are a couple of other MapKit and Core Location updates this chapter didn't cover, including 3D flyovers and a couple of changes to background location updates. For more information about these, check out these related WWDC talks:
 
-* What's New In MapKit: <http://apple.co/1h4r4e7>
-* What's New in Core Location: <http://apple.co/1EcdPD7>
+* What's New In MapKit: [apple.co/1h4r4e7](http://apple.co/1h4r4e7)
+* What's New in Core Location: [apple.co/1EcdPD7](http://apple.co/1EcdPD7)

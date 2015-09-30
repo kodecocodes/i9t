@@ -1,10 +1,10 @@
 ```metadata
-author: Jawwad Ahmad
-number: 14
-title: What's New in Xcode?
+author: "By Jawwad Ahmad"
+number: "15"
+title: "Chapter 15: What's New in Xcode?"
 ```
 
-# Chapter 14: What's New in Xcode?
+# Chapter 15: What's New in Xcode?
 
 The most important tool you use as an iOS developer is Xcode, and each new release brings a variety of features and improvements. In prior chapters, you learned about many of Xcode's new features, such as storyboard references, support for app thinning, improvements to testing and code coverage.
 
@@ -31,7 +31,7 @@ Although the energy gauge won't show up unless you run the app on a device, you 
 
 One of the major changes this year is _free provisioning_, which means that anyone with an Apple ID can build and run iOS apps on a physical device without having to join the $99/yr Apple Developer Program. Now you only need to join the paid program if you want to distribute apps on the App Store.
 
-This chapter won't cover the provisioning process, but if your device isn't already provisioned, you can take a look at Apple's documentation to set things up: [Launch Your App on Devices Using Free Provisioning (http://apple.co/1KJ12tJ)](http://apple.co/1KJ12tJ).
+This chapter won't cover the provisioning process, but if your device isn't already provisioned, you can take a look at Apple's documentation to set things up: Launch Your App on Devices Using Free Provisioning ([apple.co/1KJ12tJ](http://apple.co/1KJ12tJ)).
 
 ### OpenWeatherMap API key (optional)
 
@@ -155,7 +155,7 @@ Open **WeatherViewController.swift** and look at **updateCountdownLabel()**. Not
 Now **Command-click** on `formatNumber` to jump to the implementation of the method. It's just using basic markdown syntax!
 ![bordered width=75%](images/18-rich-documentation_717x188.png)
 
-If you want to find out more, NSHipster has a great guide to Swift Documentation, which covers all of the possibilities: <http://bit.ly/1Ltcz0B>
+If you want to find out more, NSHipster has a great guide to Swift Documentation, which covers all of the possibilities: [bit.ly/1Ltcz0B](http://bit.ly/1Ltcz0B)
 
 Think of all the beautiful documentation you'll now be able to produce!
 
@@ -297,7 +297,7 @@ You're now finished with LocalWeather, so feel free to close the project in Xcod
 
 ## Playground improvements
 
-Playgrounds has seen many new features since its debut in Xcode 6 last year. Support for rich authoring, auxiliary source files and inline results were introduced in Xcode 6.3, just 2 months before WWDC 2015. These features are significant, and even though they were initially released in Xcode 6.3, Apple has also chosen to make a note of them in its [New Features in Xcode 7 (http://apple.co/1JSDRMa)](http://apple.co/1JSDRMa) document.
+Playgrounds has seen many new features since its debut in Xcode 6 last year. Support for rich authoring, auxiliary source files and inline results were introduced in Xcode 6.3, just 2 months before WWDC 2015. These features are significant, and even though they were initially released in Xcode 6.3, Apple has also chosen to make a note of them in its New Features in Xcode 7 ([apple.co/1JSDRMa](http://apple.co/1JSDRMa)) document.
 
 Xcode 7 improves upon these features and adds others, such as support for multiple pages and the ability to pause code execution. Playgrounds were already an amazing education tool, and these new features take them to the next level.
 
@@ -355,7 +355,7 @@ Check **Render Documentation** once more:
 
 Note that the text after **/\*:** does not show at all.
 
-This was just a brief introduction to get you started. For a full reference on syntax, see: [Playground Markup Format (http://apple.co/1IG2eZ9)](http://apple.co/1IG2eZ9)
+This was just a brief introduction to get you started. For a full reference on syntax, see: Playground Markup Format ([apple.co/1IG2eZ9](http://apple.co/1IG2eZ9)).
 
 ### Playground pages
 
@@ -465,12 +465,12 @@ You also learned about the various improvements to playgrounds as well as a few 
 
 Here are a few links to relevant resources that you might want to check out:
 
-- [Playground Markup Format for Comments (http://apple.co/1IG2eZ9)](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Reference/Playground_Ref/Chapters/MarkupReference.html)
-- [Energy Efficiency Guide for iOS Apps (http://apple.co/1OEIHMf)](https://developer.apple.com/library/prerelease/ios/documentation/Performance/Conceptual/EnergyGuide-iOS/)
+- Playground Markup Format for Comments [apple.co/1IG2eZ9](https://developer.apple.com/library/prerelease/ios/documentation/Swift/Reference/Playground_Ref/Chapters/MarkupReference.html)
+- Energy Efficiency Guide for iOS Apps [apple.co/1OEIHMf](https://developer.apple.com/library/prerelease/ios/documentation/Performance/Conceptual/EnergyGuide-iOS/)
 
 And here are a few related WWDC 2015 videos to keep you busy:
 
-- [What's New in Xcode (http://apple.co/1M0Fx8e)](https://developer.apple.com/videos/wwdc/2015/?id=104)
-- [Authoring Rich Playgrounds (http://apple.co/1TieQQE)](https://developer.apple.com/videos/wwdc/2015/?id=405)
-- [Debugging Energy Issues (http://apple.co/1gYPZAo)](https://developer.apple.com/videos/wwdc/2015/?id=708)
-- [Achieving All-day Battery Life (http://apple.co/1P2jXxC)](https://developer.apple.com/videos/wwdc/2015/?id=707)
+- What's New in Xcode [apple.co/1M0Fx8e](https://developer.apple.com/videos/wwdc/2015/?id=104)
+- Authoring Rich Playgrounds [apple.co/1TieQQE](https://developer.apple.com/videos/wwdc/2015/?id=405)
+- Debugging Energy Issues [apple.co/1gYPZAo](https://developer.apple.com/videos/wwdc/2015/?id=708)
+- Achieving All-day Battery Life [apple.co/1P2jXxC](https://developer.apple.com/videos/wwdc/2015/?id=707)

@@ -1,10 +1,10 @@
 ```metadata
-author: Jawwad Ahmad
-number: 7
-title: Intermediate UIStackView
+author: "By Jawwad Ahmad"
+number: "8"
+title: "Chapter 8: Intermediate UIStackView"
 ```
 
-# Chapter 7: Intermediate UIStackView
+# Chapter 8: Intermediate UIStackView
 
 Welcome back! In the previous chapter, you spent some quality time with stack views and masterfully spaced a row of buttons with a horizontal stack view. Moreover, you also learned about layout guides and layout anchors, and discovered how to use them to vertically center two labels in a table view cell, without the use of dummy container views.
 
@@ -469,6 +469,6 @@ Stack views are now your new view hierarchy building blocks. Get to know them â€
 
 Here are some related videos from WWDC 2015 that may be of interest:
 
-- [Mysteries of Auto Layout, Part 1 (http://apple.co/1D47aKk)](https://developer.apple.com/videos/wwdc/2015/?id=218)
-- [Mysteries of Auto Layout, Part 2 (http://apple.co/1HTcVJy)](https://developer.apple.com/videos/wwdc/2015/?id=219)
-- [Implementing UI Designs in Interface Builder (http://apple.co/1H5vS84)](https://developer.apple.com/videos/wwdc/2015/?id=407)
+- Mysteries of Auto Layout, Part 1 [apple.co/1D47aKk](https://developer.apple.com/videos/wwdc/2015/?id=218)
+- Mysteries of Auto Layout, Part 2 [apple.co/1HTcVJy](https://developer.apple.com/videos/wwdc/2015/?id=219)
+- Implementing UI Designs in Interface Builder [apple.co/1H5vS84](https://developer.apple.com/videos/wwdc/2015/?id=407)

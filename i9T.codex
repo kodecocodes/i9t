@@ -1,0 +1,31 @@
+segments:
+  - kind: chapter
+    path: swift-2/swift-2.markdown
+  - kind: chapter
+    path: introducing-app-search/introducing-app-search.markdown
+  - kind: chapter
+    path: your-app-on-the-web/your-app-on-the-web.markdown
+  - kind: chapter
+    path: app-thinning/app-thinning.markdown
+  - kind: chapter
+    path: multitasking/multitasking.markdown
+  - kind: chapter
+    path: uistackview-and-al-changes/uistackview-and-al-changes.markdown
+  - kind: chapter
+    path: intermediate-uistackview/intermediate-uistackview.markdown
+  - kind: chapter
+    path: whats-new-in-storyboards/whats-new-in-storyboards.markdown
+  - kind: chapter
+    path: custom-segues/custom-segues.markdown
+  - kind: chapter
+    path: uikit-dynamics/uikit-dynamics.markdown
+  - kind: chapter
+    path: contacts/contacts.markdown
+  - kind: chapter
+    path: testing/testing.markdown
+  - kind: chapter
+    path: location-and-mapping/location-and-mapping.markdown
+  - kind: chapter
+    path: whats-new-in-xcode/whats-new-in-xcode.markdown
+  - kind: chapter
+    path: frontmatter/conclusion.md

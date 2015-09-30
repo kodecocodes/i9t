@@ -1,10 +1,10 @@
 ```metadata
-author: Jawwad Ahmad
-number: 6
-title: UIStackView and Auto Layout changes
+author: "By Jawwad Ahmad"
+number: "7"
+title: "Chapter 7: UIStackView & Auto Layout changes"
 ```
 
-# Chapter 6: UIStackView and Auto Layout changes
+# Chapter 7: UIStackView & Auto Layout changes
 
 We've all been there. That annoying moment when you needed to add or remove a view at runtime and wished that other views knew how to reposition themselves automatically.
 
@@ -25,7 +25,7 @@ In this chapter, you'll learn about stack views and about some of the other Auto
 
 ## Getting started
 
-In this chapter, you'll start working on an app called **Vacation Spots**, which will also be your guinea pig for chapter 7. It's a simple app that shows you a list of places to get away from it all. Hey, I bet you're ready for a vacation after working with constraints, right?
+In this chapter, you'll start working on an app called **Vacation Spots**, which will also be your guinea pig for chapter 8. It's a simple app that shows you a list of places to get away from it all. Hey, I bet you're ready for a vacation after working with constraints, right?
 
 Don't pack the bags just yet, because there are a few issues you'll fix by using stack views, and in a much simpler way than if you were using Auto Layout alone.
 
@@ -210,7 +210,7 @@ Layout anchors allow you to do exactly that:
 
 ```swift
 let constraint = topLabel.bottomAnchor.constraintEqualToAnchor(
-                 bottomLabel.topAnchor, constant: 8)
+  bottomLabel.topAnchor, constant: 8)
 ```
 
 This achieves the same result. The view now has a layout anchor object representing the `.Bottom` attribute, and that anchor object can create constraints relating to other layout anchors.
@@ -221,7 +221,7 @@ They're all subclasses of `NSLayoutAnchor`, which has a number of methods for cr
 
 ```swift
 let constraint = topLabel.bottomAnchor.constraintEqualToAnchor(
-                 bottomLabel.topAnchor)
+  bottomLabel.topAnchor)
 ```
 
 That's a much more expressive and concise way to create a constraint!
