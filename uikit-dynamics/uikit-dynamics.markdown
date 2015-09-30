@@ -1,10 +1,10 @@
 ```metadata
 author: Aaron Douglas
-number: 10
+number: 11
 title: UIKit Dynamics
 ```
 
-# Chapter 10: UIKit Dynamics
+# Chapter 11: UIKit Dynamics
 
 iOS applications live in the hands of the people using them. Until somebody taps, swipes and enjoys your work, it sits in suspended animation on a device. Users have come to expect our mobile apps to react to touch and to provide some semblance of "realness". Your app's success depends in part on how much the user enjoys its responsiveness.
 

@@ -1,10 +1,10 @@
 ```metadata
 author: Jawwad Ahmad
-number: 6
+number: 7
 title: UIStackView and Auto Layout changes
 ```
 
-# Chapter 6: UIStackView and Auto Layout changes
+# Chapter 7: UIStackView and Auto Layout changes
 
 We've all been there. That annoying moment when you needed to add or remove a view at runtime and wished that other views knew how to reposition themselves automatically.
 
@@ -25,7 +25,7 @@ In this chapter, you'll learn about stack views and about some of the other Auto
 
 ## Getting started
 
-In this chapter, you'll start working on an app called **Vacation Spots**, which will also be your guinea pig for chapter 7. It's a simple app that shows you a list of places to get away from it all. Hey, I bet you're ready for a vacation after working with constraints, right?
+In this chapter, you'll start working on an app called **Vacation Spots**, which will also be your guinea pig for chapter 8. It's a simple app that shows you a list of places to get away from it all. Hey, I bet you're ready for a vacation after working with constraints, right?
 
 Don't pack the bags just yet, because there are a few issues you'll fix by using stack views, and in a much simpler way than if you were using Auto Layout alone.
 

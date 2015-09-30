@@ -1,10 +1,10 @@
 ```metadata
 author: Vincent Ngo
-number: 13
+number: 14
 title: Location and Mapping
 ```
 
-# Chapter 13: Location and Mapping
+# Chapter 14: Location and Mapping
 
 Despite a slightly shaky start to its mapping effort in iOS 6, Apple has continued to enhance its mapping and location frameworks every year. iOS 9 is no exception, with a number of great updates to both MapKit and Core Location.
 

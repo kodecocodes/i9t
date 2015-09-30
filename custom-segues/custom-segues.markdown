@@ -1,10 +1,10 @@
 ```metadata
 author: Caroline Begbie
-number: 9
+number: 10
 title: Custom Segues
 ```
 
-# Chapter 9: Custom Segues
+# Chapter 10: Custom Segues
 
 Segues have long been a familiar way to transition between scenes — all the way back to iOS 5. iOS 7 introduced custom view controller transitions to support custom, interactive transitions between views. iOS 9 takes custom transitions even further with custom segues that let you make a complete separation between your transition animation and view controller code.
 

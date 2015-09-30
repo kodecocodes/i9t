@@ -1,10 +1,10 @@
 ```metadata
 author: Caroline Begbie
-number: 8
+number: 9
 title: What's New in Storyboards?
 ```
 
-# Chapter 8: What's New in Storyboards?
+# Chapter 9: What's New in Storyboards?
 
 Storyboards have been around since iOS 5 and have received lots of upgrades and new features since then, including unwind segues for reverse navigation, universal storyboards for both iPhone and iPad, and live rendering of views designed in code.
 
@@ -216,7 +216,7 @@ Now **Ctrl-drag** from the text view to `ChecklistDetailViewController` to creat
 
 Finally, it's time to write some code! :] You'll use another new feature of iOS 9, _UIStackView_, to add and remove the notes view from a cell with an animation.
 
-> **Note:** To learn more about UIStackView, be sure to check out chapter 6, "UIStackView and Auto Layout Changes", and chapter 7, "Intermediate UIStackView".
+> **Note:** To learn more about UIStackView, be sure to check out chapter 7, "UIStackView and Auto Layout Changes", and chapter 8, "Intermediate UIStackView".
 
 In **ChecklistDetailViewController.swift**, add the following method to the bottom of the main class implementation:
 
@@ -361,7 +361,7 @@ Build and run your app; choose a check list, tap the **Edit** button and delete 
 
 Your app to help you survive the apocalypse is done! All the new features you've covered in this chapter, including storyboard references and an enhanced scene dock should show you there are very few reasons _not_ to use storyboards in your own projects.
 
-Storyboards in Xcode 7 also have greater support for custom segues. We've got that covered in chapter 9 of this book: _Custom Segues_. If you decide to make Prepped a universal app, you can read more about supporting multitasking on the iPad in Chapter 5: _Multitasking_.
+Storyboards in Xcode 7 also have greater support for custom segues. We've got that covered in chapter 10 of this book: _Custom Segues_. If you decide to make Prepped a universal app, you can read more about supporting multitasking on the iPad in Chapter 5: _Multitasking_.
 
 There are some useful sessions from WWDC 2015 that will help you as well:
 * Session 215, What's New In Storyboards: <http://apple.co/1Do4xn7>

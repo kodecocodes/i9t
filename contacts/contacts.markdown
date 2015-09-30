@@ -1,10 +1,10 @@
 ```metadata
 author: Evan Dekhayser
-number: 11
+number: 12
 title: Contacts
 ```
 
-# Chapter 11: Contacts
+# Chapter 12: Contacts
 
 A long time ago, in an operating system far, far away, developers accessed a user's contacts on their iOS device with a C API and had to deal with the pain of using ancient structs and Core Foundation types in an object-oriented world.
 
