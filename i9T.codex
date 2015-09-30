@@ -27,3 +27,5 @@ segments:
     path: location-and-mapping/location-and-mapping.markdown
   - kind: chapter
     path: whats-new-in-xcode/whats-new-in-xcode.markdown
+  - kind: chapter
+    path: frontmatter/conclusion.md
