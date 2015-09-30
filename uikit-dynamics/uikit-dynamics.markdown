@@ -286,10 +286,11 @@ func updateFieldsInBounds(bounds: CGRect) {
   //2
   func updateRegionForField(field: UIFieldBehavior,
     _ point: CGPoint) {
-      let size = CGSize(width: w - 2 * edgeInset,
-        height: h - 2 * edgeInset - itemHeight)
-      field.position = point
-      field.region = UIRegion(size: size)
+
+    let size = CGSize(width: w - 2 * edgeInset,
+      height: h - 2 * edgeInset - itemHeight)
+    field.position = point
+    field.region = UIRegion(size: size)
   }
   
   //3

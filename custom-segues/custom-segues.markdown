@@ -77,11 +77,11 @@ Override `prepareForSegue(_:sender:)` in **AnimalDetailViewController.swift** to
 ```swift
 override func prepareForSegue(segue: UIStoryboardSegue,
   sender: AnyObject?) {
-    if segue.identifier == "PhotoDetail" {
-      let controller = segue.destinationViewController
-        as! AnimalPhotoViewController
-      controller.image = imageView.image
-    }
+  if segue.identifier == "PhotoDetail" {
+    let controller = segue.destinationViewController
+      as! AnimalPhotoViewController
+    controller.image = imageView.image
+  }
 }
 ```
 
@@ -98,7 +98,7 @@ Add the following method to `AnimalDetailViewController` in **AnimalDetailViewCo
 ```swift
 @IBAction func unwindToAnimalDetailViewController(
   segue:UIStoryboardSegue) {
-    // placeholder for unwind segue
+  // placeholder for unwind segue
 }
 ```
 
@@ -216,7 +216,7 @@ First, you have to specify the duration of the animation. Add the following meth
 func transitionDuration(
   transitionContext: UIViewControllerContextTransitioning?)
   -> NSTimeInterval {
-    return 2.0
+  return 2.0
 }
 ```
 
@@ -253,9 +253,9 @@ func animateTransition(transitionContext:
     toView?.frame = finalFrame
     toView?.layoutIfNeeded()
   }, completion: {
-      finished in
-      // 5. Clean up the transition context
-      transitionContext.completeTransition(true)
+    finished in
+    // 5. Clean up the transition context
+    transitionContext.completeTransition(true)
   })
 }
 ```
@@ -273,11 +273,11 @@ Taking each numbered comment in turn:
 Add the following delegate method to `ScaleSegue`'s `UIViewControllerTransitioningDelegate` extension:
 
 ```swift
-func animationControllerForPresentedController(presented:
-            UIViewController,
-            presentingController presenting: UIViewController,
-            sourceController source: UIViewController) ->
-            UIViewControllerAnimatedTransitioning? {
+func animationControllerForPresentedController(
+  presented: UIViewController,
+  presentingController presenting: UIViewController,
+  sourceController source: UIViewController)
+  -> UIViewControllerAnimatedTransitioning? {
   return ScalePresentAnimator()
 }
 ```
@@ -506,8 +506,8 @@ The code will look very similar to the presenting animator from this chapter, ex
 ```swift
 if let fromView = fromView,
   toView = toView {
-    transitionContext.containerView()?
-      .insertSubview(toView, belowSubview: fromView)
+  transitionContext.containerView()?
+    .insertSubview(toView, belowSubview: fromView)
 }
 ```
 

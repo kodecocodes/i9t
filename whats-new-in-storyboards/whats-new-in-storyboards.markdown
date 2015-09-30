@@ -253,26 +253,25 @@ Next, you need to put these methods to use. Still in **ChecklistDetailViewContro
 ```swift
 override func tableView(tableView: UITableView,
   didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    // 1
-    guard let cell = tableView.cellForRowAtIndexPath(indexPath)
-      as? ChecklistItemTableViewCell else {
-        return
-    }
 
-    // 2
-    tableView.beginUpdates()
-    // 3
-    if cell.stackView.arrangedSubviews.contains(notesView) {
-      removeNotesView()
-    } else {
-      addNotesViewToCell(cell)
+  // 1
+  guard let cell = tableView.cellForRowAtIndexPath(indexPath)
+    as? ChecklistItemTableViewCell else { return }
 
-      // 4
-      notesTextView.text = checklist.items[indexPath.row].notes
-    }
+  // 2
+  tableView.beginUpdates()
+  // 3
+  if cell.stackView.arrangedSubviews.contains(notesView) {
+    removeNotesView()
+  } else {
+    addNotesViewToCell(cell)
 
-    // 5
-    tableView.endUpdates()
+    // 4
+    notesTextView.text = checklist.items[indexPath.row].notes
+  }
+
+  // 5
+  tableView.endUpdates()
 }
 ```
 
@@ -340,14 +339,15 @@ Still in **ChecklistDetailViewController.swift**, find the table view data sourc
 override func tableView(tableView: UITableView,
   commitEditingStyle editingStyle: UITableViewCellEditingStyle,
   forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-      removeNotesView()
 
-      checklist.items.removeAtIndex(indexPath.row)
+  if editingStyle == .Delete {
+    removeNotesView()
 
-      tableView.deleteRowsAtIndexPaths([indexPath],
-        withRowAnimation: .Fade)
-    }
+    checklist.items.removeAtIndex(indexPath.row)
+
+    tableView.deleteRowsAtIndexPaths([indexPath],
+      withRowAnimation: .Fade)
+  }
 }
 ```
 

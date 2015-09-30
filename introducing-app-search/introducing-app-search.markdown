@@ -278,7 +278,7 @@ Add the following logic above `return true` in `application(_:continueUserActivi
 ```swift
 guard userActivity.activityType == Employee.domainIdentifier,
   let objectId = userActivity.userInfo?["id"] as? String else {
-    return false
+  return false
 }
 ```
 
@@ -292,17 +292,18 @@ if let nav = window?.rootViewController
   listVC = nav.viewControllers.first
     as? EmployeeListViewController,
   employee = EmployeeService().employeeWithObjectId(objectId) {
-    nav.popToRootViewControllerAnimated(false)
 
-    let employeeViewController = listVC
-      .storyboard?
-      .instantiateViewControllerWithIdentifier("EmployeeView")
-        as! EmployeeViewController
+  nav.popToRootViewControllerAnimated(false)
 
-    employeeViewController.employee = employee
-    nav.pushViewController(employeeViewController,
-      animated: false)
-    return true
+  let employeeViewController = listVC
+    .storyboard?
+    .instantiateViewControllerWithIdentifier("EmployeeView")
+      as! EmployeeViewController
+
+  employeeViewController.employee = employee
+  nav.pushViewController(employeeViewController,
+    animated: false)
+  return true
 }
 
 return false
@@ -396,13 +397,15 @@ Then replace `guard` statement in `application(_:continueUserActivity:restoratio
 let objectId: String
 if userActivity.activityType == Employee.domainIdentifier,
   let activityObjectId = userActivity.userInfo?["id"]
-    as? String {
+  as? String {
+  
   // 1
   objectId = activityObjectId
 } else if userActivity.activityType ==
-    CSSearchableItemActionType,
+  CSSearchableItemActionType,
   let activityObjectId = userActivity
-    .userInfo?[CSSearchableItemActivityIdentifier] as? String {
+  .userInfo?[CSSearchableItemActivityIdentifier] as? String {
+  
   // 2
   objectId = activityObjectId
 } else {
@@ -428,6 +431,7 @@ Open **EmployeeService.swift** and find `destroyEmployeeIndexing()`. Replace the
 CSSearchableIndex
   .defaultSearchableIndex()
   .deleteAllSearchableItemsWithCompletionHandler { error in
+  
   if let error = error {
     print("Error deleting searching employee items: \(error)")
   } else {

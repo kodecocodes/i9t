@@ -89,7 +89,8 @@ It looks like `viewWillTransitionToSize(_:, withTransitionCoordinator:)` is a go
 func updateMaximumPrimaryColumnWidthBasedOnSize(size: CGSize) {
   if size.width < UIScreen.mainScreen().bounds.width
     || size.width < size.height {
-      maximumPrimaryColumnWidth = 170.0
+    
+    maximumPrimaryColumnWidth = 170.0
   } else {
     maximumPrimaryColumnWidth =
       UISplitViewControllerAutomaticDimension
@@ -116,9 +117,10 @@ Add one final method:
 override func viewWillTransitionToSize(size: CGSize,
   withTransitionCoordinator coordinator:
   UIViewControllerTransitionCoordinator) {
-    super.viewWillTransitionToSize(size,
-      withTransitionCoordinator: coordinator)
-    updateMaximumPrimaryColumnWidthBasedOnSize(size)
+
+  super.viewWillTransitionToSize(size,
+    withTransitionCoordinator: coordinator)
+  updateMaximumPrimaryColumnWidthBasedOnSize(size)
 }
 ```
 
@@ -182,16 +184,17 @@ extension LogsViewController:
     controller: UIPresentationController,
     traitCollection: UITraitCollection)
     -> UIModalPresentationStyle {
-      //1
-      guard traitCollection.userInterfaceIdiom == .Pad else {
-        return .FullScreen
-      }
 
-      if splitViewController?.view.bounds.width > 320 {
-        return .None
-      } else {
-        return .FullScreen
-      }
+    //1
+    guard traitCollection.userInterfaceIdiom == .Pad else {
+      return .FullScreen
+    }
+
+    if splitViewController?.view.bounds.width > 320 {
+      return .None
+    } else {
+      return .FullScreen
+    }
   }
 }
 ```
@@ -208,13 +211,13 @@ Find the implementation of `presentImagePickerControllerWithSourceType(_:)`. Rea
 ```swift
 func presentImagePickerControllerWithSourceType(sourceType:
   UIImagePickerControllerSourceType) {
+  // some code...
+  if sourceType ==
+    UIImagePickerControllerSourceType.PhotoLibrary {
     // some code...
-    if sourceType ==
-      UIImagePickerControllerSourceType.PhotoLibrary {
-        // some code...
-        presenter?.delegate = self
-    }
-    // some code...
+    presenter?.delegate = self
+  }
+  // some code...
 }
 ```
 

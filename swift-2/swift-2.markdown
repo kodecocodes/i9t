@@ -169,17 +169,18 @@ struct Person: JSONParsable {
 
   static func parse(json: [String : AnyObject]) throws
     -> Person {
-      guard let firstName = json["first_name"] as? String else {
-        let message = "Expected first_name String"
-        throw ParseError.MissingAttribute(message: message) // 1
-      }
+    
+    guard let firstName = json["first_name"] as? String else {
+      let message = "Expected first_name String"
+      throw ParseError.MissingAttribute(message: message) // 1
+    }
 
-      guard let lastName = json["last_name"] as? String else {
-        let message = "Expected last_name String"
-        throw ParseError.MissingAttribute(message: message) // 2
-      }
+    guard let lastName = json["last_name"] as? String else {
+      let message = "Expected last_name String"
+      throw ParseError.MissingAttribute(message: message) // 2
+    }
 
-      return Person(firstName: firstName, lastName: lastName)
+    return Person(firstName: firstName, lastName: lastName)
   }
 }
 ```
@@ -265,21 +266,22 @@ Surely you don't want to copy and paste that implementation into ALL of your `St
 Next, you'll extend the `StringValidator` protocol to define a default implementation for `validate(string:)`. Add the following code to the playground:
 
 ```
-extension StringValidator {                          // 1
+extension StringValidator {                            // 1
   func validate(string: String) -> (valid: Bool,
-    errors: [StringValidationError]) {               // 2
-      var errors = [StringValidationError]()         // 3
-      for rule in validationRules {                  // 4
-        do {                                         // 5
-          try rule.validate(string)                  // 6
-        } catch let error as StringValidationError { // 7
-          errors.append(error)                       // 8
-        } catch let error {                          // 9
-          fatalError("Unexpected error type: \(error)")
-        }
+    errors: [StringValidationError]) {                 // 2
+    
+    var errors = [StringValidationError]()             // 3
+    for rule in validationRules {                      // 4
+      do {                                             // 5
+        try rule.validate(string)                      // 6
+      } catch let error as StringValidationError {     // 7
+        errors.append(error)                           // 8
+      } catch let error {                              // 9
+        fatalError("Unexpected error type: \(error)")
       }
+    }
 
-      return (valid: errors.isEmpty, errors: errors) // 10
+    return (valid: errors.isEmpty, errors: errors)     // 10
   }
 }
 ```
@@ -304,20 +306,21 @@ Time to implement your very first `StringValidationRule`, starting with the firs
 ```
 struct StartsWithCharacterStringValidationRule
   : StringValidationRule {
-    let characterSet: NSCharacterSet            // 1
-    let description: String                     // 2
-    var errorType: StringValidationError {      // 3
-      return .MustStartWith(set: characterSet,
-        description: description)
-    }
+  
+  let characterSet: NSCharacterSet            // 1
+  let description: String                     // 2
+  var errorType: StringValidationError {      // 3
+    return .MustStartWith(set: characterSet,
+      description: description)
+  }
 
-    func validate(string: String) throws -> Bool {
-      if string.startsWithCharacterFromSet(characterSet) {
-        return true
-      } else {
-        throw errorType                         // 4
-      }
+  func validate(string: String) throws -> Bool {
+    if string.startsWithCharacterFromSet(characterSet) {
+      return true
+    } else {
+      throw errorType                         // 4
     }
+  }
 }
 ```
 
@@ -355,20 +358,21 @@ Great work! You've written your first validation rule; now you can create one fo
 ```
 struct EndsWithCharacterStringValidationRule
   : StringValidationRule {
-    let characterSet: NSCharacterSet
-    let description: String
-    var errorType: StringValidationError {
-      return .MustEndWith(set: characterSet,
-        description: description)
-    }
 
-    func validate(string: String) throws -> Bool {
-      if string.endsWithCharacterFromSet(characterSet) {
-        return true
-      } else {
-        throw errorType
-      }
+  let characterSet: NSCharacterSet
+  let description: String
+  var errorType: StringValidationError {
+    return .MustEndWith(set: characterSet,
+      description: description)
+  }
+
+  func validate(string: String) throws -> Bool {
+    if string.endsWithCharacterFromSet(characterSet) {
+      return true
+    } else {
+      throw errorType
     }
+  }
 }
 ```
 
@@ -450,14 +454,15 @@ Both types can be combined in a `StringValidator` to ensure the String is betwee
 ```
 public struct LengthStringValidationRule
   : StringValidationRule {
-    public enum Type {
-      case Min(length: Int)
-      case Max(length: Int)
-    }
-    public let type: Type
-    public var errorType: StringValidationError { get }
-    public init(type: Type)
-    public func validate(string: String) throws -> Bool
+
+  public enum Type {
+    case Min(length: Int)
+    case Max(length: Int)
+  }
+  public let type: Type
+  public var errorType: StringValidationError { get }
+  public init(type: Type)
+  public func validate(string: String) throws -> Bool
 }
 ```
 
@@ -476,20 +481,21 @@ Here's the implementation:
 ```
 public struct ContainsCharacterStringValidationRule
   : StringValidationRule {
-    public enum Type {
-      case MustContain
-      case CannotContain
-      case OnlyContain
-      case ContainAtLeast(Int)
-    }
-    public let characterSet: NSCharacterSet
-    public let description: String
-    public let type: Type
-    public var errorType: StringValidationError { get }
-    public init(characterSet: NSCharacterSet,
-      description: String,
-      type: Type)
-    public func validate(string: String) throws -> Bool
+
+  public enum Type {
+    case MustContain
+    case CannotContain
+    case OnlyContain
+    case ContainAtLeast(Int)
+  }
+  public let characterSet: NSCharacterSet
+  public let description: String
+  public let type: Type
+  public var errorType: StringValidationError { get }
+  public init(characterSet: NSCharacterSet,
+    description: String,
+    type: Type)
+  public func validate(string: String) throws -> Bool
 }
 ```
 
@@ -681,8 +687,9 @@ var slapLog = ""
 for author in authors {
   if case .Late(let daysLate) =
     author.status where daysLate > 2 {
-      slapLog += "Ray slaps \(author.name) around a bit " +
-        "with a large trout.\n"
+
+    slapLog += "Ray slaps \(author.name) around a bit " +
+      "with a large trout.\n"
   }
 }
 ```

@@ -210,7 +210,7 @@ Layout anchors allow you to do exactly that:
 
 ```swift
 let constraint = topLabel.bottomAnchor.constraintEqualToAnchor(
-                 bottomLabel.topAnchor, constant: 8)
+  bottomLabel.topAnchor, constant: 8)
 ```
 
 This achieves the same result. The view now has a layout anchor object representing the `.Bottom` attribute, and that anchor object can create constraints relating to other layout anchors.
@@ -221,7 +221,7 @@ They're all subclasses of `NSLayoutAnchor`, which has a number of methods for cr
 
 ```swift
 let constraint = topLabel.bottomAnchor.constraintEqualToAnchor(
-                 bottomLabel.topAnchor)
+  bottomLabel.topAnchor)
 ```
 
 That's a much more expressive and concise way to create a constraint!

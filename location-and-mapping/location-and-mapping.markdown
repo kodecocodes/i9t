@@ -119,8 +119,8 @@ The callout shows the opening hours, star and cost rating and a description of t
 Open **ViewController.swift** and add the following code to `mapView(_:viewForAnnotation:)`, just before the `return` statement:
 
 ```swift
-let detailView =
-  UIView.loadFromNibNamed(identifier) as! CoffeeShopPinDetailView
+let detailView = UIView.loadFromNibNamed(identifier) as!
+  CoffeeShopPinDetailView
 detailView.coffeeShop = annotation.coffeeshop
 annotationView!.detailCalloutAccessoryView = detailView
 ```
@@ -172,8 +172,9 @@ let geocoder = CLGeocoder()
 geocoder.reverseGeocodeLocation(location) { (placemarks, _) in
   if let placemark = placemarks?.first, timeZone =
     placemark.timeZone {
-      self.timeZone = timeZone
-    }
+  
+    self.timeZone = timeZone
+  }
 }
 
 return shops
@@ -245,13 +246,15 @@ extension ViewController: CLLocationManagerDelegate {
 
   func locationManager(manager: CLLocationManager,
     didUpdateLocations locations: [CLLocation]) {
-      currentUserLocation = locations.first?.coordinate
+    
+    currentUserLocation = locations.first?.coordinate
   }
 
   func locationManager(manager: CLLocationManager,
     didFailWithError error: NSError) {
-      print("Error finding location: " +
-        \(error.localizedDescription)")
+    
+    print("Error finding location: " +
+      \(error.localizedDescription)")
   }
 }
 ```
@@ -267,7 +270,8 @@ private func requestUserLocation() {
   mapView.showsUserLocation = true    // 1
   if CLLocationManager.authorizationStatus() ==
     .AuthorizedWhenInUse { // 2
-      locationManager.requestLocation()   // 3
+    
+    locationManager.requestLocation()   // 3
   } else {
     locationManager.requestWhenInUseAuthorization()   // 4
   }
@@ -301,11 +305,11 @@ Finally, find the `MKMapViewDelegate` extension near the bottom of **ViewControl
 ```swift
 func mapView(mapView: MKMapView,
   didSelectAnnotationView view: MKAnnotationView) {
-    if let detailView =  
-      view.detailCalloutAccessoryView
-        as? CoffeeShopPinDetailView {
-          detailView.currentUserLocation = currentUserLocation
-    }
+  if let detailView = view.detailCalloutAccessoryView
+    as? CoffeeShopPinDetailView {
+    
+    detailView.currentUserLocation = currentUserLocation
+  }
 }
 ```
 
@@ -326,12 +330,13 @@ Open **CoffeeShopPinDetailView.swift** and add the following method below `//MAR
 ```swift
 func openTransitDirectionsForCoordinates(
   coord:CLLocationCoordinate2D) {
-    let placemark = MKPlacemark(coordinate: coord,
-      addressDictionary: coffeeShop.addressDictionary) // 1
-    let mapItem = MKMapItem(placemark: placemark)  // 2
-    let launchOptions = [MKLaunchOptionsDirectionsModeKey:
-      MKLaunchOptionsDirectionsModeTransit]  // 3
-    mapItem.openInMapsWithLaunchOptions(launchOptions)  // 4
+
+  let placemark = MKPlacemark(coordinate: coord,
+    addressDictionary: coffeeShop.addressDictionary) // 1
+  let mapItem = MKMapItem(placemark: placemark)  // 2
+  let launchOptions = [MKLaunchOptionsDirectionsModeKey:
+    MKLaunchOptionsDirectionsModeTransit]  // 3
+  mapItem.openInMapsWithLaunchOptions(launchOptions)  // 4
 }
 ```
 
@@ -386,10 +391,10 @@ func requestTransitTimes() {
   // 2
   let source = MKMapItem(placemark:
     MKPlacemark(coordinate: currentUserLocation,
-      addressDictionary: nil))
+    addressDictionary: nil))
   let destination = MKMapItem(placemark:
     MKPlacemark(coordinate: coffeeShop.location,
-      addressDictionary: nil))
+    addressDictionary: nil))
 
   // 3
   request.source = source

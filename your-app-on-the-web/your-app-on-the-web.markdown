@@ -155,18 +155,18 @@ Head back to the **RWDevCon project** in Xcode and add the following class metho
 class func sessionByWebPath(path: String,
   context: NSManagedObjectContext) -> Session? {
 
-    let fetch = NSFetchRequest(entityName: "Session")
-    fetch.predicate =
-      NSPredicate(format: "webPath = %@", path)
+  let fetch = NSFetchRequest(entityName: "Session")
+  fetch.predicate =
+    NSPredicate(format: "webPath = %@", path)
 
-    do {
-      let results = try context.executeFetchRequest(fetch)
-      return results.first as? Session
-    } catch let fetchError as NSError {
-      print("fetch error: \(fetchError.localizedDescription)")
-    }
+  do {
+    let results = try context.executeFetchRequest(fetch)
+    return results.first as? Session
+  } catch let fetchError as NSError {
+    print("fetch error: \(fetchError.localizedDescription)")
+  }
 
-    return nil
+  return nil
 }
 ```
 
@@ -188,11 +188,11 @@ func presentVideoViewController(URL: NSURL) {
   if let videoPlayerVC = navVideoPlayerVC.topViewController
     as? AVPlayerViewController {
 
-      videoPlayerVC.player = AVPlayer(URL: URL)
+    videoPlayerVC.player = AVPlayer(URL: URL)
 
-      let rootViewController = window?.rootViewController
-      rootViewController?.presentViewController(
-        navVideoPlayerVC, animated: true, completion: nil)
+    let rootViewController = window?.rootViewController
+    rootViewController?.presentViewController(
+      navVideoPlayerVC, animated: true, completion: nil)
   }
 }
 ```
@@ -207,33 +207,33 @@ func application(application: UIApplication,
   userActivity: NSUserActivity,
   restorationHandler: ([AnyObject]?) -> Void) -> Bool {
 
-    //1
-    if userActivity.activityType ==
-      NSUserActivityTypeBrowsingWeb {
+  //1
+  if userActivity.activityType ==
+    NSUserActivityTypeBrowsingWeb {
 
-        let universalURL = userActivity.webpageURL!
+    let universalURL = userActivity.webpageURL!
 
-        //2
-        if let components = NSURLComponents(URL: universalURL,
-          resolvingAgainstBaseURL: true),
-          let path = components.path {
+    //2
+    if let components = NSURLComponents(URL: universalURL,
+      resolvingAgainstBaseURL: true),
+      let path = components.path {
 
-            if let session = Session.sessionByWebPath(path,
-              context: coreDataStack.context) {
-                //3
-                let videoURL = NSURL(string: session.videoUrl)!
-                presentVideoViewController(videoURL)
-                return true
-            } else {
-              //4
-              let app = UIApplication.sharedApplication()
-              let url =
-                NSURL(string: "http://www.rwdevcon.com")!
-              app.openURL(url)
-            }
-        }
+      if let session = Session.sessionByWebPath(path,
+        context: coreDataStack.context) {
+        //3
+        let videoURL = NSURL(string: session.videoUrl)!
+        presentVideoViewController(videoURL)
+        return true
+      } else {
+        //4
+        let app = UIApplication.sharedApplication()
+        let url =
+          NSURL(string: "http://www.rwdevcon.com")!
+        app.openURL(url)
+      }
     }
-    return false
+  }
+  return false
 }
 ```
 

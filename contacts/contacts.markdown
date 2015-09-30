@@ -77,7 +77,7 @@ extension Friend {
       CNLabeledValue(label: CNLabelWork, value: workEmail)
     ]
     // 4
-    if let profilePicture = profilePicture{
+    if let profilePicture = profilePicture {
       let imageData =
         UIImageJPEGRepresentation(profilePicture, 1)
       contact.imageData = imageData
@@ -131,9 +131,8 @@ extension FriendsViewController {
       contactViewController.allowsEditing = false
       contactViewController.allowsActions = false
       // 4
-      navigationController?
-        .pushViewController(contactViewController,
-          animated: true)
+      navigationController?.pushViewController
+        (contactViewController, animated: true)
   }
 }
 ```
@@ -175,7 +174,8 @@ To do this, add the following code to `addFriends(_:)`:
 
 ```swift
 let contactPicker = CNContactPickerViewController()
-presentViewController(contactPicker, animated: true, completion: nil)
+presentViewController(contactPicker, animated: true,
+  completion: nil)
 ```
 
 Build and run your app; press the **Add** button in the navigation bar and you'll see your **CNContactPickerViewController** appear:
@@ -289,13 +289,13 @@ Add the following code inside the table view delegate extension you added to **F
 override func tableView(tableView: UITableView,
   editActionsForRowAtIndexPath indexPath: NSIndexPath)
   -> [UITableViewRowAction]? {
-    let createContact = UITableViewRowAction(style: .Normal,
-      title: "Create Contact") { rowAction, indexPath in
-        tableView.setEditing(false, animated: true)
-        // TODO: Add the contact
-    }
-    createContact.backgroundColor = BlueColor
-    return [createContact]
+  let createContact = UITableViewRowAction(style: .Normal,
+    title: "Create Contact") { rowAction, indexPath in
+    tableView.setEditing(false, animated: true)
+    // TODO: Add the contact
+  }
+  createContact.backgroundColor = BlueColor
+  return [createContact]
 }
 ```
 
@@ -443,7 +443,7 @@ dispatch_async(dispatch_get_main_queue()) {
     message: "An unknown error occurred.",
     preferredStyle: .Alert)
   failureAlert.addAction(UIAlertAction(title: "OK",
-  style: .Cancel, handler: nil))
+    style: .Cancel, handler: nil))
   self.presentViewController(failureAlert, animated: true,
     completion: nil)
 }
