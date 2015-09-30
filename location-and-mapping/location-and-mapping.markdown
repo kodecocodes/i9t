@@ -21,7 +21,7 @@ The sample app for this chapter, Café Transit, is for all the coffee aficionado
 
 By the time you've finished this chapter, your app will show lots of useful information for each coffee shop, including a rating, pricing information and opening hours. Your app will also provide transit directions to a particular coffee shop, and even let you know what time you'll need to leave and when you're likely to arrive.
 
-> **Note**: This chapter will be easier to follow if you have some basic MapKit knowledge. If you need to brush up, take a look at our [Getting Started With MapKit tutorial](http://bit.ly/1PrurqE):  <http://bit.ly/1PrurqE>.
+> **Note**: This chapter will be easier to follow if you have some basic MapKit knowledge. If you need to brush up, take a look at our Getting Started With MapKit tutorial [bit.ly/1PrurqE](http://bit.ly/1PrurqE).
 
 ## Getting started
 
@@ -98,7 +98,7 @@ Callouts will use the _intrinsic content size_ of your custom view to size thems
 1. Use Auto Layout to lay out your custom view, and let intrinsic content size do its thing.
 2. You can override `intrinsicContentSize` within your custom view size and return a size of your choice.
 
-> **Note**: For more information on intrinsic content size and Auto Layout, take a look at Apple's "Implementing a Custom View to Work with Auto Layout" documentation: <http://apple.co/1PHbKA5>.
+> **Note**: For more information on intrinsic content size and Auto Layout, take a look at Apple's "Implementing a Custom View to Work with Auto Layout" documentation: [apple.co/1PHbKA5](http://apple.co/1PHbKA5).
 
 The XIB for `CoffeeShopPinDetailView` uses `UIStackView` and Auto Layout, so you don't have to manually specify `intrinsicContentSize`. Feel free to explore how the XIB makes use of `UIStackView` and constraints.
 
@@ -443,5 +443,5 @@ In this chapter you've customized a map view, added a custom callout, requested 
 
 There are a couple of other MapKit and Core Location updates this chapter didn't cover, including 3D flyovers and a couple of changes to background location updates. For more information about these, check out these related WWDC talks:
 
-* What's New In MapKit: <http://apple.co/1h4r4e7>
-* What's New in Core Location: <http://apple.co/1EcdPD7>
+* What's New In MapKit: [apple.co/1h4r4e7](http://apple.co/1h4r4e7)
+* What's New in Core Location: [apple.co/1EcdPD7](http://apple.co/1EcdPD7)

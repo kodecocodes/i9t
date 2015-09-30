@@ -467,6 +467,6 @@ Stack views are now your new view hierarchy building blocks. Get to know them â€
 
 Here are some related videos from WWDC 2015 that may be of interest:
 
-- [Mysteries of Auto Layout, Part 1 (http://apple.co/1D47aKk)](https://developer.apple.com/videos/wwdc/2015/?id=218)
-- [Mysteries of Auto Layout, Part 2 (http://apple.co/1HTcVJy)](https://developer.apple.com/videos/wwdc/2015/?id=219)
-- [Implementing UI Designs in Interface Builder (http://apple.co/1H5vS84)](https://developer.apple.com/videos/wwdc/2015/?id=407)
+- Mysteries of Auto Layout, Part 1 [apple.co/1D47aKk](https://developer.apple.com/videos/wwdc/2015/?id=218)
+- Mysteries of Auto Layout, Part 2 [apple.co/1HTcVJy](https://developer.apple.com/videos/wwdc/2015/?id=219)
+- Implementing UI Designs in Interface Builder [apple.co/1H5vS84](https://developer.apple.com/videos/wwdc/2015/?id=407)

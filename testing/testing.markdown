@@ -105,7 +105,7 @@ As you can see, it tells you which lines inside a method are covered and which a
 
 ![bordered width=40%](/images/xcode_has_my_back.png)
 
-> **Note**: A single code coverage report is simply a snapshot. If you want to know whether your coverage is improving or getting worse, you'll need to see how these numbers change over time. One way to do this is with continuous integration, by using the Xcode server. This chapter won't cover this, but you can learn more about it by catching up on session 410 from WWDC 2015: _Continuous Integration and Code Coverage in Xcode_ (<http://apple.co/1J1n1Kd>).
+> **Note**: A single code coverage report is simply a snapshot. If you want to know whether your coverage is improving or getting worse, you'll need to see how these numbers change over time. One way to do this is with continuous integration, by using the Xcode server. This chapter won't cover this, but you can learn more about it by catching up on session 410 from WWDC 2015: _Continuous Integration and Code Coverage in Xcode_ ([apple.co/1J1n1Kd](http://apple.co/1J1n1Kd).
 
 ## @testable imports and access control
 
@@ -205,7 +205,7 @@ Swift provides three different levels of access:
 2. **Internal access** enables access for entities in any source file from within their own module. Files from outside modules never get access, even if they import the module in question. 
 3. **Private access** restricts access to entities from anywhere other than the source file where they're defined. This is the most restrictive of all access control levels.
 
-> **Note**: This was a broad overview of Swift's access control model. There's more to it, and if you’re interested in learning more, read Apple's documentation on the subject at <http://apple.co/1DH0v9y>.
+> **Note**: This was a broad overview of Swift's access control model. There's more to it, and if you’re interested in learning more, read Apple's documentation on the subject at [apple.co/1DH0v9y](http://apple.co/1DH0v9y).
 
 The default access control is **internal**. Now do you see why your unit tests were riddled with errors? All the entities in **DataModel.swift** are internal to the **Workouts** module. You cannot reference them from the testing module, even if you `import` the Workouts module!
 
@@ -470,8 +470,8 @@ If you ever find yourself fixing the same bug over and over, think back to this 
 
 There are a couple of WWDC sessions from 2015 that are worth looking at to find out more about the topics covered in this chapter:
 
-- _Session 406 — UI Testing in XCode_: <http://apple.co/1N1Eg0I>
-- _Session 410 — Continuous Integration and Code Coverage in Xcode_: <http://apple.co/1J1n1Kd>
+- _Session 406 — UI Testing in XCode_: [apple.co/1N1Eg0I](http://apple.co/1N1Eg0I)
+- _Session 410 — Continuous Integration and Code Coverage in Xcode_: [apple.co/1J1n1Kd](http://apple.co/1J1n1Kd)
 
 You can also read Chapter 29, "What’s New with Testing", in our _iOS 8 by Tutorials_ book and the "Unit Testing in Xcode 5" chapter in _iOS 7 by Tutorials_.
 

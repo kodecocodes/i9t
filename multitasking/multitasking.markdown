@@ -252,7 +252,7 @@ You've worked hard to be a good memory citizen over the years, and that won't ch
 
 This chapter only touched on the basics of multitasking — it's up to developers like you to help chart the course for accepted multitasking design patterns of the future. To help you along the journey to multitasking, here are some resources you can bookmark for future reference:
 
-* [Adopting Multitasking Enhancements on iPad- http://apple.co/1MdssbK](https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html)
-* [Getting Started with Multitasking on iPad in iOS 9 (Session 205) - http://apple.co/1ItxCtH](https://developer.apple.com/videos/wwdc/2015/?id=205)
-* [Multitasking Essentials for Media-Based Apps on iPad in iOS 9 (session 211) - http://apple.co/1hm8v5s](https://developer.apple.com/videos/wwdc/2015/?id=211)
-* [Optimizing Your App for Multitasking on iPad in iOS 9 (Session 212) - http://apple.co/1T8CCcp](https://developer.apple.com/videos/wwdc/2015/?id=212)
+* Adopting Multitasking Enhancements on iPad– [apple.co/1MdssbK](https://developer.apple.com/library/prerelease/ios/documentation/WindowsViews/Conceptual/AdoptingMultitaskingOniPad/index.html)
+* Getting Started with Multitasking on iPad in iOS 9 (Session 205) – [apple.co/1ItxCtH](https://developer.apple.com/videos/wwdc/2015/?id=205)
+* Multitasking Essentials for Media-Based Apps on iPad in iOS 9 (session 211) – [apple.co/1hm8v5s](https://developer.apple.com/videos/wwdc/2015/?id=211)
+* Optimizing Your App for Multitasking on iPad in iOS 9 (Session 212) – [apple.co/1T8CCcp](https://developer.apple.com/videos/wwdc/2015/?id=212)

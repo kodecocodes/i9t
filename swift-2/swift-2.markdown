@@ -148,7 +148,7 @@ protocol JSONParsable {
 
 This protocol defines a single static method that takes a JSON dictionary and returns an instance of `Self`, where `Self` is the type that conforms to this protocol. The method also declares that it can throw an error.
 
-So, what exactly _is_ a Swift error? Is it an `NSError`? No...and yes. :] A pure Swift error is represented as an `enum` that conforms to the protocol `ErrorType`. However, Apple Engineers conveniently made `NSError` conform to the `ErrorType` protocol, which means this pattern works quite well between Swift and Objective-C. If you're interested to learn more about interoperability, the Swift and Objective-C Interoperability [(http://apple.co/1He5uhh)](https://developer.apple.com/videos/wwdc/2015/?id=401) session is a must-see!
+So, what exactly _is_ a Swift error? Is it an `NSError`? No...and yes. :] A pure Swift error is represented as an `enum` that conforms to the protocol `ErrorType`. However, Apple Engineers conveniently made `NSError` conform to the `ErrorType` protocol, which means this pattern works quite well between Swift and Objective-C. If you're interested to learn more about interoperability, the Swift and Objective-C Interoperability ([apple.co/1He5uhh](https://developer.apple.com/videos/wwdc/2015/?id=401)) session is a must-see!
 
 You can create your own error type as below:
 

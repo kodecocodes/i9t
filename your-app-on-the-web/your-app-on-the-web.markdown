@@ -19,7 +19,7 @@ Unlike the rest of this book, the "sample app" for this chapter is a real-world 
 
 ![iPhone bordered](images/01-rwdevcon-screenshot.png)
 
-In the starter files for this chapter, you'll find both the code for the iOS app and the code for the website. There's quite a lot there, but don't be put off – you'll only be editing one or two files and adding some extra functionality to the videos section. Feel free to take a look through the project to familiarize yourself with its contents; you can also browse the real [RWDevCon website (http://rwdevcon.com)](http://rwdevcon.com) and download the iOS app from the App Store ([http://apple.co/1YoKMTi](http://apple.co/1YoKMTi)).
+In the starter files for this chapter, you'll find both the code for the iOS app and the code for the website. There's quite a lot there, but don't be put off – you'll only be editing one or two files and adding some extra functionality to the videos section. Feel free to take a look through the project to familiarize yourself with its contents; you can also browse the real RWDevCon website, [rwdevcon.com](http://rwdevcon.com) and download the iOS app from the App Store ([apple.co/1YoKMTi](http://apple.co/1YoKMTi)).
 
 > **Note:** Due to the infrastructure and security requirements for web markup and universal links, this chapter is unfortunately the only place in this book where you **won't** be able to verify your work as you follow along. There's no easy way to try out these features without having a real website accessible via HTTPS and an associated app in the App Store under an account where you're either the team agent or the team admin.
 >
@@ -112,7 +112,7 @@ Your `appID` string consists of your **team ID** (`KFCNEC27GU` in this example) 
 
 The team ID is supplied by Apple and is unique to a specific development team. `KFCNEC27GU` is specific to the Ray Wenderlich development team; you'll have a different identifier for your own account. 
 
-If you don't know your team ID, the easiest way to find it is by logging into Apple's [developer member center (developer.apple.com/membercenter)](https://developer.apple.com/membercenter). Log in, click on **Your Account**, and then look for your team ID within the account summary:
+If you don't know your team ID, the easiest way to find it is by logging into Apple's developer member center [developer.apple.com/membercenter](https://developer.apple.com/membercenter). Log in, click on **Your Account**, and then look for your team ID within the account summary:
 
 ![bordered width=80%](/images/03-team-ID.png)
 
@@ -141,9 +141,9 @@ Since you don't have access to the web servers that host `www.rwdevcon.com`, you
 
 Before moving on to the next section, there are two caveats to consider when managing your site association file:
 
-1. If your app must target iOS 8 because it contains Continuity features such as Handoff or shared web credentials, you'll have to sign **apple-app-site-association** using `openssl`. You can read more about this process in Apple's [Handoff Programming Guide (http://apple.co/1yG4jR9)](http://apple.co/1yG4jR9).
+1. If your app must target iOS 8 because it contains Continuity features such as Handoff or shared web credentials, you'll have to sign **apple-app-site-association** using `openssl`. You can read more about this process in Apple's Handoff Programming Guide [apple.co/1yG4jR9](http://apple.co/1yG4jR9).
 
-2. Before you upload **apple-app-site-association** to your web server, run your JSON through an online validator such as [JSONLint (www.jsonlint.com)](http://www.jsonlint.com). Universal links won't work if there's even the slightest syntax error in your JSON file!
+2. Before you upload **apple-app-site-association** to your web server, run your JSON through an online validator such as JSONLint [jsonlint.com](http://www.jsonlint.com). Universal links won't work if there's even the slightest syntax error in your JSON file!
 
 ### Handling universal links in your app
 
@@ -288,7 +288,7 @@ Applebot crawls the web far and wide, but there's no guarantee when, or even if,
 
 3. Check that your site's **robots.txt** file is set up so that Applebot can do its job. **Robots.txt**, also known as the _robots exclusion protocol_, is a web standard for  communicating with web crawlers and other web robots; it specifies which parts of the site the web crawler should not scan or process.
 
-> **Note:** Not all web crawlers follow these directives, but Applebot does! You can learn more about the robots exclusion standard on [Wikipedia (http://bit.ly/1MNna6A)](http://bit.ly/1MNna6A).
+> **Note:** Not all web crawlers follow these directives, but Applebot does! You can learn more about the robots exclusion standard on Wikipedia [bit.ly/1MNna6A](http://bit.ly/1MNna6A).
 
 ### Embedding universal links using Smart App Banners
 
@@ -319,7 +319,7 @@ The `content` attribute contains two important parameters:
 - **app-id**: This parameter corresponds to your app's Apple ID. Yes, apps have Apple IDs too! But this is different from the sort of Apple ID you use to log into iCloud. Your app's Apple ID is simply a unique number; all apps on the App Store have them. The easiest way to find your app's ID is to log into iTunes Connect, click **My Apps** and then navigate to the app in question. The Apple ID for RWDevCon is `958625272`; the ID would be different for your own app.
 - **app-argument:** This contains the URL Safari will pass back to the app if it's installed. Prior to iOS 9, the value of this parameter was a custom URL scheme deep link, but Apple now strongly recommends you switch to HTTP/HTTPS universal links.
 
-> **Note:** This was a quick overview of Smart App Banners. To learn more about their full capabilities, read Ray's [Smart App Banners tutorial (http://bit.ly/1iYlyea)](http://www.raywenderlich.com/80347/smart-app-banners-tutorial) as well as the [Safari Web Content Guide (http://apple.co/1KYeI4I)](http://apple.co/1KYeI4I).
+> **Note:** This was a quick overview of Smart App Banners. To learn more about their full capabilities, read Ray's Smart App Banners tutorial [bit.ly/1iYlyea](http://www.raywenderlich.com/80347/smart-app-banners-tutorial) as well as the Safari Web Content Guide [apple.co/1KYeI4I](http://apple.co/1KYeI4I).
 
 Adding Smart App Banners to your website is helpful for many reasons, including better odds of being indexed by Applebot. However, it's worth noting that Smart App Banners only work in Safari; if a visitor comes to your website through another browser such as Chrome, they won't see the banner.
 
@@ -341,7 +341,7 @@ And with Facebook's App Links:
 <meta property="al:ios:url" content="http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
 ```
 
-> **Note**: To learn more, read through Twitter's [documentation page on Twitter Cards (https://dev.twitter.com/cards/mobile)](http://bit.ly/1REZOkC) as well as Facebook's [App Links documentation (http://applinks.org)](http://applinks.org).
+> **Note**: To learn more, read through Twitter's documentation page on Twitter Cards [dev.twitter.com/cards/mobile](http://bit.ly/1REZOkC) as well as Facebook's App Links documentation [applinks.org](http://applinks.org).
 
 Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry, Ray's kind of picky about things like that), you won't be able to see your changes in action. However, you can see how it's supposed to work using the RWDevCon app from the App Store.
 
@@ -351,7 +351,7 @@ Use mobile Safari to load <http://www.rwdevcon.com/videos/talk-jake-gundersen-op
 
 If you don't see the Smart App Banner, swipe down on the page until it comes into view. Notice anything different from the Smart App Banner you saw earlier? This one is thinner, and has changed to say **Open in the RWDevCon app**. This special banner only shows up for URLs that match at least one of the paths specified in **apple-app-site-association**.
 
-You can verify this behavior by navigating to the site root <http://www.rwdevcon.com>. You'll see the regular-sized banner, not the thin banner you saw on the video page. Even though the homepage _also_ has the appropriate meta tag, the URL in its `app-argument` parameter doesn't match the **/videos/** path you specified in **apple-app-site-association**.
+You can verify this behavior by navigating to the site root [rwdevcon.com](http://www.rwdevcon.com). You'll see the regular-sized banner, not the thin banner you saw on the video page. Even though the homepage _also_ has the appropriate meta tag, the URL in its `app-argument` parameter doesn't match the **/videos/** path you specified in **apple-app-site-association**.
 
 > **Note:** Smart App Banners don't work on the iOS simulator, so you must use a device to view and interact with the banners.
 
@@ -386,7 +386,7 @@ Open **/videos/talk-ray-wenderlich-teamwork.html** and add the following code be
 ```
 This adds rich web markup to the web page via the `video`, `image` and `description` meta tags, which explicitly points to information contained on the page, helping Applebot find the information it's looking for.
 
-In the `property` fields above, "og" stands for **Open Graph**. To learn more about Open Graph, check out the Open Graph documentation at <http://ogp.me>; it's one of several standards Apple supports for structured markup. Other standards include [schema.org (http://www.schema.org)](http://www.schema.org), [RDFA (http://rdfa.info)](http://rdfa.info) and [JSON LD (http://json-ld.org)](http://json-ld.org).
+In the `property` fields above, "og" stands for **Open Graph**. To learn more about Open Graph, check out the Open Graph documentation at [ogp.me](http://ogp.me); it's one of several standards Apple supports for structured markup. Other standards include [schema.org](http://www.schema.org), RDFA [rdfa.info](http://rdfa.info) and JSON LD [json-ld.org](http://json-ld.org).
 
 The goal of adding rich markup to your web pages is to adorn Spotlight's search results with more information. For example, as this book goes to press, a quick search for "ray wenderlich" comes up with these results:
 
@@ -396,7 +396,7 @@ Notice the "CatNap for tvOS" video that Ray recently uploaded to YouTube, marked
 
 ### Validating your markup
 
-Since there's no "compiler" for the web, how are you supposed to know if your web markup is correct? Apple's created a web-based [App Search API Validation Tool (http://apple.co/1F8tTGt)](https://search.developer.apple.com/appsearch-validation-tool/) for just that purpose.
+Since there's no "compiler" for the web, how are you supposed to know if your web markup is correct? Apple's created a web-based App Search API Validation Tool [apple.co/1F8tTGt](https://search.developer.apple.com/appsearch-validation-tool/) for just that purpose.
 
 To see the validation tool in action, try it out with the URL of the video page for Ray's 2015 inspiration talk. Simply visit the Validation Tool's web page, enter the video page URL, and click **Test URL**. The tool will provide you with a "report card" of the good parts of your markup, along with things that are missing or need to be improved. 
 
@@ -416,11 +416,11 @@ Although you weren't able to test your changes as you worked through this chapte
 
 You should definitely check out the following WWDC sessions if you want to find out more about your app and the web:
 
-- [Seamless Linking To Your App (http://apple.co/1Way2xz)](https://developer.apple.com/videos/wwdc/2015/?id=509)
-- [Introducing Search APIs (http://apple.co/1LFjZZD)](https://developer.apple.com/videos/wwdc/2015/?id=709)
-- [Your App, Your Website, and Safari (http://apple.co/1OGLhE3)](https://developer.apple.com/videos/wwdc/2014/#506)
+- Seamless Linking To Your App [apple.co/1Way2xz](https://developer.apple.com/videos/wwdc/2015/?id=509)
+- Introducing Search APIs [apple.co/1LFjZZD](https://developer.apple.com/videos/wwdc/2015/?id=709)
+- Your App, Your Website, and Safari [apple.co/1OGLhE3](https://developer.apple.com/videos/wwdc/2014/#506)
 
 Apple also provides the following excellent programming guides for universal linking and web markup:
 
-- [App Search Programming Guide (http://apple.co/1ip7lGE)](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/index.html#//apple_ref/doc/uid/TP40016308)
-- [iOS Search API Best Practices and FAQs (http://apple.co/1Mj4yJe)](https://developer.apple.com/library/prerelease/ios/technotes/tn2416/_index.html)
+- App Search Programming Guide [apple.co/1ip7lGE](https://developer.apple.com/library/prerelease/ios/documentation/General/Conceptual/AppSearch/index.html#//apple_ref/doc/uid/TP40016308)
+- iOS Search API Best Practices and FAQs [apple.co/1Mj4yJe](https://developer.apple.com/library/prerelease/ios/technotes/tn2416/_index.html)

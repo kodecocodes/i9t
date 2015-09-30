@@ -16,7 +16,7 @@ Xcode 7 brings new features for storyboards that let you do the following:
 
 You'll learn how to use the above features as you update an app designed to help you with all those listable moments in life, whether it's grocery shopping, packing your luggage for vacation, or a survival checklist for the impending zombie apocalypse! :]  
 
-To get the most out of this chapter you should have some basic storyboard and table view knowledge. Need a quick brush-up? Check out our _Storyboards Tutorial in Swift_ at <http://www.raywenderlich.com/113388>.
+To get the most out of this chapter you should have some basic storyboard and table view knowledge. Need a quick brush-up? Check out our _Storyboards Tutorial in Swift_ at [raywenderlich.com/113388](http://www.raywenderlich.com/113388).
 
 ## Getting started
 
@@ -364,5 +364,5 @@ Your app to help you survive the apocalypse is done! All the new features you've
 Storyboards in Xcode 7 also have greater support for custom segues. We've got that covered in chapter 10 of this book: _Custom Segues_. If you decide to make Prepped a universal app, you can read more about supporting multitasking on the iPad in Chapter 5: _Multitasking_.
 
 There are some useful sessions from WWDC 2015 that will help you as well:
-* Session 215, What's New In Storyboards: <http://apple.co/1Do4xn7>
-* Session 407, Implementing UI Designs in Interface Builder: <http://apple.co/1g60D7c>
+* Session 215, What's New In Storyboards: [apple.co/1Do4xn7](http://apple.co/1Do4xn7)
+* Session 407, Implementing UI Designs in Interface Builder: [apple.co/1g60D7c](http://apple.co/1g60D7c)

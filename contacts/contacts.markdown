@@ -522,6 +522,6 @@ You're done! You've dramatically improved RWConnect — and learned a ton about 
 
 At this point you've learned just about everything you need to use the Contacts and ContactsUI frameworks in your own apps. However, there is more to learn about the two frameworks if you want to dig even deeper.
 
-To learn more, be sure to visit the Contact framework guide at [http://apple.co/1LuCodW](http://apple.co/1LuCodW).
+To learn more, be sure to visit the Contact framework guide at [apple.co/1LuCodW](http://apple.co/1LuCodW).
 
-You can also check out the WWDC 2015 Session 223: Introducing the Contacts Framework for iOS and OS X [http://apple.co/1MQVNZV](http://apple.co/1MQVNZV).
+You can also check out the WWDC 2015 Session 223: Introducing the Contacts Framework for iOS and OS X [apple.co/1MQVNZV](http://apple.co/1MQVNZV).
