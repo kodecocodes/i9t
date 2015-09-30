@@ -58,7 +58,7 @@ Looking for some recommendations of important chapters to start with? Here's our
 - Chapter 2, "Introducing App Search"
 - Chapter 4, "App Thinning"
 - Chapter 6, "3D Touch"
-- Chapter 7, "UIStackView and Auto Layout changes"
+- Chapter 7, "UIStackView & Auto Layout changes"
 
 That covers the "Big 5" topics of iOS 9; from there you can dig into other topics of particular interest to you. 
 
@@ -75,7 +75,7 @@ iOS 9 has a selection of new technologies and APIs that cover the entire OS. Her
 5. __Chapter 5, Multitasking:__ Completely new to iOS 9 is the ability to run two apps side-by-side on iPads. Get up to speed on what you need to do to ensure your apps are ready for multitasking.
    ![width=70%](images/introduction02.png)
 6. __Chapter 6, 3D Touch:__ The iPhone 6s and iPhone 6s Plus introduced a new technology called 3D Touch. Discover how to detect the force of a touch in iOS 9, and the new interaction paradigms—such as pop and peek—that come along with it.
-7. __Chapter 7, UIStackView and Auto Layout changes:__ Stack views will change the way you build your interfaces. They remove a lot of the boilerplate Auto Layout and make it really easy to construct simple layouts. Learn the basics of stack views and many of the other new Auto Layout features.
+7. __Chapter 7, UIStackView & Auto Layout changes:__ Stack views will change the way you build your interfaces. They remove a lot of the boilerplate Auto Layout and make it really easy to construct simple layouts. Learn the basics of stack views and many of the other new Auto Layout features.
 8. __Chapter 8, Intermediate UIStackView:__ Dive deeper into stack views — covering nesting, animation and working with them in code.
    ![width=80%](images/introduction03.png)
 9. __Chapter 9, What's New in Storyboards?:__ Ever faced the problem of unmanageably large storyboards? Discover how to refactor your huge storyboard into smaller segments with new storyboard references.
