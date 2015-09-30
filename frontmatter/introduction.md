@@ -6,7 +6,17 @@ author:
 
 # Introduction
 
-TODO
+iOS 9 introduces a whole host of new features, many of them focused on improving the user experience. For example improvements to Siri, the News app and a re-engineered Notes app.
+
+From a more developer-centric point of view, you'll see that there are loads of new APIs and technologies available for use in 3rd-party apps, many of which you get _for free_. For example, a huge new feature on iPad is Multitasking. If you've been using Adaptive Layout (as recommended in _iOS 8 by Tutorials_) you'll find that you have remarkably little work to do to become a multitasking-compliant app!
+
+As part of the improvements to Siri, iOS 9 allows the indexing of the content _inside_ your app through CoreSpotlight. This not only allows your app to have influence _even when it's not running_, but through public indexing, you can have results from your app displayed on devices that _don't even have the app installed_! This is a great opportunity to extend the reach of your app, potentially gaining more happy users and downloads.
+
+As the iPhone lineup continues to advance, new hardware technologies are introduced, and this year is no different. iPhone 6s and iPhone 6s Plus represent the biggest shift in user interaction paradigm since the original iPhone, through 3D Touch. This measures the pressure with which the user is pressing the screen, and in turn, allows them to peek into view controllers. Users will expect this functionality within all apps, so it's really important to get up to speed fast.
+
+The appearance of your app is of great importance to users, and over the past few iOS releases Apple has steadily been making improvements to Auto Layout. iOS 9 is now different, with stack views representing a huge simplification in layout implementation. With full support in Interface Builder, they allow you to achieve the complex designs you desire, without the explicit Auto Layout constraints that have caused the headaches of the past.
+
+iOS is growing up fast — gone are the days when every 3rd-party developer knew everything about the OS. The sheer size of iOS can make new releases seem daunting. That's why the Tutorial Team has been working really hard to extract the important parts of the new APIs, and to present this information in an easy-to-understand tutorial format. This means you can focus on what you want to be doing — building amazing apps!
 
 Get ready for your own private tour through the amazing new features of iOS 9. By the time you're done, your iOS knowledge will be completely up-to-date and you'll be able to benefit from the amazing new opportunities in iOS 9.
 
