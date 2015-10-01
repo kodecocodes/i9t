@@ -58,7 +58,8 @@ __Sam Davies__ was the final pass editor for this book. Sam is a strange mashup 
 He'd like it very much if you were to say "hi" to him on twitter at [@iwantmyrealname](https://twitter.com/iwantmyrealname).
 
 
-## About the artists
+## About the artist
 
-__Julien Martin__ was the artist...
+![width=30%](images/julien_martin.png)
+__Julien Martin__ was the artist for the book. After years working in print, Julien discovered an unquenchable passion for icon and interface design while working with startups in New York City. Back home in France, he has since designed multiple successful and award-winning mobile apps for established businesses, entrepreneurs and passionate individuals who value the importance of great design. You can get in touch via http://julien.design.
 
