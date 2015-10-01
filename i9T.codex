@@ -1,5 +1,7 @@
 segments:
   - kind: chapter
+    path: frontmatter/introduction_print.md
+  - kind: chapter
     path: swift-2/swift-2.markdown
   - kind: chapter
     path: introducing-app-search/introducing-app-search.markdown
