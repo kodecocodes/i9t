@@ -92,7 +92,7 @@ iOS 9 has a selection of new technologies and APIs that cover the entire OS. Her
 
 This book comes with the Swift source code for each chapter – it's shipped with the PDF. Some of the chapters have starter projects or other required resources, so you'll definitely want them close at hand as you go through the book.
 
-We've also set up an official forum for the book at <raywenderlich.com/forums>. This is a great place to ask questions about the book, discuss making apps with iOS 9 in general, share challenge solutions, or to submit any errors you may find.
+We've also set up an official forum for the book at <http://www.raywenderlich.com/forums>. This is a great place to ask questions about the book, discuss making apps with iOS 9 in general, share challenge solutions, or to submit any errors you may find.
 
 ## Book Updates
 
