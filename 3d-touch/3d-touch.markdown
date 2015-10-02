@@ -1,10 +1,10 @@
 ```metadata
-author: James Frost
-number: 15
-title: 3D Touch
+author: "By James Frost"
+number: "6"
+title: "Chapter 6: 3D Touch"
 ```
 
-# Chapter X: 3D Touch
+# Chapter 6: 3D Touch
 
 With the release of the iPhone 6s and 6s Plus, Apple surprised everybody with the addition of a feature that could very well redefine the way users interact with their devices: 3D Touch.
 
