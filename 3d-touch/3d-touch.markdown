@@ -17,7 +17,7 @@ How it works: When you're using an iPhone 6s or 6s Plus, you simply press "deepe
 You're probably used to Apple dangling sweet new features in front of you without letting you play, almost as if to tease you. 3D Touch is different though—third-party developers get to utilize it at launch-time through a set of three APIs:
 
 + `UITouch` now has a `force` property that tells you how hard the user is pressing.
-+ `UIViewController` has been extended with a set of previewing APIs that allow you to present a preview of a view controller — a **peek** — when the user presses down on a view, and then **pop** it open to display the full monty after a deeper press. [TODO: this needs tightening when you understand it]
++ `UIViewController` has been extended with a set of APIs that allow you to present a preview of a new view controller — a **peek** — when the user presses on a specified view, and then **pop** it open to display the full monty after a deeper press.
 + `UIApplicationShortcutItem` is a new class you can use to add quick actions to your application's home screen icon.
 
 You'll implement each of these APIs in turn to add an extra dimension to a sample app. Strap in, it's going to be a multi-dimensional ride!
@@ -56,8 +56,7 @@ Here are the highlights:
 
 It'd be great if you could add some more artistic flair to your drawings, and 3D Touch opens up a range of possibilities to satisfy your inner Van Gogh. 
 
-[TODO: I don't understand how 1 can be the average force. And what the max value means]
-`UITouch` has a new `force` property. It's a `CGFloat` ranging from 0 to 1.0, with 0 meaning no force and 1.0 being the force of an average touch. Although 1.0 is the maximum value, it's constrained by the value of `maximumPossibleForce`, which is a new property for `UITouch`.
+`UITouch` has a new `force` property. It's a `CGFloat` ranging from 0 to the value of `UITouch`'s other new property `maximumPossibleForce`. A value of 1.0 represents the force of an average touch, and `maximumPossibleForce` has a value that ensures that the `force` property has a wide dynamic range.
 
 You'll use the force — of the user's touch, that is — to make your sketches pressure sensitive. The harder you press, the thicker the line will be!
 
@@ -275,7 +274,7 @@ This method is called when a view controller is peeked, and it gives the control
 1. A **share** action, which will present a `UIActivityViewController` that allows the user to share a doodle using the standard iOS share sheet. There's no way to present another view controller directly from the peeked view controller itself, because it's dismissed as soon as you select an action. Instead, you use the `doodlesViewController` property you created earlier and tell _it_ to present the share sheet instead.
 2. A **delete** action, which simply deletes the peeked doodle and tells `doodlesViewController` to reload its data.
 
-`UIPreviewAction` is very much like an `UIAlertAction` from an `UIAlertController`; it's initialized with a `title`, a `style` (like `.Default`, `.Destructive` or `.Selected`), and a `handler` closure. You can also group `UIPreviewAction`s together using `UIPreviewActionGroup`. 
+`UIPreviewAction` is very much like the `UIAlertAction`s you use with `UIAlertController`; it's initialized with a `title`, a `style` (like `.Default`, `.Destructive` or `.Selected`), and a `handler` closure. You can also group `UIPreviewAction`s together using `UIPreviewActionGroup`. 
 
 A group is displayed the same way as a regular action, but it can contain multiple actions. When the user taps on a group, a submenu is opened revealing its child actions.
 
@@ -366,7 +365,7 @@ func handleShortcutItem(
 }
 ```
 
-This code switches on the `type` property from `shortcutItem` that you defined earlier in **Info.plist**. If the type matches the New Doodle shortcut type, then you call `presentNewDoodleViewController()`. Add this method now below `handleShortcutItem(_:)`:
+This code switches on the `type` property of `shortcutItem` that you defined earlier in **Info.plist**. If the type matches the New Doodle shortcut type, then you call `presentNewDoodleViewController()`. Add this method now below `handleShortcutItem(_:)`:
 
 ```swift
 func presentNewDoodleViewController() {
