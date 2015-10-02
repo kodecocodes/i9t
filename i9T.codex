@@ -13,6 +13,8 @@ segments:
   - kind: chapter
     path: multitasking/multitasking.markdown
   - kind: chapter
+    path: 3d-touch/3d-touch.markdown
+  - kind: chapter
     path: uistackview-and-al-changes/uistackview-and-al-changes.markdown
   - kind: chapter
     path: intermediate-uistackview/intermediate-uistackview.markdown
