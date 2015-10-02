@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="15A282b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ep1-Il-DRh">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <scenes>
+        <!--Doodles-->
+        <scene sceneID="T5p-2W-SPv">
+            <objects>
+                <tableViewController id="dhp-9N-Pfg" customClass="DoodlesViewController" customModule="Doodles" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="28" sectionFooterHeight="28" id="419-RL-P6x">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DoodleCell" rowHeight="70" id="yfr-jc-dhd" customClass="DoodleCell" customModule="Doodles" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="70"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yfr-jc-dhd" id="dZv-hQ-1Dm">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="69.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" alpha="0.25" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vHn-nF-8CF">
+                                            <rect key="frame" x="0.0" y="0.5" width="600" height="69.5"/>
+                                            <animations/>
+                                        </imageView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Gfg-fH-PtG">
+                                            <rect key="frame" x="16" y="15.5" width="102" height="38.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doodle Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tLV-FH-We5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="102" height="19.5"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Doodle Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSg-Os-0bN">
+                                                    <rect key="frame" x="0.0" y="21.5" width="102" height="17"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <animations/>
+                                        </stackView>
+                                    </subviews>
+                                    <animations/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="vHn-nF-8CF" secondAttribute="trailing" id="29i-Io-yYL"/>
+                                        <constraint firstAttribute="bottom" secondItem="vHn-nF-8CF" secondAttribute="bottom" id="HIr-VS-19w"/>
+                                        <constraint firstItem="Gfg-fH-PtG" firstAttribute="centerY" secondItem="dZv-hQ-1Dm" secondAttribute="centerY" id="ef2-b7-uZ1"/>
+                                        <constraint firstItem="vHn-nF-8CF" firstAttribute="leading" secondItem="dZv-hQ-1Dm" secondAttribute="leading" id="rV6-J2-iKI"/>
+                                        <constraint firstItem="Gfg-fH-PtG" firstAttribute="leading" secondItem="dZv-hQ-1Dm" secondAttribute="leading" constant="16" id="w4G-gE-DJ4"/>
+                                        <constraint firstItem="vHn-nF-8CF" firstAttribute="top" secondItem="dZv-hQ-1Dm" secondAttribute="top" id="xdh-ip-4Lv"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <outlet property="doodleDateLabel" destination="fSg-Os-0bN" id="R3q-bu-zOq"/>
+                                    <outlet property="doodleNameLabel" destination="tLV-FH-We5" id="q90-eE-yGd"/>
+                                    <outlet property="doodlePreviewImageView" destination="vHn-nF-8CF" id="pk0-sV-GcF"/>
+                                    <segue destination="VLu-LM-dFK" kind="show" identifier="ViewDoodleSegue" id="v8I-oQ-0ER"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="dhp-9N-Pfg" id="ZAl-ad-aJU"/>
+                            <outlet property="delegate" destination="dhp-9N-Pfg" id="sU1-fF-djE"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Doodles" id="2J2-cH-fHo">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="47T-Ws-t8a">
+                            <connections>
+                                <segue destination="m6O-ug-5Bk" kind="presentation" identifier="AddDoodleViewController" id="NXD-eO-qz4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lLC-AP-xl2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1132" y="-498"/>
+        </scene>
+        <!--Doodle Detail-->
+        <scene sceneID="0uu-QW-7ay">
+            <objects>
+                <viewController storyboardIdentifier="DoodleDetailViewController" title="Doodle" id="VLu-LM-dFK" userLabel="Doodle Detail" customClass="DoodleDetailViewController" customModule="Doodles" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oph-vX-NKH"/>
+                        <viewControllerLayoutGuide type="bottom" id="Awh-VD-v8O"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wB1-ww-LYm">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zOt-s9-PTJ">
+                                <rect key="frame" x="0.0" y="64" width="600" height="492"/>
+                                <animations/>
+                            </imageView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="zOt-s9-PTJ" secondAttribute="trailing" id="0sL-Dk-pcc"/>
+                            <constraint firstItem="Awh-VD-v8O" firstAttribute="top" secondItem="zOt-s9-PTJ" secondAttribute="bottom" id="8zK-gw-SjG"/>
+                            <constraint firstItem="zOt-s9-PTJ" firstAttribute="leading" secondItem="wB1-ww-LYm" secondAttribute="leading" id="Ssu-oS-YvW"/>
+                            <constraint firstItem="zOt-s9-PTJ" firstAttribute="top" secondItem="oph-vX-NKH" secondAttribute="bottom" id="j3p-jg-eTT"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="y7p-cT-vOD">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="ArG-g6-MSn">
+                            <connections>
+                                <action selector="presentActivityViewController" destination="VLu-LM-dFK" id="TRw-BX-ubv"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="imageView" destination="zOt-s9-PTJ" id="psj-2c-qHI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hAw-Jt-XWO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1908" y="-499"/>
+        </scene>
+        <!--New Doodle-->
+        <scene sceneID="hQo-bL-yWb">
+            <objects>
+                <viewController storyboardIdentifier="NewDoodleViewController" title="Add Doodle" id="F0N-6i-2mq" userLabel="New Doodle" customClass="NewDoodleViewController" customModule="Doodles" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Jq3-FA-TeB"/>
+                        <viewControllerLayoutGuide type="bottom" id="7hg-ik-aEQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tyH-cq-zly" customClass="Canvas" customModule="Doodles" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Draw!" id="6pX-jQ-rWZ">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="s6p-x2-GNF">
+                            <connections>
+                                <segue destination="l17-yP-QG7" kind="unwind" unwindAction="unwindToDoodlesViewController:" id="x98-v5-HbY"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="uvF-P0-jdy">
+                            <connections>
+                                <action selector="saveTapped" destination="F0N-6i-2mq" id="N6k-zI-twE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="d6D-ZK-6NS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="l17-yP-QG7" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2720" y="-1205"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="V2n-hJ-StF">
+            <objects>
+                <navigationController id="ep1-Il-DRh" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="y3h-CR-gjh">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="dhp-9N-Pfg" kind="relationship" relationship="rootViewController" id="7xE-yi-f0v"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="z6M-LZ-4Kh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="312" y="-499"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="VWf-RR-tn8">
+            <objects>
+                <navigationController storyboardIdentifier="NewDoodleNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="m6O-ug-5Bk" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="r8e-JM-Ulp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="F0N-6i-2mq" kind="relationship" relationship="rootViewController" id="zQx-Jb-x32"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hcc-QQ-BzV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1908" y="-1205"/>
+        </scene>
+    </scenes>
+</document>
