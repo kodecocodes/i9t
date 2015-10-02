@@ -30,8 +30,8 @@ class NewDoodleViewController: UIViewController {
   
   @IBAction func saveTapped() {
     let alert = UIAlertController(title: "Name it!",
-                                  message: "What would you like to name your masterpiece?",
-                                  preferredStyle: .Alert)
+      message: "What would you like to name your masterpiece?",
+      preferredStyle: .Alert)
     
     alert.addTextFieldWithConfigurationHandler { textField in
       textField.autocapitalizationType = .Words
@@ -39,13 +39,13 @@ class NewDoodleViewController: UIViewController {
     
     alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
     alert.addAction(UIAlertAction(title: "Save", style: .Default, handler: { action in
-        let name = alert.textFields!.first!.text!
-        let doodleImage = self.canvas.image
-        let doodle = Doodle(name: name, date: NSDate(), image: doodleImage)
+      let name = alert.textFields!.first!.text!
+      let doodleImage = self.canvas.image
+      let doodle = Doodle(name: name, date: NSDate(), image: doodleImage)
       
-        Doodle.addDoodle(doodle)
+      Doodle.addDoodle(doodle)
       
-        self.dismissViewControllerAnimated(true, completion: nil)
+      self.dismissViewControllerAnimated(true, completion: nil)
     }))
     
     presentViewController(alert, animated: true, completion: nil)

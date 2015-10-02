@@ -23,7 +23,7 @@
 import UIKit
 
 class DoodlesViewController: UITableViewController {
-
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }
@@ -38,8 +38,8 @@ class DoodlesViewController: UITableViewController {
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if let destinationViewController = segue.destinationViewController as? DoodleDetailViewController,
-       let indexPath = tableView.indexPathForSelectedRow
-       where segue.identifier == "ViewDoodleSegue" {
+      let indexPath = tableView.indexPathForSelectedRow
+      where segue.identifier == "ViewDoodleSegue" {
         let doodle = Doodle.allDoodles[indexPath.row]
         destinationViewController.doodle = doodle
     }
@@ -51,11 +51,11 @@ extension DoodlesViewController {
   override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
     return 1
   }
-
+  
   override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return Doodle.allDoodles.count
   }
-
+  
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("DoodleCell", forIndexPath: indexPath) as! DoodleCell
     

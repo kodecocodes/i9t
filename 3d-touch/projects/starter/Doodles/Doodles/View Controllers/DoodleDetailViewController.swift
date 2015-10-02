@@ -27,7 +27,7 @@ class DoodleDetailViewController: UIViewController {
   var shareDoodle = false
   
   @IBOutlet weak var imageView: UIImageView!
-    
+  
   private var activityViewController: UIActivityViewController? {
     guard let doodle = doodle,
       image = doodle.image else { return nil }

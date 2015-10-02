@@ -25,7 +25,7 @@ import UIKit
 extension AppDelegate {
   func configureAppAppearance()  {
     UIApplication.sharedApplication().delegate?.window??.tintColor = UIColor.hotPinkColor()
-  
+    
     UINavigationBar.appearance().translucent = false
     UINavigationBar.appearance().barTintColor = UIColor.hotPinkColor()
     UINavigationBar.appearance().tintColor = UIColor.whiteColor()
