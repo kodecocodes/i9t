@@ -107,6 +107,7 @@ On a 3D Touch enabled device, your view controllers can now respond to different
 2. Then, as the user presses deeper, a preview of the selected content pops up in the center of the screen. This is called a '_peek_'. If the user lifts their finger now, the peek will be dismissed. Alternatively, if the user swipes upwards, the preview can present a number of preview actions – typically actions like delete or share. Finally, if the user presses even more deeply, then...
 3. **Pop!** The preview will open and the user will be navigated to the full content. 
 
+$[break]
 Here's an example of each of these stages in the built-in Mail app:
 
 ![width=100%](images/04-peek-and-pop.png)
@@ -229,6 +230,7 @@ Peek.... pop!
 >
 > Even better: iOS 9's new `SFSafariViewController` supports peek and pop by default. No configuration required!
 
+$[break]
 ### Preview actions
 
 You've just implemented some awesome functionality with barely any coding, but the fun doesn't stop here! A view controller can also present some useful quick actions while in the peek state. 
@@ -290,7 +292,7 @@ This hooks up the `doodlesViewController` property you just created.
 
 Build and run the app. Initiate a peek on one of the doodles, and then slide it upwards to reveal your quick actions. Tap on **Share** to display the share sheet, then cancel out of it. Peek at a doodle once more, slide it upward, and tap **Delete**. Whoosh, the doodle is gone!
 
-![iPhone bordered](images/06-peek-actions.png)
+![iPhone bordered width=30%](images/06-peek-actions.png)
 
 ## Home screen quick actions
 
