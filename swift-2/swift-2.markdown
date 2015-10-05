@@ -40,6 +40,7 @@ It's great to dream about the future of Swift, but this chapter highlights what 
 
 This chapter is packed with information; you can read it end to end or use it as as a reference as you work with Swift 2.0.
 
+
 ## The Logistics
 
 Unlike most chapters in this book, you _won't_ write or extend an app in this chapter. Instead, you'll work in a multipage Xcode Playground with the Swift language features as the focus. The first part of the chapter will introduce you to some new features using somewhat contrived examples; the second half walks you thorough the solution of a specific String validation problem using Swift 2.0 features in a tutorial-led playground.
@@ -427,6 +428,7 @@ You should see the following result:
 
 ![bordered height=30%](/images/starts_and_ends_with_validator_result.png)
 
+$[break]
 ### Password Requirement Validation
 
 It's time to put your StringValidator pattern to work. You're the software engineer tasked with creating the sign-up form for your company's app. The design specifies that passwords must meet the following requirements:
@@ -465,7 +467,7 @@ public struct LengthStringValidationRule
   public func validate(string: String) throws -> Bool
 }
 ```
-
+$[break]
 #### `ContainsCharacterStringValidationRule`
 
 The second rule is `ContainsCharacterStringValidationRule`, with the following requirements:
@@ -588,7 +590,7 @@ people.shuffleInPlace()
 
 You should see that the `people` array has been shuffled like so:
 
-![bordered height=20%](/images/shuffle_result.png)
+![bordered height=18%](/images/shuffle_result.png)
 
 If your results aren't shuffled, verify that you typed the algorithm correctly or go buy a lottery ticket because it shuffled them into the same order that was received! You can reshuffle to see different results by pointing to **Editor/Execute Playground**.
 

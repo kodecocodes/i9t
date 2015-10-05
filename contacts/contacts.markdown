@@ -22,11 +22,12 @@ Along the way, you'll learn about best practices for dealing with the user’s c
 
 In this chapter, you'll create the **RWConnect** app, which is a social network for iOS developers. The app has a friends list to help you keep in touch with all the great developers you know via email.
 
+
 >**Note**: You should use the simulator instead of a real device to test your app in this chapter; you'll have to reset your device in order to test the app permissions, and you don't want to reset your personal iPhone, do you?
 
 Open the starter project **RWConnect-Starter** and run it on the iPhone 6 Simulator; you'll see a table view with four friends listed, each with a name, picture, and email:
 
-![iphone](/images/1-StarterProjectScreenshot.png)
+![bordered iphone](/images/1-StarterProjectScreenshot.png)
 
 You'll add more features to your app as you progress through the chapter to make your friends list more...friendly! :]
 
@@ -146,7 +147,7 @@ Here's what you're doing in the code above:
 
 Build and run your app; tap on one of the table view cells and the ContactsUI framework will display the friend's information as shown below:
 
-![width=50%](/images/4-ContactViewController.png)
+![width=40%](/images/4-ContactViewController.png)
 
 What good is a friends list if you can't add more friends? You can use the ContactsUI class `CNContactPickerViewController` to let your user select contacts to use in the app.
 
@@ -253,11 +254,11 @@ This oft-forgotten line assigns the friends view controller as at the contact pi
 
 Build and run your project; you can now select multiple contacts:
 
-![iphone](/images/10-PickerMultiSelect.png)
+![bordered iphone](/images/10-PickerMultiSelect.png)
 
 Press the **Done** button, and you'll have a few more friends than you did before!
 
-![width=32%](/images/11-ContactsAddedFromPicker.png)
+![bordered width=32%](/images/11-ContactsAddedFromPicker.png)
 
 However, if you select contacts that don't have an associated email address, the app will crash. :[
 
@@ -275,7 +276,7 @@ The contact picker's `predicateForEnablingContacts` let you decide which contact
 
 Build and run your app again; press the Add button and you'll see that any contacts without email addresses are grayed out:
 
-![iphone](/images/12-GrayedOutContacts.png)
+![bordered iphone](/images/12-GrayedOutContacts.png)
 
 Now that you can create friends from your contacts, it's only natural to want to create contacts from your friends! Jump right on to the next section to discover how!
 
@@ -283,6 +284,7 @@ Now that you can create friends from your contacts, it's only natural to want to
 
 When the user slides left on a table view cell, you'll show a "Create Contact" action to add a friend to the user's contact store.
 
+$[break]
 Add the following code inside the table view delegate extension you added to **FriendsViewController.swift**:
 
 ```swift
@@ -303,7 +305,7 @@ The above code creates a single row action for the table view cells named "Creat
 
 Build and run your app; slide left on a table view cell and you'll see the row action appear like so:
 
-![width=32%](/images/13-RowAction.png)
+![width=40%](/images/13-RowAction.png)
 
 Before you access or modify a user's contacts, it's imperative that you request their permission first; your apps should always respect the user's privacy settings. For this reason, permission functionality is built into the Contacts framework. You can't access the user's contacts without their permission.
 
@@ -385,6 +387,7 @@ Press **Settings** on your alert and you'll be taken to the Settings app where y
 
 The `guard` statement neatly handles the case where the user does not grant permission. The next logical step is to handle the case where the user grants permission and save the friend to the user's contact store.
 
+$[break]
 ### Saving friends to contacts
 
 Add the following method to `FriendsViewController`:
@@ -468,7 +471,7 @@ Build and run your app; slide left on any contact and tap **OK** when prompted f
 
 Now press **Command-Shift-H** in the simulator and open the Contacts app. You'll see your friend appear in your contact list:
 
-![iphone](/images/19-RayIsInMyContacts.png)
+![bordered iphone](/images/19-RayIsInMyContacts.png)
 
 Sharp-eyed readers will note you can add the same contact multiple times. You'll add some code to prevent against that.
 

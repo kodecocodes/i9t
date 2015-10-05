@@ -16,9 +16,11 @@ iOS 9 is a different matter. With this update we get a bunch of exciting new thi
 
 > **Note**: This chapter will primarily focus on the new features in UIKit Dynamics for iOS 9. Check out chapter 2, "UIKit Dynamics and Motion Effects" of iOS 7 by Tutorials for a full introduction to the original APIs.
 
+
 ## Getting started
 UIKit Dynamics is definitely a technology you have to learn through playing. Make sure you're using an Xcode Playground to follow along and watch the changes live!
 
+$[break]
 ### Create the playground
 
 Open Xcode, select __File\New\Playground...__  and enter __UIKit Dynamics__ for the name and set __Platform__ to __iOS__. Click __Next__. Choose a location for your playground and click __Create__. 
@@ -47,7 +49,7 @@ view.addSubview(orangeSquare)
 
 You just created a view and added two subviews while giving each a different color, but you don't see anything! 
 
-![bordered width=40%](images/where_is_exiting_output.png)
+![width=30%](images/where_is_exiting_output.png)
 
 Find it by switching to the assistant editor; simply press __Option + Command + Enter__ to bring it up quickly. You should see something like this now:
 
@@ -65,11 +67,12 @@ let animator = UIDynamicAnimator(referenceView: view)
 
 **Dynamic behaviors** encapsulate the physics for a particular desired effect like gravity, attraction or bounce. **Dynamic animators** keep track of where all of your items are during the animation process. The `referenceView` you passed in is the canvas where all the animation takes place. All of the views you animate _must_ be subviews of the reference view.
 
+$[break]
 ### Your first behavior
 
 `UIDynamicBehavior` is the base class that describes an effect for one or more dynamic items, like your subviews, and how they take part in the animation. Apple provides a bunch of behaviors, but the easiest one to start with is `UIGravityBehavior`. It's perfect since developers are like cats — we can't help it that we like to see things fall.
 
-![bordered width=40%](images/and_bounce_and_explode.png)
+![width=40%](images/and_bounce_and_explode.png)
 
 Add the following line:
 
@@ -523,7 +526,7 @@ Build and run the app. Tap a photo and notice the bounce when the view hits the 
 
 There are a lot of knobs and levers to change when dealing with behaviors. Play around with the `UIDynamicItemBehavior` and `UIGravityBehavior` properties to see if you can find a bounce behavior you like!
 
-![bordered width=40%](images/too_much_bounce.png)
+![width=40%](images/too_much_bounce.png)
 
 ## Where to go from here
 

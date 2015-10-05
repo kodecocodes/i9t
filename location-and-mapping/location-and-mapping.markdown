@@ -53,6 +53,7 @@ Build and run your app; you should see the scale appear in the top left of the m
 
 As you pan and zoom around the map, the scale updates itself to match the map's current zoom level.
 
+$[break]
 ### Customizing map pins
 
 Since iOS 3, MapKit pins have had a `pinColor` property that let you select any color you wanted...as long as it was red, green or purple. But what if you wanted a yellow pin? Or an orange pin? Or a _chartreuse_ pin? You were out of luck.
@@ -108,6 +109,7 @@ Custom callouts can't fill the entire area of the callout popover, since iOS add
 
 Keep this in mind when designing your custom callout views, as there's currently no way to modify the padding or title area.
 
+$[break]
 ### Adding a custom callout accessory view
 
 With that theory out of the way, it's time to add a custom callout of your own. **CoffeeShopPinDetailView.xib** defines the UI for the callout accessory view as shown below:

@@ -76,7 +76,7 @@ You'll run unit tests constantly in this chapter, so how about a quick refresher
 
 Use whichever method you like best to run your unit tests. Each tells Xcode to build and launch your app, and then run your tests. In the **test navigator**, you should see a total of six tests:
 
-![bordered width=50%](/images/testNavigator.png)
+![bordered width=45%](/images/testNavigator.png)
 
 Now turn your focus towards the code coverage report. Switch to the **report navigator** and click on the latest **test** action.
 
@@ -103,10 +103,11 @@ If granularity is what you want, prepare to be delighted. Xcode's code coverage 
 As you can see, it tells you which lines inside a method are covered and which are not. Now you can identify those edge cases you haven't tested yet without losing your sanity! For instance, if you only test the `if` block in an `if-else` statement, Xcode will pick this up and let you know.
 
 
-![bordered width=40%](/images/xcode_has_my_back.png)
+![width=35%](/images/xcode_has_my_back.png)
 
 > **Note**: A single code coverage report is simply a snapshot. If you want to know whether your coverage is improving or getting worse, you'll need to see how these numbers change over time. One way to do this is with continuous integration, by using the Xcode server. This chapter won't cover this, but you can learn more about it by catching up on session 410 from WWDC 2015: _Continuous Integration and Code Coverage in Xcode_ ([apple.co/1J1n1Kd](http://apple.co/1J1n1Kd).
 
+$[break]
 ## @testable imports and access control
 
 As far as test coverage goes, 37 percent is hardly something to brag out. Make it brag worthy by adding more tests. Both **Exercise.swift** and **Workout.swift** have corresponding test files but **DataModel.swift** does not – sounds like a good place to start.
@@ -401,7 +402,7 @@ If you use any of the three techniques shown above and end up with more than one
 
 Can you find the duplicates? One is in the top-left, next to the back button – this is the one you meant for the test to tap. The second is inside the **Workouts** tab at the bottom left of the screen:
 
-![bordered iphone](/images/duplicates.png)
+![bordered width=50%](/images/duplicates.png)
 
 Whoops! Fix the test by replacing the final line of `testRaysFullBodyWorkout()` with the following:
 
@@ -414,7 +415,7 @@ Adding `navigationBars`, which is short for is short for `descendantsMatchingTyp
 
 It's great to know how to write UI tests from scratch, but there is an easier way to get the job done: _UI recording_. With UI recording, you can simply "act out" the steps of your test in the simulator and Xcode will auto-magically translate your actions into UI testing code.
 
-![bordered width=40%](/images/let_me_get_this_straight.png)
+![width=35%](/images/let_me_get_this_straight.png)
 
 To check it out in action, delete the current contents of `testRaysFullBodyWorkout()`. Place your cursor inside the empty method, then click on the red **Record UI Test** button at the bottom of the editor:
 
@@ -448,7 +449,7 @@ Magic! Depending on exactly where you swiped and which version of Xcode you're r
 
 You'll notice that some of the generated lines of code have **tokens** that contain several options. Click one to see the available options:
 
-![bordered width=90%](/images/uiRecordingTokens.png)
+![bordered width=100%](/images/uiRecordingTokens.png)
 
 There are many ways of querying the same UI elements, and in some cases, Xcode  can only make guesses about the steps you want your test to take. With these tokens, Xcode gives you options to help you disambiguate elements.
 

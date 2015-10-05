@@ -57,7 +57,7 @@ Since all the required criteria are in place, Travelog automatically becomes mul
 
 Run Travelog in Split View mode and rotate the iPad to portrait orientation; you'll see the app layout as shown below:
 
-![bordered ipad](images/mt061.png)
+![bordered width=50%](images/mt061.png)
 
 While this layout is functional, it can certainly stand to be improved. There's whitespace wasted on the left hand side and all the labels are squashed over to the right hand side.
 

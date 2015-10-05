@@ -114,7 +114,7 @@ Run the app again and tap the photo; the larger photo appears and a simple tap u
 
 Time to dissect what's happened here. When you tap the thumbnail on the detail view, the tap gesture recognizer initiates a modal segue from `AnimalDetailViewController` to `AnimalPhotoViewController`. `AnimalDetailViewController` is the **source view controller**, while `AnimalPhotoViewController` is the **destination view controller**. The segue holds a reference to _both_ the source and destination view controllers:
 
-![bordered height=20%](images/AppFlow.png)
+![bordered height=30%](images/AppFlow.png)
 
 The segue sets the transitioning delegate of the destination view controller behind the scenes and also sets up its presentation according to the current size class.
 

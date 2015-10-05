@@ -17,7 +17,7 @@ You probably have a bunch of ideas on how to use those features from that basic 
 
 Unlike the rest of this book, the "sample app" for this chapter is a real-world app available on the App Store. You'll be working with the app for **RWDevCon**, the conference organized by the folks behind [raywenderlich.com](http://www.raywenderlich.com). You'll also be making some tweaks to its accompanying website: [rwdevcon.com](http://rwdevcon.com).
 
-![iPhone bordered](images/01-rwdevcon-screenshot.png)
+![width=40% bordered](images/01-rwdevcon-screenshot.png)
 
 In the starter files for this chapter, you'll find both the code for the iOS app and the code for the website. There's quite a lot there, but don't be put off – you'll only be editing one or two files and adding some extra functionality to the videos section. Feel free to take a look through the project to familiarize yourself with its contents; you can also browse the real RWDevCon website, [rwdevcon.com](http://rwdevcon.com) and download the iOS app from the App Store ([apple.co/1YoKMTi](http://apple.co/1YoKMTi)).
 
@@ -42,6 +42,7 @@ This system worked fairly well for a long time (since iOS 3.0, in fact!) but it 
 - **No fallback**: If iOS tries to open a link of a custom URL scheme that's not registered to _any_ app, the action fails silently.
 
 iOS 9 solves many of these problems and more with universal links; instead of registering for custom URL schemes, universal links use standard HTTP and HTTPS links. You can register to handle specific links for any web domains that you own.
+
 
 ### Universal links
 

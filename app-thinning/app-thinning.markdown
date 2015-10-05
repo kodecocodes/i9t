@@ -83,7 +83,7 @@ App slicing can be broken out into two parts: executable slicing and resource sl
 
 By default, release builds include all architectures configured in your build settings. When you submit such a build to the App Store, it automatically creates the variants needed on your behalf. All _you_ have to do is compile for iOS 9. 
 
-![bordered width=40%](./images/apple_heavy_lifting.png)
+![width=40%](./images/apple_heavy_lifting.png)
 
 ## Being smart with resources
 
@@ -119,6 +119,7 @@ Build and run the application, again selecting the **iPad Air 2 Simulator**. Tak
 ![bordered width=40%](./images/ipad_air_2_asset_car_size.png)
 
 This is using the @2x image for Santa Cruz, and it ends up at 107 KB. You may see a slight difference based on the compiler version you use.
+
 
 >**Note**: Reviewing a debug build is a great way to see how App Thinning works, and even before App Thinning existed, Xcode was tailoring debug builds to the targeted device. So, App Thinning essentially builds on what Xcode already did, but now, the end user enjoys the benefits.
 
@@ -218,11 +219,11 @@ Try clicking on the **San Diego** overlay and see how long it takes to display t
 
 >**Note**: If you choose a city that you've already viewed after building and running, you're likely going to notice it loads immediately, because ODR caches the assets until purge conditions are met. You'll learn more about this later.  
 
-![bordered width=40%](./images/iOS_10_before_loads.png)
+![width=40%](./images/iOS_10_before_loads.png)
 
 That took a little bit too long to display, right? Can you imagine how long it'll take for users that pull assets that are hosted on the store?
 
-![bordered width=40%](./images/user_tired_of_wait.png)
+![width=40%](./images/user_tired_of_wait.png)
 
 To avoid a deluge of rotten tomatoes and bad reviews, you'll need to show the user that something is happening while the app downloads content. 
 
@@ -280,7 +281,7 @@ It's better because at least there's a visual queue that something is happening,
 
 Displaying the progress makes for a better experience, but nobody wants to wait for a download. Keep in mind that you're testing on a controlled device with Simulator and locally hosted resources. Imagine a real-world user moving in and out Wi-Fi or cellular coverage. 
 
-![bordered width=40%](./images/mobile_data_connections.png)
+![width=40%](./images/mobile_data_connections.png)
 
 The San Diego asset is big and also likely to be the first thing the user selects since it's the first item in the table. It makes sense to include the San Diego asset along with the application itself so it feels snappy on initial use. 
 
@@ -354,6 +355,7 @@ override func viewDidDisappear(animated: Bool) {
 ```
 
 Rebuild and run the system and keep an eye on the **Disk Report** screen while exploring different cities. The report should now indicate that your ODR content is no longer in active use as soon as you leave the map view screen. Sweet.
+
 
 ## Where to go from here? 
 

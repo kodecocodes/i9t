@@ -248,7 +248,7 @@ Here you tell the `contentAttributeSet` from `NSUserActivity` to use this inform
 
 Build and run. Open **Brent Reid's** record so the index can do its thing. Now go to the home screen pull up Spotlight and search for "brent reid". If your previous search is still there, you'll need to clear it and search again.
 
-![width=35%](/images/app-screen-5.png)
+![width=45%](/images/app-screen-5.png)
 
 Voila! Aren't you amazed with how little code it took to pull this off?
 
@@ -379,8 +379,9 @@ And...that's it! Now when you launch the app with the option **All Records** set
 
 Head over to the **Settings** app, and change the **Indexing** setting for Colleagues to **All Records**. Then build and run. In Spotlight, search for people in the list that you haven't looked at or search for an entire department, like engineering. You may need to scroll to see the results from Colleagues in the list.
 
-![width=35%](/images/app-screen-6.png)
+![width=40%](/images/app-screen-6.png)
 
+$[break]
 > **Note**: You could see duplicate results because you were previously indexing `NSUserActivity` items without the `relatedUniqueIdentifier` set. You can delete the app to clear the index or continue to the next section to learn about removing indexed items.
 
 ### Make the results do something

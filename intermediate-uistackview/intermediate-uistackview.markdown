@@ -78,6 +78,7 @@ Fortunately, there is an easy way to _unembed_ views from a stack view.
 First, you'd select the stack view you want to remove. Then from the menu you'd choose **Editor \ Unembed**. Or another way is to hold down the **Option** key and click on the **Stack** button. The click **Unembed** on the context menu that appears:
 ![bordered width=20%](images/08-how-to-unembed_186x71.png)
 
+$[break]
 ### Your first vertical stack view
 
 Now, you'll create your first vertical stack view. Select the **WHY VISIT** label and the **&lt;whyVisitLabel>** below it:
@@ -103,7 +104,7 @@ You now have an expanded stack view with its right edges pinned to the right mar
 ### Alignment property
 
 Remember how you previously learned that the `distribution` property specifies how a stack view lays out its views _along_ its axis? You had set the bottom stack view's `distribution` to _Equal Spacing_ to space the buttons within it equally.
-![bordered width=33%](images/13-i_did_that_317x288.png)
+![width=33%](images/13-i_did_that_317x288.png)
 
 Well, meet `alignment`. It's the property that determines how a stack view lays out its views _perpendicular_ to its axis. For a vertical stack view, the possible values are `Fill`, `Leading`, `Center` and `Trailing`.
 ![bordered width=30%](images/14-vertical-alignment-values_260x131.png)
@@ -186,10 +187,10 @@ These values are valid only in a horizontal stack view. `FirstBaseline` uses the
 ## Convert the weather section
 
 The next task is to add the **weather** section to a stack view. You'll start by adding it to a stack view.
-![bordered width=33%](images/25-stack_view_easy_peasy_318x295.png)
+![width=33%](images/25-stack_view_easy_peasy_318x295.png)
 
 Remember that little **Hide** button? Get ready, because this stack view is a bit more complex due to the inclusion of the **Hide** button.
-![bordered width=33%](images/26-yeah_i_got_this_251x234.png)
+![width=33%](images/26-yeah_i_got_this_251x234.png)
 
 ### One possible approach
 
@@ -206,7 +207,7 @@ Remember that `alignment` specifies positioning perpendicular to the stack view.
 ![bordered width=90%](images/28-weather-stack-in-stack-alignment-bottom_640x92.png)
 
 But you really don't want the height of the **Hide** button to dictate the height of the stack view.
-![bordered width=32%](images/29-developer_to_do_331x290.png)
+![width=32%](images/29-developer_to_do_331x290.png)
 
 When the `alignment` of a stack view is set to `fill` and the views are of different sizes in the alignment direction, the stack view determines which views to compress or expand based on the relative content hugging priorities or the content compression resistance priorities of its views.
 
@@ -304,7 +305,7 @@ Select the **middle stack view** from the outline view and **drag it between** t
 ![bordered width=80%](images/47-drag-and-drop-to-reposition-section_639x130.png)
 
 And now the **weather** section is third from the top, but since the **Hide** button isn't part of the stack view, it won't be moved, so its frame will now be misplaced and the Hide button will look like it's lost its mind again.
-![bordered width=33%](images/48-seriously_not_again_308x277.png)
+![width=33%](images/48-seriously_not_again_308x277.png)
 
 Click on the **Hide** button to select it:
 ![bordered width=80%](images/49-hide-button-not-moved_640x130.png)

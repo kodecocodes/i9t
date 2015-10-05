@@ -15,7 +15,7 @@ Perhaps you're one of the lucky ones, and your view hierarchy didn't have to cha
 I bet you've found yourself clearing all constraints and re-adding them from scratch because it was easier than breaking out your virtual scalpel and performing painstaking _constraints-surgery_.
 
 With the introduction of `UIStackView`, the above tasks become trivial. No more will you find yourself lying awake at night wondering how to wrangle your views!
-![bordered width=35%](images/01-more_time_for_sleep_367x310.png)
+![width=45%](images/01-more_time_for_sleep_367x310.png)
 
 Stack views provide a way to horizontally or vertically position a series of views. By configuring a few simple properties such as alignment, distribution, and spacing, you can define how the contained views adjust themselves to the available space.
 
@@ -167,18 +167,18 @@ Perhaps you're a seasoned Auto Layout veteran, and adding constraints like these
 You'd still have optimized your layout by not having to include unnecessary spacer views, but even if you ignore this benefit, think about the long term.
 
 What happens when you need to add a new button? Oh, right, you could just add a new button because it's not too difficult for an expert like you to re-do all the constraints. But doesn't dragging and dropping the additional button into place, and having the stack view take care of the positioning sound better?
-![bordered width=35%](images/23-stack_views_do_laundry_353x278.png)
+![width=35%](images/23-stack_views_do_laundry_353x278.png)
 
 There's more. What if you needed to conditionally hide and show one of the buttons and reposition all of the remaining ones at runtime? If you stuck to the old ways, you'd have to manually remove and re-add constraints in code as well as remove and add back the adjacent spacer view.
-![bordered width=35%](images/24-me_and_auto_layout_334x310.png)
+![width=35%](images/24-me_and_auto_layout_334x310.png)
 
 And what if the requirement specified that more than one button could be removed and re-added at any time? At this point, you might as well do everything in code.
-![bordered width=35%](images/25-code_it_all_281x278.png)
+![width=30%](images/25-code_it_all_281x278.png)
 
 ### Stack views are just better
 
 In order to hide a view within a stack view, all you have to do is set the contained view's `hidden` property to `true` and the stack view handles the rest. This is how you'll fix the spacing under the **WEATHER** label when the user hides the text below it.
-![bordered width=35%](images/26-stack_views_look_good_298x293.png)
+![width=35%](images/26-stack_views_look_good_298x293.png)
 
 But that's something for the next chapter, where you'll dive deeper into stack views. For now, you'll take a quick detour to learn about some of the other new Auto Layout updates in iOS 9.
 
@@ -269,7 +269,7 @@ let constraint = NSLayoutConstraint(
 ```
 
 So, how do you include a multiplier if you need to? If you look at the documentation for `NSLayoutAnchor`, you won't find any methods that contain a `multiplier` parameter.
-![bordered width=35%](images/27-some_riddle_309x287.png)
+![width=35%](images/27-some_riddle_309x287.png)
 
 But `NSLayoutAnchor` _does_ have a subclass called `NSLayoutDimension` that has the following methods:
 

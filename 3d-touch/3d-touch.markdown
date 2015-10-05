@@ -229,6 +229,7 @@ Peek.... pop!
 >
 > Even better: iOS 9's new `SFSafariViewController` supports peek and pop by default. No configuration required!
 
+
 ### Preview actions
 
 You've just implemented some awesome functionality with barely any coding, but the fun doesn't stop here! A view controller can also present some useful quick actions while in the peek state. 
