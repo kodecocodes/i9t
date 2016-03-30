@@ -101,7 +101,7 @@ Once selected, click on the new **Stack** button in the Auto Layout toolbar at t
 The buttons will become embedded in a new stack view:
 ![bordered width=96%](images/11-bottom-row-is-now-in-stack-view_640x100.png)
 
-The buttons are now flush with each other – you'll that fix shortly.
+The buttons are now flush with each other – you'll fix that shortly.
 
 While the stack view takes care of positioning the buttons, you still need to add Auto Layout constraints to position the stack view itself.
 
