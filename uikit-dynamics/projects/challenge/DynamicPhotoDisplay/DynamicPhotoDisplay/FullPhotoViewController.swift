@@ -61,7 +61,7 @@ class FullPhotoViewController: UIViewController {
     tagView.layer.borderWidth = 0.5
     tagView.layer.cornerRadius = 15
     
-    let gestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
+    let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(FullPhotoViewController.pan(_:)))
     tagView.addGestureRecognizer(gestureRecognizer)
     
     animator = UIDynamicAnimator(referenceView: containerView)

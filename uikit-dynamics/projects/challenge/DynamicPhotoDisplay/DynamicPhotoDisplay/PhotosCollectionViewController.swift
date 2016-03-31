@@ -56,7 +56,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     heavyCurtainBehavior.isEnabled = false
     animator.addBehavior(heavyCurtainBehavior)
     
-    let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: "pan:")
+    let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(PhotosCollectionViewController.pan(_:)))
     fullPhotoView.addGestureRecognizer(panGestureRecognizer)
   }
   
@@ -125,7 +125,7 @@ class PhotosCollectionViewController: UICollectionViewController {
     //1
     let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.75 * Double(NSEC_PER_SEC)))
     dispatch_after(delayTime, dispatch_get_main_queue()) {
-      let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismissFullPhoto:")
+      let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(PhotosCollectionViewController.dismissFullPhoto(_:)))
       self.navigationItem.rightBarButtonItem = doneButton
     }
     

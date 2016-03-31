@@ -366,7 +366,7 @@ Inside of `viewDidLoad()` add the following:
 
 ```swift
 let gestureRecognizer = UIPanGestureRecognizer(target: self,
-  action: "pan:")
+  action: #selector(FullPhotoViewController.pan(_:)))
 tagView.addGestureRecognizer(gestureRecognizer)
 
 animator = UIDynamicAnimator(referenceView: containerView)
@@ -481,7 +481,7 @@ func showFullImageView(index: Int) {
     Int64(0.75 * Double(NSEC_PER_SEC)))
   dispatch_after(delayTime, dispatch_get_main_queue()) {
     let doneButton = UIBarButtonItem(barButtonSystemItem: .Done,
-      target: self, action: "dismissFullPhoto:")
+      target: self, action: #selector(PhotosCollectionViewController.dismissFullPhoto(_:)))
     self.navigationItem.rightBarButtonItem = doneButton
   }
   

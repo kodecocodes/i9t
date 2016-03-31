@@ -106,7 +106,7 @@ class PhotosCollectionViewController: UICollectionViewController {
         self.fullPhotoView.center = self.view.center
       }, completion: {
         (completed: Bool) -> Void in
-        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "dismissFullPhoto:")
+        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: #selector(PhotosCollectionViewController.dismissFullPhoto(_:)))
         self.navigationItem.rightBarButtonItem = doneButton
       })
   }
