@@ -6,7 +6,7 @@ import XCPlayground
 
 let view = UIView(frame: CGRect(x: 0, y: 0, width: 600, height: 600))
 view.backgroundColor = UIColor.lightTextColor()
-XCPShowView("Main View", view: view)
+XCPlaygroundPage.currentPage.liveView = view
 
 let whiteSquare = UIView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
 whiteSquare.backgroundColor = UIColor.whiteColor()
