@@ -58,7 +58,7 @@ class CoffeeShopPinDetailView : UIView {
     for imageView in ratingImages {
       if (count > 0) {
         imageView.hidden = false
-        count--
+        count -= 1
       } else {
         imageView.hidden = true
       }
@@ -70,7 +70,7 @@ class CoffeeShopPinDetailView : UIView {
     for imageView in priceGuideImages {
       if (count > 0) {
         imageView.hidden = false
-        count--
+        count -= 1
       } else {
         imageView.hidden = true
       }
