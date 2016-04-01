@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="FAU-z4-VW4">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Diary-->
+        <scene sceneID="Sfc-xJ-tJJ">
+            <objects>
+                <tableViewController id="Dzv-Lc-Wbr" customClass="DiaryViewController" customModule="Prepped" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="gw3-fY-Jj6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <inset key="separatorInset" minX="56" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="DiaryCell" rowHeight="60" id="Iud-Qz-gAd" customClass="DiaryEntryTableViewCell" customModule="Prepped" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="86" width="600" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Iud-Qz-gAd" id="6G0-xd-5cZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="59.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="yMa-sd-SEH">
+                                            <rect key="frame" x="15" y="8" width="577" height="43.5"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ru5-Ma-HGl">
+                                                    <rect key="frame" x="0.0" y="5.5" width="24.5" height="32.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" fixedFrame="YES" text="15" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W9R-dX-T3S">
+                                                            <rect key="frame" x="0.0" y="0.0" width="24.5" height="20.5"/>
+                                                            <edgeInsets key="layoutMargins" top="10" left="8" bottom="0.0" right="8"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                            <color key="textColor" red="0.0" green="0.72156862749999995" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="left" verticalHuggingPriority="251" fixedFrame="YES" text="JULY" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ItJ-Zw-AcV">
+                                                            <rect key="frame" x="0.0" y="20.5" width="24.5" height="12"/>
+                                                            <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="8" right="8"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
+                                                            <color key="textColor" red="0.0" green="0.72156862749999995" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="310" translatesAutoresizingMaskIntoConstraints="NO" id="ETW-3T-80i" customClass="SelfSizingLabel" customModule="Prepped" customModuleProvider="target">
+                                                    <rect key="frame" x="37.5" y="11.5" width="539.5" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="yMa-sd-SEH" secondAttribute="bottom" id="P1N-O5-Led"/>
+                                        <constraint firstItem="yMa-sd-SEH" firstAttribute="leading" secondItem="6G0-xd-5cZ" secondAttribute="leading" constant="15" id="WNt-bl-Uca"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="yMa-sd-SEH" secondAttribute="trailing" id="dQ0-OH-os2"/>
+                                        <constraint firstItem="yMa-sd-SEH" firstAttribute="top" secondItem="6G0-xd-5cZ" secondAttribute="topMargin" id="pe4-VA-z9o"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dayLabel" destination="W9R-dX-T3S" id="Ttb-e3-UGk"/>
+                                    <outlet property="entryLabel" destination="ETW-3T-80i" id="Igj-bl-GMH"/>
+                                    <outlet property="monthLabel" destination="ItJ-Zw-AcV" id="3jM-TA-fKS"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SectionHeader" rowHeight="26" id="42e-RE-SZZ" customClass="DiaryHeaderTableViewCell" customModule="Prepped" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="146" width="600" height="26"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="42e-RE-SZZ" id="Dda-kc-b14">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="25.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Year" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oA7-jB-VQO">
+                                            <rect key="frame" x="16" y="2" width="92" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="yearLabel" destination="oA7-jB-VQO" id="9QH-Uk-PBO"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Dzv-Lc-Wbr" id="EFJ-Nd-SnO"/>
+                            <outlet property="delegate" destination="Dzv-Lc-Wbr" id="4Ad-Fn-VJt"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Diary" id="5ry-Ra-Kpb">
+                        <barButtonItem key="rightBarButtonItem" image="AddButtonIcon" id="9aB-k0-nXI">
+                            <connections>
+                                <segue destination="Zft-er-ySn" kind="presentation" id="tNR-ZF-dks"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Ye-nT-LCZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1325" y="-227"/>
+        </scene>
+        <!--Diary Navigation Controller-->
+        <scene sceneID="7Ch-X5-2mE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FAU-z4-VW4" userLabel="Diary Navigation Controller" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Diary" image="Diary Unselected Icon" id="XLa-hP-vid">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="Diary Icon"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gbJ-jx-Mtk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Dzv-Lc-Wbr" kind="relationship" relationship="rootViewController" id="6uk-rc-5lq"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IE5-vf-6yk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="562" y="-227"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="NNH-wY-9G9">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Zft-er-ySn" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YZi-zR-Fhg">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="RHl-A8-MCl" kind="relationship" relationship="rootViewController" id="zk8-2H-GUS"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DMv-Oc-ZpS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2106" y="-227"/>
+        </scene>
+        <!--Add Diary Entry View Controller-->
+        <scene sceneID="V1A-LT-Lq6">
+            <objects>
+                <tableViewController id="RHl-A8-MCl" userLabel="Add Diary Entry View Controller" customClass="AddDiaryEntryViewController" customModule="Prepped" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="mA5-9n-IH5">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" white="0.96499999999999997" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection headerTitle="Diary Entry" id="LyC-LY-jWr">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="206" id="osE-DO-SMG">
+                                        <rect key="frame" x="0.0" y="113.5" width="600" height="206"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="osE-DO-SMG" id="njZ-Rg-Zmi">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="205.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="960-CN-Ygm">
+                                                    <rect key="frame" x="8" y="8" width="584" height="189.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="960-CN-Ygm" firstAttribute="leading" secondItem="njZ-Rg-Zmi" secondAttribute="leadingMargin" id="ZfQ-kI-WbJ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="960-CN-Ygm" secondAttribute="bottom" id="e3y-03-P1E"/>
+                                                <constraint firstItem="960-CN-Ygm" firstAttribute="top" secondItem="njZ-Rg-Zmi" secondAttribute="topMargin" id="jfC-m8-88f"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="960-CN-Ygm" secondAttribute="trailing" id="sWC-39-xWz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="RHl-A8-MCl" id="d3D-eq-VKd"/>
+                            <outlet property="delegate" destination="RHl-A8-MCl" id="3DG-z1-nA8"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Add Diary Entry" id="8Ta-N9-j1y">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Tp3-Wf-H6D">
+                            <connections>
+                                <segue destination="K1k-j0-laR" kind="unwind" unwindAction="cancelToDiaryViewController:" id="ahb-Te-J7A"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Publish" id="PWD-Gq-gZW">
+                            <connections>
+                                <segue destination="K1k-j0-laR" kind="unwind" unwindAction="saveToDiaryViewController:" id="1ZG-3u-oPp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="diaryEntryTextView" destination="960-CN-Ygm" id="Ssl-hK-cfO"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eJg-yT-6sS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="K1k-j0-laR" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2798" y="-227"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="AddButtonIcon" width="22" height="22"/>
+        <image name="Diary Icon" width="25" height="25"/>
+        <image name="Diary Unselected Icon" width="25" height="25"/>
+    </resources>
+</document>

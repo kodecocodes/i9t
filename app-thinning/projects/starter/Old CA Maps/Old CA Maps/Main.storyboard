@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="GdC-YM-3bv">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+    </dependencies>
+    <scenes>
+        <!--Map Chrome View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="MapChromeViewController" customModule="Old_CA_Maps" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="satellite" translatesAutoresizingMaskIntoConstraints="NO" id="t9a-Zc-ehg">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <animations/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="ilK-JC-TjL"/>
+                                </connections>
+                            </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="ULF-P8-N6P">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <animations/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="0Pn-ec-KBa"/>
+                                    <barButtonItem style="plain" id="Rcy-gU-f64">
+                                        <slider key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="0.0" maxValue="1" id="FtZ-MS-mnV">
+                                            <rect key="frame" x="150" y="7" width="300" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                            <connections>
+                                                <action selector="opacitySliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="ulw-dn-H3f"/>
+                                            </connections>
+                                        </slider>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="JDf-TK-Uhm"/>
+                                </items>
+                            </toolbar>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hqs-2u-1NG">
+                                <rect key="frame" x="0.0" y="64" width="600" height="2"/>
+                                <animations/>
+                            </progressView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ULF-P8-N6P" secondAttribute="bottom" id="ULU-HU-IXH"/>
+                            <constraint firstItem="Hqs-2u-1NG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ViO-ha-7h7"/>
+                            <constraint firstItem="t9a-Zc-ehg" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="WTv-Dt-8qC"/>
+                            <constraint firstItem="Hqs-2u-1NG" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="aJa-0x-BOo"/>
+                            <constraint firstItem="t9a-Zc-ehg" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="bRA-Ab-JwO"/>
+                            <constraint firstItem="t9a-Zc-ehg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fd0-bf-U0X"/>
+                            <constraint firstItem="Hqs-2u-1NG" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="oys-qh-y3I"/>
+                            <constraint firstItem="ULF-P8-N6P" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="ty7-ag-HkX"/>
+                            <constraint firstItem="ULF-P8-N6P" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="yWh-a3-wlU"/>
+                            <constraint firstItem="t9a-Zc-ehg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zUR-ji-ETd"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="KEx-n5-XSA"/>
+                    <connections>
+                        <outlet property="loadingProgressView" destination="Hqs-2u-1NG" id="DkZ-28-DD2"/>
+                        <outlet property="mapView" destination="t9a-Zc-ehg" id="TZR-VH-W5K"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="242" y="1355"/>
+        </scene>
+        <!--Old CA Maps-->
+        <scene sceneID="DbS-rK-E5o">
+            <objects>
+                <tableViewController modalPresentationStyle="overFullScreen" id="Y0V-Ua-VB7" customClass="MapContentTableViewController" customModule="Old_CA_Maps" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" id="cPY-gW-lMu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MapOverlayCell" textLabel="NuQ-gY-LkQ" detailTextLabel="QJn-7r-dC5" imageView="Q8x-68-rC2" rowHeight="90" style="IBUITableViewCellStyleValue1" id="M32-lM-8bg" userLabel="Cell ">
+                                <rect key="frame" x="0.0" y="86" width="600" height="90"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" tableViewCell="M32-lM-8bg" id="P10-7C-Twc">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="89"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Santa Cruz" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NuQ-gY-LkQ">
+                                            <rect key="frame" x="111" y="34" width="85" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Santa Cruz.png" id="Q8x-68-rC2">
+                                            <rect key="frame" x="15" y="4" width="81" height="80"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <animations/>
+                                        </imageView>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QJn-7r-dC5">
+                                            <rect key="frame" x="542" y="34" width="43" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <animations/>
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                                            <color key="textColor" red="0.75686274509999996" green="0.75686274509999996" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <animations/>
+                                </tableViewCellContentView>
+                                <animations/>
+                                <connections>
+                                    <segue destination="hLn-lT-OBZ" kind="showDetail" id="OvT-Q1-osj"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="Y0V-Ua-VB7" id="rtm-li-NfS"/>
+                            <outlet property="delegate" destination="Y0V-Ua-VB7" id="Cft-RS-0Dg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Old CA Maps" id="0IU-RK-Jcu"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="db0-Xf-Kx8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="242" y="610"/>
+        </scene>
+        <!--Map Split View Controller-->
+        <scene sceneID="jY8-Rj-A3V">
+            <objects>
+                <splitViewController id="GdC-YM-3bv" customClass="MapSplitViewController" customModule="Old_CA_Maps" customModuleProvider="target" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="hLn-lT-OBZ" kind="relationship" relationship="detailViewController" id="YKN-Bh-jpx"/>
+                        <segue destination="rrX-h5-BiT" kind="relationship" relationship="masterViewController" id="6uv-LF-yCQ"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5ft-SW-b5z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1336" y="823"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0ku-P9-dmn">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hLn-lT-OBZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="tyR-QJ-h50">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="80h-PT-KhX">
+                        <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="pal-ug-hOJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uBv-p5-MA3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-570" y="1355"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="USz-nE-OxK">
+            <objects>
+                <navigationController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="rrX-h5-BiT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="dah-Dj-vMV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                        <color key="barTintColor" red="0.58823529411764708" green="0.49019607843137253" blue="0.70196078431372544" alpha="1" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Y0V-Ua-VB7" kind="relationship" relationship="rootViewController" id="D6h-le-LFs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rmw-fW-Bua" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-570" y="610"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Santa Cruz.png" width="81" height="80"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="OvT-Q1-osj"/>
+    </inferredMetricsTieBreakers>
+</document>

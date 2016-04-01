@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="gtY-c7-gYu">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <scenes>
+        <!--Checklists Navigation Controller-->
+        <scene sceneID="x9u-Om-lKJ">
+            <objects>
+                <navigationController storyboardIdentifier="ChecklistsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="gtY-c7-gYu" userLabel="Checklists Navigation Controller" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Checklists" image="Checklist Unselected Icon" id="L3U-yg-Bwr" userLabel="Checklists">
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="image" keyPath="selectedImage" value="Checklist Icon"/>
+                        </userDefinedRuntimeAttributes>
+                    </tabBarItem>
+                    <toolbarItems/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ZYv-lb-Ys8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="YC7-81-Sir" kind="relationship" relationship="rootViewController" id="CRG-Wk-VFY"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nBP-7O-T6g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1077" y="-900"/>
+        </scene>
+        <!--Checklists View Controller-->
+        <scene sceneID="pGL-4U-j59">
+            <objects>
+                <tableViewController id="YC7-81-Sir" userLabel="Checklists View Controller" customClass="ChecklistsViewController" customModule="Prepped" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="52" sectionHeaderHeight="22" sectionFooterHeight="22" id="mcN-Ui-gpP">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ChecklistCell" rowHeight="50" id="hRJ-Le-2Uf">
+                                <rect key="frame" x="0.0" y="22" width="600" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hRJ-Le-2Uf" id="eCO-PR-BL6">
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="49"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="ZsN-p7-hKz" kind="show" identifier="ChecklistDetail" id="qi1-ZP-kCH"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="YC7-81-Sir" id="fQ9-Ph-mc4"/>
+                            <outlet property="delegate" destination="YC7-81-Sir" id="qWm-z6-6hY"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Checklists" id="xD9-AC-jc2"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VSW-yz-1qO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1837" y="-900"/>
+        </scene>
+        <!--ChecklistDetail-->
+        <scene sceneID="PdX-1P-qoh">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChecklistDetail" id="ZsN-p7-hKz" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xQW-03-fYS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2474.5" y="-900"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Checklist Icon" width="25" height="25"/>
+        <image name="Checklist Unselected Icon" width="25" height="25"/>
+    </resources>
+</document>

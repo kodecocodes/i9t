@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="9Dr-RU-5Gu">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="fVN-Lw-BlZ">
+            <objects>
+                <viewController id="9Dr-RU-5Gu" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6BC-Qf-Pbc"/>
+                        <viewControllerLayoutGuide type="bottom" id="m2a-kt-98r"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OSd-TA-rvf">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="mts-bY-PL6">
+                                <rect key="frame" x="0.0" y="30" width="600" height="540"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Old CA Maps" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1O-aP-gkF" userLabel="App Name">
+                                        <rect key="frame" x="214.5" y="0.0" width="171" height="36"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="50"/>
+                                        </variation>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="launch_icon" translatesAutoresizingMaskIntoConstraints="NO" id="592-Rw-OFh" userLabel="Launch Icon">
+                                        <rect key="frame" x="221" y="66" width="158" height="125"/>
+                                        <animations/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QXP-uc-eRR" userLabel="Spacer View">
+                                        <rect key="frame" x="180" y="221" width="240" height="160.5"/>
+                                        <animations/>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="App Thinning" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkP-Tn-S43" userLabel="Chapter Title">
+                                        <rect key="frame" x="219" y="411.5" width="162" height="33.5"/>
+                                        <animations/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="40"/>
+                                        </variation>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="rw_launch_icon" translatesAutoresizingMaskIntoConstraints="NO" id="qLb-Bo-rxR" userLabel="RW Logo">
+                                        <rect key="frame" x="112.5" y="475" width="375" height="65"/>
+                                        <animations/>
+                                    </imageView>
+                                </subviews>
+                                <animations/>
+                            </stackView>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="0.58823529411764708" green="0.49019607843137253" blue="0.70196078431372544" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="mts-bY-PL6" firstAttribute="leading" secondItem="OSd-TA-rvf" secondAttribute="leading" id="31h-Au-XwU"/>
+                            <constraint firstItem="mts-bY-PL6" firstAttribute="height" secondItem="OSd-TA-rvf" secondAttribute="height" multiplier="0.9" id="ZVM-rk-LNh"/>
+                            <constraint firstItem="mts-bY-PL6" firstAttribute="centerY" secondItem="OSd-TA-rvf" secondAttribute="centerY" id="gGI-4D-3aL"/>
+                            <constraint firstAttribute="trailing" secondItem="mts-bY-PL6" secondAttribute="trailing" id="o63-m3-Jbf"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cut-CV-irg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="124" y="269"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="launch_icon" width="158" height="125"/>
+        <image name="rw_launch_icon" width="375" height="65"/>
+    </resources>
+</document>
