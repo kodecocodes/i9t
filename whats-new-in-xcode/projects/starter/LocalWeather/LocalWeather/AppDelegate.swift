@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
 
   func applicationDidEnterBackground(application: UIApplication) {
-    print("Method: \(__FUNCTION__), called at: \(NSDate())")
+    print("Method: \(#function), called at: \(NSDate())")
     // Request more background time
     backgroundTaskIdentifier = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler { [unowned self] in
       // This will be called when the timer expires if application.endBackgroundTask was not called
