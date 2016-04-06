@@ -14,9 +14,17 @@ This chapter will introduce you more new features in Xcode, like the new energy 
 
 In this chapter, you'll work on **Local Weather**, an app that uses your GPS location to show the weather near you.
 
-You won't make too many changes to the app, rather you'll use it to explore various new features of Xcode, especially the new energy gauge. Find an iPhone or iPad before you dig in; you'll need to run the app on an actual device since the energy gauge doesn't show  on the simulator.
+You won't make too many changes to the app, rather you'll use it to explore various new features of Xcode, especially the new energy gauge. Find an iPhone or iPad before you dig in; you'll need to run the app on an actual device since the energy gauge doesn't show on the simulator.
 
-Open the starter project for this chapter and select your device from the destination menu:
+**Local Weather** uses the _current weather data_ API from [openweathermap.org](http://openweathermap.org/), so you'll first need to sign up for an API key at [openweathermap.org/register](http://openweathermap.org/register). Don't worry, sign-up is really quick since the only information OpenWeatherMap requires is a username, email address and password.
+
+Once you have signed up, open the starter project for this chapter and in **WeatherViewController.swift** (near the top of the file) replace the text: `"YOUR_API_KEY_HERE"` with your new API key.
+
+```swift
+let openWeatherMapApiKey = "YOUR_API_KEY_HERE"
+```
+
+Now select your device from the destination menu:
 ![bordered width=50%](images/01-select-your-device_391x105.png)
 
 > **Note:** If you can't run the app on your device, it may not be provisioned. See the next section on **free provisioning** to get set up.
@@ -32,18 +40,6 @@ Although the energy gauge won't show up unless you run the app on a device, you 
 One of the major changes this year is _free provisioning_, which means that anyone with an Apple ID can build and run iOS apps on a physical device without having to join the $99/yr Apple Developer Program. Now you only need to join the paid program if you want to distribute apps on the App Store.
 
 This chapter won't cover the provisioning process, but if your device isn't already provisioned, you can take a look at Apple's documentation to set things up: Launch Your App on Devices Using Free Provisioning ([apple.co/1KJ12tJ](http://apple.co/1KJ12tJ)).
-
-### OpenWeatherMap API key (optional)
-
-**Local Weather** uses the _current weather data_ API from [openweathermap.org](http://openweathermap.org/). You may not need to use the API key, but OpenWeatherMap notes that it reserves the right to not process requests made without an API key. So it could get interesting without that API.
-
-To sign up for a key, go to [openweathermap.org/register](http://openweathermap.org/register).
-
-If you do sign up, open **WeatherViewController.swift** and near the top of the file replace `"YOUR_API_KEY_HERE"` with your new API key.
-
-```swift
-let openWeatherMapApiKey = "YOUR_API_KEY_HERE"
-```
 
 ## Energy impact gauge
 
@@ -191,7 +187,7 @@ This is the first thing you'll fix.
 
 Weather changes quickly, but not 15 seconds quickly – unless you're out at sea. Hence, there's not a strong use case for a weather app that updates every 15 seconds. A better plan is to make it update whenever the user launches the app.
 
-In the Find results for  **// Step** click on **Step 6**, which is in **WeatherViewController.swift**. Comment out the line directly below **Step 6**, which initializes the `networkFetchTimer`:
+In the Find results for **// Step** click on **Step 6**, which is in **WeatherViewController.swift**. Comment out the line directly below **Step 6**, which initializes the `networkFetchTimer`:
 
 ```swift
 // Step 6: Set a timer to fetch the weather again in 15 seconds
