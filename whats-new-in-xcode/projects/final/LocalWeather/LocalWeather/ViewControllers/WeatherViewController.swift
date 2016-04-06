@@ -90,7 +90,7 @@ class WeatherViewController: UIViewController {
 
     // Refresh the location and weather any time the application returns from the background
     NSNotificationCenter.defaultCenter().addObserver(self,
-      selector: "requestLocationAndFetchWeather",
+      selector: #selector(requestLocationAndFetchWeather),
       name: UIApplicationDidBecomeActiveNotification,
       object: nil)
   }
@@ -182,11 +182,11 @@ class WeatherViewController: UIViewController {
     )
 
     // Step 6: Set a timer to fetch the weather again in 15 seconds
-    // networkFetchTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: "requestLocationAndFetchWeather", userInfo: nil, repeats: false)
+    // networkFetchTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: #selector(requestLocationAndFetchWeather), userInfo: nil, repeats: false)
 
     if countdownUpdateTimer == nil {
       // Step 7: Update the countdown label every 0.1 seconds using a timer
-      // countdownUpdateTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: "updateCountdownLabel", userInfo: nil, repeats: true)
+      // countdownUpdateTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(updateCountdownLabel), userInfo: nil, repeats: true)
     }
 
     // Fire immediately and reset the interval to repeat from the current time. Not strictly necessary for a 0.1 delay
