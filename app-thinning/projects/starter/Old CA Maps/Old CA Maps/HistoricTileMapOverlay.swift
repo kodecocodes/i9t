@@ -62,9 +62,8 @@ class HistoricTileMapOverlay: MKTileOverlay {
     let maxX = Int(floor((MKMapRectGetMaxX(rect) * Double(scale)) / kTileSize))
     let minY = Int(floor((MKMapRectGetMinY(rect) * Double(scale)) / kTileSize))
     let maxY = Int(floor((MKMapRectGetMaxY(rect) * Double(scale)) / kTileSize))
-    
-    for var x = minX; x <= maxX; x++  {
-      for var y = minY; y <= maxY; y++ {
+    for x in minX ..< maxX {
+      for y in minY ..< maxY {
         let flippedY = abs(y + 1 - tilesAtZ)
         let tileKey = "\(z)/\(x)/\(flippedY)"
         
