@@ -247,7 +247,9 @@ The system calls this delegate method when there's an incoming universal HTTP li
 
 > **Note:** `application(_:continueUserActivity:restorationHandler:)` may look familiar to you; Apple introduced this `UIApplicationDelegate` method in iOS 8 to allow developers to implement Handoff. It also makes an appearance in Chapter 2, "Introducing App Search", which deals with the new search APIs in iOS 9. This method is a jack of all trades!
 
-Although you won't be able to validate the code you just wrote, it's still useful to see how the app _would_ handle an incoming link if the app were live in the  App Store. Again, you won't be able to reproduce these steps but let's pretend you have the RWDevCon app installed on your device and you received an e-mail that contains the following two links:
+Although you won't be able to validate the code you just wrote, it's still useful to see how the app _would_ handle an incoming link if the app were live in the App Store.
+
+Let's pretend for a moment that you have the RWDevCon app installed on your device and you received an e-mail containing the following two links:
 
 ![bordered width=80%](/images/05-testlinks.png)
 
@@ -342,7 +344,9 @@ And with Facebook's App Links:
 
 > **Note**: To learn more, read through Twitter's documentation page on Twitter Cards [dev.twitter.com/cards/mobile](http://bit.ly/1REZOkC) as well as Facebook's App Links documentation [applinks.org](http://applinks.org).
 
-Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry, Ray's kind of picky about things like that), you won't be able to see your changes in action. However, you can see how it's supposed to look like if you used mobile Safari to load <http://www.rwdevcon.com/videos/talk-jake-gundersen-opportunity.html>. That's the video for Jake Gundersen's 2015 talk titled "Opportunity". The top of the web page would look like this:
+Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry, Ray's kind of picky about things like that), you won't be able to see your changes in action.
+
+However, let's pretend for a moment that everything is correctly deployed on the site and on the app. In that case, if you were to use mobile Safari to load <http://www.rwdevcon.com/videos/talk-jake-gundersen-opportunity.html> (that's the video for Jake Gundersen's 2015 talk), the top of the web page would look like this:
 
 ![bordered height=30%](/images/10-app-banner-2.png)
 
