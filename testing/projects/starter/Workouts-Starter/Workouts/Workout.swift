@@ -62,6 +62,6 @@ class Workout : NSObject {
   }
   
   func performWorkout() {
-    workoutCounter++
+    workoutCounter += 1
   }
 }

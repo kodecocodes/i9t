@@ -77,7 +77,7 @@ class WorkoutDetailViewController: UIViewController {
   
   func workoutSelectButtonCell() -> WorkoutButtonCell {
     let cell = tableView.dequeueReusableCellWithIdentifier(workoutSelectIdentifier) as! WorkoutButtonCell
-    cell.selectButton.addTarget(self, action: "selectButtonTapped:", forControlEvents: .TouchUpInside)
+    cell.selectButton.addTarget(self, action: #selector(WorkoutDetailViewController.selectButtonTapped(_:)), forControlEvents: .TouchUpInside)
     return cell
   }
   
