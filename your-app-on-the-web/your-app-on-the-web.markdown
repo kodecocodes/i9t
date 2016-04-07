@@ -15,11 +15,11 @@ You probably have a bunch of ideas on how to use those features from that basic 
 
 ## Getting started
 
-Unlike the rest of this book, the "sample app" for this chapter is a real-world app available on the App Store. You'll be working with the app for **RWDevCon**, the conference organized by the folks behind [raywenderlich.com](http://www.raywenderlich.com). You'll also be making some tweaks to its accompanying website: [rwdevcon.com](http://rwdevcon.com).
+In this chapter, you'll be modifying the code base for the **RWDevCon** app. For reference, **RWDevCon** is the conference organized by the folks behind [raywenderlich.com](http://www.raywenderlich.com). You'll also be making some tweaks to its accompanying website: [rwdevcon.com](http://rwdevcon.com).
 
 ![width=40% bordered](images/01-rwdevcon-screenshot.png)
 
-In the starter files for this chapter, you'll find both the code for the iOS app and the code for the website. There's quite a lot there, but don't be put off – you'll only be editing one or two files and adding some extra functionality to the videos section. Feel free to take a look through the project to familiarize yourself with its contents; you can also browse the real RWDevCon website, [rwdevcon.com](http://rwdevcon.com) and download the iOS app from the App Store ([apple.co/1YoKMTi](http://apple.co/1YoKMTi)).
+In the starter files for this chapter, you'll find both the code for the iOS app and the code for the website. There's quite a lot there, but don't be put off – you'll only be editing one or two files and adding some extra functionality to the videos section. Feel free to take a look through the project to familiarize yourself with its contents.
 
 > **Note:** Due to the infrastructure and security requirements for web markup and universal links, this chapter is unfortunately the only place in this book where you **won't** be able to verify your work as you follow along. There's no easy way to try out these features without having a real website accessible via HTTPS and an associated app in the App Store under an account where you're either the team agent or the team admin.
 >
@@ -111,7 +111,7 @@ The `details` section contains an array of dictionaries pairing an `appID` with 
 
 Your `appID` string consists of your **team ID** (`KFCNEC27GU` in this example) followed by your app's **bundle ID** (`com.razeware.RWDevCon` in this case).
 
-The team ID is supplied by Apple and is unique to a specific development team. `KFCNEC27GU` is specific to the Ray Wenderlich development team; you'll have a different identifier for your own account. 
+The team ID is supplied by Apple and is unique to a specific development team. `KFCNEC27GU` is specific to the Ray Wenderlich development team; you'll have a different identifier for your own account.
 
 If you don't know your team ID, the easiest way to find it is by logging into Apple's developer member center [developer.apple.com/membercenter](https://developer.apple.com/membercenter). Log in, click on **Your Account**, and then look for your team ID within the account summary:
 
@@ -247,21 +247,19 @@ The system calls this delegate method when there's an incoming universal HTTP li
 
 > **Note:** `application(_:continueUserActivity:restorationHandler:)` may look familiar to you; Apple introduced this `UIApplicationDelegate` method in iOS 8 to allow developers to implement Handoff. It also makes an appearance in Chapter 2, "Introducing App Search", which deals with the new search APIs in iOS 9. This method is a jack of all trades!
 
-Although you won't be able to validate the code you just wrote, it's still useful to see how to handle an incoming link. To see what the final result should look like, download the RWDevCon app from the App Store ([apple.co/1YoKMTi](http://apple.co/1YoKMTi)).
-
-On your device, open your favorite mail client and send yourself an e-mail that contains the following two links:
+Although you won't be able to validate the code you just wrote, it's still useful to see how the app _would_ handle an incoming link if the app were live in the  App Store. Again, you won't be able to reproduce these steps but let's pretend you have the RWDevCon app installed on your device and you received an e-mail that contains the following two links:
 
 ![bordered width=80%](/images/05-testlinks.png)
 
-Once you receive the email, tap the first link. This should open the app and start streaming Tammy Coron's 2015 inspiration talk titled "Possibility":
+Tapping on the first link would open the app and start streaming Tammy Coron's 2015 inspiration talk titled "Possibility":
 
 ![iPhone](/images/06-video-link-valid.png)
 
-Looks great! Now return to your mail client and tap the second link. The app opens, but then you're bounced back to Safari, as shown below:
+Looks great! Now if you were to return to your email client and tap the second link, the app would open but you'd be immediately bounce back to Safari, as shown below:
 
 ![iphone](/images/07-video-link-invalid.png)
 
-The RWDevCon app neatly handles the universal links it recognizes, but gracefully falls back to Safari for any that it doesn't.
+This is how the RWDevCon app would handle incoming universal links and how it would gracefully fall back to Safari.
 
 Besides tapping a link, you can also load the URL directly in Safari, a `WKWebView`, a `UIWebView`, or use `openURL(_:)` on an instance of `UIApplication` to trigger your app to handle a universal link.
 
@@ -344,9 +342,7 @@ And with Facebook's App Links:
 
 > **Note**: To learn more, read through Twitter's documentation page on Twitter Cards [dev.twitter.com/cards/mobile](http://bit.ly/1REZOkC) as well as Facebook's App Links documentation [applinks.org](http://applinks.org).
 
-Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry, Ray's kind of picky about things like that), you won't be able to see your changes in action. However, you can see how it's supposed to work using the RWDevCon app from the App Store.
-
-Use mobile Safari to load <http://www.rwdevcon.com/videos/talk-jake-gundersen-opportunity.html>. That's the video for Jake Gundersen's 2015 talk titled "Opportunity". The top of the web page should look like this:
+Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry, Ray's kind of picky about things like that), you won't be able to see your changes in action. However, you can see how it's supposed to look like if you used mobile Safari to load <http://www.rwdevcon.com/videos/talk-jake-gundersen-opportunity.html>. That's the video for Jake Gundersen's 2015 talk titled "Opportunity". The top of the web page would look like this:
 
 ![bordered height=30%](/images/10-app-banner-2.png)
 
