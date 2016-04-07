@@ -83,7 +83,7 @@ class VideoViewController: UITableViewController {
       if presenter.twitter != "" {
         cell.twitterButton.hidden = false
         cell.twitterButton.setTitle("@\(presenter.twitter)", forState: .Normal)
-        cell.twitterButton.addTarget(self, action: "twitterButton:", forControlEvents: .TouchUpInside)
+        cell.twitterButton.addTarget(self, action: #selector(VideoViewController.twitterButton(_:)), forControlEvents: .TouchUpInside)
       } else {
         cell.twitterButton.hidden = true
       }

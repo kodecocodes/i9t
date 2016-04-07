@@ -147,14 +147,14 @@ class SessionViewController: UITableViewController {
       } else {
         cell.valueButton.setTitle("Add to My Schedule", forState: .Normal)
       }
-      cell.valueButton.addTarget(self, action: "myScheduleButton:", forControlEvents: .TouchUpInside)
+      cell.valueButton.addTarget(self, action: #selector(SessionViewController.myScheduleButton(_:)), forControlEvents: .TouchUpInside)
       return cell
     } else if indexPath.section == Sections_Current.info && indexPath.row == 2 {
       let cell = tableView.dequeueReusableCellWithIdentifier("detailButton", forIndexPath: indexPath) as! DetailTableViewCell
       
       cell.keyLabel.text = "Where".uppercaseString
       cell.valueButton.setTitle(session.room.name, forState: .Normal)
-      cell.valueButton.addTarget(self, action: "roomDetails:", forControlEvents: .TouchUpInside)
+      cell.valueButton.addTarget(self, action: #selector(SessionViewController.roomDetails(_:)), forControlEvents: .TouchUpInside)
       
       return cell
     } else if indexPath.section == Sections_Current.info {
@@ -187,7 +187,7 @@ class SessionViewController: UITableViewController {
       if presenter.twitter != "" {
         cell.twitterButton.hidden = false
         cell.twitterButton.setTitle("@\(presenter.twitter)", forState: .Normal)
-        cell.twitterButton.addTarget(self, action: "twitterButton:", forControlEvents: .TouchUpInside)
+        cell.twitterButton.addTarget(self, action: #selector(SessionViewController.twitterButton(_:)), forControlEvents: .TouchUpInside)
       } else {
         cell.twitterButton.hidden = true
       }
@@ -220,7 +220,7 @@ class SessionViewController: UITableViewController {
       if presenter.twitter != "" {
         cell.twitterButton.hidden = false
         cell.twitterButton.setTitle("@\(presenter.twitter)", forState: .Normal)
-        cell.twitterButton.addTarget(self, action: "twitterButton:", forControlEvents: .TouchUpInside)
+        cell.twitterButton.addTarget(self, action: #selector(SessionViewController.twitterButton(_:)), forControlEvents: .TouchUpInside)
       } else {
         cell.twitterButton.hidden = true
       }
@@ -241,7 +241,7 @@ class SessionViewController: UITableViewController {
       if presenter.twitter != "" {
         cell.twitterButton.hidden = false
         cell.twitterButton.setTitle("@\(presenter.twitter)", forState: .Normal)
-        cell.twitterButton.addTarget(self, action: "twitterButton:", forControlEvents: .TouchUpInside)
+        cell.twitterButton.addTarget(self, action: #selector(SessionViewController.twitterButton(_:)), forControlEvents: .TouchUpInside)
       } else {
         cell.twitterButton.hidden = true
       }
@@ -250,7 +250,7 @@ class SessionViewController: UITableViewController {
     } else if indexPath.section == Sections_Archived.video {
       
       let cell = tableView.dequeueReusableCellWithIdentifier("video", forIndexPath: indexPath) as! VideoTableViewCell
-      cell.videoButton.addTarget(self, action: "showVideoButton:", forControlEvents: .TouchUpInside)
+      cell.videoButton.addTarget(self, action: #selector(SessionViewController.showVideoButton(_:)), forControlEvents: .TouchUpInside)
       return cell
 
     } else {

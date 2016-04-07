@@ -97,7 +97,7 @@ class ScheduleViewController: UIViewController {
       NSLayoutConstraint(item: segmentedControl, attribute: .CenterX, relatedBy: .Equal, toItem: bottomView, attribute: .CenterX, multiplier: 1.0, constant: 0),
       NSLayoutConstraint(item: segmentedControl, attribute: .CenterY, relatedBy: .Equal, toItem: bottomView, attribute: .CenterY, multiplier: 1.0, constant: 0),
       ])
-    segmentedControl.addTarget(self, action: "segmentChanged:", forControlEvents: .ValueChanged)
+    segmentedControl.addTarget(self, action: #selector(ScheduleViewController.segmentChanged(_:)), forControlEvents: .ValueChanged)
 
     navigationController?.navigationBar.barStyle = UIBarStyle.Default
     navigationController?.navigationBar.setBackgroundImage(UIImage(named: "pattern-64tall"), forBarMetrics: UIBarMetrics.Default)
