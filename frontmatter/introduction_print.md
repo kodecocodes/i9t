@@ -26,7 +26,7 @@ Sit back, relax and prepare for some high quality tutorials!
 
 To follow along with the tutorials in this book, you'll need the following:
 - __A Mac running OS X Yosemite or later.__ You'll need this to be able to install the latest version of Xcode.
-- __Xcode 7.0 or later.__ Xcode is the main development tool for iOS. You'll need Xcode 7.0 or later for all tasks in this book as Xcode 7.0 is the first version of Xcode to supports iOS 9 and Swift 2.0. You can download the latest version of Xcode for free on the Mac app store here: <https://itunes.apple.com/app/xcode/id497799835?mt=12>
+- __Xcode 7.3 or later.__ Xcode is the main development tool for iOS. You'll need Xcode 7.3 or later for all tasks in this book. You can download the latest version of Xcode for free on the Mac app store here: <https://itunes.apple.com/app/xcode/id497799835?mt=12>
 - __One or more devices (iPhone, iPad, or iPod Touch) running iOS 9 or later.__ Most of the chapters in the book let you run your code on the iOS 9 Simulator that comes with Xcode. However, a few chapters later in the book require one or more physical iOS devices for testing.
   
 Once you have these items in place, you'll be able to follow along with every chapter in this book. 
