@@ -277,6 +277,8 @@ Build and run the application. Try all the bundles again and you'll notice a pro
 
 It's better because at least there's a visual queue that something is happening, but the 120MB San Diego download still takes an eternity. Time to try something a bit more drastic. 
 
+$[=s=]
+
 ## The many flavors of tagging
 
 Displaying the progress makes for a better experience, but nobody wants to wait for a download. Keep in mind that you're testing on a controlled device with Simulator and locally hosted resources. Imagine a real-world user moving in and out Wi-Fi or cellular coverage. 
@@ -356,6 +358,7 @@ override func viewDidDisappear(animated: Bool) {
 
 Rebuild and run the system and keep an eye on the **Disk Report** screen while exploring different cities. The report should now indicate that your ODR content is no longer in active use as soon as you leave the map view screen. Sweet.
 
+$[=s=]
 
 ## Where to go from here? 
 

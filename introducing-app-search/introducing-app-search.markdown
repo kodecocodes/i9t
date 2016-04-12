@@ -248,7 +248,7 @@ Here you tell the `contentAttributeSet` from `NSUserActivity` to use this inform
 
 Build and run. Open **Brent Reid's** record so the index can do its thing. Now go to the home screen pull up Spotlight and search for "brent reid". If your previous search is still there, you'll need to clear it and search again.
 
-![width=45%](/images/app-screen-5.png)
+![width=40%](/images/app-screen-5.png)
 
 Voila! Aren't you amazed with how little code it took to pull this off?
 
@@ -381,7 +381,6 @@ Head over to the **Settings** app, and change the **Indexing** setting for Colle
 
 ![width=40%](/images/app-screen-6.png)
 
-$[break]
 > **Note**: You could see duplicate results because you were previously indexing `NSUserActivity` items without the `relatedUniqueIdentifier` set. You can delete the app to clear the index or continue to the next section to learn about removing indexed items.
 
 ### Make the results do something
@@ -391,6 +390,8 @@ But what happens when you tap on a result? Not much! You need to handle results 
 Open **AppDelegate.swift** and import `CoreSpotlight` at the top of the file:
 
     import CoreSpotlight
+
+$[=s=]
 
 Then replace `guard` statement in `application(_:continueUserActivity:restorationHandler:)` with the following:
 
@@ -425,6 +426,8 @@ Build and run, then try to select an employee. The app should open to the chosen
 Back to the premise of your app. Imagine that an employee was fired for duct taping the boss to the wall after a particularly rough day. Obviously, you won't contact that person anymore, so you need to remove him and anybody else that leaves the company from the Colleagues search index.
 
 For this sample app, you'll simply delete the entire index when the app's indexing setting is disabled.
+
+$[=s=]
 
 Open **EmployeeService.swift** and find `destroyEmployeeIndexing()`. Replace the `TODO` with the following logic:
 

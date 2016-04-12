@@ -206,6 +206,8 @@ This creates a constraint in which the topLabel's `.Bottom` is `.Equal` to the b
 
 Even the explanation contained far fewer characters than the code itself, and you're not even using Objective-C! Surely there's a more concise way to express this?
 
+$[=s=]
+
 Layout anchors allow you to do exactly that:
 
 ```swift

@@ -574,6 +574,8 @@ The previous sections covered a number of new features in Swift 2, but wait - th
 
 The remainder of this chapter has you experimenting with some of the previously mentioned features and introduces you to some new features. The examples won't be as concrete as the string validation problem, but hopefully still interesting nonetheless!
 
+$[=s=]
+
 ### Going further with Extensions
 
 One other amazing thing about Extensions is that you can provide functionality with generic type parameters; this means that you can provide a method on arrays that contain a specific type. You can even do this with protocol extensions.
@@ -607,6 +609,8 @@ people.shuffleInPlace()
 You should see that the `people` array has been shuffled like so:
 
 ![bordered height=18%](/images/shuffle_result.png)
+
+$[=s=]
 
 If your results aren't shuffled, verify that you typed the algorithm correctly or go buy a lottery ticket because it shuffled them into the same order that was received! You can reshuffle to see different results by pointing to **Editor/Execute Playground**.
 
@@ -688,6 +692,8 @@ for cName in names where cName.hasPrefix("C") {
 }
 ```
 
+$[=s=]
+
 You can also iterate over a collection of enums of the same type and filter out for a specific case. Given the array `authorStatuses` in the playground, write a for loop that matches on the `Late(Int)` case and calculates the total number of days that authors are behind.
 
 ```
@@ -740,6 +746,7 @@ struct RectangleBorderOptions: OptionSetType {
 ```
 
 This section concludes the use of the chapter's playground, so you can put that aside.
+
 
 ### OS Availability
 

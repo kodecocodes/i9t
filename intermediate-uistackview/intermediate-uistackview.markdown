@@ -54,6 +54,8 @@ Top: 20, Leading: 0, Bottom: 20
 ```
 ![bordered width=30%](images/04-add-second-stack-view-constraints_264x171.png)
 
+$[=s=]
+
 Now go to the **Attributes inspector** and set the spacing to **8**:
 ![bordered width=38%](images/05-set-spacing-to-8_259x87.png)
 
@@ -114,6 +116,8 @@ Select each value to see how it affects the placement of the labels in the stack
 **Fill:**
 ![bordered width=96%](images/15-alignment-fill_640x64.png)
 
+$[=s=]
+
 **Leading:**
 ![bordered width=96%](images/16-alignment-leading_640x64.png)
 
@@ -167,6 +171,8 @@ The possible `alignment` values for a _horizontal_ stack view differ slightly:
 It has `.Top` instead of `.Leading` and has `.Bottom` instead of `.Trailing`. There are also two more properties that are valid only in the horizontal direction, `.FirstBaseline` and `.LastBaseline`.
 
 Here's are some visuals to illustrate how each value works:
+
+$[=s=]
 
 ### Horizontal axis:
 Here labels of different widths are aligned according to each value:
@@ -279,6 +285,8 @@ Now that all the sections are in unique stack views, you're set to embed them al
 **Command-click** to select all five top-level stack views in the outline view:
 ![bordered width=73%](images/42-select-all-stack-views-in-outline_640x260.png)
 
+$[=s=]
+
 Then click on the **Stack** button:
 ![bordered width=73%](images/43-stack-all-the-views_640x185.png)
 
@@ -306,6 +314,8 @@ Select the **middle stack view** from the outline view and **drag it between** t
 
 And now the **weather** section is third from the top, but since the **Hide** button isn't part of the stack view, it won't be moved, so its frame will now be misplaced and the Hide button will look like it's lost its mind again.
 ![width=33%](images/48-seriously_not_again_308x277.png)
+
+$[=s=]
 
 Click on the **Hide** button to select it:
 ![bordered width=80%](images/49-hide-button-not-moved_640x130.png)
@@ -443,6 +453,8 @@ With the following code:
 
 Once the initial hide or show animation completes, if the weather info was just hidden, then the `axis` of `ratingStackView` animates to horizontal. When the weather is shown again, the `axis` will be set back to vertical.
 ![bordered width=32%](images/58-rating-animation_750x902.png)
+
+$[=s=]
 
 Add the following lines immediately below the existing line in the `else` clause:
 

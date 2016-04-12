@@ -474,7 +474,9 @@ let fromViewController = transitionContext
     UITransitionContextFromViewControllerKey)!
 ```
 
-Replace the above code with the following:
+$[=s=]
+
+Replace the previous code with the following:
 
 ```swift
 var fromViewController = transitionContext
@@ -496,6 +498,8 @@ Run the application again, and the scale transition will work as expected:
 When building your reusable segues, expect that they could be used by container controllers. For example, the presenting controller in this case could be a `UITabBarController`, so you could add similar code to handle that case as well.
 
 Now that you're an expert on custom segues, why don't you try these few extra challenges to stretch yourself?
+
+$[=s=]
 
 ### Completing the scale segue dismissal
 
@@ -527,6 +531,8 @@ Here are some tips:
 * Change the existing `PhotoDetail` segue to use your new Swipe segue.
 
 Once again, the solution is in the accompanying sample code.
+
+$[=s=]
 
 ## Where to go from here?
 

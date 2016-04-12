@@ -150,6 +150,8 @@ Where are the navigation and tab bar? Since the view controller is no longer emb
 
 > **Note:** This approach will fail if the initial view controller in the chosen storyboard requires data provided via a segue. In this project,  `ChecklistDetailViewController` has already been set up to load initial sample data.
 
+$[=s=]
+
 ## Views in the scene dock
 
 A lesser-known feature of storyboard scenes is the **scene dock**. Most people don't even notice it's there - did you? You'll find it at the top of the currently selected scene in a storyboard:
@@ -234,6 +236,8 @@ func addNotesViewToCell(cell: ChecklistItemTableViewCell) {
 This method ensures Auto Layout defines the the notes view's height, then adds it to the cell's stack view's `arrangedSubviews` collection. It also sets `clipsToBounds` to `true` to prevent the text view from spilling outside of the cell when you perform a swipe-to-delete.
 
 The height needs to be set using Auto Layout since the stack view derives its own height from the heights of its `arrangedSubviews`. If you don't set the height here, the cell won't grow when you add the notes view.
+
+$[=s=]
 
 Next, add the following method below `addNotesViewToCell(_:)`:
 
@@ -333,6 +337,8 @@ navigationItem.rightBarButtonItems![1] = editButtonItem()
 
 This line replaces the Edit button with the view controller's built-in edit button item. It takes care of animating to and from an 'editing' state and changes the button's text from "Edit" to "Done" and back again as required.
 
+$[=s=]
+
 Still in **ChecklistDetailViewController.swift**, find the table view data source extension. Add the following implementation inside the extension, below the existing methods:
 
 ```swift
@@ -356,6 +362,8 @@ This method removes the notes view if it's present, removes the checklist from t
 Build and run your app; choose a check list, tap the **Edit** button and delete an item from the list. Tap the **Done** button to complete editing.
 
 ![bordered iphone](images/30-PreppedEditing.png)
+
+$[=s=]
 
 ## Where to go from here?
 

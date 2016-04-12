@@ -97,6 +97,8 @@ Adding a collision behavior and setting `translatesReferenceBoundsIntoBoundary` 
 
 By default, all dynamic items get a set of behaviors that describe how heavy they are, how much they slow down due to movement, how they respond to collisions and several other physical traits. `UIDynamicItemBehavior` describes these traits.
 
+$[=s=]
+
 Change the way the orange square responds to the collision:
 
 ```swift
@@ -352,6 +354,8 @@ func addLinearVelocity(velocity: CGPoint) {
 Build your application to make sure it compiles correctly. Disappointingly the app won't look any different yet :[
 
 The method you just added will help snap the metadata box into place with a velocity. Now you need some velocity. To get that, you'll need to add the pan gesture recognizer, which is next. 
+
+$[=s=]
 
 Open **FullPhotoViewController.swift** and add the following below the existing `@IBOutlet` properties:
 
