@@ -1,10 +1,10 @@
 ```metadata
 author: "By Chris Wagner"
 number: "1"
-title: "Chapter 1: Swift 2.0"
+title: "Chapter 1: Swift 2"
 ```
 
-# Chapter 1: Swift 2.0
+# Chapter 1: Swift 2
 
 The 2014 WWDC keynote was nearly over, and Craig Federighi appeared to be wrapping things up. But instead he shocked nearly everyone watching by announcing the Swift programming language, which he promised, perhaps optimistically, as "Objective-C without the baggage of C". Swift would have the benefits of terseness and safety, while still being extremely expressive.
 
@@ -27,9 +27,9 @@ You might be thinking "This is amazing! I can write Android apps using Swift! Wr
 
 But don't let that get you down! The open source community does amazing things every day. Open-source Swift will attract smart, creative people who will make the language even better with Swift-only libraries and frameworks that work across platforms. Someday you could find yourself using Swift in embedded environments such as Arduino, or perhaps someday you'll write server-side web services in Swift. It's an exiting time for Swift developers!
 
-## What Makes Swift, "2.0"?
+## What's New in Swift 2?
 
-It's great to dream about the future of Swift, but this chapter highlights what Swift 2.0 offers you in the present day:
+It's great to dream about the future of Swift, but this chapter highlights what Swift 2 offers you in the present day:
 
 - New control flow using `guard`, `repeat`, `do`, and `defer`
 - An entirely new error handling model
@@ -40,22 +40,38 @@ It's great to dream about the future of Swift, but this chapter highlights what 
 
 This chapter is packed with information; you can read it end to end or use it as as a reference as you work with Swift 2.0.
 
+## What About Swift 2.2?
+
+Since the first version of this chapter, there's been some big news: Apple has open sourced Swift!
+
+On December 3, 2015 Apple launced [swift.org](https://swift.org): a website focused on the open source project and building a community around it. A few months later, Apple released the first community driven version of Swift in Xcode 7.3: Swift 2.2. The process went extremely smoothly, and Apple has truly raised the standard with regards to open source projects and shocked the development community with their efforts. Take some the time to checkout the site, you may find yourself interested in contributing!
+
+Let's take a look at what's new in Swift 2.2:
+
+- **Compile-time Swift version checks**: Much like the OS Availability checks described in this chapter, this allows you to check the Swift version itself at compile-time and branch accordingly.
+- **Compile-time checked selectors**: Gone are the days of stringly typed method names, there is a new `#selector` syntax that allows the compiler to validate the method you're referencing actually exists.
+- **Allow more keywords as argument labels**: Now you have more freedom to use most of the language keywords as your method argument labels, e.g. `func su(do: () -> (), if: () -> Bool, for: Int) -> Result`
+- **Tuple comparison**: The Swift standard library now defines comparison operators for tuples ranging from 1...6 elements. You can simply evaluate an expression like `("Foo", true, 1) == ("Bar", true, 1)` which returns `false`. The comparison operator is applied to each element respectively and the result of each comparison is `&&`'d, which means if any return `false` the entire comparison resolves to `false`.
+- **C-style `for` loops deprecated**: The community agrees, Swift is looking toward the future. There's no need for the classic `for var i = 0; i < 5; i++ { }` syntax and therefore it has been deprecated. You will need to rely on the more Swifty variant using ranges, e.g. `for i in 0 ..< 5 { }` or fast enumeration e.g. `for cat in cats { cat.meow() }`.
+- **`++` and `--` are deprecated**: Naturally, the C-style `for` loop deprecation lead to this as well. `++` and `--` come with a lot of baggage with regards to postfix and prefix evaluation. It was decided that `foo += 1` is much easier to reason about and really isn't much more to write than `foo++`.
+
+Beware that the deprecated items mentioned are slated to be completely removed for Swift 3.0, so get cracking at updating your code! This book has been completed updated to comply with the Swift 2.2 changes. There are other changes that you can read about on the [Swift 2.2 announcement post](https://swift.org/blog/swift-2-2-released/). If you want to keep abreast with upcoming changes to Swift you may be interested in the various [mailing lists](https://swift.org/community/#mailing-lists) Apple has provided.
 
 ## The Logistics
 
-Unlike most chapters in this book, you _won't_ write or extend an app in this chapter. Instead, you'll work in a multipage Xcode Playground with the Swift language features as the focus. The first part of the chapter will introduce you to some new features using somewhat contrived examples; the second half walks you thorough the solution of a specific String validation problem using Swift 2.0 features in a tutorial-led playground.
+Unlike most chapters in this book, you _won't_ write or extend an app in this chapter. Instead, you'll work in a multipage Xcode Playground with the Swift language features as the focus. The first part of the chapter will introduce you to some new features using somewhat contrived examples; the second half walks you thorough the solution of a specific String validation problem using Swift 2 features in a tutorial-led playground.
 
 Open the provided **Chapter1_Swift2.playground** file in Xcode 7 and you'll be ready to dive right into the chapter!
 
 > **Note:** When running Playgrounds in Xcode 7 GM you may often see error messages like the following in the Debug Area.
-> 
+>
 > `CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.`
-> 
+>
 > According to Apple engineers in the developer forums ([apple.co/1FbVE0l](http://apple.co/1FbVE0l)) it is safe to ignore these messages.
 
 ## Control Flow
 
-Control flow is a fundamental concept in any programming language. Not sure what "control flow" means? A basic example is `if/else`; any construct or keyword that causes the execution of your program to follow a different path can be considered "control flow". Swift 2.0 adds new control flow features and makes some minor changes to existing ones. The two new control flow featues covered in this section are found on your playground's **Control Flow** page.
+Control flow is a fundamental concept in any programming language. Not sure what "control flow" means? A basic example is `if/else`; any construct or keyword that causes the execution of your program to follow a different path can be considered "control flow". Swift 2 adds new control flow features and makes some minor changes to existing ones. The two new control flow featues covered in this section are found on your playground's **Control Flow** page.
 
 ### `repeat`
 
@@ -135,7 +151,7 @@ This feature lets you perform your optional binding upfront in a very explicit m
 
 The early days of Swift led to many questions on Stack Overflow about error handling, and in particular, _exceptions_ as found in other popular languages. Apple instead opted to stick to the `NSError` approach Cocoa has always used and release Swift with the promise of advanced error handling in the next version.
 
-Swift 2.0 has a first-class error handling model; you can declare that a method or function `throws` an error. This lets the caller/consumer know an error may occur. The compiler also requires that you either write the code to handle the error, or to explicitly ignore it.
+Swift 2 has a first-class error handling model; you can declare that a method or function `throws` an error. This lets the caller/consumer know an error may occur. The compiler also requires that you either write the code to handle the error, or to explicitly ignore it.
 
 All of the code for this section is included on the **Errors** page of the chapter's Xcode Playground.
 
@@ -170,7 +186,7 @@ struct Person: JSONParsable {
 
   static func parse(json: [String : AnyObject]) throws
     -> Person {
-    
+
     guard let firstName = json["first_name"] as? String else {
       let message = "Expected first_name String"
       throw ParseError.MissingAttribute(message: message) // 1
@@ -219,11 +235,11 @@ let p2 = try! Person.parse(["first_name": "Ray",
   "last_name": "Wenderlich"])
 ```
 
-Now that you understand the basics of handling Swift 2.0 errors, you can focus on a specific problem to solve, rather than work with contrived examples.
+Now that you understand the basics of handling Swift 2 errors, you can focus on a specific problem to solve, rather than work with contrived examples.
 
 ## The Project
 
-In this section, you'll work at solving a String validation problem using some of the features discussed above along with some additional Swift 2.0 features. You're trying to write string validators that validate whether the input string conforms to any number of rules. You'll use this validator to create a password complexity checker.
+In this section, you'll work at solving a String validation problem using some of the features discussed above along with some additional Swift 2 features. You're trying to write string validators that validate whether the input string conforms to any number of rules. You'll use this validator to create a password complexity checker.
 
 ### String Validation Error
 
@@ -262,7 +278,7 @@ This protocol requires an array of `StringValidationRule`s as well as a function
 
 Think how you might implement a `StringValidator`'s `validate(string:)` method. You'd likely iterate over each item in `validationRules`, collect any errors, and determine the status based on whether any errors occurred. This logic will likely be the same for any `StringValidator` you need.
 
-Surely you don't want to copy and paste that implementation into ALL of your `StringValidator`s! The good news is that Swift 2.0 introduces **Protocol Extensions** that let you define default implementations for all types that specify conformance to a protocol.
+Surely you don't want to copy and paste that implementation into ALL of your `StringValidator`s! The good news is that Swift 2 introduces **Protocol Extensions** that let you define default implementations for all types that specify conformance to a protocol.
 
 Next, you'll extend the `StringValidator` protocol to define a default implementation for `validate(string:)`. Add the following code to the playground:
 
@@ -270,7 +286,7 @@ Next, you'll extend the `StringValidator` protocol to define a default implement
 extension StringValidator {                            // 1
   func validate(string: String) -> (valid: Bool,
     errors: [StringValidationError]) {                 // 2
-    
+
     var errors = [StringValidationError]()             // 3
     for rule in validationRules {                      // 4
       do {                                             // 5
@@ -307,7 +323,7 @@ Time to implement your very first `StringValidationRule`, starting with the firs
 ```
 struct StartsWithCharacterStringValidationRule
   : StringValidationRule {
-  
+
   let characterSet: NSCharacterSet            // 1
   let description: String                     // 2
   var errorType: StringValidationError {      // 3
@@ -550,11 +566,11 @@ You should see the following result:
 
 ![bordered width=95%](/images/password_validator_result.png)
 
-Great work - you've used protocol oriented programming with Swift 2.0 features to implement a solution to a real-world non-trivial problem.
+Great work - you've used protocol oriented programming with Swift 2 features to implement a solution to a real-world non-trivial problem.
 
 ## Additional Things
 
-The previous sections covered a number of new features in Swift 2.0, but wait - there's more! (Is it just me, or is this starting to sound like an infomercial? :])
+The previous sections covered a number of new features in Swift 2, but wait - there's more! (Is it just me, or is this starting to sound like an infomercial? :])
 
 The remainder of this chapter has you experimenting with some of the previously mentioned features and introduces you to some new features. The examples won't be as concrete as the string validation problem, but hopefully still interesting nonetheless!
 
@@ -598,7 +614,7 @@ If your results aren't shuffled, verify that you typed the algorithm correctly o
 
 ### Using `defer`
 
-With the introduction of `guard` and `throws`, exiting scope early is now a "first-class" scenario in Swift 2.0. This means that you have to be careful to execute any necessary routines prior to an early exit from occurring. Thankfully Apple has provided `defer { ... }` to ensure that a block of code will always execute before the current scope is exited.
+With the introduction of `guard` and `throws`, exiting scope early is now a "first-class" scenario in Swift 2. This means that you have to be careful to execute any necessary routines prior to an early exit from occurring. Thankfully Apple has provided `defer { ... }` to ensure that a block of code will always execute before the current scope is exited.
 
 Review the following and notice the `defer` block defined at the beginning of the `dispenseFunds(amount:account:)` method.
 
@@ -660,7 +676,7 @@ Bill's card was returned even though the method exited early.
 
 ### Pattern Matching
 
-Swift has had amazing pattern matching capabilities since the beginning, especially with cases in `switch` statements. Swift 2.0 continues to add to the language's ability in this area. Here are a few brief examples.
+Swift has had amazing pattern matching capabilities since the beginning, especially with cases in `switch` statements. Swift 2 continues to add to the language's ability in this area. Here are a few brief examples.
 
 "for ... in" filtering combines a for-in loop and a `where` statement so that only iterations whose `where` statement is true will be executed. Use for ... in filtering to create an array of names that start with "C". Find the **Pattern Matching** section of the page and enter the following:
 
@@ -698,7 +714,7 @@ for author in authors {
 
 ### Option Sets
 
-Prior to Swift 2.0 in both Swift and Objective-C bitmasks were often used to describe a set of options flags. This should be familiar if you've ever done animations with UIKit.
+Prior to Swift 2 in both Swift and Objective-C bitmasks were often used to describe a set of options flags. This should be familiar if you've ever done animations with UIKit.
 
 You can now type a set of option flags like you would any other `Set<T>`, which was introduced in Swift 1.2.
 
@@ -729,7 +745,7 @@ This section concludes the use of the chapter's playground, so you can put that 
 
 As Apple continually introduces new versions of iOS (and OS X) they give developers new frameworks and APIs to utilize. The problem with this is that unless you drop support for previous versions of the OS you cannot safely use the new APIs without a lot of messy runtime checks which always leads to missed cases and basic human error, resulting in a crashing app.
 
-In Swift 2.0 you can now let the compiler help you. There is not enough time to cover all of the use cases here but as a quick introduction consider the following example.
+In Swift 2 you can now let the compiler help you. There is not enough time to cover all of the use cases here but as a quick introduction consider the following example.
 
 ```
 guard #available(iOS 9.0, *) else { return }
@@ -742,7 +758,7 @@ The compiler will also you know if you've used a new API when your deployment ta
 
 ## Where to go from here?
 
-While this chapter covered a lot of ground, you mostly just dipped your toes into each feature. There is a ton of power in the new features of Swift 2.0. And there are even more that were not covered here. It is highly recommended that you continue down the path of learning about Swift 2.0 features so that you can write better code and make better apps even faster. Never hesitate to crack open an  Xcode Playground and start hacking away, prototyping ideas has never been easier. One pro-tip is to keep a playground in your Mac's Dock so that you can jump right in at a moment's notice.
+While this chapter covered a lot of ground, you mostly just dipped your toes into each feature. There is a ton of power in the new features of Swift 2. And there are even more that were not covered here. It is highly recommended that you continue down the path of learning about Swift 2 features so that you can write better code and make better apps even faster. Never hesitate to crack open an  Xcode Playground and start hacking away, prototyping ideas has never been easier. One pro-tip is to keep a playground in your Mac's Dock so that you can jump right in at a moment's notice.
 
 You also should not miss the following WWDC 2015 sessions:
 - What's New In Swift [apple.co/1IBTu8q](https://developer.apple.com/videos/wwdc/2015/?id=106)
