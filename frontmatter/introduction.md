@@ -26,7 +26,7 @@ Sit back, relax and prepare for some high quality tutorials!
 
 To follow along with the tutorials in this book, you'll need the following:
 - __A Mac running OS X Yosemite or later.__ You'll need this to be able to install the latest version of Xcode.
-- __Xcode 7.0 or later.__ Xcode is the main development tool for iOS. You'll need Xcode 7.0 or later for all tasks in this book as Xcode 7.0 is the first version of Xcode to supports iOS 9 and Swift 2.0. You can download the latest version of Xcode for free on the Mac app store here: [apple.co/1FLn51R](https://itunes.apple.com/app/xcode/id497799835?mt=12)
+- __Xcode 7.3 or later.__ Xcode is the main development tool for iOS. You'll need Xcode 7.3 or later for all tasks in this book. You can download the latest version of Xcode for free on the Mac app store here: [apple.co/1FLn51R](https://itunes.apple.com/app/xcode/id497799835?mt=12)
 - __One or more devices (iPhone, iPad, or iPod Touch) running iOS 9 or later.__ Most of the chapters in the book let you run your code on the iOS 9 Simulator that comes with Xcode. However, a few chapters later in the book require one or more physical iOS devices for testing.
   
 Once you have these items in place, you'll be able to follow along with every chapter in this book. 
@@ -55,7 +55,7 @@ Instead, we suggest a pragmatic approach — pick and choose the chapters that i
 
 Looking for some recommendations of important chapters to start with? Here's our suggested Core Reading List: 
 
-- Chapter 1, "Swift 2.0"
+- Chapter 1, "Swift 2"
 - Chapter 2, "Introducing App Search"
 - Chapter 4, "App Thinning"
 - Chapter 6, "3D Touch"
@@ -68,7 +68,7 @@ That covers the "Big 5" topics of iOS 9; from there you can dig into other topic
 
 iOS 9 has a selection of new technologies and APIs that cover the entire OS. Here's what you'll learn about in this book:
 
-1. __Chapter 1, Swift 2.0:__ Swift is only a year old, but a lot has changed since it was born. Discover the new error handling model, protocol extensions, new control flow features and much more! You'll be ready to tackle the rest of the book, and to upgrade your existing code to Swift 2.0!
+1. __Chapter 1, Swift 2:__ Swift is only a year old, but a lot has changed since it was born. Discover the new error handling model, protocol extensions, new control flow features and much more! You'll be ready to tackle the rest of the book, and to upgrade your existing code to Swift 2!
 2. __Chapter 2, Introducing App Search:__ With iOS 9, users can search inside your apps using the system Spotlight utility. Learn how to adopt this new functionality, and make the content inside your apps more discoverable.
    ![width=40%](images/introduction01.png)
 3. __Chapter 3, Your App on the Web:__ Deep linking will allow you to direct users browsing your website directly to the correct point inside your iOS app. Find out how to integrate this functionality in your own site and app as you follow along with updating the RWDevCon website and app!
