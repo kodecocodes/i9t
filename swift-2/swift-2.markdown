@@ -40,6 +40,20 @@ It's great to dream about the future of Swift, but this chapter highlights what 
 
 This chapter is packed with information; you can read it end to end or use it as as a reference as you work with Swift 2.0.
 
+## Swift 2.2
+
+Since the original writing of this Chapter Apple has open sourced Swift, they have also released the very first community driven version of Swift, coined Swift 2.2. Apple has truly raised the standard with regards to open source projects and shocked the development community with their efforts. [Swift.org](https://swift.org) was launched on December 3, 2015 and has loads of information about the language's project as well as sub-projects like Swift Package Manager and an open source version of Foundation. Take some the time to checkout the site, you may find yourself interested in contributing!
+
+Down to the specifics of what did Swift 2.2 brings to the table:
+
+- **Compile-time Swift version checks**: Much like the OS Availability checks described in this chapter; this allows you to check the Swift version itself at compile-time and branch accordingly.
+- **Compile-time checked selectors**: Gone are the days of stringly typed method names, there is a new `#selector` syntax that allows the compiler to validate the method you're referencing actually exists.
+- **Allow more keywords as argument labels**: Now you have more freedom to use most of the language keywords as your method argument labels, e.g. `func su(do: () -> (), if: () -> Bool, for: Int) -> Result`
+- **Tuple comparison**: The Swift standard library now defines comparison operators for tuples ranging from 1...6 elements. You can simply evaluate an expression like `("Foo", true, 1) == ("Bar", true, 1)` which returns `false`. The comparison operator is applied to each element respectively and the result of each comparison is `&&`'d, which means if any return `false` the entire comparison resolves to `false`.
+- **C-style `for` loops deprecated**: The community agrees, Swift is looking toward the future. There's no need for the classic `for var i = 0; i < 5; i++ { }` syntax and therefore it has been deprecated. You will need to rely on the more Swifty variant using ranges, e.g. `for i in 0 ..< 5 { }` or fast enumeration e.g. `for cat in cats { cat.meow() }`.
+- **`++` and `--` are deprecated**: Naturally, the C-style `for` loop deprecation lead to this as well. `++` and `--` come with a lot of baggage with regards to postfix and prefix evaluation. It was decided that `foo += 1` is much easier to reason about and really isn't much more to write than `foo++`.
+
+Beware that the deprecated items mentioned are slated to be completely removed for Swift 3.0, so get cracking at updating your code! This book has been completed updated to comply with the Swift 2.2 changes. There are other changes that you can read about on the [Swift 2.2 announcement post](https://swift.org/blog/swift-2-2-released/). If you want to keep abreast with upcoming changes to Swift you may be interested in the various [mailing lists](https://swift.org/community/#mailing-lists) Apple has provided.
 
 ## The Logistics
 
@@ -48,9 +62,9 @@ Unlike most chapters in this book, you _won't_ write or extend an app in this ch
 Open the provided **Chapter1_Swift2.playground** file in Xcode 7 and you'll be ready to dive right into the chapter!
 
 > **Note:** When running Playgrounds in Xcode 7 GM you may often see error messages like the following in the Debug Area.
-> 
+>
 > `CGContextSaveGState: invalid context 0x0. If you want to see the backtrace, please set CG_CONTEXT_SHOW_BACKTRACE environmental variable.`
-> 
+>
 > According to Apple engineers in the developer forums ([apple.co/1FbVE0l](http://apple.co/1FbVE0l)) it is safe to ignore these messages.
 
 ## Control Flow
@@ -170,7 +184,7 @@ struct Person: JSONParsable {
 
   static func parse(json: [String : AnyObject]) throws
     -> Person {
-    
+
     guard let firstName = json["first_name"] as? String else {
       let message = "Expected first_name String"
       throw ParseError.MissingAttribute(message: message) // 1
@@ -270,7 +284,7 @@ Next, you'll extend the `StringValidator` protocol to define a default implement
 extension StringValidator {                            // 1
   func validate(string: String) -> (valid: Bool,
     errors: [StringValidationError]) {                 // 2
-    
+
     var errors = [StringValidationError]()             // 3
     for rule in validationRules {                      // 4
       do {                                             // 5
@@ -307,7 +321,7 @@ Time to implement your very first `StringValidationRule`, starting with the firs
 ```
 struct StartsWithCharacterStringValidationRule
   : StringValidationRule {
-  
+
   let characterSet: NSCharacterSet            // 1
   let description: String                     // 2
   var errorType: StringValidationError {      // 3
