@@ -66,7 +66,8 @@ That's where code coverage comes in. With Xcode 7 came the ability to get covera
 
 By default, code coverage isn't turned on. Change that now in the starter project by selecting **Product\Scheme\Edit Scheme...**, and then select the **Test** action and click on the **Code Coverage — Gather coverage data** checkbox.
 
-![bordered width=85%](/images/codeCoverage2.png)
+![bordered width=75% print](/images/codeCoverage2.png)
+![bordered width=85% screen](/images/codeCoverage2.png)
 
 That's all you need to do to turn on code coverage reports. Easy, huh? To check your current levels of code coverage you need to run your test target.
 
@@ -459,7 +460,8 @@ Magic! Depending on exactly where you swiped and which version of Xcode you're r
 
 You'll notice that some of the generated lines of code have **tokens** that contain several options. Click one to see the available options:
 
-![bordered width=100%](/images/uiRecordingTokens.png)
+![bordered width=90% print](/images/uiRecordingTokens.png)
+![bordered width=100% screen](/images/uiRecordingTokens.png)
 
 There are many ways of querying the same UI elements, and in some cases, Xcode  can only make guesses about the steps you want your test to take. With these tokens, Xcode gives you options to help you disambiguate elements.
 

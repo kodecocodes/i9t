@@ -14,6 +14,8 @@ However, it also meant that a so-called universal app requires a substantial chu
 	
 ![bordered width=%60](./images/Device-Breakdown.png)
 
+$[=p=]
+
 Fortunately, with the introduction of iOS 9, Apple introduced several solutions to address this problem:
 
 - **App Slicing**: When you submit your iOS 9 binary to the App Store, Apple compiles resources and executable architecture into variants that are specific to each device. In turn, devices only download the variant specific to their traits — meaning they only get content they will use. Traits include graphics capabilities, memory level, architecture, size classes, screen scaling and more. 
@@ -63,6 +65,8 @@ It's always helpful to quantitatively measure your progress when making changes,
 
 Fortunately, there's already a build script in the app package that produces the size of the bundle in kilobytes. 
 
+$[=p=]
+
 To view the size of a build using this script, first build the project, then:
 1. Navigate to the **Report Navigator**.
 2. Select the **Build** you wish to inspect. 
@@ -83,7 +87,9 @@ App slicing can be broken out into two parts: executable slicing and resource sl
 
 By default, release builds include all architectures configured in your build settings. When you submit such a build to the App Store, it automatically creates the variants needed on your behalf. All _you_ have to do is compile for iOS 9. 
 
-![width=40%](./images/apple_heavy_lifting.png)
+![width=35% print](./images/apple_heavy_lifting.png)
+![width=40% screen](./images/apple_heavy_lifting.png)
+
 
 ## Being smart with resources
 
@@ -91,7 +97,8 @@ By default, release builds include all architectures configured in your build se
 
 All you have to do is make sure your resources are compiled into **Asset Catalogs** and organized according to traits. You probably already organize your image assets according to scale factors. With Xcode 7, you can also tag assets by **Memory** and **Graphics** requirements in the Attributes Inspector.
 
-![bordered height=40%](./images/new_trait_attributes.png)
+![bordered width=35% print](./images/new_trait_attributes.png)
+![bordered width=45% screen](./images/new_trait_attributes.png)
 
 - The **Memory** setting lets you target different assets to devices with different amounts of RAM. 
 - The **Graphics** setting allows you to target either first or second generation Metal-capable GPUs.
@@ -143,6 +150,8 @@ Through tags, Apple abstracts the remote resource storage location and retrieval
 So, what can you include when using ODR? They can be images, data, OpenGL shaders, SpriteKit Particles, Watchkit Complications and more. The main thing to understand is that _ODR can't be executable code_. 
 
 Fortunately for this particular application, NSBundles fall into the data file category. This means you can apply ODR to the bundles without changing any of the file infrastructure within Old CA Maps. 
+
+$[=p=]
 
 ### Wire things up to use tags
 
@@ -358,7 +367,7 @@ override func viewDidDisappear(animated: Bool) {
 
 Rebuild and run the system and keep an eye on the **Disk Report** screen while exploring different cities. The report should now indicate that your ODR content is no longer in active use as soon as you leave the map view screen. Sweet.
 
-$[=s=]
+$[===]
 
 ## Where to go from here? 
 

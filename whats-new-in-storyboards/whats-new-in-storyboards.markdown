@@ -142,9 +142,13 @@ Click on the **Prepped project** at the top of the project navigator, then click
 
 ![bordered height=24%](images/13-ProjectSettings1.png)
 
+$[=p=]
+
 Build and run your app; you'll see the checklist detail scene loads first:
 
-![iPhone bordered](images/14-ChecklistDetail.png)
+
+![bordered width=30% print](images/14-ChecklistDetail.png)
+![bordered width=35% screen](images/14-ChecklistDetail.png)
 
 Where are the navigation and tab bar? Since the view controller is no longer embedded in a navigation or tab bar controller, you won't see those two elements while you're working on the items storyboard.
 

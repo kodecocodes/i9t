@@ -14,6 +14,8 @@ Sometimes it seems like Apple keeps all the fun features to itself, like using S
 
 With iOS 9, Apple is passing a very exciting feature off to the rest of us; third party developers now have the ability to make _their_ content searchable through Spotlight!
 
+$[=p=]
+
 ## App search APIs
 
 App search in iOS 9 comprises three main aspects. Each is broken into separate APIs that achieve distinct results, but they also work in concert with one another:
@@ -135,6 +137,8 @@ This property will come into play later to conveniently obtain an `NSUserActivit
 Next up, you are going to use this new `userActivity` property to make employee records searchable when the user views them. Since you added these definitions in the EmployeeKit framework, you'll need to build the framework so that Xcode is aware they can be used from the Colleagues app.
 
 Press **Command-B** to build the project.
+
+$[=p=]
 
 Open **EmployeeViewController.swift** and add the following to the bottom of `viewDidLoad()`:
 
@@ -484,6 +488,8 @@ There's actually a little more to it than that. In order for content to become p
 As you might expect Apple has not quantified this threshold.
 
 The other approach for making content publicly indexed is using _web markup_, which is covered in the next chapter.
+
+$[=p=]
 
 ## Advanced features
 

@@ -112,7 +112,7 @@ Keep this in mind when designing your custom callout views, as there's currently
 $[break]
 ### Adding a custom callout accessory view
 
-With that theory out of the way, it's time to add a custom callout of your own. **CoffeeShopPinDetailView.xib** defines the UI for the callout accessory view as shown below:
+With that theory out of the way, it's time to add a custom callout of your own. **CoffeeShopPinDetailView.xib** defines the UI for the callout accessory view as shown:
 
 ![width=45%](images/08-customview.png)
 
@@ -200,7 +200,7 @@ With the starter project open, click on the **CafeTransit** scheme and choose **
 
 ![bordered width=60%](images/12-editScheme.png)
 
-Select **Run** in the left pane, and **Options** from the tab bar at the top of the right pane. Enable **Core Location > Allow Location Simulation**, and set your **Default Location** to **San Francisco, CA, USA** as shown below:
+Select **Run** in the left pane, and **Options** from the tab bar at the top of the right pane. Enable **Core Location > Allow Location Simulation**, and set your **Default Location** to **San Francisco, CA, USA** as shown:
 
 ![bordered width=90%](images/13-simulateLocation.png)
 
@@ -223,6 +223,8 @@ lazy var locationManager = CLLocationManager()
 var currentUserLocation: CLLocationCoordinate2D?
 ```
 The code lazily creates a `CLLocationManager` object the first time it's called. You also create a `CLLocationCoordinate2D` property to store the user's current location.
+
+$[=p=]
 
 Next, add the following lines to the end of `viewDidLoad()`:
 
@@ -290,6 +292,8 @@ Taking each numbered comment in turn:
 
 ![bordered width=80%](images/15-plist.png)
 
+$[=p=]
+
 Next, add the following implementation underneath **viewDidLoad()**:
 
 ```swift
@@ -319,7 +323,9 @@ This passes the user's current location into an annotation whenever the annotati
 
 That was quite a bit of code to get through — you've done well! Build and run your app; you should see a blue dot appear on the map showing your simulated location:
 
-![iPhone](images/16-forcefield.png)
+![width=33% print](images/16-forcefield.png)
+![width=35% screen](images/16-forcefield.png)
+
 
 Sure, that doesn't seem like a lot when you consider all the code you wrote, but you're building up to some really cool features in the next section.
 
@@ -443,6 +449,8 @@ When you tap the clock icon, the time view animates upwards and you send off a r
 Build and run your app; tap one of the coffee shop pins then tap the clock icon and you'll see an update on when you'll depart and what time you'll arrive! Can't you just smell the beans roasting already? :]
 
 ![iPhone](images/18-completedApp.png)
+
+$[=p=]
 
 ## Where to go to from here?
 

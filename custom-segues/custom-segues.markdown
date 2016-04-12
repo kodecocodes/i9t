@@ -18,6 +18,8 @@ This chapter will show you how to do the following:
 
  You'll need some basic knowledge of storyboards and segues, but if you understood the previous chapter "What's New In Storyboards?", consider yourself well prepared.
 
+$[=p=]
+
 ## Getting started
 
 The sample app for this chapter is **PamperedPets**, a simple pet-minding app that, when complete, will display a list of pets to mind and their details:
@@ -352,6 +354,8 @@ Still in `animateTransition(_:)`, replace:
 ```swift
 toView?.frame = .zero
 ```
+
+$[=p=]
 
 with the following:
 

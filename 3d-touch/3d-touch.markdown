@@ -209,6 +209,8 @@ That's all it takes to implement a peek! When the user lightly presses on a row 
 
 When the user presses even deeper, you'll want that preview to pop into the full display. So, still in **DoodlesViewController.swift**, replace the stub implementation of `previewingContext(_:commitViewController:)` with the following:
 
+$[=p=]
+
 ```swift
 func previewingContext(
   previewingContext: UIViewControllerPreviewing,
@@ -225,7 +227,8 @@ In this situation, you simply want to push the **DoodleDetailViewController** on
 
 Build and run the app. Press lightly on a row in the list of doodles, and then slowly press more deeply.
 
-![width=100%](images/05-doodle-peek.png)
+![width=90% print](images/05-doodle-peek.png)
+![width=100% screen](images/05-doodle-peek.png)
 
 Peek.... pop!
 
@@ -295,7 +298,8 @@ This hooks up the `doodlesViewController` property you just created.
 
 Build and run the app. Initiate a peek on one of the doodles, and then slide it upwards to reveal your quick actions. Tap on **Share** to display the share sheet, then cancel out of it. Peek at a doodle once more, slide it upward, and tap **Delete**. Whoosh, the doodle is gone!
 
-![iPhone bordered](images/06-peek-actions.png)
+![bordered width=30% print](images/06-peek-actions.png)
+![bordered width=35% screen](images/06-peek-actions.png)
 
 ## Home screen quick actions
 
@@ -481,6 +485,8 @@ Cancel out of the share sheet, tap **Doodles** in the top left to return to the 
 Press the home button to return to the home screen, and once again press deeply on the app icon to show the quick actions menu. You should see that the **Share Latest Doodle** now has the subtitle _Tree_, because it's the most recent doodle. Tap it, and you'll be able to share your latest masterpiece with the world.
 
 ![width=45%](images/11-dynamic-shortcut.png)
+
+$[=p=]
 
 ## Where to go from here?
 

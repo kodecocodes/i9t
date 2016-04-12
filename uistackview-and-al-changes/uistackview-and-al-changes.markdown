@@ -33,7 +33,8 @@ Towards the end of this chapter, you'll also fix another issue with the use of l
 
 Open **VacationSpots-Starter**, and run it on the **iPhone 6 Simulator**. The first thing you'll notice is the name and location label in a few cells are off center.
 
-![bordered iphone](images/02-alignment-issue-on-table-view_750x1334.png)
+![bordered width=28% print](images/02-alignment-issue-on-table-view_750x1334.png)
+![bordered width=35% screen](images/02-alignment-issue-on-table-view_750x1334.png)
 
 Both labels should be centered vertically (as a group) so there is an equal amount of space above the name label, and below the location label – you'll fix this towards the end of the chapter with a layout guide. For now, go to the info view for London by tapping on the **London** cell.
 
@@ -134,7 +135,9 @@ Top: 20, Leading: 0, Trailing: 0, Bottom: 0
 ```
 
 Double-check the numbers for the top, leading, trailing, and bottom constraints and make sure that the **I-beams** are selected. Then click on **Add 4 Constraints**:
-![bordered width=30%](images/18-bottom-stack-view-constraints_264x364.png)
+
+![bordered width=25% print](images/18-bottom-stack-view-constraints_264x364.png)
+![bordered width=30% screen](images/18-bottom-stack-view-constraints_264x364.png)
 
 Now the stack view is the correct size, but it has stretched the first button to fill in any extra space:
 ![bordered width=60%](images/19-first-button-is-stretched_400x80.png)
@@ -342,7 +345,9 @@ You'll remember that the whole reason for the dive into layout guides and anchor
 ![bordered width=32%](images/30-misaligned-labels-reminder_750x1334.png)
 
 They're misaligned because the current constraint specifies that the top of the name label should be a fixed distance from the top margin of the cell's `contentView`:
-![bordered width=80%](images/31-the-incorrect-constraint_683x269.png)
+
+![bordered width=80% print](images/31-the-incorrect-constraint_683x269.png)
+![bordered width=80% screen](images/31-the-incorrect-constraint_683x269.png)
 
 If the name label was always on a single line, the current constraint would have been fine. But this app has labels that span two lines.
 

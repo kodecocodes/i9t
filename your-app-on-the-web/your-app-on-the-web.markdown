@@ -45,6 +45,7 @@ This system worked fairly well for a long time (since iOS 3.0, in fact!) but it 
 
 iOS 9 solves many of these problems and more with universal links; instead of registering for custom URL schemes, universal links use standard HTTP and HTTPS links. You can register to handle specific links for any web domains that you own.
 
+$[=p=]
 
 ### Universal links
 
@@ -73,7 +74,8 @@ Go to the starter files included with this chapter and open **RWDevCon.xcodeproj
 
 Your Associated Domains section should look like the following when done:
 
-![bordered width=90%](/images/02-associated-domains.png)
+![bordered width=80% print](/images/02-associated-domains.png)
+![bordered width=90% screen](/images/02-associated-domains.png)
 
 This tells iOS which domains your app should respond to. Make sure to prefix your domain names with `applinks:`.
 
@@ -261,7 +263,7 @@ Tapping on the first link would open the app and start streaming Tammy Coron's 2
 
 ![iPhone](/images/06-video-link-valid.png)
 
-Looks great! Now if you were to return to your email client and tap the second link, the app would open but you'd be immediately bounce back to Safari, as shown below:
+Looks great! Now if you were to return to your email client and tap the second link, the app would open but you'd be immediately bounce back to Safari, as shown:
 
 ![iphone](/images/07-video-link-invalid.png)
 
@@ -346,6 +348,8 @@ And with Facebook's App Links:
 <meta property="al:ios:url" content="http://www.rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html">
 ```
 
+$[=p=]
+
 > **Note**: To learn more, read through Twitter's documentation page on Twitter Cards [dev.twitter.com/cards/mobile](http://bit.ly/1REZOkC) as well as Facebook's App Links documentation [applinks.org](http://applinks.org).
 
 Since you don't have the privileges to deploy code to `rwdevcon.com` (sorry, Ray's kind of picky about things like that), you won't be able to see your changes in action.
@@ -407,7 +411,8 @@ To see the validation tool in action, try it out with the URL of the video page 
 
 For example, as of this writing, the validation tool returns this set of suggestions for `http://rwdevcon.com/videos/talk-ray-wenderlich-teamwork.html`:
 
-![bordered height=30%](/images/13-validation-tool-results.png)
+![bordered width=75% print](/images/13-validation-tool-results.png)
+![bordered width=90% screen](/images/13-validation-tool-results.png)
 
 Apple's validation tool checks for the `meta` tags you added earlier, as well as for the page's `title` tag, Smart App Banner and universal link.
 

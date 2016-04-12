@@ -10,6 +10,8 @@ iOS 9 introduces a phenomenal feature for the iPad — **multitasking**. For the
 
 In this chapter, you'll learn how to update an existing app so that it plays nicely in a multi-tasking iPad environment.
 
+$[=p=]
+
 ## Getting started
 
 The starter project you’ll use for this chapter is named **Travelog**. Open the project file in Xcode and build and run the application on the **iPad Air 2** simulator. You’ll see the following:
@@ -77,6 +79,8 @@ UIKit provides a number of anchor points where you can hook in and update your l
 2. **viewWillTransitionToSize(_:, withTransitionCoordinator:)**
 3. **traitCollectionDidChange(_:):**
 
+$[=p=]
+
 The diagram below shows how the horizontal size classes of your app change during multitasking events (**R** means **Regular** and **C** means **Compact**):
 
 ![width=100%](images/sizeclasses.png)
@@ -128,7 +132,8 @@ This method updates the primary column when the size changes.
 
 Build and run your app; first verify for all orientations that the app still looks and behaves as it did before multitasking. Then bring in another app in Split View and try some different orientations:
 
-![width=95%](images/mt063.png)
+![width=90% print](images/mt063.png)
+![width=95% screen](images/mt063.png)
 
 Hmm — it's certainly not fixed. It even looks more broken now: with multitasking enabled in landscape orientation, the master column view has been jacked up! It looks like the table view cell doesn't adapt to size changes appropriately.
 
@@ -162,11 +167,13 @@ Build and run; again, verify the app still looks and behaves as it did before mu
 
 Continue your evaluation of the app: this time with the device in landscape orientation and the Split View at 33%, tap the **Photo Library** bar button. You'll see the following popover:
 
-![bordered ipad](images/mt091.png)
+![bordered width=80% print](images/mt091.png)
+![bordered width=100% screen](images/mt091.png)
 
 With the popover still visible, drag the divider further to the left so the screen is evenly divided between the two apps:
 
-![bordered ipad](images/mt092.png)
+![bordered width=80% print](images/mt092.png)
+![bordered width=100% screen](images/mt092.png)
 
 The popover automatically turned into a modal view without any action on your part; dragging the divider to 50% changes the horizontal size class of the app from regular to compact. That's neat, but it's not quite the functionality you're looking for.
 
@@ -206,7 +213,7 @@ Here's a breakdown of the code:
 
 Now you can make `LogsViewController` a delegate of the popover presentation controller.
 
-Find the implementation of `presentImagePickerControllerWithSourceType(_:)`. Read through the implementation and you'll see that when the source type is `.PhotoLibrary`, `UIImagePickerController` presents as a popover. Update the implementation by adding `presenter?.delegate = self` as shown below:
+Find the implementation of `presentImagePickerControllerWithSourceType(_:)`. Read through the implementation and you'll see that when the source type is `.PhotoLibrary`, `UIImagePickerController` presents as a popover. Update the implementation by adding `presenter?.delegate = self` as shown:
 
 ```swift
 func presentImagePickerControllerWithSourceType(sourceType:
@@ -250,6 +257,8 @@ Above and beyond coding considerations, you'll need to change your approach to a
 ### Resources
 
 You've worked hard to be a good memory citizen over the years, and that won't change with multitasking. You can potentially have up to three apps running at full speed, all at the same time: the primary app, the secondary app and Picture in Picture. Instruments is an invaluable tool for monitoring memory usage in your app and can help you whittle your memory usage back to the bare minimum.
+
+$[=p=]
 
 ## Where to go from here?
 

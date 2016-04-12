@@ -170,6 +170,8 @@ The possible `alignment` values for a _horizontal_ stack view differ slightly:
 
 It has `.Top` instead of `.Leading` and has `.Bottom` instead of `.Trailing`. There are also two more properties that are valid only in the horizontal direction, `.FirstBaseline` and `.LastBaseline`.
 
+$[=p=]
+
 Here's are some visuals to illustrate how each value works:
 
 $[=s=]
@@ -190,6 +192,8 @@ These values are valid only in a horizontal stack view. `FirstBaseline` uses the
 
 ![bordered width=90%](images/24-baseline-alignment_1200x232.png)
 
+$[=p=]
+
 ## Convert the weather section
 
 The next task is to add the **weather** section to a stack view. You'll start by adding it to a stack view.
@@ -203,6 +207,8 @@ Remember that little **Hide** button? Get ready, because this stack view is a bi
 >**Note**: This section explores one possible approach, but don't follow along in Xcode just yet. Consider this first section theoretical.
 
 You could create a nested stack view by embedding the **WEATHER** label and the **Hide** button into a horizontal stack view, and then embed that horizontal stack view and the **&lt;weatherInfoLabel>** into a vertical stack view.
+
+$[=p=]
 
 It would look something like this:
 ![bordered width=90%](images/27-weather-stack-in-stack_640x92.png)
@@ -285,7 +291,7 @@ Now that all the sections are in unique stack views, you're set to embed them al
 **Command-click** to select all five top-level stack views in the outline view:
 ![bordered width=73%](images/42-select-all-stack-views-in-outline_640x260.png)
 
-$[=s=]
+$[===]
 
 Then click on the **Stack** button:
 ![bordered width=73%](images/43-stack-all-the-views_640x185.png)
@@ -315,7 +321,7 @@ Select the **middle stack view** from the outline view and **drag it between** t
 And now the **weather** section is third from the top, but since the **Hide** button isn't part of the stack view, it won't be moved, so its frame will now be misplaced and the Hide button will look like it's lost its mind again.
 ![width=33%](images/48-seriously_not_again_308x277.png)
 
-$[=s=]
+$[===]
 
 Click on the **Hide** button to select it:
 ![bordered width=80%](images/49-hide-button-not-moved_640x130.png)
@@ -357,6 +363,8 @@ Select the top-level stack view and click on the little **+** button next to **S
 
 Choose **Any Width** > **Compact Height**:
 ![bordered width=50%](images/53-anywidth-compact-height_403x108.png)
+
+$[=p=]
 
 And set the **Spacing** to **10** in the new **wAny hC** field:
 ![bordered width=33%](images/54-set-spacing-to-10_260x160.png)

@@ -86,6 +86,8 @@ Open **WeatherViewController.swift** and then open the **assistant editor**. Cli
 
 > **Note**: You can also select **Generated Interface** instead of **Counterparts ► RWHTTPManager.h (Interface)** to view the same result.
 
+$[=p=]
+
 Like magic, you'll see the public interface of your class in the assistant editor:
 ![bordered width=75%](images/10-public-interface-of-swift-file.png)
 
@@ -335,6 +337,8 @@ Check **Render Documentation** again to see the output:
 ![bordered width=80%](images/35-first-block-syntax-example_506x115.png)
 
 For multiple lines, you can also use the block delimiter **/\*:** and **\*/** and it will render as a block even, if you have a blank line between any of the lines. Furthermore, anything that you add directly after **/\*:** won't render at all.
+
+$[=p=]
 
 Uncheck **Render Documentation** and add the following:
 

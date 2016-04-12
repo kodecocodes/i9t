@@ -14,6 +14,8 @@ Once the implications of a new programming language had sunk in, many developers
 
 Why would Apple introduce a new language, since Objective-C has served them so well? It's likely because Swift gave Apple a fresh start; Swift takes the best features from many different languages and combines them into one. Apple has created a language that is modern, expressive, safe, and a lot of fun to develop in. Swift also interoperates seamlessly with existing Cocoa and Cocoa Touch frameworks as well as all of your existing Objective-C code. This is likely one of the primary reasons Swift has seen such success and widespread adoption in the developer community.
 
+$[=p=]
+
 ## The Real "One more thing"
 
 WWDC 2015's big announcement is the open-sourcing of Swift by the end of 2015! But what does this really mean?
@@ -120,7 +122,7 @@ if beer.isEmpty {
 }
 ```
 
-The snippet above flips the logic and checks that the beer is empty, instead of checking that the beer _isn't_ empty. But isn't this just personal coding preference?
+The previous snippet flips the logic and checks that the beer is empty, instead of checking that the beer _isn't_ empty. But isn't this just personal coding preference?
 
 Not exactly; it comes down to _expressiveness_, which is a primary goal of Swift. Functionally, they're equivalent, but `guard` clearly states to anyone reading your code that you're performing a pre-condition check. Using a plain old `if` statement does not deliberately convey that information.
 
@@ -230,6 +232,8 @@ let p1 = try! Person.parse(["foo": "bar"])
 
 You'll notice a runtime error appears. Note, however, that the following works just fine without producing an error:
 
+$[=p=]
+
 ```
 let p2 = try! Person.parse(["first_name": "Ray",
   "last_name": "Wenderlich"])
@@ -261,6 +265,8 @@ protocol StringValidationRule {
 ```
 
 This protocol requires two things. The first being a method that returns a `Bool` denoting the validity of a given string and also throws an error. The second is a property which describes the type of error that may be thrown by the `validate(string:)` method.
+
+$[=p=]
 
 > **Note:** The `errorType` property is not a Swift requirement. It's here so that you can be clear about the types of error that might be returned.
 
@@ -372,6 +378,8 @@ You should see the following output in your playground.
 
 Great work! You've written your first validation rule; now you can create one for "Must End With". Add the following to the playground:
 
+$[=p=]
+
 ```
 struct EndsWithCharacterStringValidationRule
   : StringValidationRule {
@@ -444,7 +452,7 @@ You should see the following result:
 
 ![bordered height=30%](/images/starts_and_ends_with_validator_result.png)
 
-$[break]
+
 ### Password Requirement Validation
 
 It's time to put your StringValidator pattern to work. You're the software engineer tasked with creating the sign-up form for your company's app. The design specifies that passwords must meet the following requirements:
@@ -483,7 +491,7 @@ public struct LengthStringValidationRule
   public func validate(string: String) throws -> Bool
 }
 ```
-$[break]
+
 #### `ContainsCharacterStringValidationRule`
 
 The second rule is `ContainsCharacterStringValidationRule`, with the following requirements:
@@ -616,6 +624,8 @@ If your results aren't shuffled, verify that you typed the algorithm correctly o
 
 > **Note:** Extending functionality to generic type parameters is only available to classes and protocols. You will need to create an intermediate protocol to achieve the same with structs.
 
+$[=p=]
+
 ### Using `defer`
 
 With the introduction of `guard` and `throws`, exiting scope early is now a "first-class" scenario in Swift 2. This means that you have to be careful to execute any necessary routines prior to an early exit from occurring. Thankfully Apple has provided `defer { ... }` to ensure that a block of code will always execute before the current scope is exited.
@@ -674,7 +684,8 @@ do {
 
 Attempting to dispense funds from a locked account throws an `ATMError.AccountLocked`, but add `atm.log` and read the output:
 
-![bordered height=15%](/images/defer_result.png)
+![bordered width=38% print](/images/defer_result.png)
+![bordered width=50% screen](/images/defer_result.png)
 
 Bill's card was returned even though the method exited early.
 

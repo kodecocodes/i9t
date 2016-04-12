@@ -16,11 +16,11 @@ iOS 9 is a different matter. With this update we get a bunch of exciting new thi
 
 > **Note**: This chapter will primarily focus on the new features in UIKit Dynamics for iOS 9. Check out chapter 2, "UIKit Dynamics and Motion Effects" of iOS 7 by Tutorials for a full introduction to the original APIs.
 
+$[=p=]
 
 ## Getting started
 UIKit Dynamics is definitely a technology you have to learn through playing. Make sure you're using an Xcode Playground to follow along and watch the changes live!
 
-$[break]
 ### Create the playground
 
 Open Xcode, select __File\New\Playground...__  and enter __UIKit Dynamics__ for the name and set __Platform__ to __iOS__. Click __Next__. Choose a location for your playground and click __Create__. 
@@ -208,7 +208,8 @@ For this part, you'll work with simple photo viewing application. The user sees 
 
 You'll find the starter project as well as the final solution in the resources folder for this chapter.  Open it in Xcode and build and run it. You should see the following:
 
-![width=80%](images/dynamicphotodisplay_initialwithfull.png)
+![width=70% print](images/dynamicphotodisplay_initialwithfull.png)
+![width=80% screen](images/dynamicphotodisplay_initialwithfull.png)
 
 You'll notice the full screen view of a photo shows a bit of metadata. The user might encounter a photo where that metadata box obscures a part of the photo. 
 
@@ -450,6 +451,8 @@ Build and run. Now the velocity of your finger as it lifts from the screen will 
 
 For a better understanding of how the behaviors work, turn on debug mode by adding the following to `viewDidLoad()`:
 
+$[=p=]
+
 ```swift
 animator.setValue(true, forKey: "debugEnabled")
 ```
@@ -477,6 +480,8 @@ animator = UIDynamicAnimator(referenceView: self.view)
 ```
 
 Now that you've created the animator, swap out the contents of `showFullImageView` with the following:
+
+$[=p=]
 
 ```swift
 func showFullImageView(index: Int) {

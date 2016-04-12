@@ -22,6 +22,8 @@ Along the way, you'll learn about best practices for dealing with the user’s c
 
 In this chapter, you'll create the **RWConnect** app, which is a social network for iOS developers. The app has a friends list to help you keep in touch with all the great developers you know via email.
 
+$[=p=]
+
 
 >**Note**: You should use the simulator instead of a real device to test your app in this chapter; you'll have to reset your device in order to test the app permissions, and you don't want to reset your personal iPhone, do you?
 
@@ -284,7 +286,8 @@ Now that you can create friends from your contacts, it's only natural to want to
 
 When the user slides left on a table view cell, you'll show a "Create Contact" action to add a friend to the user's contact store.
 
-$[break]
+$[=p=]
+
 Add the following code inside the table view delegate extension you added to **FriendsViewController.swift**:
 
 ```swift
@@ -358,7 +361,7 @@ func presentPermissionErrorAlert() {
 }
 ```
 
-The above method presents an alert to the user indicating the app can't save the contact. The first UIAlertAction opens the Settings app using the `UIApplicationOpenSettingsURLString` key.
+The previous method presents an alert to the user indicating the app can't save the contact. The first UIAlertAction opens the Settings app using the `UIApplicationOpenSettingsURLString` key.
 
 > **Note**: The request access completion block executes on "an arbitrary queue", so you wrap this method in a `dispatch_async` block to ensure the UI code executes on the main thread. The documentation recommends that you work with the contacts store on the handler thread and dispatch to the main thread for UI changes.
 
@@ -387,7 +390,6 @@ Press **Settings** on your alert and you'll be taken to the Settings app where y
 
 The `guard` statement neatly handles the case where the user does not grant permission. The next logical step is to handle the case where the user grants permission and save the friend to the user's contact store.
 
-$[break]
 ### Saving friends to contacts
 
 Add the following method to `FriendsViewController`:
@@ -520,6 +522,8 @@ It looks like a lot of detailed code, but it breaks down quite simply:
 Build and run your app; try to add a contact that already exists and the app prevents you from doing so.
 
 You're done! You've dramatically improved RWConnect — and learned a ton about the new Contacts framework in the process!
+
+$[=p=]
 
 ## Where to go from here?
 
