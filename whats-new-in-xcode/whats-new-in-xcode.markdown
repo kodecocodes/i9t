@@ -24,6 +24,8 @@ Once you have signed up, open the starter project for this chapter and in **Weat
 let openWeatherMapApiKey = "YOUR_API_KEY_HERE"
 ```
 
+$[=s=]
+
 Now select your device from the destination menu:
 ![bordered width=50%](images/01-select-your-device_391x105.png)
 

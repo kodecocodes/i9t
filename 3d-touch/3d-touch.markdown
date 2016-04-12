@@ -390,6 +390,8 @@ Time to test it out! Build and run, and then press firmly on the Doodles app ico
 
 ![width=45%](images/10-static-shortcut.png)
 
+$[=s=]
+
 > **Note:** When an app _launches_ after the user taps a shortcut, as opposed to being opened from the background, the `launchOptions` dictionary of `application(_:didFinishLaunchingWithOptions:)` will contain the `UIApplicationShortcutItem` in question as the value for the key `UIApplicationLaunchOptionsShortcutItemKey`. There are a few caveats to bear in mind when handling your shortcut items in this method, so be sure to check out the full documentation for more information: ([apple.co/1P04D7q](http://apple.co/1P04D7q)).
 
 ### Adding a dynamic shortcut

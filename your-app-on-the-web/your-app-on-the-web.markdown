@@ -25,6 +25,8 @@ In the starter files for this chapter, you'll find both the code for the iOS app
 >
 > The rest of this chapter includes a number of tutorial sections to give you some experience with universal links and web markup. You won't be able to run the sample app on a device, since you won't have the required provisioning profiles, but you can still get an understanding of how everything fits together.
 
+$[=s=]
+
 ## Linking to your app
 
 If you've ever linked into a native app, either from a website or from another app, then you're probably familiar with the predecessor to universal links: **deep links**. Before diving into universal links, read through the following refresher on deep links so you'll know exactly how they differ from the new technology you'll explore in this chapter.
@@ -149,6 +151,8 @@ Before moving on to the next section, there are two caveats to consider when man
 ### Handling universal links in your app
 
 When your app receives an incoming universal link, you should respond by taking the user straight to the targeted content. The final steps in implementing universal links are to parse the incoming URLs, determine what content to show, and navigate the user to the content.
+
+$[=s=]
 
 Head back to the **RWDevCon project** in Xcode and add the following class method to **Session.swift** at the bottom of the class:
 

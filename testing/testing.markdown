@@ -56,6 +56,8 @@ Now that you've learned your way around the app, head back to Xcode and take a l
 
 Even though the view controller source files are much longer than the model object source files, notice how they don't have any tests. Talk about a problem! You'll learn how to measure and test this code later in the chapter.
 
+$[=s=]
+
 ## Code coverage
 
 As now know, the starter project already comes with some tests. However, how do you know if you have _enough_ tests and whether you're testing the right parts of your project?
@@ -102,8 +104,9 @@ If granularity is what you want, prepare to be delighted. Xcode's code coverage 
 
 As you can see, it tells you which lines inside a method are covered and which are not. Now you can identify those edge cases you haven't tested yet without losing your sanity! For instance, if you only test the `if` block in an `if-else` statement, Xcode will pick this up and let you know.
 
+![width=35% print](/images/xcode_has_my_back.png)
+![width=30% screen](/images/xcode_has_my_back.png)
 
-![width=35%](/images/xcode_has_my_back.png)
 
 > **Note**: A single code coverage report is simply a snapshot. If you want to know whether your coverage is improving or getting worse, you'll need to see how these numbers change over time. One way to do this is with continuous integration, by using the Xcode server. This chapter won't cover this, but you can learn more about it by catching up on session 410 from WWDC 2015: _Continuous Integration and Code Coverage in Xcode_ ([apple.co/1J1n1Kd](http://apple.co/1J1n1Kd).
 
@@ -199,6 +202,7 @@ The concept of access control exists in virtually every programming language, al
 
 A _module_ is a single unit of code distribution. This could be an application or a framework. In this example, all the source code in the Workouts app is one module, and all the code in your testing bundle is a separate module. A _source file_ is a single Swift source code file within a module (for example **Workout.swift**).
 
+$[=s=]
 
 Swift provides three different levels of access:
 
@@ -245,6 +249,8 @@ Magic! All your compiler errors disappear. Run your tests again to check that th
 > **Note**: `@testable` has no effect on the _private_ access control. As they say in Vegas, what you declare `private` stays `private` :] 
 
 Once the tests have finished, head back to the code coverage report in the **report navigator**, select the most recent **test** run, and then click **Coverage** in the main panel. Check out the coverage percentage for **DataModel.swift** — it's now 100 percent! Nice work.
+
+$[=s=]
 
 ## UI testing
 
@@ -350,6 +356,8 @@ There are three main classes involved in UI testing: `XCUIApplication`, `XCUIEle
 
 Now to add another step to the current test. When the test steps into the workout detail page, it's also going to scroll down and tap the **Select & Workout** button. This brings up an alert controller, so your test will dismiss once you tap **OK**. Finally, it'll return to the workout list screen like before. You'll also refactor the test to make it more concise.
 
+$[=s=]
+
 In **WorkoutsUITests.swift**, go to `testRaysFullBodyWorkout()` and replace the entire method with the following:
 
 ```swift
@@ -425,6 +433,8 @@ The UI recording button builds and launches your app. Once that's done, "act out
 - Tap on **Ray's Full Body Workout**, then scroll down and tap **Select & Workout**. 
 - Dismiss the alert controller by tapping **OK** and finally tap the **back** button. 
 - Tap the **record** button again, or Xcode’s main **stop** button to stop recording.
+
+$[=s=]
 
 Your generated test method should look something like this:
 
